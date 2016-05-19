@@ -34,6 +34,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BHoM">
+      <HintPath>..\..\BHoM\BHoM\bin\Debug\BHoM.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -55,14 +58,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\ObjectComponent.cs" />
     <Compile Include="Components\AboutGatorComponent.cs" />
     <Compile Include="AlligatorInfo.cs" />
+    <Compile Include="GeometryUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Components\StructuralComponents.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonUtilities\CommonUtilities.csproj">
@@ -94,6 +100,8 @@ Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries
 
 copy /Y "$(TargetDir)\CommonUtilities.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\CommonUtilities.dll"
 
+copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM.dll"
+
 Erase "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
@@ -106,5 +114,9 @@ Erase "$(TargetPath)"</PostBuildEvent>
     <StartAction>Program</StartAction>
     <StartProgram>C:\Program Files\Rhinoceros 5 (64-bit)\System\Rhino.exe</StartProgram>
     <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>
