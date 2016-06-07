@@ -191,6 +191,12 @@ namespace Alligator
             return result;
         }
 
+        internal static bool Run(Grasshopper.Kernel.IGH_DataAccess DA, int index)
+        {
+            bool run = false;
+            DA.GetData<bool>(index, ref run);
+            return run;
+        }
     }
 
     public class CustomData : GH_Component
@@ -404,6 +410,7 @@ namespace Alligator
                     prop.SetValue(obj, list);
                 }
             }
+            if (obj.CustomData == null) obj.CustomData = new Dictionary<string, object>();
             DA.SetData(0, obj);
             int geomIndex = 1;
             for (int i = 0; i < propInfo.Length; i++)
