@@ -35,22 +35,9 @@ namespace Alligator.Components
         }
     }
 
-    public class CreateDOF : BHoMBaseComponent<DOF>
+    public class CreateNodeConstraint : BHoMBaseComponent<NodeConstraint>
     {
-        public CreateDOF() : base("Create DOF", "CreateDOF", "Create a BH DOF object", "Alligator", "Structural") { }
-
-        public override Guid ComponentGuid
-        {
-            get
-            {
-                return new Guid("5FE0E2C4-5E10-410F-BBC7-C255FD1BD2B3");
-            }
-        }
-    }
-
-    public class CreateConstraint : BHoMBaseComponent<Constraint>
-    {
-        public CreateConstraint() : base("Create Constraint", "CreateConstraint", "Create a BH Constraint object", "Alligator", "Structural") { }
+        public CreateNodeConstraint() : base("Create Constraint", "CreateConstraint", "Create a BH Constraint object", "Alligator", "Structural") { }
 
         public override Guid ComponentGuid
         {
