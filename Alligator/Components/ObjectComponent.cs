@@ -4,10 +4,7 @@ using Grasshopper.Kernel.Types;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Alligator
@@ -119,8 +116,9 @@ namespace Alligator
             }
             return info.Name;
         }
+        
 
-        internal static T GetData<T>(Grasshopper.Kernel.IGH_DataAccess DA, int index)
+        public static T GetData<T>(Grasshopper.Kernel.IGH_DataAccess DA, int index)
         {
             T data = default(T);
             DA.GetData<T>(index, ref data);
@@ -140,7 +138,7 @@ namespace Alligator
             return data;
         }
 
-        internal static BHoM.Geometry.GeometryBase GetDataGeom(Grasshopper.Kernel.IGH_DataAccess DA, int index)
+        public static BHoM.Geometry.GeometryBase GetDataGeom(Grasshopper.Kernel.IGH_DataAccess DA, int index)
         {
             object data = null;
             DA.GetData<object>(index, ref data);
@@ -158,14 +156,14 @@ namespace Alligator
             return null;
         }
 
-        internal static List<T> GetDataList<T>(Grasshopper.Kernel.IGH_DataAccess DA, int index)
+        public static List<T> GetDataList<T>(Grasshopper.Kernel.IGH_DataAccess DA, int index)
         {
             List<T> data = new List<T>();
             DA.GetDataList<T>(index, data);
             return data;
         }
 
-        internal static T GetGenericData<T>(Grasshopper.Kernel.IGH_DataAccess DA, int index)
+        public static T GetGenericData<T>(Grasshopper.Kernel.IGH_DataAccess DA, int index)
         {
             object obj = null;
             DA.GetData<object>(index, ref obj);
@@ -175,7 +173,7 @@ namespace Alligator
             return app;
         }
 
-        internal static List<T> GetGenericDataList<T>(Grasshopper.Kernel.IGH_DataAccess DA, int index)
+        public static List<T> GetGenericDataList<T>(Grasshopper.Kernel.IGH_DataAccess DA, int index)
         {
             List<object> obj = new List<object>();
             DA.GetDataList<object>(index, obj);
@@ -191,7 +189,7 @@ namespace Alligator
             return result;
         }
 
-        internal static bool Run(Grasshopper.Kernel.IGH_DataAccess DA, int index)
+        public static bool Run(Grasshopper.Kernel.IGH_DataAccess DA, int index)
         {
             bool run = false;
             DA.GetData<bool>(index, ref run);
