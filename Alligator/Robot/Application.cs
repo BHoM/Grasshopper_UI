@@ -6,15 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using RobotToolkit;
 
-namespace Alligator.Application
+namespace Alligator.Robot
 {
     public class RobotApp : GH_Component
     {
-        public RobotApp() : base("Robot Application", "RobotApp", "Creates a robot Application", "Alligator", "Application") { }
+        public RobotApp() : base("Robot Application", "RobotApp", "Creates a robot Application", "Alligator", "Robot") { }
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("Filename", "F", "Etabs Filename", GH_ParamAccess.item);
+            pManager.AddTextParameter("Filename", "F", "Robot Filename", GH_ParamAccess.item);
             pManager.AddGenericParameter("Settings", "S", "Application Settings", GH_ParamAccess.item);
             pManager[0].Optional = true;
             pManager[1].Optional = true;
@@ -34,6 +34,12 @@ namespace Alligator.Application
         public override Guid ComponentGuid
         {
             get { return new Guid("97b9ded4-41a2-4ded-b835-432332fb760a"); }
+        }
+
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.robot_app; }
         }
 
     }
