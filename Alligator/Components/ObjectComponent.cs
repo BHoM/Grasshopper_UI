@@ -291,50 +291,50 @@ namespace Alligator
             {
                 Type pType = propInfo[i].PropertyType;
                 if (propInfo[i].GetSetMethod() != null)
-                {
-                    string name = Utils.GetName(propInfo[i]);
-                    string nickName = name[0].ToString();
-                    string description = Utils.GetDescription(propInfo[i]);
-                    GH_ParamAccess access = Utils.IsEnumerable(pType) ? GH_ParamAccess.list : GH_ParamAccess.item;
-                    if (pType == typeof(string))
-                    {
-                        pManager.AddTextParameter(name, nickName, description, access);
-                    }
-                    else if (pType.IsEnum)
-                    {
-                        pManager.AddTextParameter(name, nickName, description, access);
-                        InitialiseOptions(pType);
-                    }
-                    else if (Utils.IsNumeric(pType))
-                    {
-                        if (Utils.IsInteger(pType)) pManager.AddIntegerParameter(name, nickName, description, access);
-                        else pManager.AddNumberParameter(name, nickName, description, access);
+                   {
+                            string name = Utils.GetName(propInfo[i]);
+                            string nickName = name[0].ToString();
+                            string description = Utils.GetDescription(propInfo[i]);
+                            GH_ParamAccess access = Utils.IsEnumerable(pType) ? GH_ParamAccess.list : GH_ParamAccess.item;
+                            if (pType == typeof(string))
+                            {
+                                pManager.AddTextParameter(name, nickName, description, access);
+                            }
+                            else if (pType.IsEnum)
+                            {
+                                pManager.AddTextParameter(name, nickName, description, access);
+                                InitialiseOptions(pType);
+                            }
+                            else if (Utils.IsNumeric(pType))
+                            {
+                                if (Utils.IsInteger(pType)) pManager.AddIntegerParameter(name, nickName, description, access);
+                                else pManager.AddNumberParameter(name, nickName, description, access);
 
-                    }
-                    else if (Utils.IsGeometric(pType))
-                    {
-                        if (pType == typeof(BHoM.Geometry.Point))
-                        {
-                            pManager.AddPointParameter(name, nickName, description, access);
-                        }
-                        else if (pType == typeof(BHoM.Geometry.Curve))
-                        {
-                            pManager.AddCurveParameter(name, nickName, description, access);
-                        }
-                        else if (pType == typeof(BHoM.Geometry.Surface))
-                        {
-                            pManager.AddBrepParameter(name, nickName, description, access);
-                        }
-                    }
-                    else
-                    {
-                        pManager.AddGenericParameter(name, nickName, description, access);
-                    }
-                    if (Utils.HasDefault(propInfo[i]))
-                    {
-                        Params.Input[Params.Input.Count - 1].Optional = true;
-                        Params.Input[Params.Input.Count - 1].AddVolatileData(new Grasshopper.Kernel.Data.GH_Path(0), 0, Utils.GetDefault(propInfo[i]));
-                    }
+                            }
+                            else if (Utils.IsGeometric(pType))
+                            {
+                                if (pType == typeof(BHoM.Geometry.Point))
+                                {
+                                    pManager.AddPointParameter(name, nickName, description, access);
+                                }
+                                else if (pType == typeof(BHoM.Geometry.Curve))
+                                {
+                                    pManager.AddCurveParameter(name, nickName, description, access);
+                                }
+                                else if (pType == typeof(BHoM.Geometry.Surface))
+                                {
+                                    pManager.AddBrepParameter(name, nickName, description, access);
+                                }
+                            }
+                            else
+                            {
+                                pManager.AddGenericParameter(name, nickName, description, access);
+                            }
+                            if (Utils.HasDefault(propInfo[i]))
+                            {
+                                Params.Input[Params.Input.Count - 1].Optional = true;
+                                Params.Input[Params.Input.Count - 1].AddVolatileData(new Grasshopper.Kernel.Data.GH_Path(0), 0, Utils.GetDefault(propInfo[i]));
+                            }
                 }
             }
         }
@@ -346,18 +346,19 @@ namespace Alligator
             for (int i = 0; i < propInfo.Length; i++)
             {
                 Type pType = propInfo[i].PropertyType;
-                if (propInfo[i].GetGetMethod() != null)
-                {
-                    if (typeof(BHoM.Geometry.GeometryBase).IsAssignableFrom(pType))//.BaseType == typeof(BHoM.Geometry.GeometryBase))
+                   if (propInfo[i].GetGetMethod() != null)
                     {
-                        string name = Utils.GetName(propInfo[i]);
-                        string nickName = name[0].ToString();
-                        string description = Utils.GetDescription(propInfo[i]);
-                        pManager.AddGeometryParameter(name, nickName, description, GH_ParamAccess.item);
+                        if (typeof(BHoM.Geometry.GeometryBase).IsAssignableFrom(pType))//.BaseType == typeof(BHoM.Geometry.GeometryBase))
+                        {
+                            string name = Utils.GetName(propInfo[i]);
+                            string nickName = name[0].ToString();
+                            string description = Utils.GetDescription(propInfo[i]);
+                            pManager.AddGeometryParameter(name, nickName, description, GH_ParamAccess.item);
+                        }
                     }
-                }
             }
         }
+       
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
