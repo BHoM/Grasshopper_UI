@@ -1,7 +1,7 @@
 ﻿using BHoM.Structural;
 using System;
 
-namespace Alligator.Components
+namespace Alligator.Structural.Elements
 {
     public class CreateNodeConstraint : BHoMBaseComponent<NodeConstraint>
     {

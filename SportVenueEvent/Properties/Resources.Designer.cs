@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Alligator.Robot.Properties {
+namespace Alligator.SportVenueEvent.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Alligator.Robot.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Alligator.Robot.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Alligator.SportVenueEvent.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,16 @@ namespace Alligator.Robot.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConcreteRaker {
+            get {
+                object obj = ResourceManager.GetObject("ConcreteRaker", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

@@ -1,15 +1,33 @@
 ﻿using BHoM.Structural;
-using Grasshopper.Kernel;
 using System;
+using Grasshopper.Kernel;
 using System.Collections.Generic;
 
-
-namespace Alligator.Robot
+namespace Alligator.Structural.Elements
 {
-    public class SetBar : GH_Component
+    public class CreateBar : BHoMBaseComponent<Bar>
     {
-        public SetBar() : base("Set Bar", "ExBar", "Creates or Replaces the geometry of a Bar", "Robot", "Elements") { }
-           
+        public CreateBar() : base("Create Bar", "CreateBar", "Create a BH Bar object", "Alligator", "Structural") { }
+
+        public override Guid ComponentGuid
+        {
+            get
+            {
+                return new Guid("5FE0E2C4-5E50-410F-BBC7-C255FD1BD2B4");
+            }
+        }
+
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.bar; }
+        }
+    }
+
+    public class MultiExportBar : GH_Component
+    {
+        public MultiExportBar() : base("Multi Export Bar", "ExBar", "Creates or Replaces the geometry of a Bar", "Alligator", "Structural") { }
+
         public override GH_Exposure Exposure
         {
             get
@@ -50,13 +68,13 @@ namespace Alligator.Robot
 
         public override Guid ComponentGuid
         {
-            get { return new Guid("2220dc1b-87b3-491a-93fa-1495315ca5a2"); }
+            get { return new Guid("2420dc1b-87b3-491a-93fa-1495315ca5a2"); }
         }
 
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Robot.Properties.Resources.bar; }
+            get { return Alligator.Properties.Resources.bar; }
         }
     }
 }
