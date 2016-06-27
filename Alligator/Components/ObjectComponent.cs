@@ -169,7 +169,10 @@ namespace Alligator
             DA.GetData<object>(index, ref obj);
                       
             T app = default(T);
-            if (obj != null)  (obj as GH_ObjectWrapper).CastTo<T>(out app);
+            if (obj is Grasshopper.Kernel.Types.GH_ObjectWrapper)
+                (obj as Grasshopper.Kernel.Types.GH_ObjectWrapper).CastTo<T>(out app);
+            else
+                return (T)obj;
             return app;
         }
 
@@ -182,8 +185,12 @@ namespace Alligator
             for (int i = 0; i < obj.Count; i++)
             {
                 T data = default(T);
-                (obj[i] as GH_ObjectWrapper).CastTo<T>(out data);
-                result.Add(data);
+                if (obj[i] is GH_ObjectWrapper)
+                {
+                    (obj[i] as GH_ObjectWrapper).CastTo<T>(out data);
+                    result.Add(data);
+                }
+                else result.Add((T)(object)obj[i]);
             }
 
             return result;
@@ -393,7 +400,7 @@ namespace Alligator
                     {
                         value = Utils.GetData<object>(DA, i);
                     }
-                    prop.SetValue(obj, value);
+                    prop.SetValue(obj, value, null);
                 }
                 else
                 {
@@ -406,7 +413,7 @@ namespace Alligator
                     {
                         list =  Utils.GetDataList<object>(DA, i);
                     }
-                    prop.SetValue(obj, list);
+                    prop.SetValue(obj, list, null);
                 }
             }
             if (obj.CustomData == null) obj.CustomData = new Dictionary<string, object>();
@@ -417,7 +424,7 @@ namespace Alligator
                 Type pType = propInfo[i].PropertyType;
                 if (propInfo[i].GetGetMethod() != null && typeof(BHoM.Geometry.GeometryBase).IsAssignableFrom(pType))
                 {
-                    DA.SetData(geomIndex++, GeometryUtils.Convert(propInfo[i].GetValue(obj) as BHoM.Geometry.GeometryBase));
+                    DA.SetData(geomIndex++, GeometryUtils.Convert(propInfo[i].GetValue(obj, null) as BHoM.Geometry.GeometryBase));
                 }
             }
         }
