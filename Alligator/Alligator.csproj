@@ -65,6 +65,7 @@
     <Compile Include="GeometryUtils.cs" />
     <Compile Include="Global\FromJSON.cs" />
     <Compile Include="Global\GetProperty.cs" />
+    <Compile Include="Global\SetProperty.cs" />
     <Compile Include="Global\ToJSON.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
