@@ -10,20 +10,20 @@ using R = Rhino.Geometry;
 
 namespace Alligator.ModelLaundry
 {
-    public class VerticalPointSnaping : GH_Component
+    public class VerticalEndSnapping : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the VerticalPointSnaping class.
         /// </summary>
-        public VerticalPointSnaping() : base("VerticalPointSnaping", "VPtSnap", "Description", "Alligator", "ModelLaundry") { }
+        public VerticalEndSnapping() : base("VerticalEndSnapping", "VEndSnap", "Description", "Alligator", "ModelLaundry") { }
         /// <summary>
         /// Registers all the input parameters for this component.
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddCurveParameter("Polyline", "Polyln", "Input an an BHoM polyline", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Polyline", "Polyln", "Input an an BHoM polyline", GH_ParamAccess.item);
             pManager.AddGenericParameter("Surface", "Srf", "Input an an BHoM Brep", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Tolerance", "Tol", "Set a tolerance for the snapping", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Tolerance", "Tol", "Set a tolerance for the snapping", GH_ParamAccess.item, 0.2);
         }
 
         /// <summary>
@@ -40,42 +40,40 @@ namespace Alligator.ModelLaundry
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            object BHoMInputGeom = null;
-            List<object> BHoMBrep = new List<object>();
-            List<double> references = new List<double>();
-            double tol = 10;
-            object outputBHoMGeom = new object();
+            List<BH.Curve> refContour = new List<BH.Curve>();
+            List<double> refHeight = new List<double>();
+            BH.Polyline output = null;
 
-            //BH.Curve c = GeometryUtils.Convert(Utils.GetData<R.Curve>(DA, 0)) as BH.Curve;
-            //List<BH.GeometryBase> BHoMBrep = Utils.GetGenericDataList<BH.GeometryBase>(DA, 1);
-            //references = Utils.GetData<double>(DA, 2);
-            if (!DA.GetData(0, ref BHoMInputGeom)) return;
-            if (!DA.GetDataList(1, BHoMBrep)) return;
-            if (!DA.GetData(2, ref tol)) return;
+            BH.Curve contour = Utils.GetGenericData<BH.Curve>(DA, 0);
+            double tol = Utils.GetData<double>(DA, 2);
+            List<BH.Point> polyLinePt = contour.ControlPoints;
+            List<BH.Polyline> polyLines = new List<BH.Polyline>();
+            BH.Polyline temlPolyLn;
+            BH.Polyline newPolyline = new BH.Polyline(polyLinePt);
 
-
-            if (BHoMInputGeom.GetType().ToString() == "BHoM.Geometry.Polyline")
+            try
             {
+                refContour = Utils.GetGenericDataList<BH.Curve>(DA, 1);
 
-                List<BHoM.Geometry.Polyline> BHoMPolyline = new List<BHoM.Geometry.Polyline>();
-                foreach (object o in BHoMBrep)
+                for (int i = 0; i < refContour.Count; i++)
                 {
-                    if (o.GetType().ToString() == "BHoM.Geometry.Polyline")
-                    {
-                        BHoMPolyline.Add(o as BHoM.Geometry.Polyline);
-                        outputBHoMGeom = Snapping.VerticalEndSnap((BHoM.Geometry.Polyline)BHoMInputGeom, BHoMPolyline, tol);
-                    }
-
-                    if (o.GetType().ToString() == "double")
-                    {
-                        references.Add((double)o);
-                        outputBHoMGeom = Snapping.VerticalEndSnap((BHoM.Geometry.Polyline)BHoMInputGeom, references, tol);
-                    }
+                    List<BH.Point> pts = refContour[i].ControlPoints;
+                    temlPolyLn = new BH.Polyline(pts);
+                    polyLines.Add(temlPolyLn);
                 }
+
+                output = Snapping.VerticalEndSnap(newPolyline, polyLines, tol);
             }
+            catch{}
 
-            DA.SetData(0, outputBHoMGeom);
+            try
+            {
+                refHeight = Utils.GetGenericDataList<double>(DA, 1);
+                output = Snapping.VerticalEndSnap(newPolyline, refHeight, tol);
+            }
+            catch { }
 
+            DA.SetData(0, output);
         }
 
         /// <summary>
