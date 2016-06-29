@@ -25,8 +25,11 @@ namespace Alligator.Components
         {
             pManager.AddGenericParameter("Bars", "bars", "Bars of structure", GH_ParamAccess.list);
             pManager.AddGenericParameter("Locked Nodes", "lockedNodes", "Locked nodes", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Prestresses", "prestress", "Bar prestresses", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Nodal load", "nodalLoad", "Nodal load applied to all nodes", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Area", "area", "Cross section area for each bar", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Density", "density", "Density for each bar", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Young's modulus", "E", "Young's modulus for each bar", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Prestress", "prestress", "Prestress for each bar", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Nodal load", "nodalLoad", "Nodal load applied to all nodes", GH_ParamAccess.item);
             pManager.AddNumberParameter("Treshold", "treshold", "Max kinetic energy for convergence", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Max number of iterations", "maxItertations", "Maximum number of iterations to run", GH_ParamAccess.item);
             pManager.AddBooleanParameter("Only Z DR", "onlyZ", "Set nodal XY-acceleration to zero without affecting kinectic energy or equilibrium", GH_ParamAccess.item);
@@ -35,7 +38,7 @@ namespace Alligator.Components
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.Register_LineParam("Relaxed lines", "lines", "Relaxed lines", GH_ParamAccess.list);
+            pManager.Register_LineParam("Relaxed Lines", "lines", "Relaxed lines", GH_ParamAccess.list);
             pManager.Register_DoubleParam("Axial Bar Forces", "barForces", "Axial force in bars", GH_ParamAccess.list);
             pManager.Register_VectorParam("Node Forces", "nodeForces", "Node forces", GH_ParamAccess.list);
             pManager.Register_IntegerParam("iterations", "iterations", "Number of iterations run", GH_ParamAccess.item);
@@ -56,7 +59,7 @@ namespace Alligator.Components
             Rhino.Geometry.BoundingBox box = new Rhino.Geometry.BoundingBox(-100, -100, -100, 100, 100, 100);
             _clippingBox.Union(box);
 
-            if (Utils.Run(DA, 6))
+            if (Utils.Run(DA, 10))
             {
 
                 List<Bar> barsIn = Utils.GetGenericDataList<Bar>(DA, 0);
@@ -65,24 +68,25 @@ namespace Alligator.Components
                 //To clear custom data dictionary, to be changed:
                 List<Bar> bars = new List<Bar>();
                 foreach (Bar bar in barsIn)
-                {
-                    Bar newBar = new Bar(new Node(bar.StartNode.X, bar.StartNode.Y, bar.StartNode.Z), new Node(bar.EndNode.X, bar.EndNode.Y, bar.EndNode.Z));
-                    newBar.Name = bar.Name; //Using name for section propery data, to be changed
-                    bars.Add(newBar);
-                }
+                    bars.Add(new Bar(new Node(bar.StartNode.X, bar.StartNode.Y, bar.StartNode.Z), new Node(bar.EndNode.X, bar.EndNode.Y, bar.EndNode.Z)));
                 List<Node> restrainedNodes = new List<Node>();
                 foreach (Node node in restrainedNodesIn)
                     restrainedNodes.Add(new Node(node.X, node.Y, node.Z));
 
-                List<double> prestresses = Utils.GetGenericDataList<double>(DA, 2);
-                double gravity = Utils.GetGenericData<double>(DA, 3);
-                double treshold = Utils.GetGenericData<double>(DA, 4);
-                int maxNoIt = Utils.GetGenericData<int>(DA, 5);
-                bool onlyZ = Utils.GetGenericData<bool>(DA, 6);
+                //Inputs
+                List<double> areas = Utils.GetDataList<double>(DA, 2);
+                List<double> densities = Utils.GetDataList<double>(DA, 3);
+                List<double> eModules = Utils.GetDataList<double>(DA, 4);
+                List<double> prestresses = Utils.GetDataList<double>(DA, 5);
+                double gravity = Utils.GetData<double>(DA, 6);
+                double treshold = Utils.GetData<double>(DA, 7);
+                int maxNoIt = Utils.GetData<int>(DA, 8);
+                bool onlyZ = Utils.GetData<bool>(DA, 9);
 
+                //Set structure
+                BHoM_Engine.FormFinding.Structure structure = BHoM_Engine.FormFinding.DynamicRelaxation.SetStructure(bars, restrainedNodes, areas, densities, eModules, prestresses, onlyZ, treshold);
 
-                BHoM_Engine.FormFinding.Structure structure = BHoM_Engine.FormFinding.DynamicRelaxation.SetStructure(bars, restrainedNodes, prestresses, onlyZ, treshold);
-
+                //Draw lines
                 for (int j = 0; j < structure.Bars.Count; j++)
                 {
                     if (j < lines.Count)
@@ -91,11 +95,13 @@ namespace Alligator.Components
                         lines.Add(new Line(new Point3d(structure.Bars[j].StartNode.Point.X, structure.Bars[j].StartNode.Point.Y, structure.Bars[j].StartNode.Point.Z), new Point3d(structure.Bars[j].EndNode.Point.X, structure.Bars[j].EndNode.Point.Y, structure.Bars[j].EndNode.Point.Z)));
                 }
 
+                //Relax
                 int counter = 0;
                 for (int i = 0; i < maxNoIt; i++)
                 {
                     BHoM_Engine.FormFinding.DynamicRelaxation.RelaxStructure(structure, gravity);
 
+                    //Draw lines
                     for (int j = 0; j < structure.Bars.Count; j++)
                     {
                         if (j < lines.Count)
@@ -110,7 +116,6 @@ namespace Alligator.Components
                         break;
                     else
                         counter++;
-
                 }
 
                 List<double> barForces = new List<double>();
@@ -119,7 +124,7 @@ namespace Alligator.Components
 
                 List<Vector3d> nodeForces = new List<Vector3d>();
                 foreach (Node node in structure.Nodes)
-                    if ((bool)node.CustomData["isLocked"])
+                    //if ((bool)node.CustomData["isLocked"])
                         nodeForces.Add(new Vector3d(structure.nodalResultCollection[node.Name + ":" + structure.t.ToString()].Force.X, structure.nodalResultCollection[node.Name + ":" + structure.t.ToString()].Force.Y, structure.nodalResultCollection[node.Name + ":" + structure.t.ToString()].Force.Z));
 
                 double kineticEnergy = 0;

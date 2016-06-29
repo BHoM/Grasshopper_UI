@@ -40,7 +40,8 @@
     <Reference Include="BHoM">
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
     </Reference>
-    <Reference Include="BHoM Engine">
+    <Reference Include="BHoM Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_Engine\Build\BHoM Engine.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -96,10 +97,6 @@
     <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
 
 Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
-
-copy /Y "$(TargetDir)\BHoM_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM_Engine.dll"
-
-copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM.dll"
 
 Erase "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
