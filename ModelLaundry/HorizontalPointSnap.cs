@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Drawing;
 using System.Collections.Generic;
 using BHoM_Engine.ModelLaundry;
@@ -11,15 +10,15 @@ using R = Rhino.Geometry;
 
 namespace Alligator.ModelLaundry
 {
-    public class JoinCurves : GH_Component
+    public class HorizontalPointSnap : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the JoinCurves class.
+        /// Initializes a new instance of the HorizontalPointSnap class.
         /// </summary>
-        public JoinCurves()
-          : base("JoinCurves", "JoinCrvs",
-              "Joining BHoM curves",
-              "Alligator", "MoledLaundry")
+        public HorizontalPointSnap()
+          : base("HorizontalPointSnap", "HPtSnap",
+              "Horizontal point snapping",
+              "Alligator", "ModelLaundry")
         {
         }
 
@@ -28,7 +27,9 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Curves", "Crvs", "Set of curves to join", GH_ParamAccess.list);
+            pManager.AddCurveParameter("GeometryToSnap", "GeomToSnap", "Input an an BHoM polyline", GH_ParamAccess.item);
+            pManager.AddGenericParameter("GeometryToSnapTo", "GeomToSnapTo", "Input an an BHoM Brep", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Tolerance", "Tol", "Set a tolerance for the snapping", GH_ParamAccess.item, 0.2);
         }
 
         /// <summary>
@@ -36,7 +37,7 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("JoinedCurves", "JoinedCrvs", "Joined curves", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Result", "res", "New BHoM Polyline", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -45,40 +46,28 @@ namespace Alligator.ModelLaundry
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<object> crvs = (Utils.GetGenericDataList<object>(DA, 0));
-            List<BH.Curve> JoinCurves = new List<BH.Curve>();
-            List<BH.Curve> output = new List<BH.Curve>();
-            List<BH.Curve> singleCrvs = new List<BH.Curve>();
+            BH.Curve contour = Utils.GetGenericData<BH.Curve>(DA, 0);
+            double tol = Utils.GetData<double>(DA, 2);
+            List<BH.Curve> refContour = Utils.GetGenericDataList<BH.Curve>(DA, 1);
 
-            for (int i = 0; i < crvs.Count; i++)
+            for (int i = 0; i < refContour.Count; i++)
             {
-                if (crvs[i] is BHoM.Geometry.Group<BH.Curve>)
+                if (refContour[i] is BHoM.Geometry.PolyCurve)
                 {
-                    Group<BH.Curve> newCrv = (Group<BH.Curve>)crvs[i];
-                    JoinCurves = BH.Curve.Join(newCrv.ToList());
-
-                    for (int j=0; j < JoinCurves.Count; j++)
+                    List<BH.Curve> tempCrv = refContour[i].Explode();
+                    List<BH.Point> tempPts = new List<BH.Point>();
+                    for (int j = 0; j < tempCrv.Count; j++)
                     {
-                        output.Add(JoinCurves[j]);
-                    } 
+                        tempPts.Add(tempCrv[j].StartPoint);
+                    }
+
+                    if (refContour[i].IsClosed())
+                    {
+                        //tempPts.Add(tempCrv(tempCrv.Count-1).)
+                    }
                 }
 
-                else
-                {
-                    BH.Curve newSingleCrv = (BH.Curve)crvs[i];
-                    singleCrvs.Add(newSingleCrv);
-                }
             }
-
-            JoinCurves = BH.Curve.Join(singleCrvs);
-
-            for (int i = 0; i < JoinCurves.Count; i++)
-            {
-                output.Add(JoinCurves[i]);
-            }
-
-
-            DA.SetDataList(0, output);
         }
 
         /// <summary>
@@ -99,7 +88,7 @@ namespace Alligator.ModelLaundry
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("{16779af4-cd6d-450f-8754-802648af4be1}"); }
+            get { return new Guid("{ad59f890-c387-4a68-a2cc-bc401725779d}"); }
         }
     }
 }

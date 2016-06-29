@@ -73,16 +73,16 @@ namespace Alligator.ModelLaundry
 
             for (int i = 0; i < output.Count; i++)
             {
-                if (crv is BHoM.Geometry.Line)
+                if (output[i] is BHoM.Geometry.Line)
                 {
-                    BH.Line ln = crv as BH.Line;
+                    BH.Line ln = output[i] as BH.Line;
                     R.LineCurve tempLn = new R.LineCurve(new R.Line(ln.StartPoint.X, ln.StartPoint.Y, ln.StartPoint.Z, ln.EndPoint.X, ln.EndPoint.Y, ln.EndPoint.Z));
                     newCrvs.Add(tempLn);
                 }
 
-                if (crv is BHoM.Geometry.Polyline)
+                if (output[i] is BHoM.Geometry.Polyline)
                 {
-                    BH.Polyline pLine = crv as BH.Polyline;
+                    BH.Polyline pLine = output[i] as BH.Polyline;
                     List<R.Point3d> pts = new List<Point3d>();
                     for (int j = 0; j < pLine.ControlPoints.Count; j++)
                     {
@@ -93,17 +93,16 @@ namespace Alligator.ModelLaundry
                     newCrvs.Add(tempPLnCrv);
                 }
 
-                if (crv is BHoM.Geometry.PolyCurve)
+                if (output[i] is BHoM.Geometry.PolyCurve)
                 {
-                    BH.PolyCurve pCrv = crv as BH.PolyCurve;
-                    List<R.Point3d> pts = new List<Point3d>();
-                    for (int j = 0; j < pCrv.ControlPoints.Count; j++)
+                    BH.PolyCurve pCrv = output[i] as BH.PolyCurve;
+                    List<BH.Curve> segments = pCrv.Explode();
+                    for (int j = 0; j < segments.Count; j++)
                     {
-                        R.Point3d tempTp = new R.Point3d(pCrv.ControlPoints[j].X, pCrv.ControlPoints[j].Y, pCrv.ControlPoints[j].Z);
-                        pts.Add(tempTp);
+                        BH.Line ln = segments[j] as BH.Line;
+                        R.LineCurve tempLn = new R.LineCurve(new R.Line(ln.StartPoint.X, ln.StartPoint.Y, ln.StartPoint.Z, ln.EndPoint.X, ln.EndPoint.Y, ln.EndPoint.Z));
+                        newCrvs.Add(tempLn);
                     }
-                    R.PolylineCurve tempPLnCrv = new PolylineCurve(new R.Polyline(pts));
-                    newCrvs.Add(tempPLnCrv);
                 }
 
 
