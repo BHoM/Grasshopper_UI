@@ -27,7 +27,7 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddCurveParameter("GeometryToSnap", "GeomToSnap", "Input an an BHoM polyline", GH_ParamAccess.item);
+            pManager.AddGenericParameter("GeometryToSnap", "GeomToSnap", "Input an an BHoM polyline", GH_ParamAccess.item);
             pManager.AddGenericParameter("GeometryToSnapTo", "GeomToSnapTo", "Input an an BHoM Brep", GH_ParamAccess.list);
             pManager.AddNumberParameter("Tolerance", "Tol", "Set a tolerance for the snapping", GH_ParamAccess.item, 0.2);
         }
@@ -37,7 +37,7 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Result", "res", "New BHoM Polyline", GH_ParamAccess.item);
+            pManager.AddGenericParameter("SnapedGeometry", "SnapedGeom", "New BHoM Polyline", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -46,16 +46,19 @@ namespace Alligator.ModelLaundry
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BH.Curve contour = Utils.GetGenericData<BH.Curve>(DA, 0);
+            BH.Polyline contour = Utils.GetGenericData<BH.Polyline>(DA, 0);
             double tol = Utils.GetData<double>(DA, 2);
+            List<BH.Polyline> newPolyLines = new List<BHoM.Geometry.Polyline>();
             List<BH.Curve> refContour = Utils.GetGenericDataList<BH.Curve>(DA, 1);
+            List<BH.Point> tempPts = new List<BHoM.Geometry.Point>();
+            BH.Polyline output = null;
 
             for (int i = 0; i < refContour.Count; i++)
             {
                 if (refContour[i] is BHoM.Geometry.PolyCurve)
                 {
                     List<BH.Curve> tempCrv = refContour[i].Explode();
-                    List<BH.Point> tempPts = new List<BH.Point>();
+                    tempPts = new List<BH.Point>();
                     for (int j = 0; j < tempCrv.Count; j++)
                     {
                         tempPts.Add(tempCrv[j].StartPoint);
@@ -63,11 +66,21 @@ namespace Alligator.ModelLaundry
 
                     if (refContour[i].IsClosed())
                     {
-                        //tempPts.Add(tempCrv(tempCrv.Count-1).)
+                        tempPts.Add(tempCrv[tempCrv.Count - 1].EndPoint);
                     }
+
+                    newPolyLines.Add(new BH.Polyline(tempPts));
                 }
 
+                else if(refContour[i] is BHoM.Geometry.Polyline)
+                {
+                    newPolyLines.Add((BH.Polyline)refContour[i]);
+                }
             }
+
+            output = Snapping.HorizontalPointSnap(contour, newPolyLines, tol);
+
+            DA.SetData(0, output);
         }
 
         /// <summary>

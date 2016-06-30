@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Drawing;
 using System.Collections.Generic;
 using BHoM_Engine.ModelLaundry;
@@ -11,14 +10,14 @@ using R = Rhino.Geometry;
 
 namespace Alligator.ModelLaundry
 {
-    public class JoinCurves : GH_Component
+    public class HorizontalExtend : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the JoinCurves class.
+        /// Initializes a new instance of the HorizontalExtend class.
         /// </summary>
-        public JoinCurves()
-          : base("JoinCurves", "JoinCrvs",
-              "Joining BHoM curves",
+        public HorizontalExtend()
+          : base("HorizontalExtend", "HExtend",
+              "Description",
               "Alligator", "ModelLaundry")
         {
         }
@@ -28,7 +27,8 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Curves", "Crvs", "Set of curves to join", GH_ParamAccess.list);
+            pManager.AddGenericParameter("GeometryToExtend", "GeomToExtend", "Line or Polyline to extend", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Distance", "Dist", "Extention distance", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("JoinedCurves", "JoinedCrvs", "Joined curves", GH_ParamAccess.list);
+            pManager.AddGenericParameter("ExtendedGeometry", "ExtendedGeom", "New BHoMLine or BHoMPolyline", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -45,40 +45,43 @@ namespace Alligator.ModelLaundry
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<object> crvs = (Utils.GetGenericDataList<object>(DA, 0));
-            List<BH.Curve> JoinCurves = new List<BH.Curve>();
-            List<BH.Curve> output = new List<BH.Curve>();
-            List<BH.Curve> singleCrvs = new List<BH.Curve>();
+            BH.Curve contour = Utils.GetGenericData<BH.Curve>(DA, 0);
+            double dist = Utils.GetData<double>(DA, 1);
+            List<BH.Point> tempPts = new List<BHoM.Geometry.Point>();
+            BH.Polyline newPolyLine;
+            BH.Curve output = null;
 
-            for (int i = 0; i < crvs.Count; i++)
+
+
+            if (contour is BH.Polyline)
             {
-                if (crvs[i] is BHoM.Geometry.Group<BH.Curve>)
-                {
-                    Group<BH.Curve> newCrv = (Group<BH.Curve>)crvs[i];
-                    JoinCurves = BH.Curve.Join(newCrv.ToList());
-
-                    for (int j=0; j < JoinCurves.Count; j++)
-                    {
-                        output.Add(JoinCurves[j]);
-                    } 
-                }
-
-                else
-                {
-                    BH.Curve newSingleCrv = (BH.Curve)crvs[i];
-                    singleCrvs.Add(newSingleCrv);
-                }
+                output = Util.HorizontalExtend((BH.Polyline)contour, dist);
             }
 
-            JoinCurves = BH.Curve.Join(singleCrvs);
-
-            for (int i = 0; i < JoinCurves.Count; i++)
+            else if (contour is BH.Line)
             {
-                output.Add(JoinCurves[i]);
+                output = Util.HorizontalExtend((BH.Line)contour, dist);
             }
 
+            else if(contour is BH.PolyCurve)
+            {
+                List<BH.Curve> tempCrv = contour.Explode();
+                tempPts = new List<BH.Point>();
+                for (int j = 0; j < tempCrv.Count; j++)
+                {
+                    tempPts.Add(tempCrv[j].StartPoint);
+                }
 
-            DA.SetDataList(0, output);
+                if (contour.IsClosed())
+                {
+                    tempPts.Add(tempCrv[tempCrv.Count - 1].EndPoint);
+                }
+
+                newPolyLine = new BH.Polyline(tempPts);
+                output = Util.HorizontalExtend(newPolyLine, dist);
+            }
+
+            DA.SetData(0, output);
         }
 
         /// <summary>
@@ -99,7 +102,7 @@ namespace Alligator.ModelLaundry
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("{16779af4-cd6d-450f-8754-802648af4be1}"); }
+            get { return new Guid("{486fee2f-8167-416d-a4f1-5f9dda0e0570}"); }
         }
     }
 }
