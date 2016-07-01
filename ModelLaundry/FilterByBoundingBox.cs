@@ -33,7 +33,6 @@ namespace Alligator.ModelLaundry
         {
             pManager.AddGenericParameter("Insiders", "Inside", "Geometrys inside the boundingbox", GH_ParamAccess.list);
             pManager.AddGenericParameter("Outsiders", "Outside", "Geometrys outside the boundingbox", GH_ParamAccess.list);
-            pManager.AddBoxParameter("elementBox", "elemBox", "Boundingbox around the element", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -48,7 +47,6 @@ namespace Alligator.ModelLaundry
             List<BH.GeometryBase> insiders = new List<BH.GeometryBase>(); 
             List<BH.GeometryBase> outsiders = new List<BH.GeometryBase>();
             List<BH.BoundingBox> bhomBoxes = new List<BHoM.Geometry.BoundingBox>();
-            BH.BoundingBox eBox = null;
             R.Point3d[] cornerPt = new Point3d[8];
             if (!DA.GetDataList(1, boxes)) return;
 
@@ -65,14 +63,12 @@ namespace Alligator.ModelLaundry
 
 
 
-            insiders = Util.FilterByBoundingBox(elements, bhomBoxes, out outsiders, out eBox);
+            insiders = Util.FilterByBoundingBox(elements, bhomBoxes, out outsiders);
 
-            b = new Rhino.Geometry.BoundingBox(eBox.Min.X, eBox.Min.Y, eBox.Min.Z, eBox.Max.X, eBox.Max.Y, eBox.Max.Z);
-            R.Box elemBox = new Box(b);
 
             DA.SetDataList(0, insiders);
             DA.SetDataList(1, outsiders);
-            DA.SetData(2, elemBox);
+
 
 
         }
