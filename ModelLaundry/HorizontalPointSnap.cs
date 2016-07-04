@@ -51,7 +51,18 @@ namespace Alligator.ModelLaundry
             List<BH.Polyline> newPolyLines = new List<BHoM.Geometry.Polyline>();
             List<BH.Curve> refContour = Utils.GetGenericDataList<BH.Curve>(DA, 1);
             List<BH.Point> tempPts = new List<BHoM.Geometry.Point>();
+            List<BH.Point> ptLinetoPLine = new List<BHoM.Geometry.Point>();
             BH.Polyline output = null;
+
+            if (contour is BHoM.Geometry.Line)
+            {
+                ptLinetoPLine.Add(contour.PointAt(0));
+                ptLinetoPLine.Add(contour.PointAt(0.5));
+                ptLinetoPLine.Add(contour.PointAt(1));
+
+                BH.Polyline lineToPolyLn = new BHoM.Geometry.Polyline(ptLinetoPLine);
+                contour = lineToPolyLn;
+            }
 
             for (int i = 0; i < refContour.Count; i++)
             {
