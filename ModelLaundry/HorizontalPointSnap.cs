@@ -46,7 +46,7 @@ namespace Alligator.ModelLaundry
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BH.Polyline contour = Utils.GetGenericData<BH.Polyline>(DA, 0);
+            BH.Curve contour = Utils.GetGenericData<BH.Curve>(DA, 0);
             double tol = Utils.GetData<double>(DA, 2);
             List<BH.Polyline> newPolyLines = new List<BHoM.Geometry.Polyline>();
             List<BH.Curve> refContour = Utils.GetGenericDataList<BH.Curve>(DA, 1);
@@ -89,7 +89,7 @@ namespace Alligator.ModelLaundry
                 }
             }
 
-            output = Snapping.HorizontalPointSnap(contour, newPolyLines, tol);
+            output = Snapping.HorizontalPointSnap((BH.Polyline)contour, newPolyLines, tol);
 
             DA.SetData(0, output);
         }
