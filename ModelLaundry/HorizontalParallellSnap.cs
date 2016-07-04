@@ -10,12 +10,18 @@ using R = Rhino.Geometry;
 
 namespace Alligator.ModelLaundry
 {
-    public class VerticalPointSnapping : GH_Component
+    public class HorizontalParallellSnap : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the VerticalPointSnapping class.
+        /// Initializes a new instance of the HorizontalParallellSnap class.
         /// </summary>
-        public VerticalPointSnapping() : base("VerticalPointSnapping", "VPtSnap", "Description", "Alligator", "ModelLaundry") { }
+        public HorizontalParallellSnap()
+          : base("HorizontalParallellSnap", "HParallellSnap",
+              "Description",
+              "Alligator", "ModelLaundry")
+        {
+        }
+
         /// <summary>
         /// Registers all the input parameters for this component.
         /// </summary>
@@ -40,58 +46,41 @@ namespace Alligator.ModelLaundry
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BH.Point pt = Utils.GetGenericData<BH.Point>(DA, 0);
-            List<BH.Curve> refContour = Utils.GetGenericDataList<BH.Curve>(DA, 1);
+            BH.Polyline contour = Utils.GetGenericData<BH.Polyline>(DA, 0);
             double tol = Utils.GetData<double>(DA, 2);
-            List<double> refHeight = new List<double>();
-            List<BH.Point> tempPts = new List<BHoM.Geometry.Point>();
             List<BH.Polyline> newPolyLines = new List<BHoM.Geometry.Polyline>();
-            BH.Point outPt = null;
+            List<BH.Curve> refContour = Utils.GetGenericDataList<BH.Curve>(DA, 1);
+            List<BH.Point> tempPts = new List<BHoM.Geometry.Point>();
+            BH.Polyline output = null;
 
-            try
+            for (int i = 0; i < refContour.Count; i++)
             {
-                refContour = Utils.GetGenericDataList<BH.Curve>(DA, 1);
-
-                for (int i = 0; i < refContour.Count; i++)
+                if (refContour[i] is BHoM.Geometry.PolyCurve)
                 {
-                    if (refContour[i] is BHoM.Geometry.PolyCurve)
+                    List<BH.Curve> tempCrv = refContour[i].Explode();
+                    tempPts = new List<BH.Point>();
+                    for (int j = 0; j < tempCrv.Count; j++)
                     {
-                        List<BH.Curve> tempCrv = refContour[i].Explode();
-                        tempPts = new List<BH.Point>();
-                        for (int j = 0; j < tempCrv.Count; j++)
-                        {
-                            tempPts.Add(tempCrv[j].StartPoint);
-                        }
-
-                        if (refContour[i].IsClosed())
-                        {
-                            tempPts.Add(tempCrv[tempCrv.Count - 1].EndPoint);
-                        }
-
-                        newPolyLines.Add(new BH.Polyline(tempPts));
+                        tempPts.Add(tempCrv[j].StartPoint);
                     }
 
-                    else if (refContour[i] is BHoM.Geometry.Polyline)
+                    if (refContour[i].IsClosed())
                     {
-                        newPolyLines.Add((BH.Polyline)refContour[i]);
+                        tempPts.Add(tempCrv[tempCrv.Count - 1].EndPoint);
                     }
+
+                    newPolyLines.Add(new BH.Polyline(tempPts));
                 }
 
-                outPt = Snapping.VerticalPointSnap(pt, newPolyLines, tol);
-
+                else if (refContour[i] is BHoM.Geometry.Polyline)
+                {
+                    newPolyLines.Add((BH.Polyline)refContour[i]);
+                }
             }
-            catch { }
 
-            try
-            {
-                refHeight = Utils.GetGenericDataList<double>(DA, 1);
-                outPt = Snapping.VerticalPointSnap(pt, refHeight, tol);
+            output = Snapping.HorizontalParallelSnap(contour, newPolyLines, tol);
 
-            }
-            catch { }
-
-            DA.SetData(0, outPt);
-
+            DA.SetData(0, output);
         }
 
         /// <summary>
@@ -112,7 +101,7 @@ namespace Alligator.ModelLaundry
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("{734dea33-7c5b-4a19-bdba-3367ace95d49}"); }
+            get { return new Guid("{2e6985fe-02ec-4804-ac68-1d3dec838e70}"); }
         }
     }
 }

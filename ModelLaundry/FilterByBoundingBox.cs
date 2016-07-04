@@ -15,7 +15,7 @@ namespace Alligator.ModelLaundry
         /// Initializes a new instance of the FilterByBoundingBox class.
         /// </summary>
         public FilterByBoundingBox()
-          : base("FilterByBoundingBox", "FiltByBBox", "Filter the elements inside a set of boundingboxes", "Alligator", "ModelLaundry"){}
+          : base("FilterByBoundingBox", "FiltByBBox", "Filter the elements inside a set of boundingboxes", "Alligator", "ModelLaundry") {}
 
         /// <summary>
         /// Registers all the input parameters for this component.
@@ -23,7 +23,7 @@ namespace Alligator.ModelLaundry
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("GeometrytoFilter", "GeomtoFilt", "Insert a set of geometry to be filtred", GH_ParamAccess.list);
-            pManager.AddGenericParameter("BoundingboxtoFilterBy", "BBox", "Insert a set of boundingboxes to filter geometry", GH_ParamAccess.list);
+            pManager.AddBoxParameter("BoundingboxtoFilterBy", "BBox", "Insert a set of boundingboxes to filter geometry", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -31,7 +31,8 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("FilteredGeometry", "FilteredGeom", "Geometrys inside the boundingbox", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Insiders", "Inside", "Geometrys inside the boundingbox", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Outsiders", "Outside", "Geometrys outside the boundingbox", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -40,35 +41,34 @@ namespace Alligator.ModelLaundry
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<object> geomToFilt = new List<object>();
-            List<object> geomtoFiltBy = new List<object>();
-            List<object> output = new List<object>();
-            List<BHoM.Geometry.GeometryBase> insiders = new List<BHoM.Geometry.GeometryBase>();
-            List<BHoM.Geometry.GeometryBase> elements = new List<BH.GeometryBase>();
-            List<BHoM.Geometry.BoundingBox> boxes = new List<BH.BoundingBox>();
+            List<BH.GeometryBase> elements = Utils.GetGenericDataList<BH.GeometryBase>(DA, 0);
+            List<Box> boxes = new List<Box>();
+            R.BoundingBox b = new Rhino.Geometry.BoundingBox();
+            List<BH.GeometryBase> insiders = new List<BH.GeometryBase>(); 
+            List<BH.GeometryBase> outsiders = new List<BH.GeometryBase>();
+            List<BH.BoundingBox> bhomBoxes = new List<BHoM.Geometry.BoundingBox>();
+            R.Point3d[] cornerPt = new Point3d[8];
+            if (!DA.GetDataList(1, boxes)) return;
 
-            if (!DA.GetDataList(0, geomToFilt)) return;
-            if (!DA.GetDataList(1, geomtoFiltBy)) return;
-
-            foreach (object o in geomToFilt)
+            for (int i = 0; i < boxes.Count; i++)
             {
-                elements.Add((BHoM.Geometry.GeometryBase)o);
-            }
-
-            foreach (object o in geomtoFiltBy)
-            {
-                boxes.Add((BHoM.Geometry.BoundingBox)o);
-            }
-
-            insiders = Util.FilterByBoundingBox(elements, boxes);
-
-            foreach (BHoM.Geometry.GeometryBase i in insiders)
-            {
-                output.Add((object)i);
+                cornerPt = boxes[i].GetCorners();
+                List<BH.Point> bhomBoxCornerPt = new List<BH.Point>();
+                for (int j = 0; j < 8; j++)
+                {
+                    bhomBoxCornerPt.Add(new BH.Point(cornerPt[j].X, cornerPt[j].Y, cornerPt[j].Z));
+                }
+                bhomBoxes.Add(new BH.BoundingBox(bhomBoxCornerPt));
             }
 
 
-            DA.SetDataList(0, output);
+
+            insiders = Util.FilterByBoundingBox(elements, bhomBoxes, out outsiders);
+
+
+            DA.SetDataList(0, insiders);
+            DA.SetDataList(1, outsiders);
+
 
 
         }
