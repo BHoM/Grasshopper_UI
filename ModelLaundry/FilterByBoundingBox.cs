@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Drawing;
 using System.Collections.Generic;
 using BHoM_Engine.ModelLaundry;
@@ -42,7 +43,9 @@ namespace Alligator.ModelLaundry
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             List<BH.GeometryBase> elements = Utils.GetGenericDataList<BH.GeometryBase>(DA, 0);
+            List<BH.GeometryBase> convertedElem = new List<BH.GeometryBase>();
             List<Box> boxes = new List<Box>();
+            List<BH.Polyline> polyLines = new List<BH.Polyline>();
             R.BoundingBox b = new Rhino.Geometry.BoundingBox();
             List<BH.GeometryBase> insiders = new List<BH.GeometryBase>(); 
             List<BH.GeometryBase> outsiders = new List<BH.GeometryBase>();
@@ -61,9 +64,25 @@ namespace Alligator.ModelLaundry
                 bhomBoxes.Add(new BH.BoundingBox(bhomBoxCornerPt));
             }
 
+            for (int i = 0; i < elements.Count; i++)
+            {
+                if (elements[i] is BH.Curve)
+                {
+                    BH.Curve tempCrv = elements[i] as BH.Curve;
+                    Group<BH.Curve> crvs = new Group<BH.Curve>();
+                    crvs = new Group<BHoM.Geometry.Curve>(tempCrv.Explode());
+                    convertedElem.Add(crvs);
+                }
+
+                else
+                {
+                    convertedElem.Add(elements[i]);
+                }
+
+            }
 
 
-            insiders = Util.FilterByBoundingBox(elements, bhomBoxes, out outsiders);
+            insiders = Util.FilterByBoundingBox(convertedElem, bhomBoxes, out outsiders);
 
 
             DA.SetDataList(0, insiders);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Drawing;
 using System.Collections.Generic;
 using BHoM_Engine.ModelLaundry;
@@ -46,7 +47,7 @@ namespace Alligator.ModelLaundry
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BH.Curve contour = Utils.GetGenericData<BH.Curve>(DA, 0);
+            BH.GeometryBase contour = Utils.GetGenericData<BH.GeometryBase>(DA, 0);
             double tol = Utils.GetData<double>(DA, 2);
             List<BH.Polyline> newPolyLines = new List<BHoM.Geometry.Polyline>();
             List<BH.Curve> refContour = Utils.GetGenericDataList<BH.Curve>(DA, 1);
@@ -54,17 +55,52 @@ namespace Alligator.ModelLaundry
             List<BH.Point> ptLinetoPLine = new List<BHoM.Geometry.Point>();
             BH.Polyline output = null;
 
+            if (contour is BHoM.Geometry.Group<BH.Curve>)
+            {
+                Group<BH.Curve> groupOfCrvs = contour as Group<BH.Curve>;
+                List<BH.Point> pts = new List<BH.Point>();
+                List<BH.Curve> crvs = BH.Curve.Join(groupOfCrvs.ToList());
+                contour = crvs[0] as BH.PolyCurve;
+            }
+
             if (contour is BHoM.Geometry.Line)
             {
-                ptLinetoPLine.Add(contour.PointAt(0));
-                ptLinetoPLine.Add(contour.PointAt(0.5));
-                ptLinetoPLine.Add(contour.PointAt(1));
+                BH.Line ln;
+                ln = contour as BH.Line;
+                ptLinetoPLine.Add(ln.PointAt(0));
+                ptLinetoPLine.Add(ln.PointAt(0.5));
+                ptLinetoPLine.Add(ln.PointAt(1));
 
                 BH.Polyline lineToPolyLn = new BHoM.Geometry.Polyline(ptLinetoPLine);
                 contour = lineToPolyLn;
             }
 
-            for (int i = 0; i < refContour.Count; i++)
+            if (contour is BHoM.Geometry.PolyCurve)
+            {
+                BH.PolyCurve pCrv = contour as BH.PolyCurve;
+                List<BH.Point> pts = new List<BH.Point>();
+                List<BH.Curve> crvs = pCrv.Explode();
+                if (pCrv.IsClosed())
+                {
+                    for (int i = 0; i < crvs.Count; i++)
+                    {
+                        pts.Add(crvs[i].StartPoint);
+                    }
+                }
+
+                if (!pCrv.IsClosed())
+                {
+                    for (int i = 0; i < crvs.Count; i++)
+                    {
+                        pts.Add(crvs[i].StartPoint);
+                    }
+                    pts.Add(crvs[crvs.Count - 1].EndPoint);
+                }
+
+                contour = new BH.Polyline(pts);
+            }
+
+                for (int i = 0; i < refContour.Count; i++)
             {
                 if (refContour[i] is BHoM.Geometry.PolyCurve)
                 {
