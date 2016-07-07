@@ -59,13 +59,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FilterByBoundingBox.cs" />
+    <Compile Include="FilterSmallCurves.cs" />
     <Compile Include="HorizontalExtend.cs" />
     <Compile Include="HorizontalParallellSnap.cs" />
-    <Compile Include="HorizontalPointSnap.cs" />
+    <Compile Include="HorizontalExtendSnap.cs" />
     <Compile Include="JoinCurves.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VerticalEndSnapping.cs" />
-    <Compile Include="VerticalPointSnapping.cs" />
+    <Compile Include="VerticalSnapToHeight.cs" />
+    <Compile Include="VerticalSnapToShapes.cs" />
     <Compile Include="VisualizeLines.cs" />
   </ItemGroup>
   <ItemGroup>

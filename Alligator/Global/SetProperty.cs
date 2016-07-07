@@ -37,14 +37,19 @@ namespace Alligator.Global
             string key = Utils.GetData<string>(DA, 1);
             object value = Utils.GetGenericData<object>(DA, 2);
 
-            System.Reflection.PropertyInfo prop = o.GetType().GetProperty(key);
+            object newObject = o;
+            System.Reflection.MethodInfo inst = o.GetType().GetMethod("MemberwiseClone", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+            if (inst != null)
+                newObject = inst.Invoke(o, null);
+
+            System.Reflection.PropertyInfo prop = newObject.GetType().GetProperty(key);
             if (prop == null)
             {
                 DA.SetData(0, null);
             }
             else
             {
-                prop.SetValue(o, value);
+                prop.SetValue(newObject, value);
                 DA.SetData(0, o);
             }
                 

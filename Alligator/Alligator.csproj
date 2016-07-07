@@ -83,6 +83,7 @@
     <Compile Include="Structural\BHoM_Bar.cs" />
     <Compile Include="Structural\BHoM_Node.cs" />
     <Compile Include="Structural\BHoM_NodeConstraint.cs" />
+    <Compile Include="Structural\BHoM_Panel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
