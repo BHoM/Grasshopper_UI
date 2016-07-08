@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio Express 14 for Windows Desktop
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alligator", "Alligator\Alligator.csproj", "{2E3B219E-7BD2-4F75-BFAF-9B7735827ED4}"
 EndProject
@@ -15,6 +15,21 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportVenueEvent", "SportVenueEvent\SportVenueEvent.csproj", "{0E6AC63F-EE17-4655-84E9-558D17CCBF7A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelLaundry", "ModelLaundry\ModelLaundry.csproj", "{1E524533-5830-4F5A-B3AA-C7C4A01C6BCB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormFinding", "FormFinding\FormFinding.csproj", "{F70B380C-F13B-443A-8A51-B33138DFCD3D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2E3B219E-7BD2-4F75-BFAF-9B7735827ED4} = {2E3B219E-7BD2-4F75-BFAF-9B7735827ED4}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GSA", "GSA\GSA.csproj", "{8738F324-C0B3-48A7-A98C-22434F86D609}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2E3B219E-7BD2-4F75-BFAF-9B7735827ED4} = {2E3B219E-7BD2-4F75-BFAF-9B7735827ED4}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kinect", "Kinect\Kinect.csproj", "{96940580-6D5F-4FF6-B01D-0D77A85C6079}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2E3B219E-7BD2-4F75-BFAF-9B7735827ED4} = {2E3B219E-7BD2-4F75-BFAF-9B7735827ED4}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +68,24 @@ Global
 		{1E524533-5830-4F5A-B3AA-C7C4A01C6BCB}.Debug64|Any CPU.Build.0 = Debug|Any CPU
 		{1E524533-5830-4F5A-B3AA-C7C4A01C6BCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E524533-5830-4F5A-B3AA-C7C4A01C6BCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F70B380C-F13B-443A-8A51-B33138DFCD3D}.Debug|Any CPU.ActiveCfg = Debug64|Any CPU
+		{F70B380C-F13B-443A-8A51-B33138DFCD3D}.Debug|Any CPU.Build.0 = Debug64|Any CPU
+		{F70B380C-F13B-443A-8A51-B33138DFCD3D}.Debug64|Any CPU.ActiveCfg = Debug64|Any CPU
+		{F70B380C-F13B-443A-8A51-B33138DFCD3D}.Debug64|Any CPU.Build.0 = Debug64|Any CPU
+		{F70B380C-F13B-443A-8A51-B33138DFCD3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F70B380C-F13B-443A-8A51-B33138DFCD3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8738F324-C0B3-48A7-A98C-22434F86D609}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8738F324-C0B3-48A7-A98C-22434F86D609}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8738F324-C0B3-48A7-A98C-22434F86D609}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
+		{8738F324-C0B3-48A7-A98C-22434F86D609}.Debug64|Any CPU.Build.0 = Debug|Any CPU
+		{8738F324-C0B3-48A7-A98C-22434F86D609}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8738F324-C0B3-48A7-A98C-22434F86D609}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96940580-6D5F-4FF6-B01D-0D77A85C6079}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96940580-6D5F-4FF6-B01D-0D77A85C6079}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96940580-6D5F-4FF6-B01D-0D77A85C6079}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
+		{96940580-6D5F-4FF6-B01D-0D77A85C6079}.Debug64|Any CPU.Build.0 = Debug|Any CPU
+		{96940580-6D5F-4FF6-B01D-0D77A85C6079}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96940580-6D5F-4FF6-B01D-0D77A85C6079}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

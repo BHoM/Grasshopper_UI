@@ -24,15 +24,16 @@ namespace Alligator.Components
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Bars", "bars", "Bars of structure", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Locked Nodes", "lockedNodes", "Locked nodes", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Locked Nodes", "lockedNodes", "Nodes with restraints", GH_ParamAccess.list);
             pManager.AddNumberParameter("Area", "area", "Cross section area for each bar", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Density", "density", "Density for each bar", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Young's modulus", "E", "Young's modulus for each bar", GH_ParamAccess.list);
             pManager.AddNumberParameter("Prestress", "prestress", "Prestress for each bar", GH_ParamAccess.list);
             pManager.AddNumberParameter("Nodal load", "nodalLoad", "Nodal load applied to all nodes", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Treshold", "treshold", "Max kinetic energy for convergence", GH_ParamAccess.item);
+            pManager.AddNumberParameter("TimeStep", "timeStep", "Time step for each iteration", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Velocity damping", "velocityDamping", "Damping applied to velocities", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Max number of iterations", "maxItertations", "Maximum number of iterations to run", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("Only Z DR", "onlyZ", "Set nodal XY-acceleration to zero without affecting kinectic energy or equilibrium", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Treshold", "treshold", "Max kinetic energy for convergence", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Use mass damping", "useMassDamping", "Set fictional nodal masses based on bar stiffnesses to stabilize relaxation. Does not affect forces", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Calc safe time step", "calcSafeTimeStep", "Calculate safe time step based on bar stiffnesses and node masses", GH_ParamAccess.item);
             pManager.AddBooleanParameter("Run", "run", "Run if true", GH_ParamAccess.item);
         }
 
@@ -59,47 +60,28 @@ namespace Alligator.Components
             Rhino.Geometry.BoundingBox box = new Rhino.Geometry.BoundingBox(-100, -100, -100, 100, 100, 100);
             _clippingBox.Union(box);
 
-            if (Utils.Run(DA, 10))
+            if (Utils.Run(DA, 11))
             {
-
-                List<Bar> barsIn = Utils.GetGenericDataList<Bar>(DA, 0);
-                List<Node> restrainedNodesIn = Utils.GetGenericDataList<Node>(DA, 1);
-
-                //To clear custom data dictionary, to be changed:
-                List<Bar> bars = new List<Bar>();
-                foreach (Bar bar in barsIn)
-                    bars.Add(new Bar(new Node(bar.StartNode.X, bar.StartNode.Y, bar.StartNode.Z), new Node(bar.EndNode.X, bar.EndNode.Y, bar.EndNode.Z)));
-                List<Node> restrainedNodes = new List<Node>();
-                foreach (Node node in restrainedNodesIn)
-                    restrainedNodes.Add(new Node(node.X, node.Y, node.Z));
-
-                //Inputs
+                List<Bar> bars = Utils.GetGenericDataList<Bar>(DA, 0);
+                List<Node> lockedNodes = Utils.GetGenericDataList<Node>(DA, 1);
                 List<double> areas = Utils.GetDataList<double>(DA, 2);
-                List<double> densities = Utils.GetDataList<double>(DA, 3);
-                List<double> eModules = Utils.GetDataList<double>(DA, 4);
-                List<double> prestresses = Utils.GetDataList<double>(DA, 5);
-                double gravity = Utils.GetData<double>(DA, 6);
-                double treshold = Utils.GetData<double>(DA, 7);
-                int maxNoIt = Utils.GetData<int>(DA, 8);
-                bool onlyZ = Utils.GetData<bool>(DA, 9);
+                List<double> prestresses = Utils.GetDataList<double>(DA, 3);
+                double unaryNodalLoad = Utils.GetData<double>(DA, 4);
+                double dt = Utils.GetData<double>(DA, 5);
+                double c = Utils.GetData<double>(DA, 6);
+                int maxNoIt = Utils.GetData<int>(DA, 7);
+                double treshold = Utils.GetData<double>(DA, 8);
+                bool useMassDamping = Utils.GetData<bool>(DA, 9);
+                bool calcSafeTimeStep = Utils.GetData<bool>(DA, 10);
 
-                //Set structure
-                BHoM_Engine.FormFinding.Structure structure = BHoM_Engine.FormFinding.DynamicRelaxation.SetStructure(bars, restrainedNodes, areas, densities, eModules, prestresses, onlyZ, treshold);
 
-                //Draw lines
-                for (int j = 0; j < structure.Bars.Count; j++)
-                {
-                    if (j < lines.Count)
-                        lines[j] = new Line(new Point3d(structure.Bars[j].StartNode.Point.X, structure.Bars[j].StartNode.Point.Y, structure.Bars[j].StartNode.Point.Z), new Point3d(structure.Bars[j].EndNode.Point.X, structure.Bars[j].EndNode.Point.Y, structure.Bars[j].EndNode.Point.Z));
-                    else
-                        lines.Add(new Line(new Point3d(structure.Bars[j].StartNode.Point.X, structure.Bars[j].StartNode.Point.Y, structure.Bars[j].StartNode.Point.Z), new Point3d(structure.Bars[j].EndNode.Point.X, structure.Bars[j].EndNode.Point.Y, structure.Bars[j].EndNode.Point.Z)));
-                }
 
-                //Relax
+                BHoM_Engine.FormFinding.Structure structure = BHoM_Engine.FormFinding.DynamicRelaxation.SetStructure(bars, lockedNodes, areas, prestresses, dt, c, useMassDamping, calcSafeTimeStep, treshold);
+
                 int counter = 0;
                 for (int i = 0; i < maxNoIt; i++)
                 {
-                    BHoM_Engine.FormFinding.DynamicRelaxation.RelaxStructure(structure, gravity);
+                    BHoM_Engine.FormFinding.DynamicRelaxation.RelaxStructure(structure, unaryNodalLoad, useMassDamping);
 
                     //Draw lines
                     for (int j = 0; j < structure.Bars.Count; j++)
@@ -109,8 +91,8 @@ namespace Alligator.Components
                         else
                             lines.Add(new Line(new Point3d(structure.Bars[j].StartNode.Point.X, structure.Bars[j].StartNode.Point.Y, structure.Bars[j].StartNode.Point.Z), new Point3d(structure.Bars[j].EndNode.Point.X, structure.Bars[j].EndNode.Point.Y, structure.Bars[j].EndNode.Point.Z)));
                     }
-
                     Rhino.RhinoDoc.ActiveDoc.Views.Redraw();
+
 
                     if (structure.HasConverged())
                         break;
@@ -124,19 +106,16 @@ namespace Alligator.Components
 
                 List<Vector3d> nodeForces = new List<Vector3d>();
                 foreach (Node node in structure.Nodes)
-                    //if ((bool)node.CustomData["isLocked"])
                         nodeForces.Add(new Vector3d(structure.nodalResultCollection[node.Name + ":" + structure.t.ToString()].Force.X, structure.nodalResultCollection[node.Name + ":" + structure.t.ToString()].Force.Y, structure.nodalResultCollection[node.Name + ":" + structure.t.ToString()].Force.Z));
 
-                double kineticEnergy = 0;
-                foreach (Node node in structure.Nodes)
-                    if (Math.Pow(structure.nodalResultCollection[node.Name + ":" + structure.t.ToString()].Velocity.Length, 2) * (double)node.CustomData["Mass"] / 2.0 > kineticEnergy)
-                        kineticEnergy = Math.Pow(structure.nodalResultCollection[node.Name + ":" + structure.t.ToString()].Velocity.Length, 2) * (double)node.CustomData["Mass"] / 2.0;
+                structure.Bars.Clear();
+                structure.Nodes.Clear();
 
                 DA.SetDataList(0, lines);
                 DA.SetDataList(1, barForces);
                 DA.SetDataList(2, nodeForces);
                 DA.SetData(3, counter);
-                DA.SetData(4, kineticEnergy);
+                DA.SetData(4, structure.kineticEnergy[structure.t.ToString()]);
             }
         }
 

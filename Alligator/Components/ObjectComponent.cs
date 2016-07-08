@@ -309,7 +309,7 @@ namespace Alligator
                             }
                             else if (pType.IsEnum)
                             {
-                                pManager.AddTextParameter(name, nickName, description, access);
+                                //pManager.AddTextParameter(name, nickName, description, access);
                                 InitialiseOptions(pType);
                             }
                             else if (Utils.IsNumeric(pType))
