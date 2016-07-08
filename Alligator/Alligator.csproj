@@ -80,6 +80,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Structural\BHoM_Material.cs" />
+    <Compile Include="Structural\BHoM_SectionProperty.cs" />
     <Compile Include="Structural\BHoM_Bar.cs" />
     <Compile Include="Structural\BHoM_Node.cs" />
     <Compile Include="Structural\BHoM_NodeConstraint.cs" />
@@ -106,6 +108,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\constraint.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sectionproperty.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sectionproperty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\material.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\skeleton.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
