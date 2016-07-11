@@ -13,11 +13,11 @@ namespace Alligator.Kinect.BodyTracking
 {
     public class GetSkeleton : GH_Component
     {
-        public GetSkeleton() : base("Get skeleton", "GetSkeleton", "Gets skeletons from kinect application", "Kinect", "BodyTracking") { }
+        public GetSkeleton() : base("Get skeleton", "GetSkeleton", "Gets skeletons from kinect sensor", "Kinect", "BodyTracking") { }
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Application", "app", "Kinect sensor application", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Sensor", "app", "Kinect body tracking", GH_ParamAccess.item);
             pManager[0].Optional = true;
         }
 
@@ -28,15 +28,18 @@ namespace Alligator.Kinect.BodyTracking
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<BHoM.Geometry.Point> points = new List<BHoM.Geometry.Point>();
-            Sensor app = new Sensor();
-            if (!DA.GetData(0, ref app)) return;
+             {
+                List<BHoM.Geometry.Point> points = new List<BHoM.Geometry.Point>();
 
-            KinectBody kinectBody = new KinectBody();
-            List<BHoM.HumanBody.Skeleton> skeletons = new List<BHoM.HumanBody.Skeleton>();
-            kinectBody.GetSkeleton(out skeletons, out points, app);
+                Sensor app = Utils.GetGenericData<Sensor>(DA, 0);
+                if (!DA.GetData(0, ref app)) return;
 
-            DA.SetData(0, skeletons);
+                KinectBody kinectBody = new KinectBody();
+                List<BHoM.HumanBody.Skeleton> skeletons = new List<BHoM.HumanBody.Skeleton>();
+                kinectBody.GetSkeleton(out skeletons, out points, app);
+                
+                DA.SetData(0, skeletons);
+            }
         }
 
         public override Guid ComponentGuid
@@ -87,7 +90,6 @@ namespace Alligator.Kinect.BodyTracking
                 try
                 {
                     //R.Sphere head = new R.Sphere(GeometryUtils.Convert(trackingLines["Neck"].StartPoint), 0.1);
-
                     BH.Point headPt = trackingLines["Neck"].StartPoint;
                     R.Sphere head = new R.Sphere(new R.Point3d(headPt.X, headPt.Y, headPt.Z), 0.1);
                     Spheres.Add(head);
@@ -110,8 +112,8 @@ namespace Alligator.Kinect.BodyTracking
                 catch { }
             }
 
-            DA.SetData(0, TrackingLines);
-            DA.SetData(0, Spheres);
+            DA.SetDataList(0, TrackingLines);
+            //DA.SetData(0, Spheres);
             DA.SetData(1, BodyPartNames);
 
         }

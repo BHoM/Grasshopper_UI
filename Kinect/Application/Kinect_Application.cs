@@ -7,25 +7,33 @@ namespace Alligator.Kinect
     public class KinectApp : GH_Component
     {
         public KinectApp() : base("Kinect Application", "KinectApp", "Creates a kinect Application", "Kinect", "Application") { }
+        internal Sensor Sensor { get; set; }
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddBooleanParameter("Activate", "A", "Activate kinect sensor", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Execute", "E", "Get Kinect sensor", GH_ParamAccess.item);
             pManager[0].Optional = true;
 
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Application", "app", "Kinect Application", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Sensor", "Sensor", "KinectSensor", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             if (Utils.Run(DA, 0))
             {
-                Sensor app = new Sensor();
-                DA.SetData(0, app);
+                this.Sensor = new Sensor();
+                DA.SetData(0, Sensor);    
+             }
+            else
+            {
+                if (this.Sensor != null)
+                {
+                    Sensor.Close();
+                }
             }
         }
 
