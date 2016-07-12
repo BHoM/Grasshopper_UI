@@ -31,7 +31,7 @@ namespace Alligator
             return result;
         }
 
-        internal static R.Curve Convert(BH.Curve curve)
+        public static R.Curve Convert(BH.Curve curve)
         {
             R.NurbsCurve c = new R.NurbsCurve(curve.Degree, curve.PointCount);// R.NurbsCurve.c.Create(false, curve.Degree, ConvertPointCollection(curve.ControlPoints));
             for (int i = 1; i < curve.Knots.Length; i++)
@@ -55,18 +55,18 @@ namespace Alligator
             return c;
         }
 
-        internal static R.Point3d Convert(BH.Point p)
+        public static R.Point3d Convert(BH.Point p)
         {
             return new R.Point3d(p.X, p.Y, p.Z);
         }
 
-        internal static BH.Point Convert(R.Point3d pnt)
+        public static BH.Point Convert(R.Point3d pnt)
         {
             R.Point3d p = pnt;
             return new BH.Point(p.X, p.Y, p.Z);
         }
 
-        internal static BH.Curve Convert(R.Curve rCurve)
+        public static BH.Curve Convert(R.Curve rCurve)
         {
             if (rCurve is R.ArcCurve)
             {
