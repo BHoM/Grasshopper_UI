@@ -11,14 +11,14 @@ using R = Rhino.Geometry;
 
 namespace Alligator.ModelLaundry
 {
-    public class HorizontalPointSnap : GH_Component
+    public class HorizontalExtendSnap : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the HorizontalPointSnap class.
         /// </summary>
-        public HorizontalPointSnap()
-          : base("HorizontalPointSnap", "HPtSnap",
-              "Horizontal point snapping",
+        public HorizontalExtendSnap()
+          : base("HorizontalExtendSnap", "HPtSnap",
+              "Horizontal extention snapping",
               "Alligator", "ModelLaundry")
         {
         }
@@ -47,7 +47,67 @@ namespace Alligator.ModelLaundry
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BH.GeometryBase contour = Utils.GetGenericData<BH.GeometryBase>(DA, 0);
+            object element = Utils.GetGenericData<object>(DA, 0);
+            List<object> refElements = Utils.GetGenericDataList<object>(DA, 1);
+            double tol = Utils.GetData<double>(DA, 2);
+
+            // Get the geometry of the element
+            BH.GeometryBase geometry = null;
+            if (element is BHoM.Global.BHoMObject)
+                geometry = ((BHoM.Global.BHoMObject)element).GetGeometry();
+            else if (element is BH.GeometryBase)
+                geometry = element as BH.GeometryBase;
+            BH.BoundingBox ROI = geometry.Bounds();
+            ROI.Inflate(tol);
+
+            // Get the geometry of the ref elements
+            List<BH.Curve> refGeom = new List<BH.Curve>();
+            foreach (object refElem in refElements)
+            {
+                BH.GeometryBase geom = null;
+                if (refElem is BHoM.Global.BHoMObject)
+                    geom = ((BHoM.Global.BHoMObject)refElem).GetGeometry();
+                else if (refElem is BH.GeometryBase)
+                    geom = refElem as BH.GeometryBase;
+
+                if (BH.BoundingBox.InRange(ROI, geom.Bounds()))
+                {
+                    if (geom is BH.Curve)
+                        refGeom.Add((BH.Curve)geom);
+                    else if (geom is BH.Group<BH.Curve>)
+                    {
+                        List<BH.Curve> list = BH.Curve.Join((BH.Group<BH.Curve>)geom);
+                        refGeom.Add(list[0]);
+                    }
+                }
+            }
+
+            // Do the actal snapping
+            BH.GeometryBase output = null;
+            if (geometry is BH.Curve)
+            {
+                output = Snapping.HorizontalPointSnap((BH.Curve)geometry, refGeom, tol);
+            }
+            else if (geometry is BH.Group<BH.Curve>)
+            {
+                output = Snapping.HorizontalPointSnap((BH.Group<BH.Curve>)geometry, refGeom, tol);
+            }
+
+            // Prepare the result
+            object result = element;
+            if (element is BHoM.Global.BHoMObject)
+            {
+                result = (BHoM.Global.BHoMObject)((BHoM.Global.BHoMObject)element).ShallowClone();
+                ((BHoM.Global.BHoMObject)result).SetGeometry(output);
+            }
+            else if (element is BH.GeometryBase)
+            {
+                result = output;
+            }
+
+            DA.SetData(0, result);
+
+            /*BH.GeometryBase contour = Utils.GetGenericData<BH.GeometryBase>(DA, 0);
             double tol = Utils.GetData<double>(DA, 2);
             List<BH.Polyline> newPolyLines = new List<BHoM.Geometry.Polyline>();
             List<BH.Curve> refContour = Utils.GetGenericDataList<BH.Curve>(DA, 1);
@@ -127,7 +187,7 @@ namespace Alligator.ModelLaundry
 
             output = Snapping.HorizontalPointSnap((BH.Polyline)contour, newPolyLines, tol);
 
-            DA.SetData(0, output);
+            DA.SetData(0, output);*/
         }
 
         /// <summary>

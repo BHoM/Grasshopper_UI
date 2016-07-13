@@ -10,25 +10,19 @@ using R = Rhino.Geometry;
 
 namespace Alligator.ModelLaundry
 {
-    public class HorizontalParallellSnap : GH_Component
+    public class VerticalSnapToShapes : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the HorizontalParallellSnap class.
+        /// Initializes a new instance of the VerticalPointSnaping class.
         /// </summary>
-        public HorizontalParallellSnap()
-          : base("HorizontalParallellSnap", "HParallellSnap",
-              "Description",
-              "Alligator", "ModelLaundry")
-        {
-        }
-
+        public VerticalSnapToShapes() : base("VerticalSnapToShapes", "VSnap2S", "Vertically snap to a set of reference shapes", "Alligator", "ModelLaundry") { }
         /// <summary>
         /// Registers all the input parameters for this component.
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("GeometryToSnap", "GeomToSnap", "Input an BHoM object or contour", GH_ParamAccess.item);
-            pManager.AddGenericParameter("GeometryToSnapTo", "GeomToSnapTo", "Input an list of BHoM objects or contours", GH_ParamAccess.list);
+            pManager.AddGenericParameter("GeometryToSnap", "GeomToSnap", "Input an an BHoM polyline", GH_ParamAccess.item);
+            pManager.AddGenericParameter("GeometryToSnapTo", "GeomToSnapTo", "Input an an BHoM Brep", GH_ParamAccess.list);
             pManager.AddNumberParameter("Tolerance", "Tol", "Set a tolerance for the snapping", GH_ParamAccess.item, 0.2);
         }
 
@@ -56,8 +50,6 @@ namespace Alligator.ModelLaundry
                 geometry = ((BHoM.Global.BHoMObject)element).GetGeometry();
             else if (element is BH.GeometryBase)
                 geometry = element as BH.GeometryBase;
-            BH.BoundingBox ROI = geometry.Bounds();
-            ROI.Inflate(tol);
 
             // Get the geometry of the ref elements
             List<BH.Curve> refGeom = new List<BH.Curve>();
@@ -69,27 +61,28 @@ namespace Alligator.ModelLaundry
                 else if (refElem is BH.GeometryBase)
                     geom = refElem as BH.GeometryBase;
 
-                if (BH.BoundingBox.InRange(ROI, geom.Bounds()))
+                if (geom is BH.Curve)
+                    refGeom.Add((BH.Curve)geom);
+                else if (geom is BH.Group<BH.Curve>)
                 {
-                    if (geom is BH.Curve)
-                        refGeom.Add((BH.Curve)geom);
-                    else if (geom is BH.Group<BH.Curve>)
-                    {
-                        List<BH.Curve> list = BH.Curve.Join((BH.Group<BH.Curve>)geom);
-                        refGeom.Add(list[0]);
-                    }
+                    List<BH.Curve> list = BH.Curve.Join((BH.Group <BH.Curve>)geom);
+                    refGeom.Add(list[0]);
                 }
             }
 
             // Do the actal snapping
             BH.GeometryBase output = null;
-            if (geometry is BH.Curve)
+            if (geometry is BH.Line)
             {
-                output = Snapping.HorizontalParallelSnap((BH.Curve)geometry, refGeom, tol);
+                output = Snapping.VerticalEndSnap((BH.Line)geometry, refGeom, tol);
+            }
+            else if (geometry is BH.Curve)
+            {
+                output = Snapping.VerticalEndSnap((BH.Curve)geometry, refGeom, tol); 
             }
             else if (geometry is BH.Group<BH.Curve>)
             {
-                output = Snapping.HorizontalParallelSnap((BH.Group<BH.Curve>)geometry, refGeom, tol);
+                output = Snapping.VerticalEndSnap((BH.Group<BH.Curve>)geometry, refGeom, tol);
             }
 
             // Prepare the result
@@ -104,17 +97,31 @@ namespace Alligator.ModelLaundry
                 result = output;
             }
 
-            DA.SetData(0, result);
 
-            /*BH.Polyline contour = Utils.GetGenericData<BH.Polyline>(DA, 0);
-            double tol = Utils.GetData<double>(DA, 2);
-            List<BH.Polyline> newPolyLines = new List<BHoM.Geometry.Polyline>();
-            List<BH.Curve> refContour = Utils.GetGenericDataList<BH.Curve>(DA, 1);
+            /*BH.Polyline snapGeomPoly = null;
             List<BH.Point> tempPts = new List<BHoM.Geometry.Point>();
-            BH.Polyline output = null;
+            List<BH.Polyline> newPolyLines = new List<BHoM.Geometry.Polyline>();
+
+            if (contour is BHoM.Geometry.PolyCurve)
+            {
+                List<BH.Curve> tempCrv = contour.Explode();
+                tempPts = new List<BH.Point>();
+                for (int j = 0; j < tempCrv.Count; j++)
+                {
+                    tempPts.Add(tempCrv[j].StartPoint);
+                }
+
+                if (contour.IsClosed())
+                {
+                    tempPts.Add(tempCrv[tempCrv.Count - 1].EndPoint);
+                }
+
+                snapGeomPoly = new BH.Polyline(tempPts);
+            }
 
             for (int i = 0; i < refContour.Count; i++)
             {
+                tempPts = new List<BHoM.Geometry.Point>();
                 if (refContour[i] is BHoM.Geometry.PolyCurve)
                 {
                     List<BH.Curve> tempCrv = refContour[i].Explode();
@@ -138,9 +145,17 @@ namespace Alligator.ModelLaundry
                 }
             }
 
-            output = Snapping.HorizontalParallelSnap(contour, newPolyLines, tol);
+            BH.Curve output = null;
+            if (contour is BHoM.Geometry.PolyCurve)
+            {
+                output = Snapping.VerticalEndSnap(snapGeomPoly, newPolyLines, tol);
+            }
+            else if (contour is BHoM.Geometry.Line)
+            {
+                output = Snapping.VerticalEndSnap((BH.Line)contour, newPolyLines, tol);
+            }*/
 
-            DA.SetData(0, output);*/
+            DA.SetData(0, result);
         }
 
         /// <summary>
@@ -152,7 +167,7 @@ namespace Alligator.ModelLaundry
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return base.Icon;
             }
         }
 
@@ -161,7 +176,7 @@ namespace Alligator.ModelLaundry
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("{2e6985fe-02ec-4804-ac68-1d3dec838e70}"); }
+            get { return new Guid("7FA1BD86-5D3F-496B-9584-D4D18805C21F"); }
         }
     }
 }

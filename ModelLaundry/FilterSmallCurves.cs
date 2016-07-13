@@ -10,14 +10,14 @@ using R = Rhino.Geometry;
 
 namespace Alligator.ModelLaundry
 {
-    public class HorizontalExtend : GH_Component
+    public class FilterSmallCurves : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the HorizontalExtend class.
         /// </summary>
-        public HorizontalExtend()
-          : base("HorizontalExtend", "HExtend",
-              "Description",
+        public FilterSmallCurves()
+          : base("FilterSmallCurves", "FilterSCurves",
+              "Remove all curves with a length below maxLength",
               "Alligator", "ModelLaundry")
         {
         }
@@ -27,8 +27,8 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("GeometryToExtend", "GeomToExtend", "Line or Polyline to extend", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Distance", "Dist", "Extention distance", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Curves to Filter", "InCurves", "Curves to be filtered", GH_ParamAccess.item);
+            pManager.AddNumberParameter("max Lenght", "maxL", "max length of the curve", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -36,7 +36,8 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("ExtendedGeometry", "ExtendedGeom", "New BHoMLine or BHoMPolyline", GH_ParamAccess.item);
+            pManager.AddGenericParameter("remaining", "remaining", "curves longer than maxLength", GH_ParamAccess.list);
+            pManager.AddGenericParameter("removed", "removed", "curves shorter than maxLength", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -49,39 +50,37 @@ namespace Alligator.ModelLaundry
             object element = Utils.GetGenericData<object>(DA, 0);
             double dist = Utils.GetData<double>(DA, 1);
 
-            // Get the geometry
-            BH.GeometryBase geometry = null;
+            // Get the geometry of the ref elements
+            BH.GeometryBase geom = null;
             if (element is BHoM.Global.BHoMObject)
-                geometry = ((BHoM.Global.BHoMObject)element).GetGeometry();
+                geom = ((BHoM.Global.BHoMObject)element).GetGeometry();
             else if (element is BH.GeometryBase)
-                geometry = element as BH.GeometryBase;
+            geom = element as BH.GeometryBase;
 
-            BH.GeometryBase output = null;
-            if (geometry is BH.Line)
+            BH.Group<BH.Curve> group = new BH.Group<BH.Curve>();
+            if (geom is BH.Curve)
+                group.Add((BH.Curve)geom);
+            else if (geom is BH.Group<BH.Curve>)
             {
-                output = Util.HorizontalExtend((BH.Line)geometry, dist);
+                group = geom as BH.Group<BH.Curve>;
             }
-            else if (geometry is BH.Curve)
-            {
-                output = Util.HorizontalExtend((BH.Curve)geometry, dist);
-            }
-            else if (geometry is BH.Group<BH.Curve>)
-            {
-                output = Util.HorizontalExtend((BH.Group<BH.Curve>)geometry, dist);
-            }
+
+            // Actually do the filtering
+            BH.Group<BH.Curve> removed = new Group<BH.Curve>();
+            BH.Group<BH.Curve> remaining = BHoM_Engine.ModelLaundry.Util.RemoveSmallContours(group, dist, out removed);
 
             // Prepare the result
             object result = element;
             if (element is BHoM.Global.BHoMObject)
             {
                 result = (BHoM.Global.BHoMObject)((BHoM.Global.BHoMObject)element).ShallowClone();
-                ((BHoM.Global.BHoMObject)result).SetGeometry(output);
+                ((BHoM.Global.BHoMObject)result).SetGeometry(remaining);
             }
             else if (element is BH.GeometryBase)
             {
-                result = output;
+                result = group;
             }
-                
+
             /*else if(geometry is BH.PolyCurve)
             {
                 BH.PolyCurve curve = geometry as BH.PolyCurve;
@@ -101,7 +100,7 @@ namespace Alligator.ModelLaundry
                 output = Util.HorizontalExtend(newPolyLine, dist);
             }*/
 
-                // Setting the GH outputs
+            // Setting the GH outputs
             DA.SetData(0, result);
         }
 
@@ -123,7 +122,7 @@ namespace Alligator.ModelLaundry
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("{486fee2f-8167-416d-a4f1-5f9dda0e0570}"); }
+            get { return new Guid("8F6BB61E-F8D1-4F12-953C-1C9D394D435C"); }
         }
     }
 }

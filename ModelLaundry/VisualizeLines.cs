@@ -17,7 +17,7 @@ namespace Alligator.ModelLaundry
         /// Initializes a new instance of the VisualizeLines class.
         /// </summary>
         public VisualizeLines()
-          : base("VisualizeLines", "Nickname",
+          : base("ToGHLine", "ToGHLine",
               "Description",
               "Alligator", "ModelLaundry")
         {
