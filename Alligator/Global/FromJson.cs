@@ -26,14 +26,14 @@ namespace Alligator.Global
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("BHoM object", "object", "Resulting BHoM object", GH_ParamAccess.item);
+            pManager.AddGenericParameter("BHoM object", "object", "Resulting BHoM object", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             string json = ""; // Utils.GetGenericData<string>(DA, 0);
             DA.GetData<string>(0, ref json);
-            DA.SetData(0, BHoM.Global.BHoMObject.FromJSON(json));
+            DA.SetDataList(0, BHoM.Global.BHoMJSON.ReadPackage(json));
         }
     }
 }
