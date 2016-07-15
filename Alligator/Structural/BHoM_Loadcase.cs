@@ -1,19 +1,23 @@
-﻿using BHoM.Structural;
-using System;
-using Grasshopper.Kernel;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using BHoM.Structural.Loads;
+using BHoM.Structural;
+using Grasshopper.Kernel;
 
-namespace Alligator.Structural.Elements
+namespace Alligator.Structural.Loads
 {
-    public class CreateBar : BHoMBaseComponent<Bar>
+    public class CreateLoadcase : BHoMBaseComponent<Loadcase>
     {
-        public CreateBar() : base("Create Bar", "CreateBar", "Create a BH Bar object", "Alligator", "Structural") { }
+        public CreateLoadcase() : base("Create Loadcase", "CreateLoadcase", "Create a BH Loadcase object", "Alligator", "Structural") { }
 
         public override Guid ComponentGuid
         {
             get
             {
-                return new Guid("5FE0E2C4-5E50-410F-BBC7-C255FD1BD2B4");
+                return new Guid("3aeb1df2-16b0-477e-814a-59743a10062c");
             }
         }
 
@@ -24,9 +28,9 @@ namespace Alligator.Structural.Elements
         }
     }
 
-    public class MultiExportBar : GH_Component
+    public class MultiExportLoadCase : GH_Component
     {
-        public MultiExportBar() : base("Multi Export Bar", "ExBar", "Creates or Replaces the geometry of a Bar", "Alligator", "Structural") { }
+        public MultiExportLoadCase() : base("Multi Export Loadcase", "ExLoadcase", "Creates or Replaces loadcase", "Alligator", "Structural") { }
 
         public override GH_Exposure Exposure
         {
@@ -38,16 +42,15 @@ namespace Alligator.Structural.Elements
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Application", "App", "Application to export bars to", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Bars", "B", "BHoM bars to export", GH_ParamAccess.list);
-            pManager.AddBooleanParameter("Execute", "R", "Generate Bars", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Application", "App", "Application to export loadcases to", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Loadcase", "L", "BHoM loadcase to export", GH_ParamAccess.list);
+            pManager.AddBooleanParameter("Execute", "R", "Generate loadcases", GH_ParamAccess.item);
 
             pManager[2].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddIntegerParameter("Ids", "Ids", "Bar Numbers", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -57,18 +60,16 @@ namespace Alligator.Structural.Elements
                 IStructuralAdapter app = Utils.GetGenericData<IStructuralAdapter>(DA, 0);
                 if (app != null)
                 {
-                    List<Bar> bars = Utils.GetGenericDataList<Bar>(DA, 1);
-                    List<string> ids = null;
-                    app.SetBars(bars, out ids);
+                    List<ICase> loadcases = Utils.GetGenericDataList<ICase>(DA, 1);
+                    app.SetLoadcases(loadcases);
 
-                    DA.SetDataList(0, ids);
                 }
             }
         }
 
         public override Guid ComponentGuid
         {
-            get { return new Guid("2420dc1b-87b3-491a-93fa-1495315ca5a2"); }
+            get { return new Guid("824e4efc-c4ae-4ac0-a4c7-983547b42365"); }
         }
 
         /// <summary> Icon (24x24 pixels)</summary>

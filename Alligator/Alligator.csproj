@@ -79,6 +79,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Structural\BHoM_DoF.cs" />
+    <Compile Include="Structural\BHoM_Load.cs" />
+    <Compile Include="Structural\BHoM_Loadcase.cs" />
     <Compile Include="Structural\BHoM_Material.cs" />
     <Compile Include="Structural\BHoM_SectionProperty.cs" />
     <Compile Include="Structural\BHoM_Bar.cs" />
@@ -119,6 +122,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\skeleton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
