@@ -21,7 +21,7 @@ namespace Alligator.Global
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("BHoM object", "object", "BHoM object to convert", GH_ParamAccess.item);
+            pManager.AddGenericParameter("BHoM object", "object", "BHoM object to convert", GH_ParamAccess.list);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -31,8 +31,8 @@ namespace Alligator.Global
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BHoM.Global.BHoMObject o = Utils.GetGenericData<BHoM.Global.BHoMObject>(DA, 0);
-            DA.SetData(0, o.ToJSON());
+            List<BHoM.Global.BHoMObject> objects = Utils.GetGenericDataList<BHoM.Global.BHoMObject>(DA, 0);
+            DA.SetData(0, BHoM.Global.BHoMJSON.WritePackage(objects.Cast<BHoM.Global.BHoMObject>().ToList()));
         }
     }
 }
