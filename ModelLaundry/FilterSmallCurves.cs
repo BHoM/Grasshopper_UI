@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Collections.Generic;
-using BHoM_Engine.ModelLaundry;
+using ModelLaundry_Engine;
 using BHoM.Geometry;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
@@ -67,7 +67,7 @@ namespace Alligator.ModelLaundry
 
             // Actually do the filtering
             BH.Group<BH.Curve> removed = new Group<BH.Curve>();
-            BH.Group<BH.Curve> remaining = BHoM_Engine.ModelLaundry.Util.RemoveSmallContours(group, dist, out removed);
+            BH.Group<BH.Curve> remaining = ModelLaundry_Engine.Util.RemoveSmallContours(group, dist, out removed);
 
             // Prepare the result
             object result = element;

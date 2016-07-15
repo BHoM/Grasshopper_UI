@@ -34,15 +34,11 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Alligator">
-      <HintPath>..\Alligator\bin\Alligator.dll</HintPath>
-    </Reference>
     <Reference Include="BHoM">
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
     </Reference>
-    <Reference Include="BHoM Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\BHoM_Engine\Build\BHoM Engine.dll</HintPath>
+    <Reference Include="FormFinding_Engine">
+      <HintPath>..\..\BHoM_Engine\Build\FormFinding_Engine.dll</HintPath>
     </Reference>
     <Reference Include="RhinoCommon">
       <HintPath>..\External Libraries\RhinoCommon.dll</HintPath>
@@ -83,6 +79,12 @@
   <ItemGroup>
     <None Include="Resources\spider.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Alligator\Alligator.csproj">
+      <Project>{2e3b219e-7bd2-4f75-bfaf-9b7735827ed4}</Project>
+      <Name>Alligator</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -95,6 +97,10 @@
     <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
 
 Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
+
+copy /Y "$(TargetDir)\FormFinding_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\FormFinding_Engine.dll"
+
+
 
 Erase "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>

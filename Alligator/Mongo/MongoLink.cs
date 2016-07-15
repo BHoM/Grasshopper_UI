@@ -37,7 +37,7 @@ namespace Alligator.Mongo
             string database = Utils.GetData<string>(DA, 1);
             string collection = Utils.GetData<string>(DA, 2);
 
-            DA.SetData(0, new BHoM_Engine.Databases.Mongo.MongoLink(server, database, collection));
+            DA.SetData(0, new Databases_Engine.Mongo.MongoLink(server, database, collection));
         }
     }
 }

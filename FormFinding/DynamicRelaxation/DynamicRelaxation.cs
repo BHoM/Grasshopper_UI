@@ -5,8 +5,6 @@ using BHoM.Structural;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-using BHoM_Engine;
-
 namespace Alligator.Components
 {
     public class DynamicRelaxation : GH_Component
@@ -76,12 +74,12 @@ namespace Alligator.Components
 
 
 
-                BHoM_Engine.FormFinding.Structure structure = BHoM_Engine.FormFinding.DynamicRelaxation.SetStructure(bars, lockedNodes, areas, prestresses, dt, c, useMassDamping, calcSafeTimeStep, treshold);
+                FormFinding_Engine.Structure structure = FormFinding_Engine.DynamicRelaxation.SetStructure(bars, lockedNodes, areas, prestresses, dt, c, useMassDamping, calcSafeTimeStep, treshold);
 
                 int counter = 0;
                 for (int i = 0; i < maxNoIt; i++)
                 {
-                    BHoM_Engine.FormFinding.DynamicRelaxation.RelaxStructure(structure, unaryNodalLoad, useMassDamping);
+                    FormFinding_Engine.DynamicRelaxation.RelaxStructure(structure, unaryNodalLoad, useMassDamping);
 
                     //Draw lines
                     for (int j = 0; j < structure.Bars.Count; j++)
