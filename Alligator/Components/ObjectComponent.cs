@@ -69,9 +69,9 @@ namespace Alligator
             return pType.BaseType == typeof(BHoM.Geometry.GeometryBase);
         }
 
-        public static bool IsEnumerable(this Type type)
+        public static bool IsEnumerable(Type type)
         {
-            return type != typeof(string) && typeof(IEnumerable<>).IsAssignableFrom(type);
+            return type != typeof(string) && !typeof(IDictionary<string, object>).IsAssignableFrom(type) && type.GetInterface("IEnumerable") != null;
         }
 
         public static string GetDescription(PropertyInfo info)
@@ -404,16 +404,20 @@ namespace Alligator
                 }
                 else
                 {
-                    object list = null;
-                    if (pType.BaseType == typeof(BHoMObject))
+                    if (pType.IsGenericType)
                     {
-                        list = Utils.GetGenericDataList<BHoMObject>(DA, i);
+                        Type listType = pType.GetGenericArguments()[0];
+                        var utils = typeof(Utils);
+
+                        MethodInfo methodInfo = utils.GetMethod("GetGenericDataList", System.Reflection.BindingFlags.Static | BindingFlags.Public);
+                        MethodInfo genericMethodInfo = methodInfo.MakeGenericMethod(new Type[] { listType });
+
+                        var newList = typeof(List<>);
+                        var listOfType = newList.MakeGenericType(listType);
+                        var list = genericMethodInfo.Invoke(null, new object[] { DA, i });
+
+                        prop.SetValue(obj, list);
                     }
-                    else
-                    {
-                        list =  Utils.GetDataList<object>(DA, i);
-                    }
-                    prop.SetValue(obj, list, null);
                 }
             }
             if (obj.CustomData == null) obj.CustomData = new Dictionary<string, object>();
