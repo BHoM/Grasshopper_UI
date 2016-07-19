@@ -32,7 +32,7 @@ namespace Alligator.Mongo
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BHoM_Engine.Databases.Mongo.MongoLink link = Utils.GetGenericData<BHoM_Engine.Databases.Mongo.MongoLink>(DA, 0);
+            Databases_Engine.Mongo.MongoLink link = Utils.GetGenericData<Databases_Engine.Mongo.MongoLink>(DA, 0);
             string filter = Utils.GetData<string>(DA, 1);
 
             DA.SetDataList(0, link.GetObjects(filter));

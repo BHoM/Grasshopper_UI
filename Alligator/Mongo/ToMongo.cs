@@ -31,7 +31,7 @@ namespace Alligator.Mongo
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BHoM_Engine.Databases.Mongo.MongoLink link = Utils.GetGenericData<BHoM_Engine.Databases.Mongo.MongoLink>(DA, 0);
+            Databases_Engine.Mongo.MongoLink link = Utils.GetGenericData<Databases_Engine.Mongo.MongoLink>(DA, 0);
             List<BHoM.Global.BHoMObject> bhomObjects = Utils.GetGenericDataList<BHoM.Global.BHoMObject>(DA, 1);
 
             link.SaveObjects(bhomObjects);
