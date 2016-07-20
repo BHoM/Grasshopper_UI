@@ -28,7 +28,7 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Curves", "Crvs", "Set of curves to join", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Curves", "crvs", "Set of curves to join", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("JoinedCurves", "JoinedCrvs", "Joined curves", GH_ParamAccess.list);
+            pManager.AddGenericParameter("JoinedCurves", "joinedCrvs", "Joined curves", GH_ParamAccess.list);
         }
 
         /// <summary>

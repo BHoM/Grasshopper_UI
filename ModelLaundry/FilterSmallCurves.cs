@@ -27,8 +27,8 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Curves to Filter", "InCurves", "Curves to be filtered", GH_ParamAccess.item);
-            pManager.AddNumberParameter("max Lenght", "maxL", "max length of the curve", GH_ParamAccess.item);
+            pManager.AddGenericParameter("BHoM Elements", "bhElements", "Element owning the curves to be filtered", GH_ParamAccess.item);
+            pManager.AddNumberParameter("max Length", "maxL", "max length of the curve", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -36,8 +36,8 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("remaining", "remaining", "curves longer than maxLength", GH_ParamAccess.list);
-            pManager.AddGenericParameter("removed", "removed", "curves shorter than maxLength", GH_ParamAccess.list);
+            pManager.AddGenericParameter("cleared object", "remaining", "Element whose curves have been filtered", GH_ParamAccess.list);
+            pManager.AddGenericParameter("removed", "removed", "curves removed from teh element", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -50,58 +50,12 @@ namespace Alligator.ModelLaundry
             object element = Utils.GetGenericData<object>(DA, 0);
             double dist = Utils.GetData<double>(DA, 1);
 
-            // Get the geometry of the ref elements
-            BH.GeometryBase geom = null;
-            if (element is BHoM.Global.BHoMObject)
-                geom = ((BHoM.Global.BHoMObject)element).GetGeometry();
-            else if (element is BH.GeometryBase)
-            geom = element as BH.GeometryBase;
-
-            BH.Group<BH.Curve> group = new BH.Group<BH.Curve>();
-            if (geom is BH.Curve)
-                group.Add((BH.Curve)geom);
-            else if (geom is BH.Group<BH.Curve>)
-            {
-                group = geom as BH.Group<BH.Curve>;
-            }
-
-            // Actually do the filtering
-            BH.Group<BH.Curve> removed = new Group<BH.Curve>();
-            BH.Group<BH.Curve> remaining = ModelLaundry_Engine.Util.RemoveSmallContours(group, dist, out removed);
-
-            // Prepare the result
-            object result = element;
-            if (element is BHoM.Global.BHoMObject)
-            {
-                result = (BHoM.Global.BHoMObject)((BHoM.Global.BHoMObject)element).ShallowClone();
-                ((BHoM.Global.BHoMObject)result).SetGeometry(remaining);
-            }
-            else if (element is BH.GeometryBase)
-            {
-                result = group;
-            }
-
-            /*else if(geometry is BH.PolyCurve)
-            {
-                BH.PolyCurve curve = geometry as BH.PolyCurve;
-                List<BH.Curve> tempCrv = curve.Explode();
-                List<BH.Point> tempPts = new List<BH.Point>();
-                for (int j = 0; j < tempCrv.Count; j++)
-                {
-                    tempPts.Add(tempCrv[j].StartPoint);
-                }
-
-                if (curve.IsClosed())
-                {
-                    tempPts.Add(tempCrv[tempCrv.Count - 1].EndPoint);
-                }
-
-                BH.Polyline newPolyLine = new BH.Polyline(tempPts);
-                output = Util.HorizontalExtend(newPolyLine, dist);
-            }*/
+            Group<BH.Curve> removed = new Group<BH.Curve>();
+            object remaining = Util.RemoveSmallContours(element, dist, out removed);
 
             // Setting the GH outputs
-            DA.SetData(0, result);
+            DA.SetData(0, remaining);
+            DA.SetData(1, removed);
         }
 
         /// <summary>

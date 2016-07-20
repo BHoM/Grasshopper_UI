@@ -48,6 +48,9 @@
     <Reference Include="Grasshopper">
       <HintPath>..\External Libraries\Grasshopper.dll</HintPath>
     </Reference>
+    <Reference Include="ModelLaundry_Engine">
+      <HintPath>..\..\BHoM_Engine\Build\ModelLaundry_Engine.dll</HintPath>
+    </Reference>
     <Reference Include="RobotToolkit">
       <HintPath>..\..\RobotToolkit\Build\RobotToolkit.dll</HintPath>
     </Reference>

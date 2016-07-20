@@ -61,8 +61,9 @@
     <Compile Include="FilterSmallCurves.cs" />
     <Compile Include="HorizontalExtend.cs" />
     <Compile Include="HorizontalParallellSnap.cs" />
-    <Compile Include="HorizontalExtendSnap.cs" />
+    <Compile Include="HorizontalSnapToShape.cs" />
     <Compile Include="JoinCurves.cs" />
+    <Compile Include="PointToPointSnap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VerticalSnapToHeight.cs" />
     <Compile Include="VerticalSnapToShapes.cs" />

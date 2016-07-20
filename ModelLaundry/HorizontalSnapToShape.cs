@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Drawing;
 using System.Collections.Generic;
 using ModelLaundry_Engine;
@@ -10,12 +11,18 @@ using R = Rhino.Geometry;
 
 namespace Alligator.ModelLaundry
 {
-    public class VerticalSnapToShapes : GH_Component
+    public class HorizontalSnapToShape : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the VerticalPointSnaping class.
+        /// Initializes a new instance of the HorizontalPointSnap class.
         /// </summary>
-        public VerticalSnapToShapes() : base("VerticalSnapToShapes", "VSnap2S", "Vertically snap to a set of reference shapes", "Alligator", "ModelLaundry") { }
+        public HorizontalSnapToShape()
+          : base("HorizontalSnapToShape", "HSnap2S",
+              "Horizontal snapping to shapes",
+              "Alligator", "ModelLaundry")
+        {
+        }
+
         /// <summary>
         /// Registers all the input parameters for this component.
         /// </summary>
@@ -44,7 +51,7 @@ namespace Alligator.ModelLaundry
             List<object> refElements = Utils.GetGenericDataList<object>(DA, 1);
             double tol = Utils.GetData<double>(DA, 2);
 
-            object result = Snapping.VerticalSnapToShape(element, refElements, tol);
+            object result = Snapping.HorizontalSnapToShape(element, refElements, tol);
             DA.SetData(0, result);
         }
 
@@ -57,7 +64,7 @@ namespace Alligator.ModelLaundry
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return base.Icon;
+                return null;
             }
         }
 
@@ -66,7 +73,7 @@ namespace Alligator.ModelLaundry
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("7FA1BD86-5D3F-496B-9584-D4D18805C21F"); }
+            get { return new Guid("{ad59f890-c387-4a68-a2cc-bc401725779d}"); }
         }
     }
 }

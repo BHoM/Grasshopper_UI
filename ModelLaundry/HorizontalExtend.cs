@@ -27,8 +27,8 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("GeometryToExtend", "GeomToExtend", "Line or Polyline to extend", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Distance", "Dist", "Extention distance", GH_ParamAccess.item);
+            pManager.AddGenericParameter("BHoM Elements", "bhElements", "BHoM object or geometry to extend", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Distance", "distance", "Extention distance", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("ExtendedGeometry", "ExtendedGeom", "New BHoMLine or BHoMPolyline", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Extended Element", "extended", "New object or geometry after extention", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -49,59 +49,7 @@ namespace Alligator.ModelLaundry
             object element = Utils.GetGenericData<object>(DA, 0);
             double dist = Utils.GetData<double>(DA, 1);
 
-            // Get the geometry
-            BH.GeometryBase geometry = null;
-            if (element is BHoM.Global.BHoMObject)
-                geometry = ((BHoM.Global.BHoMObject)element).GetGeometry();
-            else if (element is BH.GeometryBase)
-                geometry = element as BH.GeometryBase;
-
-            BH.GeometryBase output = null;
-            if (geometry is BH.Line)
-            {
-                output = Util.HorizontalExtend((BH.Line)geometry, dist);
-            }
-            else if (geometry is BH.Curve)
-            {
-                output = Util.HorizontalExtend((BH.Curve)geometry, dist);
-            }
-            else if (geometry is BH.Group<BH.Curve>)
-            {
-                output = Util.HorizontalExtend((BH.Group<BH.Curve>)geometry, dist);
-            }
-
-            // Prepare the result
-            object result = element;
-            if (element is BHoM.Global.BHoMObject)
-            {
-                result = (BHoM.Global.BHoMObject)((BHoM.Global.BHoMObject)element).ShallowClone();
-                ((BHoM.Global.BHoMObject)result).SetGeometry(output);
-            }
-            else if (element is BH.GeometryBase)
-            {
-                result = output;
-            }
-                
-            /*else if(geometry is BH.PolyCurve)
-            {
-                BH.PolyCurve curve = geometry as BH.PolyCurve;
-                List<BH.Curve> tempCrv = curve.Explode();
-                List<BH.Point> tempPts = new List<BH.Point>();
-                for (int j = 0; j < tempCrv.Count; j++)
-                {
-                    tempPts.Add(tempCrv[j].StartPoint);
-                }
-
-                if (curve.IsClosed())
-                {
-                    tempPts.Add(tempCrv[tempCrv.Count - 1].EndPoint);
-                }
-
-                BH.Polyline newPolyLine = new BH.Polyline(tempPts);
-                output = Util.HorizontalExtend(newPolyLine, dist);
-            }*/
-
-                // Setting the GH outputs
+            object result = Util.HorizontalExtend(element, dist);
             DA.SetData(0, result);
         }
 

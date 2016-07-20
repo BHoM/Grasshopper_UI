@@ -16,7 +16,7 @@ namespace Alligator.ModelLaundry
         /// Initializes a new instance of the HorizontalParallellSnap class.
         /// </summary>
         public HorizontalParallellSnap()
-          : base("HorizontalParallellSnap", "HParallellSnap",
+          : base("HorizontalParallellSnap", "HPSnap",
               "Description",
               "Alligator", "ModelLaundry")
         {
@@ -27,9 +27,9 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("GeometryToSnap", "GeomToSnap", "Input an BHoM object or contour", GH_ParamAccess.item);
-            pManager.AddGenericParameter("GeometryToSnapTo", "GeomToSnapTo", "Input an list of BHoM objects or contours", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Tolerance", "Tol", "Set a tolerance for the snapping", GH_ParamAccess.item, 0.2);
+            pManager.AddGenericParameter("BHoM Elements", "bhElements", "BHoM object or geometry to snap", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Reference BHoM Elements", "refBHElem", "reference BHoM object or geometry to snap to", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Tolerance", "tolerance", "Set a tolerance for the snapping", GH_ParamAccess.item, 0.2);
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("SnapedGeometry", "SnapedGeom", "New BHoM Polyline", GH_ParamAccess.item);
+            pManager.AddGenericParameter("SnappedElement", "snapped", "resulting BHoM object or geometry", GH_ParamAccess.item);
         }
 
         /// <summary>

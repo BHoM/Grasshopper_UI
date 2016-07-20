@@ -10,12 +10,12 @@ using R = Rhino.Geometry;
 
 namespace Alligator.ModelLaundry
 {
-    public class VerticalSnapToShapes : GH_Component
+    public class PointToPointSnap : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the VerticalPointSnaping class.
         /// </summary>
-        public VerticalSnapToShapes() : base("VerticalSnapToShapes", "VSnap2S", "Vertically snap to a set of reference shapes", "Alligator", "ModelLaundry") { }
+        public PointToPointSnap() : base("PointToPointSnap", "P2PSnap", "Snap control points to control points", "Alligator", "ModelLaundry") { }
         /// <summary>
         /// Registers all the input parameters for this component.
         /// </summary>
@@ -44,7 +44,7 @@ namespace Alligator.ModelLaundry
             List<object> refElements = Utils.GetGenericDataList<object>(DA, 1);
             double tol = Utils.GetData<double>(DA, 2);
 
-            object result = Snapping.VerticalSnapToShape(element, refElements, tol);
+            object result = Snapping.PointToPointSnap(element, refElements, tol);
             DA.SetData(0, result);
         }
 
@@ -66,7 +66,7 @@ namespace Alligator.ModelLaundry
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("7FA1BD86-5D3F-496B-9584-D4D18805C21F"); }
+            get { return new Guid("80E6994D-485D-4550-8BB2-65A48998D76C"); }
         }
     }
 }

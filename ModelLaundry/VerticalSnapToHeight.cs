@@ -15,15 +15,15 @@ namespace Alligator.ModelLaundry
         /// <summary>
         /// Initializes a new instance of the VerticalPointSnaping class.
         /// </summary>
-        public VerticalSnapToHeight() : base("VerticalSnapToHeight", "VEndSnap", "Description", "Alligator", "ModelLaundry") { }
+        public VerticalSnapToHeight() : base("VerticalSnapToHeight", "VSnap2H", "Description", "Alligator", "ModelLaundry") { }
         /// <summary>
         /// Registers all the input parameters for this component.
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("GeometryToSnap", "GeomToSnap", "Input an BHoM polyline", GH_ParamAccess.item);
-            pManager.AddNumberParameter("HeightToSnapTo", "HeightToSnapTo", "Input a set of heights to snap to", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Tolerance", "Tol", "Set a tolerance for the snapping", GH_ParamAccess.item, 0.2);
+            pManager.AddGenericParameter("BHoM Elements", "bhElements", "BHoM object or geometry to snap", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Reference BHoM Elements", "refBHElem", "reference BHoM object or geometry to snap to", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Tolerance", "tolerance", "Set a tolerance for the snapping", GH_ParamAccess.item, 0.2);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("SnapedGeometry", "SnapedGeom", "New BHoM Polyline", GH_ParamAccess.item);
+            pManager.AddGenericParameter("SnappedElement", "snapped", "resulting BHoM object or geometry", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -44,41 +44,7 @@ namespace Alligator.ModelLaundry
             List<double> refHeights = Utils.GetDataList<double>(DA, 1);
             double tol = Utils.GetData<double>(DA, 2);
 
-            // Get the geometry of the element
-            BH.GeometryBase geometry = null;
-            if (element is BHoM.Global.BHoMObject)
-                geometry = ((BHoM.Global.BHoMObject)element).GetGeometry();
-            else if (element is BH.GeometryBase)
-                geometry = element as BH.GeometryBase;
-
-            // Do the actal snapping
-            BH.GeometryBase output = null;
-            if (geometry is BH.Line)
-            {
-                output = Snapping.VerticalEndSnap((BH.Line)geometry, refHeights, tol);
-            }
-            else if (geometry is BH.Curve)
-            {
-                output = Snapping.VerticalEndSnap((BH.Curve)geometry, refHeights, tol);
-            }
-            else if (geometry is BH.Group<BH.Curve>)
-            {
-                output = Snapping.VerticalEndSnap((BH.Group<BH.Curve>)geometry, refHeights, tol);
-            }
-
-            // Prepare the result
-            object result = element;
-            if (element is BHoM.Global.BHoMObject)
-            {
-                result = (BHoM.Global.BHoMObject)((BHoM.Global.BHoMObject)element).ShallowClone();
-                ((BHoM.Global.BHoMObject)result).SetGeometry(output);
-            }
-            else if (element is BH.GeometryBase)
-            {
-                result = output;
-            }
-
-            // Return the outputs
+            object result = Snapping.VerticalSnapToHeight(element, refHeights, tol);
             DA.SetData(0, result);
         }
 

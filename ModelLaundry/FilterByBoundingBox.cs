@@ -23,8 +23,8 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("GeometrytoFilter", "GeomtoFilt", "Insert a set of geometry to be filtred", GH_ParamAccess.list);
-            pManager.AddBoxParameter("BoundingboxtoFilterBy", "BBox", "Insert a set of boundingboxes to filter geometry", GH_ParamAccess.list);
+            pManager.AddGenericParameter("BHoM Elements", "bhElements", "BHoM objects or geometry to be filtered", GH_ParamAccess.list);
+            pManager.AddBoxParameter("Boundingbox to Filter by", "bBox", "Insert a set of boundingboxes to filter by", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -32,8 +32,8 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Insiders", "Inside", "Geometrys inside the boundingbox", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Outsiders", "Outside", "Geometrys outside the boundingbox", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Insiders", "inside", "Elements inside the boundingbox", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Outsiders", "outside", "Elements outside the boundingbox", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -60,47 +60,12 @@ namespace Alligator.ModelLaundry
                 bhomBoxes.Add(new BH.BoundingBox(bhomBoxCornerPt));
             }
 
-            // Separate the objects between insiders and outsiders
-            List<object> insiders = new List<object>();
             List<object> outsiders = new List<object>();
-            foreach (object element in elements)
-            {
-                if (element is BHoM.Global.BHoMObject && Util.IsInside(((BHoM.Global.BHoMObject)element).GetGeometry(), bhomBoxes))
-                    insiders.Add(element);
-                else if (element is BH.GeometryBase && Util.IsInside((BH.GeometryBase)element, bhomBoxes))
-                    insiders.Add(element);
-                else
-                    outsiders.Add(element);
-            }
-
-            /*List<BH.GeometryBase> geometries = new List<BH.GeometryBase>();
-            for (int i = 0; i < elements.Count; i++)
-            {
-                BH.GeometryBase geometry = elements[i].GetGeometry();
-                if (geometry is BH.Curve)       // TODO - This case is only here to go around a bug in the bounding  box for polycurve
-                {
-                    BH.Curve tempCrv = geometry as BH.Curve;
-                    Group<BH.Curve> crvs = new Group<BH.Curve>();
-                    crvs = new Group<BHoM.Geometry.Curve>(tempCrv.Explode());
-                    geometries.Add(crvs);
-                }
-
-                else
-                {
-                    geometries.Add(geometry);
-                }
-
-            }
-
-            List<BHoM.Global.BHoMObject> outsiders = new List<BHoM.Global.BHoMObject>();
-            List<BH.GeometryBase> insiders = Util.FilterByBoundingBox(geometries, bhomBoxes, out outsiders);*/
+            List<object> insiders = Util.FilterByBoundingBox(elements, bhomBoxes, out outsiders);
 
             // Set GH outputs
             DA.SetDataList(0, insiders);
             DA.SetDataList(1, outsiders);
-
-
-
         }
             
         /// <summary>
