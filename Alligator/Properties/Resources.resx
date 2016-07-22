@@ -121,11 +121,23 @@
   <data name="bar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="bar_gravityload" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bar_gravityload.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bar_prestressload" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bar_prestressload.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="constraint" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\constraint.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="DOF" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DOF.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="gator" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\gator.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="loadcase" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\loadcase.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="material" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\material.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

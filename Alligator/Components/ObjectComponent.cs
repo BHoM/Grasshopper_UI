@@ -332,6 +332,10 @@ namespace Alligator
                                 {
                                     pManager.AddBrepParameter(name, nickName, description, access);
                                 }
+                                else if (pType == typeof(BHoM.Geometry.Group<BHoM.Geometry.Curve>))
+                                {
+                                    pManager.AddGroupParameter(name, nickName, description, GH_ParamAccess.item);
+                                }
                             }
                             else
                             {
