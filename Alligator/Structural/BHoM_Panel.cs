@@ -68,4 +68,52 @@ namespace Alligator.Structural
         }
 
     }
+
+    public class MultiExportPanel : GH_Component
+    {
+        public MultiExportPanel() : base("Multi Export Panel", "ExPanel", "Creates or Replaces the geometry of a Panel", "Alligator", "Structural") { }
+
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.secondary;
+            }
+        }
+
+        protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
+        {
+            pManager.AddGenericParameter("Application", "App", "Application to export bars to", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Panels", "P", "BHoM panels to export", GH_ParamAccess.list);
+            pManager.AddBooleanParameter("Execute", "R", "Generate Panels", GH_ParamAccess.item);
+
+            pManager[2].Optional = true;
+        }
+
+        protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
+        {
+            pManager.AddIntegerParameter("Ids", "Ids", "Bar Numbers", GH_ParamAccess.list);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            if (Utils.Run(DA, 2))
+            {
+                IStructuralAdapter app = Utils.GetGenericData<IStructuralAdapter>(DA, 0);
+                if (app != null)
+                {
+                    List<Panel> panels = Utils.GetGenericDataList<Panel>(DA, 1);
+                    List<string> ids = null;
+                    app.SetPanels(panels, out ids);
+
+                    DA.SetDataList(0, ids);
+                }
+            }
+        }
+
+        public override Guid ComponentGuid
+        {
+            get { return new Guid("72fb2007-5da5-4037-b480-6e134df8c583"); }
+        }
+    }
 }

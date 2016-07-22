@@ -23,7 +23,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.constraint; }
+            get { return Alligator.Properties.Resources.DOF; }
         }
     }
 }
