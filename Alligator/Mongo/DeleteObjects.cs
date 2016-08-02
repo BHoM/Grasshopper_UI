@@ -7,15 +7,15 @@ using Grasshopper.Kernel;
 
 namespace Alligator.Mongo
 {
-    public class FromMongo : GH_Component
+    public class DeleteObjects : GH_Component
     {
-        public FromMongo() : base("FromMongo", "FromMongo", "Get BHoM objects from a Mongo database", "Alligator", "Mongo") { }
+        public DeleteObjects() : base("DeleteObjects", "DeleteObjects", "Delete the objects that match the filter from the database", "Alligator", "Mongo") { }
 
         public override Guid ComponentGuid
         {
             get
             {
-                return new Guid("AE8F5C54-8746-48BF-A01D-7B4D28A2D91A");
+                return new Guid("9EB7A714-2C00-46BC-A260-C9E393355D6E");
             }
         }
 
@@ -23,19 +23,21 @@ namespace Alligator.Mongo
         {
             pManager.AddGenericParameter("Mongo link", "link", "collection to get the data from", GH_ParamAccess.item);
             pManager.AddTextParameter("filter", "filter", "filter string", GH_ParamAccess.item, "{}");
+            pManager.AddBooleanParameter("active", "active", "check if the compoenent currently allows data transfer", GH_ParamAccess.item, false);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("BHoM objects", "objects", "BHoM objects to convert", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             Databases_Engine.Mongo.MongoLink link = Utils.GetGenericData<Databases_Engine.Mongo.MongoLink>(DA, 0);
             string filter = Utils.GetData<string>(DA, 1);
+            bool active = false; DA.GetData<bool>(2, ref active);
 
-            DA.SetDataList(0, link.GetObjects(filter));
+            if (active)
+                link.DeleteObjects(filter);
         }
     }
 }

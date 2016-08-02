@@ -73,6 +73,7 @@
     <Compile Include="Global\GetProperty.cs" />
     <Compile Include="Global\SetProperty.cs" />
     <Compile Include="Global\ToJSON.cs" />
+    <Compile Include="Mongo\DeleteObjects.cs" />
     <Compile Include="Mongo\FromMongo.cs" />
     <Compile Include="Mongo\MongoLink.cs" />
     <Compile Include="Mongo\ToMongo.cs" />

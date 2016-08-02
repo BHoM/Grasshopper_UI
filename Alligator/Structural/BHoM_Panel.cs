@@ -51,10 +51,11 @@ namespace Alligator.Structural
             // Getting the inputs from GH
             Panel panel = Utils.GetGenericData<Panel>(DA, 0);
 
-            // Createing the panel without openings
+            // Creating the panel without openings
             Panel newPanel = panel.ShallowClone() as Panel;
             Group<Curve> contour = new Group<Curve>();
-            contour.Add(panel.External_Contour);
+            foreach (Curve curve in panel.External_Contours)
+                contour.Add(curve);
             newPanel.Edges = contour;
 
             // Getting the openings

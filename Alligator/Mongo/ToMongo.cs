@@ -23,6 +23,8 @@ namespace Alligator.Mongo
         {
             pManager.AddGenericParameter("Mongo link", "link", "collection to send the data to", GH_ParamAccess.item);
             pManager.AddGenericParameter("BHoM objects", "objects", "BHoM objects to convert", GH_ParamAccess.list);
+            pManager.AddTextParameter("key", "key", "key used to tag the saved data", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("active", "active", "check if the compoenent currently allows data transfer", GH_ParamAccess.item, false);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -34,7 +36,11 @@ namespace Alligator.Mongo
             Databases_Engine.Mongo.MongoLink link = Utils.GetGenericData<Databases_Engine.Mongo.MongoLink>(DA, 0);
             List<BHoM.Global.BHoMObject> bhomObjects = Utils.GetGenericDataList<BHoM.Global.BHoMObject>(DA, 1);
 
-            link.SaveObjects(bhomObjects);
+            string key = ""; DA.GetData<string>(2, ref key);
+            bool active = false; DA.GetData<bool>(3, ref active);
+
+            if (!active) return;
+            link.SaveObjects(bhomObjects, key);
         }
     }
 }

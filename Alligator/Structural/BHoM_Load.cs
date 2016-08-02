@@ -9,7 +9,7 @@ using Grasshopper.Kernel;
 
 namespace Alligator.Structural.Loads
 {
-    public class CreateBarGravityLoad : BHoMBaseComponent<BarGravityLoad>
+    public class CreateBarGravityLoad : BHoMBaseComponent<Load<Bar>>
     {
         public CreateBarGravityLoad() : base("Create Bar Gravity Load", "CreateBarGravityLoad", "Create a BH bar gravity load", "Alligator", "Structural") { }
 
