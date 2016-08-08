@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Alligator">
-      <HintPath>..\Alligator\bin\Alligator.dll</HintPath>
-    </Reference>
     <Reference Include="BHoM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
@@ -66,14 +63,12 @@
   <ItemGroup>
     <Compile Include="Elements\GSA_Bar.cs" />
     <Compile Include="GSA_Application.cs" />
-    <Compile Include="Load\GSA_Load.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SectionProperty\GSA_SectionProperty.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -92,6 +87,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\sectionproperty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Alligator\Alligator.csproj">
+      <Project>{2e3b219e-7bd2-4f75-bfaf-9b7735827ed4}</Project>
+      <Name>Alligator</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
