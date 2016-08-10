@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BHoM.Structural.Loads;
-using BHoM.Structural;
 using Grasshopper.Kernel;
+using Alligator.Components;
+using GHE = Grasshopper_Engine;
+using BHE = BHoM.Structural.Elements;
+using BHI = BHoM.Structural.Interface;
 
 namespace Alligator.Structural.Loads
 {
-    public class CreateBarGravityLoad : BHoMBaseComponent<Load<Bar>>
+    public class CreateBarGravityLoad : BHoMBaseComponent<Load<BHE.Bar>>
     {
         public CreateBarGravityLoad() : base("Create Bar Gravity Load", "CreateBarGravityLoad", "Create a BH bar gravity load", "Alligator", "Structural") { }
 
@@ -74,12 +77,12 @@ namespace Alligator.Structural.Loads
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            if (Utils.Run(DA, 2))
+            if (GHE.DataUtils.Run(DA, 2))
             {
-                IStructuralAdapter app = Utils.GetGenericData<IStructuralAdapter>(DA, 0);
+                BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
                 if (app != null)
                 {
-                    List<ILoad> loads = Utils.GetGenericDataList<ILoad>(DA, 1);
+                    List<ILoad> loads = GHE.DataUtils.GetGenericDataList<ILoad>(DA, 1);
                     app.SetLoads(loads);
 
                 }

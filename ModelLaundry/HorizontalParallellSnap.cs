@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Drawing;
 using System.Collections.Generic;
-using ModelLaundry_Engine;
-using BHoM.Geometry;
 using Grasshopper.Kernel;
-using Rhino.Geometry;
-using BH = BHoM.Geometry;
-using R = Rhino.Geometry;
+using BHB = BHoM.Base;
+using MLE = ModelLaundry_Engine;
+using GHE = Grasshopper_Engine;
+using BHG = BHoM.Geometry;
+
 
 namespace Alligator.ModelLaundry
 {
@@ -46,101 +45,65 @@ namespace Alligator.ModelLaundry
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            object element = Utils.GetGenericData<object>(DA, 0);
-            List<object> refElements = Utils.GetGenericDataList<object>(DA, 1);
-            double tol = Utils.GetData<double>(DA, 2);
+            object element = GHE.DataUtils.GetGenericData<object>(DA, 0);
+            List<object> refElements = GHE.DataUtils.GetGenericDataList<object>(DA, 1);
+            double tol = GHE.DataUtils.GetData<double>(DA, 2);
 
             // Get the geometry of the element
-            BH.GeometryBase geometry = null;
-            if (element is BHoM.Global.BHoMObject)
-                geometry = ((BHoM.Global.BHoMObject)element).GetGeometry();
-            else if (element is BH.GeometryBase)
-                geometry = element as BH.GeometryBase;
-            BH.BoundingBox ROI = geometry.Bounds();
+            BHG.GeometryBase geometry = null;
+            if (element is BHB.BHoMObject)
+                geometry = ((BHB.BHoMObject)element).GetGeometry();
+            else if (element is BHG.GeometryBase)
+                geometry = element as BHG.GeometryBase;
+            BHG.BoundingBox ROI = geometry.Bounds();
             ROI.Inflate(tol);
 
             // Get the geometry of the ref elements
-            List<BH.Curve> refGeom = new List<BH.Curve>();
+            List<BHG.Curve> refGeom = new List<BHG.Curve>();
             foreach (object refElem in refElements)
             {
-                BH.GeometryBase geom = null;
-                if (refElem is BHoM.Global.BHoMObject)
-                    geom = ((BHoM.Global.BHoMObject)refElem).GetGeometry();
-                else if (refElem is BH.GeometryBase)
-                    geom = refElem as BH.GeometryBase;
+                BHG.GeometryBase geom = null;
+                if (refElem is BHB.BHoMObject)
+                    geom = ((BHB.BHoMObject)refElem).GetGeometry();
+                else if (refElem is BHG.GeometryBase)
+                    geom = refElem as BHG.GeometryBase;
 
-                if (BH.BoundingBox.InRange(ROI, geom.Bounds()))
+                if (BHG.BoundingBox.InRange(ROI, geom.Bounds()))
                 {
-                    if (geom is BH.Curve)
-                        refGeom.Add((BH.Curve)geom);
-                    else if (geom is BH.Group<BH.Curve>)
+                    if (geom is BHG.Curve)
+                        refGeom.Add((BHG.Curve)geom);
+                    else if (geom is BHG.Group<BHG.Curve>)
                     {
-                        List<BH.Curve> list = BH.Curve.Join((BH.Group<BH.Curve>)geom);
+                        List<BHG.Curve> list = BHG.Curve.Join((BHG.Group<BHG.Curve>)geom);
                         refGeom.Add(list[0]);
                     }
                 }
             }
 
             // Do the actal snapping
-            BH.GeometryBase output = null;
-            if (geometry is BH.Curve)
+            BHG.GeometryBase output = null;
+            if (geometry is BHG.Curve)
             {
-                output = Snapping.HorizontalParallelSnap((BH.Curve)geometry, refGeom, tol);
+                output = MLE.Snapping.HorizontalParallelSnap((BHG.Curve)geometry, refGeom, tol);
             }
-            else if (geometry is BH.Group<BH.Curve>)
+            else if (geometry is BHG.Group<BHG.Curve>)
             {
-                output = Snapping.HorizontalParallelSnap((BH.Group<BH.Curve>)geometry, refGeom, tol);
+                output = MLE.Snapping.HorizontalParallelSnap((BHG.Group<BHG.Curve>)geometry, refGeom, tol);
             }
 
             // Prepare the result
             object result = element;
-            if (element is BHoM.Global.BHoMObject)
+            if (element is BHB.BHoMObject)
             {
-                result = (BHoM.Global.BHoMObject)((BHoM.Global.BHoMObject)element).ShallowClone();
-                ((BHoM.Global.BHoMObject)result).SetGeometry(output);
+                result = ((BHB.BHoMObject)element).ShallowClone();
+                ((BHB.BHoMObject)result).SetGeometry(output);
             }
-            else if (element is BH.GeometryBase)
+            else if (element is BHG.GeometryBase)
             {
                 result = output;
             }
 
             DA.SetData(0, result);
-
-            /*BH.Polyline contour = Utils.GetGenericData<BH.Polyline>(DA, 0);
-            double tol = Utils.GetData<double>(DA, 2);
-            List<BH.Polyline> newPolyLines = new List<BHoM.Geometry.Polyline>();
-            List<BH.Curve> refContour = Utils.GetGenericDataList<BH.Curve>(DA, 1);
-            List<BH.Point> tempPts = new List<BHoM.Geometry.Point>();
-            BH.Polyline output = null;
-
-            for (int i = 0; i < refContour.Count; i++)
-            {
-                if (refContour[i] is BHoM.Geometry.PolyCurve)
-                {
-                    List<BH.Curve> tempCrv = refContour[i].Explode();
-                    tempPts = new List<BH.Point>();
-                    for (int j = 0; j < tempCrv.Count; j++)
-                    {
-                        tempPts.Add(tempCrv[j].StartPoint);
-                    }
-
-                    if (refContour[i].IsClosed())
-                    {
-                        tempPts.Add(tempCrv[tempCrv.Count - 1].EndPoint);
-                    }
-
-                    newPolyLines.Add(new BH.Polyline(tempPts));
-                }
-
-                else if (refContour[i] is BHoM.Geometry.Polyline)
-                {
-                    newPolyLines.Add((BH.Polyline)refContour[i]);
-                }
-            }
-
-            output = Snapping.HorizontalParallelSnap(contour, newPolyLines, tol);
-
-            DA.SetData(0, output);*/
         }
 
         /// <summary>

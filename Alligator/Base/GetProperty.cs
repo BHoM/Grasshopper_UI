@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
+using GHE = Grasshopper_Engine;
 
-namespace Alligator.Global
+namespace Alligator.Base
 {
     public class GetProperty : GH_Component
     {
-        public GetProperty() : base("GetProperty", "GetProperty", "Get property of a BHoM object from the property name", "Alligator", "Global") { }
+        public GetProperty() : base("GetProperty", "GetProperty", "Get property of a BHoM object from the property name", "Alligator", "Base") { }
 
         public override Guid ComponentGuid
         {
@@ -32,8 +33,8 @@ namespace Alligator.Global
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            object o = Utils.GetGenericData<object>(DA, 0);
-            string key = Utils.GetData<string>(DA, 1);
+            object o = GHE.DataUtils.GetGenericData<object>(DA, 0);
+            string key = GHE.DataUtils.GetData<string>(DA, 1);
 
             System.Reflection.PropertyInfo prop = o.GetType().GetProperty(key);
             if (prop == null)

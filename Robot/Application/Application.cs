@@ -1,6 +1,6 @@
 ﻿using Grasshopper.Kernel;
 using System;
-using RobotToolkit;
+using RSI = Robot_Adapter.Structural.Interface;
 
 namespace Alligator.Robot
 {
@@ -23,7 +23,7 @@ namespace Alligator.Robot
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            RobotAdapter app = new RobotAdapter();
+            RSI.RobotAdapter app = new RSI.RobotAdapter();
             DA.SetData(0, app);        
         }
 

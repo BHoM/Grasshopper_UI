@@ -1,11 +1,10 @@
-﻿using BHoM.Structural;
-using Grasshopper.Kernel;
+﻿using Grasshopper.Kernel;
 using System;
 using System.Collections.Generic;
+using GHE = Grasshopper_Engine;
+using BHI = BHoM.Structural.Interface;
+using BHE = BHoM.Structural.Elements;
 
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Alligator.Robot.Elements
 {
@@ -36,12 +35,12 @@ namespace Alligator.Robot.Elements
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            if (Utils.Run(DA, 2))
+            if (GHE.DataUtils.Run(DA, 2))
             {
-                IStructuralAdapter app = Utils.GetGenericData<IStructuralAdapter>(DA, 0);
+                BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
                 if (app != null)
                 {
-                    List<Panel> panels = Utils.GetGenericDataList<Panel>(DA, 1);
+                    List<BHE.Panel> panels = GHE.DataUtils.GetGenericDataList<BHE.Panel>(DA, 1);
                     List<string> ids = null;
                     app.SetPanels(panels, out ids);
 

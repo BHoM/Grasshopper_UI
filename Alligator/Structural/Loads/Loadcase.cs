@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BHoM.Structural.Loads;
-using BHoM.Structural;
 using Grasshopper.Kernel;
+using Alligator.Components;
+using GHE = Grasshopper_Engine;
+using BHL = BHoM.Structural.Loads;
+using BHI = BHoM.Structural.Interface;
 
 namespace Alligator.Structural.Loads
 {
-    public class CreateLoadcase : BHoMBaseComponent<Loadcase>
+    public class CreateLoadcase : BHoMBaseComponent<BHL.Loadcase>
     {
         public CreateLoadcase() : base("Create Loadcase", "CreateLoadcase", "Create a BH Loadcase object", "Alligator", "Structural") { }
 
@@ -55,12 +57,12 @@ namespace Alligator.Structural.Loads
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            if (Utils.Run(DA, 2))
+            if (GHE.DataUtils.Run(DA, 2))
             {
-                IStructuralAdapter app = Utils.GetGenericData<IStructuralAdapter>(DA, 0);
+                BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
                 if (app != null)
                 {
-                    List<ICase> loadcases = Utils.GetGenericDataList<ICase>(DA, 1);
+                    List<BHL.ICase> loadcases = GHE.DataUtils.GetGenericDataList<BHL.ICase>(DA, 1);
                     app.SetLoadcases(loadcases);
 
                 }

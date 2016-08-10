@@ -6,247 +6,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
 using System.Windows.Forms;
+using BHB = BHoM.Base;
+using GHE = Grasshopper_Engine;
 
-namespace Alligator
+namespace Alligator.Components
 {
-    public static class Utils
-    {
-        public static bool IsNumeric(this Type type)
-        {
-            switch (Type.GetTypeCode(type))
-            {
-                case TypeCode.Byte:
-                case TypeCode.SByte:
-                case TypeCode.UInt16:
-                case TypeCode.UInt32:
-                case TypeCode.UInt64:
-                case TypeCode.Int16:
-                case TypeCode.Int32:
-                case TypeCode.Int64:
-                case TypeCode.Decimal:
-                case TypeCode.Double:
-                case TypeCode.Single:
-                    return true;
-                case TypeCode.Object:
-                    if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
-                    {
-                        return Nullable.GetUnderlyingType(type).IsNumeric();
-                        //return IsNumeric(Nullable.GetUnderlyingType(type));
-                    }
-                    return false;
-                default:
-                    return false;
-            }
-        }
 
-        public static bool IsInteger(this Type type)
-        {
-            switch (Type.GetTypeCode(type))
-            {
-                case TypeCode.Byte:
-                case TypeCode.SByte:
-                case TypeCode.UInt16:
-                case TypeCode.UInt32:
-                case TypeCode.UInt64:
-                case TypeCode.Int16:
-                case TypeCode.Int32:
-                case TypeCode.Int64:
-                    return true;
-                case TypeCode.Object:
-                    if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
-                    {
-                        return Nullable.GetUnderlyingType(type).IsNumeric();
-                        //return IsNumeric(Nullable.GetUnderlyingType(type));
-                    }
-                    return false;
-                default:
-                    return false;
-            }
-        }
-
-        internal static bool IsGeometric(Type pType)
-        {
-            return pType.BaseType == typeof(BHoM.Geometry.GeometryBase);
-        }
-
-        public static bool IsEnumerable(Type type)
-        {
-            return type != typeof(string) && !typeof(IDictionary<string, object>).IsAssignableFrom(type) && type.GetInterface("IEnumerable") != null;
-        }
-
-        public static string GetDescription(PropertyInfo info)
-        {
-            object[] attri = info.GetCustomAttributes(typeof(DescriptionAttribute), true);
-            if (attri.Length > 0)
-            {
-                var description = (DescriptionAttribute)attri[0];
-                return description.Description;
-            }
-            return "";            
-        }
-
-        public static bool HasDefault(PropertyInfo info)
-        {
-            object[] attri = info.GetCustomAttributes(typeof(DefaultValueAttribute), true);
-            if (attri.Length > 0)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public static object GetDefault(PropertyInfo info)
-        {
-            object[] attri = info.GetCustomAttributes(typeof(DefaultValueAttribute), true);
-            if (attri.Length > 0)
-            {
-                var description = (DefaultValueAttribute)attri[0];
-                return description.Value;
-            }
-            return "";
-        }
-
-        public static string GetName(PropertyInfo info)
-        {
-            object[] attri = info.GetCustomAttributes(typeof(DisplayNameAttribute), true);
-            if (attri.Length > 0)
-            {
-                var description = (DisplayNameAttribute)attri[0];
-                return description.DisplayName;
-            }
-            return info.Name;
-        }
-        
-
-        public static T GetData<T>(Grasshopper.Kernel.IGH_DataAccess DA, int index)
-        {
-            T data = default(T);
-            DA.GetData<T>(index, ref data);
-
-            if (data != null)
-            {
-                if (typeof(IGH_Goo).IsAssignableFrom(data.GetType()))
-                {
-                    T result = default(T);
-                    if (((IGH_Goo)data).CastTo<T>(out result))
-                    {
-                        return result;
-                    }
-                }
-            }
-
-            return data;
-        }
-
-        public static BHoM.Geometry.GeometryBase GetDataGeom(Grasshopper.Kernel.IGH_DataAccess DA, int index)
-        {
-            object data = null;
-            DA.GetData<object>(index, ref data);
-            
-            if (data is GH_Point)
-            {
-                return new BHoM.Geometry.Point(GeometryUtils.Convert((data as GH_Point).Value));
-            }
-            else if (data is GH_Curve)
-            {
-               //( data as GH_Curve).Value.
-               // return GeometryUtils.Convert()
-            }
-
-            return null;
-        }
-
-        public static List<T> GetDataList<T>(Grasshopper.Kernel.IGH_DataAccess DA, int index)
-        {
-            List<T> data = new List<T>();
-            DA.GetDataList<T>(index, data);
-            return data;
-        }
-
-        public static T GetGenericData<T>(Grasshopper.Kernel.IGH_DataAccess DA, int index)
-        {
-            object obj = null;
-            DA.GetData<object>(index, ref obj);
-                      
-            T app = default(T);
-            if (obj is Grasshopper.Kernel.Types.GH_ObjectWrapper)
-                (obj as Grasshopper.Kernel.Types.GH_ObjectWrapper).CastTo<T>(out app);
-            else
-                return (T)obj;
-            return app;
-        }
-
-        public static List<T> GetGenericDataList<T>(Grasshopper.Kernel.IGH_DataAccess DA, int index)
-        {
-            List<object> obj = new List<object>();
-            DA.GetDataList<object>(index, obj);
-            List<T> result = new List<T>();
-
-            for (int i = 0; i < obj.Count; i++)
-            {
-                T data = default(T);
-                if (obj[i] is GH_ObjectWrapper)
-                {
-                    (obj[i] as GH_ObjectWrapper).CastTo<T>(out data);
-                    result.Add(data);
-                }
-                else result.Add((T)(object)obj[i]);
-            }
-
-            return result;
-        }
-
-        public static bool Run(Grasshopper.Kernel.IGH_DataAccess DA, int index)
-        {
-            bool run = false;
-            DA.GetData<bool>(index, ref run);
-            return run;
-        }
-    }
-
-    public class CustomData : GH_Component
-    {
-        public override Guid ComponentGuid
-        {
-            get
-            {
-                return new Guid("{AD22A083-3B0C-4E89-9D4E-FECCEDA95099}");
-            }
-        }
-
-        protected override void RegisterInputParams(GH_InputParamManager pManager)
-        {
-            pManager.AddTextParameter("Data Name", "K", "Custom data name/key", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Data value", "V", "Custom data value", GH_ParamAccess.list);
-        }
-
-        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
-        {
-            pManager.AddGenericParameter("Custom Data", "CD", "Custom data", GH_ParamAccess.item);
-        }
-
-        protected override void SolveInstance(IGH_DataAccess DA)
-        {
-            List<string> keys = Utils.GetDataList<string>(DA, 0);
-            List<object> data = Utils.GetGenericDataList<object>(DA, 1);
-
-            if (keys.Count != data.Count)
-            {
-                Dictionary<string, object> dictionary = new Dictionary<string, object>();
-                for (int i = 0; i < keys.Count; i++)
-                {
-                    dictionary.Add(keys[i], data[i]);
-                }
-                DA.SetData(0, dictionary);
-            }
-            else
-            {
-                throw (new Exception("Data Name and data value list must be of the same length"));
-            }
-        }
-    }
-
-    public abstract class BHoMBaseComponent<T> : GH_Component where T : BHoMObject
+    public abstract class BHoMBaseComponent<T> : GH_Component where T : BHB.BHoMObject
     {
         private ComboBox m_Options;
         private Type m_OptionType;
@@ -299,10 +65,10 @@ namespace Alligator
                 Type pType = propInfo[i].PropertyType;
                 if (propInfo[i].GetSetMethod() != null)
                    {
-                            string name = Utils.GetName(propInfo[i]);
+                            string name = GHE.DataUtils.GetName(propInfo[i]);
                             string nickName = name[0].ToString();
-                            string description = Utils.GetDescription(propInfo[i]);
-                            GH_ParamAccess access = Utils.IsEnumerable(pType) ? GH_ParamAccess.list : GH_ParamAccess.item;
+                            string description = GHE.DataUtils.GetDescription(propInfo[i]);
+                            GH_ParamAccess access = GHE.DataUtils.IsEnumerable(pType) ? GH_ParamAccess.list : GH_ParamAccess.item;
                             if (pType == typeof(string))
                             {
                                 pManager.AddTextParameter(name, nickName, description, access);
@@ -312,13 +78,13 @@ namespace Alligator
                                 //pManager.AddTextParameter(name, nickName, description, access);
                                 InitialiseOptions(pType);
                             }
-                            else if (Utils.IsNumeric(pType))
+                            else if (GHE.DataUtils.IsNumeric(pType))
                             {
-                                if (Utils.IsInteger(pType)) pManager.AddIntegerParameter(name, nickName, description, access);
+                                if (GHE.DataUtils.IsInteger(pType)) pManager.AddIntegerParameter(name, nickName, description, access);
                                 else pManager.AddNumberParameter(name, nickName, description, access);
 
                             }
-                            else if (Utils.IsGeometric(pType))
+                            else if (GHE.DataUtils.IsGeometric(pType))
                             {
                                 if (pType == typeof(BHoM.Geometry.Point))
                                 {
@@ -341,10 +107,10 @@ namespace Alligator
                             {
                                 pManager.AddGenericParameter(name, nickName, description, access);
                             }
-                            if (Utils.HasDefault(propInfo[i]))
+                            if (GHE.DataUtils.HasDefault(propInfo[i]))
                             {
                                 Params.Input[Params.Input.Count - 1].Optional = true;
-                                Params.Input[Params.Input.Count - 1].AddVolatileData(new Grasshopper.Kernel.Data.GH_Path(0), 0, Utils.GetDefault(propInfo[i]));
+                                Params.Input[Params.Input.Count - 1].AddVolatileData(new Grasshopper.Kernel.Data.GH_Path(0), 0, GHE.DataUtils.GetDefault(propInfo[i]));
                             }
                 }
             }
@@ -361,9 +127,9 @@ namespace Alligator
                     {
                         if (typeof(BHoM.Geometry.GeometryBase).IsAssignableFrom(pType))//.BaseType == typeof(BHoM.Geometry.GeometryBase))
                         {
-                            string name = Utils.GetName(propInfo[i]);
+                            string name = GHE.DataUtils.GetName(propInfo[i]);
                             string nickName = name[0].ToString();
-                            string description = Utils.GetDescription(propInfo[i]);
+                            string description = GHE.DataUtils.GetDescription(propInfo[i]);
                             pManager.AddGeometryParameter(name, nickName, description, GH_ParamAccess.item);
                         }
                     }
@@ -373,7 +139,7 @@ namespace Alligator
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BHoMObject obj = BHoMObject.CreateInstance(typeof(T));
+            BHB.BHoMObject obj = BHB.BHoMObject.CreateInstance(typeof(T));
             PropertyInfo[] propInfo = typeof(T).GetProperties();
             int propIndex = 0;
             for (int i = 0; i < Params.Input.Count; i++)
@@ -386,13 +152,13 @@ namespace Alligator
                 if (Params.Input[i].Access == GH_ParamAccess.item)
                 {
                     object value = null;
-                    if (pType.BaseType == typeof(BHoMObject))
+                    if (pType.BaseType == typeof(BHB.BHoMObject))
                     {
-                        value = Utils.GetGenericData<BHoMObject>(DA, i);
+                        value = GHE.DataUtils.GetGenericData<BHB.BHoMObject>(DA, i);
                     }
                     else if (pType.BaseType == typeof(BHoM.Geometry.GeometryBase))
                     {
-                        value = Utils.GetDataGeom(DA, i);
+                        value = GHE.DataUtils.GetDataGeom(DA, i);
                         
                     }
                     else if (pType.IsEnum)
@@ -402,7 +168,7 @@ namespace Alligator
                     }
                     else
                     {
-                        value = Utils.GetData<object>(DA, i);
+                        value = GHE.DataUtils.GetData<object>(DA, i);
                     }
                     prop.SetValue(obj, value, null);
                 }
@@ -411,7 +177,7 @@ namespace Alligator
                     if (pType.IsGenericType)
                     {
                         Type listType = pType.GetGenericArguments()[0];
-                        var utils = typeof(Utils);
+                        var utils = typeof(GHE.DataUtils);
 
                         MethodInfo methodInfo = utils.GetMethod("GetGenericDataList", System.Reflection.BindingFlags.Static | BindingFlags.Public);
                         MethodInfo genericMethodInfo = methodInfo.MakeGenericMethod(new Type[] { listType });
@@ -432,7 +198,7 @@ namespace Alligator
                 Type pType = propInfo[i].PropertyType;
                 if (propInfo[i].GetGetMethod() != null && typeof(BHoM.Geometry.GeometryBase).IsAssignableFrom(pType))
                 {
-                    DA.SetData(geomIndex++, GeometryUtils.Convert(propInfo[i].GetValue(obj, null) as BHoM.Geometry.GeometryBase));
+                    DA.SetData(geomIndex++, GHE.GeometryUtils.Convert(propInfo[i].GetValue(obj, null) as BHoM.Geometry.GeometryBase));
                 }
             }
         }

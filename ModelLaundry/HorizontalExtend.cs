@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Drawing;
-using System.Collections.Generic;
-using ModelLaundry_Engine;
-using BHoM.Geometry;
 using Grasshopper.Kernel;
-using Rhino.Geometry;
-using BH = BHoM.Geometry;
-using R = Rhino.Geometry;
+using MLE = ModelLaundry_Engine;
+using GHE = Grasshopper_Engine;
+
 
 namespace Alligator.ModelLaundry
 {
@@ -46,10 +42,10 @@ namespace Alligator.ModelLaundry
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // Getting the inputs from GH
-            object element = Utils.GetGenericData<object>(DA, 0);
-            double dist = Utils.GetData<double>(DA, 1);
+            object element = GHE.DataUtils.GetGenericData<object>(DA, 0);
+            double dist = GHE.DataUtils.GetData<double>(DA, 1);
 
-            object result = Util.HorizontalExtend(element, dist);
+            object result = MLE.Util.HorizontalExtend(element, dist);
             DA.SetData(0, result);
         }
 

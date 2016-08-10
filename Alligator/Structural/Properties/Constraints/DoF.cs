@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using BHoM.Structural;
 using Grasshopper.Kernel;
+using Alligator.Components;
+using BHP = BHoM.Structural.Properties;
 
-namespace Alligator.Structural.Elements
+namespace Alligator.Structural.Properties
 {
-    public class CreateDOF: BHoMBaseComponent<DOF>
+    public class CreateDOF: BHoMBaseComponent<BHP.DOF>
     {
         public CreateDOF() : base("Create DOF", "CreateDOF", "Create a BH Degree of Freedom Object", "Alligator", "Structural") { }
 

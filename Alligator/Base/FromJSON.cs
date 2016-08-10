@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
+using BHB = BHoM.Base;
 
-namespace Alligator.Global
+namespace Alligator.Base
 {
     public class FromJSON : GH_Component
     {
-        public FromJSON() : base("FromJSON", "FromJSON", "Create a BHoM object from a JSON string", "Alligator", "Global") { }
+        public FromJSON() : base("FromJSON", "FromJSON", "Create a BHoM object from a JSON string", "Alligator", "Base") { }
 
         public override Guid ComponentGuid
         {
@@ -33,7 +34,7 @@ namespace Alligator.Global
         {
             string json = ""; // Utils.GetGenericData<string>(DA, 0);
             DA.GetData<string>(0, ref json);
-            DA.SetDataList(0, BHoM.Global.BHoMJSON.ReadPackage(json));
+            DA.SetDataList(0, BHB.BHoMJSON.ReadPackage(json));
         }
     }
 }

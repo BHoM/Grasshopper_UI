@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using BH = BHoM.Geometry;
 using R = Rhino.Geometry;
 
-namespace Alligator
+namespace Grasshopper_Engine
 {
     public class GeometryUtils
     {

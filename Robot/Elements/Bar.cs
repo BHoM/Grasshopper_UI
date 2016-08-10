@@ -2,16 +2,16 @@
 using Grasshopper.Kernel;
 using System;
 using System.Collections.Generic;
+using GHE = Grasshopper_Engine;
+using BHI = BHoM.Structural.Interface;
+using BHE = BHoM.Structural.Elements;
 
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Alligator.Robot.Elements
 {
-    public class SetNode : GH_Component
+    public class SetBar : GH_Component
     {
-        public SetNode() : base("Set Node", "ExNode", "Create a node", "Robot", "Elements") { }
+        public SetBar() : base("Set Bar", "ExBar", "Creates or Replaces the geometry of a Bar", "Robot", "Elements") { }
 
         public override GH_Exposure Exposure
         {
@@ -24,26 +24,27 @@ namespace Alligator.Robot.Elements
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Application", "App", "Application to import nodes from", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Node", "N", "BHoM Node", GH_ParamAccess.list);
-            pManager.AddBooleanParameter("Execute", "R", "Set Geometry", GH_ParamAccess.item);
-            pManager[2].AddVolatileData(new Grasshopper.Kernel.Data.GH_Path(0), 0, false);
+            pManager.AddGenericParameter("Bars", "B", "BHoM bars to export", GH_ParamAccess.list);
+            pManager.AddBooleanParameter("Execute", "R", "Generate Bars", GH_ParamAccess.item);
+
+            pManager[2].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("Id", "Id", "Node Id", GH_ParamAccess.list); ;
+            pManager.AddIntegerParameter("Ids", "Ids", "Bar Numbers", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            if (Utils.Run(DA, 2))
+            if (GHE.DataUtils.Run(DA, 2))
             {
-                IStructuralAdapter app = Utils.GetGenericData<IStructuralAdapter>(DA, 0);
+                BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
                 if (app != null)
                 {
-                    List<Node> nodes = Utils.GetGenericDataList<Node>(DA, 1);
+                    List<BHE.Bar> bars = GHE.DataUtils.GetGenericDataList<BHE.Bar>(DA, 1);
                     List<string> ids = null;
-                    app.SetNodes(nodes, out ids);
+                    app.SetBars(bars, out ids);
 
                     DA.SetDataList(0, ids);
                 }
@@ -52,13 +53,13 @@ namespace Alligator.Robot.Elements
 
         public override Guid ComponentGuid
         {
-            get { return new Guid("322adc1f-86b4-491a-93fa-1495515ca5aa"); }
+            get { return new Guid("2220dc1b-87b3-491a-93fa-1495315ca5a2"); }
         }
 
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Robot.Properties.Resources.node; }
+            get { return Robot.Properties.Resources.bar; }
         }
     }
 }

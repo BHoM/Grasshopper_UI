@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Drawing;
 using System.Collections.Generic;
-using ModelLaundry_Engine;
-using BHoM.Geometry;
 using Grasshopper.Kernel;
-using Rhino.Geometry;
-using BH = BHoM.Geometry;
-using R = Rhino.Geometry;
 using System.Linq;
+using GHE = Grasshopper_Engine;
+using BHG = BHoM.Geometry;
+using RG = Rhino.Geometry;
 
 namespace Alligator.ModelLaundry
 {
@@ -47,17 +44,17 @@ namespace Alligator.ModelLaundry
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<R.Line> newLn = new List<R.Line>();
-            List<R.Polyline> newPLine = new List<R.Polyline>();
-            List<R.Curve> newCrvs = new List<R.Curve>();
+            List<RG.Line> newLn = new List<RG.Line>();
+            List<RG.Polyline> newPLine = new List<RG.Polyline>();
+            List<RG.Curve> newCrvs = new List<RG.Curve>();
             //BH.Curve crv = Utils.GetGenericData<BH.Curve>(DA, 0);
-            object crv = Utils.GetGenericData<object>(DA, 0);
-            List<BH.Curve> explodedCrvs = new List<BHoM.Geometry.Curve>();
-            List<BH.Curve> output = new List<BHoM.Geometry.Curve>();
+            object crv = GHE.DataUtils.GetGenericData<object>(DA, 0);
+            List<BHG.Curve> explodedCrvs = new List<BHG.Curve>();
+            List<BHG.Curve> output = new List<BHG.Curve>();
 
-            if (crv is BHoM.Geometry.Group<BH.Curve>)
+            if (crv is BHoM.Geometry.Group<BHG.Curve>)
             {
-                Group<BH.Curve> newCrv = crv as Group<BH.Curve>;
+                BHG.Group<BHG.Curve> newCrv = crv as BHG.Group<BHG.Curve>;
                 explodedCrvs = newCrv.ToList();
 
                 for (int i = 0; i < explodedCrvs.Count; i++)
@@ -68,39 +65,39 @@ namespace Alligator.ModelLaundry
 
             else
             {
-                output.Add((BH.Curve)crv);
+                output.Add((BHG.Curve)crv);
             }
 
             for (int i = 0; i < output.Count; i++)
             {
                 if (output[i] is BHoM.Geometry.Line)
                 {
-                    BH.Line ln = output[i] as BH.Line;
-                    R.LineCurve tempLn = new R.LineCurve(new R.Line(ln.StartPoint.X, ln.StartPoint.Y, ln.StartPoint.Z, ln.EndPoint.X, ln.EndPoint.Y, ln.EndPoint.Z));
+                    BHG.Line ln = output[i] as BHG.Line;
+                    RG.LineCurve tempLn = new RG.LineCurve(new RG.Line(ln.StartPoint.X, ln.StartPoint.Y, ln.StartPoint.Z, ln.EndPoint.X, ln.EndPoint.Y, ln.EndPoint.Z));
                     newCrvs.Add(tempLn);
                 }
 
                 if (output[i] is BHoM.Geometry.Polyline)
                 {
-                    BH.Polyline pLine = output[i] as BH.Polyline;
-                    List<R.Point3d> pts = new List<Point3d>();
+                    BHG.Polyline pLine = output[i] as BHG.Polyline;
+                    List<RG.Point3d> pts = new List<RG.Point3d>();
                     for (int j = 0; j < pLine.ControlPoints.Count; j++)
                     {
-                        R.Point3d tempTp = new R.Point3d(pLine.ControlPoints[j].X, pLine.ControlPoints[j].Y, pLine.ControlPoints[j].Z);
+                        RG.Point3d tempTp = new RG.Point3d(pLine.ControlPoints[j].X, pLine.ControlPoints[j].Y, pLine.ControlPoints[j].Z);
                         pts.Add(tempTp);
                     }
-                    R.PolylineCurve tempPLnCrv = new PolylineCurve(new R.Polyline(pts));
+                    RG.PolylineCurve tempPLnCrv = new RG.PolylineCurve(new RG.Polyline(pts));
                     newCrvs.Add(tempPLnCrv);
                 }
 
                 if (output[i] is BHoM.Geometry.PolyCurve)
                 {
-                    BH.PolyCurve pCrv = output[i] as BH.PolyCurve;
-                    List<BH.Curve> segments = pCrv.Explode();
+                    BHG.PolyCurve pCrv = output[i] as BHG.PolyCurve;
+                    List<BHG.Curve> segments = pCrv.Explode();
                     for (int j = 0; j < segments.Count; j++)
                     {
-                        BH.Line ln = segments[j] as BH.Line;
-                        R.LineCurve tempLn = new R.LineCurve(new R.Line(ln.StartPoint.X, ln.StartPoint.Y, ln.StartPoint.Z, ln.EndPoint.X, ln.EndPoint.Y, ln.EndPoint.Z));
+                        BHG.Line ln = segments[j] as BHG.Line;
+                        RG.LineCurve tempLn = new RG.LineCurve(new RG.Line(ln.StartPoint.X, ln.StartPoint.Y, ln.StartPoint.Z, ln.EndPoint.X, ln.EndPoint.Y, ln.EndPoint.Z));
                         newCrvs.Add(tempLn);
                     }
                 }

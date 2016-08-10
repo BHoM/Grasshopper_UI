@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Linq;
-using System.Drawing;
 using System.Collections.Generic;
-using ModelLaundry_Engine;
-using BHoM.Geometry;
 using Grasshopper.Kernel;
-using Rhino.Geometry;
-using BH = BHoM.Geometry;
-using R = Rhino.Geometry;
+using GHE = Grasshopper_Engine;
+using BHG = BHoM.Geometry;
+
 
 namespace Alligator.ModelLaundry
 {
@@ -45,17 +42,17 @@ namespace Alligator.ModelLaundry
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<object> crvs = (Utils.GetGenericDataList<object>(DA, 0));
-            List<BH.Curve> JoinCurves = new List<BH.Curve>();
-            List<BH.Curve> output = new List<BH.Curve>();
-            List<BH.Curve> singleCrvs = new List<BH.Curve>();
+            List<object> crvs = (GHE.DataUtils.GetGenericDataList<object>(DA, 0));
+            List<BHG.Curve> JoinCurves = new List<BHG.Curve>();
+            List<BHG.Curve> output = new List<BHG.Curve>();
+            List<BHG.Curve> singleCrvs = new List<BHG.Curve>();
 
             for (int i = 0; i < crvs.Count; i++)
             {
-                if (crvs[i] is BHoM.Geometry.Group<BH.Curve>)
+                if (crvs[i] is BHoM.Geometry.Group<BHG.Curve>)
                 {
-                    Group<BH.Curve> newCrv = (Group<BH.Curve>)crvs[i];
-                    JoinCurves = BH.Curve.Join(newCrv.ToList());
+                    BHG.Group<BHG.Curve> newCrv = (BHG.Group<BHG.Curve>)crvs[i];
+                    JoinCurves = BHG.Curve.Join(newCrv.ToList());
 
                     for (int j=0; j < JoinCurves.Count; j++)
                     {
@@ -65,12 +62,12 @@ namespace Alligator.ModelLaundry
 
                 else
                 {
-                    BH.Curve newSingleCrv = (BH.Curve)crvs[i];
+                    BHG.Curve newSingleCrv = (BHG.Curve)crvs[i];
                     singleCrvs.Add(newSingleCrv);
                 }
             }
 
-            JoinCurves = BH.Curve.Join(singleCrvs);
+            JoinCurves = BHG.Curve.Join(singleCrvs);
 
             for (int i = 0; i < JoinCurves.Count; i++)
             {

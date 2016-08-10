@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BHB = BHoM.Base;
+using GHE = Grasshopper_Engine;
 
-namespace Alligator.Global
+namespace Alligator.Base
 {
     public class ToJSON : GH_Component
     {
-        public ToJSON() : base("ToJSON", "ToJSON", "Convert a BHoM object to a JSON string", "Alligator", "Global") { }
+        public ToJSON() : base("ToJSON", "ToJSON", "Convert a BHoM object to a JSON string", "Alligator", "Base") { }
 
         public override Guid ComponentGuid
         {
@@ -31,8 +33,8 @@ namespace Alligator.Global
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<BHoM.Global.BHoMObject> objects = Utils.GetGenericDataList<BHoM.Global.BHoMObject>(DA, 0);
-            DA.SetData(0, BHoM.Global.BHoMJSON.WritePackage(objects.Cast<BHoM.Global.BHoMObject>().ToList()));
+            List<BHB.BHoMObject> objects = GHE.DataUtils.GetGenericDataList<BHB.BHoMObject>(DA, 0);
+            DA.SetData(0, BHB.BHoMJSON.WritePackage(objects.Cast<BHB.BHoMObject>().ToList()));
         }
     }
 }

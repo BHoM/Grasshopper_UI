@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Drawing;
-using System.Collections.Generic;
-using ModelLaundry_Engine;
-using BHoM.Geometry;
 using Grasshopper.Kernel;
-using Rhino.Geometry;
-using BH = BHoM.Geometry;
-using R = Rhino.Geometry;
+using MLE = ModelLaundry_Engine;
+using GHE = Grasshopper_Engine;
+using BHG = BHoM.Geometry;
+
 
 namespace Alligator.ModelLaundry
 {
@@ -47,11 +44,11 @@ namespace Alligator.ModelLaundry
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // Getting the inputs from GH
-            object element = Utils.GetGenericData<object>(DA, 0);
-            double dist = Utils.GetData<double>(DA, 1);
+            object element = GHE.DataUtils.GetGenericData<object>(DA, 0);
+            double dist = GHE.DataUtils.GetData<double>(DA, 1);
 
-            Group<BH.Curve> removed = new Group<BH.Curve>();
-            object remaining = Util.RemoveSmallContours(element, dist, out removed);
+            BHG.Group<BHG.Curve> removed = new BHG.Group<BHG.Curve>();
+            object remaining = MLE.Util.RemoveSmallContours(element, dist, out removed);
 
             // Setting the GH outputs
             DA.SetData(0, remaining);

@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
+using GHE = Grasshopper_Engine;
 
-namespace Alligator.Global
+namespace Alligator.Base
 {
     public class SetProperty : GH_Component
     {
-        public SetProperty() : base("SetProperty", "SetProperty", "Set property of a BHoM object", "Alligator", "Global") { }
+        public SetProperty() : base("SetProperty", "SetProperty", "Set property of a BHoM object", "Alligator", "Base") { }
 
         public override Guid ComponentGuid
         {
@@ -33,9 +34,9 @@ namespace Alligator.Global
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            object o = Utils.GetGenericData<object>(DA, 0);
-            string key = Utils.GetData<string>(DA, 1);
-            object value = Utils.GetGenericData<object>(DA, 2);
+            object o = GHE.DataUtils.GetGenericData<object>(DA, 0);
+            string key = GHE.DataUtils.GetData<string>(DA, 1);
+            object value = GHE.DataUtils.GetGenericData<object>(DA, 2);
 
             object newObject = o;
             System.Reflection.MethodInfo inst = o.GetType().GetMethod("MemberwiseClone", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);

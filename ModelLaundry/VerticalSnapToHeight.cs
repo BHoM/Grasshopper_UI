@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Drawing;
 using System.Collections.Generic;
-using ModelLaundry_Engine;
-using BHoM.Geometry;
 using Grasshopper.Kernel;
-using Rhino.Geometry;
-using BH = BHoM.Geometry;
-using R = Rhino.Geometry;
+using MLE = ModelLaundry_Engine;
+using GHE = Grasshopper_Engine;
+
 
 namespace Alligator.ModelLaundry
 {
@@ -40,11 +37,11 @@ namespace Alligator.ModelLaundry
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            object element = Utils.GetGenericData<object>(DA, 0);
-            List<double> refHeights = Utils.GetDataList<double>(DA, 1);
-            double tol = Utils.GetData<double>(DA, 2);
+            object element = GHE.DataUtils.GetGenericData<object>(DA, 0);
+            List<double> refHeights = GHE.DataUtils.GetDataList<double>(DA, 1);
+            double tol = GHE.DataUtils.GetData<double>(DA, 2);
 
-            object result = Snapping.VerticalSnapToHeight(element, refHeights, tol);
+            object result = MLE.Snapping.VerticalSnapToHeight(element, refHeights, tol);
             DA.SetData(0, result);
         }
 

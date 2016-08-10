@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Linq;
-using System.Drawing;
 using System.Collections.Generic;
-using ModelLaundry_Engine;
-using BHoM.Geometry;
 using Grasshopper.Kernel;
-using Rhino.Geometry;
-using BH = BHoM.Geometry;
-using R = Rhino.Geometry;
+using MLE = ModelLaundry_Engine;
+using GHE = Grasshopper_Engine;
+using BHG = BHoM.Geometry;
+using RG = Rhino.Geometry;
+
+
 namespace Alligator.ModelLaundry
 {
     public class FilterByBoundingBox : GH_Component
@@ -43,25 +42,25 @@ namespace Alligator.ModelLaundry
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // Get GH inputs
-            List<object> elements = Utils.GetGenericDataList<object>(DA, 0);
-            List<Box> boxes = new List<Box>();
+            List<object> elements = GHE.DataUtils.GetGenericDataList<object>(DA, 0);
+            List<RG.Box> boxes = new List<RG.Box>();
             if (!DA.GetDataList(1, boxes)) return;
 
             // Convert boxes to BHoM bounding boxes
-            List<BH.BoundingBox> bhomBoxes = new List<BHoM.Geometry.BoundingBox>();
+            List<BHG.BoundingBox> bhomBoxes = new List<BHG.BoundingBox>();
             for (int i = 0; i < boxes.Count; i++)
             {
-                R.Point3d[] cornerPt = boxes[i].GetCorners();
-                List<BH.Point> bhomBoxCornerPt = new List<BH.Point>();
+                RG.Point3d[] cornerPt = boxes[i].GetCorners();
+                List<BHG.Point> bhomBoxCornerPt = new List<BHG.Point>();
                 for (int j = 0; j < 8; j++)
                 {
-                    bhomBoxCornerPt.Add(new BH.Point(cornerPt[j].X, cornerPt[j].Y, cornerPt[j].Z));
+                    bhomBoxCornerPt.Add(new BHG.Point(cornerPt[j].X, cornerPt[j].Y, cornerPt[j].Z));
                 }
-                bhomBoxes.Add(new BH.BoundingBox(bhomBoxCornerPt));
+                bhomBoxes.Add(new BHG.BoundingBox(bhomBoxCornerPt));
             }
 
             List<object> outsiders = new List<object>();
-            List<object> insiders = Util.FilterByBoundingBox(elements, bhomBoxes, out outsiders);
+            List<object> insiders = MLE.Util.FilterByBoundingBox(elements, bhomBoxes, out outsiders);
 
             // Set GH outputs
             DA.SetDataList(0, insiders);

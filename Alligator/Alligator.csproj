@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\</OutputPath>
+    <OutputPath>..\Build\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
@@ -39,20 +39,14 @@
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Databases_Engine">
-      <HintPath>..\..\BHoM_Engine\Build\Databases_Engine.dll</HintPath>
-    </Reference>
     <Reference Include="GH_IO">
       <HintPath>..\External Libraries\GH_IO.dll</HintPath>
     </Reference>
     <Reference Include="Grasshopper">
       <HintPath>..\External Libraries\Grasshopper.dll</HintPath>
     </Reference>
-    <Reference Include="ModelLaundry_Engine">
-      <HintPath>..\..\BHoM_Engine\Build\ModelLaundry_Engine.dll</HintPath>
-    </Reference>
-    <Reference Include="RobotToolkit">
-      <HintPath>..\..\RobotToolkit\Build\RobotToolkit.dll</HintPath>
+    <Reference Include="Grasshopper_Engine">
+      <HintPath>..\Build\Grasshopper_Engine.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -65,33 +59,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\CustomData.cs" />
     <Compile Include="Components\ObjectComponent.cs" />
     <Compile Include="Components\AboutGatorComponent.cs" />
     <Compile Include="AlligatorInfo.cs" />
-    <Compile Include="GeometryUtils.cs" />
-    <Compile Include="Global\FromJSON.cs" />
-    <Compile Include="Global\GetProperty.cs" />
-    <Compile Include="Global\SetProperty.cs" />
-    <Compile Include="Global\ToJSON.cs" />
-    <Compile Include="Mongo\DeleteObjects.cs" />
-    <Compile Include="Mongo\FromMongo.cs" />
-    <Compile Include="Mongo\MongoLink.cs" />
-    <Compile Include="Mongo\ToMongo.cs" />
+    <Compile Include="Base\FromJSON.cs" />
+    <Compile Include="Base\GetProperty.cs" />
+    <Compile Include="Base\SetProperty.cs" />
+    <Compile Include="Base\ToJSON.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Structural\BHoM_DoF.cs" />
-    <Compile Include="Structural\BHoM_Load.cs" />
-    <Compile Include="Structural\BHoM_Loadcase.cs" />
-    <Compile Include="Structural\BHoM_Material.cs" />
-    <Compile Include="Structural\BHoM_SectionProperty.cs" />
-    <Compile Include="Structural\BHoM_Bar.cs" />
-    <Compile Include="Structural\BHoM_Node.cs" />
-    <Compile Include="Structural\BHoM_NodeConstraint.cs" />
-    <Compile Include="Structural\BHoM_Panel.cs" />
+    <Compile Include="Structural\Properties\Constraints\DoF.cs" />
+    <Compile Include="Structural\Loads\Load.cs" />
+    <Compile Include="Structural\Loads\Loadcase.cs" />
+    <Compile Include="Material\Material.cs" />
+    <Compile Include="Structural\Properties\Section Properties\SectionProperty.cs" />
+    <Compile Include="Structural\Elements\Bar.cs" />
+    <Compile Include="Structural\Elements\Node.cs" />
+    <Compile Include="Structural\Properties\Constraints\NodeConstraint.cs" />
+    <Compile Include="Structural\Elements\Panel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -126,9 +116,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\skeleton.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\loadcase.png" />

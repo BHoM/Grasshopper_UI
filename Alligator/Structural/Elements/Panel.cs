@@ -4,13 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BHoM.Structural;
-using BHoM.Geometry;
+using Alligator.Components;
 using Grasshopper.Kernel;
-
+using GHE = Grasshopper_Engine;
+using BHG = BHoM.Geometry;
+using BHE = BHoM.Structural.Elements;
+using BHI = BHoM.Structural.Interface;
 
 namespace Alligator.Structural
 {
-    public class CreatePanel : BHoMBaseComponent<Panel>
+    public class CreatePanel : BHoMBaseComponent<BHE.Panel>
     {
         public CreatePanel() : base("Create Panel", "CreatePanel", "Create a BH Panel object", "Alligator", "Structural") { }
 
@@ -49,14 +52,14 @@ namespace Alligator.Structural
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // Getting the inputs from GH
-            Panel panel = Utils.GetGenericData<Panel>(DA, 0);
+            BHE.Panel panel = GHE.DataUtils.GetGenericData<BHE.Panel>(DA, 0);
 
             // Creating the panel without openings
-            Panel newPanel = panel.ShallowClone() as Panel;
-            Group<Curve> contour = new Group<Curve>();
-            foreach (Curve curve in panel.External_Contours)
+            BHE.Panel newPanel = panel.ShallowClone() as BHE.Panel;
+            BHG.Group<BHG.Curve> contour = new BHG.Group<BHG.Curve>();
+            foreach (BHG.Curve curve in panel.External_Contours)
                 contour.Add(curve);
-            newPanel.Edges = contour;
+            newPanel.External_Contours = contour;
 
             // Getting the openings
             DA.SetData(0, newPanel);
@@ -98,12 +101,12 @@ namespace Alligator.Structural
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            if (Utils.Run(DA, 2))
+            if (GHE.DataUtils.Run(DA, 2))
             {
-                IStructuralAdapter app = Utils.GetGenericData<IStructuralAdapter>(DA, 0);
+                BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
                 if (app != null)
                 {
-                    List<Panel> panels = Utils.GetGenericDataList<Panel>(DA, 1);
+                    List<BHE.Panel> panels = GHE.DataUtils.GetGenericDataList<BHE.Panel>(DA, 1);
                     List<string> ids = null;
                     app.SetPanels(panels, out ids);
 

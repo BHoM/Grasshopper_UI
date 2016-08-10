@@ -1,14 +1,15 @@
 ﻿using BHoM.Structural;
-using BHoM.Materials;
 using System;
 using Grasshopper.Kernel;
 using System.Collections.Generic;
+using Alligator.Components;
+using BHM = BHoM.Materials;
 
-namespace Alligator.Structural.Elements
+namespace Alligator.Materials
 {
-    public class CreateMaterial : BHoMBaseComponent<Material>
+    public class CreateMaterial : BHoMBaseComponent<BHM.Material>
     {
-        public CreateMaterial() : base("Create Material", "CreateMaterial", "Create a BH Material object", "Alligator", "Structural") { }
+        public CreateMaterial() : base("Create Material", "CreateMaterial", "Create a BH Material object", "Alligator", "Materials") { }
 
         public override Guid ComponentGuid
         {

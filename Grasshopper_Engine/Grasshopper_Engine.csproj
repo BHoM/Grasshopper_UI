@@ -4,23 +4,23 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1E524533-5830-4F5A-B3AA-C7C4A01C6BCB}</ProjectGuid>
+    <ProjectGuid>{C273F369-B83A-4183-9A97-18CDB23C25C6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Alligator.ModelLaundry</RootNamespace>
-    <AssemblyName>Alligator.ModelLaundry</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>Grasshopper_Engine</RootNamespace>
+    <AssemblyName>Grasshopper_Engine</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\Build\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -35,23 +35,16 @@
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
     </Reference>
     <Reference Include="GH_IO">
-      <HintPath>..\External Libraries\GH_IO.dll</HintPath>
+      <HintPath>..\..\..\..\AppData\Roaming\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\GH_IO.dll</HintPath>
     </Reference>
     <Reference Include="Grasshopper">
-      <HintPath>..\External Libraries\Grasshopper.dll</HintPath>
-    </Reference>
-    <Reference Include="Grasshopper_Engine">
-      <HintPath>..\Build\Grasshopper_Engine.dll</HintPath>
-    </Reference>
-    <Reference Include="ModelLaundry_Engine">
-      <HintPath>..\..\BHoM_Engine\Build\ModelLaundry_Engine.dll</HintPath>
+      <HintPath>..\..\..\..\AppData\Roaming\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\Grasshopper.dll</HintPath>
     </Reference>
     <Reference Include="RhinoCommon">
       <HintPath>..\..\..\..\..\..\Program Files\Rhinoceros 5 (64-bit)\System\RhinoCommon.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -60,31 +53,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FilterByBoundingBox.cs" />
-    <Compile Include="FilterSmallCurves.cs" />
-    <Compile Include="HorizontalExtend.cs" />
-    <Compile Include="HorizontalParallellSnap.cs" />
-    <Compile Include="HorizontalSnapToShape.cs" />
-    <Compile Include="JoinCurves.cs" />
-    <Compile Include="PointToPointSnap.cs" />
+    <Compile Include="GeometryUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VerticalSnapToHeight.cs" />
-    <Compile Include="VerticalSnapToShapes.cs" />
-    <Compile Include="VisualizeLines.cs" />
+    <Compile Include="DataUtils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
-
-Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
-
-copy /Y "$(TargetDir)\RobotToolKit.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\RobotToolKit.dll"
-
-copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM.dll"
-
-copy /Y "$(TargetDir)\ModelLaundry_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\ModelLaundry_Engine.dll"
-</PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

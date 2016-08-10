@@ -1,9 +1,11 @@
 ﻿using BHoM.Structural;
 using System;
+using Alligator.Components;
+using BHP = BHoM.Structural.Properties;
 
-namespace Alligator.Structural.Elements
+namespace Alligator.Structural.Properties
 {
-    public class CreateNodeConstraint : BHoMBaseComponent<NodeConstraint>
+    public class CreateNodeConstraint : BHoMBaseComponent<BHP.NodeConstraint>
     {
         public CreateNodeConstraint() : base("Create Constraint", "CreateConstraint", "Create a BH Constraint object", "Alligator", "Structural") { }
 

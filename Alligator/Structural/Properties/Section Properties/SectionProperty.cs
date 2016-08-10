@@ -1,12 +1,13 @@
-﻿using BHoM.Structural;
-using BHoM.Structural.SectionProperties;
-using System;
+﻿using System;
 using Grasshopper.Kernel;
+using Alligator.Components;
 using System.Collections.Generic;
+using BHE = BHoM.Structural.Elements;
+using BHP = BHoM.Structural.Properties;
 
-namespace Alligator.Structural.Elements
+namespace Alligator.Structural.Properties
 {
-    public class CreateSectionProperty : BHoMBaseComponent<SectionProperty>
+    public class CreateSectionProperty : BHoMBaseComponent<BHP.SectionProperty>
     {
         public CreateSectionProperty() : base("Create Section Property", "CreateSectionProperty", "Create a BH Section property object", "Alligator", "Structural") { }
 

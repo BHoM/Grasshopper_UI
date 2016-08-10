@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
+using GHE = Grasshopper_Engine;
+using MA = Mongo_Adapter;
 
 namespace Alligator.Mongo
 {
@@ -33,11 +35,11 @@ namespace Alligator.Mongo
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            string server = Utils.GetData<string>(DA, 0);
-            string database = Utils.GetData<string>(DA, 1);
-            string collection = Utils.GetData<string>(DA, 2);
+            string server = GHE.DataUtils.GetData<string>(DA, 0);
+            string database = GHE.DataUtils.GetData<string>(DA, 1);
+            string collection = GHE.DataUtils.GetData<string>(DA, 2);
 
-            DA.SetData(0, new Databases_Engine.Mongo.MongoLink(server, database, collection));
+            DA.SetData(0, new MA.MongoLink(server, database, collection));
         }
     }
 }

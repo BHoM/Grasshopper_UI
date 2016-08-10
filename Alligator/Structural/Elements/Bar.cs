@@ -2,10 +2,14 @@
 using System;
 using Grasshopper.Kernel;
 using System.Collections.Generic;
+using GHE = Grasshopper_Engine;
+using Alligator.Components;
+using BHE = BHoM.Structural.Elements;
+using BHI = BHoM.Structural.Interface;
 
 namespace Alligator.Structural.Elements
 {
-    public class CreateBar : BHoMBaseComponent<Bar>
+    public class CreateBar : BHoMBaseComponent<BHE.Bar>
     {
         public CreateBar() : base("Create Bar", "CreateBar", "Create a BH Bar object", "Alligator", "Structural") { }
 
@@ -52,12 +56,12 @@ namespace Alligator.Structural.Elements
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            if (Utils.Run(DA, 2))
+            if (GHE.DataUtils.Run(DA, 2))
             {
-                IStructuralAdapter app = Utils.GetGenericData<IStructuralAdapter>(DA, 0);
+                BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
                 if (app != null)
                 {
-                    List<Bar> bars = Utils.GetGenericDataList<Bar>(DA, 1);
+                    List<BHE.Bar> bars = GHE.DataUtils.GetGenericDataList<BHE.Bar>(DA, 1);
                     List<string> ids = null;
                     app.SetBars(bars, out ids);
 

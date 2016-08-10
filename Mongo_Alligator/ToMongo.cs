@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
+using BHB = BHoM.Base;
+using MA = Mongo_Adapter;
+using GHE = Grasshopper_Engine;
 
 namespace Alligator.Mongo
 {
@@ -33,8 +36,8 @@ namespace Alligator.Mongo
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Databases_Engine.Mongo.MongoLink link = Utils.GetGenericData<Databases_Engine.Mongo.MongoLink>(DA, 0);
-            List<BHoM.Global.BHoMObject> bhomObjects = Utils.GetGenericDataList<BHoM.Global.BHoMObject>(DA, 1);
+            MA.MongoLink link = GHE.DataUtils.GetGenericData<MA.MongoLink>(DA, 0);
+            List<BHB.BHoMObject> bhomObjects = GHE.DataUtils.GetGenericDataList<BHB.BHoMObject>(DA, 1);
 
             string key = ""; DA.GetData<string>(2, ref key);
             bool active = false; DA.GetData<bool>(3, ref active);

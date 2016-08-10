@@ -2,10 +2,14 @@
 using System;
 using Grasshopper.Kernel;
 using System.Collections.Generic;
+using Alligator.Components;
+using GHE = Grasshopper_Engine;
+using BHE = BHoM.Structural.Elements;
+using BHI = BHoM.Structural.Interface;
 
 namespace Alligator.Structural.Elements
 {
-    public class CreateNode : BHoMBaseComponent<Node>
+    public class CreateNode : BHoMBaseComponent<BHE.Node>
     {
         public CreateNode() : base("Create Node", "CreateNode", "Create a BH Node object", "Alligator", "Structural") { }
 
@@ -52,12 +56,12 @@ namespace Alligator.Structural.Elements
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            if (Utils.Run(DA, 2))
+            if (GHE.DataUtils.Run(DA, 2))
             {
-                IStructuralAdapter app = Utils.GetGenericData<IStructuralAdapter>(DA, 0);
+                BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
                 if (app != null)
                 {
-                    List<Node> nodes = Utils.GetGenericDataList<Node>(DA, 1);
+                    List<BHE.Node> nodes = GHE.DataUtils.GetGenericDataList<BHE.Node>(DA, 1);
                     List<string> ids = null;
                     app.SetNodes(nodes, out ids);
 
