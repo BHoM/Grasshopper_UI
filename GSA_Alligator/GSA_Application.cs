@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GSAToolkit;
 using Grasshopper.Kernel;
+using GSA_Adapter.Structural.Interface;
 
 namespace Alligator.GSA
 {
@@ -44,7 +45,7 @@ namespace Alligator.GSA
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return GSA.Properties.Resources.gsa_app; }
+            get { return GSA_Alligator.Properties.Resources.gsa_app; }
         }
 
     }

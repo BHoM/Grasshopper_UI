@@ -40,8 +40,8 @@
     <Reference Include="Grasshopper">
       <HintPath>..\..\..\..\..\..\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\Grasshopper.dll</HintPath>
     </Reference>
-    <Reference Include="GSAToolkit">
-      <HintPath>..\..\GSAToolkit\GSAToolkit\bin\Debug\GSAToolkit.dll</HintPath>
+    <Reference Include="GSA_Adapter">
+      <HintPath>..\..\GSA_Toolkit\Build\GSA_Adapter.dll</HintPath>
     </Reference>
     <Reference Include="Interop.Gsa_8_7">
       <HintPath>..\..\..\..\..\..\Program Files\Oasys\GSA 8.7\Interop.Gsa_8_7.dll</HintPath>
@@ -92,6 +92,10 @@
     <ProjectReference Include="..\Alligator\Alligator.csproj">
       <Project>{2e3b219e-7bd2-4f75-bfaf-9b7735827ed4}</Project>
       <Name>Alligator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
+      <Project>{c273f369-b83a-4183-9a97-18cdb23c25c6}</Project>
+      <Name>Grasshopper_Engine</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
