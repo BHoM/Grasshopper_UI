@@ -61,6 +61,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BarToPanel.cs" />
+    <Compile Include="ClearPanelOpenings.cs" />
     <Compile Include="FilterByBoundingBox.cs" />
     <Compile Include="FilterSmallCurves.cs" />
     <Compile Include="HorizontalExtend.cs" />
