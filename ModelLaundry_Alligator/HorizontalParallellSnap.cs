@@ -51,66 +51,6 @@ namespace Alligator.ModelLaundry
 
             object result = MLE.Snapping.HorizontalParallelSnap(element, refElements, tol);
             DA.SetData(0, result);
-
-            /*object element = GHE.DataUtils.GetGenericData<object>(DA, 0);
-            List<object> refElements = GHE.DataUtils.GetGenericDataList<object>(DA, 1);
-            double tol = GHE.DataUtils.GetData<double>(DA, 2);
-
-            // Get the geometry of the element
-            BHG.GeometryBase geometry = null;
-            if (element is BHB.BHoMObject)
-                geometry = ((BHB.BHoMObject)element).GetGeometry();
-            else if (element is BHG.GeometryBase)
-                geometry = element as BHG.GeometryBase;
-            BHG.BoundingBox ROI = geometry.Bounds();
-            ROI = ROI.Inflate(tol);
-
-            // Get the geometry of the ref elements
-            List<BHG.Curve> refGeom = new List<BHG.Curve>();
-            foreach (object refElem in refElements)
-            {
-                BHG.GeometryBase geom = null;
-                if (refElem is BHB.BHoMObject)
-                    geom = ((BHB.BHoMObject)refElem).GetGeometry();
-                else if (refElem is BHG.GeometryBase)
-                    geom = refElem as BHG.GeometryBase;
-
-                if (BHG.BoundingBox.InRange(ROI, geom.Bounds()))
-                {
-                    if (geom is BHG.Curve)
-                        refGeom.Add((BHG.Curve)geom);
-                    else if (geom is BHG.Group<BHG.Curve>)
-                    {
-                        List<BHG.Curve> list = BHG.Curve.Join((BHG.Group<BHG.Curve>)geom);
-                        refGeom.Add(list[0]);
-                    }
-                }
-            }
-
-            // Do the actal snapping
-            BHG.GeometryBase output = null;
-            if (geometry is BHG.Curve)
-            {
-                output = MLE.Snapping.HorizontalParallelSnap((BHG.Curve)geometry, refGeom, tol);
-            }
-            else if (geometry is BHG.Group<BHG.Curve>)
-            {
-                output = MLE.Snapping.HorizontalParallelSnap((BHG.Group<BHG.Curve>)geometry, refGeom, tol);
-            }
-
-            // Prepare the result
-            object result = element;
-            if (element is BHB.BHoMObject)
-            {
-                result = ((BHB.BHoMObject)element).ShallowClone();
-                ((BHB.BHoMObject)result).SetGeometry(output);
-            }
-            else if (element is BHG.GeometryBase)
-            {
-                result = output;
-            }
-
-            DA.SetData(0, result);*/
         }
 
         /// <summary>
