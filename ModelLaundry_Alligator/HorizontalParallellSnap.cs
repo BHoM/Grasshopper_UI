@@ -49,6 +49,13 @@ namespace Alligator.ModelLaundry
             List<object> refElements = GHE.DataUtils.GetGenericDataList<object>(DA, 1);
             double tol = GHE.DataUtils.GetData<double>(DA, 2);
 
+            object result = MLE.Snapping.HorizontalParallelSnap(element, refElements, tol);
+            DA.SetData(0, result);
+
+            /*object element = GHE.DataUtils.GetGenericData<object>(DA, 0);
+            List<object> refElements = GHE.DataUtils.GetGenericDataList<object>(DA, 1);
+            double tol = GHE.DataUtils.GetData<double>(DA, 2);
+
             // Get the geometry of the element
             BHG.GeometryBase geometry = null;
             if (element is BHB.BHoMObject)
@@ -56,7 +63,7 @@ namespace Alligator.ModelLaundry
             else if (element is BHG.GeometryBase)
                 geometry = element as BHG.GeometryBase;
             BHG.BoundingBox ROI = geometry.Bounds();
-            ROI.Inflate(tol);
+            ROI = ROI.Inflate(tol);
 
             // Get the geometry of the ref elements
             List<BHG.Curve> refGeom = new List<BHG.Curve>();
@@ -103,7 +110,7 @@ namespace Alligator.ModelLaundry
                 result = output;
             }
 
-            DA.SetData(0, result);
+            DA.SetData(0, result);*/
         }
 
         /// <summary>
