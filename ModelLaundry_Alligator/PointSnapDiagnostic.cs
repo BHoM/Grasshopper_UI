@@ -22,6 +22,7 @@ namespace Alligator.ModelLaundry
         {
             pManager.AddGenericParameter("BHoM Elements", "bhElements", "BHoM object or geometry to diagnose", GH_ParamAccess.list);
             pManager.AddNumberParameter("Distance", "distance", "tolerance distance", GH_ParamAccess.item);
+            pManager.AddNumberParameter("zero", "zero", "zero threshold", GH_ParamAccess.item, BHoM.Base.Tolerance.MIN_DIST);
         }
 
         /// <summary>
@@ -41,8 +42,9 @@ namespace Alligator.ModelLaundry
             // Getting the inputs from GH
             List<object> elements = GHE.DataUtils.GetGenericDataList<object>(DA, 0);
             double dist = GHE.DataUtils.GetData<double>(DA, 1);
+            double minDist = GHE.DataUtils.GetData<double>(DA, 2);
 
-            List<BHG.Point> result = MLE.Diagnostic.CheckSnappedPoints(elements, dist);
+            List<BHG.Point> result = MLE.Diagnostic.CheckSnappedPoints(elements, dist, minDist);
             List<RG.Point3d> locations = new List<Rhino.Geometry.Point3d>();
             foreach (BHG.Point pt in result)
                 locations.Add(new RG.Point3d(pt.X, pt.Y, pt.Z));
