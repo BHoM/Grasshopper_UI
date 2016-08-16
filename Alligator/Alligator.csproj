@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="BHoM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -41,9 +44,11 @@
     </Reference>
     <Reference Include="GH_IO">
       <HintPath>..\External Libraries\GH_IO.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Grasshopper">
       <HintPath>..\External Libraries\Grasshopper.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Grasshopper_Engine">
       <HintPath>..\Build\Grasshopper_Engine.dll</HintPath>
@@ -59,7 +64,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\CustomData.cs" />
+    <Compile Include="Base\CustomData.cs" />
+    <Compile Include="Base\ViewCustomData.cs" />
+    <Compile Include="Components\ImportComponent.cs" />
     <Compile Include="Components\ObjectComponent.cs" />
     <Compile Include="Components\AboutGatorComponent.cs" />
     <Compile Include="AlligatorInfo.cs" />
@@ -67,6 +74,7 @@
     <Compile Include="Base\GetProperty.cs" />
     <Compile Include="Base\SetProperty.cs" />
     <Compile Include="Base\ToJSON.cs" />
+    <Compile Include="Components\ResultComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -82,6 +90,10 @@
     <Compile Include="Structural\Elements\Node.cs" />
     <Compile Include="Structural\Properties\Constraints\NodeConstraint.cs" />
     <Compile Include="Structural\Elements\Panel.cs" />
+    <Compile Include="Structural\Results\BarResults.cs" />
+    <Compile Include="Structural\Results\NodeResults.cs" />
+    <Compile Include="Structural\Results\PanelResults.cs" />
+    <Compile Include="Structural\Results\ResultServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -128,6 +140,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\bar_gravityload.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Global\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

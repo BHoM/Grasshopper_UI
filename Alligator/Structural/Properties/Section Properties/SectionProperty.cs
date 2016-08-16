@@ -9,7 +9,7 @@ namespace Alligator.Structural.Properties
 {
     public class CreateSectionProperty : BHoMBaseComponent<BHP.SectionProperty>
     {
-        public CreateSectionProperty() : base("Create Section Property", "CreateSectionProperty", "Create a BH Section property object", "Alligator", "Structural") { }
+        public CreateSectionProperty() : base("Create Section Property", "CreateSectionProperty", "Create a BH Section property object", "Structure", "Properties") { }
 
         public override Guid ComponentGuid
         {

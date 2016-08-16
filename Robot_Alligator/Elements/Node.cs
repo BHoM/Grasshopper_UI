@@ -22,9 +22,9 @@ namespace Alligator.Robot.Elements
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Application", "App", "Application to import nodes from", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Node", "N", "BHoM Node", GH_ParamAccess.list);
-            pManager.AddBooleanParameter("Execute", "R", "Set Geometry", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Application", "Application", "Application to import nodes from", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Node", "Nodes", "BHoM Node", GH_ParamAccess.list);
+            pManager.AddBooleanParameter("Activate", "Activate", "Set Geometry", GH_ParamAccess.item);
             pManager[2].AddVolatileData(new Grasshopper.Kernel.Data.GH_Path(0), 0, false);
         }
 

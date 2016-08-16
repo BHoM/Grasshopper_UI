@@ -11,7 +11,7 @@ namespace Alligator.Robot.Elements
 {
     public class SetBar : GH_Component
     {
-        public SetBar() : base("Set Bar", "ExBar", "Creates or Replaces the geometry of a Bar", "Robot", "Elements") { }
+        public SetBar() : base("Set Bar", "SetBar", "Creates or Replaces the geometry of a Bar", "Robot", "Elements") { }
 
         public override GH_Exposure Exposure
         {
@@ -23,9 +23,9 @@ namespace Alligator.Robot.Elements
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Application", "App", "Application to import nodes from", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Bars", "B", "BHoM bars to export", GH_ParamAccess.list);
-            pManager.AddBooleanParameter("Execute", "R", "Generate Bars", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Application", "Application", "Application to import nodes from", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Bars", "Bars", "BHoM bars to export", GH_ParamAccess.list);
+            pManager.AddBooleanParameter("Activate", "Activate", "Generate Bars", GH_ParamAccess.item);
 
             pManager[2].Optional = true;
         }

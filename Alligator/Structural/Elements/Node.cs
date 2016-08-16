@@ -6,12 +6,14 @@ using Alligator.Components;
 using GHE = Grasshopper_Engine;
 using BHE = BHoM.Structural.Elements;
 using BHI = BHoM.Structural.Interface;
+using Rhino.Geometry;
+using Grasshopper;
 
 namespace Alligator.Structural.Elements
 {
     public class CreateNode : BHoMBaseComponent<BHE.Node>
     {
-        public CreateNode() : base("Create Node", "CreateNode", "Create a BH Node object", "Alligator", "Structural") { }
+        public CreateNode() : base("Create Node", "CreateNode", "Create a BH Node object", "Structure", "Elements") { }
 
         public override Guid ComponentGuid
         {
@@ -30,7 +32,7 @@ namespace Alligator.Structural.Elements
 
     public class MultiExportNode : GH_Component
     {
-        public MultiExportNode() : base("Multi Export Node", "ExNode", "Creates or Replaces the geometry of a Node", "Alligator", "Structural") { }
+        public MultiExportNode() : base("Multi Export Node", "ExNode", "Creates or Replaces the geometry of a Node", "Structure", "Elements") { }
 
         public override GH_Exposure Exposure
         {
@@ -73,6 +75,60 @@ namespace Alligator.Structural.Elements
         public override Guid ComponentGuid
         {
             get { return new Guid("c811c998-a60f-4015-8bed-a79d22467a20"); }
+        }
+
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.node; }
+        }
+    }
+
+    public class MultiImportNode : ImportComponent
+    {
+        public MultiImportNode() : base("Multi Import Node", "GetNode", "Get the geometry and properties of a node", "Structure", "Elements")
+        {
+
+        }
+
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.tertiary;
+            }
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            if (GHE.DataUtils.Run(DA, 2))
+            {
+                BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
+                if (app != null)
+                {
+                    List<string> ids = null;
+                    List<BHE.Node> nodes = null;
+                    DataTree<Point3d> locations = new DataTree<Point3d>();
+                    if (m_Selection == BHI.ObjectSelection.FromInput)
+                        ids = GHE.DataUtils.GetDataList<string>(DA, 1);
+
+                    app.Selection = m_Selection;
+                    ids = app.GetNodes(out nodes, ids);
+
+                    foreach (BHE.Node node in nodes)
+                    {
+                        locations.Add(GHE.GeometryUtils.Convert(node.Point));
+                    }
+                    DA.SetDataList(0, ids);
+                    DA.SetDataList(1, nodes);
+                    DA.SetDataTree(2, locations);
+                }
+            }
+        }
+
+        public override Guid ComponentGuid
+        {
+            get { return new Guid("{7E9F8C98-606D-4BC2-80EF-2AAE3C1CEB76}"); }
         }
 
         /// <summary> Icon (24x24 pixels)</summary>

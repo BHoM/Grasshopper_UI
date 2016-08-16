@@ -103,6 +103,16 @@ namespace Grasshopper_Engine
             }          
         }
 
+        public static List<R.GeometryBase> Convert<T>(BH.Group<T> geom) where T : BH.GeometryBase
+        {
+            List<R.GeometryBase> rGeom = new List<Rhino.Geometry.GeometryBase>();
+            foreach (T item in geom)
+            {
+                rGeom.Add(Convert(item));
+            }
+            return rGeom;
+        }
+
         public static R.GeometryBase Convert(BH.GeometryBase geom)
         {
             if (geom is BH.Curve)

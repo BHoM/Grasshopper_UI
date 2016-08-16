@@ -9,7 +9,7 @@ namespace Alligator.Materials
 {
     public class CreateMaterial : BHoMBaseComponent<BHM.Material>
     {
-        public CreateMaterial() : base("Create Material", "CreateMaterial", "Create a BH Material object", "Alligator", "Materials") { }
+        public CreateMaterial() : base("Create Material", "CreateMaterial", "Create a BH Material object", "Structure", "Properties") { }
 
         public override Guid ComponentGuid
         {

@@ -22,15 +22,15 @@ namespace Alligator.Robot.Elements
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Application", "App", "Application to import panels from", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Panel", "N", "BHoM Panel", GH_ParamAccess.list);
-            pManager.AddBooleanParameter("Execute", "R", "Set Geometry", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Application", "Application", "Application to import panels from", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Panel", "Panels", "BHoM Panel", GH_ParamAccess.list);
+            pManager.AddBooleanParameter("Activate", "Activate", "Set Geometry", GH_ParamAccess.item);
             pManager[2].AddVolatileData(new Grasshopper.Kernel.Data.GH_Path(0), 0, false);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("Id", "Id", "Panel Id", GH_ParamAccess.list); ;
+            pManager.AddTextParameter("Ids", "Ids", "Panel Id", GH_ParamAccess.list); ;
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)

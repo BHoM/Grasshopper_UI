@@ -51,7 +51,7 @@ namespace Alligator.Base
             else
             {
                 prop.SetValue(newObject, value);
-                DA.SetData(0, o);
+                DA.SetData(0, newObject);
             }
                 
         }

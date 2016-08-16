@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using GHE = Grasshopper_Engine;
 
-namespace Alligator.Components
+namespace Alligator.Base
 {
-    public class CustomData : GH_Component
+    public class CreateCustomData : GH_Component
     {
+        public CreateCustomData() : base("CreateCustomData", "CreateData", "Create a custom data dictionary", "Alligator", "Base")
+        {
+
+        }
+
         public override Guid ComponentGuid
         {
             get
@@ -26,7 +31,7 @@ namespace Alligator.Components
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Custom Data", "CD", "Custom data", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Custom Data", "CustomData", "Custom data", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)

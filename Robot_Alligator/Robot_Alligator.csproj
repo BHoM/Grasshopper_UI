@@ -108,7 +108,7 @@
 
 Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
 
-copy /Y "$(TargetDir)\RobotToolKit.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\RobotToolKit.dll"
+copy /Y "$(TargetDir)\Robot_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Robot_Adapter.dll"
 
 Erase "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
@@ -122,6 +122,7 @@ Erase "$(TargetPath)"</PostBuildEvent>
     <StartAction>Program</StartAction>
     <StartProgram>C:\Program Files\Rhinoceros 5 (64-bit)\System\Rhino.exe</StartProgram>
     <Prefer32Bit>false</Prefer32Bit>
+    <WarningLevel>0</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

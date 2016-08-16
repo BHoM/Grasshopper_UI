@@ -10,12 +10,14 @@ using GHE = Grasshopper_Engine;
 using BHG = BHoM.Geometry;
 using BHE = BHoM.Structural.Elements;
 using BHI = BHoM.Structural.Interface;
+using Rhino.Geometry;
+using Grasshopper;
 
 namespace Alligator.Structural
 {
     public class CreatePanel : BHoMBaseComponent<BHE.Panel>
     {
-        public CreatePanel() : base("Create Panel", "CreatePanel", "Create a BH Panel object", "Alligator", "Structural") { }
+        public CreatePanel() : base("Create Panel", "CreatePanel", "Create a BH Panel object", "Structure", "Elements") { }
 
         public override Guid ComponentGuid
         {
@@ -75,7 +77,7 @@ namespace Alligator.Structural
 
     public class MultiExportPanel : GH_Component
     {
-        public MultiExportPanel() : base("Multi Export Panel", "ExPanel", "Creates or Replaces the geometry of a Panel", "Alligator", "Structural") { }
+        public MultiExportPanel() : base("Multi Export Panel", "ExPanel", "Creates or Replaces the geometry of a Panel", "Structure", "Elements") { }
 
         public override GH_Exposure Exposure
         {
@@ -117,7 +119,63 @@ namespace Alligator.Structural
 
         public override Guid ComponentGuid
         {
-            get { return new Guid("72fb2007-5da5-4037-b480-6e134df8c583"); }
+            get { return new Guid("72fb2007-5da5-4037-b481-6e134df8c583"); }
+        }
+    }
+
+    public class MultiImportPanel : ImportComponent
+    {
+        public MultiImportPanel() : base("Multi Import Panel", "PanelNode", "Get the geometry and properties of a panel", "Structure", "Elements")
+        {
+
+        }
+
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.tertiary;
+            }
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            if (GHE.DataUtils.Run(DA, 2))
+            {
+                BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
+                if (app != null)
+                {
+                    List<string> ids = null;
+                    List<BHE.Panel> panels = null;
+                    DataTree<GeometryBase> geometry = new DataTree<GeometryBase>();
+                    if (m_Selection == BHI.ObjectSelection.FromInput)
+                        ids = GHE.DataUtils.GetDataList<string>(DA, 1);
+
+                    app.Selection = m_Selection;
+                    ids = app.GetPanels(out panels, ids);
+
+                    for (int i = 0; i < panels.Count; i++)
+                    {
+                        geometry.AddRange(GHE.GeometryUtils.Convert<BHG.Curve>(panels[i].External_Contours), new Grasshopper.Kernel.Data.GH_Path(i));
+                        geometry.AddRange(GHE.GeometryUtils.Convert<BHG.Curve>(panels[i].Internal_Contours), new Grasshopper.Kernel.Data.GH_Path(i));
+                    }
+
+                    DA.SetDataList(0, ids);
+                    DA.SetDataList(1, panels);
+                    DA.SetDataTree(2, geometry);
+                }
+            }
+        }
+
+        public override Guid ComponentGuid
+        {
+            get { return new Guid("5520dc1b-87b3-491a-93fa-1495315ce5a2"); }
+        }
+
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.node; }
         }
     }
 }

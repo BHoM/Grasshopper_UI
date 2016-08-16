@@ -6,12 +6,15 @@ using GHE = Grasshopper_Engine;
 using Alligator.Components;
 using BHE = BHoM.Structural.Elements;
 using BHI = BHoM.Structural.Interface;
+using System.Windows.Forms;
+using Rhino.Geometry;
+using Grasshopper;
 
 namespace Alligator.Structural.Elements
 {
     public class CreateBar : BHoMBaseComponent<BHE.Bar>
     {
-        public CreateBar() : base("Create Bar", "CreateBar", "Create a BH Bar object", "Alligator", "Structural") { }
+        public CreateBar() : base("Create Bar", "CreateBar", "Create a BH Bar object", "Structure", "Elements") { }
 
         public override Guid ComponentGuid
         {
@@ -30,7 +33,7 @@ namespace Alligator.Structural.Elements
 
     public class MultiExportBar : GH_Component
     {
-        public MultiExportBar() : base("Multi Export Bar", "ExBar", "Creates or Replaces the geometry of a Bar", "Alligator", "Structural") { }
+        public MultiExportBar() : base("Multi Export Bar", "ExBar", "Creates or Replaces the geometry of a Bar", "Structure", "Elements") { }
 
         public override GH_Exposure Exposure
         {
@@ -73,6 +76,61 @@ namespace Alligator.Structural.Elements
         public override Guid ComponentGuid
         {
             get { return new Guid("2420dc1b-87b3-491a-93fa-1495315ca5a2"); }
+        }
+
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.bar; }
+        }
+    }
+
+    public class MultiImportBar : ImportComponent
+    {       
+        public MultiImportBar() : base("Multi Import Bar", "GetBar", "Get the geometry and properties of a Bar", "Structure", "Elements")
+        {
+           
+        }
+
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.tertiary;
+            }
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            if (GHE.DataUtils.Run(DA, 2))
+            {
+                BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
+                if (app != null)
+                {
+                    List<string> ids = null;
+                    List<BHE.Bar> bars = null;
+                    DataTree<Curve> curves = new DataTree<Curve>();
+                    if (m_Selection == BHI.ObjectSelection.FromInput)
+                        ids = GHE.DataUtils.GetDataList<string>(DA, 1);
+
+                    app.Selection = m_Selection;
+                    ids = app.GetBars(out bars, ids);
+
+                    for (int i = 0; i < bars.Count;i++)
+                    {
+                        curves.Add(GHE.GeometryUtils.Convert(bars[i].Line));
+                    }
+
+                    DA.SetDataList(0, ids);
+                    DA.SetDataList(1, bars);
+                    DA.SetDataTree(2, curves);
+                }
+            }
+        }
+
+        public override Guid ComponentGuid
+        {
+            get { return new Guid("1320dc1b-87b3-491a-93fa-1495315aa5a2"); }
         }
 
         /// <summary> Icon (24x24 pixels)</summary>

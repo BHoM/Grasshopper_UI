@@ -2,12 +2,16 @@
 using System;
 using Alligator.Components;
 using BHP = BHoM.Structural.Properties;
+using Grasshopper.Kernel;
 
 namespace Alligator.Structural.Properties
 {
     public class CreateNodeConstraint : BHoMBaseComponent<BHP.NodeConstraint>
     {
-        public CreateNodeConstraint() : base("Create Constraint", "CreateConstraint", "Create a BH Constraint object", "Alligator", "Structural") { }
+        public CreateNodeConstraint() : base("Create Constraint", "CreateConstraint", "Create a BH Constraint object", "Structure", "Properties")
+        {
+
+        }
 
         public override Guid ComponentGuid
         {

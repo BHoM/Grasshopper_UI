@@ -6,7 +6,7 @@ namespace Alligator.Robot
 {
     public class RobotApp : GH_Component
     {
-        public RobotApp() : base("Robot Application", "RobotApp", "Creates a robot Application", "Robot", "Application") { }
+        public RobotApp() : base("Robot Application", "RobotApp", "Creates a robot Application", "Structure", "Application") { }
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {

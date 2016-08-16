@@ -14,7 +14,7 @@ namespace Alligator.Structural.Loads
 {
     public class CreateBarGravityLoad : BHoMBaseComponent<Load<BHE.Bar>>
     {
-        public CreateBarGravityLoad() : base("Create Bar Gravity Load", "CreateBarGravityLoad", "Create a BH bar gravity load", "Alligator", "Structural") { }
+        public CreateBarGravityLoad() : base("Create Bar Gravity Load", "CreateBarGravityLoad", "Create a BH bar gravity load", "Structure", "Loads") { }
 
         public override Guid ComponentGuid
         {
@@ -33,7 +33,7 @@ namespace Alligator.Structural.Loads
 
     public class CreateBarPrestressLoad : BHoMBaseComponent<BarPrestressLoad>
     {
-        public CreateBarPrestressLoad() : base("Create Bar Prestress Load", "CreateBarPrestressLoad", "Create a BH bar prestress load", "Alligator", "Structural") { }
+        public CreateBarPrestressLoad() : base("Create Bar Prestress Load", "CreateBarPrestressLoad", "Create a BH bar prestress load", "Structure", "Loads") { }
 
         public override Guid ComponentGuid
         {
@@ -52,7 +52,7 @@ namespace Alligator.Structural.Loads
 
     public class MultiExportLoad : GH_Component
     {
-        public MultiExportLoad() : base("Multi Export Load", "ExLoad", "Creates a load", "Alligator", "Structural") { }
+        public MultiExportLoad() : base("Multi Export Load", "ExLoad", "Creates a load", "Structure", "Loads") { }
 
         public override GH_Exposure Exposure
         {
@@ -84,7 +84,6 @@ namespace Alligator.Structural.Loads
                 {
                     List<ILoad> loads = GHE.DataUtils.GetGenericDataList<ILoad>(DA, 1);
                     app.SetLoads(loads);
-
                 }
             }
         }
