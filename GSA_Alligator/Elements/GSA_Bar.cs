@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BHoM.Structural;
 using Grasshopper.Kernel;
-using Rhino.Geometry;
+using RHG = Rhino.Geometry;
+using BHoMG = BHoM.Geometry;
+using BHoM.Structural.Elements;
+using BHoM.Structural.Interface;
+using GHE = Grasshopper_Engine;
 
-namespace Alligator.GSA.Elements
+namespace GSA_Alligator.Elements
 {
     public class ReadBars : GH_Component
     {
@@ -38,19 +41,19 @@ namespace Alligator.GSA.Elements
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            if (Utils.Run(DA, 1))
+            if (GHE.DataUtils.Run(DA, 1))
             {
-                IStructuralAdapter app = Utils.GetGenericData<IStructuralAdapter>(DA, 0);
+                IElementAdapter app = GHE.DataUtils.GetGenericData<IElementAdapter>(DA, 0);
                 if (app != null)
                 {
                     List<Bar> bars = new List<Bar>();
                     List<string> ids = new List<string>();
-                    List<Rhino.Geometry.GeometryBase> lines = new List<GeometryBase>();
+                    List<RHG.GeometryBase> lines = new List<RHG.GeometryBase>();
                     app.GetBars(out bars);
 
                     foreach (Bar bar in bars)
                     {
-                       lines.Add(GeometryUtils.Convert(bar.Line as BHoM.Geometry.GeometryBase));
+                       lines.Add(GHE.GeometryUtils.Convert(bar.Line as BHoMG.GeometryBase));
                        ids.Add(bar.Name);
                     }
 
@@ -69,7 +72,7 @@ namespace Alligator.GSA.Elements
         /// <summary> Icon(24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return GSA.Properties.Resources.bar; }
+            get { return GSA_Alligator.Properties.Resources.bar; }
         }
 
     }
