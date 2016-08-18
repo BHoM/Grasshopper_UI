@@ -72,6 +72,7 @@
     <Compile Include="PointSnapDiagnostic.cs" />
     <Compile Include="PointToPointSnap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SetPanelOpenings.cs" />
     <Compile Include="VerticalSnapToHeight.cs" />
     <Compile Include="VerticalSnapToShapes.cs" />
     <Compile Include="VisualizeLines.cs" />
