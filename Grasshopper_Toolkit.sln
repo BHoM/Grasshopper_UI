@@ -34,7 +34,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportVenueEvent_Alligator",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StructuralDynamics_Alligator", "StructuralDynamics_Alligator\StructuralDynamics_Alligator.csproj", "{D6DFAEC2-6DEB-41B0-ADF2-5DBE009DC894}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Etabs_Alligator", "EtabsAlligator\Etabs_Alligator.csproj", "{EE6DA5F6-FA86-4D74-AA86-B87DD3868BC0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Etabs_Alligator", "Etabs_Alligator\Etabs_Alligator.csproj", "{EE6DA5F6-FA86-4D74-AA86-B87DD3868BC0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
