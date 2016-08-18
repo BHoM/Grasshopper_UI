@@ -34,10 +34,10 @@ namespace Alligator.Structural.Results
                 {
                     List<string> ids = GHE.DataUtils.GetDataList<string>(DA, 1);
                     List<string> cases = GHE.DataUtils.GetDataList<string>(DA, 2);
-                    Dictionary<string, BHR.ResultSet<PanelForce>> results = new Dictionary<string, BHR.ResultSet<PanelForce>>();
+                    Dictionary<string, BHR.IResultSet> results = new Dictionary<string, BHR.IResultSet>();
                     app.GetPanelForces(ids, cases, m_ResultOrder, out results);
 
-                    SetResults(DA, results);
+                    SetResults<PanelForce>(DA, results);
                 }
             }
         }
@@ -64,10 +64,10 @@ namespace Alligator.Structural.Results
                 {
                     List<string> ids = GHE.DataUtils.GetDataList<string>(DA, 1);
                     List<string> cases = GHE.DataUtils.GetDataList<string>(DA, 2);
-                    Dictionary<string, BHR.ResultSet<PanelStress>> results = new Dictionary<string, BHR.ResultSet<PanelStress>>();
+                    Dictionary<string, BHR.IResultSet> results = new Dictionary<string, BHR.IResultSet>();
                     app.GetPanelStress(ids, cases, m_ResultOrder, out results);
 
-                    SetResults(DA, results);
+                    SetResults<PanelStress>(DA, results);
                 }
             }
         }

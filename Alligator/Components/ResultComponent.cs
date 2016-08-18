@@ -13,10 +13,20 @@ using GHE = Grasshopper_Engine;
 
 namespace Alligator.Components
 {
-    public abstract class ResultBaseComponent<T> : GH_Component where T : Result, new()
+    public enum EnvelopeOption
+    {
+        None,
+        Max,
+        Min,
+        Abs
+    }
+
+    public abstract class ResultBaseComponent<T> : GH_Component where T : IResult, new()
     {
         private ComboBox m_Options;
+        private ComboBox m_EnvelopeOption;
         protected ResultOrder m_ResultOrder;
+        protected EnvelopeOption m_EnvelopeType;
         public ResultBaseComponent() { }
 
         protected ResultBaseComponent(string name, string nickname, string description, string category, string subCat) : base(name, nickname, description, category, subCat)
@@ -27,13 +37,39 @@ namespace Alligator.Components
             m_Options.SelectedValueChanged += OptionChanged;
             m_Options.Items.AddRange(OptionNames);
             m_Options.SelectedIndex = 0;
+
+            string[] EnvelopeTpes = Enum.GetNames(typeof(EnvelopeOption));
+            m_EnvelopeOption = new ComboBox();
+            m_EnvelopeOption.DropDownStyle = ComboBoxStyle.DropDownList;
+            m_EnvelopeOption.SelectedValueChanged += EnvelopeOptionChanged;
+            m_EnvelopeOption.Items.AddRange(EnvelopeTpes);
+            m_EnvelopeOption.SelectedIndex = 0;
+        }
+
+        private void EnvelopeOptionChanged(object sender, EventArgs e)
+        {
+            m_EnvelopeType = (EnvelopeOption)Enum.Parse(typeof(EnvelopeOption), m_EnvelopeOption.SelectedItem.ToString());
+            SetMessage();
+            this.ExpireSolution(true);
         }
 
         private void OptionChanged(object sender, EventArgs e)
         {
             m_ResultOrder = (ResultOrder)Enum.Parse(typeof(ResultOrder), m_Options.SelectedItem.ToString());
-            this.Message = m_Options.SelectedItem.ToString();
+            SetMessage();
             this.ExpireSolution(true);
+        }
+
+        private void SetMessage()
+        {
+            if (m_EnvelopeType != EnvelopeOption.None)
+            {
+                this.Message = m_EnvelopeType.ToString() + " Envelope By " + m_Options.SelectedItem.ToString();
+            }
+            else
+            {
+                this.Message = m_Options.SelectedItem.ToString();
+            }
         }
 
         public override Guid ComponentGuid
@@ -72,7 +108,7 @@ namespace Alligator.Components
                 }
                 else if (GHE.DataUtils.IsNumeric(pType))
                 {
-                    if (GHE.DataUtils.IsInteger(pType)) pManager.AddIntegerParameter(columnHeaders[i], columnHeaders[i], description, GH_ParamAccess.tree);
+                    if (GHE.DataUtils.IsInteger(pType)) pManager.AddTextParameter(columnHeaders[i], columnHeaders[i], description, GH_ParamAccess.tree);
                     else pManager.AddNumberParameter(columnHeaders[i], columnHeaders[i], description, GH_ParamAccess.tree);
                 }
             }
@@ -83,6 +119,7 @@ namespace Alligator.Components
             if (m_Options != null)
             {
                 writer.SetString("EnumOption", m_Options.Text);
+                writer.SetString("EnvelopeOption", m_EnvelopeOption.Text);
             }
             return base.Write(writer);
         }
@@ -94,6 +131,8 @@ namespace Alligator.Components
                 string selection = "";
                 reader.TryGetString("EnumOption", ref selection);
                 m_Options.SelectedItem = selection;
+                reader.TryGetString("EnvelopeOption", ref selection);
+                m_EnvelopeOption.SelectedItem = selection;
             }
             return base.Read(reader);
         }
@@ -106,7 +145,10 @@ namespace Alligator.Components
                 Menu_AppendEnableItem(menu);
                 Menu_AppendBakeItem(menu);
                 Menu_AppendSeparator(menu);
+                Menu_AppendItem(menu, "Order:________");
                 Menu_AppendCustomItem(menu, m_Options);
+                Menu_AppendItem(menu, "Envelope:________");
+                Menu_AppendCustomItem(menu, m_EnvelopeOption);
                 Menu_AppendSeparator(menu);
                 // Menu
                 Menu_AppendSeparator(menu);
@@ -121,7 +163,7 @@ namespace Alligator.Components
 
         protected override void SolveInstance(IGH_DataAccess DA) { }
 
-        public void SetResults<T>(IGH_DataAccess DA, Dictionary<string, ResultSet<T>> data) where T : Result, new()
+        public void SetResults<T>(IGH_DataAccess DA, Dictionary<string, IResultSet> data) where T : IResult, new()
         {
             string[] columnHeaders = new T().ColumnHeaders;
             List<DataTree<object>> output = new List<DataTree<object>>();
@@ -132,15 +174,44 @@ namespace Alligator.Components
             }
 
             int branch = 0;
-
-            foreach (ResultSet<T> set in data.Values)
+            
+            foreach (IResultSet set in data.Values)
             {
                 GH_Path path = new GH_Path(branch++);
-                foreach (object[] result in set.ToListData())
+                Envelope envelope = null;
+
+                switch (m_EnvelopeType)
                 {
-                    for (int i = 0; i < result.Length; i++)
+                    case EnvelopeOption.None:
+                        foreach (object[] result in set.ToListData())
+                        {
+                            for (int i = 0; i < result.Length; i++)
+                            {
+                                output[i].Add(result[i], path);
+                            }
+                        }
+                        break;
+                    case EnvelopeOption.Max:
+                        envelope = set.MaxEnvelope();
+                        break;
+                    case EnvelopeOption.Min:
+                        envelope = set.MinEnvelope();
+                        break;
+                    case EnvelopeOption.Abs:
+                        envelope = set.AbsoluteEnvelope();
+                        break;
+                }
+
+                if (envelope != null)
+                {
+                    object[] results = new object[columnHeaders.Length];
+                    int startIndex = columnHeaders.ToList().IndexOf(envelope.Names[0]);
+                    output[0].AddRange(envelope.Keys, path);
+                    output[1].AddRange(envelope.Names, path);
+                    output[2].AddRange(envelope.Cases, path);
+                    for (int i = 0; i < envelope.Names.Length; i++)
                     {
-                        output[i].Add(result[i], path);
+                        output[startIndex + i].Add(envelope.Values[i], path);
                     }
                 }
             }

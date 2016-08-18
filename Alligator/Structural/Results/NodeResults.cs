@@ -34,10 +34,10 @@ namespace Alligator.Structural.Results
                 {
                     List<string> ids = GHE.DataUtils.GetDataList<string>(DA, 1);
                     List<string> cases = GHE.DataUtils.GetDataList<string>(DA, 2);
-                    Dictionary<string, BHR.ResultSet<NodeDisplacement>> results = new Dictionary<string, BHR.ResultSet<NodeDisplacement>>();
+                    Dictionary<string, BHR.IResultSet> results = new Dictionary<string, BHR.IResultSet>();
                     app.GetNodeDisplacements(ids, cases, m_ResultOrder, out results);
 
-                    SetResults(DA, results);
+                    SetResults<NodeDisplacement>(DA, results);
                 }
             }
         }
@@ -65,10 +65,10 @@ namespace Alligator.Structural.Results
                 {
                     List<string> ids = GHE.DataUtils.GetDataList<string>(DA, 1);
                     List<string> cases = GHE.DataUtils.GetDataList<string>(DA, 2);
-                    Dictionary<string, BHR.ResultSet<NodeReaction>> results = new Dictionary<string, BHR.ResultSet<NodeReaction>>();
+                    Dictionary<string, BHR.IResultSet> results = new Dictionary<string, BHR.IResultSet>();
                     app.GetNodeReactions(ids, cases, m_ResultOrder, out results);
 
-                    SetResults(DA, results);
+                    SetResults<NodeReaction>(DA, results);
                 }
             }
         }

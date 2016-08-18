@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportVenueEvent_Alligator",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StructuralDynamics_Alligator", "StructuralDynamics_Alligator\StructuralDynamics_Alligator.csproj", "{D6DFAEC2-6DEB-41B0-ADF2-5DBE009DC894}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Etabs_Alligator", "EtabsAlligator\Etabs_Alligator.csproj", "{EE6DA5F6-FA86-4D74-AA86-B87DD3868BC0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +109,12 @@ Global
 		{D6DFAEC2-6DEB-41B0-ADF2-5DBE009DC894}.Debug64|Any CPU.Build.0 = Debug64|Any CPU
 		{D6DFAEC2-6DEB-41B0-ADF2-5DBE009DC894}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6DFAEC2-6DEB-41B0-ADF2-5DBE009DC894}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE6DA5F6-FA86-4D74-AA86-B87DD3868BC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE6DA5F6-FA86-4D74-AA86-B87DD3868BC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE6DA5F6-FA86-4D74-AA86-B87DD3868BC0}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE6DA5F6-FA86-4D74-AA86-B87DD3868BC0}.Debug64|Any CPU.Build.0 = Debug|Any CPU
+		{EE6DA5F6-FA86-4D74-AA86-B87DD3868BC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE6DA5F6-FA86-4D74-AA86-B87DD3868BC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

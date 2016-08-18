@@ -48,10 +48,10 @@ namespace Alligator.Structural.Results
                     List<string> cases = GHE.DataUtils.GetDataList<string>(DA, 2);
                     int divisions = GHE.DataUtils.GetData<int>(DA, 3);
                     if (divisions == 0) divisions = 3;
-                    Dictionary<string, BHR.ResultSet<BarForce>> results = new Dictionary<string, BHR.ResultSet<BarForce>>();
+                    Dictionary<string, BHR.IResultSet> results = new Dictionary<string, BHR.IResultSet>();
                     app.GetBarForces(ids, cases, divisions, m_ResultOrder, out results);
 
-                    SetResults(DA, results);
+                    SetResults<BarForce>(DA, results);
                 }
             }
         }
