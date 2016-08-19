@@ -3,6 +3,7 @@ using System;
 using Alligator.Components;
 using BHP = BHoM.Structural.Properties;
 using Grasshopper.Kernel;
+using Grasshopper_Engine.Components;
 
 namespace Alligator.Structural.Properties
 {

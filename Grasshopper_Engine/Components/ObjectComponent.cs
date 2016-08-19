@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using BHB = BHoM.Base;
 using GHE = Grasshopper_Engine;
 
-namespace Alligator.Components
+namespace Grasshopper_Engine.Components
 {
 
     public abstract class BHoMBaseComponent<T> : GH_Component where T : BHB.BHoMObject

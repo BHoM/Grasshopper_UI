@@ -10,6 +10,7 @@ using BHE = BHoM.Structural.Elements;
 using BHI = BHoM.Structural.Interface;
 using BHR = BHoM.Base.Results;
 using Grasshopper.Kernel;
+using Grasshopper_Engine.Components;
 
 namespace Alligator.Structural.Results
 {

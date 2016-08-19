@@ -49,6 +49,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,10 +58,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GeometryUtils.cs" />
+    <Compile Include="Components\ImportComponent.cs" />
+    <Compile Include="Components\ObjectComponent.cs" />
+    <Compile Include="Components\ResultComponent.cs" />
+    <Compile Include="Utility\GeometryUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DataUtils.cs" />
+    <Compile Include="Utility\DataUtils.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\"</PostBuildEvent>

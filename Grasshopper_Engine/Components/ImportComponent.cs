@@ -9,7 +9,7 @@ using GHE = Grasshopper_Engine;
 using BHE = BHoM.Structural.Elements;
 using BHI = BHoM.Structural.Interface;
 
-namespace Alligator.Components
+namespace Grasshopper_Engine.Components
 {   
     public abstract class ImportComponent : GH_Component
     {

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GHE = Grasshopper_Engine;
 
-namespace Alligator.Components
+namespace Grasshopper_Engine.Components
 {
     public enum EnvelopeOption
     {
@@ -163,9 +163,9 @@ namespace Alligator.Components
 
         protected override void SolveInstance(IGH_DataAccess DA) { }
 
-        public void SetResults<T>(IGH_DataAccess DA, Dictionary<string, IResultSet> data) where T : IResult, new()
+        public void SetResults<S>(IGH_DataAccess DA, Dictionary<string, IResultSet> data) where S : IResult, new()
         {
-            string[] columnHeaders = new T().ColumnHeaders;
+            string[] columnHeaders = new S().ColumnHeaders;
             List<DataTree<object>> output = new List<DataTree<object>>();
 
             for (int i = 0; i < columnHeaders.Length; i++)

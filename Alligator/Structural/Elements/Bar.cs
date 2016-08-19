@@ -9,6 +9,7 @@ using BHI = BHoM.Structural.Interface;
 using System.Windows.Forms;
 using Rhino.Geometry;
 using Grasshopper;
+using Grasshopper_Engine.Components;
 
 namespace Alligator.Structural.Elements
 {

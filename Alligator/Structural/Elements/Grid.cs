@@ -12,6 +12,7 @@ using BHE = BHoM.Structural.Elements;
 using BHI = BHoM.Structural.Interface;
 using Rhino.Geometry;
 using Grasshopper;
+using Grasshopper_Engine.Components;
 
 namespace Alligator.Structural.Elements
 {

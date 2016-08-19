@@ -4,6 +4,7 @@ using Alligator.Components;
 using System.Collections.Generic;
 using BHE = BHoM.Structural.Elements;
 using BHP = BHoM.Structural.Properties;
+using Grasshopper_Engine.Components;
 
 namespace Alligator.Structural.Properties
 {

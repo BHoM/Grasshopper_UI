@@ -8,6 +8,7 @@ using Alligator.Components;
 using GHE = Grasshopper_Engine;
 using BHL = BHoM.Structural.Loads;
 using BHI = BHoM.Structural.Interface;
+using Grasshopper_Engine.Components;
 
 namespace Alligator.Structural.Loads
 {

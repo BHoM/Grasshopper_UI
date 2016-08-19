@@ -4,6 +4,7 @@ using Grasshopper.Kernel;
 using System.Collections.Generic;
 using Alligator.Components;
 using BHM = BHoM.Materials;
+using Grasshopper_Engine.Components;
 
 namespace Alligator.Materials
 {

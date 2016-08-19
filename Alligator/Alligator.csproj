@@ -66,15 +66,12 @@
   <ItemGroup>
     <Compile Include="Base\CustomData.cs" />
     <Compile Include="Base\ViewCustomData.cs" />
-    <Compile Include="Components\ImportComponent.cs" />
-    <Compile Include="Components\ObjectComponent.cs" />
     <Compile Include="Components\AboutGatorComponent.cs" />
     <Compile Include="AlligatorInfo.cs" />
     <Compile Include="Base\FromJSON.cs" />
     <Compile Include="Base\GetProperty.cs" />
     <Compile Include="Base\SetProperty.cs" />
     <Compile Include="Base\ToJSON.cs" />
-    <Compile Include="Components\ResultComponent.cs" />
     <Compile Include="Geometry\Curve\Polyline.cs" />
     <Compile Include="Geometry\Curve\Line.cs" />
     <Compile Include="Geometry\Vector\Point.cs" />

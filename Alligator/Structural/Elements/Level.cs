@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BHG = BHoM.Geometry;
+using Grasshopper_Engine.Components;
 
 namespace Alligator.Structural.Elements
 {
