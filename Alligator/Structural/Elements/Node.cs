@@ -30,9 +30,9 @@ namespace Alligator.Structural.Elements
         }
     }
 
-    public class MultiExportNode : GH_Component
+    public class ExportNode : GH_Component
     {
-        public MultiExportNode() : base("Multi Export Node", "ExNode", "Creates or Replaces the geometry of a Node", "Structure", "Elements") { }
+        public ExportNode() : base("Export Node", "ExNode", "Creates or Replaces the geometry of a Node", "Structure", "Elements") { }
 
         public override GH_Exposure Exposure
         {
@@ -84,9 +84,9 @@ namespace Alligator.Structural.Elements
         }
     }
 
-    public class MultiImportNode : ImportComponent
+    public class ImportNode : ImportComponent
     {
-        public MultiImportNode() : base("Multi Import Node", "GetNode", "Get the geometry and properties of a node", "Structure", "Elements")
+        public ImportNode() : base("Import Node", "GetNode", "Get the geometry and properties of a node", "Structure", "Elements")
         {
 
         }

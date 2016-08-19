@@ -84,6 +84,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Structural\Elements\Grid.cs" />
+    <Compile Include="Structural\Elements\Level.cs" />
+    <Compile Include="Structural\Elements\Opening.cs" />
+    <Compile Include="Structural\Properties\Constraints\BarConstraint.cs" />
     <Compile Include="Structural\Properties\Constraints\DoF.cs" />
     <Compile Include="Structural\Loads\Load.cs" />
     <Compile Include="Structural\Loads\Loadcase.cs" />

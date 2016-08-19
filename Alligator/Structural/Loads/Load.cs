@@ -50,9 +50,9 @@ namespace Alligator.Structural.Loads
         }
     }
 
-    public class MultiExportLoad : GH_Component
+    public class ExportLoad : GH_Component
     {
-        public MultiExportLoad() : base("Multi Export Load", "ExLoad", "Creates a load", "Structure", "Loads") { }
+        public ExportLoad() : base("Export Load", "ExLoad", "Creates a load", "Structure", "Loads") { }
 
         public override GH_Exposure Exposure
         {

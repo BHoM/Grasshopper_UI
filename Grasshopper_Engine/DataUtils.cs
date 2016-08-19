@@ -189,6 +189,11 @@ namespace Grasshopper_Engine
                     (obj[i] as GH_ObjectWrapper).CastTo<T>(out data);
                     result.Add(data);
                 }
+                else if (typeof(IGH_Goo).IsAssignableFrom(obj[i].GetType()))
+                {
+                    ((IGH_Goo)obj[i]).CastTo<T>(out data);
+                    result.Add(data);
+                }
                 else result.Add((T)(object)obj[i]);
             }
 

@@ -13,7 +13,7 @@ using BHI = BHoM.Structural.Interface;
 using Rhino.Geometry;
 using Grasshopper;
 
-namespace Alligator.Structural
+namespace Alligator.Structural.Elements
 {
     public class CreatePanel : BHoMBaseComponent<BHE.Panel>
     {
@@ -75,9 +75,9 @@ namespace Alligator.Structural
 
     }
 
-    public class MultiExportPanel : GH_Component
+    public class ExportPanel : GH_Component
     {
-        public MultiExportPanel() : base("Multi Export Panel", "ExPanel", "Creates or Replaces the geometry of a Panel", "Structure", "Elements") { }
+        public ExportPanel() : base("Export Panel", "ExPanel", "Creates or Replaces the geometry of a Panel", "Structure", "Elements") { }
 
         public override GH_Exposure Exposure
         {
@@ -123,9 +123,9 @@ namespace Alligator.Structural
         }
     }
 
-    public class MultiImportPanel : ImportComponent
+    public class ImportPanel : ImportComponent
     {
-        public MultiImportPanel() : base("Multi Import Panel", "PanelNode", "Get the geometry and properties of a panel", "Structure", "Elements")
+        public ImportPanel() : base("Import Panel", "PanelNode", "Get the geometry and properties of a panel", "Structure", "Elements")
         {
 
         }

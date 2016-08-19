@@ -115,7 +115,7 @@ namespace Alligator.Components
                         }
                         else if (pType == typeof(BHoM.Geometry.Group<BHoM.Geometry.Curve>))
                         {
-                            pManager.AddGroupParameter(name, nickName, description, GH_ParamAccess.item);
+                            pManager.AddCurveParameter(name, nickName, description, GH_ParamAccess.list);
                         }
                     }
                     else
@@ -196,13 +196,27 @@ namespace Alligator.Components
                     {
                         Type listType = pType.GetGenericArguments()[0];
                         var utils = typeof(GHE.DataUtils);
-
                         MethodInfo methodInfo = utils.GetMethod("GetGenericDataList", System.Reflection.BindingFlags.Static | BindingFlags.Public);
-                        MethodInfo genericMethodInfo = methodInfo.MakeGenericMethod(new Type[] { listType });
+                        MethodInfo genericMethodInfo = null;
 
-                        var newList = typeof(List<>);
-                        var listOfType = newList.MakeGenericType(listType);
-                        var list = genericMethodInfo.Invoke(null, new object[] { DA, i });
+                        if (listType.BaseType == typeof(BHoM.Geometry.GeometryBase))
+                        {
+                            genericMethodInfo = methodInfo.MakeGenericMethod(new Type[] { GHE.GeometryUtils.GetRhinoType(listType) });
+                        }
+                        else
+                        {
+                            genericMethodInfo = methodInfo.MakeGenericMethod(new Type[] { listType });
+                        }
+                    
+                        object list = genericMethodInfo.Invoke(null, new object[] { DA, i });
+
+                        if (listType.BaseType == typeof(BHoM.Geometry.GeometryBase))
+                        {
+                            utils = typeof(GHE.GeometryUtils);
+                            methodInfo = utils.GetMethod("ConvertList", System.Reflection.BindingFlags.Static | BindingFlags.Public);
+                            genericMethodInfo = methodInfo.MakeGenericMethod(new Type[] { listType, GHE.GeometryUtils.GetRhinoType(listType) });
+                            list = genericMethodInfo.Invoke(null, new object[] { list });
+                        }
 
                         prop.SetValue(obj, list);
                     }

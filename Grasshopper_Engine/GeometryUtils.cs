@@ -10,6 +10,55 @@ namespace Grasshopper_Engine
 {
     public class GeometryUtils
     {
+        public static Type GetRhinoType(Type bhType)
+        {
+            if (bhType == typeof(BH.Curve))
+            {
+                return typeof(R.Curve);
+            }
+            else if (bhType == typeof(BH.Point))
+            {
+                return typeof(R.Point);
+            }
+            else if (bhType == typeof(BH.Surface))
+            {
+                return typeof(R.Surface);
+            }
+            else if (bhType == typeof(BH.Plane))
+            {
+                return typeof(R.Plane);
+            }
+            else if (bhType == typeof(BH.Mesh))
+            {
+                return typeof(R.Mesh);
+            }
+            return null;
+        }
+
+        public static Type GetBHType(Type rhinoType)
+        {
+            if (rhinoType == typeof(R.Curve) || rhinoType.IsAssignableFrom(typeof(R.Curve)))
+            {
+                return typeof(BH.Curve);
+            }
+            else if (rhinoType == typeof(R.Point))
+            {
+                return typeof(BH.Point);
+            }
+            else if (rhinoType == typeof(R.Surface))
+            {
+                return typeof(BH.Surface);
+            }
+            else if (rhinoType == typeof(R.Plane))
+            {
+                return typeof(BH.Plane);
+            }
+            else if (rhinoType == typeof(R.Mesh))
+            {
+                return typeof(BH.Mesh);
+            }
+            return null;
+        }
 
         private static IEnumerable<R.Point3d> ConvertPointCollection(IEnumerable<BH.Point> pnts)
         {
@@ -60,6 +109,16 @@ namespace Grasshopper_Engine
             return new R.Point3d(p.X, p.Y, p.Z);
         }
 
+        public static R.Vector3d Convert(BH.Vector p)
+        {
+            return new R.Vector3d(p.X, p.Y, p.Z);
+        }
+
+        public static R.Plane Convert(BH.Plane p)
+        {
+            return new R.Plane(Convert(p.Origin), Convert(p.Normal));
+        }
+
         public static BH.Point Convert(R.Point3d pnt)
         {
             R.Point3d p = pnt;
@@ -102,6 +161,17 @@ namespace Grasshopper_Engine
                 return BH.NurbCurve.Create(points, degree, knots, weight);
             }          
         }
+
+        public static BH.Group<TBH> ConvertList<TBH,TR>(List<TR> geom) where TBH : BH.GeometryBase where TR : R.GeometryBase
+        {
+            BH.Group<TBH> group = new BHoM.Geometry.Group<TBH>();
+            for (int i = 0; i < geom.Count; i++)
+            {
+                group.Add(Convert(geom[i]) as TBH);
+            }
+
+            return group;
+        } 
 
         public static List<R.GeometryBase> Convert<T>(BH.Group<T> geom) where T : BH.GeometryBase
         {

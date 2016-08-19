@@ -1,39 +1,36 @@
-﻿using BHoM.Structural;
-using System;
-using Grasshopper.Kernel;
+﻿using System;
 using System.Collections.Generic;
-using GHE = Grasshopper_Engine;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using BHoM.Structural;
 using Alligator.Components;
+using Grasshopper.Kernel;
+using GHE = Grasshopper_Engine;
+using BHG = BHoM.Geometry;
 using BHE = BHoM.Structural.Elements;
 using BHI = BHoM.Structural.Interface;
-using System.Windows.Forms;
 using Rhino.Geometry;
 using Grasshopper;
 
 namespace Alligator.Structural.Elements
 {
-    public class CreateBar : BHoMBaseComponent<BHE.Bar>
+    public class CreateGrid : BHoMBaseComponent<BHE.Grid>
     {
-        public CreateBar() : base("Create Bar", "CreateBar", "Create a BH Bar object", "Structure", "Elements") { }
+        public CreateGrid() : base("Create Grid", "CreateGrid", "Create a BH Grid object", "Structure", "Elements") { }
 
         public override Guid ComponentGuid
         {
             get
             {
-                return new Guid("5FE0E2C4-5E50-410F-BBC7-C255FD1BD2B4");
+                return new Guid("9E64C671-01BD-45B9-94D3-554BD2F8BA52");
             }
-        }
-
-        /// <summary> Icon (24x24 pixels)</summary>
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return Alligator.Properties.Resources.bar; }
         }
     }
 
-    public class ExportBar : GH_Component
+    public class ExportGrid : GH_Component
     {
-        public ExportBar() : base("Export Bar", "ExBar", "Creates or Replaces the geometry of a Bar", "Structure", "Elements") { }
+        public ExportGrid() : base("Export Grid", "ExGrid", "Creates or Replaces the geometry of a Grid", "Structure", "Elements") { }
 
         public override GH_Exposure Exposure
         {
@@ -46,8 +43,8 @@ namespace Alligator.Structural.Elements
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Application", "App", "Application to export bars to", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Bars", "B", "BHoM bars to export", GH_ParamAccess.list);
-            pManager.AddBooleanParameter("Execute", "R", "Generate Bars", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Grids", "P", "BHoM Grids to export", GH_ParamAccess.list);
+            pManager.AddBooleanParameter("Execute", "R", "Generate Grids", GH_ParamAccess.item);
 
             pManager[2].Optional = true;
         }
@@ -64,9 +61,9 @@ namespace Alligator.Structural.Elements
                 BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
                 if (app != null)
                 {
-                    List<BHE.Bar> bars = GHE.DataUtils.GetGenericDataList<BHE.Bar>(DA, 1);
+                    List<BHE.Grid> Grids = GHE.DataUtils.GetGenericDataList<BHE.Grid>(DA, 1);
                     List<string> ids = null;
-                    app.SetBars(bars, out ids);
+                    app.SetGrids(Grids, out ids);
 
                     DA.SetDataList(0, ids);
                 }
@@ -75,21 +72,15 @@ namespace Alligator.Structural.Elements
 
         public override Guid ComponentGuid
         {
-            get { return new Guid("2420dc1b-87b3-491a-93fa-1495315ca5a2"); }
-        }
-
-        /// <summary> Icon (24x24 pixels)</summary>
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return Alligator.Properties.Resources.bar; }
+            get { return new Guid("72fb2007-5da5-46A7-b481-6e134df8c583"); }
         }
     }
 
-    public class ImportBar : ImportComponent
-    {       
-        public ImportBar() : base("Import Bar", "GetBar", "Get the geometry and properties of a Bar", "Structure", "Elements")
+    public class ImportGrid : ImportComponent
+    {
+        public ImportGrid() : base("Import Grid", "GridNode", "Get the geometry and properties of a Grid", "Structure", "Elements")
         {
-           
+
         }
 
         public override GH_Exposure Exposure
@@ -108,35 +99,29 @@ namespace Alligator.Structural.Elements
                 if (app != null)
                 {
                     List<string> ids = null;
-                    List<BHE.Bar> bars = null;
-                    DataTree<Curve> curves = new DataTree<Curve>();
+                    List<BHE.Grid> Grids = null;
+                    DataTree<Curve> geometry = new DataTree<Curve>();
                     if (m_Selection == BHI.ObjectSelection.FromInput)
                         ids = GHE.DataUtils.GetDataList<string>(DA, 1);
 
                     app.Selection = m_Selection;
-                    ids = app.GetBars(out bars, ids);
+                    ids = app.GetGrids(out Grids, ids);
 
-                    for (int i = 0; i < bars.Count;i++)
+                    for (int i = 0; i < Grids.Count; i++)
                     {
-                        curves.Add(GHE.GeometryUtils.Convert(bars[i].Line));
+                        geometry.Add(GHE.GeometryUtils.Convert(Grids[i].Line));
                     }
 
                     DA.SetDataList(0, ids);
-                    DA.SetDataList(1, bars);
-                    DA.SetDataTree(2, curves);
+                    DA.SetDataList(1, Grids);
+                    DA.SetDataTree(2, geometry);
                 }
             }
         }
 
         public override Guid ComponentGuid
         {
-            get { return new Guid("1320dc1b-87b3-491a-93fa-1495315aa5a2"); }
-        }
-
-        /// <summary> Icon (24x24 pixels)</summary>
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return Alligator.Properties.Resources.bar; }
+            get { return new Guid("5520dc1b-87b3-491a-93fa-149F215ce5a2"); }
         }
     }
 }
