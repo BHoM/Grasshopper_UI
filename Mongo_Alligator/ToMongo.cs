@@ -27,7 +27,7 @@ namespace Alligator.Mongo
             pManager.AddGenericParameter("Mongo link", "link", "collection to send the data to", GH_ParamAccess.item);
             pManager.AddGenericParameter("BHoM objects", "objects", "BHoM objects to convert", GH_ParamAccess.list);
             pManager.AddTextParameter("key", "key", "key used to tag the saved data", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("active", "active", "check if the compoenent currently allows data transfer", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("active", "active", "check if the component currently allows data transfer", GH_ParamAccess.item, false);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -37,13 +37,21 @@ namespace Alligator.Mongo
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             MA.MongoLink link = GHE.DataUtils.GetGenericData<MA.MongoLink>(DA, 0);
-            List<BHB.BHoMObject> bhomObjects = GHE.DataUtils.GetGenericDataList<BHB.BHoMObject>(DA, 1);
-
+            List<object> objects = GHE.DataUtils.GetGenericDataList<object>(DA, 1);
             string key = ""; DA.GetData<string>(2, ref key);
             bool active = false; DA.GetData<bool>(3, ref active);
 
             if (!active) return;
-            link.SaveObjects(bhomObjects, key);
+            if (objects.Count == 0) return;
+
+            if (objects[0].GetType() == typeof(string))
+            {
+                link.SaveJson(objects.Select(x => x as string), key);
+            }
+            if (objects[0].GetType() == typeof(BHB.BHoMObject))
+            {
+                link.SaveObjects(objects.Select(x => x as BHB.BHoMObject), key);
+            }
         }
     }
 }

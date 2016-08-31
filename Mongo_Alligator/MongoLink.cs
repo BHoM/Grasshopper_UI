@@ -23,7 +23,7 @@ namespace Alligator.Mongo
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("server", "server", "address of the server", GH_ParamAccess.item, "mongodb://host:27017");
+            pManager.AddTextParameter("server", "server", "address of the server", GH_ParamAccess.item, "mongodb://localhost:27017");
             pManager.AddTextParameter("database", "database", "name of the database", GH_ParamAccess.item, "project");
             pManager.AddTextParameter("collection", "collection", "name of the collection", GH_ParamAccess.item, "bhomObjects");
         }
