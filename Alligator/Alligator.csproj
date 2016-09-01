@@ -74,6 +74,7 @@
     <Compile Include="Base\ToJSON.cs" />
     <Compile Include="Geometry\Curve\Polyline.cs" />
     <Compile Include="Geometry\Curve\Line.cs" />
+    <Compile Include="Geometry\Group.cs" />
     <Compile Include="Geometry\Vector\Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
