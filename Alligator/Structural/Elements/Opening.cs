@@ -26,8 +26,11 @@ namespace Alligator.Structural.Elements
                 return new Guid("{BBC9B157-0C56-46CC-B7CA-7A82EB0AF823}");
             }
         }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Opening; }
+        }
 
-        /// <summary> Icon (24x24 pixels)</summary>      
     }
 
     public class ExportOpening : GH_Component
@@ -75,7 +78,12 @@ namespace Alligator.Structural.Elements
         public override Guid ComponentGuid
         {
             get { return new Guid("{9AC9B157-0C56-46CC-B7CA-7A82EB0AF823}"); }
-        }      
+        }
+        /// <summary> Icon (24x24 pixels)</summary>     
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Opening_Export; }
+        }
     }
 
     public class ImportOpening : ImportComponent
@@ -124,6 +132,11 @@ namespace Alligator.Structural.Elements
         public override Guid ComponentGuid
         {
             get { return new Guid("{9AC9B157-0C56-46BB-B7CA-7A82EB0AF823}"); }
+        }
+        /// <summary> Icon (24x24 pixels)</summary>     
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Opening_Import; }
         }
     }
 }

@@ -27,6 +27,11 @@ namespace Alligator.Structural.Elements
                 return new Guid("9E64C671-01BD-45B9-94D3-554BD2F8BA52");
             }
         }
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Grid; }
+        }
     }
 
     public class ExportGrid : GH_Component
@@ -74,6 +79,11 @@ namespace Alligator.Structural.Elements
         public override Guid ComponentGuid
         {
             get { return new Guid("72fb2007-5da5-46A7-b481-6e134df8c583"); }
+        }
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Grid_Export; }
         }
     }
 
@@ -123,6 +133,11 @@ namespace Alligator.Structural.Elements
         public override Guid ComponentGuid
         {
             get { return new Guid("5520dc1b-87b3-491a-93fa-149F215ce5a2"); }
+        }
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Grid_Import; }
         }
     }
 }

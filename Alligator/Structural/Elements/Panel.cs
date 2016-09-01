@@ -27,6 +27,12 @@ namespace Alligator.Structural.Elements
                 return new Guid("9E64C671-01BD-4D39-94D3-554BD2F8BA52");
             }
         }
+
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Panel; }
+        }
     }
 
     public class SplitOpenings : GH_Component
@@ -73,6 +79,7 @@ namespace Alligator.Structural.Elements
         {
             get { return new Guid("3C7E971B-E08B-4605-A526-E6CB3248FFBC"); }
         }
+
 
     }
 
@@ -121,6 +128,11 @@ namespace Alligator.Structural.Elements
         public override Guid ComponentGuid
         {
             get { return new Guid("72fb2007-5da5-4037-b481-6e134df8c583"); }
+        }
+        /// <summary> Icon (24x24 pixels)</summary>     
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Panel_Export; }
         }
     }
 
@@ -176,7 +188,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.node; }
+            get { return Alligator.Properties.Resources.BHoM_Panel_Import; }
         }
     }
 }

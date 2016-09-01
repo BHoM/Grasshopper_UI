@@ -28,7 +28,7 @@ namespace Alligator.Structural.Loads
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.bar_gravityload; }
+            get { return Alligator.Properties.Resources.BHoM_Bar_Gravity; }
         }
     }
 
@@ -47,7 +47,7 @@ namespace Alligator.Structural.Loads
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.bar_prestressload; }
+            get { return Alligator.Properties.Resources.BHoM_Bar_Prestress; }
         }
     }
 
@@ -97,7 +97,7 @@ namespace Alligator.Structural.Loads
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.bar_gravityload; }
+            get { return Alligator.Properties.Resources.BHoM_Bar_Force_Export; }
         }
     }
 }

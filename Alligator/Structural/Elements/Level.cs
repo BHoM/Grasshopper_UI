@@ -27,7 +27,11 @@ namespace Alligator.Structural.Elements
             }
         }
 
-        /// <summary> Icon (24x24 pixels)</summary>      
+        /// <summary> Icon (24x24 pixels)</summary>     
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Level; }
+        }
     }
 
     public class ExportLevel : GH_Component
@@ -75,6 +79,11 @@ namespace Alligator.Structural.Elements
         public override Guid ComponentGuid
         {
             get { return new Guid("{9FF9B157-0C56-46CC-B7CA-7A82EB0AF823}"); }
+        }
+        /// <summary> Icon (24x24 pixels)</summary>     
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Level_Export; }
         }
     }
 
@@ -124,6 +133,11 @@ namespace Alligator.Structural.Elements
         public override Guid ComponentGuid
         {
             get { return new Guid("{9AC9B157-0C56-46BB-B7CA-7A82ECCAF823}"); }
+        }
+        /// <summary> Icon (24x24 pixels)</summary>     
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Level_Import; }
         }
     }
 }

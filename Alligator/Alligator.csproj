@@ -111,12 +111,6 @@
     <None Include="Resources\gator.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\bar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\node.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\robot_app.png" />
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +142,81 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Global\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Bar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Node.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Export_Bar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Export_Node.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Import_Bar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Import_Node.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Panel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Level.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Grid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Opening.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Bar_Export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Grid_Export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Level_Export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Node_Export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Opening_Export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Panel_Export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Bar_Import.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Grid_Import.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Level_Import.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Node_Import.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Opening_Import.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Panel_Import.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Bar_Force_Export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Bar_Gravity.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Bar_Prestress.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
