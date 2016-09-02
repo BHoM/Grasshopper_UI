@@ -169,8 +169,8 @@ namespace Alligator.Structural.Elements
 
                     for (int i = 0; i < panels.Count; i++)
                     {
-                        geometry.AddRange(GHE.GeometryUtils.Convert<BHG.Curve>(panels[i].External_Contours), new Grasshopper.Kernel.Data.GH_Path(i));
-                        geometry.AddRange(GHE.GeometryUtils.Convert<BHG.Curve>(panels[i].Internal_Contours), new Grasshopper.Kernel.Data.GH_Path(i));
+                        geometry.AddRange(GHE.GeometryUtils.ConvertGroup<BHG.Curve>(panels[i].External_Contours), new Grasshopper.Kernel.Data.GH_Path(i));
+                        geometry.AddRange(GHE.GeometryUtils.ConvertGroup<BHG.Curve>(panels[i].Internal_Contours), new Grasshopper.Kernel.Data.GH_Path(i));
                     }
 
                     DA.SetDataList(0, ids);

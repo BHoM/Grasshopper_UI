@@ -184,7 +184,8 @@ namespace Grasshopper_Engine
             for (int i = 0; i < obj.Count; i++)
             {
                 T data = default(T);
-                if (obj[i] is GH_ObjectWrapper)
+                if (obj[i] == null) continue;
+                else if (obj[i] is GH_ObjectWrapper)
                 {
                     (obj[i] as GH_ObjectWrapper).CastTo<T>(out data);
                     result.Add(data);

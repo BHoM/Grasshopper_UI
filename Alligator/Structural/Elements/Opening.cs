@@ -119,7 +119,7 @@ namespace Alligator.Structural.Elements
 
                     for (int i = 0; i < Openings.Count; i++)
                     {
-                        geometry.AddRange(GeometryUtils.Convert<BHG.Curve>(Openings[i].Edges), new Grasshopper.Kernel.Data.GH_Path(i));
+                        geometry.AddRange(GeometryUtils.ConvertGroup<BHG.Curve>(Openings[i].Edges), new Grasshopper.Kernel.Data.GH_Path(i));
                     }
 
                     DA.SetDataList(0, ids);

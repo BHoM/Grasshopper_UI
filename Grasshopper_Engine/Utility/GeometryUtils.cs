@@ -173,7 +173,7 @@ namespace Grasshopper_Engine
             return group;
         } 
 
-        public static List<R.GeometryBase> Convert<T>(BH.Group<T> geom) where T : BH.GeometryBase
+        public static List<R.GeometryBase> ConvertGroup<T>(BH.Group<T> geom) where T : BH.GeometryBase
         {
             List<R.GeometryBase> rGeom = new List<Rhino.Geometry.GeometryBase>();
             foreach (T item in geom)

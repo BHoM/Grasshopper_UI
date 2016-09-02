@@ -188,7 +188,7 @@ namespace Grasshopper_Engine.Components
                     {
                         value = GHE.DataUtils.GetData<object>(DA, i);
                     }
-                    prop.SetValue(obj, value, null);
+                    if (value != null) prop.SetValue(obj, value, null);
                 }
                 else
                 {
@@ -235,7 +235,21 @@ namespace Grasshopper_Engine.Components
                 Type pType = propInfo[i].PropertyType;
                 if (propInfo[i].GetGetMethod() != null && typeof(BHoM.Geometry.GeometryBase).IsAssignableFrom(pType))
                 {
-                    DA.SetData(geomIndex++, GHE.GeometryUtils.Convert(propInfo[i].GetValue(obj, null) as BHoM.Geometry.GeometryBase));
+                    if (GHE.DataUtils.IsEnumerable(pType))
+                    {
+                        Type listType = pType.GetGenericArguments()[0];
+                        var utils = typeof(GHE.GeometryUtils);
+                        MethodInfo methodInfo = utils.GetMethod("ConvertGroup", System.Reflection.BindingFlags.Static | BindingFlags.Public);
+                        MethodInfo genericMethodInfo = methodInfo.MakeGenericMethod(new Type[] { listType });
+
+                        object result = genericMethodInfo.Invoke(null, new object[] { propInfo[i].GetValue(obj, null) });
+
+                        DA.SetDataList(geomIndex++, (System.Collections.IEnumerable)result );
+                    }
+                    else
+                    {
+                        DA.SetData(geomIndex++, GHE.GeometryUtils.Convert(propInfo[i].GetValue(obj, null) as BHoM.Geometry.GeometryBase));
+                    }
                 }
             }
         }

@@ -49,7 +49,7 @@ namespace Alligator.Structural.Elements
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Application", "Application", "Application to export Levels to", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Levels", "Ids", "BHoM Levels to export", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Levels", "Level", "BHoM Levels to export", GH_ParamAccess.list);
             pManager.AddBooleanParameter("Activate", "Activate", "Generate Levels", GH_ParamAccess.item);
 
             pManager[2].Optional = true;
@@ -57,7 +57,7 @@ namespace Alligator.Structural.Elements
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddIntegerParameter("Ids", "Ids", "Level Numbers", GH_ParamAccess.list);
+            pManager.AddTextParameter("Ids", "Ids", "Level Numbers", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
