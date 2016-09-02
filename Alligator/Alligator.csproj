@@ -103,8 +103,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -117,15 +117,6 @@
     <None Include="Resources\constraint.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\sectionproperty.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\sectionproperty.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\material.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\skeleton.png" />
   </ItemGroup>
   <ItemGroup>
@@ -135,12 +126,6 @@
     <None Include="Resources\DOF.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\bar_prestressload.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\bar_gravityload.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Global\" />
   </ItemGroup>
   <ItemGroup>
@@ -148,18 +133,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BHoM_Node.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Export_Bar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Export_Node.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Import_Bar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Import_Node.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BHoM_Panel.png" />
@@ -217,6 +190,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BHoM_Bar_Prestress.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Constraint.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Material.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_SectionProperty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_ROBO_App.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

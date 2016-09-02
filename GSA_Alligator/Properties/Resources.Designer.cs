@@ -83,9 +83,9 @@ namespace GSA_Alligator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap gsa_app {
+        internal static System.Drawing.Bitmap BHoM_GSA_App {
             get {
-                object obj = ResourceManager.GetObject("gsa_app", resourceCulture);
+                object obj = ResourceManager.GetObject("BHoM_GSA_App", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
