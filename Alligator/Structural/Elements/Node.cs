@@ -33,7 +33,7 @@ namespace Alligator.Structural.Elements
 
     public class ExportNode : GH_Component
     {
-        public ExportNode() : base("Export Node", "ExNode", "Creates or Replaces the geometry of a Node", "Structure", "Elements") { }
+        public ExportNode() : base("Export Node", "SetNode", "Creates or Replaces the geometry of a Node", "Structure", "Elements") { }
 
         public override GH_Exposure Exposure
         {
@@ -45,16 +45,16 @@ namespace Alligator.Structural.Elements
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Application", "App", "Application to import nodes from", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Nodes", "N", "BHoM nodes to export", GH_ParamAccess.list);
-            pManager.AddBooleanParameter("Execute", "R", "Generate Nodes", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Application", "Application", "Application to import nodes from", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Nodes", "Nodes", "BHoM nodes to export", GH_ParamAccess.list);
+            pManager.AddBooleanParameter("Activate", "Activate", "Generate Nodes", GH_ParamAccess.item);
 
             pManager[2].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddIntegerParameter("Ids", "Ids", "Node Numbers", GH_ParamAccess.list);
+            pManager.AddTextParameter("Ids", "Ids", "Node Numbers", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)

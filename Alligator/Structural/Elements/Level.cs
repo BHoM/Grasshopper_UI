@@ -36,7 +36,7 @@ namespace Alligator.Structural.Elements
 
     public class ExportLevel : GH_Component
     {
-        public ExportLevel() : base("Export Level", "ExLevel", "Creates or Replaces the geometry of a Level", "Structure", "Elements") { }
+        public ExportLevel() : base("Export Level", "SetLevel", "Creates or Replaces the geometry of a Level", "Structure", "Elements") { }
 
         public override GH_Exposure Exposure
         {

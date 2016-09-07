@@ -14,9 +14,9 @@ namespace Grasshopper_Engine.Components
 
     public abstract class BHoMBaseComponent<T> : GH_Component where T : BHB.BHoMObject
     {
-        private List<ComboBox> m_Options;
-        private List<Type> m_OptionType;
-        private List<object> m_SelectedOption;
+        protected List<ComboBox> m_Options;
+        protected List<Type> m_OptionType;
+        protected List<object> m_SelectedOption;
 
         public BHoMBaseComponent() { }
 
@@ -40,7 +40,7 @@ namespace Grasshopper_Engine.Components
             if (m_SelectedOption == null) m_SelectedOption = new List<object>();
         }
 
-        private void AppendEnumOptions(string name, Type enumType)
+        protected void AppendEnumOptions(string name, Type enumType)
         {
             Initialise();
             ComboBox box = new ComboBox();
@@ -66,11 +66,18 @@ namespace Grasshopper_Engine.Components
         {
             int index = m_Options.IndexOf((ComboBox)sender);
             m_SelectedOption[index] = Enum.Parse(m_OptionType[index], m_Options[index].SelectedItem.ToString());
-            this.Message = m_Options[index].SelectedItem.ToString();
+            UpdateInput(m_SelectedOption[index]);
+            string message = "";
+            for (int i = 0; i < m_Options.Count; i++)
+            {
+                message += m_Options[i].Name + ": " + m_Options[i].SelectedItem.ToString() + "\n";
+            }
+            this.Message = message.Trim('\n');
             this.ExpirePreview(true);
             this.ExpireSolution(true);
         }
 
+        virtual protected void UpdateInput(object enumSelection) {  }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -91,7 +98,7 @@ namespace Grasshopper_Engine.Components
                     else if (pType.IsEnum)
                     {
                         //pManager.AddTextParameter(name, nickName, description, access);
-                        AppendEnumOptions(propInfo[i].Name, pType);
+                        AppendEnumOptions(name, pType);
                     }
                     else if (GHE.DataUtils.IsNumeric(pType))
                     {
@@ -227,6 +234,11 @@ namespace Grasshopper_Engine.Components
 
             DA.SetData(0, obj);
 
+            SetGeometry(obj, DA);
+        }
+
+        protected void SetGeometry(object obj, IGH_DataAccess DA)
+        {
             int geomIndex = 1;
             PropertyInfo[] propInfo = typeof(T).GetProperties();
 
@@ -244,7 +256,7 @@ namespace Grasshopper_Engine.Components
 
                         object result = genericMethodInfo.Invoke(null, new object[] { propInfo[i].GetValue(obj, null) });
 
-                        DA.SetDataList(geomIndex++, (System.Collections.IEnumerable)result );
+                        DA.SetDataList(geomIndex++, (System.Collections.IEnumerable)result);
                     }
                     else
                     {
@@ -253,6 +265,7 @@ namespace Grasshopper_Engine.Components
                 }
             }
         }
+
         public override bool Write(GH_IO.Serialization.GH_IWriter writer)
         {
             if (m_Options != null && m_Options.Count > 0)
