@@ -30,6 +30,7 @@ namespace Alligator.ModelLaundry
             pManager.AddGenericParameter("Reference BHoM Elements", "refBHElem", "reference BHoM object or geometry to snap to", GH_ParamAccess.list);
             pManager.AddNumberParameter("Tolerance", "tolerance", "Set a tolerance for the snapping", GH_ParamAccess.item, 0.2);
             pManager.AddBooleanParameter("AnyHeight", "anyheight", "Snap to a vertical projection of the reference elements", GH_ParamAccess.item, false);
+            pManager.AddNumberParameter("AngleTolerance", "angleTol", "Set angle tolerance for parallel test (in degrees)", GH_ParamAccess.item, 2);
         }
 
         /// <summary>
@@ -50,8 +51,9 @@ namespace Alligator.ModelLaundry
             List<object> refElements = GHE.DataUtils.GetGenericDataList<object>(DA, 1);
             double tol = GHE.DataUtils.GetData<double>(DA, 2);
             bool anyHeight = GHE.DataUtils.GetData<bool>(DA, 3);
+            double angleTol = GHE.DataUtils.GetData<double>(DA, 4) * Math.PI / 180;
 
-            object result = MLE.Snapping.HorizontalParallelSnap(element, refElements, tol, anyHeight);
+            object result = MLE.Snapping.HorizontalParallelSnap(element, refElements, tol, anyHeight, angleTol);
             DA.SetData(0, result);
         }
 
