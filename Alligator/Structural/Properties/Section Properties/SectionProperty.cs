@@ -41,10 +41,7 @@ namespace Alligator.Structural.Properties
                 double[] dimensions = new double[12];
                 for (int i = 2; i < Params.Input.Count; i++)
                 {
-                    if (Params.Input[i].SourceCount > 0)
-                    {
-                        DA.GetData<double>(i, ref dimensions[i - 2]);
-                    }
+                    DA.GetData<double>(i, ref dimensions[i - 2]);                   
                 }
              
                 switch ((BHP.ShapeType)m_SelectedOption[0])
@@ -72,7 +69,7 @@ namespace Alligator.Structural.Properties
                 }
                 barProperty.Name = propertyName;
             }
-
+            barProperty.CalculateSection();
             DA.SetData(0, barProperty);
             SetGeometry(barProperty, DA);
         }

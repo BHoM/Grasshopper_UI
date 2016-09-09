@@ -52,8 +52,8 @@ namespace Alligator.Structural.Properties
                     }
                 }
 
-                BHP.PanelType section = (BHP.PanelType)m_SelectedOption[0];
-                PanelClassType classType = (PanelClassType)m_SelectedOption[1];
+                BHP.PanelType section = (BHP.PanelType)m_SelectedOption[1];
+                PanelClassType classType = (PanelClassType)m_SelectedOption[0];
                 switch (classType)
                 {
                     case PanelClassType.Constant:
@@ -63,7 +63,7 @@ namespace Alligator.Structural.Properties
                         BHP.PanelDirection dir = (BHP.PanelDirection)m_SelectedOption[1];
                         panelProperty = new BHP.Ribbed(propertyName, dimensions[0], dimensions[1], dimensions[2], dimensions[3], dir);
                         break;
-                        case PanelClassType.Waffle:
+                    case PanelClassType.Waffle:
                         panelProperty = new BHP.Waffle(propertyName, dimensions[0], dimensions[1], dimensions[2], dimensions[3], dimensions[4], dimensions[5], dimensions[6]);
                         break;
                 }
@@ -141,7 +141,7 @@ namespace Alligator.Structural.Properties
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.sectionproperty; }
+            get { return Alligator.Properties.Resources.BHoM_SectionProperty; }
         }
     }
 }
