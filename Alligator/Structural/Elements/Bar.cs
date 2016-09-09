@@ -32,7 +32,7 @@ namespace Alligator.Structural.Elements
 
     public class ExportBar : GH_Component
     {
-        public ExportBar() : base("Export Bar", "ExBar", "Creates or Replaces the geometry of a Bar", "Structure", "Elements") { }
+        public ExportBar() : base("Export Bar", "SetBar", "Creates or Replaces the geometry of a Bar", "Structure", "Elements") { }
 
         public override GH_Exposure Exposure
         {
@@ -44,16 +44,16 @@ namespace Alligator.Structural.Elements
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Application", "App", "Application to export bars to", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Bars", "B", "BHoM bars to export", GH_ParamAccess.list);
-            pManager.AddBooleanParameter("Execute", "R", "Generate Bars", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Application", "Application", "Application to export bars to", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Bars", "Bars", "BHoM bars to export", GH_ParamAccess.list);
+            pManager.AddBooleanParameter("Activate", "Activate", "Generate Bars", GH_ParamAccess.item);
 
             pManager[2].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddIntegerParameter("Ids", "Ids", "Bar Numbers", GH_ParamAccess.list);
+            pManager.AddTextParameter("Ids", "Ids", "Bar Numbers", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)

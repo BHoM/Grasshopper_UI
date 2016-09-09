@@ -35,7 +35,7 @@ namespace ModelLaundry_Alligator
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BHE.Panel panel = GHE.DataUtils.GetData<BHE.Panel>(DA, 0);
+            BHE.Panel panel = GHE.DataUtils.GetData<BHE.Panel>(DA, 0).ShallowClone() as BHE.Panel;
             List<BHG.Curve> openings = panel.Internal_Contours.ToList();
             panel.Internal_Contours = new BHG.Group<BHG.Curve>();
 

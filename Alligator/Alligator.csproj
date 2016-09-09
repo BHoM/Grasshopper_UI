@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\CustomData.cs" />
+    <Compile Include="Base\ObjectFilter.cs" />
     <Compile Include="Base\ViewCustomData.cs" />
     <Compile Include="Components\AboutGatorComponent.cs" />
     <Compile Include="AlligatorInfo.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Structural\Loads\Loadcase.cs" />
     <Compile Include="Material\Material.cs" />
     <Compile Include="Structural\Properties\Section Properties\CreateBoxSection.cs" />
+    <Compile Include="Structural\Properties\Section Properties\PanelProperty.cs" />
     <Compile Include="Structural\Properties\Section Properties\CreateCustomSectionProperty.cs" />
     <Compile Include="Structural\Properties\Section Properties\SectionProperty.cs" />
     <Compile Include="Structural\Elements\Bar.cs" />

@@ -35,7 +35,7 @@ namespace Alligator.Structural.Elements
 
     public class ExportOpening : GH_Component
     {
-        public ExportOpening() : base("Export Opening", "ExOpening", "Creates or Replaces the geometry of a Opening", "Structure", "Elements") { }
+        public ExportOpening() : base("Export Opening", "SetOpening", "Creates or Replaces the geometry of a Opening", "Structure", "Elements") { }
 
         public override GH_Exposure Exposure
         {

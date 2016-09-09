@@ -36,7 +36,7 @@ namespace Alligator.Structural.Elements
 
     public class ExportGrid : GH_Component
     {
-        public ExportGrid() : base("Export Grid", "ExGrid", "Creates or Replaces the geometry of a Grid", "Structure", "Elements") { }
+        public ExportGrid() : base("Export Grid", "SetGrid", "Creates or Replaces the geometry of a Grid", "Structure", "Elements") { }
 
         public override GH_Exposure Exposure
         {
@@ -89,7 +89,7 @@ namespace Alligator.Structural.Elements
 
     public class ImportGrid : ImportComponent
     {
-        public ImportGrid() : base("Import Grid", "GridNode", "Get the geometry and properties of a Grid", "Structure", "Elements")
+        public ImportGrid() : base("Import Grid", "GetGrid", "Get the geometry and properties of a Grid", "Structure", "Elements")
         {
 
         }

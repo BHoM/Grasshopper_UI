@@ -39,7 +39,7 @@ namespace Alligator.Base
             List<string> keys = GHE.DataUtils.GetDataList<string>(DA, 0);
             List<object> data = GHE.DataUtils.GetGenericDataList<object>(DA, 1);
 
-            if (keys.Count != data.Count)
+            if (keys.Count == data.Count)
             {
                 Dictionary<string, object> dictionary = new Dictionary<string, object>();
                 for (int i = 0; i < keys.Count; i++)
