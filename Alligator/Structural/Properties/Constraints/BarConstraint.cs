@@ -9,7 +9,7 @@ namespace Alligator.Structural.Properties
 {
     public class CreateBarConstraint : BHoMBaseComponent<BHP.BarConstraint>
     {
-        public CreateBarConstraint() : base("Create Constraint", "CreateConstraint", "Create a BH Constraint object", "Structure", "Properties")
+        public CreateBarConstraint() : base("Create  bar Constraint", "BarConstraint", "Create a BH Constraint object", "Structure", "Properties")
         {
 
         }
@@ -22,10 +22,6 @@ namespace Alligator.Structural.Properties
             }
         }
 
-        /// <summary> Icon (24x24 pixels)</summary>
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return Alligator.Properties.Resources.BHoM_Constraint; }
-        }
+
     }
 }

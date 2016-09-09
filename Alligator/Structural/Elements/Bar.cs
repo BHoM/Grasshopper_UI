@@ -6,9 +6,12 @@ using GHE = Grasshopper_Engine;
 using Alligator.Components;
 using BHE = BHoM.Structural.Elements;
 using BHI = BHoM.Structural.Interface;
+using BHP = BHoM.Structural.Properties;
+using BHG = BHoM.Geometry;
 using System.Windows.Forms;
-using Rhino.Geometry;
+using R = Rhino.Geometry;
 using Grasshopper;
+using GHKT= Grasshopper.Kernel.Types;
 using Grasshopper_Engine.Components;
 
 namespace Alligator.Structural.Elements
@@ -25,11 +28,6 @@ namespace Alligator.Structural.Elements
             }
         }
 
-        /// <summary> Icon (24x24 pixels)</summary>
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return Alligator.Properties.Resources.BHoM_Bar; }
-        }
     }
 
     public class ExportBar : GH_Component
@@ -110,7 +108,7 @@ namespace Alligator.Structural.Elements
                 {
                     List<string> ids = null;
                     List<BHE.Bar> bars = null;
-                    DataTree<Curve> curves = new DataTree<Curve>();
+                    DataTree<R.Curve> curves = new DataTree<R.Curve>();
                     if (m_Selection == BHI.ObjectSelection.FromInput)
                         ids = GHE.DataUtils.GetDataList<string>(DA, 1);
 
@@ -140,4 +138,5 @@ namespace Alligator.Structural.Elements
             get { return Alligator.Properties.Resources.BHoM_Bar_Import; }
         }
     }
+
 }

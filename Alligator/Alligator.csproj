@@ -82,14 +82,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Structural\Elements\CreateBar.cs" />
     <Compile Include="Structural\Elements\Grid.cs" />
     <Compile Include="Structural\Elements\Level.cs" />
     <Compile Include="Structural\Elements\Opening.cs" />
+    <Compile Include="Structural\Properties\BarAttributesContainer.cs" />
+    <Compile Include="Structural\Properties\Constraints\CreateBarRelease.cs" />
+    <Compile Include="Structural\Properties\CreateBarAttributes.cs" />
     <Compile Include="Structural\Properties\Constraints\BarConstraint.cs" />
     <Compile Include="Structural\Properties\Constraints\DoF.cs" />
     <Compile Include="Structural\Loads\Load.cs" />
     <Compile Include="Structural\Loads\Loadcase.cs" />
     <Compile Include="Material\Material.cs" />
+    <Compile Include="Structural\Properties\Section Properties\CreateBoxSection.cs" />
+    <Compile Include="Structural\Properties\Section Properties\CreateCustomSectionProperty.cs" />
     <Compile Include="Structural\Properties\Section Properties\SectionProperty.cs" />
     <Compile Include="Structural\Elements\Bar.cs" />
     <Compile Include="Structural\Elements\Node.cs" />
@@ -108,6 +114,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Resources\gator.png" />
   </ItemGroup>
   <ItemGroup>
