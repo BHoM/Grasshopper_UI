@@ -36,7 +36,7 @@ namespace Alligator.Geometry
         {
             List<RG.Curve> rhinoCurves = GHE.DataUtils.GetDataList<RG.Curve>(DA, 0);
 
-            BHG.Group group = new BHoM.Geometry.Group();
+            BHG.Group<BHG.Curve> group = new BHG.Group<BHG.Curve>();
 
             foreach ( RG.Curve curve in rhinoCurves)
             {
