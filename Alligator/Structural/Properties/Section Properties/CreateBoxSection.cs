@@ -10,7 +10,7 @@ namespace Alligator.Structural.Properties
 {
     public class CreateBoxSection : GH_Component
     {
-        public CreateBoxSection() : base("Custom Section Property", "SecProp", "Creates a custom section property from curves", "Structure", "Properties") { }
+        public CreateBoxSection() : base("Custom Box Property", "SecProp", "Creates a box section property", "Structure", "Properties") { }
 
         public override Guid ComponentGuid
         {
@@ -29,9 +29,12 @@ namespace Alligator.Structural.Properties
 
             pManager.AddNumberParameter("Outer radius", "OR", "Outer radius, optional", GH_ParamAccess.item);
             pManager.AddNumberParameter("Inner radius", "IR", "Inner radius, optional", GH_ParamAccess.item);
+            pManager.AddTextParameter("Name", "N", "Optional name. If not set the cross section will be named based on its parameters", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Material", "M", "The material of the cross section", GH_ParamAccess.item);
 
             pManager[4].Optional = true;
             pManager[5].Optional = true;
+            pManager[6].Optional = true;
 
         }
 
@@ -60,6 +63,27 @@ namespace Alligator.Structural.Properties
             {
                 prop = BHP.SectionProperty.CreateBoxSection(h, w, tf, tw);
             }
+
+            BHoM.Materials.Material mat = Grasshopper_Engine.DataUtils.GetGenericData<BHoM.Materials.Material>(DA, 7);
+
+            if (mat == null)
+                return;
+
+            prop.Material = mat;
+
+
+            string name = null;
+
+            if (DA.GetData(6, ref name))
+            {
+                prop.Name = name;
+            }
+            else
+            {
+                prop.Name = string.Format("RHS{0}x{1}x{2}x{3} {4}", h, w, tf, tw, mat.Name);
+            }
+
+
 
             DA.SetData(0, prop);
                 

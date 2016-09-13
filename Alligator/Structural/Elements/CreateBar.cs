@@ -42,11 +42,13 @@ namespace Alligator.Structural.Elements
             pManager.AddGenericParameter("Section Property", "P", "The section property of the bar", GH_ParamAccess.item);
             pManager.AddGenericParameter("Node/CL", "NCL", "Start node or centreline of the bar", GH_ParamAccess.item);
             pManager.AddGenericParameter("Node2", "N2", "End node of the bar", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Material", "M", "Material of the bar", GH_ParamAccess.item);
+            //pManager.AddGenericParameter("Material", "M", "Material of the bar", GH_ParamAccess.item);
             pManager.AddGenericParameter("Orientation angel", "O", "Orientationangle or vector", GH_ParamAccess.item);
             pManager.AddGenericParameter("Attributes", "A", "Attributes of the bar", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Custom Data", "CD", "Custom data to add to the bar", GH_ParamAccess.item);
 
             pManager[2].Optional = true;
+            pManager[4].Optional = true;
             pManager[5].Optional = true;
         }
 
@@ -67,11 +69,11 @@ namespace Alligator.Structural.Elements
 
             if (!GetEndNodes(DA, 1, out stNode, out enNode)) { return; }
 
-            BHoM.Materials.Material mat = GHE.DataUtils.GetGenericData<BHoM.Materials.Material>(DA, 3);
+            //BHoM.Materials.Material mat = GHE.DataUtils.GetGenericData<BHoM.Materials.Material>(DA, 3);
 
             object angOrVec = null;
 
-            if (!DA.GetData(4, ref angOrVec)) { return; }
+            if (!DA.GetData(3, ref angOrVec)) { return; }
 
             double angle;
 
@@ -80,7 +82,7 @@ namespace Alligator.Structural.Elements
                 return;
             }
 
-            ASP.BarAttributesContainer att = GHE.DataUtils.GetGenericData<ASP.BarAttributesContainer>(DA, 5);
+            ASP.BarAttributesContainer att = GHE.DataUtils.GetGenericData<ASP.BarAttributesContainer>(DA, 4);
 
             if (att != null)
             {
@@ -93,7 +95,7 @@ namespace Alligator.Structural.Elements
             //Set the properties of the bar
             bar.StartNode = stNode;
             bar.EndNode = enNode;
-            bar.Material = mat;
+            //bar.Material = mat;
             bar.SectionProperty = secProp;
             bar.OrientationAngle = angle;
 

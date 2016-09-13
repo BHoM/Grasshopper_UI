@@ -22,6 +22,7 @@ namespace Alligator.Structural.Properties
         {
             pManager.AddTextParameter("Name", "Name", "Name of the section Property", GH_ParamAccess.item);
             pManager.AddGenericParameter("CustomData", "CustomData", "CustomData", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Material", "Material", "The material of the cross section", GH_ParamAccess.item);
             Params.Input[1].Optional = true;
 
             AppendEnumOptions("ShapeType", typeof(BHP.ShapeType));
@@ -39,9 +40,9 @@ namespace Alligator.Structural.Properties
             if (barProperty == null)
             {
                 double[] dimensions = new double[12];
-                for (int i = 2; i < Params.Input.Count; i++)
+                for (int i = 3; i < Params.Input.Count; i++)
                 {
-                    DA.GetData<double>(i, ref dimensions[i - 2]);                   
+                    DA.GetData<double>(i, ref dimensions[i - 3]);                   
                 }
              
                 switch ((BHP.ShapeType)m_SelectedOption[0])
@@ -69,6 +70,10 @@ namespace Alligator.Structural.Properties
                 }
                 barProperty.Name = propertyName;
             }
+            BHoM.Materials.Material mat = Grasshopper_Engine.DataUtils.GetGenericData<BHoM.Materials.Material>(DA, 2);
+
+            barProperty.Material = mat;
+
             barProperty.CalculateSection();
             DA.SetData(0, barProperty);
             SetGeometry(barProperty, DA);
@@ -76,51 +81,53 @@ namespace Alligator.Structural.Properties
 
         protected override void UpdateInput(object enumSelection)
         {
+            int firstParamIndex = 3;
+
             if (enumSelection.GetType() == typeof(BHP.ShapeType))
             {
                 switch ((BHP.ShapeType)enumSelection)
                 {
                     case BHP.ShapeType.ISection:
-                        CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, 2);
-                        CreateParam("Top Flange Width", "B1", "Width of Top flange (m)", GH_ParamAccess.item, 3);
-                        CreateParam("Bottom Flange Width", "B2", "Width of Bottom Flange (m)", GH_ParamAccess.item, 4);
-                        CreateParam("Top Flange thickness", "Tf", "Thickness of flange (m)", GH_ParamAccess.item, 5);
-                        CreateParam("Bottom Flange thickness", "Tb", "Thickness of flange (m)", GH_ParamAccess.item, 6);
-                        CreateParam("Web thickness", "Tw", "Thickness of Web (m)", GH_ParamAccess.item, 7);
-                        CreateParam("Inner Fillet radius", "Ri", "Inner Fillet Radius (m)", GH_ParamAccess.item, 8);
-                        CreateParam("Outter Fillet radius", "Ro", "Outer Fillet Radius (m)", GH_ParamAccess.item, 9);
-                        CreateParam("Rotation", "A", "Axis rotation", GH_ParamAccess.item, 10);
+                        CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, firstParamIndex);
+                        CreateParam("Top Flange Width", "B1", "Width of Top flange (m)", GH_ParamAccess.item, firstParamIndex+1);
+                        CreateParam("Bottom Flange Width", "B2", "Width of Bottom Flange (m)", GH_ParamAccess.item, firstParamIndex+2);
+                        CreateParam("Top Flange thickness", "Tf", "Thickness of flange (m)", GH_ParamAccess.item, firstParamIndex+3);
+                        CreateParam("Bottom Flange thickness", "Tb", "Thickness of flange (m)", GH_ParamAccess.item, firstParamIndex +4);
+                        CreateParam("Web thickness", "Tw", "Thickness of Web (m)", GH_ParamAccess.item, firstParamIndex +5);
+                        CreateParam("Inner Fillet radius", "Ri", "Inner Fillet Radius (m)", GH_ParamAccess.item, firstParamIndex +6);
+                        CreateParam("Outter Fillet radius", "Ro", "Outer Fillet Radius (m)", GH_ParamAccess.item, firstParamIndex +7);
+                        CreateParam("Rotation", "A", "Axis rotation", GH_ParamAccess.item, firstParamIndex +8);
                         break;
                     case BHP.ShapeType.Box:
                     case BHoM.Structural.Properties.ShapeType.Tee:
-                        CreateParam("Width", "Width", "Total Width (m)", GH_ParamAccess.item, 2);
-                        CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, 3);
-                        CreateParam("Flange thickness", "Tf", "Thickness of flange (m)", GH_ParamAccess.item, 4);
-                        CreateParam("Web thickness", "Tw", "Thickness of Web (m)", GH_ParamAccess.item, 5);
-                        CreateParam("Inner Fillet radius", "Ri", "Inner Fillet Radius (m)", GH_ParamAccess.item, 6);
-                        CreateParam("Outter Fillet radius", "Ro", "Outer Fillet Radius (m)", GH_ParamAccess.item, 7);
-                        CreateParam("Rotation", "A", "Axis rotation", GH_ParamAccess.item, 8);
-                        UnregisterParameterFrom(9);
+                        CreateParam("Width", "Width", "Total Width (m)", GH_ParamAccess.item, firstParamIndex);
+                        CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, firstParamIndex +1);
+                        CreateParam("Flange thickness", "Tf", "Thickness of flange (m)", GH_ParamAccess.item, firstParamIndex +2);
+                        CreateParam("Web thickness", "Tw", "Thickness of Web (m)", GH_ParamAccess.item, firstParamIndex +3);
+                        CreateParam("Inner Fillet radius", "Ri", "Inner Fillet Radius (m)", GH_ParamAccess.item, firstParamIndex +4);
+                        CreateParam("Outter Fillet radius", "Ro", "Outer Fillet Radius (m)", GH_ParamAccess.item, firstParamIndex +5);
+                        CreateParam("Rotation", "A", "Axis rotation", GH_ParamAccess.item, firstParamIndex +6);
+                        UnregisterParameterFrom(10);
                         break;
                     case BHP.ShapeType.Rectangle:
-                        CreateParam("Width", "Width", "Total Width (m)", GH_ParamAccess.item, 2);
-                        CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, 3);
-                        CreateParam("Edge Radius", "D", "Total Depth (m)", GH_ParamAccess.item, 4);
-                        UnregisterParameterFrom(5);
+                        CreateParam("Width", "Width", "Total Width (m)", GH_ParamAccess.item, firstParamIndex);
+                        CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, firstParamIndex +1);
+                        CreateParam("Edge Radius", "D", "Total Depth (m)", GH_ParamAccess.item, firstParamIndex +2);
+                        UnregisterParameterFrom(6);
                         break;
                     case BHP.ShapeType.Circle:
-                        CreateParam("Diameter", "Diameter", "Total Diameter (m)", GH_ParamAccess.item, 2);
-                        UnregisterParameterFrom(3);
+                        CreateParam("Diameter", "Diameter", "Total Diameter (m)", GH_ParamAccess.item, firstParamIndex);
+                        UnregisterParameterFrom(4);
                         break;
                     case BHP.ShapeType.Tube:
-                        CreateParam("Outer Diameter", "Diameter", "Total Diameter (m)", GH_ParamAccess.item, 2);
-                        CreateParam("Thickness", "Thickness", "Thickness (m)", GH_ParamAccess.item, 3);
-                        UnregisterParameterFrom(4);
+                        CreateParam("Outer Diameter", "Diameter", "Total Diameter (m)", GH_ParamAccess.item, firstParamIndex);
+                        CreateParam("Thickness", "Thickness", "Thickness (m)", GH_ParamAccess.item, firstParamIndex +1);
+                        UnregisterParameterFrom(5);
                         break;
                     default:
-                        CreateParam("Width", "Width", "Total Width (m)", GH_ParamAccess.item, 2);
-                        CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, 3);
-                        UnregisterParameterFrom(4);
+                        CreateParam("Width", "Width", "Total Width (m)", GH_ParamAccess.item, firstParamIndex);
+                        CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, firstParamIndex +1);
+                        UnregisterParameterFrom(5);
                         break;
                 }
             }
