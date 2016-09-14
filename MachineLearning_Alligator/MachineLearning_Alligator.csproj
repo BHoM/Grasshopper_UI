@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1E524533-5830-4F5A-B3AA-C7C4A01C6BCB}</ProjectGuid>
+    <ProjectGuid>{3B01F04E-EAB3-4F08-A2FF-5A3A4C4A0A9F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ModelLaundry_Alligator</RootNamespace>
-    <AssemblyName>ModelLaundry_Alligator</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>MachineLearning_Alligator</RootNamespace>
+    <AssemblyName>MachineLearning_Alligator</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,28 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BHoM">
-      <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
-    </Reference>
-    <Reference Include="GH_IO">
-      <HintPath>..\External Libraries\GH_IO.dll</HintPath>
-    </Reference>
     <Reference Include="Grasshopper">
-      <HintPath>..\External Libraries\Grasshopper.dll</HintPath>
+      <HintPath>..\..\..\..\AppData\Roaming\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\Grasshopper.dll</HintPath>
     </Reference>
-    <Reference Include="Grasshopper_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Build\Grasshopper_Engine.dll</HintPath>
-    </Reference>
-    <Reference Include="ModelLaundry_Engine">
-      <HintPath>..\..\BHoM_Engine\Build\ModelLaundry_Engine.dll</HintPath>
-    </Reference>
-    <Reference Include="RhinoCommon">
-      <HintPath>..\..\..\..\..\..\Program Files\Rhinoceros 5 (64-bit)\System\RhinoCommon.dll</HintPath>
+    <Reference Include="MachineLearning_Engine">
+      <HintPath>..\..\BHoM_Engine\Build\MachineLearning_Engine.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -61,21 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BarToPanel.cs" />
-    <Compile Include="ClearPanelOpenings.cs" />
-    <Compile Include="FilterByBoundingBox.cs" />
-    <Compile Include="FilterSmallCurves.cs" />
-    <Compile Include="HorizontalExtend.cs" />
-    <Compile Include="HorizontalParallellSnap.cs" />
-    <Compile Include="HorizontalSnapToShape.cs" />
-    <Compile Include="JoinCurves.cs" />
-    <Compile Include="PointSnapDiagnostic.cs" />
-    <Compile Include="PointToPointSnap.cs" />
+    <Compile Include="VideoMotionAnalysis.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SetPanelOpenings.cs" />
-    <Compile Include="VerticalSnapToHeight.cs" />
-    <Compile Include="VerticalSnapToShapes.cs" />
-    <Compile Include="VisualizeLines.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
+      <Project>{c273f369-b83a-4183-9a97-18cdb23c25c6}</Project>
+      <Name>Grasshopper_Engine</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
@@ -83,7 +61,7 @@
 
 Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
 
-copy /Y "$(TargetDir)\ModelLaundry_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\ModelLaundry_Engine.dll"
+copy /Y "$(TargetDir)\MachineLearning_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\MachineLearning_Engine.dll"
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

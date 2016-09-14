@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CableNetDesign_Alligator", 
 		{C273F369-B83A-4183-9A97-18CDB23C25C6} = {C273F369-B83A-4183-9A97-18CDB23C25C6}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachineLearning_Alligator", "MachineLearning_Alligator\MachineLearning_Alligator.csproj", "{3B01F04E-EAB3-4F08-A2FF-5A3A4C4A0A9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -126,6 +128,12 @@ Global
 		{8FBB29BE-C234-485E-BC15-2497D24026CA}.Debug64|Any CPU.Build.0 = Debug64|Any CPU
 		{8FBB29BE-C234-485E-BC15-2497D24026CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FBB29BE-C234-485E-BC15-2497D24026CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B01F04E-EAB3-4F08-A2FF-5A3A4C4A0A9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B01F04E-EAB3-4F08-A2FF-5A3A4C4A0A9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B01F04E-EAB3-4F08-A2FF-5A3A4C4A0A9F}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B01F04E-EAB3-4F08-A2FF-5A3A4C4A0A9F}.Debug64|Any CPU.Build.0 = Debug|Any CPU
+		{3B01F04E-EAB3-4F08-A2FF-5A3A4C4A0A9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B01F04E-EAB3-4F08-A2FF-5A3A4C4A0A9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
