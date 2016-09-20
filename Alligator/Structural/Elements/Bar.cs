@@ -16,7 +16,7 @@ using Grasshopper_Engine.Components;
 
 namespace Alligator.Structural.Elements
 {
-    public class CreateBar : BHoMBaseComponent<BHE.Bar>
+    /*public class CreateBar : BHoMBaseComponent<BHE.Bar>
     {
         public CreateBar() : base("Create Bar", "CreateBar", "Create a BH Bar object", "Structure", "Elements") { }
 
@@ -28,7 +28,7 @@ namespace Alligator.Structural.Elements
             }
         }
 
-    }
+    }*/
 
     public class ExportBar : GH_Component
     {

@@ -207,5 +207,68 @@ namespace Grasshopper_Engine
             DA.GetData<bool>(index, ref run);
             return run;
         }
+
+        public static bool PointOrNodeToNode(object n, out BHoM.Structural.Elements.Node node)
+        {
+            //Gets node
+            if (typeof(BHoM.Structural.Elements.Node).IsAssignableFrom(n.GetType()))
+            {
+                node = (BHoM.Structural.Elements.Node)n;
+                return true;
+            }
+
+            //Gets node from Rhino point
+            if (typeof(Rhino.Geometry.Point3d).IsAssignableFrom(n.GetType()))
+            {
+                node = new BHoM.Structural.Elements.Node(GeometryUtils.Convert((Rhino.Geometry.Point3d)n));
+                return true;
+            }
+
+            //Gets node from BHoM point
+            if (typeof(BHG.Point).IsAssignableFrom(n.GetType()))
+            {
+                node = new BHoM.Structural.Elements.Node((BHG.Point)n);
+                return true;
+            }
+
+            node = null;
+            return false;
+        }
+
+        public static bool GetNodeFromPointOrNode(IGH_DataAccess DA, int DAindex, out BHoM.Structural.Elements.Node node)
+        {
+            GH_Goo<object> n = null;
+
+            //Grab input data
+            if (!DA.GetData(DAindex, ref n))
+            {
+                node = null;
+                return false;
+            }
+
+            return PointOrNodeToNode(n.Value, out node);
+
+        }
+
+        public static bool GetNodeListFromPointOrNodes(IGH_DataAccess DA, int DAindex, out List<BHoM.Structural.Elements.Node> nodes)
+        {
+
+
+            nodes = new List<BHoM.Structural.Elements.Node>();
+            List<GH_Goo<object>> objs = new List<GH_Goo<object>>();
+
+            if(!DA.GetDataList(DAindex, objs)) { return false; }
+
+            for (int i = 0; i < objs.Count; i++)
+            {
+                BHoM.Structural.Elements.Node node;
+                if (PointOrNodeToNode(objs[i].Value, out node))
+                    nodes.Add(node);
+                else
+                    return false;
+            }
+
+            return true;
+        }
     }
 }

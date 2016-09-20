@@ -14,7 +14,7 @@ namespace Alligator.Structural.Loads
 {
     public class CreateLoadcase : BHoMBaseComponent<BHL.Loadcase>
     {
-        public CreateLoadcase() : base("Create Loadcase", "CreateLoadcase", "Create a BH Loadcase object", "Alligator", "Structural") { }
+        public CreateLoadcase() : base("Create Loadcase", "CreateLoadcase", "Create a BH Loadcase object", "Structure", "Loads") { }
 
         public override Guid ComponentGuid
         {

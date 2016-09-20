@@ -45,11 +45,14 @@ namespace Alligator.Structural.Elements
             //pManager.AddGenericParameter("Material", "M", "Material of the bar", GH_ParamAccess.item);
             pManager.AddGenericParameter("Orientation angel", "O", "Orientationangle or vector", GH_ParamAccess.item);
             pManager.AddGenericParameter("Attributes", "A", "Attributes of the bar", GH_ParamAccess.item);
+            pManager.AddTextParameter("Name", "N", "Name of the element", GH_ParamAccess.item);
             pManager.AddGenericParameter("Custom Data", "CD", "Custom data to add to the bar", GH_ParamAccess.item);
 
             pManager[2].Optional = true;
             pManager[4].Optional = true;
             pManager[5].Optional = true;
+            pManager[6].Optional = true;
+            pManager[3].AddVolatileData(new Grasshopper.Kernel.Data.GH_Path(0), 0, 0);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -91,6 +94,23 @@ namespace Alligator.Structural.Elements
                 bar.StructuralUsage = att.StructuralUsage;
             }
 
+
+            string name = "";
+
+            if (DA.GetData(5, ref name))
+            {
+                bar.Name = name;
+            }
+
+            Dictionary<string, object> customData = GHE.DataUtils.GetData<Dictionary<string, object>>(DA, 6);
+
+            if (customData != null)
+            {
+                foreach (KeyValuePair<string, object> item in customData)
+                {
+                    bar.CustomData.Add(item.Key, item.Value);
+                }
+            }
 
             //Set the properties of the bar
             bar.StartNode = stNode;
@@ -168,9 +188,9 @@ namespace Alligator.Structural.Elements
             }
 
             //Constructs end nodes from nodes or points
-            if (GetNodeFromPointOrNode(DA, firstDAindex, out stNode))
+            if (GHE.DataUtils.GetNodeFromPointOrNode(DA, firstDAindex, out stNode))
             {
-                return GetNodeFromPointOrNode(DA, firstDAindex + 1, out enNode);
+                return GHE.DataUtils.GetNodeFromPointOrNode(DA, firstDAindex + 1, out enNode);
             }
 
             stNode = null;
@@ -178,42 +198,42 @@ namespace Alligator.Structural.Elements
             return false;
         }
 
-        private bool GetNodeFromPointOrNode(IGH_DataAccess DA, int DAindex, out BHE.Node node)
-        {
-            object n = null;
+        //private bool GetNodeFromPointOrNode(IGH_DataAccess DA, int DAindex, out BHE.Node node)
+        //{
+        //    object n = null;
 
-            //Grab input data
-            if (!DA.GetData(DAindex, ref n))
-            {
-                node = null;
-                return false;
-            }
+        //    //Grab input data
+        //    if (!DA.GetData(DAindex, ref n))
+        //    {
+        //        node = null;
+        //        return false;
+        //    }
 
-            //Gets node
-            if (typeof(BHE.Node).IsAssignableFrom(n.GetType()))
-            {
-                node = (BHE.Node)n;
-                return true;
-            }
+        //    //Gets node
+        //    if (typeof(BHE.Node).IsAssignableFrom(n.GetType()))
+        //    {
+        //        node = (BHE.Node)n;
+        //        return true;
+        //    }
 
-            //Gets node from Rhino point
-            if (typeof(GHKT.GH_Point).IsAssignableFrom(n.GetType()))
-            {
-                node = new BHE.Node(GHE.GeometryUtils.Convert(((GHKT.GH_Point)n).Value));
-                return true;
-            }
+        //    //Gets node from Rhino point
+        //    if (typeof(GHKT.GH_Point).IsAssignableFrom(n.GetType()))
+        //    {
+        //        node = new BHE.Node(GHE.GeometryUtils.Convert(((GHKT.GH_Point)n).Value));
+        //        return true;
+        //    }
 
-            //Gets node from BHoM point
-            if (typeof(BHG.Point).IsAssignableFrom(n.GetType()))
-            {
-                node = new BHE.Node((BHG.Point)n);
-                return true;
-            }
+        //    //Gets node from BHoM point
+        //    if (typeof(BHG.Point).IsAssignableFrom(n.GetType()))
+        //    {
+        //        node = new BHE.Node((BHG.Point)n);
+        //        return true;
+        //    }
 
-            node = null;
-            return false;
+        //    node = null;
+        //    return false;
 
-        }
+        //}
 
 
     }

@@ -8,7 +8,7 @@ using R = Rhino.Geometry;
 
 namespace Grasshopper_Engine
 {
-    public class GeometryUtils
+    public static class GeometryUtils
     {
         public static Type GetRhinoType(Type bhType)
         {
@@ -125,6 +125,11 @@ namespace Grasshopper_Engine
             return new BH.Point(p.X, p.Y, p.Z);
         }
 
+        public static BH.Vector Convert(R.Vector3d v)
+        {
+            return new BH.Vector(v.X, v.Y, v.Z);
+        }
+
         public static BH.Curve Convert(R.Curve rCurve)
         {
             if (rCurve is R.ArcCurve)
@@ -159,10 +164,10 @@ namespace Grasshopper_Engine
                     weight[i] = nurbCurve.Points[i].Weight;
                 }
                 return BH.NurbCurve.Create(points, degree, knots, weight);
-            }          
+            }
         }
 
-        public static BH.Group<TBH> ConvertList<TBH,TR>(List<TR> geom) where TBH : BH.GeometryBase where TR : R.GeometryBase
+        public static BH.Group<TBH> ConvertList<TBH, TR>(List<TR> geom) where TBH : BH.GeometryBase where TR : R.GeometryBase
         {
             BH.Group<TBH> group = new BHoM.Geometry.Group<TBH>();
             for (int i = 0; i < geom.Count; i++)
@@ -171,7 +176,7 @@ namespace Grasshopper_Engine
             }
 
             return group;
-        } 
+        }
 
         public static List<R.GeometryBase> ConvertGroup<T>(BH.Group<T> geom) where T : BH.GeometryBase
         {
@@ -187,7 +192,7 @@ namespace Grasshopper_Engine
         {
             if (geom is BH.Curve)
             {
-                return Convert(geom as BH.Curve);               
+                return Convert(geom as BH.Curve);
             }
             else if (geom is BH.Brep)
             {
@@ -212,5 +217,18 @@ namespace Grasshopper_Engine
             }
             return null;
         }
+
+
+        /********************************************/
+        /******** Extention convert methods *********/
+        /********************************************/
+
+
+        public static BH.Vector ToBHoMVector(this R.Vector3d vec)
+        {
+            return Convert(vec);
+        }
+
+
     }
 }

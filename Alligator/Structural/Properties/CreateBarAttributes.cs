@@ -28,11 +28,55 @@ namespace Alligator.Structural.Properties
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
+            int defaultFeIndex = 0;
+            int defaultSuIndex = 0;
+
             pManager.AddGenericParameter("Start Release", "RA", "Release at the start of the beam", GH_ParamAccess.item);
             pManager.AddGenericParameter("End Release", "RA", "Release at the end of the beam", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Bar FEA Type", "FET", "Type of element that will be used in structural analysis softwares. Default set to beam. Beam = 0, Bar = 1, Tie = 2 Strut = 3", GH_ParamAccess.item, 0);
-            pManager.AddIntegerParameter("Structural usage", "ST", "Sets what the usage will be for the element. Used for post processing", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Bar FEA Type", "FET", GetFeTypeDescription(defaultFeIndex), GH_ParamAccess.item, defaultFeIndex);
+            pManager.AddIntegerParameter("Structural usage", "SU", GetStructuralUsageTypeDesciption(defaultSuIndex), GH_ParamAccess.item, defaultSuIndex);
 
+        }
+
+
+        private static string GetFeTypeDescription(int deafaultIndex)
+        {
+            Type enumType = typeof(BHoM.Structural.Elements.BarFEAType);
+
+            string desc = "Type of element that will be used in structural analysis softwares.Default set to ";
+
+            desc += GetStringValeEqualsIndexFromEnum(enumType, deafaultIndex);
+
+            return desc;
+
+        }
+
+        private static string GetStructuralUsageTypeDesciption(int deafaultIndex)
+        {
+
+            Type enumType = typeof(BHoM.Structural.Elements.BarStructuralUsage);
+
+            string desc = "Sets what the usage will be for the element. Used for post processing. Default set to ";
+
+            desc += GetStringValeEqualsIndexFromEnum(enumType, deafaultIndex);
+
+            return desc;
+
+        }
+
+        private static string GetStringValeEqualsIndexFromEnum(Type enumType, int deafaultIndex)
+        {
+            string[] names = Enum.GetNames(enumType);
+            var indecies = Enum.GetValues(enumType);
+
+            string str = string.Format("{0}",indecies.GetValue(deafaultIndex));
+
+            for (int i = 0; i < names.Length; i++)
+            {
+                str += String.Format("\n{0} = {1}", names[i], (int)indecies.GetValue(i));
+            }
+
+            return str;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)

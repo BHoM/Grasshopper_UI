@@ -58,13 +58,6 @@ namespace Alligator.Structural.Properties
 
             if(!DA.GetData(6, ref name)) { return; }
 
-            //if (!DA.GetData(0,ref x)) { return; }
-            //if (!DA.GetData(1, ref y)) { return; }
-            //if (!DA.GetData(2, ref z)) { return; }
-            //if (!DA.GetData(3, ref xx)) { return; }
-            //if (!DA.GetData(4, ref yy)) { return; }
-            //if (!DA.GetData(5, ref zz)) { return; }
-
             BHSP.NodeConstraint rel = new BHoM.Structural.Properties.NodeConstraint(name, fixities, new double[] { 0, 0, 0, 0, 0, 0 });
 
 
