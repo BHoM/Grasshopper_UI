@@ -69,6 +69,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Structural\Elements\CompressionRingBeam.cs" />
+    <Compile Include="Structural\Elements\Radial.cs" />
+    <Compile Include="Structural\Elements\TensionRing.cs" />
     <Compile Include="Structural\Elements\TensionRingNode.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +88,18 @@
       <Project>{c273f369-b83a-4183-9a97-18cdb23c25c6}</Project>
       <Name>Grasshopper_Engine</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Radial.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Radial1.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TRCable.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CRBeam.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
