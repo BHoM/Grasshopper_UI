@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CableNetDesignToolkit;
 using Grasshopper.Kernel;
+using Grasshopper_Engine;
 
 namespace Alligator.FormFinding.CableNetDesign
 {
@@ -46,11 +47,11 @@ namespace Alligator.FormFinding.CableNetDesign
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            double lDeformed = Utils.GetData<double>(DA, 0);
-            double lStart = Utils.GetData<double>(DA, 1);
-            double PS = Utils.GetData<double>(DA, 2);
-            double E = Utils.GetData<double>(DA, 3);
-            double A = Utils.GetData<double>(DA, 4);
+            double lDeformed = DataUtils.GetData<double>(DA, 0);
+            double lStart = DataUtils.GetData<double>(DA, 1);
+            double PS = DataUtils.GetData<double>(DA, 2);
+            double E = DataUtils.GetData<double>(DA, 3);
+            double A = DataUtils.GetData<double>(DA, 4);
 
             DA.SetData(0, CableNetDesignToolkit.Utils.Conversions.DeformedLengthToAxialForce(lDeformed, lStart, PS, E, A));
         }
@@ -60,7 +61,7 @@ namespace Alligator.FormFinding.CableNetDesign
         /// </summary>
         protected override System.Drawing.Bitmap Icon
         {
-            get { return FormFinding.Properties.Resources.conversion; }
+            get { return FormFinding_Alligator.Properties.Resources.conversion; }
         }
 
         /// <summary>

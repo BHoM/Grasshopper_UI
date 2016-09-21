@@ -37,6 +37,9 @@
     <Reference Include="BHoM">
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
     </Reference>
+    <Reference Include="CableNetDesign_Engine">
+      <HintPath>..\..\CableNetDesign_Toolkit\Build\CableNetDesign_Engine.dll</HintPath>
+    </Reference>
     <Reference Include="FormFinding_Engine">
       <HintPath>..\..\BHoM_Engine\Build\FormFinding_Engine.dll</HintPath>
     </Reference>
@@ -116,11 +119,11 @@
 
 Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
 
-copy /Y "$(TargetDir)\FormFinding_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\FormFinding_Engine.dll"
+Erase "$(TargetPath)"
 
+copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM.dll"
 
-
-Erase "$(TargetPath)"</PostBuildEvent>
+copy /Y "$(TargetDir)\CableNetDesign_OM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\CableNetDesign_OM.dll"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>

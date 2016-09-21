@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using CableNetDesignToolkit;
 using Grasshopper.Kernel;
+using Grasshopper_Engine;
+
 
 namespace Alligator.FormFinding.CableNetDesign
 {
@@ -48,11 +50,11 @@ namespace Alligator.FormFinding.CableNetDesign
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             CableSizingElement cable = new CableSizingElement();
-            cable.AxialForce = Utils.GetData<double>(DA, 0);
-            cable.SafetyFactor = Utils.GetData<double>(DA, 1);
-            cable.LiveLoadFactor = Utils.GetData<double>(DA, 2);
-            cable.NoOfCables = Utils.GetData<int>(DA, 3);
-            cable.UtilisationLimit = Utils.GetData<double>(DA, 4);
+            cable.AxialForce = DataUtils.GetData<double>(DA, 0);
+            cable.SafetyFactor = DataUtils.GetData<double>(DA, 1);
+            cable.LiveLoadFactor = DataUtils.GetData<double>(DA, 2);
+            cable.NoOfCables = DataUtils.GetData<int>(DA, 3);
+            cable.UtilisationLimit = DataUtils.GetData<double>(DA, 4);
 
             DA.SetData(0, cable.Diameter);
             DA.SetData(1, cable.Utilisation);
@@ -64,7 +66,7 @@ namespace Alligator.FormFinding.CableNetDesign
         /// </summary>
         protected override System.Drawing.Bitmap Icon
         {
-            get { return FormFinding.Properties.Resources.cablesizing; }
+            get { return FormFinding_Alligator.Properties.Resources.cablesizing; }
         }
 
         /// <summary>
