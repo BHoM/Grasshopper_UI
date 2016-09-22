@@ -23,6 +23,7 @@ namespace Alligator.Base
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("json", "json", "json representation of the BHoM object", GH_ParamAccess.item);
+            pManager.AddTextParameter("password", "password", "password to decrypt data", GH_ParamAccess.item, "");
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -33,8 +34,10 @@ namespace Alligator.Base
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             string json = ""; // Utils.GetGenericData<string>(DA, 0);
+            string password = "";
             DA.GetData<string>(0, ref json);
-            DA.SetDataList(0, BHB.BHoMJSON.ReadPackage(json));
+            DA.GetData<string>(1, ref password);
+            DA.SetDataList(0, BHB.BHoMJSON.ReadPackage(json, password));
         }
     }
 }

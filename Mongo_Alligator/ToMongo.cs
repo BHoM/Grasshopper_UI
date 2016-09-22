@@ -44,11 +44,11 @@ namespace Alligator.Mongo
             if (!active) return;
             if (objects.Count == 0) return;
 
-            if (objects[0].GetType() == typeof(string))
+            if (objects[0] is string)
             {
                 link.SaveJson(objects.Select(x => x as string), key);
             }
-            if (objects[0].GetType() == typeof(BHB.BHoMObject))
+            if (objects[0] is BHB.BHoMObject)
             {
                 link.SaveObjects(objects.Select(x => x as BHB.BHoMObject), key);
             }

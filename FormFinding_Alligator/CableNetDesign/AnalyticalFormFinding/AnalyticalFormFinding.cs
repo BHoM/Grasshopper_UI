@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 using BHoM.Geometry;
@@ -109,7 +108,7 @@ namespace Alligator.Components
         /// </summary>
         protected override System.Drawing.Bitmap Icon
         {
-            get { return FormFinding.Properties.Resources.aff; }
+            get { return FormFinding_Alligator.Properties.Resources.aff; }
         }
 
         /// <summary>
