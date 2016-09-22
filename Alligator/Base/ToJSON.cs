@@ -24,6 +24,7 @@ namespace Alligator.Base
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("BHoM object", "object", "BHoM object to convert", GH_ParamAccess.list);
+            pManager.AddTextParameter("password", "password", "password to encrypt data", GH_ParamAccess.item, "");
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -34,7 +35,9 @@ namespace Alligator.Base
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             List<BHB.BHoMObject> objects = GHE.DataUtils.GetGenericDataList<BHB.BHoMObject>(DA, 0);
-            DA.SetData(0, BHB.BHoMJSON.WritePackage(objects.Cast<BHB.BHoMObject>().ToList()));
+            string password = GHE.DataUtils.GetData<string>(DA, 1);
+
+            DA.SetData(0, BHB.BHoMJSON.WritePackage(objects.Cast<BHB.BHoMObject>().ToList(), password));
         }
     }
 }
