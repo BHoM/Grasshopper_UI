@@ -44,7 +44,7 @@ namespace Alligator.Structural.Properties
                 edges.Add(GHE.GeometryUtils.Convert(crv));
             }
 
-            BHP.SectionProperty prop = new BHP.SectionProperty(edges, BHP.ShapeType.Polygon);
+            BHP.SectionProperty prop = new BHP.SteelSection(edges, BHP.ShapeType.Polygon);
 
             DA.SetData(0, prop);
         }

@@ -23,19 +23,22 @@ namespace Alligator.Structural.Properties
             pManager.AddTextParameter("Name", "Name", "Name of the section Property", GH_ParamAccess.item);
             pManager.AddGenericParameter("CustomData", "CustomData", "CustomData", GH_ParamAccess.item);
             pManager.AddGenericParameter("Material", "Material", "The material of the cross section", GH_ParamAccess.item);
+            Params.Input[0].Optional = true;
             Params.Input[1].Optional = true;
+            Params.Input[2].Optional = true;
 
             AppendEnumOptions("ShapeType", typeof(BHP.ShapeType));
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            string propertyName = "";
+            string propertyName = null;
             BHP.SectionProperty barProperty = null;
-            
-            DA.GetData<string>(0, ref propertyName);
 
-            barProperty = BHP.SectionProperty.LoadFromDB(propertyName);
+            if (DA.GetData<string>(0, ref propertyName))
+            {
+                barProperty = BHP.SectionProperty.LoadFromSteelSectionDB(propertyName);
+            }
 
             if (barProperty == null)
             {
@@ -68,12 +71,22 @@ namespace Alligator.Structural.Properties
                         break;
 
                 }
-                barProperty.Name = propertyName;
+                if(propertyName != null)
+                    barProperty.Name = propertyName;
             }
+
+            if (barProperty == null)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Failed to create bar section property. Check the input data");
+                return;
+            }
+
             BHoM.Materials.Material mat = Grasshopper_Engine.DataUtils.GetGenericData<BHoM.Materials.Material>(DA, 2);
 
-            barProperty.Material = mat;
+            if(mat != null)
+                barProperty.Material = mat;
 
+            
             barProperty.CalculateSection();
             DA.SetData(0, barProperty);
             SetGeometry(barProperty, DA);

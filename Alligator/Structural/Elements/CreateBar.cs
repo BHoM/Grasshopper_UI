@@ -17,10 +17,10 @@ using ASP = Alligator.Structural.Properties;
 
 namespace Alligator.Structural.Elements
 {
-
-    public class CreateBar2 : GH_Component
+    
+    public class CreateBar : GH_Component
     {
-        public CreateBar2() : base("Create Bar", "CreateBar", "Create a BH Bar object", "Structure", "Elements") { }
+        public CreateBar() : base("Create Bar", "CreateBar", "Create a BH Bar object", "Structure", "Elements") { }
 
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
@@ -63,7 +63,6 @@ namespace Alligator.Structural.Elements
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             BHE.Bar bar = new BHE.Bar();
-
 
             BHP.SectionProperty secProp = GHE.DataUtils.GetGenericData<BHP.SectionProperty>(DA, 0);
 
