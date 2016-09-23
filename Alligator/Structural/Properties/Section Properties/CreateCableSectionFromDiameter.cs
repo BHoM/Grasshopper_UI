@@ -39,7 +39,7 @@ namespace Alligator.Structural.Properties
             if(!DA.GetData(0, ref d)) { return; }
             if(!DA.GetData(1, ref nb)) { return; }
 
-            BHP.SectionProperty prop = BHP.SectionProperty.LoadFromCableSectionDB(d / 1000, nb);
+            BHP.SectionProperty prop = BHP.SectionProperty.LoadFromCableSectionDBDiameter(d / 1000, nb);
 
             if (prop == null)
             {

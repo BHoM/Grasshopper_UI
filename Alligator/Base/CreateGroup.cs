@@ -45,21 +45,26 @@ namespace Alligator.Base
         {
             string name = "";
 
-            List<GH_Goo<object>> objects = new List<GH_Goo<object>>();
+            //List<GH_Goo<object>> objects = new List<GH_Goo<object>>();
 
-            if(!DA.GetDataList(0, objects)) { return; }
+            List<BHB.BHoMObject> objects = DataUtils.GetDataList<BHB.BHoMObject>(DA, 0);
+
+            if (objects == null)
+                return;
+
+            //if(!DA.GetDataList(0, objects)) { return; }
             if(!DA.GetData(1, ref name)) { return; }
 
             if (objects.Count < 1)
                 return;
 
-            Type t = objects[0].Value.GetType();
+            Type t = objects[0].GetType();
 
             bool sameType = true;
 
             for (int i = 1; i < objects.Count; i++)
             {
-                if (objects[i].Value.GetType() != t)
+                if (objects[i].GetType() != t)
                 {
                     sameType = false;
                     break;
@@ -87,7 +92,7 @@ namespace Alligator.Base
 
                 for (int i = 0; i < objects.Count; i++)
                 {
-                    metInfoDataAdd.Invoke(data, new object[] { objects[i].Value });
+                    metInfoDataAdd.Invoke(data, new object[] { objects[i] });
                 }
 
                 PropertyInfo propCustomData = specificGroupType.GetProperty("CustomData");
@@ -110,7 +115,7 @@ namespace Alligator.Base
             else
             {
 
-                BHB.Group<object> group = new BHB.Group<object>(objects.Select(x => x.Value).ToList());
+                BHB.Group<BHB.BHoMObject> group = new BHB.Group<BHB.BHoMObject>(objects);
 
                 group.Name = name;
 
