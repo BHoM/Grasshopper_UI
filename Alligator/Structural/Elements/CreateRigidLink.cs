@@ -12,7 +12,12 @@ namespace Alligator.Structural.Elements
     public class CreateRigidLink : GH_Component
     {
         public CreateRigidLink() : base("Create Rigid Link", "RigLin", "Create a rigid link", "Structure", "Elements") { }
-
+        
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_RigidLink; }
+        }
 
         public override Guid ComponentGuid
         {
