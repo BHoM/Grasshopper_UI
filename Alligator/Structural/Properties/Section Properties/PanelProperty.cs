@@ -24,6 +24,12 @@ namespace Alligator.Structural.Properties
         {
 
         }
+
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_PanelProperty; }
+        }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("Name", "Name", "Name of the section Property", GH_ParamAccess.item);
@@ -136,12 +142,6 @@ namespace Alligator.Structural.Properties
             {
                 return new Guid("95916851-223a-46ab-b4e3-d839b817dbb4");
             }
-        }
-
-        /// <summary> Icon (24x24 pixels)</summary>
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return Alligator.Properties.Resources.BHoM_SectionProperty; }
         }
     }
 }

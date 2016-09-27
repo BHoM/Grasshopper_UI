@@ -25,6 +25,12 @@ namespace Alligator.Structural.Loads
 
         public CreateBarLoad() : base("Bar Load", "BL", "Create various bar loads", "Structure", "Loads") { }
 
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_BarForce; }
+        }
+
         public override Guid ComponentGuid
         {
             get

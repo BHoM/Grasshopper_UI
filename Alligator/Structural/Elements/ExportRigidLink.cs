@@ -11,6 +11,12 @@ namespace Alligator.Structural.Elements
     public class ExportRigidLink : GH_Component
     {
         public ExportRigidLink() : base("Export Rigid Link", "SetLink", "Creates or Replaces a rigid link", "Structure", "Elements") { }
+        
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_RigidLink_Export; }
+        }
 
         public override GH_Exposure Exposure
         {

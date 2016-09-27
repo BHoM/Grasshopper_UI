@@ -18,6 +18,13 @@ namespace Alligator.Structural.Properties
     {
 
         public CreateBarAttributes() : base("Bar Attributes", "BarAtt", "Create attributes to be used on a bar", "Structure", "Properties") { }
+        
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Bar_Attributes; }
+        }
+
         public override Guid ComponentGuid
         {
             get

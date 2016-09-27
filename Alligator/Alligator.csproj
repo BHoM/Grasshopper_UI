@@ -221,6 +221,30 @@
   <ItemGroup>
     <None Include="Resources\BHoM_ROBO_App.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Bar_Attributes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_BarForce.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Material_List.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_NodeForce.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_PanelProperty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Section_List.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_RigidLink.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_RigidLink_Export.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

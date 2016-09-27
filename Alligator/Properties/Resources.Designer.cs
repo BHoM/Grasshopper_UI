@@ -73,6 +73,16 @@ namespace Alligator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BHoM_Bar_Attributes {
+            get {
+                object obj = ResourceManager.GetObject("BHoM_Bar_Attributes", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BHoM_Bar_Export {
             get {
                 object obj = ResourceManager.GetObject("BHoM_Bar_Export", resourceCulture);
@@ -116,6 +126,16 @@ namespace Alligator.Properties {
         internal static System.Drawing.Bitmap BHoM_Bar_Prestress {
             get {
                 object obj = ResourceManager.GetObject("BHoM_Bar_Prestress", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BHoM_BarForce {
+            get {
+                object obj = ResourceManager.GetObject("BHoM_BarForce", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -203,6 +223,16 @@ namespace Alligator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BHoM_Material_List {
+            get {
+                object obj = ResourceManager.GetObject("BHoM_Material_List", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BHoM_Node {
             get {
                 object obj = ResourceManager.GetObject("BHoM_Node", resourceCulture);
@@ -226,6 +256,16 @@ namespace Alligator.Properties {
         internal static System.Drawing.Bitmap BHoM_Node_Import {
             get {
                 object obj = ResourceManager.GetObject("BHoM_Node_Import", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BHoM_NodeForce {
+            get {
+                object obj = ResourceManager.GetObject("BHoM_NodeForce", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -286,6 +326,46 @@ namespace Alligator.Properties {
         internal static System.Drawing.Bitmap BHoM_Panel_Import {
             get {
                 object obj = ResourceManager.GetObject("BHoM_Panel_Import", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BHoM_PanelProperty {
+            get {
+                object obj = ResourceManager.GetObject("BHoM_PanelProperty", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BHoM_RigidLink {
+            get {
+                object obj = ResourceManager.GetObject("BHoM_RigidLink", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BHoM_RigidLink_Export {
+            get {
+                object obj = ResourceManager.GetObject("BHoM_RigidLink_Export", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BHoM_Section_List {
+            get {
+                object obj = ResourceManager.GetObject("BHoM_Section_List", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
