@@ -87,6 +87,7 @@
     <Compile Include="Structural\Elements\CreateBar.cs" />
     <Compile Include="Structural\Elements\CreateRigidLink.cs" />
     <Compile Include="Structural\Elements\ExportBar.cs" />
+    <Compile Include="Structural\Elements\ExportGroup.cs" />
     <Compile Include="Structural\Elements\ExportRigidLink.cs" />
     <Compile Include="Structural\Elements\Grid.cs" />
     <Compile Include="Structural\Elements\Level.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Material\Material.cs" />
     <Compile Include="Structural\Properties\Section Properties\CreateBoxSection.cs" />
     <Compile Include="Structural\Properties\Section Properties\CreateCableSectionFromDiameter.cs" />
+    <Compile Include="Structural\Properties\Section Properties\LoadSteelSectionFromDB.cs" />
     <Compile Include="Structural\Properties\Section Properties\PanelProperty.cs" />
     <Compile Include="Structural\Properties\Section Properties\CreateCustomSectionProperty.cs" />
     <Compile Include="Structural\Properties\Section Properties\SectionProperty.cs" />

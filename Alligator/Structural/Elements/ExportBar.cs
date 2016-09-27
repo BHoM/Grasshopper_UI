@@ -1,16 +1,22 @@
 ﻿using System;
 using Grasshopper.Kernel;
 using System.Collections.Generic;
+using System.Linq;
 using GHE = Grasshopper_Engine;
 using BHE = BHoM.Structural.Elements;
 using BHI = BHoM.Structural.Interface;
-
+using GH_IO.Serialization;
 
 namespace Alligator.Structural.Elements
 {
     public class ExportBar : GH_Component
     {
-        public ExportBar() : base("Export Bar", "SetBar", "Creates or Replaces the geometry of a Bar", "Structure", "Elements") { }
+        private List<string> m_ids;
+
+        public ExportBar() : base("Export Bar", "SetBar", "Creates or Replaces the geometry of a Bar", "Structure", "Elements")
+        {
+            m_ids = null;
+        }
 
         public override GH_Exposure Exposure
         {
@@ -41,13 +47,19 @@ namespace Alligator.Structural.Elements
                 BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
                 if (app != null)
                 {
-                    List<BHE.Bar> bars = GHE.DataUtils.GetGenericDataList<BHE.Bar>(DA, 1);
-                    List<string> ids = null;
-                    app.SetBars(bars, out ids);
+                    //Shallow clone the bars to make sure no changes to them in the export affect upstream elements
+                    List<BHE.Bar> bars = GHE.DataUtils.GetGenericDataList<BHE.Bar>(DA, 1).Select(x => x.ShallowClone() as BHE.Bar).ToList();
 
-                    DA.SetDataList(0, ids);
+                    bars.ForEach(x => x.CustomData = new Dictionary<string, object>(x.CustomData));
+
+                    m_ids = null;
+                    app.SetBars(bars, out m_ids);
+
+                    
                 }
             }
+
+            DA.SetDataList(0, m_ids);
         }
 
         public override Guid ComponentGuid
