@@ -9,12 +9,12 @@ using BHB = BHoM.Base;
 using Grasshopper_Engine;
 using Grasshopper.Kernel.Types;
 
-namespace Alligator.Base
+namespace Alligator.Structural.Elements
 {
     public class CreateGroup : GH_Component
     {
 
-        public CreateGroup() : base("Create Group", "Group", "Creat a group of items", "Alligator", "Base")
+        public CreateGroup() : base("Create Group", "Group", "Creat a group of items", "Structure", "Elements")
         {
 
         }

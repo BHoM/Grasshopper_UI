@@ -17,6 +17,11 @@ namespace Alligator.Structural.Results
         {
         
         }
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_LoadResults; }
+        }
 
         public override GH_Exposure Exposure
         {
@@ -67,6 +72,11 @@ namespace Alligator.Structural.Results
                 cb.Text = type;
                 checkBoxes.Add(cb);
             }
+        }
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_StoreResults; }
         }
 
         public override GH_Exposure Exposure
