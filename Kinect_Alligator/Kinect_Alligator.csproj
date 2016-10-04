@@ -40,9 +40,8 @@
     <Reference Include="Grasshopper">
       <HintPath>..\External Libraries\Grasshopper.dll</HintPath>
     </Reference>
-    <Reference Include="KinectToolkit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\KinectToolkit\Build\KinectToolkit.dll</HintPath>
+    <Reference Include="KinectToolkit">
+      <HintPath>..\..\Kinect_Toolkit\Build\KinectToolkit.dll</HintPath>
     </Reference>
     <Reference Include="RhinoCommon, Version=5.1.30000.12, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -90,6 +89,10 @@
     <ProjectReference Include="..\Alligator\Alligator.csproj">
       <Project>{2e3b219e-7bd2-4f75-bfaf-9b7735827ed4}</Project>
       <Name>Alligator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
+      <Project>{c273f369-b83a-4183-9a97-18cdb23c25c6}</Project>
+      <Name>Grasshopper_Engine</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
