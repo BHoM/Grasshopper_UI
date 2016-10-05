@@ -63,39 +63,9 @@ namespace GSA_Alligator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap bar {
-            get {
-                object obj = ResourceManager.GetObject("bar", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap barPrestress {
-            get {
-                object obj = ResourceManager.GetObject("barPrestress", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap BHoM_GSA_App {
             get {
                 object obj = ResourceManager.GetObject("BHoM_GSA_App", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap sectionproperty {
-            get {
-                object obj = ResourceManager.GetObject("sectionproperty", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
