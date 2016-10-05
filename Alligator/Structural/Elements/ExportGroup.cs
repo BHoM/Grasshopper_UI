@@ -12,7 +12,11 @@ namespace Alligator.Structural.Elements
     public class ExportGroup : GH_Component
     {
         public ExportGroup() : base("Export Group", "SetGroup", "Creates or Replaces groups", "Structure", "Elements") { }
-
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Group_Export; }
+        }
         public override GH_Exposure Exposure
         {
             get

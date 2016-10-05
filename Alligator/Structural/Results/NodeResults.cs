@@ -17,6 +17,12 @@ namespace Alligator.Structural.Results
     public class GetNodeDisplacement : ResultBaseComponent<NodeDisplacement>
     {
         public GetNodeDisplacement() : base("GetNodeDisplacement", "NodeDisplacement", "Gets the node displacements from the selected result server", "Structure", "Results") { }
+        
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_GetNodeDisplacement; }
+        }
 
         public override Guid ComponentGuid
         {
@@ -48,6 +54,12 @@ namespace Alligator.Structural.Results
     public class GetNodeReaction : ResultBaseComponent<NodeReaction>
     {
         public GetNodeReaction() : base("GetNodeReaction", "NodeReaction", "Gets the node reactions from the selected result server", "Structure", "Results") { }
+        
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_GetNodeReaction; }
+        }
 
         public override Guid ComponentGuid
         {

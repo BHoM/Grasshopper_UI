@@ -186,15 +186,6 @@
     <None Include="Resources\BHoM_Material_List.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Node.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BHoM_Node_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BHoM_Node_Import.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\BHoM_NodeForce.png" />
   </ItemGroup>
   <ItemGroup>
@@ -259,6 +250,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BHoM_Bar_Prestress.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Node_Export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Node_Import.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Node.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_GetNodeReaction.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_GetPanelForce.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_GetBarForce.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_GetNodeDisplacement.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Group.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Group_Export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_GetPanelStress.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

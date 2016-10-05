@@ -17,6 +17,12 @@ namespace Alligator.Structural.Results
     public class GetBarForce : ResultBaseComponent<BarForce>
     {
         public GetBarForce() : base("GetBarForce", "GetBarForce", "Gets the bar forces from the selected result server", "Structure", "Results") { }
+        
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_GetBarForce; }
+        }
 
         public override Guid ComponentGuid
         {

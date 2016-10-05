@@ -25,6 +25,11 @@ namespace Alligator.Structural.Properties.Section_Properties
             m_selectedType = 0;
             m_selectedSection = 0;
         }
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Section_List; }
+        }
 
         private void InitializeComboBoxes()
         {

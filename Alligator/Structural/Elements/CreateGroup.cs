@@ -17,6 +17,11 @@ namespace Alligator.Structural.Elements
         public CreateGroup() : base("Create Group", "Group", "Creat a group of items", "Structure", "Elements")
         {
 
+        }      
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Group; }
         }
 
         public override Guid ComponentGuid
