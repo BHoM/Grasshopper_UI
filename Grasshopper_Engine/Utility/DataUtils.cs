@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
 using BHG = BHoM.Geometry;
+using BHB = BHoM.Base;
 
 namespace Grasshopper_Engine
 {
@@ -206,6 +207,21 @@ namespace Grasshopper_Engine
             bool run = false;
             DA.GetData<bool>(index, ref run);
             return run;
+        }
+
+        public static BHB.Group<T> GetGenericDataGroup<T>(IGH_DataAccess DA, int index) where T:BHB.BHoMObject
+        {
+            BHB.Group<T> group = GetGenericData<BHB.Group<T>>(DA, index);
+
+            if (group != null)
+                return group;
+
+            List<T> list = GetGenericDataList<T>(DA, index);
+
+            if (list != null)
+                return new BHoM.Base.Group<T>(list);
+
+            return null;
         }
 
         public static bool PointOrNodeToNode(object n, out BHoM.Structural.Elements.Node node)

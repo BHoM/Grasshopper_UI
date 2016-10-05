@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\ExportComponent.cs" />
     <Compile Include="Components\ImportComponent.cs" />
     <Compile Include="Components\ObjectComponent.cs" />
     <Compile Include="Components\ResultComponent.cs" />
