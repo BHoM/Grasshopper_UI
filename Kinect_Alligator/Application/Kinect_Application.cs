@@ -1,6 +1,7 @@
 ﻿using System;
 using Grasshopper.Kernel;
 using KinectToolkit;
+using Grasshopper_Engine;
 
 namespace Alligator.Kinect
 {
@@ -23,7 +24,7 @@ namespace Alligator.Kinect
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            if (Utils.Run(DA, 0))
+            if (DataUtils.Run(DA, 0))
             {
                 this.Sensor = new Sensor();
                 DA.SetData(0, Sensor);    
@@ -45,7 +46,7 @@ namespace Alligator.Kinect
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Kinect.Properties.Resources.kinect_app; }
+            get { return Kinect_Alligator.Properties.Resources.kinect_app; }
         }
     }
 }

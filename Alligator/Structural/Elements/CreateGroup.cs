@@ -9,14 +9,19 @@ using BHB = BHoM.Base;
 using Grasshopper_Engine;
 using Grasshopper.Kernel.Types;
 
-namespace Alligator.Base
+namespace Alligator.Structural.Elements
 {
     public class CreateGroup : GH_Component
     {
 
-        public CreateGroup() : base("Create Group", "Group", "Creat a group of items", "Alligator", "Base")
+        public CreateGroup() : base("Create Group", "Group", "Creat a group of items", "Structure", "Elements")
         {
 
+        }      
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Group; }
         }
 
         public override Guid ComponentGuid

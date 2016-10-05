@@ -8,6 +8,7 @@ using R = Rhino.Geometry;
 using KinectToolkit;
 using BHoM.HumanBody;
 using BH = BHoM.Geometry;
+using Grasshopper_Engine;
 
 namespace Alligator.Kinect.BodyTracking
 {
@@ -31,7 +32,7 @@ namespace Alligator.Kinect.BodyTracking
              {
                 List<BHoM.Geometry.Point> points = new List<BHoM.Geometry.Point>();
 
-                Sensor app = Utils.GetGenericData<Sensor>(DA, 0);
+                Sensor app = DataUtils.GetGenericData<Sensor>(DA, 0);
                 if (!DA.GetData(0, ref app)) return;
 
                 KinectBody kinectBody = new KinectBody();
@@ -50,7 +51,7 @@ namespace Alligator.Kinect.BodyTracking
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Kinect.Properties.Resources.skeleton; }
+            get { return Kinect_Alligator.Properties.Resources.skeleton; }
         }
     }
 
@@ -72,7 +73,7 @@ namespace Alligator.Kinect.BodyTracking
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Skeleton skeleton = Utils.GetGenericData<Skeleton>(DA, 0);
+            Skeleton skeleton = DataUtils.GetGenericData<Skeleton>(DA, 0);
             List<R.GeometryBase> TrackingLines = new List<R.GeometryBase>();
             List<string> BodyPartNames = new List<string>();
             List<R.Sphere> Spheres = new List<R.Sphere>();
@@ -126,7 +127,7 @@ namespace Alligator.Kinect.BodyTracking
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Kinect.Properties.Resources.skeleton_lines; }
+            get { return Kinect_Alligator.Properties.Resources.skeleton_lines; }
         }
     }
 

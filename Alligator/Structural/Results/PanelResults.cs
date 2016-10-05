@@ -18,6 +18,12 @@ namespace Alligator.Structural.Results
     {
         public GetPanelForce() : base("GetPanelForce", "PanelForce", "Gets the panel forces from the selected result server", "Structure", "Results") { }
 
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_GetPanelForce; }
+        }
+
         public override Guid ComponentGuid
         {
             get
@@ -47,6 +53,12 @@ namespace Alligator.Structural.Results
     public class GetPanelStress : ResultBaseComponent<PanelStress>
     {
         public GetPanelStress() : base("GetPanelStress", "PanelStress", "Gets the panel stresses from the selected result server", "Structure", "Results") { }
+
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_GetPanelStress; }
+        }
 
         public override Guid ComponentGuid
         {
