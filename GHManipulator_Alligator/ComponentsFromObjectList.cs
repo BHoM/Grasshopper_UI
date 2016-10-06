@@ -57,7 +57,7 @@ namespace Alligator.GH_Manipulator
             DA.GetData<string>(1, ref groupName);
             DA.GetData<object>(2, ref template);
             DA.GetData<bool>(3, ref trigger);
-
+            
 
             // Trigger input 
             if (!trigger) return;

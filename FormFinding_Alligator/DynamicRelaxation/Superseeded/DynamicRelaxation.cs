@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using BHoM.Structural;
+using BHoM.Structural.Elements;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Grasshopper_Engine;
 
 namespace Alligator.Components
 {
     public class DynamicRelaxation : GH_Component
     {
+       
         public DynamicRelaxation() : base("DynamicRelaxation", "DynamicRelaxation", "Dynamically relaxes structure", "Alligator", "FormFinding") { }
 
         public override GH_Exposure Exposure
@@ -37,6 +38,7 @@ namespace Alligator.Components
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
+
             pManager.Register_LineParam("Relaxed Lines", "lines", "Relaxed lines", GH_ParamAccess.list);
             pManager.Register_DoubleParam("Axial Bar Forces", "barForces", "Axial force in bars", GH_ParamAccess.list);
             pManager.Register_VectorParam("Node Forces", "nodeForces", "Node forces", GH_ParamAccess.list);
@@ -58,19 +60,19 @@ namespace Alligator.Components
             Rhino.Geometry.BoundingBox box = new Rhino.Geometry.BoundingBox(-100, -100, -100, 100, 100, 100);
             _clippingBox.Union(box);
 
-            if (Utils.Run(DA, 11))
+            if (DataUtils.Run(DA, 11))
             {
-                List<Bar> bars = Utils.GetGenericDataList<Bar>(DA, 0);
-                List<Node> lockedNodes = Utils.GetGenericDataList<Node>(DA, 1);
-                List<double> areas = Utils.GetDataList<double>(DA, 2);
-                List<double> prestresses = Utils.GetDataList<double>(DA, 3);
-                double unaryNodalLoad = Utils.GetData<double>(DA, 4);
-                double dt = Utils.GetData<double>(DA, 5);
-                double c = Utils.GetData<double>(DA, 6);
-                int maxNoIt = Utils.GetData<int>(DA, 7);
-                double treshold = Utils.GetData<double>(DA, 8);
-                bool useMassDamping = Utils.GetData<bool>(DA, 9);
-                bool calcSafeTimeStep = Utils.GetData<bool>(DA, 10);
+                List<Bar> bars = DataUtils.GetGenericDataList<Bar>(DA, 0);
+                List<Node> lockedNodes = DataUtils.GetGenericDataList<Node>(DA, 1);
+                List<double> areas = DataUtils.GetDataList<double>(DA, 2);
+                List<double> prestresses = DataUtils.GetDataList<double>(DA, 3);
+                double unaryNodalLoad = DataUtils.GetData<double>(DA, 4);
+                double dt = DataUtils.GetData<double>(DA, 5);
+                double c = DataUtils.GetData<double>(DA, 6);
+                int maxNoIt = DataUtils.GetData<int>(DA, 7);
+                double treshold = DataUtils.GetData<double>(DA, 8);
+                bool useMassDamping = DataUtils.GetData<bool>(DA, 9);
+                bool calcSafeTimeStep = DataUtils.GetData<bool>(DA, 10);
 
 
 
@@ -94,17 +96,17 @@ namespace Alligator.Components
 
                     if (structure.HasConverged())
                         break;
-                    else
+                   else
                         counter++;
                 }
 
                 List<double> barForces = new List<double>();
                 foreach (Bar bar in structure.Bars)
-                    barForces.Add(new Vector3d(structure.barForceCollection[bar.Name + ":" + structure.t.ToString()].FX, structure.barForceCollection[bar.Name + ":" + structure.t.ToString()].FY, structure.barForceCollection[bar.Name + ":" + structure.t.ToString()].FZ).Length);
+                    barForces.Add(new Vector3d(structure.barForceCollection[bar.Name + ":" + structure.m_t.ToString()].FX, structure.barForceCollection[bar.Name + ":" + structure.m_t.ToString()].FY, structure.barForceCollection[bar.Name + ":" + structure.m_t.ToString()].FZ).Length);
 
                 List<Vector3d> nodeForces = new List<Vector3d>();
                 foreach (Node node in structure.Nodes)
-                        nodeForces.Add(new Vector3d(structure.nodalResultCollection[node.Name + ":" + structure.t.ToString()].Force.X, structure.nodalResultCollection[node.Name + ":" + structure.t.ToString()].Force.Y, structure.nodalResultCollection[node.Name + ":" + structure.t.ToString()].Force.Z));
+                    nodeForces.Add(new Vector3d(structure.nodalResultCollection[node.Name + ":" + structure.m_t.ToString()].Force.X, structure.nodalResultCollection[node.Name + ":" + structure.m_t.ToString()].Force.Y, structure.nodalResultCollection[node.Name + ":" + structure.m_t.ToString()].Force.Z));
 
                 structure.Bars.Clear();
                 structure.Nodes.Clear();
@@ -113,7 +115,7 @@ namespace Alligator.Components
                 DA.SetDataList(1, barForces);
                 DA.SetDataList(2, nodeForces);
                 DA.SetData(3, counter);
-                DA.SetData(4, structure.kineticEnergy[structure.t.ToString()]);
+                DA.SetData(4, structure.m_kineticEnergy[structure.m_t.ToString()]);
             }
         }
 
@@ -135,6 +137,9 @@ namespace Alligator.Components
         {
             base.DrawViewportWires(args);
 
+            if (lines == null)
+                return;
+
             if (lines.Count > 0)
                 foreach (Rhino.Geometry.Line ln in lines)
                 {
@@ -152,7 +157,7 @@ namespace Alligator.Components
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return FormFinding.Properties.Resources.spider; }
+            get { return FormFinding_Alligator.Properties.Resources.spider; }
         }
     }
 }

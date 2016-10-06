@@ -104,6 +104,7 @@ namespace Grasshopper_Engine
             return c;
         }
 
+
         public static R.Point3d Convert(BH.Point p)
         {
             return new R.Point3d(p.X, p.Y, p.Z);
@@ -128,6 +129,12 @@ namespace Grasshopper_Engine
         public static BH.Vector Convert(R.Vector3d v)
         {
             return new BH.Vector(v.X, v.Y, v.Z);
+        }
+
+
+        public static BH.Line Convert(R.Line line)
+        {
+            return new BH.Line(Convert(line.From), Convert(line.To));
         }
 
         public static BH.Curve Convert(R.Curve rCurve)
