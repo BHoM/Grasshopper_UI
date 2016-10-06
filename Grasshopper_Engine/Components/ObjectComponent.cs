@@ -112,6 +112,10 @@ namespace Grasshopper_Engine.Components
                         {
                             pManager.AddPointParameter(name, nickName, description, access);
                         }
+                        if (pType == typeof(BHoM.Geometry.Vector))
+                        {
+                            pManager.AddVectorParameter(name, nickName, description, access);
+                        }
                         else if (pType == typeof(BHoM.Geometry.Curve))
                         {
                             pManager.AddCurveParameter(name, nickName, description, access);

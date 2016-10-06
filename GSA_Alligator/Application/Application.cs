@@ -11,7 +11,7 @@ namespace Alligator.GSA
 {
     public class GSAApp : GH_Component
     {
-        public GSAApp() : base("GSA Application", "GSAApp", "Creates a GSA Application", "GSA", "Application") { }
+        public GSAApp() : base("GSA Application", "GSAApp", "Creates a GSA Application", "Structure", "Application") { }
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {

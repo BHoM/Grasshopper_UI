@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GSA_Alligator.Properties {
+namespace Revit_Alligator.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace GSA_Alligator.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GSA_Alligator.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Revit_Alligator.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,9 +63,9 @@ namespace GSA_Alligator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BHoM_GSA_App {
+        internal static System.Drawing.Bitmap Revit {
             get {
-                object obj = ResourceManager.GetObject("BHoM_GSA_App", resourceCulture);
+                object obj = ResourceManager.GetObject("Revit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

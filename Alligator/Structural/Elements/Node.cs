@@ -31,7 +31,7 @@ namespace Alligator.Structural.Elements
         }
     }
 
-    public class ExportNode : GH_Component
+    public class ExportNode : ExportComponent<BHE.Node>
     {
         public ExportNode() : base("Export Node", "SetNode", "Creates or Replaces the geometry of a Node", "Structure", "Elements") { }
 
@@ -43,34 +43,40 @@ namespace Alligator.Structural.Elements
             }
         }
 
-        protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
+        //protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
+        //{
+        //    pManager.AddGenericParameter("Application", "Application", "Application to import nodes from", GH_ParamAccess.item);
+        //    pManager.AddGenericParameter("Nodes", "Nodes", "BHoM nodes to export", GH_ParamAccess.list);
+        //    pManager.AddBooleanParameter("Activate", "Activate", "Generate Nodes", GH_ParamAccess.item);
+
+        //    pManager[2].Optional = true;
+        //}
+
+        //protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
+        //{
+        //    pManager.AddTextParameter("Ids", "Ids", "Node Numbers", GH_ParamAccess.list);
+        //}
+
+        //protected override void SolveInstance(IGH_DataAccess DA)
+        //{
+        //    if (GHE.DataUtils.Run(DA, 2))
+        //    {
+        //        BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
+        //        if (app != null)
+        //        {
+        //            List<BHE.Node> nodes = GHE.DataUtils.GetGenericDataList<BHE.Node>(DA, 1);
+        //            List<string> ids = null;
+        //            app.SetNodes(nodes, out ids);
+
+        //            DA.SetDataList(0, ids);
+        //        }
+        //    }
+        //}
+
+        protected override List<BHE.Node> SetObjects(BHI.IElementAdapter app, List<BHE.Node> objects, out List<string> ids)
         {
-            pManager.AddGenericParameter("Application", "Application", "Application to import nodes from", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Nodes", "Nodes", "BHoM nodes to export", GH_ParamAccess.list);
-            pManager.AddBooleanParameter("Activate", "Activate", "Generate Nodes", GH_ParamAccess.item);
-
-            pManager[2].Optional = true;
-        }
-
-        protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
-        {
-            pManager.AddTextParameter("Ids", "Ids", "Node Numbers", GH_ParamAccess.list);
-        }
-
-        protected override void SolveInstance(IGH_DataAccess DA)
-        {
-            if (GHE.DataUtils.Run(DA, 2))
-            {
-                BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
-                if (app != null)
-                {
-                    List<BHE.Node> nodes = GHE.DataUtils.GetGenericDataList<BHE.Node>(DA, 1);
-                    List<string> ids = null;
-                    app.SetNodes(nodes, out ids);
-
-                    DA.SetDataList(0, ids);
-                }
-            }
+            app.SetNodes(objects, out ids);
+            return objects;
         }
 
         public override Guid ComponentGuid

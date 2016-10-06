@@ -33,7 +33,7 @@ namespace Alligator.Structural.Loads
 
     public class ExportLoadCase : GH_Component
     {
-        public ExportLoadCase() : base("Export Loadcase", "ExLoadcase", "Creates or Replaces loadcase", "Alligator", "Structural") { }
+        public ExportLoadCase() : base("Export Loadcase", "ExLoadcase", "Creates or Replaces loadcase", "Structure", "Loads") { }
 
         public override GH_Exposure Exposure
         {

@@ -26,7 +26,8 @@ namespace Alligator.Components
         {
             pManager.AddPointParameter("Points", "CompressionPts", "Compression ring points", GH_ParamAccess.list);
             pManager.AddPointParameter("Points", "TensionPts", "Tension ring points", GH_ParamAccess.list);
-            pManager.AddIntegerParameter("Grid no.", "GridNumber", "Grid line on which to enforce elevation and angle", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Start Grid", "StartGridNumber", "Grid line on which to get initial elevation and angle", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Fixed grids", "Numbers of Fixed Grids", "Grid lines on which to enforce elevation and angle", GH_ParamAccess.list);
             pManager.AddNumberParameter("Angle", "Alpha", "Declination angle of cables on grid line N", GH_ParamAccess.item);
             pManager.AddNumberParameter("Surcharge", "Surcharge", "Tension ring point load", GH_ParamAccess.list, 1.0);
             pManager.AddTextParameter("Level TR or CR?", "TRCR", "Set TR for level tension ring or CR for level compression ring", GH_ParamAccess.item,"CR");
@@ -57,8 +58,9 @@ namespace Alligator.Components
 
             List<BHoM.Geometry.Point> _cPts = new List<BHoM.Geometry.Point>();
             List<BHoM.Geometry.Point> _tPts = new List<BHoM.Geometry.Point>();
-
             int startGrid = 0;
+            List<int> fixedGrids = new List<int>();
+            
             double alpha = 0.0;
             List<double> F = new List<double>();
             string levelTRCR ="";
@@ -68,11 +70,12 @@ namespace Alligator.Components
             if (!DA.GetDataList(0, cPts)) return;
             if (!DA.GetDataList(1, tPts)) return;
             if (!DA.GetData(2, ref startGrid)) return;
-            if (!DA.GetData(3, ref alpha)) return;
-            if (!DA.GetDataList(4, F)) return;
-            if (!DA.GetData(5, ref levelTRCR)) return;
-            if (!DA.GetData(6, ref iterations)) return;
-            if (!DA.GetData(7, ref heightStep)) return;
+            if (!DA.GetDataList(3, fixedGrids)) return;
+            if (!DA.GetData(4, ref alpha)) return;
+            if (!DA.GetDataList(5, F)) return;
+            if (!DA.GetData(6, ref levelTRCR)) return;
+            if (!DA.GetData(7, ref iterations)) return;
+            if (!DA.GetData(8, ref heightStep)) return;
 
             foreach (Point3d pt in cPts)
                 _cPts.Add(new BHoM.Geometry.Point(pt.X, pt.Y, pt.Z));
@@ -83,9 +86,9 @@ namespace Alligator.Components
             CableNet cableNet = new CableNet(_cPts, _tPts);
 
             if (levelTRCR=="CR")
-                cableNet.FormFindTensionRing(startGrid, iterations, heightStep, alpha, F);
+                cableNet.FormFindTensionRing(startGrid, fixedGrids, iterations, heightStep, alpha, F);
             else if (levelTRCR=="TR")
-                cableNet.FormFindCompressionRing(startGrid, iterations, heightStep, alpha, F);
+                cableNet.FormFindCompressionRing(startGrid, fixedGrids, iterations, heightStep, alpha, F);
 
             cPts.Clear();
             tPts.Clear();

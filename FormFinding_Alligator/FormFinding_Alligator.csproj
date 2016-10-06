@@ -43,10 +43,6 @@
     <Reference Include="FormFinding_Engine">
       <HintPath>..\..\BHoM_Engine\Build\FormFinding_Engine.dll</HintPath>
     </Reference>
-    <Reference Include="Grasshopper_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Build\Grasshopper_Engine.dll</HintPath>
-    </Reference>
     <Reference Include="RhinoCommon">
       <HintPath>..\External Libraries\RhinoCommon.dll</HintPath>
     </Reference>
@@ -71,7 +67,14 @@
     <Compile Include="CableNetDesign\Analysis\CableTonnage.cs" />
     <Compile Include="CableNetDesign\Analysis\CableSizing.cs" />
     <Compile Include="CableNetDesign\AnalyticalFormFinding\AnalyticalFormFinding.cs" />
-    <Compile Include="DynamicRelaxation\DynamicRelaxation.cs" />
+    <Compile Include="CableNetDesign\CableNetPrecalculations.cs" />
+    <Compile Include="DynamicRelaxation\Goals\RotationalSpring.cs" />
+    <Compile Include="DynamicRelaxation\Goals\Spring.cs" />
+    <Compile Include="DynamicRelaxation\Mass\PointMass.cs" />
+    <Compile Include="DynamicRelaxation\NodeProps\Constraints.cs" />
+    <Compile Include="DynamicRelaxation\Goals\UnaryForce.cs" />
+    <Compile Include="DynamicRelaxation\Structural_DR.cs" />
+    <Compile Include="DynamicRelaxation\Superseeded\DynamicRelaxation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -106,6 +109,12 @@
   <ItemGroup>
     <None Include="Resources\conversion.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
+      <Project>{c273f369-b83a-4183-9a97-18cdb23c25c6}</Project>
+      <Name>Grasshopper_Engine</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -123,7 +132,9 @@ Erase "$(TargetPath)"
 
 copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM.dll"
 
-copy /Y "$(TargetDir)\CableNetDesign_OM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\CableNetDesign_OM.dll"</PostBuildEvent>
+copy /Y "$(TargetDir)\CableNetDesign_OM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\CableNetDesign_OM.dll"
+
+copy /Y "$(TargetDir)\FormFinding_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\FormFinding_Engine.dll"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>

@@ -85,14 +85,18 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Structural\Elements\CreateBar.cs" />
+    <Compile Include="Structural\Elements\CreateFEMesh.cs" />
     <Compile Include="Structural\Elements\CreateRigidLink.cs" />
     <Compile Include="Structural\Elements\ExportBar.cs" />
+    <Compile Include="Structural\Elements\ExportFEMesh.cs" />
     <Compile Include="Structural\Elements\ExportGroup.cs" />
     <Compile Include="Structural\Elements\ExportRigidLink.cs" />
     <Compile Include="Structural\Elements\Grid.cs" />
     <Compile Include="Structural\Elements\Level.cs" />
     <Compile Include="Structural\Elements\Opening.cs" />
     <Compile Include="Structural\Loads\CreateBarLoad.cs" />
+    <Compile Include="Structural\Loads\CreateGravityLoad.cs" />
+    <Compile Include="Structural\Loads\CreateLoadCombination.cs" />
     <Compile Include="Structural\Loads\CreateNodalLoad.cs" />
     <Compile Include="Structural\Properties\BarAttributesContainer.cs" />
     <Compile Include="Structural\Properties\Constraints\CreateBarRelease.cs" />

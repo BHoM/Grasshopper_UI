@@ -85,7 +85,6 @@ namespace Alligator.Structural.Properties
 
             if(mat != null)
                 barProperty.Material = mat;
-
             
             barProperty.CalculateSection();
             DA.SetData(0, barProperty);
@@ -101,20 +100,20 @@ namespace Alligator.Structural.Properties
                 switch ((BHP.ShapeType)enumSelection)
                 {
                     case BHP.ShapeType.ISection:
-                        CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, firstParamIndex);
-                        CreateParam("Top Flange Width", "B1", "Width of Top flange (m)", GH_ParamAccess.item, firstParamIndex+1);
+                        CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, firstParamIndex, false);
+                        CreateParam("Top Flange Width", "B1", "Width of Top flange (m)", GH_ParamAccess.item, firstParamIndex+1, false);
                         CreateParam("Bottom Flange Width", "B2", "Width of Bottom Flange (m)", GH_ParamAccess.item, firstParamIndex+2);
-                        CreateParam("Top Flange thickness", "Tf", "Thickness of flange (m)", GH_ParamAccess.item, firstParamIndex+3);
+                        CreateParam("Top Flange thickness", "Tf", "Thickness of flange (m)", GH_ParamAccess.item, firstParamIndex+3, false);
                         CreateParam("Bottom Flange thickness", "Tb", "Thickness of flange (m)", GH_ParamAccess.item, firstParamIndex +4);
-                        CreateParam("Web thickness", "Tw", "Thickness of Web (m)", GH_ParamAccess.item, firstParamIndex +5);
+                        CreateParam("Web thickness", "Tw", "Thickness of Web (m)", GH_ParamAccess.item, firstParamIndex +5, false);
                         CreateParam("Inner Fillet radius", "Ri", "Inner Fillet Radius (m)", GH_ParamAccess.item, firstParamIndex +6);
                         CreateParam("Outter Fillet radius", "Ro", "Outer Fillet Radius (m)", GH_ParamAccess.item, firstParamIndex +7);
                         CreateParam("Rotation", "A", "Axis rotation", GH_ParamAccess.item, firstParamIndex +8);
                         break;
                     case BHP.ShapeType.Box:
                     case BHoM.Structural.Properties.ShapeType.Tee:
-                        CreateParam("Width", "Width", "Total Width (m)", GH_ParamAccess.item, firstParamIndex);
-                        CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, firstParamIndex +1);
+                        CreateParam("Width", "Width", "Total Width (m)", GH_ParamAccess.item, firstParamIndex, false);
+                        CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, firstParamIndex +1, false);
                         CreateParam("Flange thickness", "Tf", "Thickness of flange (m)", GH_ParamAccess.item, firstParamIndex +2);
                         CreateParam("Web thickness", "Tw", "Thickness of Web (m)", GH_ParamAccess.item, firstParamIndex +3);
                         CreateParam("Inner Fillet radius", "Ri", "Inner Fillet Radius (m)", GH_ParamAccess.item, firstParamIndex +4);
@@ -123,40 +122,41 @@ namespace Alligator.Structural.Properties
                         UnregisterParameterFrom(10);
                         break;
                     case BHP.ShapeType.Rectangle:
-                        CreateParam("Width", "Width", "Total Width (m)", GH_ParamAccess.item, firstParamIndex);
-                        CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, firstParamIndex +1);
-                        CreateParam("Edge Radius", "D", "Total Depth (m)", GH_ParamAccess.item, firstParamIndex +2);
+                        CreateParam("Width", "Width", "Total Width (m)", GH_ParamAccess.item, firstParamIndex, false);
+                        CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, firstParamIndex +1, false);
+                        CreateParam("Edge Radius", "Radius", "Edge Radius (m)", GH_ParamAccess.item, firstParamIndex +2);
                         UnregisterParameterFrom(6);
                         break;
                     case BHP.ShapeType.Circle:
-                        CreateParam("Diameter", "Diameter", "Total Diameter (m)", GH_ParamAccess.item, firstParamIndex);
+                        CreateParam("Diameter", "Diameter", "Total Diameter (m)", GH_ParamAccess.item, firstParamIndex, false);
                         UnregisterParameterFrom(4);
                         break;
                     case BHP.ShapeType.Tube:
-                        CreateParam("Outer Diameter", "Diameter", "Total Diameter (m)", GH_ParamAccess.item, firstParamIndex);
-                        CreateParam("Thickness", "Thickness", "Thickness (m)", GH_ParamAccess.item, firstParamIndex +1);
+                        CreateParam("Outer Diameter", "Diameter", "Total Diameter (m)", GH_ParamAccess.item, firstParamIndex, false);
+                        CreateParam("Thickness", "Thickness", "Thickness (m)", GH_ParamAccess.item, firstParamIndex +1, false);
                         UnregisterParameterFrom(5);
                         break;
                     default:
-                        CreateParam("Width", "Width", "Total Width (m)", GH_ParamAccess.item, firstParamIndex);
-                        CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, firstParamIndex +1);
+                        CreateParam("Width", "Width", "Total Width (m)", GH_ParamAccess.item, firstParamIndex, false);
+                        CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, firstParamIndex +1, false);
                         UnregisterParameterFrom(5);
                         break;
                 }
             }
         }
 
-        private void CreateParam(string name, string nickname, string description, GH_ParamAccess access, int index)
+        private void CreateParam(string name, string nickname, string description, GH_ParamAccess access, int index, bool optional = true)
         {
             if (Params.Input.Count <= index)
             {
                 Params.RegisterInputParam(new Param_Number(), index);
             }
-            Params.Input[index].Optional = true;
+            Params.Input[index].Optional = optional;
             Params.Input[index].Name = name;
             Params.Input[index].NickName = nickname;
             Params.Input[index].Description = description;
             Params.Input[index].Access = access;
+            Params.Input[index].ExpirePreview(true);
         }
 
         private void UnregisterParameterFrom(int index)
