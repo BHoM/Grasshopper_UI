@@ -63,9 +63,9 @@ namespace Revit_Alligator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Revit {
+        internal static System.Drawing.Bitmap BHoM_Revit_App {
             get {
-                object obj = ResourceManager.GetObject("Revit", resourceCulture);
+                object obj = ResourceManager.GetObject("BHoM_Revit_App", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -12,6 +12,12 @@ namespace Alligator.Structural.Loads
     {
         public CreateLoadCombination() : base("Create Loadcombination", "LoadComination", "Create a BH Load combination object", "Structure", "Loads") { }
 
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_LoadCase_Combination; }
+        }
+
         public override Guid ComponentGuid
         {
             get

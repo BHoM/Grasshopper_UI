@@ -16,6 +16,12 @@ namespace Alligator.Structural.Elements
         public ExportFEMesh() : base("Export FEMesh", "SetMesh", "Creates or Replaces the geometry of a Mesh", "Structure", "Elements")
         { }
 
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Mesh_Export; }
+        }
+
         public override Guid ComponentGuid
         {
             get

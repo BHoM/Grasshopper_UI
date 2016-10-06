@@ -79,6 +79,9 @@
   <ItemGroup>
     <None Include="Resources\Revit.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Revit_App.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"

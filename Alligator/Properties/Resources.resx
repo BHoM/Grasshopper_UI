@@ -124,9 +124,6 @@
   <data name="gator" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\gator.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="loadcase" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\loadcase.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="skeleton" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\skeleton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -226,17 +223,11 @@
   <data name="BHoM_Section_List" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BHoM_Section_List.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BHoM_GSA_App" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BHoM_GSA_App.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="BHoM_LoadCase" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BHoM_LoadCase.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BHoM_LoadResults" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BHoM_LoadResults.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BHoM_ROBO_App" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BHoM_ROBO_App.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BHoM_StoreResults" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BHoM_StoreResults.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -261,5 +252,23 @@
   </data>
   <data name="BHoM_Group_Export" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BHoM_Group_Export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_FromJSON" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_FromJSON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_LoadCase_Combination" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_LoadCase_Combination.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_LoadCase_Export" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_LoadCase_Export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_Mesh" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_Mesh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_Mesh_Export" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_Mesh_Export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_ToJSON" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_ToJSON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

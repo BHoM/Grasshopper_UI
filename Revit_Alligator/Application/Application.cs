@@ -41,7 +41,7 @@ namespace Revit_Alligator
         /// <summary> Icon (24x24 pixels)</summary>
         protected override Bitmap Internal_Icon_24x24
         {
-            get { return Revit_Alligator.Properties.Resources.Revit; }
+            get { return Revit_Alligator.Properties.Resources.BHoM_Revit_App; }
         }
 
     }

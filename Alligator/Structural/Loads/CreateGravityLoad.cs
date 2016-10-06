@@ -14,7 +14,7 @@ namespace Alligator.Structural.Loads
     public class CreateGravityLoad : GH_Component
     {
 
-        public CreateGravityLoad() : base("Create  Gravity Load", "GravityLoad", "Create a gravity load", "Structure", "Loads") { }
+        public CreateGravityLoad() : base("Create Gravity Load", "GravityLoad", "Create a gravity load", "Structure", "Loads") { }
 
         public override Guid ComponentGuid
         {
