@@ -21,6 +21,8 @@ namespace Alligator.Structural.Loads
             BarUniformLoad,
             BarPointLoad,
             BarVaryingLoad,
+            BarPrestressLoad,
+            BarTempratureLoad
         }
 
         public CreateBarLoad() : base("Bar Load", "BL", "Create various bar loads", "Structure", "Loads") { }
@@ -124,6 +126,19 @@ namespace Alligator.Structural.Loads
                         ((BHL.BarVaryingDistributedLoad)load).DistanceFromB = 0;
                     break;
 
+                case BarLoadTypes.BarPrestressLoad:
+                    load = new BHL.BarPrestressLoad();
+                    double prestressValue = 0;
+                    if (DA.GetData(ind1, ref prestressValue))
+                        ((BHL.BarPrestressLoad)load).PrestressValue = prestressValue;
+                    break;
+
+                case BarLoadTypes.BarTempratureLoad:
+                    load = new BHL.BarTemperatureLoad();
+                    Vector3d tempratureChange = Vector3d.Unset;
+                    if (DA.GetData(ind1, ref tempratureChange))
+                        ((BHL.BarTemperatureLoad)load).TemperatureChange = tempratureChange.ToBHoMVector();
+                    break;
 
                 case BarLoadTypes.BarUniformLoad:
                 default:
@@ -173,7 +188,14 @@ namespace Alligator.Structural.Loads
 
             switch ((BarLoadTypes)enumSelection)
             {
-
+                case BarLoadTypes.BarPrestressLoad:
+                    CreateParam("Prestress Force", "PSF", "The prestressing force to apply to the bar", GH_ParamAccess.item, ParamType.Number, ind1);
+                    UnregisterParameterFrom(ind1+1);
+                    break;
+                case BarLoadTypes.BarTempratureLoad:
+                    CreateParam("Temperature Change", "T", "Temprature change vector of the bar", GH_ParamAccess.item, ParamType.Vector, ind1);
+                    UnregisterParameterFrom(ind1+1);
+                    break;
                 case BarLoadTypes.BarPointLoad:
                     CreateParam("Point Force", "F", "Point force to be applied to the bar", GH_ParamAccess.item, ParamType.Vector, ind1);
                     CreateParam("Point Moment", "M", "Point moment to be applied to the bar", GH_ParamAccess.item, ParamType.Vector, ind1 + 1);
@@ -198,6 +220,8 @@ namespace Alligator.Structural.Loads
                     break;
             }
 
+            OnAttributesChanged();
+
         }
 
         private enum ParamType
@@ -208,7 +232,7 @@ namespace Alligator.Structural.Loads
 
         private void CreateParam(string name, string nickname, string description, GH_ParamAccess access, ParamType type, int index )
         {
-            
+
             if (Params.Input.Count <= index)
             {
                 if (type == ParamType.Number)
@@ -217,6 +241,19 @@ namespace Alligator.Structural.Loads
                     Params.RegisterInputParam(new Param_Vector(), index);
                 else
                     Params.RegisterInputParam(new Param_GenericObject(), index);
+            }
+            else
+            {
+                if ((type == ParamType.Number && Params.Input[index].TypeName != "Number") || (type == ParamType.Vector && Params.Input[index].TypeName != "Vector"))
+                    Params.UnregisterParameter(Params.Input[index]);
+
+                if (type == ParamType.Number)
+                    Params.RegisterInputParam(new Param_Number(), index);
+                else if (type == ParamType.Vector)
+                    Params.RegisterInputParam(new Param_Vector(), index);
+                else
+                    Params.RegisterInputParam(new Param_GenericObject(), index);
+
             }
             Params.Input[index].Optional = true;
             Params.Input[index].Name = name;

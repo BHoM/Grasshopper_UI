@@ -32,7 +32,7 @@ namespace Alligator.Structural.Loads
         }
     }
 
-    public class CreateBarPrestressLoad : BHoMBaseComponent<BarPrestressLoad>
+    class CreateBarPrestressLoad : BHoMBaseComponent<BarPrestressLoad>
     {
         public CreateBarPrestressLoad() : base("Create Bar Prestress Load", "CreateBarPrestressLoad", "Create a BH bar prestress load", "Structure", "Loads") { }
 

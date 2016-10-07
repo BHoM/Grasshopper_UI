@@ -37,9 +37,6 @@
     <Reference Include="BHoM">
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
     </Reference>
-    <Reference Include="CableNetDesign_Engine">
-      <HintPath>..\..\CableNetDesign_Toolkit\Build\CableNetDesign_Engine.dll</HintPath>
-    </Reference>
     <Reference Include="FormFinding_Engine">
       <HintPath>..\..\BHoM_Engine\Build\FormFinding_Engine.dll</HintPath>
     </Reference>
@@ -62,12 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CableNetDesign\Analysis\DeformedLengthToAxialForce.cs" />
-    <Compile Include="CableNetDesign\Analysis\PrestressToSlackLength.cs" />
-    <Compile Include="CableNetDesign\Analysis\CableTonnage.cs" />
-    <Compile Include="CableNetDesign\Analysis\CableSizing.cs" />
-    <Compile Include="CableNetDesign\AnalyticalFormFinding\AnalyticalFormFinding.cs" />
-    <Compile Include="CableNetDesign\CableNetPrecalculations.cs" />
+    <Compile Include="DynamicRelaxation\Goals\CableNetPrecalculations.cs" />
     <Compile Include="DynamicRelaxation\Goals\RotationalSpring.cs" />
     <Compile Include="DynamicRelaxation\Goals\Spring.cs" />
     <Compile Include="DynamicRelaxation\Mass\PointMass.cs" />
