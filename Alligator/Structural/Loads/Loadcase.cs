@@ -34,6 +34,12 @@ namespace Alligator.Structural.Loads
     public class ExportLoadCase : GH_Component
     {
         public ExportLoadCase() : base("Export Loadcase", "ExLoadcase", "Creates or Replaces loadcase", "Structure", "Loads") { }
+        
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_LoadCase_Export; }
+        }
 
         public override GH_Exposure Exposure
         {
@@ -73,12 +79,6 @@ namespace Alligator.Structural.Loads
         public override Guid ComponentGuid
         {
             get { return new Guid("824e4efc-c4ae-4ac0-a4c7-983547b42365"); }
-        }
-
-        /// <summary> Icon (24x24 pixels)</summary>
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return Alligator.Properties.Resources.loadcase; }
         }
     }
 }

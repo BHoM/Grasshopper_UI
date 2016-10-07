@@ -15,6 +15,11 @@ namespace Alligator.Structural.Elements
     {
         public CreateFEMesh() : base("Create FEMesh", "FEMesh", "Create a BH FEmesh object", "Structure", "Elements") { }
 
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Mesh; }
+        }
 
         public override Guid ComponentGuid
         {

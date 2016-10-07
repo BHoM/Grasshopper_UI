@@ -166,9 +166,6 @@
     <None Include="Resources\BHoM_Grid_Import.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_GSA_App.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\BHoM_Level.png" />
   </ItemGroup>
   <ItemGroup>
@@ -218,9 +215,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BHoM_RigidLink_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BHoM_ROBO_App.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BHoM_Section_List.png" />
@@ -284,6 +278,33 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BHoM_GetPanelStress.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_ToJSON.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_FromJSON.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_LoadCase_Combination.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_LoadCase_Export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Mesh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Mesh_Export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_GSA_App.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Revit_App.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_ROBO_App.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

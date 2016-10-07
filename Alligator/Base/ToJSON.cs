@@ -13,6 +13,12 @@ namespace Alligator.Base
     {
         public ToJSON() : base("ToJSON", "ToJSON", "Convert a BHoM object to a JSON string", "Alligator", "Base") { }
 
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_ToJSON; }
+        }
+
         public override Guid ComponentGuid
         {
             get

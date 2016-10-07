@@ -12,6 +12,12 @@ namespace Alligator.Base
     {
         public FromJSON() : base("FromJSON", "FromJSON", "Create a BHoM object from a JSON string", "Alligator", "Base") { }
 
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_FromJSON; }
+        }
+
         public override Guid ComponentGuid
         {
             get
