@@ -30,7 +30,7 @@
 //            pManager.AddIntegerParameter("Fixed grids", "Numbers of Fixed Grids", "Grid lines on which to enforce elevation and angle", GH_ParamAccess.list);
 //            pManager.AddNumberParameter("Angle", "Alpha", "Declination angle of cables on grid line N", GH_ParamAccess.item);
 //            pManager.AddNumberParameter("Surcharge", "Surcharge", "Tension ring point load", GH_ParamAccess.list, 1.0);
-//            pManager.AddTextParameter("Level TR or CR?", "TRCR", "Set TR for level tension ring or CR for level compression ring", GH_ParamAccess.item,"CR");
+//            pManager.AddTextParameter("Level TR or CR?", "TRCR", "Set TR for level tension ring or CR for level compression ring", GH_ParamAccess.item, "CR");
 //            pManager.AddIntegerParameter("No. iterations", "i", "Number of iterations for which the process runs", GH_ParamAccess.item, 1);
 //            pManager.AddNumberParameter("Step", "Step", "Distance step for each iteration", GH_ParamAccess.item);
 //        }
@@ -60,10 +60,10 @@
 //            List<BHoM.Geometry.Point> _tPts = new List<BHoM.Geometry.Point>();
 //            int startGrid = 0;
 //            List<int> fixedGrids = new List<int>();
-            
+
 //            double alpha = 0.0;
 //            List<double> F = new List<double>();
-//            string levelTRCR ="";
+//            string levelTRCR = "";
 //            int iterations = 1;
 //            double heightStep = 0.0;
 
@@ -85,9 +85,9 @@
 
 //            CableNet cableNet = new CableNet(_cPts, _tPts);
 
-//            if (levelTRCR=="CR")
+//            if (levelTRCR == "CR")
 //                cableNet.FormFindTensionRing(startGrid, fixedGrids, iterations, heightStep, alpha, F);
-//            else if (levelTRCR=="TR")
+//            else if (levelTRCR == "TR")
 //                cableNet.FormFindCompressionRing(startGrid, fixedGrids, iterations, heightStep, alpha, F);
 
 //            cPts.Clear();

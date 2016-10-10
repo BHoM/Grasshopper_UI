@@ -61,13 +61,6 @@ namespace Alligator.FormFinding.CableNetDesign
 
         }
 
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
-        {
-            get { return FormFinding_Alligator.Properties.Resources.cablesizing; }
-        }
 
         /// <summary>
         /// Gets the unique ID for this component. Do not change this ID after release.

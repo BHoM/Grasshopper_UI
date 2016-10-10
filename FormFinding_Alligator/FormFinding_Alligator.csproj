@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DynamicRelaxation\Goals\CableNetPrecalculations.cs" />
+    <Compile Include="DynamicRelaxation\Goals\CableNetPrecalculationsGenericForces.cs" />
     <Compile Include="DynamicRelaxation\Goals\RotationalSpring.cs" />
     <Compile Include="DynamicRelaxation\Goals\Spring.cs" />
     <Compile Include="DynamicRelaxation\Mass\PointMass.cs" />

@@ -38,6 +38,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
     </Reference>
+    <Reference Include="CableNetDesign_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CableNetDesign_Toolkit\Build\CableNetDesign_Engine.dll</HintPath>
+    </Reference>
     <Reference Include="CableNetDesign_OM">
       <HintPath>..\..\CableNetDesign_Toolkit\Build\CableNetDesign_OM.dll</HintPath>
     </Reference>
@@ -123,7 +127,9 @@ Erase "$(TargetPath)"
 
 copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM.dll"
 
-copy /Y "$(TargetDir)\CableNetDesign_OM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\CableNetDesign_OM.dll"</PostBuildEvent>
+copy /Y "$(TargetDir)\CableNetDesign_OM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\CableNetDesign_OM.dll"
+
+copy /Y "$(TargetDir)\CableNetDesign_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\CableNetDesign_Engine.dll"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>

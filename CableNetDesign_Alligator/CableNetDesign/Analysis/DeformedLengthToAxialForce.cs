@@ -56,13 +56,6 @@ namespace Alligator.FormFinding.CableNetDesign
             DA.SetData(0, CableNetDesignToolkit.Utils.Conversions.DeformedLengthToAxialForce(lDeformed, lStart, PS, E, A));
         }
 
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
-        {
-            get { return FormFinding_Alligator.Properties.Resources.conversion; }
-        }
 
         /// <summary>
         /// Gets the unique ID for this component. Do not change this ID after release.
