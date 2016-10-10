@@ -33,8 +33,10 @@ namespace Alligator.Structural.Properties
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("Name", "Name", "Name of the section Property", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Material", "Material", "Material of panel section", GH_ParamAccess.item);
             pManager.AddGenericParameter("CustomData", "CustomData", "CustomData", GH_ParamAccess.item);
             Params.Input[1].Optional = true;
+            Params.Input[2].Optional = true;
 
             AppendEnumOptions("PropertyType", typeof(PanelClassType));
             AppendEnumOptions("PanelType", typeof(BHP.PanelType));
@@ -50,11 +52,11 @@ namespace Alligator.Structural.Properties
             if (panelProperty == null)
             {
                 double[] dimensions = new double[8];
-                for (int i = 2; i < Params.Input.Count; i++)
+                for (int i = 3; i < Params.Input.Count; i++)
                 {
                     if (Params.Input[i].SourceCount > 0)
                     {
-                        DA.GetData<double>(i, ref dimensions[i - 2]);
+                        DA.GetData<double>(i, ref dimensions[i - 3]);
                     }
                 }
 
@@ -75,42 +77,50 @@ namespace Alligator.Structural.Properties
                 }
             }
 
+            BHoM.Materials.Material mat = Grasshopper_Engine.DataUtils.GetGenericData<BHoM.Materials.Material>(DA, 1);
+
+            if (mat != null)
+                panelProperty.Material = mat;
+            
+
             DA.SetData(0, panelProperty);
         }
 
         protected override void UpdateInput(object enumSelection)
         {
-            if (m_Options.Count > 2) m_Options.RemoveAt(2);
-            if (m_OptionType.Count > 2) m_OptionType.RemoveAt(2);
-            if (m_SelectedOption.Count > 2) m_SelectedOption.RemoveAt(2);
+            if (m_Options.Count > 3) m_Options.RemoveAt(3);
+            if (m_OptionType.Count > 3) m_OptionType.RemoveAt(3);
+            if (m_SelectedOption.Count > 3) m_SelectedOption.RemoveAt(3);
             if (enumSelection.GetType() == typeof(PanelClassType))
             {
                 switch ((PanelClassType)enumSelection)
                 {
                     case PanelClassType.Constant:
-                        CreateParam("Thickness", "Thickness", "Total Thickness (m)", GH_ParamAccess.item, 2);
-                        UnregisterParameterFrom(3);
+                        CreateParam("Thickness", "Thickness", "Total Thickness (m)", GH_ParamAccess.item, 3);
+                        UnregisterParameterFrom(4);
                         break;
                     case PanelClassType.Ribbed:
-                        CreateParam("Thickness", "Thickness", "Total Thickness (m)", GH_ParamAccess.item, 2);
-                        CreateParam("Total Depth", "Total Depth", "Total Depth of Ribs (m)", GH_ParamAccess.item, 3);
-                        CreateParam("Stem Width", "Stem Width", "Width of stem (m)", GH_ParamAccess.item, 4);
-                        CreateParam("Spacing", "Spacing", "Spacing (m)", GH_ParamAccess.item, 5);
-                        UnregisterParameterFrom(6);
+                        CreateParam("Thickness", "Thickness", "Total Thickness (m)", GH_ParamAccess.item, 3);
+                        CreateParam("Total Depth", "Total Depth", "Total Depth of Ribs (m)", GH_ParamAccess.item, 4);
+                        CreateParam("Stem Width", "Stem Width", "Width of stem (m)", GH_ParamAccess.item, 5);
+                        CreateParam("Spacing", "Spacing", "Spacing (m)", GH_ParamAccess.item, 6);
+                        UnregisterParameterFrom(7);
                         UpdateInput(typeof(BHP.PanelDirection));
                         break;
                     case PanelClassType.Waffle:
-                        CreateParam("Thickness", "Thickness", "Total Thickness (m)", GH_ParamAccess.item, 2);
-                        CreateParam("Total Depth X", "Total Depth X", "Total Depth of Ribs in X direction (m)", GH_ParamAccess.item, 3);
-                        CreateParam("Total Depth Y", "Total Depth Y", "Total Depth of Ribs in Y direction (m)", GH_ParamAccess.item, 4);
-                        CreateParam("Stem Width X", "Stem Width X", "Width of stem in X direction (m)", GH_ParamAccess.item, 5);
-                        CreateParam("Stem Width Y", "Stem Width Y", "Width of stem in Y direction (m)", GH_ParamAccess.item, 6);
-                        CreateParam("Spacing X", "Spacing X", "Spacing X (m)", GH_ParamAccess.item, 7);
-                        CreateParam("Spacing Y", "Spacing Y", "Spacing Y (m)", GH_ParamAccess.item, 8);
+                        CreateParam("Thickness", "Thickness", "Total Thickness (m)", GH_ParamAccess.item, 3);
+                        CreateParam("Total Depth X", "Total Depth X", "Total Depth of Ribs in X direction (m)", GH_ParamAccess.item, 4);
+                        CreateParam("Total Depth Y", "Total Depth Y", "Total Depth of Ribs in Y direction (m)", GH_ParamAccess.item, 5);
+                        CreateParam("Stem Width X", "Stem Width X", "Width of stem in X direction (m)", GH_ParamAccess.item, 6);
+                        CreateParam("Stem Width Y", "Stem Width Y", "Width of stem in Y direction (m)", GH_ParamAccess.item, 7);
+                        CreateParam("Spacing X", "Spacing X", "Spacing X (m)", GH_ParamAccess.item, 8);
+                        CreateParam("Spacing Y", "Spacing Y", "Spacing Y (m)", GH_ParamAccess.item, 9);
                         break;
 
                 }
             }
+
+            OnAttributesChanged();
         }
 
         private void CreateParam(string name, string nickname, string description, GH_ParamAccess access, int index)
