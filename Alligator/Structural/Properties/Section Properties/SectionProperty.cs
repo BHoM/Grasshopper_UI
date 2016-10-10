@@ -143,6 +143,8 @@ namespace Alligator.Structural.Properties
                         break;
                 }
             }
+
+            OnAttributesChanged();
         }
 
         private void CreateParam(string name, string nickname, string description, GH_ParamAccess access, int index, bool optional = true)
