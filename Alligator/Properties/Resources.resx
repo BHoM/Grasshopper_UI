@@ -271,4 +271,19 @@
   <data name="BHoM_ToJSON" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BHoM_ToJSON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="BHoM_Filter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_Filter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_GetProperty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_GetProperty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_SetProperty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_SetProperty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_Create_CustomData" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_Create_CustomData.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_Read__CustomData" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_Read _CustomData.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

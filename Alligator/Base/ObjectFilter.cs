@@ -21,6 +21,12 @@ namespace Alligator.Base
             _FilterType.SelectedValueChanged += _FilterType_SelectedValueChanged;
         }
 
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Filter; }
+        }
+
         private void _FilterType_SelectedValueChanged(object sender, EventArgs e)
         {
             _SelectedType = Type.GetType(_FilterType.Text);
