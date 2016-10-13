@@ -133,16 +133,7 @@
     <None Include="Resources\gator.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\robot_app.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\constraint.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\skeleton.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\loadcase.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\DOF.png" />
@@ -305,6 +296,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BHoM_ROBO_App.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_GetProperty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_SetProperty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Create_CustomData.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Read _CustomData.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

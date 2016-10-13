@@ -12,6 +12,12 @@ namespace Alligator.Base
     {
         public GetProperty() : base("GetProperty", "GetProperty", "Get property of a BHoM object from the property name", "Alligator", "Base") { }
 
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_GetProperty; }
+        }
+
         public override Guid ComponentGuid
         {
             get

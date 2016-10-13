@@ -24,7 +24,7 @@ namespace Alligator.Structural.Loads
             PointAcceleration,
         }
 
-        public CreateNodalLoad() : base("Nodal Load", "NL", "Create various nodal loads", "Structure", "Loads") { }
+        public CreateNodalLoad() : base("Create Nodal Load", "NL", "Create various nodal loads", "Structure", "Loads") { }
         
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24

@@ -25,7 +25,7 @@ namespace Alligator.Structural.Loads
             BarTempratureLoad
         }
 
-        public CreateBarLoad() : base("Bar Load", "BL", "Create various bar loads", "Structure", "Loads") { }
+        public CreateBarLoad() : base("Create Bar Load", "BL", "Create various bar loads", "Structure", "Loads") { }
 
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
