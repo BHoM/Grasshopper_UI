@@ -34,11 +34,11 @@ namespace Alligator.Structural.Properties
         {
             string propertyName = null;
             BHP.SectionProperty barProperty = null;
-
-            if (DA.GetData<string>(0, ref propertyName))
-            {
-                barProperty = BHP.SectionProperty.LoadFromSteelSectionDB(propertyName);
-            }
+            DA.GetData<string>(0, ref propertyName);
+            //if (DA.GetData<string>(0, ref propertyName))
+            //{
+            //    barProperty = BHP.SectionProperty.LoadFromSteelSectionDB(propertyName);
+            //}
 
             if (barProperty == null)
             {
@@ -55,13 +55,13 @@ namespace Alligator.Structural.Properties
                         double test = barProperty.Ix;
                         break;
                     case BHP.ShapeType.Box:
-                        barProperty = BHP.SectionProperty.CreateBoxSection(dimensions[1], dimensions[0], dimensions[2], dimensions[3], dimensions[4], dimensions[5]);
+                        barProperty = BHP.SectionProperty.CreateBoxSection(dimensions[0], dimensions[1],  dimensions[2], dimensions[3], dimensions[4], dimensions[5]);
                         break;
                     case BHP.ShapeType.Rectangle:
-                        barProperty = BHP.SectionProperty.CreateRectangularSection(dimensions[1], dimensions[0], dimensions[2]);
+                        barProperty = BHP.SectionProperty.CreateRectangularSection(dimensions[0], dimensions[1], dimensions[2]);
                         break;
                     case BHP.ShapeType.Tee:
-                        barProperty = BHP.SectionProperty.CreateTee(dimensions[1], dimensions[0], dimensions[2], dimensions[3], dimensions[4], dimensions[5]);
+                        barProperty = BHP.SectionProperty.CreateTee(dimensions[0], dimensions[1],  dimensions[2], dimensions[3], dimensions[4], dimensions[5]);
                         break;
                     case BHP.ShapeType.Circle:
                         barProperty = BHP.SectionProperty.CreateCircularSection(dimensions[0]);
@@ -82,10 +82,13 @@ namespace Alligator.Structural.Properties
             }
 
             BHoM.Materials.Material mat = Grasshopper_Engine.DataUtils.GetGenericData<BHoM.Materials.Material>(DA, 2);
+            Dictionary<string, object> customData = Grasshopper_Engine.DataUtils.GetGenericData<Dictionary<string, object>>(DA, 1);
 
-            if(mat != null)
+            if (mat != null)
                 barProperty.Material = mat;
-            
+            if (customData != null)
+                barProperty.CustomData = customData;
+
             barProperty.CalculateSection();
             DA.SetData(0, barProperty);
             SetGeometry(barProperty, DA);
@@ -112,8 +115,8 @@ namespace Alligator.Structural.Properties
                         break;
                     case BHP.ShapeType.Box:
                     case BHoM.Structural.Properties.ShapeType.Tee:
-                        CreateParam("Width", "Width", "Total Width (m)", GH_ParamAccess.item, firstParamIndex, false);
-                        CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, firstParamIndex +1, false);
+                        CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, firstParamIndex, false);
+                        CreateParam("Width", "Width", "Total Width (m)", GH_ParamAccess.item, firstParamIndex + 1, false);
                         CreateParam("Flange thickness", "Tf", "Thickness of flange (m)", GH_ParamAccess.item, firstParamIndex +2);
                         CreateParam("Web thickness", "Tw", "Thickness of Web (m)", GH_ParamAccess.item, firstParamIndex +3);
                         CreateParam("Inner Fillet radius", "Ri", "Inner Fillet Radius (m)", GH_ParamAccess.item, firstParamIndex +4);
@@ -122,8 +125,8 @@ namespace Alligator.Structural.Properties
                         UnregisterParameterFrom(10);
                         break;
                     case BHP.ShapeType.Rectangle:
-                        CreateParam("Width", "Width", "Total Width (m)", GH_ParamAccess.item, firstParamIndex, false);
-                        CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, firstParamIndex +1, false);
+                        CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, firstParamIndex, false);
+                        CreateParam("Width", "Width", "Total Width (m)", GH_ParamAccess.item, firstParamIndex + 1, false);
                         CreateParam("Edge Radius", "Radius", "Edge Radius (m)", GH_ParamAccess.item, firstParamIndex +2);
                         UnregisterParameterFrom(6);
                         break;
@@ -137,8 +140,8 @@ namespace Alligator.Structural.Properties
                         UnregisterParameterFrom(5);
                         break;
                     default:
-                        CreateParam("Width", "Width", "Total Width (m)", GH_ParamAccess.item, firstParamIndex, false);
-                        CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, firstParamIndex +1, false);
+                        CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, firstParamIndex, false);
+                        CreateParam("Width", "Width", "Total Width (m)", GH_ParamAccess.item, firstParamIndex + 1, false);
                         UnregisterParameterFrom(5);
                         break;
                 }
