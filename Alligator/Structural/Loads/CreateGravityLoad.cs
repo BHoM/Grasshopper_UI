@@ -57,7 +57,7 @@ namespace Alligator.Structural.Loads
 
             load.Objects = objects;
             load.Loadcase = loadCase;
-            load.GravityDriection = dir;
+            load.GravityDirection = dir;
 
             if (customData != null)
                 load.CustomData = customData;
