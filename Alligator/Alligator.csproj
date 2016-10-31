@@ -108,6 +108,7 @@
     <Compile Include="Material\Material.cs" />
     <Compile Include="Structural\Properties\Section Properties\CreateBoxSection.cs" />
     <Compile Include="Structural\Properties\Section Properties\CreateCableSectionFromDiameter.cs" />
+    <Compile Include="Structural\Properties\Section Properties\LoadingPanelProperty.cs" />
     <Compile Include="Structural\Properties\Section Properties\LoadSteelSectionFromDB.cs" />
     <Compile Include="Structural\Properties\Section Properties\PanelProperty.cs" />
     <Compile Include="Structural\Properties\Section Properties\CreateCustomSectionProperty.cs" />

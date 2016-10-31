@@ -14,7 +14,7 @@ namespace Alligator.Structural.Properties
     {
         Constant,
         Waffle,
-        Ribbed
+        Ribbed,
     }
 
     public class CreatePanelProperty : BHoMBaseComponent<BHP.PanelProperty>
