@@ -83,7 +83,7 @@ namespace Grasshopper_Engine.Components
         /// </summary>
         protected abstract List<T> SetObjects(BHI.IElementAdapter app, List<T> objects, out List<string> ids);
 
-        private List<T> CloneObjects(List<T> objects)
+        protected List<T> CloneObjects(List<T> objects)
         {
             if (objects == null)
                 return null;

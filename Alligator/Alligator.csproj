@@ -88,6 +88,7 @@
     <Compile Include="Structural\Elements\CreateFEMesh.cs" />
     <Compile Include="Structural\Elements\CreateRigidLink.cs" />
     <Compile Include="Structural\Elements\ExportBar.cs" />
+    <Compile Include="Structural\Elements\ExportBarDesignElement.cs" />
     <Compile Include="Structural\Elements\ExportFEMesh.cs" />
     <Compile Include="Structural\Elements\ExportGroup.cs" />
     <Compile Include="Structural\Elements\ExportRigidLink.cs" />
