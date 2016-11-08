@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using GHE = Grasshopper_Engine;
+using Grasshopper.Kernel.Types;
+using System.Reflection;
 
 namespace Alligator.Base
 {
@@ -55,6 +57,10 @@ namespace Alligator.Base
             }
             else
             {
+                if (typeof(IGH_Goo).IsAssignableFrom(value.GetType()))
+                {
+                    value = value.GetType().GetProperty("Value").GetValue(value);               
+                }
                 prop.SetValue(newObject, value);
                 DA.SetData(0, newObject);
             }

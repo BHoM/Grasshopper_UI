@@ -7,15 +7,15 @@ using BHP = BHoM.Structural.Properties;
 using Grasshopper_Engine.Components;
 using System.Windows.Forms;
 using Grasshopper.Kernel.Parameters;
+using System.Reflection;
 
 namespace Alligator.Structural.Properties
 {
-    public class CreateSectionProperty : BHoMBaseComponent<BHP.SectionProperty>
+    public abstract class CreateSectionProperty<T> : BHoMBaseComponent<T> where T : BHP.SectionProperty
     {
+        public CreateSectionProperty(string name, string nickname, string description, string category, string subCat) : base(name, nickname, description, category, subCat)
+        {
 
-        public CreateSectionProperty() : base("Create Section Property", "CreateSectionProperty", "Create a BH Section property object", "Structure", "Properties")
-        { 
-            
         }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
@@ -27,7 +27,7 @@ namespace Alligator.Structural.Properties
             Params.Input[1].Optional = true;
             Params.Input[2].Optional = true;
 
-            AppendEnumOptions("ShapeType", typeof(BHP.ShapeType));
+            AppendEnumOptions("Shape", typeof(BHP.ShapeType));
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -89,6 +89,12 @@ namespace Alligator.Structural.Properties
             if (customData != null)
                 barProperty.CustomData = customData;
 
+            for (int i = 0; m_Options != null && i < m_Options.Count; i++)
+            {
+                PropertyInfo prop = typeof(T).GetProperty(m_Options[i].Name);
+                if (prop!=null) prop.SetValue(barProperty, m_SelectedOption[i]);
+            }
+
             barProperty.CalculateSection();
             DA.SetData(0, barProperty);
             SetGeometry(barProperty, DA);
@@ -109,9 +115,12 @@ namespace Alligator.Structural.Properties
                         CreateParam("Top Flange thickness", "Tf", "Thickness of flange (m)", GH_ParamAccess.item, firstParamIndex+3, false);
                         CreateParam("Bottom Flange thickness", "Tb", "Thickness of flange (m)", GH_ParamAccess.item, firstParamIndex +4);
                         CreateParam("Web thickness", "Tw", "Thickness of Web (m)", GH_ParamAccess.item, firstParamIndex +5, false);
-                        CreateParam("Inner Fillet radius", "Ri", "Inner Fillet Radius (m)", GH_ParamAccess.item, firstParamIndex +6);
-                        CreateParam("Outter Fillet radius", "Ro", "Outer Fillet Radius (m)", GH_ParamAccess.item, firstParamIndex +7);
-                        CreateParam("Rotation", "A", "Axis rotation", GH_ParamAccess.item, firstParamIndex +8);
+                        if (typeof(T) == typeof(BHP.SteelSection))
+                        {
+                            CreateParam("Inner Fillet radius", "Ri", "Inner Fillet Radius (m)", GH_ParamAccess.item, firstParamIndex + 6);
+                            CreateParam("Outter Fillet radius", "Ro", "Outer Fillet Radius (m)", GH_ParamAccess.item, firstParamIndex + 7);
+                            CreateParam("Rotation", "A", "Axis rotation", GH_ParamAccess.item, firstParamIndex + 8);
+                        }
                         break;
                     case BHP.ShapeType.Box:
                     case BHoM.Structural.Properties.ShapeType.Tee:
@@ -119,16 +128,32 @@ namespace Alligator.Structural.Properties
                         CreateParam("Width", "Width", "Total Width (m)", GH_ParamAccess.item, firstParamIndex + 1, false);
                         CreateParam("Flange thickness", "Tf", "Thickness of flange (m)", GH_ParamAccess.item, firstParamIndex +2);
                         CreateParam("Web thickness", "Tw", "Thickness of Web (m)", GH_ParamAccess.item, firstParamIndex +3);
-                        CreateParam("Inner Fillet radius", "Ri", "Inner Fillet Radius (m)", GH_ParamAccess.item, firstParamIndex +4);
-                        CreateParam("Outter Fillet radius", "Ro", "Outer Fillet Radius (m)", GH_ParamAccess.item, firstParamIndex +5);
-                        CreateParam("Rotation", "A", "Axis rotation", GH_ParamAccess.item, firstParamIndex +6);
-                        UnregisterParameterFrom(10);
+                        if (typeof(T) == typeof(BHP.SteelSection))
+                        {
+                            CreateParam("Inner Fillet radius", "Ri", "Inner Fillet Radius (m)", GH_ParamAccess.item, firstParamIndex + 4);
+                            CreateParam("Outter Fillet radius", "Ro", "Outer Fillet Radius (m)", GH_ParamAccess.item, firstParamIndex + 5);
+                            CreateParam("Rotation", "A", "Axis rotation", GH_ParamAccess.item, firstParamIndex + 6);
+                            UnregisterParameterFrom(10);
+                        }
+                        else
+                        {
+                            CreateParam("Rotation", "A", "Axis rotation", GH_ParamAccess.item, firstParamIndex + 4);
+                            UnregisterParameterFrom(8);
+                        }
+                        
                         break;
                     case BHP.ShapeType.Rectangle:
                         CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, firstParamIndex, false);
                         CreateParam("Width", "Width", "Total Width (m)", GH_ParamAccess.item, firstParamIndex + 1, false);
-                        CreateParam("Edge Radius", "Radius", "Edge Radius (m)", GH_ParamAccess.item, firstParamIndex +2);
-                        UnregisterParameterFrom(6);
+                        if (typeof(T) == typeof(BHP.SteelSection))
+                        {
+                            CreateParam("Edge Radius", "Radius", "Edge Radius (m)", GH_ParamAccess.item, firstParamIndex + 2);
+                            UnregisterParameterFrom(6);
+                        }
+                        else
+                        {
+                            UnregisterParameterFrom(5);
+                        }
                         break;
                     case BHP.ShapeType.Circle:
                         CreateParam("Diameter", "Diameter", "Total Diameter (m)", GH_ParamAccess.item, firstParamIndex, false);
@@ -170,14 +195,6 @@ namespace Alligator.Structural.Properties
             {
                 IGH_Param p = Params.Input[i--];
                 Params.UnregisterParameter(p);
-            }
-        }
-
-        public override Guid ComponentGuid
-        {
-            get
-            {
-                return new Guid("95916851-2b86-46ab-b4e3-d839b817dbb4");
             }
         }
 
