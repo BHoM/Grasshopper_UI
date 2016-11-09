@@ -119,6 +119,7 @@
     <Compile Include="Structural\Properties\Constraints\NodeConstraint.cs" />
     <Compile Include="Structural\Elements\Panel.cs" />
     <Compile Include="Structural\Results\BarResults.cs" />
+    <Compile Include="Structural\Results\BarUtilisation.cs" />
     <Compile Include="Structural\Results\NodeResults.cs" />
     <Compile Include="Structural\Results\PanelResults.cs" />
     <Compile Include="Structural\Results\ResultServer.cs" />

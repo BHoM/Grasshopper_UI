@@ -75,6 +75,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="DynamicRelaxation\StructuralDRDynamic.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\spider.png" />

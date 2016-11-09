@@ -226,6 +226,13 @@ namespace Grasshopper_Engine
 
         public static bool PointOrNodeToNode(object n, out BHoM.Structural.Elements.Node node)
         {
+
+            if (typeof(GH_Point).IsAssignableFrom(n.GetType()))
+            {
+                node = new BHoM.Structural.Elements.Node(GeometryUtils.Convert(((GH_Point)n).Value));
+                return true;
+            }
+
             //Gets node
             if (typeof(BHoM.Structural.Elements.Node).IsAssignableFrom(n.GetType()))
             {
@@ -235,6 +242,13 @@ namespace Grasshopper_Engine
 
             //Gets node from Rhino point
             if (typeof(Rhino.Geometry.Point3d).IsAssignableFrom(n.GetType()))
+            {
+                node = new BHoM.Structural.Elements.Node(GeometryUtils.Convert((Rhino.Geometry.Point3d)n));
+                return true;
+            }
+
+            //Gets node from Rhino point
+            if (typeof(Rhino.Geometry.Point).IsAssignableFrom(n.GetType()))
             {
                 node = new BHoM.Structural.Elements.Node(GeometryUtils.Convert((Rhino.Geometry.Point3d)n));
                 return true;
@@ -253,7 +267,7 @@ namespace Grasshopper_Engine
 
         public static bool GetNodeFromPointOrNode(IGH_DataAccess DA, int DAindex, out BHoM.Structural.Elements.Node node)
         {
-            GH_Goo<object> n = null;
+            GH_ObjectWrapper n = null;
 
             //Grab input data
             if (!DA.GetData(DAindex, ref n))
@@ -271,7 +285,7 @@ namespace Grasshopper_Engine
 
 
             nodes = new List<BHoM.Structural.Elements.Node>();
-            List<GH_Goo<object>> objs = new List<GH_Goo<object>>();
+            List<GH_ObjectWrapper> objs = new List<GH_ObjectWrapper>();
 
             if(!DA.GetDataList(DAindex, objs)) { return false; }
 
