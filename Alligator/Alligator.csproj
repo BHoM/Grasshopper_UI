@@ -64,7 +64,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\BHoMParam.cs" />
     <Compile Include="Base\CustomData.cs" />
+    <Compile Include="Geometry\ExtrudeBar.cs" />
+    <Compile Include="Geometry\GetGeometry.cs" />
+    <Compile Include="Material\LoadMaterialFromDB.cs" />
     <Compile Include="Structural\Elements\CreateGroup.cs" />
     <Compile Include="Base\ObjectFilter.cs" />
     <Compile Include="Base\ViewCustomData.cs" />
@@ -118,6 +122,7 @@
     <Compile Include="Structural\Elements\Node.cs" />
     <Compile Include="Structural\Properties\Constraints\NodeConstraint.cs" />
     <Compile Include="Structural\Elements\Panel.cs" />
+    <Compile Include="Structural\Properties\Section Properties\SteelSection.cs" />
     <Compile Include="Structural\Results\BarResults.cs" />
     <Compile Include="Structural\Results\BarUtilisation.cs" />
     <Compile Include="Structural\Results\NodeResults.cs" />

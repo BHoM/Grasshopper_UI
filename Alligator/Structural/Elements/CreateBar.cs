@@ -47,6 +47,7 @@ namespace Alligator.Structural.Elements
             pManager.AddGenericParameter("Attributes", "A", "Attributes of the bar", GH_ParamAccess.item);
             pManager.AddTextParameter("Name", "N", "Name of the element", GH_ParamAccess.item);
             pManager.AddGenericParameter("Custom Data", "CD", "Custom data to add to the bar", GH_ParamAccess.item);
+            
 
             pManager[2].Optional = true;
             pManager[4].Optional = true;
@@ -58,6 +59,7 @@ namespace Alligator.Structural.Elements
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Bar", "B", "The created bar", GH_ParamAccess.item);
+            pManager.AddCurveParameter("Centreline", "CL", "The created bar geometry", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -119,6 +121,7 @@ namespace Alligator.Structural.Elements
             bar.OrientationAngle = angle;
 
             DA.SetData(0, bar);
+            DA.SetData(1, Grasshopper_Engine.GeometryUtils.Convert(bar.Line));
         }
 
         private bool GetOrientationAngle(object inp, out double angle)

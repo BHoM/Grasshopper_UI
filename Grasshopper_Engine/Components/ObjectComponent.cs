@@ -72,6 +72,7 @@ namespace Grasshopper_Engine.Components
             {
                 message += m_Options[i].Name + ": " + m_Options[i].SelectedItem.ToString() + "\n";
             }
+            
             this.Message = message.Trim('\n');
             this.ExpirePreview(true);
             this.ExpireSolution(true);
