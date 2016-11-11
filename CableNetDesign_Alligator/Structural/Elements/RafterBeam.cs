@@ -11,14 +11,15 @@ using Grasshopper_Engine.Components;
 
 namespace Alligator.Structural.Elements
 {
-    public class CreateTensionRingNode : BHoMBaseComponent<BHE.TensionRingNode>
+
+    public class CreateRafterBeam : BHoMBaseComponent<BHE.RafterBeam>
     {
         /// <summary>
         /// Initializes a new instance of the MyComponent1 class.
         /// </summary>
-        public CreateTensionRingNode()
-          : base("TensionRingNode", "TRNode",
-              "A node between tension ring, radials and struts in a cable net roof", "Structure", "Cable net")
+        public CreateRafterBeam()
+          : base("RafterBram", "Rafter",
+              "Beam element for rafter, corresponding to Revit family", "Structure", "Cable net")
         { }
 
         public override Guid ComponentGuid
@@ -26,16 +27,14 @@ namespace Alligator.Structural.Elements
         {
             get
             {
-                return new Guid("54489184-DDF4-4495-8F3C-C2AD3F1DB859");
+                return new Guid("0BAA6876-D9FC-4740-8F3F-FB9C6355CEAC");
             }
         }
 
-        /// <summary> Icon (24x24 pixels)</summary>
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return CableNetDesign_Alligator.Properties.Resources.TRNode; }
-        }
-
+        ///// <summary> Icon (24x24 pixels)</summary>
+        //protected override System.Drawing.Bitmap Internal_Icon_24x24
+        //{
+        //    get { return CableNetDesign_Alligator.Properties.Resources.CRBeam; }
+        //}
     }
- 
 }

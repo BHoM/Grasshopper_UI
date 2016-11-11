@@ -18,7 +18,7 @@ namespace Alligator.Structural.Elements
         /// </summary>
         public CreateRadial()
           : base("RadialCable", "Radial",
-              "Radial Cable that spans between compressionr ring and Tension ring nodes", "Structure", "Elements")
+              "Radial Cable that spans between compressionr ring and Tension ring nodes", "Structure", "Cable net")
         { }
 
         public override Guid ComponentGuid

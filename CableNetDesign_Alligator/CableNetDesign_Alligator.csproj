@@ -80,6 +80,7 @@
     </Compile>
     <Compile Include="Structural\Elements\CompressionRingBeam.cs" />
     <Compile Include="Structural\Elements\Radial.cs" />
+    <Compile Include="Structural\Elements\RafterBeam.cs" />
     <Compile Include="Structural\Elements\TensionRing.cs" />
     <Compile Include="Structural\Elements\TensionRingNode.cs" />
   </ItemGroup>

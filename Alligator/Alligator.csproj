@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Base\BHoMParam.cs" />
     <Compile Include="Base\CustomData.cs" />
+    <Compile Include="Base\GetPropertyNames.cs" />
     <Compile Include="Geometry\ExtrudeBar.cs" />
     <Compile Include="Geometry\GetGeometry.cs" />
     <Compile Include="Material\LoadMaterialFromDB.cs" />

@@ -11,7 +11,7 @@ using Grasshopper_Engine.Components;
 
 namespace Alligator.Structural.Elements
 {
-    ///public class CreateCompressionRingBeam : BHoMBaseComponent<BHE.CompressionRingBeam>
+
     public class CreateCompressionRingBeam : BHoMBaseComponent<BHE.CompressionRingBeam>
     {
         /// <summary>
@@ -19,8 +19,7 @@ namespace Alligator.Structural.Elements
         /// </summary>
         public CreateCompressionRingBeam()
           : base("CompressionRingBeam", "CRBeam",
-              "Beam element for compression ring, corresponding to Revit family",
-              "Structure", "Elements")
+              "Beam element for compression ring, corresponding to Revit family", "Structure", "Cable net")
         { }
 
         public override Guid ComponentGuid

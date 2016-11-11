@@ -18,7 +18,7 @@ namespace Alligator.Structural.Elements
         /// </summary>
         public CreateTensionRing()
           : base("TensionRingCable", "TRCable",
-              "Tension Ring Cable that spans between Tension ring nodes", "Structure", "Elements")
+              "Tension Ring Cable that spans between Tension ring nodes", "Structure", "Cable net")
         { }
 
         public override Guid ComponentGuid
