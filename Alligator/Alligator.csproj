@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Base\BHoMParam.cs" />
     <Compile Include="Base\CustomData.cs" />
+    <Compile Include="Base\ListExpandAndCollapse.cs" />
     <Compile Include="Geometry\ExtrudeBar.cs" />
     <Compile Include="Geometry\GetGeometry.cs" />
     <Compile Include="Material\LoadMaterialFromDB.cs" />
@@ -99,10 +100,13 @@
     <Compile Include="Structural\Elements\Grid.cs" />
     <Compile Include="Structural\Elements\Level.cs" />
     <Compile Include="Structural\Elements\Opening.cs" />
+    <Compile Include="Structural\Loads\CheckLoadRegionContainment.cs" />
     <Compile Include="Structural\Loads\CreateBarLoad.cs" />
     <Compile Include="Structural\Loads\CreateGravityLoad.cs" />
     <Compile Include="Structural\Loads\CreateLoadCombination.cs" />
     <Compile Include="Structural\Loads\CreateNodalLoad.cs" />
+    <Compile Include="Structural\ModelTracker\GenerateBarTrackers.cs" />
+    <Compile Include="Structural\ModelTracker\StoreModelTrackingData.cs" />
     <Compile Include="Structural\Properties\BarAttributesContainer.cs" />
     <Compile Include="Structural\Properties\Constraints\CreateBarRelease.cs" />
     <Compile Include="Structural\Properties\CreateBarAttributes.cs" />
