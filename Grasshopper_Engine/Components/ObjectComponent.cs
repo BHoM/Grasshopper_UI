@@ -125,7 +125,7 @@ namespace Grasshopper_Engine.Components
                         {
                             pManager.AddBrepParameter(name, nickName, description, access);
                         }
-                        else if (pType == typeof(BHoM.Geometry.Group<BHoM.Geometry.Curve>))
+                        else if (typeof(BHoM.Geometry.IGroup).IsAssignableFrom(pType))
                         {
                             pManager.AddCurveParameter(name, nickName, description, GH_ParamAccess.list);
                         }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BHoM.Base;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,6 +50,10 @@ namespace Grasshopper_Engine
             else if (rhinoType == typeof(R.Surface))
             {
                 return typeof(BH.Surface);
+            }
+            else if (rhinoType == typeof(R.Brep))
+            {
+                return typeof(BH.Brep);
             }
             else if (rhinoType == typeof(R.Plane))
             {
@@ -104,6 +110,35 @@ namespace Grasshopper_Engine
             return c;
         }
 
+        public static R.Brep Convert(BH.Brep brep)
+        {
+            if (brep is BH.Extrusion)
+            {
+                return Convert(brep as BH.Extrusion);
+            }
+            else if (brep is BH.Pipe)
+            {
+                return Convert(brep as BH.Pipe);
+            }
+
+            return null;
+        }
+
+        public static R.Brep Convert(BH.Extrusion extrusion)
+        {
+            R.Surface result = R.Extrusion.CreateExtrusion(Convert(extrusion.Curve), Convert(extrusion.Direction));
+            return extrusion.Capped ? result.ToBrep().CapPlanarHoles(0.001) : result.ToBrep();
+        }
+
+        public static R.Brep Convert(BH.Pipe pipe)
+        {
+            R.Brep[] result = R.Brep.CreatePipe(Convert(pipe.Centreline), pipe.Radius, true, pipe.Capped ? R.PipeCapMode.Flat : R.PipeCapMode.None, true, 0.001, 0.001);
+            if (result.Length > 0)
+            {
+                return result[0];
+            }
+            return null;
+        }
 
         public static R.Point3d Convert(BH.Point p)
         {
@@ -190,7 +225,14 @@ namespace Grasshopper_Engine
             List<R.GeometryBase> rGeom = new List<Rhino.Geometry.GeometryBase>();
             foreach (T item in geom)
             {
-                rGeom.Add(Convert(item));
+                if (typeof(BH.IGroup).IsAssignableFrom(item.GetType()))
+                {
+                    rGeom.AddRange(ConvertGroup<BH.GeometryBase>(((BH.IGroup)item).Cast<BH.GeometryBase>()));
+                }
+                else
+                {
+                    rGeom.Add(Convert(item));
+                }
             }
             return rGeom;
         }
@@ -201,9 +243,9 @@ namespace Grasshopper_Engine
             {
                 return Convert(geom as BH.Curve);
             }
-            else if (geom is BH.Brep)
+            else if (typeof(BH.Brep).IsAssignableFrom(geom.GetType()))
             {
-
+                return Convert(geom as BH.Brep);
             }
             else if (geom is BH.Point)
             {

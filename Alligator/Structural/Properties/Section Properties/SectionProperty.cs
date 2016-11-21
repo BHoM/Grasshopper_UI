@@ -8,6 +8,7 @@ using Grasshopper_Engine.Components;
 using System.Windows.Forms;
 using Grasshopper.Kernel.Parameters;
 using System.Reflection;
+using Grasshopper_Engine;
 
 namespace Alligator.Structural.Properties
 {
@@ -35,39 +36,45 @@ namespace Alligator.Structural.Properties
             string propertyName = null;
             BHP.SectionProperty barProperty = null;
             DA.GetData<string>(0, ref propertyName);
-            //if (DA.GetData<string>(0, ref propertyName))
-            //{
-            //    barProperty = BHP.SectionProperty.LoadFromSteelSectionDB(propertyName);
-            //}
+            BHoM.Materials.MaterialType matType = BHoM.Materials.MaterialType.Steel;
+            if (typeof(T) == typeof(BHP.ConcreteSection))
+            {
+                matType = BHoM.Materials.MaterialType.Concrete;
+            }
+            else if (typeof(T) == typeof(BHP.SteelSection))
+            {
+                matType = BHoM.Materials.MaterialType.Steel;
+            }
 
             if (barProperty == null)
             {
                 double[] dimensions = new double[12];
-                for (int i = 3; i < Params.Input.Count; i++)
+                int start = typeof(T) == typeof(BHP.ConcreteSection) ?  5 : 3;
+                for (int i = start; i < Params.Input.Count; i++)
                 {
-                    DA.GetData<double>(i, ref dimensions[i - 3]);                   
+                    DA.GetData<double>(i, ref dimensions[i - start]);                   
                 }
              
                 switch ((BHP.ShapeType)m_SelectedOption[0])
                 {
                     case BHP.ShapeType.ISection:
-                        barProperty = BHP.SectionProperty.CreateISection(dimensions[1], dimensions[2], dimensions[0], dimensions[3], dimensions[4], dimensions[5], dimensions[6], dimensions[7]);
+                        barProperty = BHP.SectionProperty.CreateISection(matType, dimensions[1], dimensions[2], dimensions[0], dimensions[3], dimensions[4], dimensions[5], dimensions[6], dimensions[7]);
                         double test = barProperty.Ix;
                         break;
                     case BHP.ShapeType.Box:
-                        barProperty = BHP.SectionProperty.CreateBoxSection(dimensions[0], dimensions[1],  dimensions[2], dimensions[3], dimensions[4], dimensions[5]);
+                        barProperty = BHP.SectionProperty.CreateBoxSection(matType, dimensions[0], dimensions[1],  dimensions[2], dimensions[3], dimensions[4], dimensions[5]);
                         break;
                     case BHP.ShapeType.Rectangle:
-                        barProperty = BHP.SectionProperty.CreateRectangularSection(dimensions[0], dimensions[1], dimensions[2]);
+                        barProperty = BHP.SectionProperty.CreateRectangularSection(matType, dimensions[0], dimensions[1], dimensions[2]);
                         break;
                     case BHP.ShapeType.Tee:
-                        barProperty = BHP.SectionProperty.CreateTee(dimensions[0], dimensions[1],  dimensions[2], dimensions[3], dimensions[4], dimensions[5]);
+                        barProperty = BHP.SectionProperty.CreateTeeSection(matType, dimensions[0], dimensions[1],  dimensions[2], dimensions[3], dimensions[4], dimensions[5]);
                         break;
                     case BHP.ShapeType.Circle:
-                        barProperty = BHP.SectionProperty.CreateCircularSection(dimensions[0]);
+                        barProperty = BHP.SectionProperty.CreateCircularSection(matType, dimensions[0]);
                         break;
                     case BHP.ShapeType.Tube:
-                        barProperty = BHP.SectionProperty.CreateTubeSection(dimensions[0], dimensions[1]);
+                        barProperty = BHP.SectionProperty.CreateTubeSection(matType, dimensions[0], dimensions[1]);
                         break;
 
                 }
@@ -95,7 +102,12 @@ namespace Alligator.Structural.Properties
                 if (prop!=null) prop.SetValue(barProperty, m_SelectedOption[i]);
             }
 
-            barProperty.CalculateSection();
+            if (typeof(T) == typeof(BHP.ConcreteSection))
+            {
+                (barProperty as BHP.ConcreteSection).Reinforcement = DataUtils.GetGenericDataList<BHP.Reinforcement>(DA, 3);
+                (barProperty as BHP.ConcreteSection).MinimumCover = DataUtils.GetData<double>(DA, 4);
+            }
+
             DA.SetData(0, barProperty);
             SetGeometry(barProperty, DA);
         }
@@ -103,6 +115,8 @@ namespace Alligator.Structural.Properties
         protected override void UpdateInput(object enumSelection)
         {
             int firstParamIndex = 3;
+
+            if (typeof(T) == typeof(BHP.ConcreteSection)) firstParamIndex += 2;
 
             if (enumSelection.GetType() == typeof(BHP.ShapeType))
             {
@@ -121,6 +135,10 @@ namespace Alligator.Structural.Properties
                             CreateParam("Outter Fillet radius", "Ro", "Outer Fillet Radius (m)", GH_ParamAccess.item, firstParamIndex + 7);
                             CreateParam("Rotation", "A", "Axis rotation", GH_ParamAccess.item, firstParamIndex + 8);
                         }
+                        else if (typeof(T) == typeof(BHP.ConcreteSection))
+                        {
+                            UnregisterParameterFrom(11);
+                        }
                         break;
                     case BHP.ShapeType.Box:
                     case BHoM.Structural.Properties.ShapeType.Tee:
@@ -135,10 +153,10 @@ namespace Alligator.Structural.Properties
                             CreateParam("Rotation", "A", "Axis rotation", GH_ParamAccess.item, firstParamIndex + 6);
                             UnregisterParameterFrom(10);
                         }
-                        else
+                        else if (typeof(T) == typeof(BHP.ConcreteSection))
                         {
                             CreateParam("Rotation", "A", "Axis rotation", GH_ParamAccess.item, firstParamIndex + 4);
-                            UnregisterParameterFrom(8);
+                            UnregisterParameterFrom(10);
                         }
                         
                         break;
@@ -152,12 +170,19 @@ namespace Alligator.Structural.Properties
                         }
                         else
                         {
-                            UnregisterParameterFrom(5);
+                            UnregisterParameterFrom(7);
                         }
                         break;
                     case BHP.ShapeType.Circle:
                         CreateParam("Diameter", "Diameter", "Total Diameter (m)", GH_ParamAccess.item, firstParamIndex, false);
-                        UnregisterParameterFrom(4);
+                        if (typeof(T) == typeof(BHP.SteelSection))
+                        {
+                            UnregisterParameterFrom(4);
+                        }
+                        else if (typeof(T) == typeof(BHP.ConcreteSection))
+                        {
+                            UnregisterParameterFrom(6);
+                        }
                         break;
                     case BHP.ShapeType.Tube:
                         CreateParam("Outer Diameter", "Diameter", "Total Diameter (m)", GH_ParamAccess.item, firstParamIndex, false);

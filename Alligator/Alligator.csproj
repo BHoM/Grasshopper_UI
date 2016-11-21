@@ -116,6 +116,7 @@
     <Compile Include="Structural\Loads\Load.cs" />
     <Compile Include="Structural\Loads\Loadcase.cs" />
     <Compile Include="Material\Material.cs" />
+    <Compile Include="Structural\Properties\Section Properties\ConcreteSection.cs" />
     <Compile Include="Structural\Properties\Section Properties\CreateBoxSection.cs" />
     <Compile Include="Structural\Properties\Section Properties\CreateCableSectionFromDiameter.cs" />
     <Compile Include="Structural\Properties\Section Properties\LoadingPanelProperty.cs" />

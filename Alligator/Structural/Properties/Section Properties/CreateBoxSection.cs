@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using BHP = BHoM.Structural.Properties;
+using BHoM.Materials;
 
 namespace Alligator.Structural.Properties
 {
@@ -57,11 +58,11 @@ namespace Alligator.Structural.Properties
 
             if (DA.GetData(4, ref or) && DA.GetData(5, ref ir))
             {
-                prop = BHP.SectionProperty.CreateBoxSection(h, w, tf, tw, or, ir);
+                prop = BHP.SectionProperty.CreateBoxSection(MaterialType.Steel, h, w, tf, tw, or, ir);
             }
             else
             {
-                prop = BHP.SectionProperty.CreateBoxSection(h, w, tf, tw);
+                prop = BHP.SectionProperty.CreateBoxSection(MaterialType.Steel, h, w, tf, tw);
             }
 
             BHoM.Materials.Material mat = Grasshopper_Engine.DataUtils.GetGenericData<BHoM.Materials.Material>(DA, 7);
