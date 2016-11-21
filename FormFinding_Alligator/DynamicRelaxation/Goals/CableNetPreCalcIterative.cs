@@ -42,6 +42,7 @@ namespace FormFinding_Alligator.CableNetDesign
         {
             pManager.AddGenericParameter("PstressGoal", "PstGoal", "ConstantHorizontalPrestressGoal", GH_ParamAccess.list);
             pManager.AddPointParameter("New Tr Pts", "TrPts", "New tensionring points", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Cr forces", "Cr forces", "Cr forces", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -87,8 +88,8 @@ namespace FormFinding_Alligator.CableNetDesign
             }
 
             List<BG.Point> newTrPts;
-
-            List<ConstantHorizontalPrestressGoal> goals = CableNetPrecalculations.HorForceCalcGenericIterative(bgCrPts, bgTrPts, trLoad, crLoad, sFac, out newTrPts, maxIter);
+            List<double> crPrestressForces;
+            List<ConstantHorizontalPrestressGoal> goals = CableNetPrecalculations.HorForceCalcGenericIterative(bgCrPts, bgTrPts, trLoad, crLoad, sFac, out newTrPts,out crPrestressForces, maxIter);
 
             List<Point3d> nTrPts = new List<Point3d>();
 
@@ -100,6 +101,7 @@ namespace FormFinding_Alligator.CableNetDesign
 
             DA.SetDataList(0, goals);
             DA.SetDataList(1, nTrPts);
+            DA.SetDataList(2, crPrestressForces);
         }
 
 

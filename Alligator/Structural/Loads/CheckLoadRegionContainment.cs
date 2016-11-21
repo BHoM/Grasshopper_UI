@@ -121,15 +121,22 @@ namespace Alligator.Structural.Loads
             List<BHL.ILoad> loads = GHE.DataUtils.GetGenericDataList<BHL.ILoad>(DA, 1);
 
             HashSet<string> names = new HashSet<string>();
+            List<BHL.Load<BHE.IAreaElement>> newLoads = new List<BHL.Load<BHE.IAreaElement>>();
+
 
             foreach (BHL.ILoad load in loads)
             {
-                if (!(load is BHL.AreaUniformalyDistributedLoad))
+                if (!(load is BHL.Load<BHE.IAreaElement>))
                     continue;
 
-                names.Add(((BHL.AreaUniformalyDistributedLoad)load).Objects.Name);
+                newLoads.Add((load as BHL.Load<BHE.IAreaElement>).ShallowClone() as BHL.Load<BHE.IAreaElement>);
+                names.Add(((BHL.Load<BHE.IAreaElement>)load).Objects.Name);
 
             }
+
+
+
+
 
 
             List<BHB.Group<BHE.FEMesh>> groups = new List<BHB.Group<BHE.FEMesh>>();
@@ -148,6 +155,11 @@ namespace Alligator.Structural.Loads
                     {
                         hasItems = true;
                         group.Data.Add(mesh);
+                        foreach (BHL.Load<BHE.IAreaElement> load in newLoads)
+                        {
+                            if(load.Objects.Name == name)
+                                load.Objects.Data.Add(mesh);
+                        }
                     }
                 }
 
@@ -157,6 +169,7 @@ namespace Alligator.Structural.Loads
             }
 
             DA.SetDataList(0, groups);
+            DA.SetDataList(1, newLoads);
 
         }
     }
