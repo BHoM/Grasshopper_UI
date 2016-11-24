@@ -30,7 +30,8 @@ namespace Alligator.Structural.Elements
                 return new Guid("0BAA6876-D9FC-4740-8F3F-FB9C6355CEAC");
             }
         }
-
+       
+        
         ///// <summary> Icon (24x24 pixels)</summary>
         //protected override System.Drawing.Bitmap Internal_Icon_24x24
         //{
