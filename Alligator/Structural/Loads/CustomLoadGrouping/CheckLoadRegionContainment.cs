@@ -139,12 +139,12 @@ namespace Alligator.Structural.Loads
 
 
 
-            List<BHB.Group<BHE.FEMesh>> groups = new List<BHB.Group<BHE.FEMesh>>();
+            List<BHB.Group<BHE.IAreaElement>> groups = new List<BHB.Group<BHE.IAreaElement>>();
 
             foreach (string name in names)
             {
 
-                BHB.Group<BHE.FEMesh> group = new BHB.Group<BHE.FEMesh>();
+                BHB.Group<BHE.IAreaElement> group = new BHB.Group<BHE.IAreaElement>();
                 group.Name = name;
 
                 bool hasItems = false;
@@ -155,15 +155,18 @@ namespace Alligator.Structural.Loads
                     {
                         hasItems = true;
                         group.Data.Add(mesh);
-                        foreach (BHL.Load<BHE.IAreaElement> load in newLoads)
-                        {
-                            if(load.Objects.Name == name)
-                                load.Objects.Data.Add(mesh);
-                        }
+
                     }
                 }
 
-                if(hasItems)
+                foreach (BHL.Load<BHE.IAreaElement> load in newLoads)
+                {
+                    if (load.Objects.Name == name)
+                        load.Objects = group;
+                }
+
+
+                if (hasItems)
                     groups.Add(group);
 
             }

@@ -67,7 +67,7 @@ namespace Alligator.Structural.Elements
             BHE.Bar bar = new BHE.Bar();
 
             BHP.SectionProperty secProp = GHE.DataUtils.GetGenericData<BHP.SectionProperty>(DA, 0);
-
+            
             BHE.Node stNode;
             BHE.Node enNode;
 

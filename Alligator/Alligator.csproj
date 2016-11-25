@@ -101,11 +101,12 @@
     <Compile Include="Structural\Elements\Grid.cs" />
     <Compile Include="Structural\Elements\Level.cs" />
     <Compile Include="Structural\Elements\Opening.cs" />
-    <Compile Include="Structural\Loads\CheckLoadRegionContainment.cs" />
+    <Compile Include="Structural\Loads\CustomLoadGrouping\CheckLoadRegionContainment.cs" />
     <Compile Include="Structural\Loads\CreateBarLoad.cs" />
     <Compile Include="Structural\Loads\CreateGravityLoad.cs" />
     <Compile Include="Structural\Loads\CreateLoadCombination.cs" />
     <Compile Include="Structural\Loads\CreateNodalLoad.cs" />
+    <Compile Include="Structural\Loads\CustomLoadGrouping\GroupByPropertyName.cs" />
     <Compile Include="Structural\ModelTracker\GenerateBarTrackers.cs" />
     <Compile Include="Structural\ModelTracker\StoreModelTrackingData.cs" />
     <Compile Include="Structural\Properties\BarAttributesContainer.cs" />
