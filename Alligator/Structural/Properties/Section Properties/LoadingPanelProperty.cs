@@ -14,6 +14,10 @@ namespace Alligator.Structural.Properties.Section_Properties
         public LoadingPanelProperty() : base("Create Loading panel Property", "LoadPanel", "Create a BH loading panel property object", "Structure", "Properties")
         {
         }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Panel_Loading; }
+        }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {

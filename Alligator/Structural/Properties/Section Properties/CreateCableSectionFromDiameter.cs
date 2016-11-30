@@ -11,6 +11,10 @@ namespace Alligator.Structural.Properties
     public class CreateCableSectionFromDiameter : GH_Component
     {
         public CreateCableSectionFromDiameter() : base("Custom Cable Property", "SecProp", "Creates a cable section property from database based on cable diameter", "Structure", "Properties") { }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Custom_Cable_Section; }
+        }
 
         public override Guid ComponentGuid
         {

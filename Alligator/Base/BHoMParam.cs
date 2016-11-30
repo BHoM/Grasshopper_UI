@@ -21,6 +21,10 @@ namespace Alligator.Base
         {
             m_Objects = new List<BHoM.Base.BHoMObject>();
         }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_BHoM_Object; }
+        }
 
         public override Guid ComponentGuid
         {

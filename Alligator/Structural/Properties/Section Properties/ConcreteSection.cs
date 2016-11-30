@@ -17,6 +17,10 @@ namespace Alligator.Structural.Properties.Section_Properties
         {
 
         }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_ConcreteSection; }
+        }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -56,6 +60,10 @@ namespace Alligator.Structural.Properties.Section_Properties
         {
 
         }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Layer_Reinforcement; }
+        }
 
         public override GH_Exposure Exposure
         {
@@ -80,6 +88,10 @@ namespace Alligator.Structural.Properties.Section_Properties
         public CreateTieReinforcement() : base("Create Tie Reinforcment", "CreateTieRein", "Create a BH Tie Reinforcement", "Structure", "Properties")
         {
 
+        }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Tie_Reinforcement; }
         }
 
         public override GH_Exposure Exposure
@@ -107,7 +119,11 @@ namespace Alligator.Structural.Properties.Section_Properties
         public CreatePerimeterReinforcement() : base("Create Perimeter Reinforcement", "CreatePerimRein", "Create a BH Perimeter Reinforcement layer", "Structure", "Properties")
         {
 
-        }       
+        }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Perimiter_Reinforcement; }
+        }
 
         public override GH_Exposure Exposure
         {

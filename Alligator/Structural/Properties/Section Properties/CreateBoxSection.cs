@@ -13,6 +13,11 @@ namespace Alligator.Structural.Properties
     {
         public CreateBoxSection() : base("Custom Box Property", "SecProp", "Creates a box section property", "Structure", "Properties") { }
 
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Custom_Box_Section; }
+        }
+
         public override Guid ComponentGuid
         {
             get
