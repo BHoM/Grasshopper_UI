@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alligator", "Alligator\Alligator.csproj", "{2E3B219E-7BD2-4F75-BFAF-9B7735827ED4}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -48,6 +48,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revit_Alligator", "Revit_Alligator\Revit_Alligator.csproj", "{1748380C-9CE5-41F0-AA96-3A603ADCAF83}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Design_Alligator", "Design_Alligator\Design_Alligator.csproj", "{14072B3C-490D-487B-849B-845C052BFBDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D3_Alligator", "D3_Alligator\D3_Alligator.csproj", "{586B86B3-631A-4EF4-A1F5-1BFC051ADCE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -158,6 +160,12 @@ Global
 		{14072B3C-490D-487B-849B-845C052BFBDF}.Debug64|Any CPU.Build.0 = Debug|Any CPU
 		{14072B3C-490D-487B-849B-845C052BFBDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14072B3C-490D-487B-849B-845C052BFBDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{586B86B3-631A-4EF4-A1F5-1BFC051ADCE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{586B86B3-631A-4EF4-A1F5-1BFC051ADCE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{586B86B3-631A-4EF4-A1F5-1BFC051ADCE9}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
+		{586B86B3-631A-4EF4-A1F5-1BFC051ADCE9}.Debug64|Any CPU.Build.0 = Debug|Any CPU
+		{586B86B3-631A-4EF4-A1F5-1BFC051ADCE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{586B86B3-631A-4EF4-A1F5-1BFC051ADCE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
