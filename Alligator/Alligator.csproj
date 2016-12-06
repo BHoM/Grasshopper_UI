@@ -72,6 +72,8 @@
     <Compile Include="Geometry\GetGeometry.cs" />
     <Compile Include="Material\LoadMaterialFromDB.cs" />
     <Compile Include="Structural\Analysis\RunAnalysis.cs" />
+    <Compile Include="SQL\FromSQL.cs" />
+    <Compile Include="SQL\SQLLink.cs" />
     <Compile Include="Structural\Elements\CreateGroup.cs" />
     <Compile Include="Base\ObjectFilter.cs" />
     <Compile Include="Base\ViewCustomData.cs" />
