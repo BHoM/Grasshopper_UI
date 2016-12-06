@@ -51,7 +51,7 @@ namespace Alligator.Structural.Loads
             List<BHE.IAreaElement> areaelements = GHE.DataUtils.GetDataList<BHE.IAreaElement>(DA, 3);
             string name = GHE.DataUtils.GetData<string>(DA, 4);
 
-            BHL.AreaUniformalyDistributedLoad areaLoad = new BHL.AreaUniformalyDistributedLoad(pressure.X, pressure.Y, pressure.Z);
+            BHL.AreaUniformalyDistributedLoad areaLoad = new BHL.AreaUniformalyDistributedLoad(loadcase, pressure.X, pressure.Y, pressure.Z);
             areaLoad.Projected = projected;
             areaLoad.Loadcase = loadcase;
             BHoM.Base.Group<BHE.IAreaElement> objects = new BHoM.Base.Group<BHE.IAreaElement>(areaelements);
