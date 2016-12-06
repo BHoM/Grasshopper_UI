@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revit_Alligator", "Revit_Al
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Design_Alligator", "Design_Alligator\Design_Alligator.csproj", "{14072B3C-490D-487B-849B-845C052BFBDF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acoustic_Alligator", "Acoustic_Alligator\Acoustic_Alligator.csproj", "{CE1FA42F-8595-45ED-9F7A-393EE7DDDA92}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -158,6 +160,12 @@ Global
 		{14072B3C-490D-487B-849B-845C052BFBDF}.Debug64|Any CPU.Build.0 = Debug|Any CPU
 		{14072B3C-490D-487B-849B-845C052BFBDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14072B3C-490D-487B-849B-845C052BFBDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE1FA42F-8595-45ED-9F7A-393EE7DDDA92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE1FA42F-8595-45ED-9F7A-393EE7DDDA92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE1FA42F-8595-45ED-9F7A-393EE7DDDA92}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE1FA42F-8595-45ED-9F7A-393EE7DDDA92}.Debug64|Any CPU.Build.0 = Debug|Any CPU
+		{CE1FA42F-8595-45ED-9F7A-393EE7DDDA92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE1FA42F-8595-45ED-9F7A-393EE7DDDA92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

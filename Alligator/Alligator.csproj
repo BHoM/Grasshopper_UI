@@ -71,6 +71,7 @@
     <Compile Include="Geometry\ExtrudeBar.cs" />
     <Compile Include="Geometry\GetGeometry.cs" />
     <Compile Include="Material\LoadMaterialFromDB.cs" />
+    <Compile Include="Structural\Analysis\RunAnalysis.cs" />
     <Compile Include="Structural\Elements\CreateGroup.cs" />
     <Compile Include="Base\ObjectFilter.cs" />
     <Compile Include="Base\ViewCustomData.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Structural\Loads\CreateLoadCombination.cs" />
     <Compile Include="Structural\Loads\CreateNodalLoad.cs" />
     <Compile Include="Structural\Loads\CustomLoadGrouping\GroupByPropertyName.cs" />
+    <Compile Include="Structural\Loads\UniformAreaLoad.cs" />
     <Compile Include="Structural\ModelTracker\GenerateBarTrackers.cs" />
     <Compile Include="Structural\ModelTracker\StoreModelTrackingData.cs" />
     <Compile Include="Structural\Properties\BarAttributesContainer.cs" />
@@ -135,6 +137,7 @@
     <Compile Include="Structural\Results\NodeResults.cs" />
     <Compile Include="Structural\Results\PanelResults.cs" />
     <Compile Include="Structural\Results\ResultServer.cs" />
+    <Compile Include="Structural\Results\SlabReinforcementResults.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
