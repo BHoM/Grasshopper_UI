@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BubbleChart.cs" />
     <Compile Include="ConstructAxis.cs" />
     <Compile Include="ConstructData.cs" />
     <Compile Include="ParallelCoordinatesChart.cs" />
