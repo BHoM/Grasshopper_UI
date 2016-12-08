@@ -207,7 +207,7 @@ namespace Grasshopper_Engine.Components
             else
                 return base.AppendMenuItems(menu);
         }
-
+        
         private void On_Cancel(object sender, EventArgs e)
         {
 
@@ -225,24 +225,37 @@ namespace Grasshopper_Engine.Components
                 writer.SetString("Table", m_Tables.Text);
                 writer.SetString("Type", m_Types.Text);
                 writer.SetString("Name", m_Names.Text);
+                writer.SetString("Title", this.Name);
+                writer.SetString("Nickname", this.NickName);
+                writer.SetGuid("InstanceGuid", this.InstanceGuid);
+                this.Attributes.Write(writer);
+
             }
-            return base.Write(writer);
+            return true;
         }
 
         public override bool Read(GH_IO.Serialization.GH_IReader reader)
         {
-            CreateMenus();
-
-            string tableName = "";
-            string type = "";
             string name = "";
-
-            if (reader.TryGetString("Table", ref tableName)) m_Tables.Text = tableName;
-            if (reader.TryGetString("Type", ref type)) m_Types.Text = type;
+            if (reader.TryGetString ("Table", ref name)) m_Tables.Text = name;
+            if (reader.TryGetString("Type", ref name)) m_Types.Text = name;
             if (reader.TryGetString("Name", ref name)) m_Names.Text = name;
+            if (reader.TryGetString("Title", ref name)) this.Name = name;
+            if (reader.TryGetString("Nickname", ref name)) this.NickName = name;
+            this.Attributes.Read(reader);
 
+            if (!string.IsNullOrEmpty(reader.ArchiveLocation))
+            {
+                Guid guid = default(Guid);
+                if (reader.TryGetGuid("InstanceGuid", ref guid))
+                    this.NewInstanceGuid(guid);
+            }
 
-            return base.Read(reader);
+            return true;
+        }
+        public override void AddedToDocument(GH_Document document)
+        {
+            base.AddedToDocument(document);
         }
     }
 }

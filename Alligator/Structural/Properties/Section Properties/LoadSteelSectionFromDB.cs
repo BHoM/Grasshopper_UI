@@ -39,6 +39,7 @@ namespace Alligator.Structural.Properties.Section_Properties
         protected override void CollectVolatileData_Custom()
         {
             SetData();
+            base.CollectVolatileData_Custom();
         }
     }
 }
