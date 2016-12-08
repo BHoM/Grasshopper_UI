@@ -23,8 +23,8 @@ namespace Grasshopper_Engine.Components
 
     public abstract class ResultBaseComponent<T> : GH_Component where T : IResult, new()
     {
-        private ComboBox m_Options;
-        private ComboBox m_EnvelopeOption;
+        protected ComboBox m_Options;
+        protected ComboBox m_EnvelopeOption;
         protected ResultOrder m_ResultOrder;
         protected EnvelopeOption m_EnvelopeType;
         public ResultBaseComponent() { }
@@ -145,9 +145,9 @@ namespace Grasshopper_Engine.Components
                 Menu_AppendEnableItem(menu);
                 Menu_AppendBakeItem(menu);
                 Menu_AppendSeparator(menu);
-                Menu_AppendItem(menu, "Order:________");
+                Menu_AppendItem(menu, "Order:");
                 Menu_AppendCustomItem(menu, m_Options);
-                Menu_AppendItem(menu, "Envelope:________");
+                Menu_AppendItem(menu, "Envelope:");
                 Menu_AppendCustomItem(menu, m_EnvelopeOption);
                 Menu_AppendSeparator(menu);
                 // Menu
