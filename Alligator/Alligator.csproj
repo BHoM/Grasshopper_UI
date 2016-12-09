@@ -360,10 +360,10 @@
     <None Include="Resources\Icons\Structure\Properties\BHoM_Tie_Reinforcement.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Icons\Alligator\BHoM_BHoM_Object.png" />
+    <None Include="Resources\Icons\Structure\Properties\BHoM_ConcreteSection.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_ConcreteSection.png" />
+    <Content Include="Resources\Icons\Alligator\BHoM_BHoM_Object.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
