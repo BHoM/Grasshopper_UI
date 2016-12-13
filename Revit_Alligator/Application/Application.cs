@@ -27,7 +27,8 @@ namespace Revit_Alligator
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Application app = new Application(Path.Combine(Path.GetTempPath(), "RevitExport.txt"));
+            string directory = Path.Combine(Path.GetTempPath(), "RevitExchange");
+            FileIO app = new FileIO(Path.Combine(directory,"Out"), Path.Combine(directory, "In"));
             app.Identifier = BHoM.Base.FilterOption.UserData;
             app.Key = "Revit Id";
             DA.SetData(0, app);

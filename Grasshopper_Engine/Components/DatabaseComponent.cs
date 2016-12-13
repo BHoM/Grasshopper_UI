@@ -123,6 +123,11 @@ namespace Grasshopper_Engine.Components
         public DatabaseComponent(string name, string nickname, string description, string category, string subCategory) 
             : base(name, nickname, description, category, subCategory, GH_ParamAccess.item)
         {
+            CreateMenus();
+        }
+
+        public void CreateMenus()
+        {
             m_Tables = new ComboBox();
             m_Types = new ComboBox();
             m_Names = new ComboBox();
@@ -180,27 +185,32 @@ namespace Grasshopper_Engine.Components
 
         public override bool AppendMenuItems(ToolStripDropDown menu)
         {
-            Menu_AppendObjectName(menu);// (menu, "Section");
-            Menu_AppendSeparator(menu);
-            Menu_AppendCustomItem(menu, m_Tables);
-            Menu_AppendCustomItem(menu, m_Types);
-            Menu_AppendCustomItem(menu, m_Names);
-            Menu_AppendItem(menu, "Commit Changes", new EventHandler(On_CommitChanges));
-            Menu_AppendItem(menu, "Cancel", new EventHandler(On_Cancel));
-            Menu_AppendSeparator(menu);
-            Menu_AppendSimplifyParameter(menu);
-            Menu_AppendFlattenParameter(menu);
-            Menu_AppendGraftParameter(menu);
-            Menu_AppendReverseParameter(menu);
-            // Menu
-            Menu_AppendSeparator(menu);
-            Menu_AppendObjectHelp(menu);
-            return true;
+            if (m_Tables != null)
+            {
+                Menu_AppendObjectName(menu);// (menu, "Section");
+                Menu_AppendSeparator(menu);
+                Menu_AppendCustomItem(menu, m_Tables);
+                Menu_AppendCustomItem(menu, m_Types);
+                Menu_AppendCustomItem(menu, m_Names);
+                Menu_AppendItem(menu, "Commit Changes", new EventHandler(On_CommitChanges));
+                Menu_AppendItem(menu, "Cancel", new EventHandler(On_Cancel));
+                Menu_AppendSeparator(menu);
+                Menu_AppendSimplifyParameter(menu);
+                Menu_AppendFlattenParameter(menu);
+                Menu_AppendGraftParameter(menu);
+                Menu_AppendReverseParameter(menu);
+                // Menu
+                Menu_AppendSeparator(menu);
+                Menu_AppendObjectHelp(menu);
+                return true;
+            }
+            else
+                return base.AppendMenuItems(menu);
         }
-
+        
         private void On_Cancel(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+
         }
 
         private void On_CommitChanges(object sender, EventArgs e)
@@ -210,26 +220,42 @@ namespace Grasshopper_Engine.Components
 
         public override bool Write(GH_IO.Serialization.GH_IWriter writer)
         {
-            writer.SetString("Table", m_Tables.Text);
-            writer.SetString("Type", m_Types.Text);
-            writer.SetString("Name", m_Names.Text);
-            return base.Write(writer);
+            if (m_Tables != null)
+            {
+                writer.SetString("Table", m_Tables.Text);
+                writer.SetString("Type", m_Types.Text);
+                writer.SetString("Name", m_Names.Text);
+                writer.SetString("Title", this.Name);
+                writer.SetString("Nickname", this.NickName);
+                writer.SetGuid("InstanceGuid", this.InstanceGuid);
+                this.Attributes.Write(writer);
+
+            }
+            return true;
         }
 
         public override bool Read(GH_IO.Serialization.GH_IReader reader)
         {
-            string tableName = "";
-            string type = "";
             string name = "";
-            reader.TryGetString("Table", ref tableName);
-            reader.TryGetString("Type", ref type);
-            reader.TryGetString("Name", ref name);
+            if (reader.TryGetString ("Table", ref name)) m_Tables.Text = name;
+            if (reader.TryGetString("Type", ref name)) m_Types.Text = name;
+            if (reader.TryGetString("Name", ref name)) m_Names.Text = name;
+            if (reader.TryGetString("Title", ref name)) this.Name = name;
+            if (reader.TryGetString("Nickname", ref name)) this.NickName = name;
+            this.Attributes.Read(reader);
 
-            m_Tables.Text = tableName;
-            m_Types.Text = type;
-            m_Names.Text = name;
+            if (!string.IsNullOrEmpty(reader.ArchiveLocation))
+            {
+                Guid guid = default(Guid);
+                if (reader.TryGetGuid("InstanceGuid", ref guid))
+                    this.NewInstanceGuid(guid);
+            }
 
-            return base.Read(reader);
+            return true;
+        }
+        public override void AddedToDocument(GH_Document document)
+        {
+            base.AddedToDocument(document);
         }
     }
 }

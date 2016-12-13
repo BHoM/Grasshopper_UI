@@ -27,7 +27,7 @@ namespace Alligator.Structural.Results
         {
             get
             {
-                return GH_Exposure.secondary;
+                return GH_Exposure.tertiary;
             }
         }
 
@@ -83,7 +83,7 @@ namespace Alligator.Structural.Results
         {
             get
             {
-                return GH_Exposure.secondary;
+                return GH_Exposure.tertiary;
             }
         }
 

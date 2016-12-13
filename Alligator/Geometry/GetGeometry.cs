@@ -18,6 +18,10 @@ namespace Alligator.Geometry
         {
 
         }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Element_Geometry; }
+        }
 
         public override Guid ComponentGuid
         {

@@ -39,8 +39,7 @@
   <ItemGroup>
     <Reference Include="BHoM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\BHoM\build\BHoM.dll</HintPath>
     </Reference>
     <Reference Include="GH_IO">
       <HintPath>..\External Libraries\GH_IO.dll</HintPath>
@@ -152,187 +151,220 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
-    <None Include="Resources\gator.png" />
+    <None Include="Resources\Icons\Alligator\gator.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\skeleton.png" />
+    <None Include="Resources\Icons\Alligator\skeleton.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\DOF.png" />
+    <None Include="Resources\Icons\Alligator\DOF.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Global\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_BarForce.png" />
+    <None Include="Resources\Icons\Structure\Loads\BHoM_BarForce.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Constraint.png" />
+    <None Include="Resources\Icons\Structure\Properties\BHoM_Constraint.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Grid.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_Grid.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Grid_Export.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_Grid_Export.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Grid_Import.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_Grid_Import.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Level.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_Level.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Level_Export.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_Level_Export.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Level_Import.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_Level_Import.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_LoadCase.png" />
+    <None Include="Resources\Icons\Structure\Loads\BHoM_LoadCase.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_LoadResults.png" />
+    <None Include="Resources\Icons\Structure\Results\BHoM_LoadResults.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Material.png" />
+    <None Include="Resources\Icons\Structure\Properties\BHoM_Material.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Material_List.png" />
+    <None Include="Resources\Icons\Structure\Properties\BHoM_Material_List.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_NodeForce.png" />
+    <None Include="Resources\Icons\Structure\Loads\BHoM_NodeForce.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Opening.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_Opening.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Opening_Export.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_Opening_Export.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Opening_Import.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_Opening_Import.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Panel.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_Panel.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Panel_Export.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_Panel_Export.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Panel_Import.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_Panel_Import.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_PanelProperty.png" />
+    <None Include="Resources\Icons\Structure\Properties\BHoM_PanelProperty.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_RigidLink.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_RigidLink.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_RigidLink_Export.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_RigidLink_Export.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Section_List.png" />
+    <None Include="Resources\Icons\Structure\Properties\BHoM_Section_List.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_SectionProperty.png" />
+    <None Include="Resources\Icons\Structure\Properties\BHoM_SectionProperty.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_StoreResults.png" />
+    <None Include="Resources\Icons\Structure\Results\BHoM_StoreResults.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Bar.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_Bar.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Bar_Attributes.png" />
+    <None Include="Resources\Icons\Structure\Properties\BHoM_Bar_Attributes.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Bar_Export.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_Bar_Export.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Bar_Force_Export.png" />
+    <None Include="Resources\Icons\Structure\Loads\BHoM_Bar_Force_Export.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Bar_Force_Import.png" />
+    <None Include="Resources\Icons\Structure\Loads\BHoM_Bar_Force_Import.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Bar_Gravity.png" />
+    <None Include="Resources\Icons\Structure\Loads\BHoM_Bar_Gravity.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Bar_Import.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_Bar_Import.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Bar_Prestress.png" />
+    <None Include="Resources\Icons\Structure\Loads\BHoM_Bar_Prestress.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Node_Export.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_Node_Export.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Node_Import.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_Node_Import.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Node.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_Node.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_GetNodeReaction.png" />
+    <None Include="Resources\Icons\Structure\Results\BHoM_GetNodeReaction.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_GetPanelForce.png" />
+    <None Include="Resources\Icons\Structure\Results\BHoM_GetPanelForce.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_GetBarForce.png" />
+    <None Include="Resources\Icons\Structure\Results\BHoM_GetBarForce.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_GetNodeDisplacement.png" />
+    <None Include="Resources\Icons\Structure\Results\BHoM_GetNodeDisplacement.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Group.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_Group.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Group_Export.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_Group_Export.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_GetPanelStress.png" />
+    <None Include="Resources\Icons\Structure\Results\BHoM_GetPanelStress.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_ToJSON.png" />
+    <None Include="Resources\Icons\Alligator\BHoM_ToJSON.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_FromJSON.png" />
+    <None Include="Resources\Icons\Alligator\BHoM_FromJSON.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_LoadCase_Combination.png" />
+    <None Include="Resources\Icons\Structure\Loads\BHoM_LoadCase_Combination.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_LoadCase_Export.png" />
+    <None Include="Resources\Icons\Structure\Loads\BHoM_LoadCase_Export.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Mesh.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_Mesh.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Mesh_Export.png" />
+    <None Include="Resources\Icons\Structure\Elements\BHoM_Mesh_Export.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_GSA_App.png" />
+    <None Include="Resources\Icons\Structure\Apps\BHoM_GSA_App.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Revit_App.png" />
+    <None Include="Resources\Icons\Structure\Apps\BHoM_Revit_App.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_ROBO_App.png" />
+    <None Include="Resources\Icons\Structure\Apps\BHoM_ROBO_App.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_GetProperty.png" />
+    <None Include="Resources\Icons\Alligator\BHoM_GetProperty.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_SetProperty.png" />
+    <None Include="Resources\Icons\Alligator\BHoM_SetProperty.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Filter.png" />
+    <None Include="Resources\Icons\Alligator\BHoM_Filter.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Create_CustomData.png" />
+    <None Include="Resources\Icons\Alligator\BHoM_Create_CustomData.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Read _CustomData.png" />
+    <None Include="Resources\Icons\Alligator\BHoM_Read _CustomData.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\Structure\Properties\BHoM_Custom_Box_Section.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\Structure\Properties\BHoM_Custom_Cable_Section.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\Structure\Geometry\BHoM_Element_Geometry.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\Structure\Geometry\BHoM_Extrude_Bar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\Alligator\BHoM_GetPropertyNames.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\Structure\Properties\BHoM_Layer_Reinforcement.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\Structure\Properties\BHoM_Panel_Loading.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\Structure\Properties\BHoM_Perimiter_Reinforcement.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\Structure\Properties\BHoM_Tie_Reinforcement.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\Structure\Properties\BHoM_ConcreteSection.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Icons\Alligator\BHoM_BHoM_Object.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -63,4 +63,60 @@ namespace Alligator.Structural.Results
             }
         }
     }
+
+    public class GetBarCoordinates : ResultBaseComponent<BarCoordinates>
+    {
+        public GetBarCoordinates() : base("GetBarCoordinates", "BarCoordinates", "Gets the bar coordinates from the selected result server", "Structure", "Results")
+        {
+            m_Options = null;
+            m_EnvelopeOption = null;
+            Message = "";
+        }
+
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Bar; }
+        }
+
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.secondary;
+            }
+        }
+
+        public override Guid ComponentGuid
+        {
+            get
+            {
+                return new Guid("80B0B77A-F6CC-4D55-9A52-CFE3B9C83CF1");
+            }
+        }
+
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddGenericParameter("Result Server", "ResultServer", "Application or Result server to extract results from", GH_ParamAccess.item);
+            pManager.AddTextParameter("Ids", "Id", "List of object ids to get results for", GH_ParamAccess.list);
+            pManager.AddBooleanParameter("Activate", "Activate", "Run the component", GH_ParamAccess.item);
+            Params.Input[1].Optional = true;
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            if (GHE.DataUtils.Run(DA, 2))
+            {
+                BHI.IResultAdapter app = GHE.DataUtils.GetGenericData<BHI.IResultAdapter>(DA, 0);
+                if (app != null)
+                {
+                    List<string> ids = GHE.DataUtils.GetDataList<string>(DA, 1);
+                    Dictionary<string, BHR.IResultSet> results = new Dictionary<string, BHR.IResultSet>();
+                    app.GetBarCoordinates(ids, out results);
+
+                    SetResults<BarCoordinates>(DA, results);
+                }
+            }
+        }
+    }
 }
