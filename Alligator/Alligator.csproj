@@ -102,6 +102,7 @@
     <Compile Include="Structural\Elements\ExportGroup.cs" />
     <Compile Include="Structural\Elements\ExportRigidLink.cs" />
     <Compile Include="Structural\Elements\Grid.cs" />
+    <Compile Include="Structural\Elements\ImportDesignElement.cs" />
     <Compile Include="Structural\Elements\Level.cs" />
     <Compile Include="Structural\Elements\Opening.cs" />
     <Compile Include="Structural\Loads\CustomLoadGrouping\AplyGroupToLoadObject.cs" />
