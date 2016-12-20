@@ -55,6 +55,10 @@ namespace Alligator.Base
             {
                 DA.SetData(0, null);
             }
+            else if (value == null)
+            {
+                DA.SetData(0, newObject);
+            }
             else
             {
                 if (typeof(IGH_Goo).IsAssignableFrom(value.GetType()))

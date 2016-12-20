@@ -11,6 +11,7 @@ using BHE = BHoM.Structural.Elements;
 using BHI = BHoM.Structural.Interface;
 using BHR = BHoM.Base.Results;
 using Grasshopper_Engine.Components;
+using System.Reflection;
 
 namespace Alligator.Structural.Results
 {
@@ -31,6 +32,8 @@ namespace Alligator.Structural.Results
                 return new Guid("{E3FA67E7-0BA4-4661-A736-8A7D1948BEFA}");
             }
         }
+
+
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {

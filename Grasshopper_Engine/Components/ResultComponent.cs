@@ -163,7 +163,7 @@ namespace Grasshopper_Engine.Components
 
         protected override void SolveInstance(IGH_DataAccess DA) { }
 
-        public void SetResults<S>(IGH_DataAccess DA, Dictionary<string, IResultSet> data) where S : IResult, new()
+        public void SetResults<S>(IGH_DataAccess DA, Dictionary<string, IResultSet> data, int indexOffset = 0, bool numbersOnly = false) where S : IResult, new()
         {
             string[] columnHeaders = new S().ColumnHeaders;
             List<DataTree<object>> output = new List<DataTree<object>>();

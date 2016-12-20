@@ -111,10 +111,13 @@
     <Compile Include="Structural\Loads\CreateLoadCombination.cs" />
     <Compile Include="Structural\Loads\CreateNodalLoad.cs" />
     <Compile Include="Structural\Loads\CustomLoadGrouping\GroupByPropertyName.cs" />
+    <Compile Include="Structural\Loads\ImportLoad.cs" />
+    <Compile Include="Structural\Loads\ImportLoadcases.cs" />
     <Compile Include="Structural\Loads\UniformAreaLoad.cs" />
     <Compile Include="Structural\ModelTracker\GenerateBarTrackers.cs" />
     <Compile Include="Structural\ModelTracker\StoreModelTrackingData.cs" />
     <Compile Include="Structural\Properties\BarAttributesContainer.cs" />
+    <Compile Include="Structural\Properties\BarOffset.cs" />
     <Compile Include="Structural\Properties\Constraints\CreateBarRelease.cs" />
     <Compile Include="Structural\Properties\CreateBarAttributes.cs" />
     <Compile Include="Structural\Properties\Constraints\BarConstraint.cs" />
