@@ -177,7 +177,7 @@ namespace Grasshopper_Engine.Components
             
             foreach (IResultSet set in data.Values)
             {
-                GH_Path path = new GH_Path(branch++);
+                GH_Path path = new GH_Path(DA.Iteration, branch++);
                 Envelope envelope = null;
 
                 switch (m_EnvelopeType)
