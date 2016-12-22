@@ -37,7 +37,7 @@ namespace Alligator.Structural.Loads
                 BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
                 if (app != null)
                 {
-                    List<Loadcase> loadcases = GHE.DataUtils.GetDataList<BHoM.Structural.Loads.Loadcase>(DA, 1);
+                    List<Loadcase> loadcases = GHE.DataUtils.GetGenericDataList<BHoM.Structural.Loads.Loadcase>(DA, 1);
                     List<ILoad> loads = null;
 
                     app.GetLoads(out loads, loadcases);
@@ -50,7 +50,7 @@ namespace Alligator.Structural.Loads
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Application", "Application", "Application to get elements from", GH_ParamAccess.item);
-            pManager.AddTextParameter("Loadcases", "Loadcases", "Loadcases to get loads", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Loadcases", "Loadcases", "Loadcases to get loads", GH_ParamAccess.list);
             pManager.AddBooleanParameter("Activate", "Activate", "Activate", GH_ParamAccess.item);           
         }
 

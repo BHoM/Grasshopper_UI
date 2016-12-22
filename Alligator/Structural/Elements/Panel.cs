@@ -13,6 +13,7 @@ using BHI = BHoM.Structural.Interface;
 using Rhino.Geometry;
 using Grasshopper;
 using Grasshopper_Engine.Components;
+using Grasshopper.Kernel.Data;
 
 namespace Alligator.Structural.Elements
 {
@@ -83,7 +84,7 @@ namespace Alligator.Structural.Elements
 
     }
 
-    public class ExportPanel : GH_Component
+    public class ExportPanel : ExportComponent<BHE.Panel>
     {
         public ExportPanel() : base("Export Panel", "SetPanel", "Creates or Replaces the geometry of a Panel", "Structure", "Elements") { }
 
@@ -95,34 +96,10 @@ namespace Alligator.Structural.Elements
             }
         }
 
-        protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
+        protected override List<BHE.Panel> SetObjects(BHI.IElementAdapter app, List<BHE.Panel> objects, out List<string> ids)
         {
-            pManager.AddGenericParameter("Application", "Application", "Application to export bars to", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Panels", "Panels", "BHoM panels to export", GH_ParamAccess.list);
-            pManager.AddBooleanParameter("Activate", "Activate", "Generate Panels", GH_ParamAccess.item);
-
-            pManager[2].Optional = true;
-        }
-
-        protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
-        {
-            pManager.AddTextParameter("Ids", "Ids", "Bar Numbers", GH_ParamAccess.list);
-        }
-
-        protected override void SolveInstance(IGH_DataAccess DA)
-        {
-            if (GHE.DataUtils.Run(DA, 2))
-            {
-                BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
-                if (app != null)
-                {
-                    List<BHE.Panel> panels = GHE.DataUtils.GetGenericDataList<BHE.Panel>(DA, 1);
-                    List<string> ids = null;
-                    app.SetPanels(panels, out ids);
-
-                    DA.SetDataList(0, ids);
-                }
-            }
+            app.SetPanels(objects, out ids);
+            return objects;
         }
 
         public override Guid ComponentGuid
@@ -136,7 +113,7 @@ namespace Alligator.Structural.Elements
         }
     }
 
-    public class ImportPanel : ImportComponent
+    public class ImportPanel : ImportComponent<BHE.Panel>
     {
         public ImportPanel() : base("Import Panel", "PanelNode", "Get the geometry and properties of a panel", "Structure", "Elements")
         {
@@ -151,33 +128,50 @@ namespace Alligator.Structural.Elements
             }
         }
 
-        protected override void SolveInstance(IGH_DataAccess DA)
+        //protected override void SolveInstance(IGH_DataAccess DA)
+        //{
+        //    if (GHE.DataUtils.Run(DA, 2))
+        //    {
+        //        BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
+        //        if (app != null)
+        //        {
+        //            List<string> ids = null;
+        //            List<BHE.Panel> panels = null;
+        //            DataTree<GeometryBase> geometry = new DataTree<GeometryBase>();
+        //            if (m_Selection == BHI.ObjectSelection.FromInput)
+        //                ids = GHE.DataUtils.GetDataList<string>(DA, 1);
+
+        //            app.Selection = m_Selection;
+        //            ids = app.GetPanels(out panels, ids);
+
+        //            for (int i = 0; i < panels.Count; i++)
+        //            {
+        //                geometry.AddRange(GHE.GeometryUtils.ConvertGroup<BHG.Curve>(panels[i].External_Contours), new Grasshopper.Kernel.Data.GH_Path(i));
+        //                geometry.AddRange(GHE.GeometryUtils.ConvertGroup<BHG.Curve>(panels[i].Internal_Contours), new Grasshopper.Kernel.Data.GH_Path(i));
+        //            }
+
+        //            DA.SetDataList(0, ids);
+        //            DA.SetDataList(1, panels);
+        //            DA.SetDataTree(2, geometry);
+        //        }
+        //    }
+        //}
+
+        public override List<BHE.Panel> GetObjects(BHI.IElementAdapter app, List<string> objectIds, out IGH_DataTree geom, out List<string> outIds)
         {
-            if (GHE.DataUtils.Run(DA, 2))
+            List<BHE.Panel> panels = null;
+            DataTree<GeometryBase> geometry = new DataTree<GeometryBase>();
+           
+            app.Selection = m_Selection;
+            outIds = app.GetPanels(out panels, objectIds);
+
+            for (int i = 0; i < panels.Count; i++)
             {
-                BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
-                if (app != null)
-                {
-                    List<string> ids = null;
-                    List<BHE.Panel> panels = null;
-                    DataTree<GeometryBase> geometry = new DataTree<GeometryBase>();
-                    if (m_Selection == BHI.ObjectSelection.FromInput)
-                        ids = GHE.DataUtils.GetDataList<string>(DA, 1);
-
-                    app.Selection = m_Selection;
-                    ids = app.GetPanels(out panels, ids);
-
-                    for (int i = 0; i < panels.Count; i++)
-                    {
-                        geometry.AddRange(GHE.GeometryUtils.ConvertGroup<BHG.Curve>(panels[i].External_Contours), new Grasshopper.Kernel.Data.GH_Path(i));
-                        geometry.AddRange(GHE.GeometryUtils.ConvertGroup<BHG.Curve>(panels[i].Internal_Contours), new Grasshopper.Kernel.Data.GH_Path(i));
-                    }
-
-                    DA.SetDataList(0, ids);
-                    DA.SetDataList(1, panels);
-                    DA.SetDataTree(2, geometry);
-                }
+                geometry.AddRange(GHE.GeometryUtils.ConvertGroup<BHG.Curve>(panels[i].External_Contours), new Grasshopper.Kernel.Data.GH_Path(i));
+                geometry.AddRange(GHE.GeometryUtils.ConvertGroup<BHG.Curve>(panels[i].Internal_Contours), new Grasshopper.Kernel.Data.GH_Path(i));
             }
+            geom = geometry;
+            return panels;
         }
 
         public override Guid ComponentGuid

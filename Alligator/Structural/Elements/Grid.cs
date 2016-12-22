@@ -13,6 +13,7 @@ using BHI = BHoM.Structural.Interface;
 using Rhino.Geometry;
 using Grasshopper;
 using Grasshopper_Engine.Components;
+using Grasshopper.Kernel.Data;
 
 namespace Alligator.Structural.Elements
 {
@@ -87,7 +88,7 @@ namespace Alligator.Structural.Elements
         }
     }
 
-    public class ImportGrid : ImportComponent
+    public class ImportGrid : ImportComponent<BHE.Grid>
     {
         public ImportGrid() : base("Import Grid", "GetGrid", "Get the geometry and properties of a Grid", "Structure", "Elements")
         {
@@ -102,32 +103,19 @@ namespace Alligator.Structural.Elements
             }
         }
 
-        protected override void SolveInstance(IGH_DataAccess DA)
+        public override List<BHE.Grid> GetObjects(BHI.IElementAdapter app, List<string> objectIds, out IGH_DataTree geom, out List<string> outIds)
         {
-            if (GHE.DataUtils.Run(DA, 2))
+            List<BHE.Grid> Grids = null;
+            DataTree<Curve> geometry = new DataTree<Curve>();
+            app.Selection = m_Selection;
+            outIds = app.GetGrids(out Grids, objectIds);
+
+            for (int i = 0; i < Grids.Count; i++)
             {
-                BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
-                if (app != null)
-                {
-                    List<string> ids = null;
-                    List<BHE.Grid> Grids = null;
-                    DataTree<Curve> geometry = new DataTree<Curve>();
-                    if (m_Selection == BHI.ObjectSelection.FromInput)
-                        ids = GHE.DataUtils.GetDataList<string>(DA, 1);
-
-                    app.Selection = m_Selection;
-                    ids = app.GetGrids(out Grids, ids);
-
-                    for (int i = 0; i < Grids.Count; i++)
-                    {
-                        geometry.Add(GHE.GeometryUtils.Convert(Grids[i].Line));
-                    }
-
-                    DA.SetDataList(0, ids);
-                    DA.SetDataList(1, Grids);
-                    DA.SetDataTree(2, geometry);
-                }
+                geometry.Add(GHE.GeometryUtils.Convert(Grids[i].Line));
             }
+            geom = geometry;
+            return Grids;
         }
 
         public override Guid ComponentGuid

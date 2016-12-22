@@ -9,6 +9,7 @@ using BHI = BHoM.Structural.Interface;
 using Rhino.Geometry;
 using Grasshopper;
 using Grasshopper_Engine.Components;
+using Grasshopper.Kernel.Data;
 
 namespace Alligator.Structural.Elements
 {
@@ -91,7 +92,7 @@ namespace Alligator.Structural.Elements
         }
     }
 
-    public class ImportNode : ImportComponent
+    public class ImportNode : ImportComponent<BHE.Node>
     {
         public ImportNode() : base("Import Node", "GetNode", "Get the geometry and properties of a node", "Structure", "Elements")
         {
@@ -120,17 +121,26 @@ namespace Alligator.Structural.Elements
                         ids = GHE.DataUtils.GetDataList<string>(DA, 1);
 
                     app.Selection = m_Selection;
-                    ids = app.GetNodes(out nodes, ids);
-
-                    foreach (BHE.Node node in nodes)
-                    {
-                        locations.Add(GHE.GeometryUtils.Convert(node.Point));
-                    }
+                   
                     DA.SetDataList(0, ids);
                     DA.SetDataList(1, nodes);
                     DA.SetDataTree(2, locations);
                 }
             }
+        }
+
+        public override List<BHE.Node> GetObjects(BHI.IElementAdapter app, List<string> objectIds, out IGH_DataTree geom, out List<string> outIds)
+        {
+            List<BHE.Node> nodes = null;
+            outIds = app.GetNodes(out nodes, objectIds);
+
+            DataTree<Point3d> locations = new DataTree<Point3d>();
+            foreach (BHE.Node node in nodes)
+            {
+                locations.Add(GHE.GeometryUtils.Convert(node.Point));
+            }
+            geom = locations;
+            return nodes;
         }
 
         public override Guid ComponentGuid

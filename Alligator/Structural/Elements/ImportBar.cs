@@ -11,12 +11,13 @@ using BHG = BHoM.Geometry;
 using System.Windows.Forms;
 using R = Rhino.Geometry;
 using Grasshopper;
-using GHKT= Grasshopper.Kernel.Types;
+using GHKT = Grasshopper.Kernel.Types;
 using Grasshopper_Engine.Components;
+using Grasshopper.Kernel.Data;
 
 namespace Alligator.Structural.Elements
 {
-    public class ImportBar : ImportComponent
+    public class ImportBar : ImportComponent<BHE.Bar>
     {       
         public ImportBar() : base("Import Bar", "GetBar", "Get the geometry and properties of a Bar", "Structure", "Elements")
         {
@@ -31,32 +32,46 @@ namespace Alligator.Structural.Elements
             }
         }
 
-        protected override void SolveInstance(IGH_DataAccess DA)
+        //protected override void SolveInstance(IGH_DataAccess DA)
+        //{
+        //    if (GHE.DataUtils.Run(DA, 2))
+        //    {
+        //        BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
+        //        if (app != null)
+        //        {
+        //            List<string> ids = null;
+        //            List<BHE.Bar> bars = null;
+        //            DataTree<R.Curve> curves = new DataTree<R.Curve>();
+        //            if (m_Selection == BHI.ObjectSelection.FromInput)
+        //                ids = GHE.DataUtils.GetDataList<string>(DA, 1);
+
+        //            app.Selection = m_Selection;
+        //            ids = app.GetBars(out bars, ids);
+
+        //            for (int i = 0; i < bars.Count;i++)
+        //            {
+        //                curves.Add(GHE.GeometryUtils.Convert(bars[i].Line));
+        //            }
+
+        //            DA.SetDataList(0, ids);
+        //            DA.SetDataList(1, bars);
+        //            DA.SetDataTree(2, curves);
+        //        }
+        //    }
+        //}
+
+        public override List<BHE.Bar> GetObjects(BHI.IElementAdapter app, List<string> objectIds, out IGH_DataTree geom, out List<string> outIds)
         {
-            if (GHE.DataUtils.Run(DA, 2))
+            List<BHE.Bar> result = null;
+            outIds = app.GetBars(out result, objectIds);
+
+            DataTree<R.Curve> curves = new DataTree<R.Curve>();
+            for (int i = 0; i < result.Count; i++)
             {
-                BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
-                if (app != null)
-                {
-                    List<string> ids = null;
-                    List<BHE.Bar> bars = null;
-                    DataTree<R.Curve> curves = new DataTree<R.Curve>();
-                    if (m_Selection == BHI.ObjectSelection.FromInput)
-                        ids = GHE.DataUtils.GetDataList<string>(DA, 1);
-
-                    app.Selection = m_Selection;
-                    ids = app.GetBars(out bars, ids);
-
-                    for (int i = 0; i < bars.Count;i++)
-                    {
-                        curves.Add(GHE.GeometryUtils.Convert(bars[i].Line));
-                    }
-
-                    DA.SetDataList(0, ids);
-                    DA.SetDataList(1, bars);
-                    DA.SetDataTree(2, curves);
-                }
+                curves.Add(GHE.GeometryUtils.Convert(result[i].Line));
             }
+            geom = curves;
+            return result;
         }
 
         public override Guid ComponentGuid

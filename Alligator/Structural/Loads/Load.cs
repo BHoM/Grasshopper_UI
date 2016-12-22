@@ -84,6 +84,7 @@ namespace Alligator.Structural.Loads
                 if (app != null)
                 {
                     List<ILoad> loads = GHE.DataUtils.GetGenericDataList<ILoad>(DA, 1);
+                    loads = loads.Where(x => x != null).ToList();
                     app.SetLoads(loads);
                 }
             }

@@ -13,17 +13,16 @@ using R = Rhino.Geometry;
 using Grasshopper;
 using GHKT = Grasshopper.Kernel.Types;
 using Grasshopper_Engine.Components;
+using Grasshopper.Kernel.Data;
 
 namespace Alligator.Structural.Elements
 {
-    public class ImportDesignElement : ImportComponent
+    public class ImportDesignElement : ImportComponent<BHE.Bar>
     {
         public ImportDesignElement() : base("Import Design Element", "GetDesElem", "Get the geometry and properties of a design element as a BHoM Bar", "Structure", "Element Design")
         {
 
         }
-
-
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -48,6 +47,11 @@ namespace Alligator.Structural.Elements
                     DA.SetDataTree(2, curves);
                 }
             }
+        }
+
+        public override List<BHE.Bar> GetObjects(BHI.IElementAdapter app, List<string> objectIds, out IGH_DataTree geom, out List<string> outIds)
+        {
+            throw new Exception();
         }
 
         public override Guid ComponentGuid

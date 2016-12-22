@@ -8,10 +8,11 @@ using System.Windows.Forms;
 using GHE = Grasshopper_Engine;
 using BHE = BHoM.Structural.Elements;
 using BHI = BHoM.Structural.Interface;
+using Grasshopper.Kernel.Data;
 
 namespace Grasshopper_Engine.Components
 {   
-    public abstract class ImportComponent : GH_Component
+    public abstract class ImportComponent<T> : GH_Component where T : BHoM.Base.IBase
     {
         public ComboBox m_Options;
         protected BHI.ObjectSelection m_Selection;
@@ -61,9 +62,27 @@ namespace Grasshopper_Engine.Components
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            
+            if (GHE.DataUtils.Run(DA, 2))
+            {
+                BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
+                if (app != null)
+                {
+                    List<string> ids = null;
+                    List<string> outIds = null;
+                    IGH_DataTree geom = null;
+                    app.Selection = m_Selection;
+                    if (m_Selection == BHI.ObjectSelection.FromInput)
+                        ids = GHE.DataUtils.GetDataList<string>(DA, 1);
+                    List<T> objects = GetObjects(app, ids, out geom, out outIds);
+
+                    DA.SetDataList(0, outIds);
+                    DA.SetDataList(1, objects);
+                    DA.SetDataTree(2, geom);
+                }
+            }
         }
 
+        public abstract List<T> GetObjects(BHI.IElementAdapter app,  List<string> objectIds, out IGH_DataTree geom, out List<string> outIds);
         public override bool Write(GH_IO.Serialization.GH_IWriter writer)
         {
             if (m_Options != null)

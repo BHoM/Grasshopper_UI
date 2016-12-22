@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BHG = BHoM.Geometry;
 using Grasshopper_Engine.Components;
+using Grasshopper.Kernel.Data;
 
 namespace Alligator.Structural.Elements
 {
@@ -87,7 +88,7 @@ namespace Alligator.Structural.Elements
         }
     }
 
-    public class ImportLevel : ImportComponent
+    public class ImportLevel : ImportComponent<Storey>
     {
         public ImportLevel() : base("Import Level", "GetLevel", "Get the geometry and properties of a Level", "Structure", "Elements")
         {
@@ -128,6 +129,22 @@ namespace Alligator.Structural.Elements
                     DA.SetDataTree(2, geometry);
                 }
             }
+        }
+
+        public override List<Storey> GetObjects(IElementAdapter app, List<string> objectIds, out IGH_DataTree geom, out List<string> outIds)
+        {
+            List<Storey> Levels = null;
+            DataTree<Plane> geometry = new DataTree<Plane>();
+
+            app.Selection = m_Selection;
+            outIds = app.GetLevels(out Levels, objectIds);
+
+            for (int i = 0; i < Levels.Count; i++)
+            {
+                geometry.Add(GeometryUtils.Convert(Levels[i].Plane));
+            }
+            geom = geometry;
+            return Levels;
         }
 
         public override Guid ComponentGuid

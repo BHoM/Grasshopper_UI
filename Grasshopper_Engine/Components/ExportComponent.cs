@@ -13,13 +13,13 @@ namespace Grasshopper_Engine.Components
     /// Export component. Creates a copy of every Item about to be exported by deep cloning.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class ExportComponent<T> : GH_Component where T:BHB.BHoMObject
+    public abstract class ExportComponent<T> : GH_Component where T:BHB.IBase
     {
         protected List<string> m_ids;
         protected List<T> m_exportedObjects;
 
         private static readonly string m_typeName = typeof(T).Name;
-        private static readonly string m_typeNickname = typeof(T).Name[0].ToString();
+        private static readonly string m_typeNickname = typeof(T).Name.ToString();
 
         public override GH_Exposure Exposure
         {
@@ -88,7 +88,7 @@ namespace Grasshopper_Engine.Components
             if (objects == null)
                 return null;
 
-            List<T> clones = objects.Select(x => (T)x.ShallowClone()).ToList();
+            List<T> clones = objects.Select(x => (T)(object)x.ShallowClone()).ToList();
             clones.ForEach(x => x.CustomData = new Dictionary<string, object>(x.CustomData));
             
             return clones;
