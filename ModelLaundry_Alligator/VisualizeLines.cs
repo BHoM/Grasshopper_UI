@@ -96,7 +96,7 @@ namespace Alligator.ModelLaundry
                     List<BHG.Curve> segments = pCrv.Explode();
                     for (int j = 0; j < segments.Count; j++)
                     {
-                        BHG.Line ln = segments[j] as BHG.Line;
+                        BHG.Curve ln = segments[j];
                         RG.LineCurve tempLn = new RG.LineCurve(new RG.Line(ln.StartPoint.X, ln.StartPoint.Y, ln.StartPoint.Z, ln.EndPoint.X, ln.EndPoint.Y, ln.EndPoint.Z));
                         newCrvs.Add(tempLn);
                     }
