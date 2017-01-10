@@ -39,7 +39,7 @@ namespace Alligator.Mongo
             bool active = false; DA.GetData<bool>(2, ref active);
 
             if (active)
-                link.DeleteObjects(filter);
+                link.Delete(filter);
         }
     }
 }
