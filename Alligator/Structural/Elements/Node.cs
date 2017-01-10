@@ -107,27 +107,27 @@ namespace Alligator.Structural.Elements
             }
         }
 
-        protected override void SolveInstance(IGH_DataAccess DA)
-        {
-            if (GHE.DataUtils.Run(DA, 2))
-            {
-                BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
-                if (app != null)
-                {
-                    List<string> ids = null;
-                    List<BHE.Node> nodes = null;
-                    DataTree<Point3d> locations = new DataTree<Point3d>();
-                    if (m_Selection == BHI.ObjectSelection.FromInput)
-                        ids = GHE.DataUtils.GetDataList<string>(DA, 1);
+        //protected override void SolveInstance(IGH_DataAccess DA)
+        //{
+        //    if (GHE.DataUtils.Run(DA, 2))
+        //    {
+        //        BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
+        //        if (app != null)
+        //        {
+        //            List<string> ids = null;
+        //            List<BHE.Node> nodes = null;
+        //            DataTree<Point3d> locations = new DataTree<Point3d>();
+        //            if (m_Selection == BHI.ObjectSelection.FromInput)
+        //                ids = GHE.DataUtils.GetDataList<string>(DA, 1);
 
-                    app.Selection = m_Selection;
+        //            app.Selection = m_Selection;
                    
-                    DA.SetDataList(0, ids);
-                    DA.SetDataList(1, nodes);
-                    DA.SetDataTree(2, locations);
-                }
-            }
-        }
+        //            DA.SetDataList(0, ids);
+        //            DA.SetDataList(1, nodes);
+        //            DA.SetDataTree(2, locations);
+        //        }
+        //    }
+        //}
 
         public override List<BHE.Node> GetObjects(BHI.IElementAdapter app, List<string> objectIds, out IGH_DataTree geom, out List<string> outIds)
         {
