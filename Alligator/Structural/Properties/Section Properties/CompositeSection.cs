@@ -1,0 +1,27 @@
+﻿using BHoM.Structural.Properties;
+using Grasshopper_Engine.Components;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Alligator.Structural.Properties.Section_Properties
+{
+    public class CreateCompositeSection: BHoMBaseComponent<CompositeSection>
+    {
+        public CreateCompositeSection() : base("Create Composite Section", "CreateCompositeSection", "Create a BH Composite Section property object", "Structure", "Properties")
+        {
+
+        }
+
+        public override Guid ComponentGuid
+        {
+            get
+            {
+                return new Guid("95916999-2b86-46ab-b4e3-d839b817dbb4");
+            }
+        }
+    }
+}
+
