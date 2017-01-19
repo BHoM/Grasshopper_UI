@@ -53,7 +53,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acoustic_Alligator", "Acous
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D3_Alligator", "D3_Alligator\D3_Alligator.csproj", "{586B86B3-631A-4EF4-A1F5-1BFC051ADCE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unreal_Alligator", "ClassLibrary2\Unreal_Alligator.csproj", "{CB0957D5-B6C3-44B8-92C3-423D6AACF482}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unreal_Alligator", "Unreal_Alligator\Unreal_Alligator.csproj", "{CB0957D5-B6C3-44B8-92C3-423D6AACF482}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
