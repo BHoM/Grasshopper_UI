@@ -99,7 +99,7 @@ namespace Alligator.Structural.Results
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Node; }
+            get { return Alligator.Properties.Resources.BHoM_Get_Node_Coordinates; }
         }
 
         public override GH_Exposure Exposure

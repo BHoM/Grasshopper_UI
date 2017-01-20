@@ -375,6 +375,18 @@
     <None Include="Resources\Icons\Structure\Properties\BHoM_ConcreteSection.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\BHoM_Loadcase_Import.png" />
+    <None Include="Resources\BHoM_Run_Analasis.png" />
+    <None Include="Resources\BHoM_AreaLoad.png" />
+    <None Include="Resources\BHoM_Bar_Constraints.png" />
+    <None Include="Resources\BHoM_DesignBar_Export.png" />
+    <None Include="Resources\BHoM_DesignBar_Import.png" />
+    <None Include="Resources\BHoM_Get_Bar_Coordinates.png" />
+    <None Include="Resources\BHoM_Get_BarUtilisation.png" />
+    <None Include="Resources\BHoM_Get_Node_Coordinates.png" />
+    <None Include="Resources\BHoM_GetBarForce.png" />
+    <None Include="Resources\BHoM_BarOffsets.png" />
+    <None Include="Resources\BHoM_Extrude_Bar.png" />
     <Content Include="Resources\Icons\Alligator\BHoM_BHoM_Object.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -166,17 +166,11 @@
   <data name="BHoM_Element_Geometry" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\icons\structure\geometry\bhom_element_geometry.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BHoM_Extrude_Bar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\icons\structure\geometry\bhom_extrude_bar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="BHoM_Filter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\icons\alligator\bhom_filter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BHoM_FromJSON" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\icons\alligator\bhom_fromjson.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BHoM_GetBarForce" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\icons\structure\results\bhom_getbarforce.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BHoM_GetNodeDisplacement" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\icons\structure\results\bhom_getnodedisplacement.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -330,5 +324,41 @@
   </data>
   <data name="skeleton" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\icons\alligator\skeleton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_AreaLoad" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_AreaLoad.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_BarOffsets" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_BarOffsets.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_Bar_Constraints" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_Bar_Constraints.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_DesignBar_Export" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_DesignBar_Export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_DesignBar_Import" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_DesignBar_Import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_Extrude_Bar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_Extrude_Bar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_GetBarForce" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_GetBarForce.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_Get_BarUtilisation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_Get_BarUtilisation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_Get_Bar_Coordinates" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_Get_Bar_Coordinates.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_Get_Node_Coordinates" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_Get_Node_Coordinates.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_Loadcase_Import" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_Loadcase_Import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_Run_Analasis" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_Run_Analasis.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
