@@ -65,7 +65,7 @@ namespace Alligator.Structural.Elements
             List<BHE.Bar> result = null;
             outIds = app.GetBars(out result, objectIds);
 
-            DataTree<R.Curve> curves = new DataTree<R.Curve>();
+            DataTree<R.Line> curves = new DataTree<R.Line>();
             for (int i = 0; i < result.Count; i++)
             {
                 curves.Add(GHE.GeometryUtils.Convert(result[i].Line));

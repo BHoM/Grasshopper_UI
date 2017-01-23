@@ -45,7 +45,7 @@ namespace Alligator.Geometry
             BHoM.Structural.Elements.Bar bar = DataUtils.GetGenericData<Bar>(DA, 0);
             if (bar != null && bar.SectionProperty != null)
             {
-                R.Curve centreline = GeometryUtils.Convert(bar.Line);
+                R.Curve centreline = GeometryUtils.Convert(bar.Line).ToNurbsCurve();
                 double a = bar.SectionProperty.GrossArea;
 
                 List<BH.Curve> curves = BH.Curve.Join(bar.SectionProperty.Edges);
