@@ -52,6 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SplineToUnreal.cs" />
+    <Compile Include="MeshToUnreal.cs" />
     <Compile Include="BarToUnreal.cs" />
     <Compile Include="UnrealProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

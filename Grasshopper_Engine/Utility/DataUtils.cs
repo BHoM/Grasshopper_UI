@@ -300,5 +300,29 @@ namespace Grasshopper_Engine
 
             return true;
         }
+
+        public static object UnwrapObject(object obj)
+        {
+            if (obj is Grasshopper.Kernel.Types.GH_ObjectWrapper)
+                return ((Grasshopper.Kernel.Types.GH_ObjectWrapper)obj).Value;
+            else if (obj is Grasshopper.Kernel.Types.GH_String)
+                return ((Grasshopper.Kernel.Types.GH_String)obj).Value;
+            else if (obj is Grasshopper.Kernel.Types.IGH_Goo)
+            {
+                try
+                {
+                    System.Reflection.PropertyInfo prop = obj.GetType().GetProperty("Value");
+                    return prop.GetValue(obj);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Grasshopper sucks, what can I do?" + e.ToString());
+                }
+                return obj;
+
+            }
+            else
+                return obj;
+        }
     }
 }

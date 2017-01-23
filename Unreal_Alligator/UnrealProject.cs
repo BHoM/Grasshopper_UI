@@ -28,6 +28,7 @@ namespace Alligator.Unreal
         {
             pManager.AddTextParameter("Message List", "Bars", "List of project Messages", GH_ParamAccess.list);
             pManager.AddTextParameter("Project Name", "Name", "Project Name", GH_ParamAccess.item);
+            pManager.AddTextParameter("Save slot index", "SaveSlot", "Save slot index", GH_ParamAccess.item);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -38,13 +39,14 @@ namespace Alligator.Unreal
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             List<string> Messages = DataUtils.GetDataList<string>(DA, 0);
+
             string json = "[[[[[" + DataUtils.GetData<string>(DA, 1) + "]]]],";
 
-            json += "[";
+            json += "[[[[" + DataUtils.GetData<string>(DA, 2) + "]]]],";
 
             for (int i = 0; i < Messages.Count ; i++)
             {
-                json += Messages[i] + "],";
+                json += "[" + Messages[i] + "],";
             }
             json = json.Trim(',') + "]";
             DA.SetData(0, json);

@@ -35,6 +35,10 @@ namespace Alligator.Structural.Loads
             pManager.AddTextParameter("Name", "Name", "Name", GH_ParamAccess.item);
             pManager.AddGenericParameter("CustomData", "CustomData", "CustomData", GH_ParamAccess.item);
 
+            pManager[1].Optional = true;
+            pManager[3].Optional = true;
+            pManager[5].Optional = true;
+
             AppendEnumOptions("Axis", typeof(BHL.LoadAxis));
         }
 

@@ -55,14 +55,14 @@ namespace Alligator.D3
             }
             else
             {
+                List<string> axes = new List<string>();
+                if (DA.GetDataList<string>(1, axes))
+                    chart.setAxes(axes);
+
                 List<object> data = new List<object>();
                 DA.GetDataList<object>(0, data);
                 data = data.Select(x => UnwrapObject(x)).ToList();
                 chart.SetData(data);
-
-                List<string> axes = new List<string>();
-                if (DA.GetDataList<string>(1, axes))
-                    chart.setAxes(axes);
             }
 
 

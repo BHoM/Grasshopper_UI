@@ -25,9 +25,11 @@ namespace Alligator.Mongo
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Mongo link", "link", "collection to send the data to", GH_ParamAccess.item);
-            pManager.AddGenericParameter("BHoM objects", "objects", "BHoM objects to convert", GH_ParamAccess.list);
-            pManager.AddTextParameter("key", "key", "key used to tag the saved data", GH_ParamAccess.item);
+            pManager.AddGenericParameter("objects", "objects", "objects to send", GH_ParamAccess.list);
+            pManager.AddTextParameter("key", "key", "key unique to that package of data", GH_ParamAccess.item);
+            pManager.AddTextParameter("tags", "tags", "tags attached to the saved data", GH_ParamAccess.list);
             pManager.AddBooleanParameter("active", "active", "check if the component currently allows data transfer", GH_ParamAccess.item, false);
+            Params.Input[3].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -38,20 +40,14 @@ namespace Alligator.Mongo
         {
             MA.MongoLink link = GHE.DataUtils.GetGenericData<MA.MongoLink>(DA, 0);
             List<object> objects = GHE.DataUtils.GetGenericDataList<object>(DA, 1);
-            string key = ""; DA.GetData<string>(2, ref key);
-            bool active = false; DA.GetData<bool>(3, ref active);
+            string key = GHE.DataUtils.GetData<string>(DA, 2);
+            List<string> tags = new List<string>(); DA.GetDataList<string>(3, tags);
+            bool active = false; DA.GetData<bool>(4, ref active);
 
             if (!active) return;
             if (objects.Count == 0) return;
 
-            if (objects[0] is string)
-            {
-                link.SaveJson(objects.Select(x => x as string), key);
-            }
-            if (objects[0] is BHB.BHoMObject)
-            {
-                link.SaveObjects(objects.Select(x => x as BHB.BHoMObject), key);
-            }
+            link.Push(objects, key, tags);
         }
     }
 }
