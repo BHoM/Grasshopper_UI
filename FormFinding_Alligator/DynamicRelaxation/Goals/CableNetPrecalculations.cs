@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
-using FormFinding_Engine.Structural.CableNetSetUp;
+using FormFinding_Engine.Structural.CableNetFormFinding;
 using FormFinding_Engine.Structural.Goals;
 using BG = BHoM.Geometry;
 using GHE = Grasshopper_Engine;

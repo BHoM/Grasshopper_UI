@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DynamicRelaxation\CableNetFF.cs" />
     <Compile Include="DynamicRelaxation\Goals\CableNetPreCalcIterative.cs" />
     <Compile Include="DynamicRelaxation\Goals\CableNetPrecalculations.cs" />
     <Compile Include="DynamicRelaxation\Goals\CableNetPrecalculationsGenericForces.cs" />

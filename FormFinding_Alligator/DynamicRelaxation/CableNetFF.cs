@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
@@ -11,14 +12,14 @@ using GHE = Grasshopper_Engine;
 
 namespace FormFinding_Alligator.CableNetDesign
 {
-    public class CableNetPreCalcIterative : GH_Component
+    public class CableNetFF : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the CableNetPrecalculations class.
         /// </summary>
-        public CableNetPreCalcIterative()
-          : base("PstressGoalIter", "PstressGoal", "Prestress cable goals for cable net form finding with iterative setout of points", "Alligator", "Structure")
-            
+        public CableNetFF()
+          : base("CableNetFF", "CableNetFF", "Formfinds ", "Alligator", "Structure")
+
         {
         }
 
@@ -31,24 +32,27 @@ namespace FormFinding_Alligator.CableNetDesign
             pManager.AddPointParameter("TR Points", "TRPts", "Tension ring points", GH_ParamAccess.list);
             pManager.AddVectorParameter("Tension ring force", "TRForce", "Load Vectors need to be in the same plane as their radial and a Z-vector", GH_ParamAccess.list);
             pManager.AddVectorParameter("Compression ring force", "CRForce", "Load Vectors need to be in the same plane as their radial and a Z-vector", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Min Height", "Min Height", "Minimal allowed height of the tension ring", GH_ParamAccess.item);
             pManager.AddNumberParameter("Scale Factor", "sfac", "Scalingfactor for the prestressingforces", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("MaxIterations", "Iter", "Maximum iterations to run", GH_ParamAccess.item, 1000);
+            pManager.AddNumberParameter("Initial Step", "initStep", "First step used when searching for scalefactor in outer formfinding loop", GH_ParamAccess.item, 0.001);
+            pManager.AddNumberParameter("dt", "dt", "timestep for relaxation", GH_ParamAccess.item);
+            pManager.AddNumberParameter("thresh", "thresh", "Threshold limit for relaxiation", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Damping", "damp", "Damping for formfinding", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("MaxIter", "MaxIter", "Max iteration for formfinding", GH_ParamAccess.item);
+            
         }
+
 
         /// <summary>
         /// Registers all the output parameters for this component.
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("PstressGoal", "PstGoal", "ConstantHorizontalPrestressGoal", GH_ParamAccess.list);
-            pManager.AddPointParameter("New Tr Pts", "TrPts", "New tensionring points", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Cable forces", "Cable forces", "Cable forces", GH_ParamAccess.list);
             pManager.AddNumberParameter("Cr forces", "Cr forces", "Cr forces", GH_ParamAccess.list);
+            pManager.AddPointParameter("FF Pts", "ffPts", "Form found pts", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Final Sfac", "sfac", "Final scale factor used in outer loop of formfinding", GH_ParamAccess.item);
         }
-
-        /// <summary>
-        /// This is the method that actually does the work.
-        /// </summary>
-        /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
 
@@ -56,16 +60,30 @@ namespace FormFinding_Alligator.CableNetDesign
             List<Point3d> trPts = new List<Point3d>();
             List<Vector3d> trForce = new List<Vector3d>();
             List<Vector3d> crForce = new List<Vector3d>();
+            double minHeight = 0;
             double sFac = 0;
+            double initStep = 0;
             int maxIter = 1000;
+
+            double dt = 0;
+            double treshold = 0;
+            double damping = 0;
+            int maxiterations = 0;
+
+
+
 
             if (!DA.GetDataList(0, crPts)) { return; }
             if (!DA.GetDataList(1, trPts)) { return; }
             if (!DA.GetDataList(2, trForce)) { return; }
             if (!DA.GetDataList(3, crForce)) { return; }
-            if (!DA.GetData(4, ref sFac)) { return; }
-
-            DA.GetData(5, ref maxIter);
+            if (!DA.GetData(4, ref minHeight)) { return; }
+            if (!DA.GetData(5, ref sFac)) { return; }
+            if (!DA.GetData(6, ref initStep)) { return; }
+            if (!DA.GetData(7, ref dt)) { return; }
+            if (!DA.GetData(8, ref treshold)) { return; }
+            if (!DA.GetData(9, ref damping)) { return; }
+            if (!DA.GetData(10, ref maxiterations)) { return; }
 
 
             List<BG.Point> bgCrPts = new List<BG.Point>();
@@ -87,21 +105,18 @@ namespace FormFinding_Alligator.CableNetDesign
                 crLoad.Add(loadVCr);
             }
 
-            List<BG.Point> newTrPts;
-            List<double> crPrestressForces;
-            List<ConstantHorizontalPrestressGoal> goals = CableNetPrecalculations.HorForceCalcGenericIterative(bgCrPts, bgTrPts, trLoad, crLoad, sFac, out newTrPts,out crPrestressForces, maxIter);
+            List<double> cablePrestressForce;
+            List<double> crPrestressForce;
+            List<BG.Point> bgFFPts;
 
-            List<Point3d> nTrPts = new List<Point3d>();
+            double finalSfac = 0;
 
-            for (int i = 0; i < newTrPts.Count; i++)
-            {
-                nTrPts.Add(GHE.GeometryUtils.Convert(newTrPts[i]));
-            }
+            CableNetFormFinding.Run(bgCrPts, bgTrPts, trLoad, crLoad, minHeight, sFac, initStep, dt, treshold, damping, maxiterations, out crPrestressForce, out cablePrestressForce, out bgFFPts, out finalSfac);
 
-
-            DA.SetDataList(0, goals);
-            DA.SetDataList(1, nTrPts);
-            DA.SetDataList(2, crPrestressForces);
+            DA.SetDataList(0, cablePrestressForce);
+            DA.SetDataList(1, crPrestressForce);
+            DA.SetDataList(2, bgFFPts.Select(x => GHE.GeometryUtils.Convert(x)).ToList());
+            DA.SetData(3, finalSfac);
         }
 
 
@@ -110,7 +125,10 @@ namespace FormFinding_Alligator.CableNetDesign
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("6CA1157A-39E1-492B-9757-6E084390B143"); }
+            get
+            {
+                return new Guid("BEE0F9B0-56B4-4CEB-BAAB-3567F13AE817");
+            }
         }
     }
 }
