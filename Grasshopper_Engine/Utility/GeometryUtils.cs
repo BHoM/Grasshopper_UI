@@ -12,6 +12,10 @@ namespace Grasshopper_Engine
 {
     public static class GeometryUtils
     {
+        /**********************************************/
+        /****  Types                               ****/
+        /**********************************************/
+
         public static Type GetRhinoType(Type bhType)
         {
             if (bhType == typeof(BH.Curve))
@@ -36,6 +40,8 @@ namespace Grasshopper_Engine
             }
             return null;
         }
+
+        /**********************************************/
 
         public static Type GetBHType(Type rhinoType)
         {
@@ -66,94 +72,17 @@ namespace Grasshopper_Engine
             return null;
         }
 
-        private static IEnumerable<R.Point3d> ConvertPointCollection(IEnumerable<BH.Point> pnts)
-        {
-            List<R.Point3d> result = new List<Rhino.Geometry.Point3d>();
-            foreach (BH.Point p in pnts)
-            {
-                result.Add(Convert(p));
-            }
-            return result;
-        }
 
-        private static IEnumerable<BH.Point> ConvertPointCollection(IEnumerable<R.Point3d> pnts)
-        {
-            List<BH.Point> result = new List<BH.Point>();
-            foreach (R.Point3d p in pnts)
-            {
-                result.Add(Convert(p));
-            }
-            return result;
-        }
-
-        public static R.Curve Convert(BH.Curve curve)
-        {
-            R.NurbsCurve c = new R.NurbsCurve(curve.Degree, curve.PointCount);// R.NurbsCurve.c.Create(false, curve.Degree, ConvertPointCollection(curve.ControlPoints));
-            for (int i = 1; i < curve.Knots.Length; i++)
-            {
-                if (c.Knots.Count < i)
-                {
-                    c.Knots.InsertKnot(curve.Knots[i]);
-                }
-                else
-                {
-                    c.Knots[i - 1] = curve.Knots[i];
-                }
-            }
-            int index = 0;
-            foreach (BH.Point p in curve.ControlPoints)
-            {
-                c.Points.SetPoint(index, p.X, p.Y, p.Z, curve.Weights[index]);
-                index++;
-            }
-
-            return c;
-        }
-
-        public static R.Brep Convert(BH.Brep brep)
-        {
-            if (brep is BH.Extrusion)
-            {
-                return Convert(brep as BH.Extrusion);
-            }
-            else if (brep is BH.Pipe)
-            {
-                return Convert(brep as BH.Pipe);
-            }
-
-            return null;
-        }
-
-        public static R.Brep Convert(BH.Extrusion extrusion)
-        {
-            R.Surface result = R.Extrusion.CreateExtrusion(Convert(extrusion.Curve), Convert(extrusion.Direction));
-            return extrusion.Capped ? result.ToBrep().CapPlanarHoles(0.001) : result.ToBrep();
-        }
-
-        public static R.Brep Convert(BH.Pipe pipe)
-        {
-            R.Brep[] result = R.Brep.CreatePipe(Convert(pipe.Centreline), pipe.Radius, true, pipe.Capped ? R.PipeCapMode.Flat : R.PipeCapMode.None, true, 0.001, 0.001);
-            if (result.Length > 0)
-            {
-                return result[0];
-            }
-            return null;
-        }
+        /**********************************************/
+        /****  Points & Vectors                    ****/
+        /**********************************************/
 
         public static R.Point3d Convert(BH.Point p)
         {
             return new R.Point3d(p.X, p.Y, p.Z);
         }
 
-        public static R.Vector3d Convert(BH.Vector p)
-        {
-            return new R.Vector3d(p.X, p.Y, p.Z);
-        }
-
-        public static R.Plane Convert(BH.Plane p)
-        {
-            return new R.Plane(Convert(p.Origin), Convert(p.Normal));
-        }
+        /**********************************************/
 
         public static BH.Point Convert(R.Point3d pnt)
         {
@@ -161,16 +90,66 @@ namespace Grasshopper_Engine
             return new BH.Point(p.X, p.Y, p.Z);
         }
 
+        /**********************************************/
+
+        public static R.Vector3d Convert(BH.Vector p)
+        {
+            return new R.Vector3d(p.X, p.Y, p.Z);
+        }
+
+        /**********************************************/
+
         public static BH.Vector Convert(R.Vector3d v)
         {
             return new BH.Vector(v.X, v.Y, v.Z);
         }
 
+        /**********************************************/
+
+        public static R.Plane Convert(BH.Plane p)
+        {
+            return new R.Plane(Convert(p.Origin), Convert(p.Normal));
+        }
+
+        /**********************************************/
+
+        public static BH.Plane Convert(R.Plane plane)
+        {
+            return new BH.Plane(Convert(plane.Origin), Convert(plane.Normal));
+        }
+
+
+        /**********************************************/
+        /****  Curves                              ****/
+        /**********************************************/
 
         public static BH.Line Convert(R.Line line)
         {
             return new BH.Line(Convert(line.From), Convert(line.To));
         }
+
+        /**********************************************/
+
+        public static R.Line Convert(BH.Line line)
+        {
+            return new R.Line(Convert(line.StartPoint), Convert(line.EndPoint));
+        }
+
+        /**********************************************/
+
+        public static BH.Circle Convert(R.Circle circle)
+        {
+            return new BH.Circle(circle.Radius, Convert(circle.Plane));
+        }
+
+        /**********************************************/
+
+        public static R.Circle Convert(BH.Circle circle)
+        {
+            return new R.Circle(Convert(circle.Plane), circle.Radius);
+        }
+
+        /**********************************************/
 
         public static BH.Curve Convert(R.Curve rCurve)
         {
@@ -209,33 +188,95 @@ namespace Grasshopper_Engine
             }
         }
 
-        public static BH.Group<TBH> ConvertList<TBH, TR>(List<TR> geom) where TBH : BH.GeometryBase where TR : R.GeometryBase
-        {
-            BH.Group<TBH> group = new BHoM.Geometry.Group<TBH>();
-            for (int i = 0; i < geom.Count; i++)
-            {
-                group.Add(Convert(geom[i]) as TBH);
-            }
+        /**********************************************/
 
-            return group;
-        }
-
-        public static List<R.GeometryBase> ConvertGroup<T>(BH.Group<T> geom) where T : BH.GeometryBase
+        public static R.Curve Convert(BH.Curve curve)
         {
-            List<R.GeometryBase> rGeom = new List<Rhino.Geometry.GeometryBase>();
-            foreach (T item in geom)
+            R.NurbsCurve c = new R.NurbsCurve(curve.Degree, curve.PointCount);// R.NurbsCurve.c.Create(false, curve.Degree, ConvertPointCollection(curve.ControlPoints));
+            for (int i = 1; i < curve.Knots.Length; i++)
             {
-                if (typeof(BH.IGroup).IsAssignableFrom(item.GetType()))
+                if (c.Knots.Count < i)
                 {
-                    rGeom.AddRange(ConvertGroup<BH.GeometryBase>(((BH.IGroup)item).Cast<BH.GeometryBase>()));
+                    c.Knots.InsertKnot(curve.Knots[i]);
                 }
                 else
                 {
-                    rGeom.Add(Convert(item));
+                    c.Knots[i - 1] = curve.Knots[i];
                 }
             }
-            return rGeom;
+            int index = 0;
+            foreach (BH.Point p in curve.ControlPoints)
+            {
+                c.Points.SetPoint(index, p.X, p.Y, p.Z, curve.Weights[index]);
+                index++;
+            }
+
+            return c;
         }
+
+        /**********************************************/
+        /****  Surfaces                            ****/
+        /**********************************************/
+
+        public static BH.Surface Convert(R.Surface surface)
+        {
+            return null; //TODO: Eddy to provide a proper constructor for Surface
+        }
+                
+        /**********************************************/
+
+        public static R.Surface Convert(BH.Surface surface)
+        {
+            return null; //TODO: Set up the proper convertion
+        }
+
+        /**********************************************/
+
+        public static R.Brep Convert(BH.Brep brep)
+        {
+            if (brep is BH.Extrusion)
+            {
+                return Convert(brep as BH.Extrusion);
+            }
+            else if (brep is BH.Pipe)
+            {
+                return Convert(brep as BH.Pipe);
+            }
+
+            return null;
+        }
+
+        /**********************************************/
+
+        public static R.Brep Convert(BH.Extrusion extrusion)
+        {
+            R.Surface result = R.Extrusion.CreateExtrusion(Convert(extrusion.Curve), Convert(extrusion.Direction));
+            return extrusion.Capped ? result.ToBrep().CapPlanarHoles(0.001) : result.ToBrep();
+        }
+
+        /**********************************************/
+
+        public static R.Brep Convert(BH.Pipe pipe)
+        {
+            R.Brep[] result = R.Brep.CreatePipe(Convert(pipe.Centreline), pipe.Radius, true, pipe.Capped ? R.PipeCapMode.Flat : R.PipeCapMode.None, true, 0.001, 0.001);
+            if (result.Length > 0)
+            {
+                return result[0];
+            }
+            return null;
+        }
+
+        /**********************************************/
+
+        public static BH.Brep Convert(R.Brep brep)
+        {
+            return null; // TODO: Create the proper convertion (Eddy?)
+        }
+
+
+        /**********************************************/
+        /****  Geoemtry bases                      ****/
+        /**********************************************/
 
         public static R.GeometryBase Convert(BH.GeometryBase geom)
         {
@@ -255,6 +296,8 @@ namespace Grasshopper_Engine
             return null;
         }
 
+        /**********************************************/
+
         public static BH.GeometryBase Convert(R.GeometryBase geom)
         {
             if (geom is R.Point)
@@ -269,8 +312,67 @@ namespace Grasshopper_Engine
         }
 
 
+        /**********************************************/
+        /****  Collections                         ****/
+        /**********************************************/
+
+        private static IEnumerable<R.Point3d> ConvertPointCollection(IEnumerable<BH.Point> pnts)
+        {
+            List<R.Point3d> result = new List<Rhino.Geometry.Point3d>();
+            foreach (BH.Point p in pnts)
+            {
+                result.Add(Convert(p));
+            }
+            return result;
+        }
+
+        /**********************************************/
+
+        private static IEnumerable<BH.Point> ConvertPointCollection(IEnumerable<R.Point3d> pnts)
+        {
+            List<BH.Point> result = new List<BH.Point>();
+            foreach (R.Point3d p in pnts)
+            {
+                result.Add(Convert(p));
+            }
+            return result;
+        }
+
+        /**********************************************/
+
+        public static BH.Group<TBH> ConvertList<TBH, TR>(List<TR> geom) where TBH : BH.GeometryBase where TR : R.GeometryBase
+        {
+            BH.Group<TBH> group = new BHoM.Geometry.Group<TBH>();
+            for (int i = 0; i < geom.Count; i++)
+            {
+                group.Add(Convert(geom[i]) as TBH);
+            }
+
+            return group;
+        }
+
+        /**********************************************/
+
+        public static List<R.GeometryBase> ConvertGroup<T>(BH.Group<T> geom) where T : BH.GeometryBase
+        {
+            List<R.GeometryBase> rGeom = new List<Rhino.Geometry.GeometryBase>();
+            foreach (T item in geom)
+            {
+                if (typeof(BH.IGroup).IsAssignableFrom(item.GetType()))
+                {
+                    rGeom.AddRange(ConvertGroup<BH.GeometryBase>(((BH.IGroup)item).Cast<BH.GeometryBase>()));
+                }
+                else
+                {
+                    rGeom.Add(Convert(item));
+                }
+            }
+            return rGeom;
+        }
+
+
         /********************************************/
-        /******** Extention convert methods *********/
+        /**** Extention convert methods          ****/
         /********************************************/
 
 

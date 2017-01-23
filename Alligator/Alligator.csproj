@@ -68,7 +68,9 @@
     <Compile Include="Base\GetPropertyNames.cs" />
     <Compile Include="Base\ListExpandAndCollapse.cs" />
     <Compile Include="Geometry\ExtrudeBar.cs" />
+    <Compile Include="Geometry\FromGHGeometry.cs" />
     <Compile Include="Geometry\GetGeometry.cs" />
+    <Compile Include="Geometry\ToGHGeometry.cs" />
     <Compile Include="Material\LoadMaterialFromDB.cs" />
     <Compile Include="Structural\Analysis\RunAnalysis.cs" />
     <Compile Include="SQL\FromSQL.cs" />
