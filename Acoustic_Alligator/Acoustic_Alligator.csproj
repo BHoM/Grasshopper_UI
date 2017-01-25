@@ -99,6 +99,7 @@
 Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
 
 copy /Y "$(TargetDir)\AcousticSPI_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\AcousticSPI_Engine.dll"
+
 copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM.dll"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
