@@ -39,9 +39,8 @@
     <Reference Include="BHoM">
       <HintPath>..\..\BHoM\build\BHoM.dll</HintPath>
     </Reference>
-    <Reference Include="BHoM_Design, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Programs\BHoM_Design\Build\BHoM_Design.dll</HintPath>
+    <Reference Include="BHoM_Design">
+      <HintPath>..\..\BHoM_Design\Build\BHoM_Design.dll</HintPath>
     </Reference>
     <Reference Include="GH_IO">
       <HintPath>..\..\..\..\..\..\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\GH_IO.dll</HintPath>

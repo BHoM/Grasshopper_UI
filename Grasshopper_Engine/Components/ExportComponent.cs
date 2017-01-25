@@ -17,6 +17,7 @@ namespace Grasshopper_Engine.Components
     {
         protected List<string> m_ids;
         protected List<T> m_exportedObjects;
+        protected bool m_success;
 
         private static readonly string m_typeName = typeof(T).Name;
         private static readonly string m_typeNickname = typeof(T).Name.ToString();
@@ -34,6 +35,7 @@ namespace Grasshopper_Engine.Components
 
         public ExportComponent(string name, string nickname, string description, string category, string subcategory) : base(name, nickname, description, category, subcategory)
         {
+            m_success = false;
             m_ids = new List<string>();
             m_exportedObjects = new List<T>();
 
@@ -53,6 +55,7 @@ namespace Grasshopper_Engine.Components
         {
             pManager.AddTextParameter("Ids", "Ids", m_typeName +" Numbers", GH_ParamAccess.list);
             pManager.AddGenericParameter(m_typeName, m_typeNickname, "Exported " + m_typeName + "s", GH_ParamAccess.list);
+            pManager.AddBooleanParameter("Success", "Success", "Return whether the operation was successfull or not", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -71,11 +74,14 @@ namespace Grasshopper_Engine.Components
                         return;
 
                     m_exportedObjects = SetObjects(app, clonedObjects, out m_ids);
+
+                    m_success = m_exportedObjects != null;
                 }
             }
 
             DA.SetDataList(0, m_ids);
             DA.SetDataList(1, m_exportedObjects);
+            DA.SetData(2, m_success);
         }
 
         /// <summary>

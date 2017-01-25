@@ -33,7 +33,7 @@ namespace Alligator.Structural.Elements
                 {
                     List<string> ids = null;
                     List<BHE.Bar> bars = null;
-                    DataTree<R.Curve> curves = new DataTree<R.Curve>();
+                    DataTree<R.Line> curves = new DataTree<R.Line>();
 
                     ids = app.GetBarDesignElement(out bars, ids);
 

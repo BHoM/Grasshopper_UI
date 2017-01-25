@@ -68,11 +68,17 @@
     <Compile Include="Base\GetPropertyNames.cs" />
     <Compile Include="Base\ListExpandAndCollapse.cs" />
     <Compile Include="Geometry\ExtrudeBar.cs" />
+    <Compile Include="Geometry\FromGHGeometry.cs" />
     <Compile Include="Geometry\GetGeometry.cs" />
+    <Compile Include="Geometry\ToGHGeometry.cs" />
     <Compile Include="Material\LoadMaterialFromDB.cs" />
     <Compile Include="Structural\Analysis\RunAnalysis.cs" />
     <Compile Include="SQL\FromSQL.cs" />
     <Compile Include="SQL\SQLLink.cs" />
+    <Compile Include="Structural\Commands\ClearResults.cs" />
+    <Compile Include="Structural\Commands\CloseFile.cs" />
+    <Compile Include="Structural\Commands\RunAnalysis.cs" />
+    <Compile Include="Structural\Commands\SaveFile.cs" />
     <Compile Include="Structural\Elements\CreateGroup.cs" />
     <Compile Include="Base\ObjectFilter.cs" />
     <Compile Include="Base\ViewCustomData.cs" />
