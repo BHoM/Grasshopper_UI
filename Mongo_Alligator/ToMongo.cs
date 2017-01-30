@@ -34,6 +34,7 @@ namespace Alligator.Mongo
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
+            pManager.AddBooleanParameter("Done", "Done", "return true when the task is finished", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -47,7 +48,9 @@ namespace Alligator.Mongo
             if (!active) return;
             if (objects.Count == 0) return;
 
-            link.Push(objects, key, tags);
+            bool done = link.Push(objects, key, tags);
+
+            DA.SetData(0, done);
         }
     }
 }
