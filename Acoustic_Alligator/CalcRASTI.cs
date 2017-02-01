@@ -23,6 +23,10 @@ namespace Acoustic_Alligator
                 return new Guid("42DABE3F-3D6F-40F5-8F4A-AC7BC875F4CE");
             }
         }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Acoustic_Alligator.Properties.Resources.BHoM_Acoustics_RASTI; }
+        }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {

@@ -26,6 +26,10 @@ namespace Alligator.Geometry
         {
             pManager.AddCurveParameter("curves", "curves", "GH curves", GH_ParamAccess.list);
         }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Geometry_Group; }
+        }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {

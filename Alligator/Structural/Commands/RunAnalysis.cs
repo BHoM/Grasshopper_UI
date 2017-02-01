@@ -25,6 +25,11 @@ namespace Alligator.Structural.Commands
                 return new Guid("bf6176ed-2b89-4521-96fa-b204c3e1ea1b");
             }
         }
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_App_Run; }
+        }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {

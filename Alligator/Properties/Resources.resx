@@ -172,18 +172,6 @@
   <data name="BHoM_FromJSON" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\icons\alligator\bhom_fromjson.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BHoM_GetNodeDisplacement" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\icons\structure\results\bhom_getnodedisplacement.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BHoM_GetNodeReaction" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\icons\structure\results\bhom_getnodereaction.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BHoM_GetPanelForce" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\icons\structure\results\bhom_getpanelforce.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BHoM_GetPanelStress" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\icons\structure\results\bhom_getpanelstress.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="BHoM_GetProperty" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\icons\alligator\bhom_getproperty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -360,5 +348,53 @@
   </data>
   <data name="BHoM_Run_Analasis" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BHoM_Run_Analasis.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_Geometry_Group" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_Geometry_Group.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_Line" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_Line.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_Point" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_Point.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_PolyLine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_PolyLine.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_App_Clean" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_App_Clean.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_App_Close" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_App_Close.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_App_Run" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_App_Run.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_App_Save" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_App_Save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_Composite_Section" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_Composite_Section.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_Geo_BHToGH" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_Geo_BHToGH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_Geo_GHToBH" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_Geo_GHToBH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_GetNodeDisplacement" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_GetNodeDisplacement.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_GetNodeReaction" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_GetNodeReaction.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_GetPanelForce" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_GetPanelForce.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_GetPanelStress" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_GetPanelStress.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BHoM_Get_Slabreinforcement" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BHoM_Get_Slabreinforcement.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

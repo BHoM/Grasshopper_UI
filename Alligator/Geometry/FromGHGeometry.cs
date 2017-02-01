@@ -23,6 +23,11 @@ namespace Alligator.Geometry
                 return new Guid("F99DCFA4-AB31-43FE-9C15-084E7BA184D1");
             }
         }
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Geo_GHToBH; }
+        }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
