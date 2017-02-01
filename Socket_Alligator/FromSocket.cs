@@ -45,20 +45,7 @@ namespace Alligator.Socket
 
             m_Socket.Listen(port);
             DA.SetData(0, m_Message);
-            m_Message = "";
         }
-
-        /*protected override void AfterSolveInstance()
-        {
-            base.AfterSolveInstance();
-            if (m_Message.Length > 0)
-            {
-                m_Message = "";
-                Thread thread = new Thread(() => ReSolve(this));
-                thread.Start();
-                ExpireSolution(true);
-            }
-        }*/
 
         private Socket_Engine.SocketServer m_Socket;
         private String m_Message = "";
@@ -68,11 +55,5 @@ namespace Alligator.Socket
             m_Message = message;
             ExpireSolution(true);
         }
-
-        /*private void ReSolve(GH_Component component)
-        {
-            Thread.Sleep(100);
-            this.ExpireSolution(true);
-        }*/
     }
 }
