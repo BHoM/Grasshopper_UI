@@ -50,7 +50,7 @@ namespace Alligator.Structural.Analysis
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Bar_Export; }
+            get { return Alligator.Properties.Resources.BHoM_Run_Analasis; }
         }
 
     }

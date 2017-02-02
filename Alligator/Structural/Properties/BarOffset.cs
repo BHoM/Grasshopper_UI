@@ -14,7 +14,7 @@ namespace Alligator.Structural.Properties
 {
     public class BarOffset : BHoMBaseComponent<BHP.Offset>
     {
-        public BarOffset() : base("Create Bar Offset", "BarOffset", "Create a BH bar offset object", "Structure", "Elements") { }
+        public BarOffset() : base("Create Bar Offset", "BarOffset", "Create a BH bar offset object", "Structure", "Properties") { }
 
         public override Guid ComponentGuid
         {
@@ -27,7 +27,7 @@ namespace Alligator.Structural.Properties
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return null; }
+            get { return Alligator.Properties.Resources.BHoM_BarOffsets; }
         }
     }
 }
