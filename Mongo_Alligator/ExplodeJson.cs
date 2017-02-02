@@ -63,6 +63,8 @@ namespace Alligator.Mongo
         {
             string json = GHE.DataUtils.GetData<string>(DA, 0);
 
+            if (json == null) return;
+
             object obj = BHB.JsonReader.ReadObject(json);
             m_Outputs = new Dictionary<string, object>();
 

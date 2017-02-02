@@ -41,9 +41,13 @@ namespace Alligator.Mongo
             bool toJson = GHE.DataUtils.GetData<bool>(DA, 2);
             bool active = false; DA.GetData<bool>(3, ref active);
 
-            if (!active) return;
+            if (active)
+                m_LastResult = link.Query(query, toJson);
 
-            DA.SetDataList(0, link.Query(query, toJson));
+            DA.SetDataList(0, m_LastResult);
         }
+
+
+        private List<object> m_LastResult = new List<object>();
     }
 }
