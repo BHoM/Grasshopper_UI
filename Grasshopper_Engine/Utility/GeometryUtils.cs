@@ -153,7 +153,7 @@ namespace Grasshopper_Engine
 
         public static BH.Curve Convert(R.Curve rCurve)
         {
-            if (rCurve is R.ArcCurve)
+            if (rCurve is R.ArcCurve && (rCurve as R.ArcCurve).AngleRadians < Math.PI * 2 / 3)
             {
                 R.Arc arc = (rCurve as R.ArcCurve).Arc;
                 return new BH.Arc(Convert(arc.StartPoint), Convert(arc.EndPoint), Convert(arc.MidPoint));
@@ -176,9 +176,17 @@ namespace Grasshopper_Engine
             {
                 R.NurbsCurve nurbCurve = rCurve.ToNurbsCurve();
                 int degree = nurbCurve.Degree;
-                double[] knots = nurbCurve.Knots.ToArray();
+                double[] knots = new double[nurbCurve.Knots.Count + 2];
                 List<BH.Point> points = new List<BHoM.Geometry.Point>();
                 double[] weight = new double[nurbCurve.Points.Count];
+                knots[0] = nurbCurve.Knots[0];
+                knots[knots.Length - 1] = nurbCurve.Knots[nurbCurve.Knots.Count - 1];
+                for (int i = 1; i < nurbCurve.Knots.Count + 1; i++)
+                {
+                    knots[i] = nurbCurve.Knots[i - 1];
+
+                }
+
                 for (int i = 0; i < nurbCurve.Points.Count; i++)
                 {
                     points.Add(Convert(nurbCurve.Points[i].Location));
@@ -193,7 +201,7 @@ namespace Grasshopper_Engine
         public static R.Curve Convert(BH.Curve curve)
         {
             R.NurbsCurve c = new R.NurbsCurve(curve.Degree, curve.PointCount);// R.NurbsCurve.c.Create(false, curve.Degree, ConvertPointCollection(curve.ControlPoints));
-            for (int i = 1; i < curve.Knots.Length; i++)
+            for (int i = 1; i < curve.Knots.Length - 1; i++)
             {
                 if (c.Knots.Count < i)
                 {

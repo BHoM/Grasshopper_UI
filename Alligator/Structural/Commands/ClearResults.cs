@@ -12,10 +12,8 @@ namespace Alligator.Structural.Commands
 {
     public class ClearResults : GH_Component
     {
-        private bool m_success;
         public ClearResults() : base("Clear Results", "Clear Results", "Clear Results", "Structure", "Commands")
         {
-            m_success = false;
         }
 
         public override Guid ComponentGuid
@@ -45,14 +43,15 @@ namespace Alligator.Structural.Commands
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            bool success = false;
             if (GHE.DataUtils.Run(DA, 1))
             {
                 BHI.ICommandAdapter adapter = GHE.DataUtils.GetGenericData<BHI.ICommandAdapter>(DA, 0);
 
-                m_success = adapter.ClearResults();
+                success = adapter.ClearResults();
             }
 
-            DA.SetData(0, m_success);
+            DA.SetData(0, success);
         }
     }
 }
