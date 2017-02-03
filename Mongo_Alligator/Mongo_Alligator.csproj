@@ -53,10 +53,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CreateJson.cs" />
+    <Compile Include="DeleteDatabase.cs" />
     <Compile Include="DeleteObjects.cs" />
     <Compile Include="ExplodeJson.cs" />
     <Compile Include="FromMongo.cs" />
+    <Compile Include="GetDatabases.cs" />
     <Compile Include="MongoLink.cs" />
+    <Compile Include="MongoServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ToMongo.cs" />
   </ItemGroup>
