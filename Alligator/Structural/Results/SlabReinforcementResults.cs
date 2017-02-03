@@ -25,6 +25,11 @@ namespace Alligator.Structural.Results
                 return new Guid("3FF251C9-913A-4C06-A19F-9B0A07CF5A49");
             }
         }
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Get_Slabreinforcement; }
+        }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {

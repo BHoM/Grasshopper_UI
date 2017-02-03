@@ -403,6 +403,7 @@
     <None Include="Resources\BHoM_Composite_Section.png" />
     <None Include="Resources\BHoM_Geo_GHToBH.png" />
     <None Include="Resources\BHoM_Geo_BHToGH.png" />
+    <None Include="Resources\BHoM_Alligator_Icon.png" />
     <Content Include="Resources\Icons\Alligator\BHoM_BHoM_Object.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

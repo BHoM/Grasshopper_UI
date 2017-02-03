@@ -52,7 +52,7 @@ namespace Alligator.Components
         /// </summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.gator; }
+            get { return Alligator.Properties.Resources.BHoM_Alligator_Icon; }
         }
 
 

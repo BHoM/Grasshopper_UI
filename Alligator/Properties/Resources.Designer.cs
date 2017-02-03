@@ -63,6 +63,16 @@ namespace Alligator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BHoM_Alligator_Icon {
+            get {
+                object obj = ResourceManager.GetObject("BHoM_Alligator_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BHoM_App_Clean {
             get {
                 object obj = ResourceManager.GetObject("BHoM_App_Clean", resourceCulture);
