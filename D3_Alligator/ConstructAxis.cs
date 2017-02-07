@@ -23,6 +23,18 @@ namespace Alligator.D3
                 return new Guid("017E9679-6CA4-429F-8116-FA7975F4BF53");
             }
         }
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.secondary;
+            }
+        }
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return D3_Alligator.Properties.Resources.BHoM_D3_Construct_Axis; }
+        }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {

@@ -21,6 +21,19 @@ namespace Alligator.Mongo
             }
         }
 
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Mongo_Alligator.Properties.Resources.BHoM_Mongo_Link; }
+        }
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.secondary;
+            }
+        }
+
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("server", "server", "address of the server", GH_ParamAccess.item, "mongodb://localhost:27017");

@@ -1,4 +1,5 @@
 ﻿using Grasshopper.Kernel.Types;
+using Grasshopper.Kernel;
 using Grasshopper_Engine.Components;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,14 @@ namespace Alligator.Structural.Properties.Section_Properties
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
             get { return Alligator.Properties.Resources.BHoM_Section_List; }
+        }
+
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.secondary;
+            }
         }
 
         public override Guid ComponentGuid

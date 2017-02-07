@@ -21,11 +21,16 @@ namespace Alligator.Mongo
             }
         }
 
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Mongo_Alligator.Properties.Resources.BHoM_Mongo_CreateServer; }
+        }
         public override GH_Exposure Exposure
         {
             get
             {
-                return GH_Exposure.secondary;
+                return GH_Exposure.tertiary;
             }
         }
 

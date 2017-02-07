@@ -30,6 +30,13 @@ namespace Alligator.Base
         {
             get { return Alligator.Properties.Resources.BHoM_Filter; }
         }
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.secondary;
+            }
+        }
 
         private void _FilterType_SelectedValueChanged(object sender, EventArgs e)
         {

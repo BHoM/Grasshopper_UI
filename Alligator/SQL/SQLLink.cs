@@ -21,6 +21,12 @@ namespace Alligator.SQL
             }
         }
 
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_SQL_Link; }
+        }
+
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("server", "server", "address of the server", GH_ParamAccess.item, "(localdb)\\ProjectsV13");

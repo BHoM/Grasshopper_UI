@@ -20,6 +20,12 @@ namespace Alligator.Socket
             }
         }
 
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Socket_Alligator.Properties.Resources.BHoM_ToSocket; }
+        }
+
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("IP address", "address", "IP address of the socket to send data to", GH_ParamAccess.item);

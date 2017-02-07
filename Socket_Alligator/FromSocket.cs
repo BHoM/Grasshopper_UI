@@ -25,6 +25,12 @@ namespace Alligator.Socket
             }
         }
 
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Socket_Alligator.Properties.Resources.BHoM_FromSocket; }
+        }
+
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddIntegerParameter("port", "port", "port used by the socket", GH_ParamAccess.item);

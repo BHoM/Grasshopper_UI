@@ -16,6 +16,12 @@ namespace Alligator.D3
         {
         }
 
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return D3_Alligator.Properties.Resources.BHoM_D3_BubbleChart; }
+        }
+
         public override void AddedToDocument(GH_Document document)
         {
             chart = new D3T.BubbleChart();

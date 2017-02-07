@@ -943,6 +943,26 @@ namespace Alligator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BHoM_SQL_GetObject {
+            get {
+                object obj = ResourceManager.GetObject("BHoM_SQL_GetObject", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BHoM_SQL_Link {
+            get {
+                object obj = ResourceManager.GetObject("BHoM_SQL_Link", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BHoM_StoreResults {
             get {
                 object obj = ResourceManager.GetObject("BHoM_StoreResults", resourceCulture);

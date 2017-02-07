@@ -17,6 +17,13 @@ namespace Alligator.Structural.Properties
         {
             get { return Alligator.Properties.Resources.BHoM_Custom_Box_Section; }
         }
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.secondary;
+            }
+        }
 
         public override Guid ComponentGuid
         {
