@@ -28,9 +28,9 @@ namespace Alligator.Socket
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("IP address", "address", "IP address of the socket to send data to", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("port", "port", "port used by the socket", GH_ParamAccess.item);
-            pManager.AddTextParameter("data", "data", "data t osend", GH_ParamAccess.item);
+            pManager.AddTextParameter("IP address", "address", "IP address of the socket to send data to. Local 127.0.0.1 as default", GH_ParamAccess.item, "127.0.0.1");
+            pManager.AddIntegerParameter("port", "port", "port used by the socket. Value between 3000 and 9000", GH_ParamAccess.item);
+            pManager.AddTextParameter("data", "data", "data to send", GH_ParamAccess.item);
             pManager.AddBooleanParameter("active", "active", "check if the component currently allows data transfer", GH_ParamAccess.item, false);
         }
 

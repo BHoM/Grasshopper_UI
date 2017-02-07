@@ -33,7 +33,7 @@ namespace Alligator.Socket
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddIntegerParameter("port", "port", "port used by the socket", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("port", "port", "port used by the socket. Value between 3000 and 9000", GH_ParamAccess.item);
             pManager.AddBooleanParameter("active", "active", "check if the component currently allows data transfer", GH_ParamAccess.item, false);
         }
 
