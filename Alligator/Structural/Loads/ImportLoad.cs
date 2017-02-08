@@ -63,6 +63,11 @@ namespace Alligator.Structural.Loads
         {
             get { return new Guid("1355dc1b-87b3-491a-93fa-1495315aa5a2"); }
         }
+                    /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Bar_Force_Import; }
+        }
 
     }
 }

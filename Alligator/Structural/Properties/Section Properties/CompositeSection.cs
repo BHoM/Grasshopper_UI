@@ -1,5 +1,6 @@
 ﻿using BHoM.Structural.Properties;
 using Grasshopper_Engine.Components;
+using Grasshopper.Kernel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,18 @@ namespace Alligator.Structural.Properties.Section_Properties
             get
             {
                 return new Guid("95916999-2b86-46ab-b4e3-d839b817dbb4");
+            }
+        }
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_Composite_Section; }
+        }
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.secondary;
             }
         }
     }

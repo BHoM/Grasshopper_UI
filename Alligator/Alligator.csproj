@@ -135,6 +135,7 @@
     <Compile Include="Structural\Properties\Section Properties\ConcreteSection.cs" />
     <Compile Include="Structural\Properties\Section Properties\CreateBoxSection.cs" />
     <Compile Include="Structural\Properties\Section Properties\CreateCableSectionFromDiameter.cs" />
+    <Compile Include="Structural\Properties\Section Properties\CreateExplicitSection.cs" />
     <Compile Include="Structural\Properties\Section Properties\GH_InputParamManager.cs" />
     <Compile Include="Structural\Properties\Section Properties\LoadingPanelProperty.cs" />
     <Compile Include="Structural\Properties\Section Properties\LoadSteelSectionFromDB.cs" />
@@ -375,6 +376,37 @@
     <None Include="Resources\Icons\Structure\Properties\BHoM_ConcreteSection.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\BHoM_Loadcase_Import.png" />
+    <None Include="Resources\BHoM_Run_Analasis.png" />
+    <None Include="Resources\BHoM_AreaLoad.png" />
+    <None Include="Resources\BHoM_Bar_Constraints.png" />
+    <None Include="Resources\BHoM_DesignBar_Export.png" />
+    <None Include="Resources\BHoM_DesignBar_Import.png" />
+    <None Include="Resources\BHoM_BarOffsets.png" />
+    <None Include="Resources\BHoM_Extrude_Bar.png" />
+    <None Include="Resources\BHoM_Geometry_Group.png" />
+    <None Include="Resources\BHoM_Line.png" />
+    <None Include="Resources\BHoM_Point.png" />
+    <None Include="Resources\BHoM_PolyLine.png" />
+    <None Include="Resources\BHoM_App_Run.png" />
+    <None Include="Resources\BHoM_App_Save.png" />
+    <None Include="Resources\BHoM_App_Clean.png" />
+    <None Include="Resources\BHoM_App_Close.png" />
+    <None Include="Resources\BHoM_GetBarForce.png" />
+    <None Include="Resources\BHoM_GetNodeDisplacement.png" />
+    <None Include="Resources\BHoM_GetNodeReaction.png" />
+    <None Include="Resources\BHoM_GetPanelForce.png" />
+    <None Include="Resources\BHoM_GetPanelStress.png" />
+    <None Include="Resources\BHoM_Get_Bar_Coordinates.png" />
+    <None Include="Resources\BHoM_Get_BarUtilisation.png" />
+    <None Include="Resources\BHoM_Get_Node_Coordinates.png" />
+    <None Include="Resources\BHoM_Get_Slabreinforcement.png" />
+    <None Include="Resources\BHoM_Composite_Section.png" />
+    <None Include="Resources\BHoM_Geo_GHToBH.png" />
+    <None Include="Resources\BHoM_Geo_BHToGH.png" />
+    <None Include="Resources\BHoM_Alligator_Icon.png" />
+    <None Include="Resources\BHoM_SQL_GetObject.png" />
+    <None Include="Resources\BHoM_SQL_Link.png" />
     <Content Include="Resources\Icons\Alligator\BHoM_BHoM_Object.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

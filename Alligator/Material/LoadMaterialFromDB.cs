@@ -34,6 +34,14 @@ namespace Alligator.Material
             }
         }
 
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.quarternary;
+            }
+        }
+
         protected override void SetData()
         {
             BHoM.Global.Project.ActiveProject.Config.MaterialDatabase = TableName;

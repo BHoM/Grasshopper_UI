@@ -24,6 +24,12 @@ namespace Alligator.Mongo
             }
         }
 
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Mongo_Alligator.Properties.Resources.BHoM_Mongo_FromJson; }
+        }
+
         public bool CanInsertParameter(GH_ParameterSide side, int index)
         {
             return false;
@@ -62,6 +68,8 @@ namespace Alligator.Mongo
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             string json = GHE.DataUtils.GetData<string>(DA, 0);
+
+            if (json == null) return;
 
             object obj = BHB.JsonReader.ReadObject(json);
             m_Outputs = new Dictionary<string, object>();

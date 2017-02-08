@@ -12,10 +12,10 @@ namespace Alligator.Structural.Commands
 {
     public class RunAnalysis : GH_Component
     {
-        private bool m_success;
+
         public RunAnalysis() : base("Run Analysis", "Run", "Run structural analysis", "Structure", "Commands")
         {
-            m_success = false;
+
         }
 
         public override Guid ComponentGuid
@@ -24,6 +24,11 @@ namespace Alligator.Structural.Commands
             {
                 return new Guid("bf6176ed-2b89-4521-96fa-b204c3e1ea1b");
             }
+        }
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_App_Run; }
         }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
@@ -42,15 +47,17 @@ namespace Alligator.Structural.Commands
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            bool success = false;
+
             if (GHE.DataUtils.Run(DA, 2))
             {
                 BHI.ICommandAdapter adapter = GHE.DataUtils.GetData<BHI.ICommandAdapter>(DA, 0);
                 List<string> cases = GHE.DataUtils.GetDataList<string>(DA, 1);
 
-                m_success = adapter.Analyse(cases);
+                success = adapter.Analyse(cases);
             }
 
-            DA.SetData(0, m_success);
+            DA.SetData(0, success);
         }
     }
 }

@@ -22,7 +22,10 @@ namespace Acoustic_Alligator
                 return new Guid("8B40B2DF-8245-4230-8BCE-006427426F11");
             }
         }
-
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Acoustic_Alligator.Properties.Resources.BHoM_Acoustics_Speaker; }
+        }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddLineParameter("Speaker Line", "Line", "Speaker Position and Direction", GH_ParamAccess.list);

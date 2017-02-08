@@ -19,6 +19,7 @@ namespace Alligator.Base
             get { return Alligator.Properties.Resources.BHoM_ToJSON; }
         }
 
+
         public override Guid ComponentGuid
         {
             get

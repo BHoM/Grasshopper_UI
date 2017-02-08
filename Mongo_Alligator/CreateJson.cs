@@ -22,6 +22,12 @@ namespace Alligator.Mongo
             }
         }
 
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Mongo_Alligator.Properties.Resources.BHoM_Mongo_ToJson; }
+        }
+
         public bool CanInsertParameter(GH_ParameterSide side, int index)
         {
             return (side == GH_ParameterSide.Input);

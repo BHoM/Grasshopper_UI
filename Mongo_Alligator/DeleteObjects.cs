@@ -21,6 +21,19 @@ namespace Alligator.Mongo
             }
         }
 
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Mongo_Alligator.Properties.Resources.BHoM_Mongo_DeleteObjects; }
+        }
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.secondary;
+            }
+        }
+
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Mongo link", "link", "collection to get the data from", GH_ParamAccess.item);
@@ -30,6 +43,7 @@ namespace Alligator.Mongo
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
+            pManager.AddBooleanParameter("Done", "Done", "return true when the task is finished", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -39,7 +53,12 @@ namespace Alligator.Mongo
             bool active = false; DA.GetData<bool>(2, ref active);
 
             if (active)
-                link.Delete(filter);
+            {
+                bool done = link.Delete(filter);
+                DA.SetData(0, done);
+            } 
+            else
+                DA.SetData(0, false);
         }
     }
 }

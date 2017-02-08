@@ -12,10 +12,10 @@ namespace Alligator.Structural.Commands
 {
     public class SaveFile : GH_Component
     {
-        private bool m_success;
+
         public SaveFile() : base("Save file", "Save", "Save file", "Structure", "Commands")
         {
-            m_success = false;
+
         }
 
         public override Guid ComponentGuid
@@ -24,6 +24,12 @@ namespace Alligator.Structural.Commands
             {
                 return new Guid("f4bc3b2f-ad1c-47ba-9e2d-2bbd72503795");
             }
+        }
+
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_App_Save; }
         }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
@@ -42,15 +48,16 @@ namespace Alligator.Structural.Commands
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            bool success = false;
             if (GHE.DataUtils.Run(DA, 2))
             {
                 BHI.ICommandAdapter adapter = GHE.DataUtils.GetGenericData<BHI.ICommandAdapter>(DA, 0);
                 string fileName = GHE.DataUtils.GetData<string>(DA, 1);
 
-                m_success = adapter.Save(fileName);
+                success = adapter.Save(fileName);
             }
 
-            DA.SetData(0, m_success);
+            DA.SetData(0, success);
         }
     }
 }

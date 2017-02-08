@@ -21,6 +21,19 @@ namespace Alligator.Mongo
             }
         }
 
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Mongo_Alligator.Properties.Resources.BHoM_Mongo_From; }
+        }
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.secondary;
+            }
+        }
+
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Mongo link", "link", "collection to get the data from", GH_ParamAccess.item);
@@ -41,9 +54,13 @@ namespace Alligator.Mongo
             bool toJson = GHE.DataUtils.GetData<bool>(DA, 2);
             bool active = false; DA.GetData<bool>(3, ref active);
 
-            if (!active) return;
+            if (active)
+                m_LastResult = link.Query(query, toJson);
 
-            DA.SetDataList(0, link.Query(query, toJson));
+            DA.SetDataList(0, m_LastResult);
         }
+
+
+        private List<object> m_LastResult = new List<object>();
     }
 }

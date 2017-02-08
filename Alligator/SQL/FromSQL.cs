@@ -21,6 +21,12 @@ namespace Alligator.SQL
             }
         }
 
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_SQL_GetObject; }
+        }
+
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("SQL link", "link", "collection to get the data from", GH_ParamAccess.item);

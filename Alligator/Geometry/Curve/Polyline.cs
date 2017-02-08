@@ -20,6 +20,10 @@ namespace Alligator.Geometry
                 return new Guid("389CA169-0E7B-4529-8271-E732A053A16E");
             }
         }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return Alligator.Properties.Resources.BHoM_PolyLine; }
+        }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {

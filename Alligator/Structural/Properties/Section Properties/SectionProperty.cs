@@ -59,7 +59,7 @@ namespace Alligator.Structural.Properties
                 {
                     case BHP.ShapeType.ISection:
                         barProperty = BHP.SectionProperty.CreateISection(matType, dimensions[1], dimensions[2], dimensions[0], dimensions[3], dimensions[4], dimensions[5], dimensions[6], dimensions[7]);
-                        double test = barProperty.Ix;
+                        double test = barProperty.Iy;
                         break;
                     case BHP.ShapeType.Box:
                         barProperty = BHP.SectionProperty.CreateBoxSection(matType, dimensions[0], dimensions[1],  dimensions[2], dimensions[3], dimensions[4], dimensions[5]);
@@ -227,6 +227,13 @@ namespace Alligator.Structural.Properties
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
             get { return Alligator.Properties.Resources.BHoM_SectionProperty; }
+        }
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.secondary;
+            }
         }
     }
 

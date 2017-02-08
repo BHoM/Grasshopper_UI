@@ -31,6 +31,12 @@ namespace Alligator.D3
             }
         }
 
+        /// <summary> Icon (24x24 pixels)</summary>
+        protected override System.Drawing.Bitmap Internal_Icon_24x24
+        {
+            get { return D3_Alligator.Properties.Resources.BHoM_D3_ParallelCoord; }
+        }
+
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("data", "data", "list of objects", GH_ParamAccess.list);
