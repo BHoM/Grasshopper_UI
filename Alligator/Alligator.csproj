@@ -101,6 +101,8 @@
     <Compile Include="Structural\Elements\CreateBar.cs" />
     <Compile Include="Structural\Elements\CreateFEMesh.cs" />
     <Compile Include="Structural\Elements\CreateRigidLink.cs" />
+    <Compile Include="Structural\Elements\Design\CreateDesignElement.cs" />
+    <Compile Include="Structural\Elements\Design\GenerateSpans.cs" />
     <Compile Include="Structural\Elements\ExportBar.cs" />
     <Compile Include="Structural\Elements\ExportBarDesignElement.cs" />
     <Compile Include="Structural\Elements\ExportFEMesh.cs" />
@@ -150,6 +152,7 @@
     <Compile Include="Structural\Results\BarUtilisation.cs" />
     <Compile Include="Structural\Results\NodeResults.cs" />
     <Compile Include="Structural\Results\PanelResults.cs" />
+    <Compile Include="Structural\Results\PushResultsToDataBase.cs" />
     <Compile Include="Structural\Results\ResultServer.cs" />
     <Compile Include="Structural\Results\SlabReinforcementResults.cs" />
   </ItemGroup>
