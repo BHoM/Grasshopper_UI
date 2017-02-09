@@ -30,6 +30,13 @@ namespace Alligator.Structural.Properties
         {
             get { return Alligator.Properties.Resources.BHoM_PanelProperty; }
         }
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.tertiary;
+            }
+        }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("Name", "Name", "Name of the section Property", GH_ParamAccess.item);

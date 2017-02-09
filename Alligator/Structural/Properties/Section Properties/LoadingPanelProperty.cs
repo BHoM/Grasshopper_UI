@@ -18,6 +18,13 @@ namespace Alligator.Structural.Properties.Section_Properties
         {
             get { return Alligator.Properties.Resources.BHoM_Panel_Loading; }
         }
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.tertiary;
+            }
+        }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {

@@ -1,4 +1,5 @@
 ﻿using Grasshopper.Kernel.Types;
+using Grasshopper.Kernel;
 using Grasshopper_Engine.Components;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,14 @@ namespace Alligator.Structural.Properties.Section_Properties
             get { return Alligator.Properties.Resources.BHoM_Section_List; }
         }
 
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.secondary;
+            }
+        }
+
         public override Guid ComponentGuid
         {
             get
@@ -36,6 +45,7 @@ namespace Alligator.Structural.Properties.Section_Properties
             BHP.SectionProperty prop = BHP.SectionProperty.LoadFromSteelSectionDB(ObjectName);
             AddVolatileData(new Grasshopper.Kernel.Data.GH_Path(0), 0, new GH_ObjectWrapper(prop));
         }
+
         protected override void CollectVolatileData_Custom()
         {
             SetData();

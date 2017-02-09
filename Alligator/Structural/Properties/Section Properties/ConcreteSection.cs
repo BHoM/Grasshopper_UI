@@ -21,6 +21,13 @@ namespace Alligator.Structural.Properties.Section_Properties
         {
             get { return Alligator.Properties.Resources.BHoM_ConcreteSection; }
         }
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.secondary;
+            }
+        }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -69,7 +76,7 @@ namespace Alligator.Structural.Properties.Section_Properties
         {
             get
             {
-                return GH_Exposure.secondary;
+                return GH_Exposure.quinary;
             }
         }
 
@@ -98,7 +105,7 @@ namespace Alligator.Structural.Properties.Section_Properties
         {
             get
             {
-                return GH_Exposure.secondary;
+                return GH_Exposure.quinary;
             }
         }
 
@@ -129,7 +136,7 @@ namespace Alligator.Structural.Properties.Section_Properties
         {
             get
             {
-                return GH_Exposure.secondary;
+                return GH_Exposure.quinary;
             }
         }
 

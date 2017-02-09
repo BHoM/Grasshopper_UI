@@ -19,6 +19,13 @@ namespace Alligator.Materials
                 return new Guid("c62239cc-3bf7-42cc-9027-866f46e1afd2");
             }
         }
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.quarternary;
+            }
+        }
 
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24

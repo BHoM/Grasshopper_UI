@@ -57,6 +57,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unreal_Alligator", "ClassLi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miscellaneous_Alligator", "Miscellaneous_Alligator\Miscellaneous_Alligator.csproj", "{FC0EE5C3-0E47-40D2-91ED-AB843C80BB3F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeechRecognition_Alligator", "SpeechRecognition_Alligator\SpeechRecognition_Alligator.csproj", "{C783A548-8FD4-4352-B9B2-74589FB4FA0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeechSynthesis_Alligator", "SpeechSynthesis_Alligator\SpeechSynthesis_Alligator.csproj", "{C9ACF28F-9650-40B8-B421-57ADB7DCAE0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -190,6 +194,18 @@ Global
 		{FC0EE5C3-0E47-40D2-91ED-AB843C80BB3F}.Debug64|Any CPU.Build.0 = Debug|Any CPU
 		{FC0EE5C3-0E47-40D2-91ED-AB843C80BB3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC0EE5C3-0E47-40D2-91ED-AB843C80BB3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C783A548-8FD4-4352-B9B2-74589FB4FA0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C783A548-8FD4-4352-B9B2-74589FB4FA0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C783A548-8FD4-4352-B9B2-74589FB4FA0D}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
+		{C783A548-8FD4-4352-B9B2-74589FB4FA0D}.Debug64|Any CPU.Build.0 = Debug|Any CPU
+		{C783A548-8FD4-4352-B9B2-74589FB4FA0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C783A548-8FD4-4352-B9B2-74589FB4FA0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9ACF28F-9650-40B8-B421-57ADB7DCAE0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9ACF28F-9650-40B8-B421-57ADB7DCAE0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9ACF28F-9650-40B8-B421-57ADB7DCAE0B}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9ACF28F-9650-40B8-B421-57ADB7DCAE0B}.Debug64|Any CPU.Build.0 = Debug|Any CPU
+		{C9ACF28F-9650-40B8-B421-57ADB7DCAE0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9ACF28F-9650-40B8-B421-57ADB7DCAE0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

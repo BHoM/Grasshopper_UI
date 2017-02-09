@@ -27,6 +27,13 @@ namespace Alligator.Base
                 return new Guid("{BB22A083-3B0C-4E89-9D4E-FECCEDA95099}");
             }
         }
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.secondary;
+            }
+        }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {

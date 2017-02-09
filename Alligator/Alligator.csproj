@@ -137,6 +137,7 @@
     <Compile Include="Structural\Properties\Section Properties\ConcreteSection.cs" />
     <Compile Include="Structural\Properties\Section Properties\CreateBoxSection.cs" />
     <Compile Include="Structural\Properties\Section Properties\CreateCableSectionFromDiameter.cs" />
+    <Compile Include="Structural\Properties\Section Properties\CreateExplicitSection.cs" />
     <Compile Include="Structural\Properties\Section Properties\GH_InputParamManager.cs" />
     <Compile Include="Structural\Properties\Section Properties\LoadingPanelProperty.cs" />
     <Compile Include="Structural\Properties\Section Properties\LoadSteelSectionFromDB.cs" />
@@ -407,6 +408,8 @@
     <None Include="Resources\BHoM_Geo_GHToBH.png" />
     <None Include="Resources\BHoM_Geo_BHToGH.png" />
     <None Include="Resources\BHoM_Alligator_Icon.png" />
+    <None Include="Resources\BHoM_SQL_GetObject.png" />
+    <None Include="Resources\BHoM_SQL_Link.png" />
     <Content Include="Resources\Icons\Alligator\BHoM_BHoM_Object.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

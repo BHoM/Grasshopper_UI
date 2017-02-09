@@ -21,6 +21,13 @@ namespace Alligator.Structural.Properties
                 return new Guid("23A9A2D6-4601-46B9-AAD5-B8273605ABCD");
             }
         }
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.secondary;
+            }
+        }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
