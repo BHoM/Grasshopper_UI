@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C783A548-8FD4-4352-B9B2-74589FB4FA0D}</ProjectGuid>
+    <ProjectGuid>{C9ACF28F-9650-40B8-B421-57ADB7DCAE0B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SpeechRecognition_Alligator</RootNamespace>
-    <AssemblyName>SpeechRecognition_Alligator</AssemblyName>
+    <RootNamespace>SpeechSynthesis_Alligator</RootNamespace>
+    <AssemblyName>SpeechSynthesis_Alligator</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,11 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Grasshopper">
+    <Reference Include="Grasshopper, Version=1.0.0.20, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Build\Grasshopper.dll</HintPath>
     </Reference>
-    <Reference Include="SpeechRecognition_Engine">
-      <HintPath>..\..\BHoM_Engine\Build\SpeechRecognition_Engine.dll</HintPath>
+    <Reference Include="SpeechSynthesis_Engine">
+      <HintPath>..\..\BHoM_Engine\Build\SpeechSynthesis_Engine.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,14 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DetectCommand.cs" />
+    <Compile Include="SpeakText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
-      <Project>{c273f369-b83a-4183-9a97-18cdb23c25c6}</Project>
-      <Name>Grasshopper_Engine</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
@@ -61,7 +56,7 @@
 
 Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
 
-copy /Y "$(TargetDir)\SpeechRecognition_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\SpeechRecognition_Engine.dll"</PostBuildEvent>
+copy /Y "$(TargetDir)\SpeechSynthesis_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\SpeechSynthesis_Engine.dll"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
