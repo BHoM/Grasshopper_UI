@@ -2,7 +2,9 @@
 using BHoM.Structural.Elements;
 using BHoM.Structural.Interface;
 using BHoM.Structural.Results;
-using BHoM_Design.Steel;
+using StructuralDesign_Toolkit;
+using StructuralDesign_Toolkit.Steel;
+using StructuralDesign_Toolkit.Steel.Eurocode1993;
 using Grasshopper.Kernel;
 using System;
 using System.Collections.Generic;
@@ -25,7 +27,7 @@ namespace Design_Alligator.Structural.Steel
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Bars", "Bars", "Bars to design", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Elements", "E", "Design elements or bars", GH_ParamAccess.list);
             pManager.AddTextParameter("Loadcases", "Loadcases", "Loadcases to design to", GH_ParamAccess.list);
             pManager.AddGenericParameter("ResultServer", "ResultServer", "Bar results", GH_ParamAccess.item);
             pManager.AddTextParameter("Identifier", "Key", "Name of custom data key linking the bar to the result server", GH_ParamAccess.item);
@@ -34,14 +36,14 @@ namespace Design_Alligator.Structural.Steel
             Params.Input[1].Optional = true;
             Params.Input[4].Optional = true;
             Params.Input[1].AddVolatileDataList(new Grasshopper.Kernel.Data.GH_Path(0), null);
-            Params.Input[4].AddVolatileData(new Grasshopper.Kernel.Data.GH_Path(0),0, false);
+            Params.Input[4].AddVolatileData(new Grasshopper.Kernel.Data.GH_Path(0), 0, false);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             SteelUtilisation su = new SteelUtilisation();
             BarForce force = new BarForce();
-           
+
             for (int i = 1; i < su.ColumnHeaders.Length; i++)
             {
                 if (i < 6)
@@ -58,21 +60,24 @@ namespace Design_Alligator.Structural.Steel
                     pManager.AddNumberParameter(su.ColumnHeaders[i], su.ColumnHeaders[i], su.ColumnHeaders[i], GH_ParamAccess.list);
                 }
             }
-           
+
             pManager.AddNumberParameter("CriticalRatio", "CriticalRatio", "Critical Ratio", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<Bar> bars = Grasshopper_Engine.DataUtils.GetGenericDataList<Bar>(DA, 0);
+            List<DesignElement> elems = Grasshopper_Engine.DataUtils.GetDesignElements(DA, 0);
             List<string> loadcases = Grasshopper_Engine.DataUtils.GetDataList<string>(DA, 1);
             IResultAdapter server = Grasshopper_Engine.DataUtils.GetGenericData<IResultAdapter>(DA, 2);
             string key = Grasshopper_Engine.DataUtils.GetData<string>(DA, 3);
             bool allowOffset = Grasshopper_Engine.DataUtils.GetData<bool>(DA, 4);
-            IMemberUtilisation mu = new BHoM_Design.Steel.Eurocode1993.MemberUtilisation(bars, loadcases, server, key);
-            (mu as BHoM_Design.Steel.Eurocode1993.MemberUtilisation).AllowEndOffset = allowOffset;
-            List<SteelUtilisation> utilisations = mu.GetUtilisations();
-            List<BarForce> forces = mu.GetCriticalForces();
+
+            SteelElementDesign elemDesign = new SteelElementDesign(elems, loadcases, server, key);
+
+
+            List<SteelUtilisation> utilisations = elemDesign.GetUtilisations();
+            List<BarForce> forces = elemDesign.GetCriticalForces();
+
             Dictionary<string, List<object>> results = new Dictionary<string, List<object>>();
             SteelUtilisation su = new SteelUtilisation();
             BarForce bf = new BarForce();
@@ -89,7 +94,7 @@ namespace Design_Alligator.Structural.Steel
 
             results.Add("CriticalRatio", new List<object>());
 
-            Dictionary<string, Bar> filter = new BHoM.Base.ObjectFilter<Bar>(bars).ToDictionary<string>(key, BHoM.Base.FilterOption.UserData);
+            //Dictionary<string, Bar> filter = new BHoM.Base.ObjectFilter<Bar>(bars).ToDictionary<string>(key, BHoM.Base.FilterOption.UserData);
 
             ResultSet<SteelUtilisation> set = new ResultSet<SteelUtilisation>();
             set.AddData(utilisations);
@@ -110,7 +115,7 @@ namespace Design_Alligator.Structural.Steel
 
                 results["CriticalRatio"].Add(max);
             }
-            
+
             for (int i = 0; i < forces.Count; i++)
             {
                 for (int j = 5; j < forces[i].Data.Length; j++)
@@ -119,7 +124,7 @@ namespace Design_Alligator.Structural.Steel
                 }
             }
 
-            foreach (KeyValuePair<string,List<object>> keyPair in results)
+            foreach (KeyValuePair<string, List<object>> keyPair in results)
             {
                 DA.SetDataList(keyPair.Key, keyPair.Value);
             }

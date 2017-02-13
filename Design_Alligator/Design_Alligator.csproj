@@ -39,9 +39,6 @@
     <Reference Include="BHoM">
       <HintPath>..\..\BHoM\build\BHoM.dll</HintPath>
     </Reference>
-    <Reference Include="BHoM_Design">
-      <HintPath>..\..\StructuralDesign_Toolkit\Build\BHoM_Design.dll</HintPath>
-    </Reference>
     <Reference Include="GH_IO">
       <HintPath>..\..\..\..\..\..\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\GH_IO.dll</HintPath>
     </Reference>
@@ -52,6 +49,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files\Rhinoceros 5 (64-bit)\System\RhinoCommon.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="StructuralDesign_Toolkit">
+      <HintPath>..\..\StructuralDesign_Toolkit\Build\StructuralDesign_Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -66,6 +66,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Structural\Concrete\ColumnDesign.cs" />
+    <Compile Include="Structural\GetCapacityCurves.cs" />
+    <Compile Include="Structural\Steel\SteelDesign_Superseeded.cs" />
     <Compile Include="Structural\Steel\SteelDesign.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -83,7 +85,7 @@
 
 Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
 
-copy /Y "$(TargetDir)\BHoM_Design.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM_Design.dll"
+copy /Y "$(TargetDir)\StructuralDesign_Toolkit.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\StructuralDesign_Toolkit.dll"
 
 Erase "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
