@@ -40,8 +40,8 @@
     <Reference Include="Grasshopper">
       <HintPath>..\External Libraries\Grasshopper.dll</HintPath>
     </Reference>
-    <Reference Include="KinectToolkit">
-      <HintPath>..\..\Kinect_Toolkit\Build\KinectToolkit.dll</HintPath>
+    <Reference Include="Kinect_Adapter">
+      <HintPath>..\..\Kinect_Toolkit\Build\Kinect_Adapter.dll</HintPath>
     </Reference>
     <Reference Include="RhinoCommon, Version=5.1.30000.12, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -101,7 +101,7 @@
 
 Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
 
-copy /Y "$(TargetDir)\KinectToolKit.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\KinectToolKit.dll"</PostBuildEvent>
+copy /Y "$(TargetDir)\Kinect_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Kinect_Adapter.dll"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
