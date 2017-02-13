@@ -42,8 +42,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\CableNetDesign_Toolkit\Build\CableNetDesign_Engine.dll</HintPath>
     </Reference>
-    <Reference Include="CableNetDesign_OM">
-      <HintPath>..\..\CableNetDesign_Toolkit\Build\CableNetDesign_OM.dll</HintPath>
+    <Reference Include="CableNetDesign_oM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CableNetDesign_Toolkit\Build\CableNetDesign_oM.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
