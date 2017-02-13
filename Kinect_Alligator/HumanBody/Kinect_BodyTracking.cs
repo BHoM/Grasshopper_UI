@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using R = Rhino.Geometry;
-using KinectToolkit;
+using Kinect_Adapter;
 using BHoM.HumanBody;
 using BH = BHoM.Geometry;
 using Grasshopper_Engine;
