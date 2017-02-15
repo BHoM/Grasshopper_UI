@@ -56,13 +56,13 @@ namespace Design_Alligator.Structural
 
                 for (int i = 0; i < 3; i++)
                 {
-                    BHG.Curve c = major.GetMomentCompressionCurve((DesignType)i);
+                    BHG.Curve c = major.GetMomentCompressionCurve();
                     majorCrvs.Add(GeometryUtils.Convert(c));
                 }
 
                 for (int i = 0; i < 3; i++)
                 {
-                    BHG.Curve c = minor.GetMomentCompressionCurve((DesignType)i);
+                    BHG.Curve c = minor.GetMomentCompressionCurve();
                     minorCrvs.Add(GeometryUtils.Convert(c));
                 }
 
