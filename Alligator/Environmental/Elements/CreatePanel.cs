@@ -52,8 +52,8 @@ namespace Alligator.Environmental.Elements
         {
 
             BHE.Panel panel = new BHE.Panel();
-            List<BHG.Line> Lines = null;
-            DA.GetData<List<BHG.Line>>(0, ref Lines);
+            List<BHG.Line> Lines = new List<BHG.Line>();
+            DA.GetDataList<BHG.Line>(0, Lines);
             panel.Lines = Lines;
 
 
