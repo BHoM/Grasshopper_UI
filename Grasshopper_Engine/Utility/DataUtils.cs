@@ -86,6 +86,16 @@ namespace Grasshopper_Engine
             return "";
         }
 
+        public static bool IsBrowseable(PropertyInfo info)
+        {
+            List<Attribute> attri = info.GetCustomAttributes(typeof(BrowsableAttribute)).ToList();
+            if (attri.Count > 0)
+            {
+                return attri[0].Match(false);
+            }
+            return true;
+        }
+
         public static bool HasDefault(PropertyInfo info)
         {
             object[] attri = info.GetCustomAttributes(typeof(DefaultValueAttribute), true);

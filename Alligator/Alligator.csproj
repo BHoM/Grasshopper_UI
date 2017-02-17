@@ -105,6 +105,7 @@
     <Compile Include="Structural\Elements\CreateFEMesh.cs" />
     <Compile Include="Structural\Elements\CreateRigidLink.cs" />
     <Compile Include="Structural\Elements\Design\CreateDesignElement.cs" />
+    <Compile Include="Structural\Elements\Design\CreateFromConnectedBars.cs" />
     <Compile Include="Structural\Elements\Design\GenerateSpans.cs" />
     <Compile Include="Structural\Elements\ExportBar.cs" />
     <Compile Include="Structural\Elements\ExportBarDesignElement.cs" />

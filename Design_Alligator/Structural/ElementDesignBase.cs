@@ -67,70 +67,80 @@ namespace Design_Alligator.Structural
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<DesignElement> elems = Grasshopper_Engine.DataUtils.GetDesignElements(DA, 0);
-            List<string> loadcases = Grasshopper_Engine.DataUtils.GetDataList<string>(DA, 1);
-            IResultAdapter server = Grasshopper_Engine.DataUtils.GetGenericData<IResultAdapter>(DA, 2);
-            string key = Grasshopper_Engine.DataUtils.GetData<string>(DA, 3);
-            bool allowOffset = Grasshopper_Engine.DataUtils.GetData<bool>(DA, 4);
-
-            TD elemDesign = new TD();
-            elemDesign.DesignElements = elems;
-            elemDesign.Loadcases = loadcases;
-            elemDesign.ResultAdapter = server;
-            elemDesign.Key = key;
-
-            List<TU> utilisations = elemDesign.GetUtilisations();
-            List<BarForce> forces = elemDesign.GetCriticalForces();
-
-            Dictionary<string, List<object>> results = new Dictionary<string, List<object>>();
-            TU su = new TU();
-            BarForce bf = new BarForce();
-
-            for (int i = 1; i < su.ColumnHeaders.Length; i++)
+            if (Grasshopper_Engine.DataUtils.Run(DA, 5))
             {
-                results.Add(su.ColumnHeaders[i], new List<object>());
-            }
+                List<DesignElement> elems = Grasshopper_Engine.DataUtils.GetDesignElements(DA, 0);
+                List<string> loadcases = Grasshopper_Engine.DataUtils.GetDataList<string>(DA, 1);
+                IResultAdapter server = Grasshopper_Engine.DataUtils.GetGenericData<IResultAdapter>(DA, 2);
+                string key = Grasshopper_Engine.DataUtils.GetData<string>(DA, 3);
+                bool allowOffset = Grasshopper_Engine.DataUtils.GetData<bool>(DA, 4);
 
-            for (int i = 5; i < bf.ColumnHeaders.Length; i++)
-            {
-                results.Add(bf.ColumnHeaders[i], new List<object>());
-            }
+                TD elemDesign = new TD();
+                elemDesign.DesignElements = elems;
+                elemDesign.Loadcases = loadcases;
+                elemDesign.ResultAdapter = server;
+                elemDesign.Key = key;
 
-            results.Add("CriticalRatio", new List<object>());
+                List<TU> utilisations = elemDesign.GetUtilisations();
+                List<BarForce> forces = elemDesign.GetCriticalForces();
 
-            //Dictionary<string, Bar> filter = new BHoM.Base.ObjectFilter<Bar>(bars).ToDictionary<string>(key, BHoM.Base.FilterOption.UserData);
+                Dictionary<string, List<object>> results = new Dictionary<string, List<object>>();
+                TU su = new TU();
+                BarForce bf = new BarForce();
 
-            ResultSet<TU> set = new ResultSet<TU>();
-            set.AddData(utilisations);
-
-            for (int i = 0; i < utilisations.Count; i++)
-            {
-                double max = 0;
-                string barNum = utilisations[i].Data[1].ToString();
-
-                for (int j = 1; j < utilisations[i].Data.Length; j++)
+                for (int i = 1; i < su.ColumnHeaders.Length; i++)
                 {
-                    results[su.ColumnHeaders[j]].Add(utilisations[i].Data[j]);
-                    if (j > 6 && utilisations[i].Data[j] is double && (double)utilisations[i].Data[j] > max)
+                    results.Add(su.ColumnHeaders[i], new List<object>());
+                }
+
+                for (int i = 5; i < bf.ColumnHeaders.Length; i++)
+                {
+                    results.Add(bf.ColumnHeaders[i], new List<object>());
+                }
+
+                results.Add("CriticalRatio", new List<object>());
+
+                //Dictionary<string, Bar> filter = new BHoM.Base.ObjectFilter<Bar>(bars).ToDictionary<string>(key, BHoM.Base.FilterOption.UserData);
+
+                ResultSet<TU> set = new ResultSet<TU>();
+                set.AddData(utilisations);
+
+                for (int i = 0; i < utilisations.Count; i++)
+                {
+                    double max = 0;
+                    string barNum = utilisations[i].Data[1].ToString();
+
+                    for (int j = 1; j < utilisations[i].Data.Length; j++)
                     {
-                        max = (double)utilisations[i].Data[j];
+                        if (j > 6 && utilisations[i].Data[j] is double)
+                        {
+                            results[su.ColumnHeaders[j]].Add(Math.Round((double)utilisations[i].Data[j], 2));
+                            if ((double)utilisations[i].Data[j] > max)
+                            {
+                                max = (double)utilisations[i].Data[j];
+                            }
+                        }
+                        else
+                        {
+                            results[su.ColumnHeaders[j]].Add(utilisations[i].Data[j]);
+                        }
+                    }
+
+                    results["CriticalRatio"].Add(Math.Round(max, 2));
+                }
+
+                for (int i = 0; i < forces.Count; i++)
+                {
+                    for (int j = 5; j < forces[i].Data.Length; j++)
+                    {
+                        results[bf.ColumnHeaders[j]].Add(forces[i].Data[j]);
                     }
                 }
 
-                results["CriticalRatio"].Add(max);
-            }
-
-            for (int i = 0; i < forces.Count; i++)
-            {
-                for (int j = 5; j < forces[i].Data.Length; j++)
+                foreach (KeyValuePair<string, List<object>> keyPair in results)
                 {
-                    results[bf.ColumnHeaders[j]].Add(forces[i].Data[j]);
+                    DA.SetDataList(keyPair.Key, keyPair.Value);
                 }
-            }
-
-            foreach (KeyValuePair<string, List<object>> keyPair in results)
-            {
-                DA.SetDataList(keyPair.Key, keyPair.Value);
             }
         }
     }
