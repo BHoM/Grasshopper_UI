@@ -67,6 +67,9 @@
     <Compile Include="Base\CustomData.cs" />
     <Compile Include="Base\GetPropertyNames.cs" />
     <Compile Include="Base\ListExpandAndCollapse.cs" />
+    <Compile Include="Environmental\Elements\CreateSpace.cs" />
+    <Compile Include="Environmental\Elements\CreateWall.cs" />
+    <Compile Include="Environmental\Elements\CreatePanel.cs" />
     <Compile Include="Geometry\ExtrudeBar.cs" />
     <Compile Include="Geometry\FromGHGeometry.cs" />
     <Compile Include="Geometry\GetGeometry.cs" />
