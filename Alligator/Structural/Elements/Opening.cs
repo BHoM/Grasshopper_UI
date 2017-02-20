@@ -80,7 +80,7 @@ namespace Alligator.Structural.Elements
 
         public override List<Opening> GetObjects(IElementAdapter app, List<string> objectIds, out IGH_DataTree geom, out List<string> outIds)
         {
-            List<string> ids = null;
+           // List<string> ids = null;
             List<Opening> Openings = null;
             DataTree<GeometryBase> geometry = new DataTree<GeometryBase>();
 

@@ -63,7 +63,7 @@ namespace FormFinding_Alligator.CableNetDesign
             double minHeight = 0;
             double sFac = 0;
             double initStep = 0;
-            int maxIter = 1000;
+            //int maxIter = 1000;
 
             double dt = 0;
             double treshold = 0;
