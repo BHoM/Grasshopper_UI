@@ -56,17 +56,6 @@ namespace Design_Alligator.Structural
 
                 majorCrvs.Add(GeometryUtils.Convert(major.GetMomentCompressionCurve()));
                 minorCrvs.Add(GeometryUtils.Convert(minor.GetMomentCompressionCurve()));
-                //for (int i = 0; i < 3; i++)
-                //{
-                //    BHG.Curve c = major.GetMomentCompressionCurve((DesignType)i);
-                //    majorCrvs.Add(GeometryUtils.Convert(c));
-                //}
-
-                //for (int i = 0; i < 3; i++)
-                //{
-                //    BHG.Curve c = minor.GetMomentCompressionCurve((DesignType)i);
-                //    minorCrvs.Add(GeometryUtils.Convert(c));
-                //}
 
             }
 

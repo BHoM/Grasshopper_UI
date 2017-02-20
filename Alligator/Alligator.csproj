@@ -67,6 +67,9 @@
     <Compile Include="Base\CustomData.cs" />
     <Compile Include="Base\GetPropertyNames.cs" />
     <Compile Include="Base\ListExpandAndCollapse.cs" />
+    <Compile Include="Environmental\Elements\CreateSpace.cs" />
+    <Compile Include="Environmental\Elements\CreateWall.cs" />
+    <Compile Include="Environmental\Elements\CreatePanel.cs" />
     <Compile Include="Geometry\ExtrudeBar.cs" />
     <Compile Include="Geometry\FromGHGeometry.cs" />
     <Compile Include="Geometry\GetGeometry.cs" />
@@ -102,6 +105,7 @@
     <Compile Include="Structural\Elements\CreateFEMesh.cs" />
     <Compile Include="Structural\Elements\CreateRigidLink.cs" />
     <Compile Include="Structural\Elements\Design\CreateDesignElement.cs" />
+    <Compile Include="Structural\Elements\Design\CreateFromConnectedBars.cs" />
     <Compile Include="Structural\Elements\Design\GenerateSpans.cs" />
     <Compile Include="Structural\Elements\ExportBar.cs" />
     <Compile Include="Structural\Elements\ExportBarDesignElement.cs" />

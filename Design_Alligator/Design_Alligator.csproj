@@ -65,7 +65,9 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Structural\Composite\CompositeDesign.cs" />
     <Compile Include="Structural\Concrete\ColumnDesign.cs" />
+    <Compile Include="Structural\ElementDesignBase.cs" />
     <Compile Include="Structural\GetCapacityCurves.cs" />
     <Compile Include="Structural\Steel\SteelDesign_Superseeded.cs" />
     <Compile Include="Structural\Steel\SteelDesign.cs" />
