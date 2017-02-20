@@ -54,17 +54,19 @@ namespace Design_Alligator.Structural
                 EUSteelSection major = new EUSteelSection(prop as BHP.SteelSection, Axis.Major);
                 EUSteelSection minor = new EUSteelSection(prop as BHP.SteelSection, Axis.Minor);
 
-                for (int i = 0; i < 3; i++)
-                {
-                    BHG.Curve c = major.GetMomentCompressionCurve((DesignType)i);
-                    majorCrvs.Add(GeometryUtils.Convert(c));
-                }
+                majorCrvs.Add(GeometryUtils.Convert(major.GetMomentCompressionCurve()));
+                minorCrvs.Add(GeometryUtils.Convert(minor.GetMomentCompressionCurve()));
+                //for (int i = 0; i < 3; i++)
+                //{
+                //    BHG.Curve c = major.GetMomentCompressionCurve((DesignType)i);
+                //    majorCrvs.Add(GeometryUtils.Convert(c));
+                //}
 
-                for (int i = 0; i < 3; i++)
-                {
-                    BHG.Curve c = minor.GetMomentCompressionCurve((DesignType)i);
-                    minorCrvs.Add(GeometryUtils.Convert(c));
-                }
+                //for (int i = 0; i < 3; i++)
+                //{
+                //    BHG.Curve c = minor.GetMomentCompressionCurve((DesignType)i);
+                //    minorCrvs.Add(GeometryUtils.Convert(c));
+                //}
 
             }
 
