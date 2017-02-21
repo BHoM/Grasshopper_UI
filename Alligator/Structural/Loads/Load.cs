@@ -74,10 +74,13 @@ namespace Alligator.Structural.Loads
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
+            pManager.AddBooleanParameter("Success", "Success", "Return wheather the operation was succuessful or not", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            bool success = false;
+
             if (GHE.DataUtils.Run(DA, 2))
             {
                 BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
@@ -86,8 +89,10 @@ namespace Alligator.Structural.Loads
                     List<ILoad> loads = GHE.DataUtils.GetGenericDataList<ILoad>(DA, 1);
                     loads = loads.Where(x => x != null).ToList();
                     app.SetLoads(loads);
+                    success = true;
                 }
             }
+            DA.SetData(0, success);
         }
 
         public override Guid ComponentGuid
