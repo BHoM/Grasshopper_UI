@@ -38,29 +38,37 @@ namespace Design_Alligator.Structural
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddCurveParameter("Major axis curves", "Maj", "Capacity curves for the major axis", GH_ParamAccess.list);
-            pManager.AddCurveParameter("Minor axis curves", "Min", "Capacity curves for the minor axis", GH_ParamAccess.list);
+            pManager.AddCurveParameter("Major axis curves", "MajComp", "Capacity curves for the major axis", GH_ParamAccess.item);
+            pManager.AddCurveParameter("Minor axis curves", "MinComp", "Capacity curves for the minor axis", GH_ParamAccess.item);
+            pManager.AddCurveParameter("Major axis curves", "MajAx", "Capacity curves for the major axis", GH_ParamAccess.item);
+            pManager.AddCurveParameter("Minor axis curves", "MinAx", "Capacity curves for the minor axis", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             BHP.SectionProperty prop = DataUtils.GetGenericData<BHP.SectionProperty>(DA, 0);
 
-            List<Curve> majorCrvs = new List<Curve>();
-            List<Curve> minorCrvs = new List<Curve>();
+            Curve  majorCrv = null;
+            Curve minorCrv = null;
+            Curve majorCrvAx = null;
+            Curve minorCrvAx = null;
 
             if (prop is BHP.SteelSection)
             {
                 EUSteelSection major = new EUSteelSection(prop as BHP.SteelSection, Axis.Major);
                 EUSteelSection minor = new EUSteelSection(prop as BHP.SteelSection, Axis.Minor);
 
-                majorCrvs.Add(GeometryUtils.Convert(major.GetMomentCompressionCurve()));
-                minorCrvs.Add(GeometryUtils.Convert(minor.GetMomentCompressionCurve()));
+                majorCrv=GeometryUtils.Convert(major.GetMomentCompressionCurve());
+                minorCrv=GeometryUtils.Convert(minor.GetMomentCompressionCurve());
+                majorCrvAx = GeometryUtils.Convert(major.GetMomentAxialCurve());
+                minorCrvAx = GeometryUtils.Convert(minor.GetMomentAxialCurve());
 
             }
 
-            DA.SetDataList(0, majorCrvs);
-            DA.SetDataList(1, minorCrvs);
+            DA.SetData(0, majorCrv);
+            DA.SetData(1, minorCrv);
+            DA.SetData(2, majorCrvAx);
+            DA.SetData(3, minorCrvAx);
 
         }
     }
