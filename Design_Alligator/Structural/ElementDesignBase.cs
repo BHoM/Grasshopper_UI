@@ -80,6 +80,7 @@ namespace Design_Alligator.Structural
                 elemDesign.Loadcases = loadcases;
                 elemDesign.ResultAdapter = server;
                 elemDesign.Key = key;
+                elemDesign.AllowOffsetReduction = allowOffset;
 
                 List<TU> utilisations = elemDesign.GetUtilisations();
                 List<BarForce> forces = elemDesign.GetCriticalForces();

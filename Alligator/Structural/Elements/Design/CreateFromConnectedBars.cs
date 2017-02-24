@@ -24,6 +24,8 @@ namespace Alligator.Structural.Elements.Design
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Bars", "Bars", "List of bars to connect", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Tolerance", "Tolerance", "Connect bars within the defined tolerance", GH_ParamAccess.item);
+            pManager[1].AddVolatileData(new Grasshopper.Kernel.Data.GH_Path(0), 0, 0.01);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -34,8 +36,8 @@ namespace Alligator.Structural.Elements.Design
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             List<Bar> bars = DataUtils.GetGenericDataList<Bar>(DA, 0);
-
-            List<DesignElement> result = DesignElement.CreateFromConnectedBars(bars);
+            double tolerance = DataUtils.GetData<double>(DA, 1);
+            List<DesignElement> result = DesignElement.CreateFromConnectedBars(bars, tolerance);
 
             DA.SetDataList(0, result);
         }
