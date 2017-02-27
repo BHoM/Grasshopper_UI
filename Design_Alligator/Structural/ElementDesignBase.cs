@@ -108,21 +108,22 @@ namespace Design_Alligator.Structural
                 for (int i = 0; i < utilisations.Count; i++)
                 {
                     double max = 0;
-                    string barNum = utilisations[i].Data[1].ToString();
+                    object[] data = utilisations[i].GetData();
+                    string barNum = data[1].ToString();
 
-                    for (int j = 1; j < utilisations[i].Data.Length; j++)
+                    for (int j = 1; j < data.Length; j++)
                     {
-                        if (j > 6 && utilisations[i].Data[j] is double)
+                        if (j > 6 && data[j] is double)
                         {
-                            results[su.ColumnHeaders[j]].Add(Math.Round((double)utilisations[i].Data[j], 2));
-                            if ((double)utilisations[i].Data[j] > max)
+                            results[su.ColumnHeaders[j]].Add(Math.Round((double)data[j], 2));
+                            if ((double)data[j] > max)
                             {
-                                max = (double)utilisations[i].Data[j];
+                                max = (double)data[j];
                             }
                         }
                         else
                         {
-                            results[su.ColumnHeaders[j]].Add(utilisations[i].Data[j]);
+                            results[su.ColumnHeaders[j]].Add(data[j]);
                         }
                     }
 
@@ -131,9 +132,10 @@ namespace Design_Alligator.Structural
 
                 for (int i = 0; i < forces.Count; i++)
                 {
-                    for (int j = 5; j < forces[i].Data.Length; j++)
+                    object[] data = forces[i].GetData();
+                    for (int j = 5; j < data.Length; j++)
                     {
-                        results[bf.ColumnHeaders[j]].Add(forces[i].Data[j]);
+                        results[bf.ColumnHeaders[j]].Add(data[j]);
                     }
                 }
 

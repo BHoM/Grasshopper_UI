@@ -59,8 +59,10 @@
     <Compile Include="ExplodeJson.cs" />
     <Compile Include="FromMongo.cs" />
     <Compile Include="GetDatabases.cs" />
+    <Compile Include="MongoDataBase.cs" />
     <Compile Include="MongoLink.cs" />
     <Compile Include="MongoServer.cs" />
+    <Compile Include="Structural\Interface\MongoStructuralAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
