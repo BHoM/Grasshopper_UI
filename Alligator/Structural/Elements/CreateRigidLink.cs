@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using BHE = BHoM.Structural.Elements;
+using BHP = BHoM.Structural.Properties;
 using Grasshopper_Engine;
 
 namespace Alligator.Structural.Elements
@@ -31,6 +32,9 @@ namespace Alligator.Structural.Elements
         {
             pManager.AddGenericParameter("Master", "M", "Master node", GH_ParamAccess.item);
             pManager.AddGenericParameter("Slaves", "S", "Slave nodes", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Link Constraint", "C", "Constriant to use for the rigid link", GH_ParamAccess.item);
+
+            pManager[2].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -42,11 +46,18 @@ namespace Alligator.Structural.Elements
         {
             BHE.Node master;
             List<BHE.Node> slaves;
+            BHP.LinkConstraint constriant;
 
             if (!DataUtils.GetNodeFromPointOrNode(DA, 0, out master)) { return; }
             if (!DataUtils.GetNodeListFromPointOrNodes(DA, 1, out slaves)) { return; }
 
-            BHE.RigidLink link = new BHoM.Structural.Elements.RigidLink(master, slaves);
+            constriant = DataUtils.GetGenericData<BHP.LinkConstraint>(DA, 2);
+
+            if (constriant == null)
+                constriant = BHP.LinkConstraint.Fixed;
+
+
+            BHE.RigidLink link = new BHoM.Structural.Elements.RigidLink(master, slaves, constriant);
 
             DA.SetData(0, link);
         }

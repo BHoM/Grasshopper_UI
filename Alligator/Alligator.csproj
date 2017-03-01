@@ -108,6 +108,8 @@
     <Compile Include="Structural\Elements\Design\CreateDesignElement.cs" />
     <Compile Include="Structural\Elements\Design\CreateFromConnectedBars.cs" />
     <Compile Include="Structural\Elements\Design\GenerateSpans.cs" />
+    <Compile Include="Structural\Elements\Design\SetEffectiveLength.cs" />
+    <Compile Include="Structural\Elements\Design\SetSectionPropertyToDesignElem.cs" />
     <Compile Include="Structural\Elements\ExportBar.cs" />
     <Compile Include="Structural\Elements\ExportBarDesignElement.cs" />
     <Compile Include="Structural\Elements\ExportFEMesh.cs" />
@@ -132,6 +134,7 @@
     <Compile Include="Structural\Properties\BarAttributesContainer.cs" />
     <Compile Include="Structural\Properties\BarOffset.cs" />
     <Compile Include="Structural\Properties\Constraints\CreateBarRelease.cs" />
+    <Compile Include="Structural\Properties\Constraints\CreateLinkConstraint.cs" />
     <Compile Include="Structural\Properties\CreateBarAttributes.cs" />
     <Compile Include="Structural\Properties\Constraints\BarConstraint.cs" />
     <Compile Include="Structural\Properties\Constraints\DoF.cs" />
