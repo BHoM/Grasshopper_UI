@@ -78,6 +78,7 @@
     <Compile Include="Structural\Analysis\RunAnalysis.cs" />
     <Compile Include="SQL\FromSQL.cs" />
     <Compile Include="SQL\SQLLink.cs" />
+    <Compile Include="Structural\Application\FileIO.cs" />
     <Compile Include="Structural\Commands\ClearResults.cs" />
     <Compile Include="Structural\Commands\CloseFile.cs" />
     <Compile Include="Structural\Commands\RunAnalysis.cs" />
