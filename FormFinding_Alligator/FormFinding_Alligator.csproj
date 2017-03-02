@@ -120,17 +120,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
-
-Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
-
-Erase "$(TargetPath)"
-
-copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM.dll"
-
-copy /Y "$(TargetDir)\CableNetDesign_OM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\CableNetDesign_OM.dll"
-
-copy /Y "$(TargetDir)\FormFinding_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\FormFinding_Engine.dll"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
