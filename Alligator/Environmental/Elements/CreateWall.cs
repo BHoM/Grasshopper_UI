@@ -15,12 +15,12 @@ using ASP = Alligator.Structural.Properties;
 
 namespace Alligator.Environmental.Elements
 {
-    public class CreatePanel : GH_Component
+    public class CreateWall : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the MyComponent1 class.
         /// </summary>
-        public CreatePanel() : base("CreatePanel", "CreatePanel", "Create a Panel", "Alligator", "Environmental")
+        public CreateWall() : base("CreateWall", "CreateWall", "Create a Wall", "Alligator", "Environmental")
         {
         }
 
@@ -29,11 +29,14 @@ namespace Alligator.Environmental.Elements
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Boundary Lines", "BL", "Lines defining the Panel", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Boundary Line", "BL", "Line defining the Wall", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Panels", "Panels", "Panels inside the Wall", GH_ParamAccess.list);
             pManager.AddTextParameter("Name", "N", "Name of the element", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Custom Data", "CD", "Custom data to add to the panel", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Custom Data", "CD", "Custom data to add to the wall", GH_ParamAccess.item);
+
             pManager[1].Optional = true;
             pManager[2].Optional = true;
+            pManager[3].Optional = true;
         }
 
         /// <summary>
@@ -41,7 +44,7 @@ namespace Alligator.Environmental.Elements
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Panel", "P", "The Created Panel", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Wall", "W", "The Created Wall", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -51,17 +54,21 @@ namespace Alligator.Environmental.Elements
         protected override void SolveInstance(IGH_DataAccess DA)
         {
 
-            BHE.Panel panel = new BHE.Panel();
-            List<BHG.Line> Lines = new List<BHG.Line>();
-            DA.GetDataList<BHG.Line>(0, Lines);
-            panel.Lines = Lines;
+            BHE.Wall wall = new BHE.Wall();
 
+            BHG.Line Line = null;
+            DA.GetData< BHG.Line > (0, ref Line);
+            wall.Line = Line;
+
+            List<BHE.Panel> panels = new List<BHE.Panel>();
+            DA.GetData<List<BHE.Panel>>(1, ref panels);
+            wall.Panels = panels;
 
             string name = "";
 
             if (DA.GetData(1, ref name))
             {
-                panel.Name = name;
+                wall.Name = name;
             }
 
             Dictionary<string, object> customData = GHE.DataUtils.GetData<Dictionary<string, object>>(DA, 2);
@@ -70,10 +77,11 @@ namespace Alligator.Environmental.Elements
             {
                 foreach (KeyValuePair<string, object> item in customData)
                 {
-                    panel.CustomData.Add(item.Key, item.Value);
+                    wall.CustomData.Add(item.Key, item.Value);
                 }
             }
-            DA.SetData(0, panel);
+
+            DA.SetData(0, wall);
         }
 
         /// <summary>
@@ -94,7 +102,7 @@ namespace Alligator.Environmental.Elements
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("{7a792709-e232-4cf7-a209-219c2188eabe}"); }
+            get { return new Guid("{df8f20ab-72e1-4247-ac0b-fdcff94d7124}"); }
         }
     }
 }
