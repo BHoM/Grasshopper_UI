@@ -32,7 +32,8 @@
   <ItemGroup>
     <Reference Include="Grasshopper, Version=1.0.0.20, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Build\Grasshopper.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Rhinoceros 5.0 (64-bit)\Plug-ins\grasshopper_0.9.56.0\Grasshopper.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="SpeechSynthesis_Engine">
       <HintPath>..\..\BHoM_Engine\Build\SpeechSynthesis_Engine.dll</HintPath>
@@ -52,11 +53,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
-
-Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
-
-copy /Y "$(TargetDir)\SpeechSynthesis_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\SpeechSynthesis_Engine.dll"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

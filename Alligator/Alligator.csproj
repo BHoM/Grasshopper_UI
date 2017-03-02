@@ -41,12 +41,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM\build\BHoM.dll</HintPath>
     </Reference>
-    <Reference Include="GH_IO">
-      <HintPath>..\External Libraries\GH_IO.dll</HintPath>
+    <Reference Include="GH_IO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files\Rhinoceros 5.0 (64-bit)\Plug-ins\grasshopper_0.9.56.0\GH_IO.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Grasshopper">
-      <HintPath>..\External Libraries\Grasshopper.dll</HintPath>
+    <Reference Include="Grasshopper, Version=1.0.0.20, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files\Rhinoceros 5.0 (64-bit)\Plug-ins\grasshopper_0.9.56.0\Grasshopper.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Grasshopper_Engine">
@@ -430,7 +432,7 @@
     <ItemGroup>
       <GhatoDlls Include="$(OutDir)..\Build\*Alligator.dll" />
     </ItemGroup>
-    <Move SourceFiles="@(GhatoDlls)" DestinationFiles="@(GhatoDlls->'%(RootDir)%(Directory)%(Filename).gha')" OverwriteReadOnlyFiles="true"/>
+    <Move SourceFiles="@(GhatoDlls)" DestinationFiles="@(GhatoDlls->'%(RootDir)%(Directory)%(Filename).gha')" OverwriteReadOnlyFiles="true" />
     <ItemGroup>
       <Dlls Include="$(OutDir)..\Build\*.dll" />
       <Ghas Include="$(OutDir)..\Build\*.gha" />
