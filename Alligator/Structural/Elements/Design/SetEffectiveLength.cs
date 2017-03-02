@@ -26,7 +26,7 @@ namespace Alligator.Structural.Elements.Design
         {
             pManager.AddGenericParameter("DesignElement", "DesElem", "Design element to add spans to", GH_ParamAccess.item);
             pManager.AddNumberParameter("Effective Length", "EffLen", "The effective length", GH_ParamAccess.item);
-
+      
             AppendEnumOptions("Span dir", typeof(BHE.SpanDirection));
         }
 

@@ -13,6 +13,8 @@ namespace Alligator.Structural.Elements.Design
 {
     public class SetSectionPropertyToDesignElem : GH_Component
     {
+        public SetSectionPropertyToDesignElem() : base("Set section property", "SetSecProp", "Set the section property for a design element and all its analytic bars", "Structure", "Design") { }
+
         public override GH_Exposure Exposure
         {
             get
@@ -44,6 +46,10 @@ namespace Alligator.Structural.Elements.Design
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             BHE.DesignElement elem = (BHE.DesignElement)DataUtils.GetData<BHE.DesignElement>(DA, 0).ShallowClone();
+            List<BHE.Bar> bars = elem.AnalyticBars;
+            bars = bars.Select(x => (BHE.Bar)x.ShallowClone()).ToList();
+            elem.AnalyticBars = bars;
+
             BHP.SectionProperty prop = DataUtils.GetData<BHP.SectionProperty>(DA, 1);
 
             elem.SetSectionProperty(prop);
