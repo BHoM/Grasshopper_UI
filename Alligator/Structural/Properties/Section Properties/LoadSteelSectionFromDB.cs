@@ -8,14 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using BHE = BHoM.Structural.Elements;
 using BHP = BHoM.Structural.Properties;
+using BHoM.Structural.Databases;
 
 namespace Alligator.Structural.Properties.Section_Properties
 {
-    public class LoadSteelSectionFromDB : DatabaseComponent
+    public class LoadSteelSectionFromDB : DatabaseComponent<SteelSectionRow>
     {
         public LoadSteelSectionFromDB() : base("Load Steel Section", "SteelDB", "Load a steel section from database", "Structure", "Properties")
         {
-            this.Initialise(BHoM.Base.Database.SteelSection);
+            this.Initialise(BHoM.Base.Data.Database.SteelSection);
         }
 
         protected override System.Drawing.Bitmap Internal_Icon_24x24
