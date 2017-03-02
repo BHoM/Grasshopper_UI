@@ -156,27 +156,51 @@ namespace Grasshopper_Engine.Components
 
         private void M_Types_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BHoM.Base.Data.IDataAdapter dataAdapter = BHoM.Global.Project.ActiveProject.GetDatabase<T>(m_DatabaseType);
-            m_Names.Items.Clear();
-            m_Names.Items.AddRange(dataAdapter.GetDataColumn("Name", "Type", ObjectType).ToArray());
-            m_Names.SelectedIndex = 0;
+            try
+            {
+                BHoM.Base.Data.IDataAdapter dataAdapter = BHoM.Global.Project.ActiveProject.GetDatabase<T>(m_DatabaseType);
+                m_Names.Items.Clear();
+                m_Names.Items.AddRange(dataAdapter.GetDataColumn("Name", "Type", ObjectType).ToArray());
+                m_Names.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, ex.Message);
+            }
+            
         }
 
         private void M_Tables_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BHoM.Base.Data.IDataAdapter accessor = BHoM.Global.Project.ActiveProject.GetDatabase<T>(m_DatabaseType);
-            accessor.TableName = TableName;
-            m_Types.Items.Clear();
-            m_Types.Items.AddRange(accessor.GetDataColumn("Type").Distinct().ToArray());
-            m_Types.SelectedIndex = 0;
+            try
+            {
+                BHoM.Base.Data.IDataAdapter accessor = BHoM.Global.Project.ActiveProject.GetDatabase<T>(m_DatabaseType);
+                accessor.TableName = TableName;
+                m_Types.Items.Clear();
+                m_Types.Items.AddRange(accessor.GetDataColumn("Type").Distinct().ToArray());
+                m_Types.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, ex.Message);
+            }
+
         }
 
         protected void Initialise(BHoM.Base.Data.Database db)
         {
-            m_DatabaseType = db;
-            BHoM.Base.Data.IDataAdapter accessor = BHoM.Global.Project.ActiveProject.GetDatabase<T>(m_DatabaseType);
-            m_Tables.Items.AddRange(accessor.TableNames().ToArray());
-            m_Tables.SelectedIndex = 0;
+            try
+            {
+                m_DatabaseType = db;
+                BHoM.Base.Data.IDataAdapter accessor = BHoM.Global.Project.ActiveProject.GetDatabase<T>(m_DatabaseType);
+                m_Tables.Items.AddRange(accessor.TableNames().ToArray());
+                m_Tables.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, ex.Message);
+            }
+
         } 
 
         public override Guid ComponentGuid
