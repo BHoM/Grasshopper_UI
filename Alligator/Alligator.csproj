@@ -68,6 +68,7 @@
     <Compile Include="Base\GetPropertyNames.cs" />
     <Compile Include="Base\ListExpandAndCollapse.cs" />
     <Compile Include="Environmental\Elements\CreateSpace.cs" />
+    <Compile Include="Environmental\Elements\CreateWall.cs" />
     <Compile Include="Environmental\Elements\CreatePanel.cs" />
     <Compile Include="Geometry\ExtrudeBar.cs" />
     <Compile Include="Geometry\FromGHGeometry.cs" />
@@ -422,22 +423,23 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
-         -->
   <Target Name="BeforeBuild">
-    <MakeDir Directories="C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator" />
   </Target>
   <Target Name="AfterBuild">
-    <ItemGroup>
-      <GhatoDlls Include="$(OutDir)..\Build\*Alligator.dll" />
-    </ItemGroup>
-    <Move SourceFiles="@(GhatoDlls)" DestinationFiles="@(GhatoDlls->'%(RootDir)%(Directory)%(Filename).gha')" OverwriteReadOnlyFiles="true"/>
-    <ItemGroup>
-      <Dlls Include="$(OutDir)..\Build\*.dll" />
-      <Ghas Include="$(OutDir)..\Build\*.gha" />
-    </ItemGroup>
-    <Copy SourceFiles="@(Dlls)" DestinationFolder="C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\" />
-    <Copy SourceFiles="@(Ghas)" DestinationFolder="C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\" />
   </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
+
+Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
+
+copy /Y "$(TargetDir)\RobotToolKit.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\RobotToolKit.dll"
+
+copy /Y "$(TargetDir)\Databases_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Databases_Engine.dll"
+
+copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM.dll"
+</PostBuildEvent>
+  </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
   </PropertyGroup>
