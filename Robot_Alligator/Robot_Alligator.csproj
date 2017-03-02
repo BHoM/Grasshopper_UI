@@ -101,7 +101,7 @@
     <StartAction>Program</StartAction>
     <StartProgram>C:\Program Files\Rhinoceros 5 (64-bit)\System\Rhino.exe</StartProgram>
     <Prefer32Bit>false</Prefer32Bit>
-    <WarningLevel>0</WarningLevel>
+    <WarningLevel>1</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
