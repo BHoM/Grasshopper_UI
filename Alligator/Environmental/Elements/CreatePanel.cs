@@ -18,7 +18,7 @@ namespace Alligator.Environmental.Elements
     public class CreatePanel : BHoMBaseComponent<BHE.Panel>
     {
         public CreatePanel() : base("Create Panel", "CreatePanel", "Create a BH Panel object", "Alligator", "Environmental") { }
-
+        
         public override Guid ComponentGuid
         {
             get { return new Guid("{df8f20ab-72e1-4247-ac0b-fdcff94d7124}"); }

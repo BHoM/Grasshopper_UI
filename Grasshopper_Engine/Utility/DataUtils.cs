@@ -2,6 +2,7 @@
 using Grasshopper.Kernel.Types;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ComponentModel;
 using System.Reflection;
 using BHG = BHoM.Geometry;
@@ -83,6 +84,16 @@ namespace Grasshopper_Engine
                 return description.Description;
             }
             return "";
+        }
+
+        public static bool IsBrowseable(PropertyInfo info)
+        {
+            List<Attribute> attri = info.GetCustomAttributes(typeof(BrowsableAttribute)).ToList();
+            if (attri.Count > 0)
+            {
+                return attri[0].Match(false);
+            }
+            return true;
         }
 
         public static bool HasDefault(PropertyInfo info)
@@ -223,6 +234,26 @@ namespace Grasshopper_Engine
 
             return null;
         }
+
+        public static List<BHoM.Structural.Elements.DesignElement> GetDesignElements(IGH_DataAccess DA, int index)
+        {
+
+            List<BHoM.Structural.Elements.DesignElement> elems = GetDataList<BHoM.Structural.Elements.DesignElement>(DA, index);
+
+            if (elems != null)
+                return elems;
+
+            List<BHoM.Structural.Elements.Bar> bars = GetDataList<BHoM.Structural.Elements.Bar>(DA, index);
+
+            if (bars != null)
+            {
+                //elems = new List<BHoM.Structural.Elements.DesignElement>();
+                return bars.Select(x => new BHoM.Structural.Elements.DesignElement(x)).ToList();
+            }
+
+            return null;
+        }
+
 
         public static bool PointOrNodeToNode(object n, out BHoM.Structural.Elements.Node node)
         {

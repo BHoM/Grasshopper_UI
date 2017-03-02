@@ -9,7 +9,7 @@ using BHoM.Materials;
 
 namespace Alligator.Structural.Properties
 {
-    public class CreateBoxSection : GH_Component
+    class CreateBoxSection : GH_Component
     {
         public CreateBoxSection() : base("Custom Box Property", "SecProp", "Creates a box section property", "Structure", "Properties") { }
 

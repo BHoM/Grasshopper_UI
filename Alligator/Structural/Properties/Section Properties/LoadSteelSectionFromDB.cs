@@ -45,6 +45,7 @@ namespace Alligator.Structural.Properties.Section_Properties
             BHP.SectionProperty prop = BHP.SectionProperty.LoadFromSteelSectionDB(ObjectName);
             AddVolatileData(new Grasshopper.Kernel.Data.GH_Path(0), 0, new GH_ObjectWrapper(prop));
         }
+
         protected override void CollectVolatileData_Custom()
         {
             SetData();

@@ -1,6 +1,6 @@
 ﻿using System;
 using Grasshopper.Kernel;
-using KinectToolkit;
+using Kinect_Adapter;
 using Grasshopper_Engine;
 
 namespace Alligator.Kinect

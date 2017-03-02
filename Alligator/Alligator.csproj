@@ -77,6 +77,7 @@
     <Compile Include="Structural\Analysis\RunAnalysis.cs" />
     <Compile Include="SQL\FromSQL.cs" />
     <Compile Include="SQL\SQLLink.cs" />
+    <Compile Include="Structural\Application\FileIO.cs" />
     <Compile Include="Structural\Commands\ClearResults.cs" />
     <Compile Include="Structural\Commands\CloseFile.cs" />
     <Compile Include="Structural\Commands\RunAnalysis.cs" />
@@ -103,6 +104,11 @@
     <Compile Include="Structural\Elements\CreateBar.cs" />
     <Compile Include="Structural\Elements\CreateFEMesh.cs" />
     <Compile Include="Structural\Elements\CreateRigidLink.cs" />
+    <Compile Include="Structural\Elements\Design\CreateDesignElement.cs" />
+    <Compile Include="Structural\Elements\Design\CreateFromConnectedBars.cs" />
+    <Compile Include="Structural\Elements\Design\GenerateSpans.cs" />
+    <Compile Include="Structural\Elements\Design\SetEffectiveLength.cs" />
+    <Compile Include="Structural\Elements\Design\SetSectionPropertyToDesignElem.cs" />
     <Compile Include="Structural\Elements\ExportBar.cs" />
     <Compile Include="Structural\Elements\ExportBarDesignElement.cs" />
     <Compile Include="Structural\Elements\ExportFEMesh.cs" />
@@ -127,6 +133,7 @@
     <Compile Include="Structural\Properties\BarAttributesContainer.cs" />
     <Compile Include="Structural\Properties\BarOffset.cs" />
     <Compile Include="Structural\Properties\Constraints\CreateBarRelease.cs" />
+    <Compile Include="Structural\Properties\Constraints\CreateLinkConstraint.cs" />
     <Compile Include="Structural\Properties\CreateBarAttributes.cs" />
     <Compile Include="Structural\Properties\Constraints\BarConstraint.cs" />
     <Compile Include="Structural\Properties\Constraints\DoF.cs" />
@@ -137,6 +144,7 @@
     <Compile Include="Structural\Properties\Section Properties\ConcreteSection.cs" />
     <Compile Include="Structural\Properties\Section Properties\CreateBoxSection.cs" />
     <Compile Include="Structural\Properties\Section Properties\CreateCableSectionFromDiameter.cs" />
+    <Compile Include="Structural\Properties\Section Properties\CreateExplicitSection.cs" />
     <Compile Include="Structural\Properties\Section Properties\GH_InputParamManager.cs" />
     <Compile Include="Structural\Properties\Section Properties\LoadingPanelProperty.cs" />
     <Compile Include="Structural\Properties\Section Properties\LoadSteelSectionFromDB.cs" />
@@ -152,6 +160,7 @@
     <Compile Include="Structural\Results\BarUtilisation.cs" />
     <Compile Include="Structural\Results\NodeResults.cs" />
     <Compile Include="Structural\Results\PanelResults.cs" />
+    <Compile Include="Structural\Results\PushResultsToDataBase.cs" />
     <Compile Include="Structural\Results\ResultServer.cs" />
     <Compile Include="Structural\Results\SlabReinforcementResults.cs" />
   </ItemGroup>

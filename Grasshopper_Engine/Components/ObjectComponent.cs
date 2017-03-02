@@ -86,7 +86,7 @@ namespace Grasshopper_Engine.Components
             for (int i = 0; i < propInfo.Length; i++)
             {
                 Type pType = propInfo[i].PropertyType;
-                if (propInfo[i].GetSetMethod() != null)
+                if (propInfo[i].GetSetMethod() != null && GHE.DataUtils.IsBrowseable(propInfo[i]))
                 {
                     string name = GHE.DataUtils.GetName(propInfo[i]);
                     string nickName = propInfo[i].Name.ToString();
@@ -137,7 +137,7 @@ namespace Grasshopper_Engine.Components
                     if (GHE.DataUtils.HasDefault(propInfo[i]))
                     {
                         Params.Input[Params.Input.Count - 1].Optional = true;
-                        Params.Input[Params.Input.Count - 1].AddVolatileData(new Grasshopper.Kernel.Data.GH_Path(0), 0, GHE.DataUtils.GetDefault(propInfo[i]));
+                        //Params.Input[Params.Input.Count - 1].AddVolatileData(new Grasshopper.Kernel.Data.GH_Path(0), 0, GHE.DataUtils.GetDefault(propInfo[i]));
                     }
                 }
             }
