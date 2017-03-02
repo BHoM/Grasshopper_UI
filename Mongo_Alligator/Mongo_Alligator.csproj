@@ -114,14 +114,8 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
-
-Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
-
-copy /Y "$(TargetDir)\Mongo_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Mongo_Adapter.dll"
-copy /Y "$(TargetDir)\MongoDB.Bson.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\MongoDB.Bson.dll"
-copy /Y "$(TargetDir)\MongoDB.Driver.Core.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\MongoDB.Driver.Core.dll"
-copy /Y "$(TargetDir)\MongoDB.Driver.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\MongoDB.Driver.dll"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
