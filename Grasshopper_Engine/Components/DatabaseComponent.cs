@@ -9,12 +9,13 @@ using GH_IO.Serialization;
 using System.Drawing;
 using Grasshopper.GUI.Canvas;
 using System.Windows.Forms;
+using BHoM.Base.Data;
 
 namespace Grasshopper_Engine.Components
 {
-    public class DBAttribute : GH_Attributes<DatabaseComponent>
+    public class DBAttribute<T> : GH_Attributes<DatabaseComponent<T>> where T : IDataRow
     {
-        public DBAttribute(DatabaseComponent owner)
+        public DBAttribute(DatabaseComponent<T> owner)
             : base(owner)
         {
 
@@ -109,9 +110,9 @@ namespace Grasshopper_Engine.Components
     }
 
 
-    public abstract class DatabaseComponent : GH_Param<GH_ObjectWrapper>
+    public abstract class DatabaseComponent<T> : GH_Param<GH_ObjectWrapper> where T : IDataRow
     {
-        protected BHoM.Base.Database m_DatabaseType;
+        protected BHoM.Base.Data.Database m_DatabaseType;
         public string ObjectType { get { return m_Types.Text.Trim(); } }
         public string ObjectName { get { return m_Names.Text.Trim(); } }
         public string TableName { get { return m_Tables.Text.Trim(); } }
@@ -143,7 +144,7 @@ namespace Grasshopper_Engine.Components
 
         public override void CreateAttributes()
         {
-            m_attributes = new DBAttribute(this);
+            m_attributes = new DBAttribute<T>(this);
         }
 
         protected abstract void SetData();
@@ -155,27 +156,51 @@ namespace Grasshopper_Engine.Components
 
         private void M_Types_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BHoM.Base.SQLAccessor accessor = new BHoM.Base.SQLAccessor(m_DatabaseType, TableName);
-            m_Names.Items.Clear();
-            m_Names.Items.AddRange(accessor.GetDataColumn("Name", "where Type like '" + ObjectType +"'").ToArray());
-            m_Names.SelectedIndex = 0;
+            try
+            {
+                BHoM.Base.Data.IDataAdapter dataAdapter = BHoM.Global.Project.ActiveProject.GetDatabase<T>(m_DatabaseType);
+                m_Names.Items.Clear();
+                m_Names.Items.AddRange(dataAdapter.GetDataColumn("Name", "Type", ObjectType).ToArray());
+                m_Names.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, ex.Message);
+            }
+            
         }
 
         private void M_Tables_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BHoM.Base.SQLAccessor accessor = new BHoM.Base.SQLAccessor(m_DatabaseType, TableName);
-            m_Types.Items.Clear();
-            m_Types.Items.AddRange(accessor.GetDataColumn("Type").Distinct().ToArray());
-            m_Types.SelectedIndex = 0;
+            try
+            {
+                BHoM.Base.Data.IDataAdapter accessor = BHoM.Global.Project.ActiveProject.GetDatabase<T>(m_DatabaseType);
+                accessor.TableName = TableName;
+                m_Types.Items.Clear();
+                m_Types.Items.AddRange(accessor.GetDataColumn("Type").Distinct().ToArray());
+                m_Types.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, ex.Message);
+            }
+
         }
 
-        protected void Initialise(BHoM.Base.Database db)
+        protected void Initialise(BHoM.Base.Data.Database db)
         {
-            BHoM.Base.SQLAccessor accessor = new BHoM.Base.SQLAccessor(db, "");
-            
-            m_DatabaseType = db;
-            m_Tables.Items.AddRange(accessor.GetTableNames().ToArray());
-            m_Tables.SelectedIndex = 0;
+            try
+            {
+                m_DatabaseType = db;
+                BHoM.Base.Data.IDataAdapter accessor = BHoM.Global.Project.ActiveProject.GetDatabase<T>(m_DatabaseType);
+                m_Tables.Items.AddRange(accessor.TableNames().ToArray());
+                m_Tables.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, ex.Message);
+            }
+
         } 
 
         public override Guid ComponentGuid

@@ -39,7 +39,7 @@
   <ItemGroup>
     <Reference Include="BHoM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\BHoM\build\BHoM.dll</HintPath>
+      <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
     </Reference>
     <Reference Include="GH_IO">
       <HintPath>..\External Libraries\GH_IO.dll</HintPath>
@@ -51,6 +51,10 @@
     </Reference>
     <Reference Include="Grasshopper_Engine">
       <HintPath>..\Build\Grasshopper_Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -174,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
+    <None Include="packages.config" />
     <None Include="Resources\Icons\Alligator\gator.png" />
   </ItemGroup>
   <ItemGroup>
@@ -438,7 +443,8 @@ copy /Y "$(TargetDir)\RobotToolKit.dll" "C:\Users\$(Username)\AppData\Roaming\Gr
 copy /Y "$(TargetDir)\Databases_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Databases_Engine.dll"
 
 copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM.dll"
-</PostBuildEvent>
+
+copy /Y "$(TargetDir)\Newtonsoft.Json.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Newtonsoft.Json.dll"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>

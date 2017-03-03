@@ -11,14 +11,15 @@ using System.Windows.Forms;
 using Grasshopper.Kernel.Parameters;
 using GH_IO.Serialization;
 using Grasshopper.Kernel.Types;
+using BHoM.Structural.Databases;
 
 namespace Alligator.Material
 {
-    public class LoadMaterialFromDB : DatabaseComponent
+    public class LoadMaterialFromDB : DatabaseComponent<MaterialRow>
     {
         public LoadMaterialFromDB() : base("Load Material", "MaterialDB", "Load a material from database", "Structure", "Properties")
         {
-            this.Initialise(BHoM.Base.Database.Material);
+            this.Initialise(BHoM.Base.Data.Database.Material);
         }
 
         protected override System.Drawing.Bitmap Internal_Icon_24x24
