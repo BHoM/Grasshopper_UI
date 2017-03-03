@@ -36,9 +36,11 @@
     </Reference>
     <Reference Include="GH_IO">
       <HintPath>..\External Libraries\GH_IO.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Grasshopper">
       <HintPath>..\External Libraries\Grasshopper.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Kinect_Adapter">
       <HintPath>..\..\Kinect_Toolkit\Build\Kinect_Adapter.dll</HintPath>
@@ -46,6 +48,7 @@
     <Reference Include="RhinoCommon, Version=5.1.30000.12, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files\Rhinoceros 5 (64-bit)\System\RhinoCommon.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -86,23 +89,13 @@
     <None Include="Resources\skeleton_lines.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Alligator\Alligator.csproj">
-      <Project>{2e3b219e-7bd2-4f75-bfaf-9b7735827ed4}</Project>
-      <Name>Alligator</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
       <Project>{c273f369-b83a-4183-9a97-18cdb23c25c6}</Project>
       <Name>Grasshopper_Engine</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
-
-Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
-
-copy /Y "$(TargetDir)\Kinect_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Kinect_Adapter.dll"</PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
