@@ -31,10 +31,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GH_IO">
-      <HintPath>..\..\..\..\AppData\Roaming\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\GH_IO.dll</HintPath>
+      <HintPath>..\External Libraries\GH_IO.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Grasshopper">
-      <HintPath>..\..\..\..\AppData\Roaming\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\Grasshopper.dll</HintPath>
+      <HintPath>..\External Libraries\Grasshopper.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Socket_Engine">
       <HintPath>..\..\BHoM_Engine\Build\Socket_Engine.dll</HintPath>
@@ -63,6 +65,7 @@
     <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
       <Project>{c273f369-b83a-4183-9a97-18cdb23c25c6}</Project>
       <Name>Grasshopper_Engine</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -79,11 +82,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
-
-Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
-
-copy /Y "$(TargetDir)\Socket_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Socket_Engine.dll"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
