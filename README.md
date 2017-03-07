@@ -10,6 +10,8 @@ You will need the following to build Alligator:
 - BHoM version 0.0.1
 - RobotToolkit version 0.0.1
 - Ensure post-build folders are accessible:
+
+The Grasshopper toolkit contains a lot of projects, some of them having additional dependencies on the rest of our code. You can either unload those projects in Visual Studio or clone and compile the required repositories. Check [the wheel](http://cchub.burohappold.com/?selected=Grasshopper_Toolkit&codeDim1=repo) to see the current dependencies for each project.
   
 ## Contribute ##
 
