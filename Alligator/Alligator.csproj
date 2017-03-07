@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\AddCustomData.cs" />
     <Compile Include="Base\BHoMParam.cs" />
     <Compile Include="Base\CustomData.cs" />
     <Compile Include="Base\GetPropertyNames.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Structural\Elements\Design\CreateDesignElement.cs" />
     <Compile Include="Structural\Elements\Design\CreateFromConnectedBars.cs" />
     <Compile Include="Structural\Elements\Design\GenerateSpans.cs" />
+    <Compile Include="Structural\Elements\Design\GenerateSpanSupportedNodes.cs" />
     <Compile Include="Structural\Elements\Design\SetEffectiveLength.cs" />
     <Compile Include="Structural\Elements\Design\SetSectionPropertyToDesignElem.cs" />
     <Compile Include="Structural\Elements\ExportBar.cs" />

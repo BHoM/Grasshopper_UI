@@ -144,6 +144,7 @@ namespace Alligator.Structural.Elements
                 return true;
             }
 
+
             angle = 0;
             return false;
         }
