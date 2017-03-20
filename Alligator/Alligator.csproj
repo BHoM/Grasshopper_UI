@@ -122,6 +122,7 @@
     <Compile Include="Structural\Elements\ExportRigidLink.cs" />
     <Compile Include="Structural\Elements\Grid.cs" />
     <Compile Include="Structural\Elements\ImportDesignElement.cs" />
+    <Compile Include="Structural\Elements\ImportFEMesh.cs" />
     <Compile Include="Structural\Elements\Level.cs" />
     <Compile Include="Structural\Elements\Opening.cs" />
     <Compile Include="Structural\Loads\CustomLoadGrouping\AplyGroupToLoadObject.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="Structural\Loads\CreateLoadCombination.cs" />
     <Compile Include="Structural\Loads\CreateNodalLoad.cs" />
     <Compile Include="Structural\Loads\CustomLoadGrouping\GroupByPropertyName.cs" />
+    <Compile Include="Structural\Loads\CustomLoadGrouping\LocalLoadCreation.cs" />
     <Compile Include="Structural\Loads\ImportLoad.cs" />
     <Compile Include="Structural\Loads\ImportLoadcases.cs" />
     <Compile Include="Structural\Loads\UniformAreaLoad.cs" />
@@ -162,6 +164,7 @@
     <Compile Include="Structural\Properties\Constraints\NodeConstraint.cs" />
     <Compile Include="Structural\Elements\Panel.cs" />
     <Compile Include="Structural\Properties\Section Properties\SteelSection.cs" />
+    <Compile Include="Structural\Results\AddBarForces.cs" />
     <Compile Include="Structural\Results\BarResults.cs" />
     <Compile Include="Structural\Results\BarUtilisation.cs" />
     <Compile Include="Structural\Results\NodeResults.cs" />
