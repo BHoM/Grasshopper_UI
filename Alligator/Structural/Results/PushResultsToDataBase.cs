@@ -57,6 +57,7 @@ namespace Alligator.Structural.Results
             pManager.AddTextParameter("Key", "Key", "Key", GH_ParamAccess.item);
             pManager.AddBooleanParameter("Append", "Append", "Append results onto existing table", GH_ParamAccess.item);
             pManager.AddBooleanParameter("Activate", "Activate", "Run the component", GH_ParamAccess.item);
+            Params.Input[2].Optional = true;
             Params.Input[4].Optional = true;
             Params.Input[5].Optional = true;
         }

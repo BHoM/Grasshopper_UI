@@ -43,7 +43,14 @@ namespace Alligator.Geometry
             BHG.GeometryBase geometry = null;
             DA.GetData<BHG.GeometryBase>(0, ref geometry);
 
-            DA.SetData(0, GHE.GeometryUtils.Convert(geometry));
+            if (geometry is BHG.Vector)
+            {
+                DA.SetData(0, GHE.GeometryUtils.Convert(geometry as BHG.Vector));
+            }
+            else
+            {
+                DA.SetData(0, GHE.GeometryUtils.Convert(geometry));
+            }
         }
     }
 }
