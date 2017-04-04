@@ -71,6 +71,7 @@
     <Compile Include="Structural\GetCapacityCurves.cs" />
     <Compile Include="Structural\Steel\SteelDesign_Superseeded.cs" />
     <Compile Include="Structural\Steel\SteelDesign.cs" />
+    <Compile Include="Structural\Steel\SteelSectionSizerComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
