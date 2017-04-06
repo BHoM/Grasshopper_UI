@@ -213,6 +213,43 @@ namespace Grasshopper_Engine
             return result;
         }
 
+        public static List<List<T>> GetGenericDataListOfListFromDataTree<T>(Grasshopper.Kernel.IGH_DataAccess DA, int index)
+        {
+            Grasshopper.DataTree<object> tree = new Grasshopper.DataTree<object>();
+
+            Grasshopper.Kernel.Data.GH_Structure<IGH_Goo> str;
+            if (!DA.GetDataTree(index, out str))
+                return null;
+
+            List<List<T>> listOfList = new List<List<T>>();
+
+            foreach (var listList in str.Branches)
+            {
+                List<T> list = new List<T>();
+
+                foreach (var item in listList)
+                {
+                    T data = default(T);
+                    if (item == null) continue;
+                    else if (item is GH_ObjectWrapper)
+                    {
+                        (item as GH_ObjectWrapper).CastTo<T>(out data);
+                        list.Add(data);
+                    }
+                    else if (typeof(IGH_Goo).IsAssignableFrom(item.GetType()))
+                    {
+                        ((IGH_Goo)item).CastTo<T>(out data);
+                        list.Add(data);
+                    }
+                    else list.Add((T)(object)item);
+                }
+
+                listOfList.Add(list);
+            }
+
+            return listOfList;
+        }
+
         public static bool Run(Grasshopper.Kernel.IGH_DataAccess DA, int index)
         {
             bool run = false;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -55,12 +56,48 @@ namespace Alligator.Mongo
             bool active = false; DA.GetData<bool>(3, ref active);
 
             if (active)
-                m_LastResult = link.Query(query, toJson);
+                m_LastResult = CheckAndGetTree(link.Query(query, toJson));
 
-            DA.SetDataList(0, m_LastResult);
+            DA.SetDataTree(0, m_LastResult);
+            
+        }
+
+        public Grasshopper.DataTree<object> CheckAndGetTree(List<object> list)
+        {
+            bool isTree = true;
+
+            foreach (var item in list)
+            {
+                if (!(item is IList))
+                {
+                    isTree = false;
+                    break;
+                }
+            }
+
+            Grasshopper.DataTree<object> tree = new Grasshopper.DataTree<object>();
+
+            if (!isTree)
+            {
+                tree.AddRange(list);
+            }
+            else
+            {
+                int n = 0;
+                Grasshopper.Kernel.Data.GH_Path path;
+                foreach (var innerList in list)
+                {
+                    path = new Grasshopper.Kernel.Data.GH_Path(n);
+                    tree.AddRange(innerList as IEnumerable<object>, path);
+                    n++;
+                }
+
+            }
+
+            return tree;
         }
 
 
-        private List<object> m_LastResult = new List<object>();
+        private Grasshopper.DataTree<object> m_LastResult = new Grasshopper.DataTree<object>();
     }
 }

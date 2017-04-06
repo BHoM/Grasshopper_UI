@@ -38,7 +38,7 @@ namespace Alligator.Mongo
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Mongo link", "link", "collection to send the data to", GH_ParamAccess.item);
-            pManager.AddGenericParameter("objects", "objects", "objects to send", GH_ParamAccess.list);
+            pManager.AddGenericParameter("objects", "objects", "objects to send", GH_ParamAccess.tree);
             pManager.AddTextParameter("key", "key", "key unique to that package of data", GH_ParamAccess.item);
             pManager.AddTextParameter("tags", "tags", "tags attached to the saved data", GH_ParamAccess.list);
             pManager.AddBooleanParameter("active", "active", "check if the component currently allows data transfer", GH_ParamAccess.item, false);
@@ -53,10 +53,17 @@ namespace Alligator.Mongo
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             MA.MongoLink link = GHE.DataUtils.GetGenericData<MA.MongoLink>(DA, 0);
-            List<object> objects = GHE.DataUtils.GetGenericDataList<object>(DA, 1);
+            List<List<object>> listOfList = GHE.DataUtils.GetGenericDataListOfListFromDataTree<object>(DA, 1);
             string key = GHE.DataUtils.GetData<string>(DA, 2);
             List<string> tags = new List<string>(); DA.GetDataList<string>(3, tags);
             bool active = false; DA.GetData<bool>(4, ref active);
+
+            List<object> objects;
+
+            if (listOfList.Count == 1)
+                objects = listOfList[0];
+            else
+                objects = listOfList.ToList<object>();
 
             if (!active || objects.Count == 0)
             {
