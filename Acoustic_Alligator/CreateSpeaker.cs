@@ -13,7 +13,7 @@ namespace Acoustic_Alligator
 {
     public class CreateSpeaker : GH_Component
     {
-        public CreateSpeaker() : base("Create Speaker", "Create Speaker", "Create BHoM Speaker", "Alligator", "Acoustics") { }
+        public CreateSpeaker() : base("Create Speaker", "Spk", "Create BHoM Acoustic Speaker", "Alligator", "Acoustics") { }
 
         public override Guid ComponentGuid
         {
@@ -28,7 +28,9 @@ namespace Acoustic_Alligator
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddLineParameter("Speaker Line", "Line", "Speaker Position and Direction", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Position", "P", "Position of source", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Speaker direction", "Direction", "Main emissive direction of speaker", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Speaker Category", "Category", "Category of speaker for directivity specification", GH_ParamAccess.list);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -40,26 +42,21 @@ namespace Acoustic_Alligator
         {
             List<BHA.Speaker> speakers = new List<BHA.Speaker>();
 
-            List<Rhino.Geometry.Line> lines = new List<Rhino.Geometry.Line>();
-            List<Rhino.Geometry.Point3d> pos = new List<Rhino.Geometry.Point3d>();
-            List<Rhino.Geometry.Vector3d> dir = new List<Rhino.Geometry.Vector3d>();
+            List<BHG.Point> pos = new List<BHG.Point>();            //Add automatic conversion if Rhino.Point3d
+            List<BHG.Vector> dir = new List<BHG.Vector>();          //Add automatic conversion if Rhino.Vector3d         
+            List<String> cat = new List<String>();
 
-            if (!DA.GetDataList(0, lines)) { return; }
+            if (!DA.GetDataList(0, pos)) { return; }
+            if (!DA.GetDataList(1, dir)) { return; }
+            if (!DA.GetDataList(2, cat)) { return; }                // if they are diffferent lenght fill the variable with default values
 
-            foreach (Rhino.Geometry.Line line in lines)
+            for (int i=0; i<pos.Count;i++)
             {
-                pos.Add(line.PointAt(0));
-                dir.Add(line.Direction);
-            }
-
-            for (int i = 0; i < pos.Count; i++)
-            {
-                BHA.Speaker speaker = new BHA.Speaker(new BHG.Point(pos[i].X, pos[i].Y, pos[i].Z), new BHG.Vector(dir[i].X, dir[i].Y, dir[i].Z), "Speaker");
+                BHA.Speaker speaker = new BHA.Speaker(pos[i], dir[i] = null, cat[i] = "Omni");
                 speakers.Add(speaker);
             }
-
+                        
             DA.SetDataList(0, speakers);
-
         }
     }
 }

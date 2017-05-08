@@ -323,7 +323,6 @@ namespace Grasshopper_Engine
             rMesh.Faces.AddFaces(rFaces);
             rMesh.Vertices.AddVertices(rVertices);
             return rMesh;
-            //return new R.Mesh(rVertices, rFaces);             //No mesh constructors by Vertices and Faces in Rhino.
         }
 
         /**********************************************/

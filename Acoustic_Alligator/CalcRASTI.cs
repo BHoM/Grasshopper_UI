@@ -46,7 +46,7 @@ namespace Acoustic_Alligator
             List<BHA.Speaker> speakers = GHE.DataUtils.GetGenericDataList<BHA.Speaker>(DA, 1);
 
 
-            BHA.AcousticParameters param = new BHA.AcousticRASTIParameters();
+            BHA.Parameters param = new BHA.AcousticRASTIParameters();
             STICalculator rasti = new STICalculator(param);
 
             DA.SetDataList(0, rasti.CalculateRASTI(speakers, zone, param.Frequencies, param.Octaves));
