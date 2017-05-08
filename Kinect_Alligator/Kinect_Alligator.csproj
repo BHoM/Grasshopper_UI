@@ -74,7 +74,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Resources\kinect_app.png" />
   </ItemGroup>
   <ItemGroup>

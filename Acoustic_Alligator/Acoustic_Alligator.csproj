@@ -101,7 +101,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Resources\BHoM_Acoustics_Speaker.png" />
   </ItemGroup>
   <ItemGroup>

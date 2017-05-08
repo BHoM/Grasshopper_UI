@@ -297,8 +297,7 @@ namespace Grasshopper_Engine
                 if (rFaces[i].IsQuad) { BH.Face Face = new BH.Face(rFaces[i].A, rFaces[i].B, rFaces[i].C, rFaces[i].D); Faces.Add(Face); }
                 if ((rFaces[i].IsTriangle)) { BH.Face Face = new BH.Face(rFaces[i].A, rFaces[i].B, rFaces[i].C); Faces.Add(Face); }                
             }
-            return new BH.Mesh(Vertices,Faces);    
-                    
+            return new BH.Mesh(Vertices,Faces);            
         }
 
         /**********************************************/
@@ -324,6 +323,7 @@ namespace Grasshopper_Engine
             rMesh.Faces.AddFaces(rFaces);
             rMesh.Vertices.AddVertices(rVertices);
             return rMesh;
+            //return new R.Mesh(rVertices, rFaces);             //No mesh constructors by Vertices and Faces in Rhino.
         }
 
         /**********************************************/

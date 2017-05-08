@@ -77,7 +77,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Resources\BHoM_D3_Construct_Axis.png" />
   </ItemGroup>
   <ItemGroup>

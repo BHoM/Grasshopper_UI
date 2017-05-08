@@ -79,7 +79,6 @@
     <Compile Include="DynamicRelaxation\StructuralDRDynamic.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Resources\spider.png" />
   </ItemGroup>
   <ItemGroup>
