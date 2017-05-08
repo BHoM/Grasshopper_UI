@@ -306,14 +306,14 @@ namespace Grasshopper_Engine
             public static R.Mesh Convert(BH.Mesh mesh)
         {
             List<BH.Point> vertices = mesh.Vertices.ToList();
-            List<R.Point3d> rVertices = new List<R.Point3d>();  //Rhino Vertices list
+            List<R.Point3d> rVertices = new List<R.Point3d>();      //Rhino Vertices list
             for (int i = 0; i < vertices.Count; i++)
             {
                 R.Point3d rVertex = Convert(vertices[i]);
                 rVertices.Add(rVertex);
             }
             List<BH.Face> faces = mesh.Faces.ToList();
-            List<R.MeshFace> rFaces = new List<R.MeshFace>();
+            List<R.MeshFace> rFaces = new List<R.MeshFace>();       // Rhino MeshFaces list
             for (int i =0; i< faces.Count; i++)
             {
                 if (faces[i].IsQuad) { R.MeshFace rFace = new R.MeshFace(faces[i].A, faces[i].B, faces[i].C, faces[i].D); rFaces.Add(rFace); }
