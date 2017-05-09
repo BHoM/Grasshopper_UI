@@ -29,8 +29,9 @@ namespace Acoustic_Alligator
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Position", "P", "Position of source", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Speaker direction", "Direction", "Main emissive direction of speaker", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Speaker Category", "Category", "Category of speaker for directivity specification", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Speaker direction", "V", "Main emissive direction of speaker", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Speaker Category", "T", "Category of speaker for directivity specification", GH_ParamAccess.list);
+            pManager[2].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -48,11 +49,19 @@ namespace Acoustic_Alligator
 
             if (!DA.GetDataList(0, pos)) { return; }
             if (!DA.GetDataList(1, dir)) { return; }
-            if (!DA.GetDataList(2, cat)) { return; }                // if they are diffferent lenght fill the variable with default values
+            if (!DA.GetDataList(2, cat)) { return; }
 
             for (int i=0; i<pos.Count;i++)
             {
-                BHA.Speaker speaker = new BHA.Speaker(pos[i], dir[i] = null, cat[i] = "Omni");
+                if (dir.Count < pos.Count)
+                {
+                    dir.Add(new BHG.Vector(1,0,0));
+                }
+                if (cat.Count < pos.Count)
+                {
+                    cat.Add("Omni");
+                }
+                BHA.Speaker speaker = new BHA.Speaker(pos[i], dir[i], cat[i]);
                 speakers.Add(speaker);
             }
                         

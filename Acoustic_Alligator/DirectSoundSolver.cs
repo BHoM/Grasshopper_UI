@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using BHG = BHoM.Geometry;
+using BHA = BHoM.Acoustic;
+using AcousticSPI_Engine;
+
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
@@ -23,6 +27,10 @@ namespace Acoustic_Alligator
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
+            pManager.AddGenericParameter("Speaker", "Spk", "BHoM Acoustic Speaker", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Receiver", "Rec", "BHoM Acoustic Receiver", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Panels", "Pan", "BHoM Acoustic Panel", GH_ParamAccess.list);
+            pManager[2].Optional = true;
         }
 
         /// <summary>
@@ -30,6 +38,7 @@ namespace Acoustic_Alligator
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
+            pManager.AddGenericParameter("Rays", "Rays", "BHoM Acoustic Rays", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -38,6 +47,18 @@ namespace Acoustic_Alligator
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            List<BHA.Speaker> spk = new List<BHA.Speaker>();
+            List<BHA.Receiver> rec = new List<BHA.Receiver>();
+            List<BHA.Panel> pan = new List<BHA.Panel>();
+
+            if (!DA.GetDataList(0, spk)) { return; }
+            if (!DA.GetDataList(0, rec)) { return; }
+            if (!DA.GetDataList(0, pan)) { return; }
+
+            List<BHA.Ray> rays = DirectSound.Solve(spk, rec, pan);
+
+            DA.SetDataList(0, rays);
+
         }
 
         /// <summary>
