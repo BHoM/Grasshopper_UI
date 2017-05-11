@@ -54,9 +54,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CreateJson.cs" />
+    <Compile Include="CreateObject.cs" />
     <Compile Include="DeleteDatabase.cs" />
     <Compile Include="DeleteObjects.cs" />
     <Compile Include="ExplodeJson.cs" />
+    <Compile Include="ExplodeObject.cs" />
     <Compile Include="FromMongo.cs" />
     <Compile Include="GetDatabases.cs" />
     <Compile Include="MongoDataBase.cs" />

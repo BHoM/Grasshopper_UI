@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alligator", "Alligator\Alligator.csproj", "{2E3B219E-7BD2-4F75-BFAF-9B7735827ED4}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -60,6 +60,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeechRecognition_Alligator", "SpeechRecognition_Alligator\SpeechRecognition_Alligator.csproj", "{C783A548-8FD4-4352-B9B2-74589FB4FA0D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeechSynthesis_Alligator", "SpeechSynthesis_Alligator\SpeechSynthesis_Alligator.csproj", "{C9ACF28F-9650-40B8-B421-57ADB7DCAE0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chrome_Alligator", "Chrome_Alligator\Chrome_Alligator.csproj", "{ADE7A233-8B11-42E5-BC89-E50E31655AC0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -206,6 +208,12 @@ Global
 		{C9ACF28F-9650-40B8-B421-57ADB7DCAE0B}.Debug64|Any CPU.Build.0 = Debug|Any CPU
 		{C9ACF28F-9650-40B8-B421-57ADB7DCAE0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9ACF28F-9650-40B8-B421-57ADB7DCAE0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADE7A233-8B11-42E5-BC89-E50E31655AC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADE7A233-8B11-42E5-BC89-E50E31655AC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADE7A233-8B11-42E5-BC89-E50E31655AC0}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADE7A233-8B11-42E5-BC89-E50E31655AC0}.Debug64|Any CPU.Build.0 = Debug|Any CPU
+		{ADE7A233-8B11-42E5-BC89-E50E31655AC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADE7A233-8B11-42E5-BC89-E50E31655AC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
