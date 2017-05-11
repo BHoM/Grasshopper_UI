@@ -47,18 +47,16 @@ namespace Acoustic_Alligator
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<BHA.Speaker> spk = new List<BHA.Speaker>();
+            List <BHA.Speaker> spk = new List<BHA.Speaker>();
             List<BHA.Receiver> rec = new List<BHA.Receiver>();
             List<BHA.Panel> pan = new List<BHA.Panel>();
 
             if (!DA.GetDataList(0, spk)) { return; }
-            if (!DA.GetDataList(0, rec)) { return; }
-            if (!DA.GetDataList(0, pan)) { return; }
+            if (!DA.GetDataList(1, rec)) { return; }
+            if (!DA.GetDataList(2, pan)) { return; }
 
-            List<BHA.Ray> rays = DirectSound.Solve(spk, rec, pan);
-
+            List<BHA.Ray> rays = DirectSound.Solve(spk, rec, pan);             
             DA.SetDataList(0, rays);
-
         }
 
         /// <summary>

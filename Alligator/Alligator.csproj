@@ -442,8 +442,7 @@ copy /Y "$(TargetDir)\RobotToolKit.dll" "C:\Users\$(Username)\AppData\Roaming\Gr
 copy /Y "$(TargetDir)\Databases_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Databases_Engine.dll"
 
 copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM.dll"
-
-copy /Y "$(TargetDir)\Newtonsoft.Json.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Newtonsoft.Json.dll"</PostBuildEvent>
+</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
