@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using Rhino.Geometry;
 using Grasshopper;
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Types;
+using Grasshopper.Kernel.Parameters;
+
 using BHG = BHoM.Geometry;
 using BHA = BHoM.Acoustic;
 
@@ -30,8 +34,13 @@ namespace Acoustic_Alligator
         {
             pManager.AddGenericParameter("Position", "P", "Position of source", GH_ParamAccess.list);
             pManager.AddGenericParameter("Speaker direction", "V", "Main emissive direction of speaker", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Speaker Category", "T", "Category of speaker for directivity specification", GH_ParamAccess.list);
+            pManager.AddTextParameter("Speaker Category", "T", "Category of speaker for directivity specification", GH_ParamAccess.list);
+
+
+            //indexing default values
             pManager[2].Optional = true;
+            Param_String param2 = (Param_String)pManager[2];
+            param2.PersistentData.Append(new GH_String("Omni"));
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
