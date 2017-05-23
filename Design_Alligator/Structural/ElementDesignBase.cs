@@ -33,6 +33,7 @@ namespace Design_Alligator.Structural
             pManager.AddTextParameter("Identifier", "Key", "Name of custom data key linking the bar to the result server", GH_ParamAccess.item);
             pManager.AddBooleanParameter("Allow End Offset", "AllowOffset", "Allows and end offset check for over utilised members", GH_ParamAccess.item);
             pManager.AddBooleanParameter("Execute", "Execute", "Starts the element design", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("AllowParalell", "Paralell", "Alows paralell checking of elements. ALPHA ONLY TESTED ON STEEL ELEMENTS", GH_ParamAccess.item, false);
 
             Params.Input[1].Optional = true;
             Params.Input[4].Optional = true;
@@ -74,6 +75,7 @@ namespace Design_Alligator.Structural
                 IResultAdapter server = Grasshopper_Engine.DataUtils.GetGenericData<IResultAdapter>(DA, 2);
                 string key = Grasshopper_Engine.DataUtils.GetData<string>(DA, 3);
                 bool allowOffset = Grasshopper_Engine.DataUtils.GetData<bool>(DA, 4);
+                bool parallel = Grasshopper_Engine.DataUtils.GetData<bool>(DA, 6);
 
                 TD elemDesign = new TD();
                 elemDesign.DesignElements = elems;
@@ -82,7 +84,7 @@ namespace Design_Alligator.Structural
                 elemDesign.Key = key;
                 elemDesign.AllowOffsetReduction = allowOffset;
 
-                List<TU> utilisations = elemDesign.GetUtilisations();
+                List<TU> utilisations = elemDesign.GetUtilisations(parallel);
                 List<BarForce> forces = elemDesign.GetCriticalForces();
 
                 Dictionary<string, List<object>> results = new Dictionary<string, List<object>>();

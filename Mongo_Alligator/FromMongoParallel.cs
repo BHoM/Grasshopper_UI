@@ -10,15 +10,15 @@ using GHE = Grasshopper_Engine;
 
 namespace Alligator.Mongo
 {
-    public class FromMongo : GH_Component
+    public class FromMongoParallel : GH_Component
     {
-        public FromMongo() : base("FromMongo", "FromMongo", "Get BHoM objects from a Mongo database", "Alligator", "Mongo") { }
+        public FromMongoParallel() : base("FromMongoParallel", "FromMongoParallel", "Get BHoM objects from a Mongo database", "Alligator", "Mongo") { }
 
         public override Guid ComponentGuid
         {
             get
             {
-                return new Guid("AE8F5C54-8746-48BF-A01D-7B4D28A2D91A");
+                return new Guid("628A0207-ECA9-45F4-A219-A9CEBCA36D23");
             }
         }
 
@@ -56,13 +56,13 @@ namespace Alligator.Mongo
             bool active = false; DA.GetData<bool>(3, ref active);
 
             if (active)
-                m_LastResult = CheckAndGetTree(link.Query(query, toJson));
+                m_LastResult = CheckAndGetTree(link.QueryParallel(query, toJson));
 
             DA.SetDataTree(0, m_LastResult);
             
         }
 
-        public static Grasshopper.DataTree<object> CheckAndGetTree(List<object> list)
+        public Grasshopper.DataTree<object> CheckAndGetTree(List<object> list)
         {
             bool isTree = true;
 

@@ -30,6 +30,8 @@ namespace Alligator.Structural.Loads
         {
             pManager.AddGenericParameter("Bars", "Bars", "Bars", GH_ParamAccess.list);
             pManager.AddGenericParameter("Loads", "Loads", "Loads", GH_ParamAccess.list);
+            pManager.AddGenericParameter("GantryNodes", "GantryNodes", "GantryNodes", GH_ParamAccess.list);
+            pManager[2].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -42,6 +44,11 @@ namespace Alligator.Structural.Loads
         {
             List<BHE.Bar> bars = GHE.DataUtils.GetGenericDataList<BHE.Bar>(DA, 0);
             List<BHL.ILoad> loads = GHE.DataUtils.GetGenericDataList<BHL.ILoad>(DA, 1);
+
+            List<BHE.Node> gantryNodes = GHE.DataUtils.GetGenericDataList<BHE.Node>(DA, 2);
+            bool gantryNodesInput = gantryNodes != null;
+            
+
 
             List<BHL.Load<BHE.Node>> newLoads = new List<BHL.Load<BHE.Node>>();
 
@@ -60,6 +67,7 @@ namespace Alligator.Structural.Loads
 
             List<BHE.Bar> compatiableBars = bars.Where(x => x.SectionProperty.Name.StartsWith("RC")).ToList();
 
+            
 
             foreach (BHL.Load<BHE.Node> load in newLoads)
             {
@@ -74,8 +82,21 @@ namespace Alligator.Structural.Loads
 
                     if (strArr[1] == "TR")
                         group.Data.Add(bar.StartNode);
-                    else
+                    else if (strArr[1] == "CR")
                         group.Data.Add(bar.EndNode);
+                    else
+                    {
+                        if (gantryNodesInput)
+                        {
+                            group.Data.Add(GetClosestNode(bar.StartNode, gantryNodes));
+                        }
+                        else
+                        {
+                            group.Data.Add(bar.StartNode);
+                        }
+                        
+                    }
+
                 }
 
                 load.Objects = group;
@@ -87,5 +108,26 @@ namespace Alligator.Structural.Loads
             DA.SetDataList(1, newLoads);
 
         }
+
+        private static BHE.Node GetClosestNode(BHE.Node testNode, List<BHE.Node> list)
+        {
+            BHE.Node closeNode = null;
+
+            double minDist = double.MaxValue;
+
+            foreach (BHE.Node node in list)
+            {
+                double dist = testNode.SquareDistanceTo(node);
+
+                if (dist < minDist)
+                {
+                    closeNode = node;
+                    minDist = dist;
+                }
+            }
+
+            return closeNode;
+        }
+
     }
 }

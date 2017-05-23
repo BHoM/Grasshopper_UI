@@ -57,6 +57,8 @@
     <Compile Include="DeleteDatabase.cs" />
     <Compile Include="DeleteObjects.cs" />
     <Compile Include="ExplodeJson.cs" />
+    <Compile Include="FromMongoParallelOrdered.cs" />
+    <Compile Include="FromMongoParallel.cs" />
     <Compile Include="FromMongo.cs" />
     <Compile Include="GetDatabases.cs" />
     <Compile Include="MongoDataBase.cs" />

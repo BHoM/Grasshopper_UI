@@ -45,6 +45,7 @@ namespace Design_Alligator.Structural.Steel
             pManager.AddNumberParameter("MinUtil", "MinUtil", "The minimal allowed utilisation", GH_ParamAccess.item, 0);
             pManager.AddNumberParameter("MaxUtil", "MaxUtil", "The maximal allowed utilisation", GH_ParamAccess.item, 1);
             pManager.AddBooleanParameter("Execute", "Execute", "Starts the element design", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Parallel", "Parallel", "Allows parallel execution of the sizing. Elements may be returned in a different order then inputed", GH_ParamAccess.item, false);
 
             Params.Input[1].Optional = true;
             Params.Input[1].AddVolatileDataList(new Grasshopper.Kernel.Data.GH_Path(0), null);
@@ -70,8 +71,10 @@ namespace Design_Alligator.Structural.Steel
                 List<SteelSection> secProps = Grasshopper_Engine.DataUtils.GetDataList<SteelSection>(DA, 5);
                 double minUtil = Grasshopper_Engine.DataUtils.GetData<double>(DA, 6);
                 double maxUtil = Grasshopper_Engine.DataUtils.GetData<double>(DA, 7);
+                bool parallel = Grasshopper_Engine.DataUtils.GetData<bool>(DA, 9);
 
                 SteelSectionSizer secSizer = new SteelSectionSizer(elems, loadcases, server, key, minUtil, maxUtil, secProps);
+                secSizer.ParallelChecking = parallel;
 
                 m_critVals.Clear();
                 m_desElems.Clear();
