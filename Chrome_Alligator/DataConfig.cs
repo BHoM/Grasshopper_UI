@@ -9,15 +9,15 @@ using CA = Chrome_Adapter;
 
 namespace Alligator.Mongo
 {
-    public class ChromeLink : GH_Component
+    public class DataConfig : GH_Component
     {
-        public ChromeLink() : base("ChromeLink", "ChromeLink", "Create a link to Chrome", "Alligator", "Chrome") { }
+        public DataConfig() : base("DataConfig", "DataConfig", "Define the configuration of data pushed to Chrome.", "Alligator", "Chrome") { }
 
         public override Guid ComponentGuid
         {
             get
             {
-                return new Guid("3138C272-AF6E-451A-A535-C3256B4525AB");
+                return new Guid("D9F813A1-CD45-43CC-B539-5378D9AC13EA");
             }
         }
 
@@ -25,25 +25,24 @@ namespace Alligator.Mongo
         {
             get
             {
-                return GH_Exposure.primary;
+                return GH_Exposure.quinary;
             }
         }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddIntegerParameter("port", "port", "port used by the socket. Value between 3000 and 9000", GH_ParamAccess.item, 3000);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("link", "link", "link to Chrome", GH_ParamAccess.item);
+            pManager.AddTextParameter("config", "config", "config", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            int port = 0; // = GHE.DataUtils.GetData<int>(DA, 0);
-            DA.GetData<int>(0, ref port);
-            DA.SetData(0, new CA.ChromeAdapter(port));
+            string key = "type: data";
+
+            DA.SetData(0, key);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Alligator.Mongo
         {
             get
             {
-                return GH_Exposure.secondary;
+                return GH_Exposure.primary;
             }
         }
 
