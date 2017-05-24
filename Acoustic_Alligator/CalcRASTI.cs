@@ -68,14 +68,9 @@ namespace Acoustic_Alligator
             List<double> noise = GHE.DataUtils.GetGenericDataList<double>(DA, 3);
             List<double> rt = GHE.DataUtils.GetGenericDataList<double>(DA, 4);
 
-            BHA.Parameters param = new BHA.AcousticRASTIParameters();
-            param.NoiseLevels = noise;
-            param.Speeches = signal;
-            param.ReverberationTimes = rt;
+            BHA.AcousticRASTIParameters param = new BHA.AcousticRASTIParameters();
 
-            STICalculator rasti = new STICalculator(param);
-
-            DA.SetDataList(0, rasti.CalculateRASTI(speakers, zone, param.Frequencies, param.Octaves));
+            DA.SetDataList(0, STICalculator.Solve(param, signal, noise, rt, speakers, zone));
         }
     }
 }

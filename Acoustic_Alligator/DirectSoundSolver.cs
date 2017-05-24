@@ -53,7 +53,7 @@ namespace Acoustic_Alligator
 
             if (!DA.GetDataList(0, spk)) { return; }
             if (!DA.GetDataList(1, rec)) { return; }
-            if (!DA.GetDataList(2, pan)) { return; }
+            DA.GetDataList(2, pan);
 
             List<BHA.Ray> rays = DirectSound.Solve(spk, rec, pan);             
             DA.SetDataList(0, rays);
