@@ -56,11 +56,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BubbleChart.cs" />
+    <Compile Include="ChartConfig.cs" />
+    <Compile Include="DataConfig.cs" />
+    <Compile Include="DataFilter.cs" />
+    <Compile Include="DataKey.cs" />
+    <Compile Include="DimConfig.cs" />
+    <Compile Include="HistogramChart.cs" />
+    <Compile Include="HtmlConfig.cs" />
+    <Compile Include="ImageConfig.cs" />
+    <Compile Include="MarginConfig.cs" />
     <Compile Include="ChromeLink.cs" />
     <Compile Include="Execute.cs" />
+    <Compile Include="ParallelChart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pull.cs" />
     <Compile Include="Push.cs" />
+    <Compile Include="StyleConfig.cs" />
+    <Compile Include="TextConfig.cs" />
+    <Compile Include="TextFilter.cs" />
+    <Compile Include="VideoConfig.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
