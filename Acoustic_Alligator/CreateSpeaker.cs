@@ -36,11 +36,7 @@ namespace Acoustic_Alligator
             pManager.AddGenericParameter("Speaker direction", "V", "Main emissive direction of speaker", GH_ParamAccess.list);
             pManager.AddTextParameter("Speaker Category", "T", "Category of speaker for directivity specification", GH_ParamAccess.list);
 
-
-            //indexing default values
             pManager[2].Optional = true;
-            Param_String param2 = (Param_String)pManager[2];
-            param2.PersistentData.Append(new GH_String("Omni"));
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)

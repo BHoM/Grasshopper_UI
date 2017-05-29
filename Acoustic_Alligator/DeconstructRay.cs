@@ -1,20 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using BHG = BHoM.Geometry;
-using BHA = BHoM.Acoustic;
+
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
+using GHE = Grasshopper_Engine;
+using BHA = BHoM.Acoustic;
+using BHG = BHoM.Geometry;
+
 namespace Acoustic_Alligator
 {
-    public class CreateReceiver : GH_Component
+    public class DeconstructRay : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the CreateReceiver class.
+        /// Initializes a new instance of the DeconstructRay class.
         /// </summary>
-        public CreateReceiver()
-          : base("CreateReceiver", "Rec",
-              "Creates BHoM Acoustic receiver",
+        public DeconstructRay()
+          : base("DeconstructRay", "DeRay",
+              "Explode BHoM Acoustic Ray into its parts",
               "Alligator", "Acoustics")
         {
         }
@@ -24,9 +27,7 @@ namespace Acoustic_Alligator
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Position", "P", "Receiver central point", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Category", "T", "Category type of Receiver for directivity calculation", GH_ParamAccess.list);
-            pManager[1].Optional = true;
+            pManager.AddGenericParameter("Ray", "Ray", "BHoM Acoustic Ray", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -34,7 +35,9 @@ namespace Acoustic_Alligator
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Receiver", "Rec", "BHoM Acoustic Receiver", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Path", "P", "Ray polyline", GH_ParamAccess.list);
+            pManager.AddTextParameter("Source", "S", "ID of the ray source", GH_ParamAccess.list);
+            pManager.AddTextParameter("Receiver", "R", "ID of the ray target", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -43,21 +46,23 @@ namespace Acoustic_Alligator
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<BHA.Receiver> receivers = new List<BHA.Receiver>();
+            List<BHA.Ray> rays = new List<BHoM.Acoustic.Ray>();
+            List<BHG.Polyline> path = new List<BHoM.Geometry.Polyline>();
+            List<string> sID = new List<string>();
+            List<string> rID = new List<string>();
 
-            List<BHG.Point> pos = new List<BHG.Point>();
-            List<String> cat = new List<string>();
+            if (!DA.GetDataList(0, rays)) { return; }
 
-            if (!DA.GetDataList(0,pos)) { return; }
-            if (!DA.GetDataList(1, cat)) { cat.Add("Omni"); }
-
-            for (int i = 0; i < pos.Count; i++)
+            for (int i = 0; i<rays.Count;i++)
             {
-                BHA.Receiver receiver = new BHA.Receiver(pos[i],cat.Count==1?cat[0]:cat[i]);
-                receivers.Add(receiver);
+                path.Add(rays[i].Path);
+                sID.Add(rays[i].Source);
+                rID.Add(rays[i].Target);
             }
 
-            DA.SetDataList(0, receivers);
+            DA.SetDataList(0, path);
+            DA.SetDataList(1, sID);
+            DA.SetDataList(2, rID);
         }
 
         /// <summary>
@@ -78,7 +83,7 @@ namespace Acoustic_Alligator
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("{8e6a26c4-05f9-46db-8fd0-7328059a3003}"); }
+            get { return new Guid("{b11dad6c-0044-4310-9667-b95a7e9f919c}"); }
         }
     }
 }

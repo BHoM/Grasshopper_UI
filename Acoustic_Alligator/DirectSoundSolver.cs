@@ -30,7 +30,10 @@ namespace Acoustic_Alligator
             pManager.AddGenericParameter("Speaker", "Spk", "BHoM Acoustic Speaker", GH_ParamAccess.list);
             pManager.AddGenericParameter("Receiver", "Rec", "BHoM Acoustic Receiver", GH_ParamAccess.list);
             pManager.AddGenericParameter("Panels", "Pan", "BHoM Acoustic Panel", GH_ParamAccess.list);
+            pManager.AddIntegerParameter("Parallel", "Par", "Choose computation method: [0] Serial, [1] CPU Threaded, [2] GPU Threaded", GH_ParamAccess.item);
+
             pManager[2].Optional = true;
+            pManager[3].Optional = true;
         }
 
         /// <summary>
@@ -50,13 +53,14 @@ namespace Acoustic_Alligator
             List <BHA.Speaker> spk = new List<BHA.Speaker>();
             List<BHA.Receiver> rec = new List<BHA.Receiver>();
             List<BHA.Panel> pan = new List<BHA.Panel>();
+            int par = 0;
 
             if (!DA.GetDataList(0, spk)) { return; }
             if (!DA.GetDataList(1, rec)) { return; }
-            DA.GetDataList(2, pan);
-
-            List<BHA.Ray> rays = DirectSound.Solve(spk, rec, pan);             
-            DA.SetDataList(0, rays);
+            if (!DA.GetDataList(2, pan)) { pan = null; }
+            if (!DA.GetData(3, ref par)) { par = 0; }
+          
+            DA.SetDataList(0, DirectSound.Solve(spk, rec, pan, par));
         }
 
         /// <summary>
