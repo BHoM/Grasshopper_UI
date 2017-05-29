@@ -34,25 +34,15 @@ namespace Acoustic_Alligator
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("BHoM Zone", "Zone", "BHoM Zone", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Signal", "Signal", "Option Signal to measure. Default value 85dB if the parameter is left blank.", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Ambient Noise", "Noise", "Optional Ambient Noise. Default value 53.5 dB if the parameter is left blank.", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Reverberation Time", "RT", "Reverberation Time. Default value 0.001s if the parameter is left blank.", GH_ParamAccess.list);
             pManager.AddGenericParameter("BHoM Speakers", "Speakers", "BHoM Speakers", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Signal", "Signal", "Signal to measure", GH_ParamAccess.list);             
-            pManager.AddGenericParameter("Ambient Noise", "Noise", "Ambient Noise", GH_ParamAccess.list);           
-            pManager.AddGenericParameter("Reverberation Time", "RT", "Reverberation Time", GH_ParamAccess.list);    
-
+            pManager.AddGenericParameter("BHoM Zone", "Zone", "BHoM Zone", GH_ParamAccess.item);         
+               
+            pManager[0].Optional = true;
+            pManager[1].Optional = true;
             pManager[2].Optional = true;
-            pManager[3].Optional = true;
-            pManager[4].Optional = true;
-
-            // Indexing defaulting parameters
-            Param_GenericObject param2 = (Param_GenericObject)pManager[2];
-            Param_GenericObject param3 = (Param_GenericObject)pManager[3];
-            Param_GenericObject param4 = (Param_GenericObject)pManager[4];
-
-            // Assigning default values to indexed parameters
-            param2.PersistentData.Append(new GH_ObjectWrapper(85));
-            param3.PersistentData.Append(new GH_ObjectWrapper(53.5));
-            param4.PersistentData.Append(new GH_ObjectWrapper(0.001));
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -62,15 +52,19 @@ namespace Acoustic_Alligator
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BHA.Zone zone = GHE.DataUtils.GetGenericData<BHA.Zone>(DA, 0);
-            List<BHA.Speaker> speakers = GHE.DataUtils.GetGenericDataList<BHA.Speaker>(DA, 1);
-            List<double> signal = GHE.DataUtils.GetGenericDataList<double>(DA, 2);
-            List<double> noise = GHE.DataUtils.GetGenericDataList<double>(DA, 3);
-            List<double> rt = GHE.DataUtils.GetGenericDataList<double>(DA, 4);
+            List<double> signal = new List<double>();
+            List<double> noise = new List<double>();
+            List<double> rt = new List<double>();
+            List<BHA.Speaker> speakers = new List<BHA.Speaker>();
+            BHA.Zone zone = null;
 
-            BHA.AcousticRASTIParameters param = new BHA.AcousticRASTIParameters();
+            if (!DA.GetDataList(0, signal)) { signal = null; }
+            if (!DA.GetDataList(1, noise)) { noise = null; }
+            if (!DA.GetDataList(2, rt)) { rt = null; }
+            if (!DA.GetDataList(3, speakers)) { return; }
+            if (!DA.GetData(4, ref zone)) { return; }
 
-            DA.SetDataList(0, STICalculator.Solve(param, signal, noise, rt, speakers, zone));
+            DA.SetDataList(0, STICalculator.Solve(signal, noise, rt, speakers, zone));
         }
     }
 }

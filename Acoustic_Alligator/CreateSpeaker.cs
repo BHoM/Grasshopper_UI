@@ -57,20 +57,12 @@ namespace Acoustic_Alligator
             List<String> cat = new List<String>();
 
             if (!DA.GetDataList(0, pos)) { return; }
-            if (!DA.GetDataList(1, dir)) { return; }
-            if (!DA.GetDataList(2, cat)) { return; }
+            if (!DA.GetDataList(1, dir)) { dir.Add(new BHG.Vector(1,0,0)); }
+            if (!DA.GetDataList(2, cat)) { cat.Add("Omni"); }
 
             for (int i=0; i<pos.Count;i++)
             {
-                if (dir.Count < pos.Count)
-                {
-                    dir.Add(new BHG.Vector(1,0,0));
-                }
-                if (cat.Count < pos.Count)
-                {
-                    cat.Add("Omni");
-                }
-                BHA.Speaker speaker = new BHA.Speaker(pos[i], dir[i], cat[i]);
+                BHA.Speaker speaker = new BHA.Speaker(pos[i], dir.Count==1?dir[0]:dir[i], cat.Count==1?cat[0]:cat[i]);
                 speakers.Add(speaker);
             }
                         
