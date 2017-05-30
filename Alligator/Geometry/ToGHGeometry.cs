@@ -13,7 +13,7 @@ namespace Alligator.Geometry
 {
     public class ToGHGeometry : GH_Component
     {
-        public ToGHGeometry() : base("ToGHGeometry", "ToGHGeom", "Convert a BHoM geometry into a GH geometry", "Alligator", "geometry") { }
+        public ToGHGeometry() : base("ToGHGeometry", "BtoG", "Convert a BHoM geometry into a GH geometry", "Alligator", "geometry") { }
 
         public override Guid ComponentGuid
         {

@@ -73,14 +73,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalcRASTI.cs" />
+    <Compile Include="CreatePanel.cs" />
+    <Compile Include="CreateReceiver.cs" />
     <Compile Include="CreateSpeaker.cs" />
     <Compile Include="CreateZone.cs" />
+    <Compile Include="DeconstructRay.cs" />
+    <Compile Include="DirectSoundSolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="RayFilter.cs" />
+    <Compile Include="SumSPL.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">

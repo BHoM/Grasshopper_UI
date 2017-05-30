@@ -281,6 +281,52 @@ namespace Grasshopper_Engine
             return null; // TODO: Create the proper convertion (Eddy?)
         }
 
+        /**********************************************/
+        /****               Meshes                 ****/
+        /**********************************************/
+
+        public static BH.Mesh Convert(R.Mesh rMesh)
+        {
+            List<R.Point3f> rVertices = rMesh.Vertices.ToList();
+            BH.Group<BH.Point> Vertices = new BH.Group<BH.Point>();             //BH Vertices Group
+            for (int i = 0; i < rVertices.Count; i++) { BH.Point Vertex = Convert(rVertices[i]); Vertices.Add(Vertex); }
+            List<R.MeshFace> rFaces = rMesh.Faces.ToList();
+            List<BH.Face> Faces = new List<BH.Face>();                  //BH Faces list
+            for (int i = 0; i < rFaces.Count; i++)
+            {
+                if (rFaces[i].IsQuad) { BH.Face Face = new BH.Face(rFaces[i].A, rFaces[i].B, rFaces[i].C, rFaces[i].D); Faces.Add(Face); }
+                if ((rFaces[i].IsTriangle)) { BH.Face Face = new BH.Face(rFaces[i].A, rFaces[i].B, rFaces[i].C); Faces.Add(Face); }                
+            }
+            return new BH.Mesh(Vertices,Faces);            
+        }
+
+        /**********************************************/
+
+            public static R.Mesh Convert(BH.Mesh mesh)
+        {
+            List<BH.Point> vertices = mesh.Vertices.ToList();
+            List<R.Point3d> rVertices = new List<R.Point3d>();      //Rhino Vertices list
+            for (int i = 0; i < vertices.Count; i++)
+            {
+                R.Point3d rVertex = Convert(vertices[i]);
+                rVertices.Add(rVertex);
+            }
+            List<BH.Face> faces = mesh.Faces.ToList();
+            List<R.MeshFace> rFaces = new List<R.MeshFace>();       // Rhino MeshFaces list
+            for (int i =0; i< faces.Count; i++)
+            {
+                if (faces[i].IsQuad) { R.MeshFace rFace = new R.MeshFace(faces[i].A, faces[i].B, faces[i].C, faces[i].D); rFaces.Add(rFace); }
+                if (faces[i].IsTriangle) { R.MeshFace rFace = new R.MeshFace(faces[i].A, faces[i].B, faces[i].C); rFaces.Add(rFace); }
+            }
+
+            R.Mesh rMesh = new R.Mesh();
+            rMesh.Faces.AddFaces(rFaces);
+            rMesh.Vertices.AddVertices(rVertices);
+            return rMesh;
+        }
+
+        /**********************************************/
+
 
         /**********************************************/
         /****  Geoemtry bases                      ****/
@@ -299,6 +345,10 @@ namespace Grasshopper_Engine
             else if (geom is BH.Point)
             {
                 return new R.Point(Convert(geom as BH.Point));
+            }
+            else if (geom is BH.Mesh)
+            {
+                return Convert(geom as BH.Mesh);
             }
             
             return null;
