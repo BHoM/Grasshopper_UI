@@ -85,7 +85,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="CalcSPL.cs" />
     <Compile Include="RayFilter.cs" />
     <Compile Include="SumSPL.cs" />
   </ItemGroup>
