@@ -3,21 +3,33 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using UI_Engine;
+
+
+
 
 namespace Alligator.Components
 {
-    public class AboutGatorComponent : GH_Component
+
+public class AboutGatorComponent : GH_Component
     {
+
+        
         public AboutGatorComponent()
             : base("Alligator", "Gator",
                 "About Alligator",
                 "Alligator", "Gator")
         {
+
+#if INSTALLERRELEASE
+            SplashScreen.ShowDisclaimerPopUp();
+#endif
         }
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddBooleanParameter("Execute", "E", "Execute?", GH_ParamAccess.item);
+            
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
@@ -27,6 +39,7 @@ namespace Alligator.Components
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+
             bool Execute = true;
 
             if (!DA.GetData(0, ref Execute)) return;

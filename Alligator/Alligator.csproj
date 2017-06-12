@@ -20,7 +20,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\Build\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
@@ -64,6 +64,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Rhinoceros 5 (64-bit)\System\RhinoCommon.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="UI_Engine">
+      <HintPath>..\..\BHoM_Engine\Build\UI_Engine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -442,6 +445,8 @@ copy /Y "$(TargetDir)\RobotToolKit.dll" "C:\Users\$(Username)\AppData\Roaming\Gr
 copy /Y "$(TargetDir)\Databases_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Databases_Engine.dll"
 
 copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM.dll"
+
+copy /Y "$(TargetDir)\UI_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\UI_Engine.dll"
 
 copy /Y "$(TargetDir)\Newtonsoft.Json.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Newtonsoft.Json.dll"</PostBuildEvent>
   </PropertyGroup>
