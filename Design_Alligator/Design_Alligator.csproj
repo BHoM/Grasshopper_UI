@@ -69,6 +69,7 @@
     <Compile Include="Structural\Concrete\ColumnDesign.cs" />
     <Compile Include="Structural\ElementDesignBase.cs" />
     <Compile Include="Structural\GetCapacityCurves.cs" />
+    <Compile Include="Structural\SLS\Deflection\DeflectionChecker.cs" />
     <Compile Include="Structural\Steel\SteelDesign_Superseeded.cs" />
     <Compile Include="Structural\Steel\SteelDesign.cs" />
     <Compile Include="Structural\Steel\SteelSectionSizerComponent.cs" />

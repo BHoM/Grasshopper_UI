@@ -378,6 +378,37 @@ namespace Grasshopper_Engine
             return rGeom;
         }
 
+        /**********************************************/
+
+        public static R.Mesh FeMeshToRhinoMesh(BHoM.Structural.Elements.FEMesh feMesh)
+        {
+            R.Mesh mesh = new R.Mesh();
+
+            for (int i = 0; i < feMesh.Nodes.Count; i++)
+            {
+                mesh.Vertices.Add(Convert(feMesh.Nodes[i].Point));
+            }
+
+            foreach (BHoM.Structural.Elements.FEFace feFace in feMesh.Faces)
+            {
+                R.MeshFace face;
+
+                if (feFace.IsQuad)
+                {
+                    face = new R.MeshFace(feFace.NodeIndices[0], feFace.NodeIndices[1], feFace.NodeIndices[2], feFace.NodeIndices[3]);
+                }
+                else
+                {
+                    face = new R.MeshFace(feFace.NodeIndices[0], feFace.NodeIndices[1], feFace.NodeIndices[2]);
+                }
+
+                mesh.Faces.AddFace(face);
+            }
+
+            return mesh;
+
+        }
+
 
         /********************************************/
         /**** Extention convert methods          ****/

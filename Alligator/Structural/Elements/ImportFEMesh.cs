@@ -43,28 +43,7 @@ namespace Alligator.Structural.Elements
 
             foreach (BHE.FEMesh feMesh in result)
             {
-                R.Mesh mesh = new R.Mesh();
-
-                for (int i = 0; i < feMesh.Nodes.Count; i++)
-                {
-                    mesh.Vertices.Add(GHE.GeometryUtils.Convert(feMesh.Nodes[i].Point));
-                }
-
-                foreach (BHE.FEFace feFace in feMesh.Faces)
-                {
-                    R.MeshFace face = new R.MeshFace();
-
-                    face.A = feFace.NodeIndices[0];
-                    face.B = feFace.NodeIndices[1];
-                    face.C = feFace.NodeIndices[2];
-
-                    if (face.IsQuad)
-                        face.D = feFace.NodeIndices[3];
-
-                    mesh.Faces.AddFace(face);
-                }
-
-                meshes.Add(mesh);
+                meshes.Add(GHE.GeometryUtils.FeMeshToRhinoMesh(feMesh));
             }
             geom = meshes;
             return result;

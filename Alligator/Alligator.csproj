@@ -126,6 +126,7 @@
     <Compile Include="Structural\Elements\ImportFEMesh.cs" />
     <Compile Include="Structural\Elements\Level.cs" />
     <Compile Include="Structural\Elements\Opening.cs" />
+    <Compile Include="Structural\Loads\CustomLoadGrouping\AddLocalAndGlobalLoads.cs" />
     <Compile Include="Structural\Loads\CustomLoadGrouping\AplyGroupToLoadObject.cs" />
     <Compile Include="Structural\Loads\CustomLoadGrouping\CheckLoadRegionContainment.cs" />
     <Compile Include="Structural\Loads\CreateBarLoad.cs" />
@@ -169,11 +170,14 @@
     <Compile Include="Structural\Results\AddBarForces.cs" />
     <Compile Include="Structural\Results\BarResults.cs" />
     <Compile Include="Structural\Results\BarUtilisation.cs" />
+    <Compile Include="Structural\Results\GetBarDisplacement.cs" />
     <Compile Include="Structural\Results\NodeResults.cs" />
     <Compile Include="Structural\Results\PanelResults.cs" />
     <Compile Include="Structural\Results\PushResultsToDataBase.cs" />
     <Compile Include="Structural\Results\ResultServer.cs" />
     <Compile Include="Structural\Results\SlabReinforcementResults.cs" />
+    <Compile Include="Structural\Results\TempMemoryResServer\MemoryResultServer.cs" />
+    <Compile Include="Structural\Results\TempMemoryResServer\MemoryServerComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

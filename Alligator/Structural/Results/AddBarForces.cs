@@ -48,7 +48,7 @@ namespace Alligator.Structural.Results
 
 
             BHI.IResultAdapter app1 = GHE.DataUtils.GetGenericData<BHI.IResultAdapter>(DA, 0);
-            BHI.IResultAdapter app2 = GHE.DataUtils.GetGenericData<BHI.IResultAdapter>(DA, 0);
+            BHI.IResultAdapter app2 = GHE.DataUtils.GetGenericData<BHI.IResultAdapter>(DA, 1);
             BHD.IDatabaseAdapter db = GHE.DataUtils.GetGenericData<BHD.IDatabaseAdapter>(DA, 2);
             string key = GHE.DataUtils.GetData<string>(DA, 3);
 

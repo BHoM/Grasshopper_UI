@@ -78,7 +78,11 @@ namespace Alligator.Structural.Loads
                     {
                         mesh.CustomData["LoadRegions"] = new List<string>();
                     }
-                  ((List<string>)mesh.CustomData["LoadRegions"]).Add(tags[i]);
+
+                    if(mesh.CustomData["LoadRegions"] is List<string>)
+                        ((List<string>)mesh.CustomData["LoadRegions"]).Add(tags[i]);
+                    else if(mesh.CustomData["LoadRegions"] is List<object>)
+                        ((List<object>)mesh.CustomData["LoadRegions"]).Add(tags[i]);
                 }
 
             }
@@ -151,7 +155,7 @@ namespace Alligator.Structural.Loads
 
                 foreach (BHE.FEMesh mesh in meshes)
                 {
-                    if (mesh.CustomData.ContainsKey("LoadRegions") && ((List<string>)mesh["LoadRegions"]).Contains(name))
+                    if (mesh.CustomData.ContainsKey("LoadRegions") && CheckContainment(mesh["LoadRegions"] as IEnumerable<object>,name))
                     {
                         hasItems = true;
                         group.Data.Add(mesh);
@@ -174,6 +178,25 @@ namespace Alligator.Structural.Loads
             DA.SetDataList(0, groups);
             DA.SetDataList(1, newLoads);
 
+        }
+
+        private bool CheckContainment(IEnumerable<object> list, string name)
+        {
+            if (list is List<string>)
+            {
+                return (list as List<string>).Contains(name);
+            }
+
+            foreach (object obj in list)
+            {
+                if (obj is string)
+                {
+                    if ((obj as string) == name)
+                        return true;
+                }
+            }
+
+            return false;
         }
     }
 }
