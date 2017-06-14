@@ -6,13 +6,13 @@ using Rhino.Geometry;
 
 namespace SVG_Alligator
 {
-    public class StyleComponent : GH_Component
+    public class SVGGroupComponent : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the StyleComponent class.
+        /// Initializes a new instance of the SVGGroupComponent class.
         /// </summary>
-        public StyleComponent()
-          : base("SVG Style", "SVG Style",
+        public SVGGroupComponent()
+          : base("SVG Group", "SVG Group",
               "Description",
               "Alligator", "SVG")
         {
@@ -23,13 +23,8 @@ namespace SVG_Alligator
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("Thickness", "T", "Thickness", GH_ParamAccess.item);
-            pManager.AddColourParameter("Stroke", "S", "Stroke", GH_ParamAccess.item);
-            pManager.AddColourParameter("Fill", "F", "Fill", GH_ParamAccess.item);
-
-            pManager[0].Optional = true;
-            pManager[1].Optional = true;
-            pManager[2].Optional = true;
+            pManager.AddGenericParameter("SVG Objects", "SVG Objects", "SVG Objects", GH_ParamAccess.list);
+            pManager.AddTextParameter("Tag", "Tag", "Tag", GH_ParamAccess.item);
 
         }
 
@@ -38,7 +33,7 @@ namespace SVG_Alligator
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Style", "S", "Style", GH_ParamAccess.item);
+            pManager.AddTextParameter("SVG String", "S", "SVG String", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -47,22 +42,27 @@ namespace SVG_Alligator
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            
+            List<String> Objects = new List<string>();
+            string ID = null;
 
-            System.Drawing.Color strokeCol = new System.Drawing.Color();
-            System.Drawing.Color fillCol = new System.Drawing.Color();
-            double thickness = 0;
+            if (!DA.GetDataList(0, Objects)) { return; }
+            if (!DA.GetData(1, ref ID)) { return; }
 
-            Dictionary<string, object> StyleData = new Dictionary<string, object>();
 
-            StyleData.Add("Thickness", null);
-            StyleData.Add("Stroke", null);
-            StyleData.Add("Fill", null);
+            string g1 = "<g id=\"_ID\">" + System.Environment.NewLine;
 
-            if (DA.GetData(0, ref thickness)) { StyleData["Thickness"] = thickness; } ;
-            if (DA.GetData(1, ref strokeCol)) { StyleData["Stroke"] = strokeCol; };
-            if (DA.GetData(2, ref fillCol)) { StyleData["Fill"] = fillCol; }; 
-                                    
-            DA.SetData(0, StyleData);
+            g1 = g1.Replace("_ID", ID);
+
+            for (int i = 0; i < Objects.Count; i++)
+            {
+                g1 += Objects[i];
+            }
+
+
+            g1 += "</g>" + System.Environment.NewLine;
+
+            DA.SetData(0, g1);
 
         }
 
@@ -84,7 +84,7 @@ namespace SVG_Alligator
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("de39c7dd-dec4-4568-af37-6454764412c0"); }
+            get { return new Guid("73130dae-bacc-4967-a955-4d5cfc7bb420"); }
         }
     }
 }

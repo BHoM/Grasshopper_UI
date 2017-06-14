@@ -6,13 +6,13 @@ using Rhino.Geometry;
 
 namespace SVG_Alligator
 {
-    public class StyleComponent : GH_Component
+    public class GetBoundaryComponent : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the StyleComponent class.
+        /// Initializes a new instance of the GetBoundaryComponent class.
         /// </summary>
-        public StyleComponent()
-          : base("SVG Style", "SVG Style",
+        public GetBoundaryComponent()
+          : base("Get Boundary", "Get Boundary",
               "Description",
               "Alligator", "SVG")
         {
@@ -23,14 +23,8 @@ namespace SVG_Alligator
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("Thickness", "T", "Thickness", GH_ParamAccess.item);
-            pManager.AddColourParameter("Stroke", "S", "Stroke", GH_ParamAccess.item);
-            pManager.AddColourParameter("Fill", "F", "Fill", GH_ParamAccess.item);
-
-            pManager[0].Optional = true;
-            pManager[1].Optional = true;
-            pManager[2].Optional = true;
-
+            pManager.AddCurveParameter("Curves", "Curves", "Curves", GH_ParamAccess.list);
+            
         }
 
         /// <summary>
@@ -38,7 +32,8 @@ namespace SVG_Alligator
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Style", "S", "Style", GH_ParamAccess.item);
+            pManager.AddCurveParameter("Boundary", "Boundary", "Boundary", GH_ParamAccess.list);
+            pManager.AddBrepParameter("Breps", "Breps", "Breps", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -47,23 +42,23 @@ namespace SVG_Alligator
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            List<Curve> crvList = new List<Curve>();
+            if (!DA.GetDataList(0, crvList)) { return; }
 
-            System.Drawing.Color strokeCol = new System.Drawing.Color();
-            System.Drawing.Color fillCol = new System.Drawing.Color();
-            double thickness = 0;
 
-            Dictionary<string, object> StyleData = new Dictionary<string, object>();
+            Brep[] bList = Rhino.Geometry.Brep.CreatePlanarBreps(crvList);
+            //Rhino.Geometry.Brep.JoinBreps(bList,10);
+            List<Curve> cList = new List<Curve>();
 
-            StyleData.Add("Thickness", null);
-            StyleData.Add("Stroke", null);
-            StyleData.Add("Fill", null);
+            for (int i = 0; i < bList.Length; i++)
+            {
+                Curve[] boundary = Curve.JoinCurves(bList[i].DuplicateEdgeCurves());
 
-            if (DA.GetData(0, ref thickness)) { StyleData["Thickness"] = thickness; } ;
-            if (DA.GetData(1, ref strokeCol)) { StyleData["Stroke"] = strokeCol; };
-            if (DA.GetData(2, ref fillCol)) { StyleData["Fill"] = fillCol; }; 
-                                    
-            DA.SetData(0, StyleData);
+                cList.AddRange(boundary);
+            }
 
+            DA.SetDataList(0, cList);
+            DA.SetDataList(1, bList);
         }
 
         /// <summary>
@@ -84,7 +79,7 @@ namespace SVG_Alligator
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("de39c7dd-dec4-4568-af37-6454764412c0"); }
+            get { return new Guid("743c7255-8f29-4fb2-98b7-3164f4f10af8"); }
         }
     }
 }

@@ -42,6 +42,7 @@ namespace SVG_Alligator
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.AddCurveParameter("2D Curves", "2D Curves", "2D Curves", GH_ParamAccess.tree);
+            pManager.AddBooleanParameter("Success", "Success", "Success", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -57,7 +58,7 @@ namespace SVG_Alligator
 
             List<Grasshopper.Kernel.Types.IGH_GeometricGoo> geoList = new List<Grasshopper.Kernel.Types.IGH_GeometricGoo>();
             bool runBoolean = false;
-
+            bool successBool = false;
             RhinoDoc doc = RhinoDoc.ActiveDoc;
 
             if (!DA.GetDataList(0, geoList)) { return; }
@@ -75,7 +76,7 @@ namespace SVG_Alligator
 
                 }
 
-                bool make2D = Rhino.RhinoApp.RunScript(" -Make2D DrawingLayout=CurrentView" + "ShowTangentEdges=Yes "
+                successBool = Rhino.RhinoApp.RunScript(" -Make2D DrawingLayout=CurrentView" + "ShowTangentEdges=Yes "
                 + "CreateHiddenLines=No "
                 + "MaintainSourceLayers=Yes Enter ", false);
 
@@ -112,6 +113,7 @@ namespace SVG_Alligator
             }
 
             DA.SetDataTree(0, outTree);
+            DA.SetData(1, successBool);
         }
 
         /// <summary>

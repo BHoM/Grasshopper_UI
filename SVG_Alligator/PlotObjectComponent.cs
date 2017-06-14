@@ -13,7 +13,7 @@ namespace SVG_Alligator
         /// Initializes a new instance of the PlotObjectComponent class.
         /// </summary>
         public PlotObjectComponent()
-          : base("Plot", "Plot",
+          : base("SVG Object", "SVG Object",
               "Description2",
               "Alligator", "SVG")
         {
@@ -26,6 +26,8 @@ namespace SVG_Alligator
         {
             pManager.AddGenericParameter("Objects", "O", "The BHoM geometry to plot", GH_ParamAccess.list);
             pManager.AddGenericParameter("Style", "S", "Style", GH_ParamAccess.item);
+
+            pManager[1].Optional = true;
         }
 
         /// <summary>
@@ -51,25 +53,66 @@ namespace SVG_Alligator
             ///////////////////////DEFINE STYLE/////////////////////////////
 
             if (!DA.GetDataList<BHoM.Geometry.GeometryBase>(0, Objects)) { return; }
-            if (!DA.GetData(1, ref StyleData)) { return; }
+            DA.GetData(1, ref StyleData);
             
 
             if (StyleData.Count > 0)
             {
 
-                svgText += "<g stroke=\"rgb(_rSVal, _gSVal, _bSVal)\" fill=\"rgb(_rFVal, _gFVal, _bFVal)\" stroke-width=\"_stroke\">" + System.Environment.NewLine;
+                svgText += "<g ";   
 
-                double sThickenss = (double)StyleData["Thickness"];
-                System.Drawing.Color Stroke = (System.Drawing.Color)StyleData["Stroke"];
-                System.Drawing.Color Fill = (System.Drawing.Color)StyleData["Fill"];
+                if (StyleData["Stroke"] != null)
+                {
+                    string sString = "stroke=\"rgb(_rSVal, _gSVal, _bSVal)\" ";
 
-                svgText = svgText.Replace("_stroke", sThickenss.ToString());
-                svgText = svgText.Replace("_rSVal", Stroke.R.ToString());
-                svgText = svgText.Replace("_gSVal", Stroke.G.ToString());
-                svgText = svgText.Replace("_bSVal", Stroke.B.ToString());
-                svgText = svgText.Replace("_rFVal", Fill.R.ToString());
-                svgText = svgText.Replace("_gFVal", Fill.G.ToString());
-                svgText = svgText.Replace("_bFVal", Fill.B.ToString());
+                    System.Drawing.Color Stroke = (System.Drawing.Color)StyleData["Stroke"];
+                    sString = sString.Replace("_rSVal", Stroke.R.ToString());
+                    sString = sString.Replace("_gSVal", Stroke.G.ToString());
+                    sString = sString.Replace("_bSVal", Stroke.B.ToString());
+
+                    svgText += sString;
+
+                }
+                else
+                {
+                    string sString = "stroke=\"none\" ";
+                    svgText += sString;
+                }
+
+                if (StyleData["Fill"] != null)
+                {
+                    string fString = "fill=\"rgb(_rFVal, _gFVal, _bFVal)\" ";
+
+                    System.Drawing.Color Fill = (System.Drawing.Color)StyleData["Fill"];
+                    fString = fString.Replace("_rFVal", Fill.R.ToString());
+                    fString = fString.Replace("_gFVal", Fill.G.ToString());
+                    fString = fString.Replace("_bFVal", Fill.B.ToString());
+
+                    svgText += fString;
+                }
+                else
+                {
+                    string fString = "fill=\"none\" ";
+                    svgText += fString;
+                }
+
+                if (StyleData["Thickness"] != null)
+                {
+
+                    string tString = "stroke-width=\"_stroke\" ";
+
+                    double sThickenss = (double)StyleData["Thickness"];
+                    tString = tString.Replace("_stroke", sThickenss.ToString());
+
+                    svgText += tString;
+                }
+                else
+                {
+                    string tString = "stroke-width=\"none\" ";
+                    svgText += tString;
+                }
+
+                svgText += ">" + System.Environment.NewLine;
             }
 
 
