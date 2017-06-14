@@ -23,7 +23,7 @@ namespace SVG_Alligator
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddCurveParameter("Curves", "Curves", "Curves", GH_ParamAccess.list);
+            pManager.AddCurveParameter("Curves", "C", "Curves", GH_ParamAccess.list);
             
         }
 
@@ -32,8 +32,8 @@ namespace SVG_Alligator
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddCurveParameter("Boundary", "Boundary", "Boundary", GH_ParamAccess.list);
-            pManager.AddBrepParameter("Breps", "Breps", "Breps", GH_ParamAccess.list);
+            pManager.AddCurveParameter("Boundary", "B", "Boundary", GH_ParamAccess.list);
+            pManager.AddBrepParameter("Surfaces", "S", "Surfaces", GH_ParamAccess.list);
         }
 
         /// <summary>

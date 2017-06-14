@@ -23,8 +23,8 @@ namespace SVG_Alligator
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("SVG Objects", "SVG Objects", "SVG Objects", GH_ParamAccess.list);
-            pManager.AddTextParameter("Tag", "Tag", "Tag", GH_ParamAccess.item);
+            pManager.AddGenericParameter("SVG Objects", "O", "SVG Objects", GH_ParamAccess.list);
+            pManager.AddTextParameter("Tag", "T", "Tag", GH_ParamAccess.item);
 
         }
 

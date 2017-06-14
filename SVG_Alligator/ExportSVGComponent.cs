@@ -23,10 +23,10 @@ namespace SVG_Alligator
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddBooleanParameter("Run", "Run", "Run", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Canvas", "Canvas", "Canvas", GH_ParamAccess.item);
-            pManager.AddGenericParameter("SVG Objects", "SVG Objects", "SVG Objects", GH_ParamAccess.list);
-            pManager.AddTextParameter("File Path", "File Path", "File Path", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Run", "R", "Run", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Canvas", "C", "Canvas", GH_ParamAccess.item);
+            pManager.AddGenericParameter("SVG Objects", "O", "SVG Objects", GH_ParamAccess.list);
+            pManager.AddTextParameter("File Path", "P", "File Path", GH_ParamAccess.item);
         }
 
         /// <summary>

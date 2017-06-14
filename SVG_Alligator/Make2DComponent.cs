@@ -32,8 +32,8 @@ namespace SVG_Alligator
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Geometry", "Geometry", "The geometry to select", GH_ParamAccess.list);
-            pManager.AddBooleanParameter("Run", "Run", "Run", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Geometry", "G", "The geometry to select", GH_ParamAccess.list);
+            pManager.AddBooleanParameter("Run", "R", "Run", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -41,8 +41,8 @@ namespace SVG_Alligator
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddCurveParameter("2D Curves", "2D Curves", "2D Curves", GH_ParamAccess.tree);
-            pManager.AddBooleanParameter("Success", "Success", "Success", GH_ParamAccess.item);
+            pManager.AddCurveParameter("2D Curves", "C", "2D Curves", GH_ParamAccess.tree);
+            pManager.AddBooleanParameter("Success", "S", "Success", GH_ParamAccess.item);
         }
 
         /// <summary>
