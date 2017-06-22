@@ -13,6 +13,7 @@ namespace SVG_Alligator
 {
     public class Make2DComponent : GH_Component
     {
+        private DataTree<Curve> m_outTree;
         /// <summary>
         /// Each implementation of GH_Component must provide a public 
         /// constructor without any arguments.
@@ -24,7 +25,8 @@ namespace SVG_Alligator
           : base("Make2D", "Make2D",
               "Description",
               "Alligator", "SVG")
-        {            
+        {
+            m_outTree = new DataTree<Curve>();
         }
 
         /// <summary>
@@ -101,18 +103,17 @@ namespace SVG_Alligator
 
                 }
 
+                crvList = crvDictionary.Values.ToList();
+
+                m_outTree = new DataTree<Curve>();
+
+                for (int i = 0; i < crvList.Count; i++)
+                {
+                    m_outTree.AddRange(crvList[i], new GH_Path(i));
+                }
             }
 
-            crvList = crvDictionary.Values.ToList();
-
-            DataTree<Curve> outTree = new DataTree<Curve>();
-
-            for (int i = 0; i < crvList.Count; i++)
-            {
-                outTree.AddRange(crvList[i], new GH_Path(i));
-            }
-
-            DA.SetDataTree(0, outTree);
+            DA.SetDataTree(0, m_outTree);
             DA.SetData(1, successBool);
         }
 
