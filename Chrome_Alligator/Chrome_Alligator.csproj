@@ -48,6 +48,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,21 +59,35 @@
   <ItemGroup>
     <Compile Include="BubbleChart.cs" />
     <Compile Include="ChartConfig.cs" />
+    <Compile Include="ChoroplethChart.cs" />
+    <Compile Include="ColourConfig.cs" />
+    <Compile Include="CompositeChart.cs" />
+    <Compile Include="ConfigLink.cs" />
+    <Compile Include="ConfigLinkConfig.cs" />
     <Compile Include="DataConfig.cs" />
     <Compile Include="DataFilter.cs" />
     <Compile Include="DataKey.cs" />
+    <Compile Include="DataLink.cs" />
+    <Compile Include="DataLinkConfig.cs" />
     <Compile Include="DimConfig.cs" />
+    <Compile Include="Drawing.cs" />
     <Compile Include="HistogramChart.cs" />
     <Compile Include="HtmlConfig.cs" />
     <Compile Include="ImageConfig.cs" />
+    <Compile Include="LineChart.cs" />
+    <Compile Include="MapChart.cs" />
     <Compile Include="MarginConfig.cs" />
     <Compile Include="ChromeLink.cs" />
     <Compile Include="Execute.cs" />
     <Compile Include="Model3D.cs" />
+    <Compile Include="PageStop.cs" />
+    <Compile Include="PageTravelerConfig.cs" />
     <Compile Include="ParallelChart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pull.cs" />
     <Compile Include="Push.cs" />
+    <Compile Include="SliderFilter.cs" />
+    <Compile Include="StatLineChart.cs" />
     <Compile Include="StyleConfig.cs" />
     <Compile Include="TextConfig.cs" />
     <Compile Include="TextFilter.cs" />
