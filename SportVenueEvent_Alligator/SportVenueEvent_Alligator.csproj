@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug64</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -37,29 +37,27 @@
     <Reference Include="BHoM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="GH_IO">
-      <HintPath>..\External Libraries\GH_IO.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\GH_IO.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Grasshopper">
-      <HintPath>..\External Libraries\Grasshopper.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\Grasshopper.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Grasshopper_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Build\Grasshopper_Engine.dll</HintPath>
+    <Reference Include="RhinoCommon">
+      <HintPath>..\..\..\..\..\..\Program Files\Rhinoceros 5 (64-bit)\System\RhinoCommon.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="SportVenueEventToolkit">
-      <HintPath>..\..\SportVenueEventToolkit\SportVenueEventToolkit\bin\Debug\SportVenueEventToolkit.dll</HintPath>
+    <Reference Include="SportVenueEvent_oM">
+      <HintPath>..\..\SportVenueEvent_Toolkit\Build\SportVenueEvent_oM.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="RhinoCommon">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Rhinoceros 5 (64-bit)\System\RhinoCommon.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Elements\SVE_About.cs" />
@@ -85,6 +83,12 @@
   <ItemGroup>
     <None Include="Resources\ConcreteRaker.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
+      <Project>{c273f369-b83a-4183-9a97-18cdb23c25c6}</Project>
+      <Name>Grasshopper_Engine</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -94,11 +98,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
-
-Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
-
-copy /Y "$(TargetDir)\SportVenueEventToolkit.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\SportVenueEventToolkit.dll"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>

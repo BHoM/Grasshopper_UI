@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="BHoM">
       <HintPath>..\..\BHoM\build\BHoM.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="FBeamFileGenerator">
       <HintPath>..\..\Miscellaneous_Toolkit\Miscellaneous_Toolkit\Build\FBeamFileGenerator.dll</HintPath>
@@ -65,16 +66,13 @@
     <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
       <Project>{c273f369-b83a-4183-9a97-18cdb23c25c6}</Project>
       <Name>Grasshopper_Engine</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
-
-Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
-
-
-copy /Y "$(TargetDir)\FBeamFileGenerator.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\FBeamFileGenerator.dll"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

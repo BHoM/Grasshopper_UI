@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\Build\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -32,15 +32,19 @@
   <ItemGroup>
     <Reference Include="BHoM">
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="GH_IO">
-      <HintPath>..\..\..\..\..\..\Program Files\Rhinoceros 5.0 (64-bit)\Plug-ins\grasshopper_0.9.56.0\GH_IO.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\GH_IO.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Grasshopper">
-      <HintPath>..\..\..\..\..\..\Program Files\Rhinoceros 5.0 (64-bit)\Plug-ins\grasshopper_0.9.56.0\Grasshopper.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\Grasshopper.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="RhinoCommon">
       <HintPath>..\..\..\..\..\..\Program Files\Rhinoceros 5 (64-bit)\System\RhinoCommon.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -62,20 +66,13 @@
     <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
       <Project>{c273f369-b83a-4183-9a97-18cdb23c25c6}</Project>
       <Name>Grasshopper_Engine</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
-
-Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
-
-copy /Y "$(TargetDir)\RobotToolKit.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\RobotToolKit.dll"
-
-copy /Y "$(TargetDir)\Databases_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Databases_Engine.dll"
-
-copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM.dll"
-</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
