@@ -48,8 +48,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Build\Grasshopper_Engine.dll</HintPath>
     </Reference>
-    <Reference Include="SportVenueEventToolkit">
-      <HintPath>..\..\SportVenueEventToolkit\SportVenueEventToolkit\bin\Debug\SportVenueEventToolkit.dll</HintPath>
+    <Reference Include="SportVenueEvent_oM">
+      <HintPath>..\..\SportVenueEvent_Toolkit\Build\SportVenueEvent_oM.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -104,7 +104,7 @@
 
 Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
 
-copy /Y "$(TargetDir)\SportVenueEventToolkit.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\SportVenueEventToolkit.dll"</PostBuildEvent>
+copy /Y "$(TargetDir)\SportVenueEvent_oM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\SportVenueEvent_oM.dll"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
