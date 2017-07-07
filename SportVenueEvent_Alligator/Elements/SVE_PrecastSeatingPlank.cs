@@ -2,10 +2,11 @@
 using BHoM.Structural;
 using Grasshopper.Kernel;
 using System.Collections.Generic;
+using Grasshopper_Engine.Components;
 
 namespace Alligator.SportVenueEvent.Structural
 {
-    public class PrecastSeatingPlank : BHoMBaseComponent<SportVenueEventToolkit.Elements.ConcreteRakerBeam>
+    public class PrecastSeatingPlank : BHoMBaseComponent<BHoM.Structural.Elements.PrecastSeatingPlank>
     {
         public PrecastSeatingPlank() : base("Precast Seating Plank", "PrecastSeatingPlank", "Create a Precast seating plank", "SportVenueEvent", "Structural") { }
 
@@ -17,10 +18,5 @@ namespace Alligator.SportVenueEvent.Structural
             }
         }
 
-        /// <summary> Icon (24x24 pixels)</summary>
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return SportVenueEvent.Properties.Resources.ConcreteRaker; }
-        }
     }
 }
