@@ -59,13 +59,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DefineCanvasComponent.cs" />
+    <Compile Include="CanvasComponent.cs" />
     <Compile Include="ExportSVGComponent.cs" />
-    <Compile Include="GetBoundaryComponent.cs" />
+    <Compile Include="BoundaryComponent.cs" />
     <Compile Include="Make2DComponent.cs" />
-    <Compile Include="PlotObjectComponent.cs" />
-    <Compile Include="StyleComponent.cs" />
+    <Compile Include="SVGObjectComponent.cs" />
+    <Compile Include="SVGStyleComponent.cs" />
     <Compile Include="SVGGroupComponent.cs" />
+    <Compile Include="SVGTextComponent.cs" />
     <Compile Include="SVG_AlligatorInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

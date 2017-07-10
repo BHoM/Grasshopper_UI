@@ -7,12 +7,12 @@ using BHoM;
 
 namespace SVG_Alligator
 {
-    public class PlotObjectComponent : GH_Component
+    public class SVGObjectComponent : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the PlotObjectComponent class.
         /// </summary>
-        public PlotObjectComponent()
+        public SVGObjectComponent()
           : base("SVG Object", "SVG Object",
               "Description2",
               "Alligator", "SVG")

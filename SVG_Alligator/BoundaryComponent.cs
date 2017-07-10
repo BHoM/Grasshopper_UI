@@ -6,12 +6,12 @@ using Rhino.Geometry;
 
 namespace SVG_Alligator
 {
-    public class GetBoundaryComponent : GH_Component
+    public class BoundaryComponent : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the GetBoundaryComponent class.
         /// </summary>
-        public GetBoundaryComponent()
+        public BoundaryComponent()
           : base("Get Boundary", "Get Boundary",
               "Description",
               "Alligator", "SVG")

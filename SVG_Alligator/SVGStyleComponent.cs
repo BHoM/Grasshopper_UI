@@ -6,12 +6,12 @@ using Rhino.Geometry;
 
 namespace SVG_Alligator
 {
-    public class StyleComponent : GH_Component
+    public class SVGStyleComponent : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the StyleComponent class.
         /// </summary>
-        public StyleComponent()
+        public SVGStyleComponent()
           : base("SVG Style", "SVG Style",
               "Description",
               "Alligator", "SVG")

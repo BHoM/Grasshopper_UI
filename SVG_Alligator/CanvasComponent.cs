@@ -7,12 +7,12 @@ using BHoM;
 
 namespace SVG_Alligator
 {
-    public class DefineCanvasComponent : GH_Component
+    public class CanvasComponent : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the DefineCanvasComponent class.
         /// </summary>
-        public DefineCanvasComponent()
+        public CanvasComponent()
           : base("SVG Canvas", "SVG Canvas",
               "Description",
               "Alligator", "SVG")
@@ -32,7 +32,6 @@ namespace SVG_Alligator
 
             pManager[3].Optional = true;
             pManager[4].Optional = true;
-
         }
 
         /// <summary>
@@ -57,7 +56,6 @@ namespace SVG_Alligator
             double Offset = 0;
             List<BHoM.Geometry.GeometryBase> Objects = new List<BHoM.Geometry.GeometryBase>();
 
-
             ///////////////////////DEFINE STYLE/////////////////////////////
 
             if (!DA.GetDataList<BHoM.Geometry.GeometryBase>(0, Objects)) { return; }
@@ -65,7 +63,6 @@ namespace SVG_Alligator
             if (!DA.GetData(2, ref Width)) { return; }
             DA.GetData(3, ref Offset);
             DA.GetData(4, ref Scale);
-            
 
             BHoM.Geometry.BoundingBox canvasBounds = defineCanvasBounds(Objects);
 
@@ -85,7 +82,6 @@ namespace SVG_Alligator
             {
                 cScale = (double)Scale;
             }
-
 
             canvasData.Add("Origin", canvasBounds.Min);
             canvasData.Add("Scale", cScale);
