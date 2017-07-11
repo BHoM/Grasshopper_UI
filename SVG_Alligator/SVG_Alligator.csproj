@@ -59,8 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CanvasComponent.cs" />
-    <Compile Include="ExportSVGComponent.cs" />
+    <Compile Include="SVGExportComponent.cs" />
     <Compile Include="BoundaryComponent.cs" />
     <Compile Include="Make2DComponent.cs" />
     <Compile Include="SVGObjectComponent.cs" />
