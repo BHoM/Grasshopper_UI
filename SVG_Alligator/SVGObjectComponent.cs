@@ -26,7 +26,7 @@ namespace SVG_Alligator
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Objects", "O", "The BHoM geometry to plot", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Geometry", "G", "The BHoM geometry to plot", GH_ParamAccess.list);
             pManager.AddGenericParameter("Style", "S", "Style", GH_ParamAccess.item);
 
             pManager[1].Optional = true;

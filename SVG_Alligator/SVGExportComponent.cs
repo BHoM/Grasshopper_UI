@@ -16,11 +16,11 @@ namespace SVG_Alligator
               "Alligator", "SVG")
         {
         }
-
-
+        
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Objects", "Obj", "The BHoM geometry to plot", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Canvas Style", "S", "The style of the canvas", GH_ParamAccess.list);
             pManager.AddNumberParameter("Canvas Height", "H", "The height of the canvas", GH_ParamAccess.item);
             pManager.AddNumberParameter("Canvas Width", "W", "The Width of the canvas", GH_ParamAccess.item);
             pManager.AddNumberParameter("Canvas Offset", "O", "The offset of the canvas", GH_ParamAccess.item);
@@ -32,6 +32,7 @@ namespace SVG_Alligator
             pManager[3].Optional = true;
             pManager[4].Optional = true;
             pManager[5].Optional = true;
+            pManager[7].Optional = true;
         }
         
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
@@ -46,16 +47,17 @@ namespace SVG_Alligator
             double Height = 1000;
             double Offset = 10;
             List<Dictionary<string, object>> Objects = new List<Dictionary<string, object>>();
+            List<Dictionary<string, object>> Styles = new List<Dictionary<string, object>>();
             string FilePath = null;
             bool Run = false;
-            
 
             if (!DA.GetDataList<Dictionary<string, object>>(0, Objects)) { return; }
-            DA.GetData(1, ref Height);
-            DA.GetData(2, ref Width);
-            DA.GetData(3, ref Offset);
-            DA.GetData(4, ref FilePath);
-            DA.GetData(5, ref Run);
+            DA.GetDataList<Dictionary<string, object>>(0, Styles);
+            DA.GetData(2, ref Height);
+            DA.GetData(3, ref Width);
+            DA.GetData(4, ref Offset);
+            DA.GetData(5, ref FilePath);
+            DA.GetData(6, ref Run);
 
             ///////////////////////DEFINE CANVAS BOUNDS/////////////////////////////
 
@@ -100,17 +102,25 @@ namespace SVG_Alligator
 
             svgText += "<svg height=\"" + Height.ToString() + "\" width=\"" + Width.ToString() + "\" xmlns=\"http://www.w3.org/2000/svg\">" + System.Environment.NewLine;
 
+            if (Styles.Count > 0)
+            {
+                string s = "< defs >" + System.Environment.NewLine +
+                            "< style type = \"text/css\" >< ![CDATA[" + System.Environment.NewLine +
+                            "_style" + System.Environment.NewLine +
+                            "}" + System.Environment.NewLine +
+                            "]]></ style >" + System.Environment.NewLine +
+                            "</ defs >" + System.Environment.NewLine + System.Environment.NewLine;
+            }
+
+
             svgText += "<g transform= \"translate(_xOffset, _yOffset) translate(_xCorrect, _yCorrect) scale(_xScale, _yScale) translate(_xTrans, _yTrans)\">" + System.Environment.NewLine;
 
             svgText = svgText.Replace("_xScale", xScale.ToString());
             svgText = svgText.Replace("_yScale", yScale.ToString());
-
             svgText = svgText.Replace("_xTrans", xTrans.ToString());
             svgText = svgText.Replace("_yTrans", yTrans.ToString());
-
             svgText = svgText.Replace("_xCorrect", "0");
             svgText = svgText.Replace("_yCorrect", Height.ToString());
-
             svgText = svgText.Replace("_xOffset", Offset.ToString());
             svgText = svgText.Replace("_yOffset", "-" + Offset.ToString());
 
@@ -135,9 +145,6 @@ namespace SVG_Alligator
 
         }
 
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
         protected override System.Drawing.Bitmap Icon
         {
             get
