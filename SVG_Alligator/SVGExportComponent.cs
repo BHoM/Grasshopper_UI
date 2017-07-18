@@ -20,7 +20,7 @@ namespace SVG_Alligator
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Objects", "Obj", "The BHoM geometry to plot", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Canvas Style", "S", "The style of the canvas", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Canvas Style", "S", "The style of the canvas", GH_ParamAccess.list);
             pManager.AddNumberParameter("Canvas Height", "H", "The height of the canvas", GH_ParamAccess.item);
             pManager.AddNumberParameter("Canvas Width", "W", "The Width of the canvas", GH_ParamAccess.item);
             pManager.AddNumberParameter("Canvas Offset", "O", "The offset of the canvas", GH_ParamAccess.item);
@@ -32,7 +32,7 @@ namespace SVG_Alligator
             pManager[3].Optional = true;
             pManager[4].Optional = true;
             pManager[5].Optional = true;
-            pManager[7].Optional = true;
+            pManager[6].Optional = true;
         }
         
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
@@ -52,7 +52,7 @@ namespace SVG_Alligator
             bool Run = false;
 
             if (!DA.GetDataList<Dictionary<string, object>>(0, Objects)) { return; }
-            DA.GetDataList<Dictionary<string, object>>(0, Styles);
+            DA.GetDataList<Dictionary<string, object>>(1, Styles);
             DA.GetData(2, ref Height);
             DA.GetData(3, ref Width);
             DA.GetData(4, ref Offset);
@@ -104,15 +104,25 @@ namespace SVG_Alligator
 
             if (Styles.Count > 0)
             {
-                string s = "< defs >" + System.Environment.NewLine +
-                            "< style type = \"text/css\" >< ![CDATA[" + System.Environment.NewLine +
-                            "_style" + System.Environment.NewLine +
-                            "}" + System.Environment.NewLine +
-                            "]]></ style >" + System.Environment.NewLine +
-                            "</ defs >" + System.Environment.NewLine + System.Environment.NewLine;
+                string styleList = null;
+
+                string s = "<defs>" + System.Environment.NewLine +
+                            "<style type=\"text/css\"><![CDATA[" + System.Environment.NewLine + System.Environment.NewLine +
+                            "_styleList" + System.Environment.NewLine +
+                            "]]></style>" + System.Environment.NewLine +
+                            "</defs>" + System.Environment.NewLine + System.Environment.NewLine;
+
+                for (int i = 0; i < Styles.Count; i++)
+                {
+                    styleList += (string) Styles[i]["SVG"];
+                    styleList += System.Environment.NewLine;
+                }
+
+                s = s.Replace("_styleList", styleList);
+
+                svgText += s;
             }
-
-
+                        
             svgText += "<g transform= \"translate(_xOffset, _yOffset) translate(_xCorrect, _yCorrect) scale(_xScale, _yScale) translate(_xTrans, _yTrans)\">" + System.Environment.NewLine;
 
             svgText = svgText.Replace("_xScale", xScale.ToString());
@@ -129,7 +139,6 @@ namespace SVG_Alligator
             for (int i = 0; i < svgObjectList.Count; i++)
             {
                 svgText += svgObjectList[i];
-
             }
             svgText += "</g>" + System.Environment.NewLine;
             svgText += "</svg>";

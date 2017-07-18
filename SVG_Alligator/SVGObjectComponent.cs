@@ -342,6 +342,24 @@ namespace SVG_Alligator
                 svgStyle += tString;
             }
 
+            if (StyleDict["Fill Opacity"] != null)
+            {
+                string FoString = "fill-opacity = \"_fillOpacity\" ";
+                double fOpacity = (double)StyleDict["Fill Opacity"];
+                FoString = FoString.Replace("_fillOpacity", fOpacity.ToString());
+                svgStyle += FoString;
+            }
+
+            if (StyleDict["Stroke Dash"] != null && StyleDict["Stroke Gap"] != null)
+            {
+                string DaString = "stroke-dasharray=\"_dash,_gap\"";
+                double dash = (double)StyleDict["Stroke Dash"];
+                double gap = (double)StyleDict["Stroke Gap"];
+                DaString = DaString.Replace("_dash", dash.ToString());
+                DaString = DaString.Replace("_gap", gap.ToString());
+                svgStyle += DaString;
+            }
+
             return svgStyle;
         }
 
