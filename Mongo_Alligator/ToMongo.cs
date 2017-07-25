@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using BHB = BHoM.Base;
-using MA = Mongo_Adapter;
+using BHB = BH.oM.Base;
+using MA = BH.Adapter.Mongo;
 using GHE = Grasshopper_Engine;
 
 namespace Alligator.Mongo
@@ -40,7 +40,6 @@ namespace Alligator.Mongo
             pManager.AddGenericParameter("Mongo link", "link", "collection to send the data to", GH_ParamAccess.item);
             pManager.AddGenericParameter("objects", "objects", "objects to send", GH_ParamAccess.list);
             pManager.AddTextParameter("key", "key", "key unique to that package of data", GH_ParamAccess.item);
-            pManager.AddTextParameter("tags", "tags", "tags attached to the saved data", GH_ParamAccess.list);
             pManager.AddBooleanParameter("active", "active", "check if the component currently allows data transfer", GH_ParamAccess.item, false);
             Params.Input[3].Optional = true;
         }
@@ -52,11 +51,10 @@ namespace Alligator.Mongo
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            MA.MongoLink link = GHE.DataUtils.GetGenericData<MA.MongoLink>(DA, 0);
+            MA.MongoAdapter link = GHE.DataUtils.GetGenericData<MA.MongoAdapter>(DA, 0);
             List<object> objects = GHE.DataUtils.GetGenericDataList<object>(DA, 1);
             string key = GHE.DataUtils.GetData<string>(DA, 2);
-            List<string> tags = new List<string>(); DA.GetDataList<string>(3, tags);
-            bool active = false; DA.GetData<bool>(4, ref active);
+            bool active = false; DA.GetData<bool>(3, ref active);
 
             if (!active || objects.Count == 0)
             {
@@ -64,7 +62,7 @@ namespace Alligator.Mongo
                 return;
             }
 
-            bool done = link.Push(objects, key, tags);
+            bool done = link.Push(objects, key);
             DA.SetData(0, done);
         }
 

@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using MA = Mongo_Adapter;
-using BHB = BHoM.Base;
+using MA = BH.Adapter.Mongo;
+using BHB = BH.oM.Base;
+using BHC = BHoM_Engine.DataStream.Convert;
 using GHE = Grasshopper_Engine;
 
 namespace Alligator.Mongo
@@ -82,10 +83,10 @@ namespace Alligator.Mongo
                     case 0:
                         continue;
                     case 1:
-                        valJson = BHB.JSONWriter.Write(GHE.DataUtils.UnwrapObject(objects[0]));
+                        valJson =  BHC.Json.Write(GHE.DataUtils.UnwrapObject(objects[0]));
                         break;
                     default:
-                        valJson = "[" + objects.Select(x => BHB.JSONWriter.Write(GHE.DataUtils.UnwrapObject(x))).Aggregate((a, b) => a + ',' + b) + "]";
+                        valJson = "[" + objects.Select(x => BHC.Json.Write(GHE.DataUtils.UnwrapObject(x))).Aggregate((a, b) => a + ',' + b) + "]";
                         break;
                 }
 

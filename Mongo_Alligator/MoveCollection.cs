@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using GHE = Grasshopper_Engine;
-using MA = Mongo_Adapter;
+using MA = BH.Adapter.Mongo;
 
 namespace Mongo_Alligator
 {
@@ -36,8 +36,8 @@ namespace Mongo_Alligator
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            MA.MongoLink source = GHE.DataUtils.GetData<MA.MongoLink>(DA, 0);
-            MA.MongoLink target = GHE.DataUtils.GetData<MA.MongoLink>(DA, 1);
+            MA.MongoAdapter source = GHE.DataUtils.GetData<MA.MongoAdapter>(DA, 0);
+            MA.MongoAdapter target = GHE.DataUtils.GetData<MA.MongoAdapter>(DA, 1);
             bool overwrite = GHE.DataUtils.GetData<bool>(DA, 2);
 
             bool success = false;

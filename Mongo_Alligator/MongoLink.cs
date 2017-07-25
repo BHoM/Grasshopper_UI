@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using GHE = Grasshopper_Engine;
-using MA = Mongo_Adapter;
+using MA = BH.Adapter.Mongo;
 
 namespace Alligator.Mongo
 {
-    public class MongoLink : GH_Component
+    public class MongoAdapter : GH_Component
     {
-        public MongoLink() : base("MongoLink", "MongoLink", "Create a link to a Mongo database", "Alligator", "Mongo") { }
+        public MongoAdapter() : base("MongoAdapter", "MongoAdapter", "Create a link to a Mongo database", "Alligator", "Mongo") { }
 
         public override Guid ComponentGuid
         {
@@ -52,7 +52,7 @@ namespace Alligator.Mongo
             string database = GHE.DataUtils.GetData<string>(DA, 1);
             string collection = GHE.DataUtils.GetData<string>(DA, 2);
 
-            DA.SetData(0, new MA.MongoLink(server, database, collection));
+            DA.SetData(0, new MA.MongoAdapter(server, database, collection));
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using GHE = Grasshopper_Engine;
-using MA = Mongo_Adapter;
+using MA = BH.Adapter.Mongo;
 
 namespace Alligator.Mongo
 {

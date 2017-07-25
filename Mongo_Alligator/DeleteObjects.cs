@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using MA = Mongo_Adapter;
+using MA = BH.Adapter.Mongo;
 using GHE = Grasshopper_Engine;
+using BH.Adapter.Queries;
 
 namespace Alligator.Mongo
 {
@@ -48,13 +49,13 @@ namespace Alligator.Mongo
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            MA.MongoLink link = GHE.DataUtils.GetGenericData<MA.MongoLink>(DA, 0);
+            MA.MongoAdapter link = GHE.DataUtils.GetGenericData<MA.MongoAdapter>(DA, 0);
             string filter = GHE.DataUtils.GetData<string>(DA, 1);
             bool active = false; DA.GetData<bool>(2, ref active);
 
             if (active)
             {
-                bool done = link.Delete(filter);
+                int done = link.Delete(new FilterQuery()); //TODO: sort out filter queries for mongo
                 DA.SetData(0, done);
             } 
             else

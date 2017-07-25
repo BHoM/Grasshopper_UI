@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using MA = Mongo_Adapter;
-using BHB = BHoM.Base;
+using MA = BH.Adapter.Mongo;
+using BHB = BH.oM.Base;
 using GHE = Grasshopper_Engine;
+using BHC = BHoM_Engine.DataStream.Convert;
 using System.Collections;
 using System.Windows.Forms;
 
@@ -71,7 +72,7 @@ namespace Alligator.Mongo
 
             if (json == null) return;
 
-            object obj = BHB.JsonReader.ReadObject(json);
+            object obj = BHC.Json.Read(json);
             m_Outputs = new Dictionary<string, object>();
 
             if (obj is IDictionary)

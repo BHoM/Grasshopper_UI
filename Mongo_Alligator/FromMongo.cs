@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using MA = Mongo_Adapter;
+using MA = BH.Adapter.Mongo;
 using GHE = Grasshopper_Engine;
+using BH.Adapter.Queries;
 
 namespace Alligator.Mongo
 {
@@ -49,13 +50,18 @@ namespace Alligator.Mongo
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            MA.MongoLink link = GHE.DataUtils.GetGenericData<MA.MongoLink>(DA, 0);
+            MA.MongoAdapter link = GHE.DataUtils.GetGenericData<MA.MongoAdapter>(DA, 0);
             List<string> query = GHE.DataUtils.GetDataList<string>(DA, 1);
             bool toJson = GHE.DataUtils.GetData<bool>(DA, 2);
             bool active = false; DA.GetData<bool>(3, ref active);
 
+            Dictionary<string, string> config = new Dictionary<string, string>
+            {
+                { "keepAsString", toJson.ToString() }
+            };
+
             if (active)
-                m_LastResult = link.Query(query, toJson);
+                m_LastResult = link.Pull(query.Select(x => new CustomQuery(x)), config) as List<object>;
 
             DA.SetDataList(0, m_LastResult);
         }

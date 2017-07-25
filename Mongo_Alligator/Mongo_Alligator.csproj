@@ -33,6 +33,13 @@
     <Reference Include="BHoM">
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
     </Reference>
+    <Reference Include="BHoM_Adapter">
+      <HintPath>..\..\BHoM_Engine\Build\BHoM_Adapter.dll</HintPath>
+    </Reference>
+    <Reference Include="DataStream_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BHoM_Engine\Build\DataStream_Engine.dll</HintPath>
+    </Reference>
     <Reference Include="GH_IO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97" />
     <Reference Include="Grasshopper">
       <HintPath>..\..\..\..\AppData\Roaming\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\Grasshopper.dll</HintPath>
@@ -73,12 +80,6 @@
     <Compile Include="ToMongo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
-      <Project>{c273f369-b83a-4183-9a97-18cdb23c25c6}</Project>
-      <Name>Grasshopper_Engine</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -111,6 +112,12 @@
   <ItemGroup>
     <None Include="Resources\BHoM_Mongo_ToJson.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
+      <Project>{c273f369-b83a-4183-9a97-18cdb23c25c6}</Project>
+      <Name>Grasshopper_Engine</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
@@ -122,6 +129,7 @@
 Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
 
 copy /Y "$(TargetDir)\Mongo_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Mongo_Adapter.dll"
+copy /Y "$(TargetDir)\DataStream_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\DataStream_Engine.dll"
 copy /Y "$(TargetDir)\MongoDB.Bson.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\MongoDB.Bson.dll"
 copy /Y "$(TargetDir)\MongoDB.Driver.Core.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\MongoDB.Driver.Core.dll"
 copy /Y "$(TargetDir)\MongoDB.Driver.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\MongoDB.Driver.dll"</PostBuildEvent>
