@@ -131,6 +131,7 @@
     <Compile Include="Structural\Loads\CustomLoadGrouping\GroupByPropertyName.cs" />
     <Compile Include="Structural\Loads\ImportLoad.cs" />
     <Compile Include="Structural\Loads\ImportLoadcases.cs" />
+    <Compile Include="Structural\Loads\PlanarContourLoad.cs" />
     <Compile Include="Structural\Loads\UniformAreaLoad.cs" />
     <Compile Include="Structural\ModelTracker\GenerateBarTrackers.cs" />
     <Compile Include="Structural\ModelTracker\StoreModelTrackingData.cs" />
