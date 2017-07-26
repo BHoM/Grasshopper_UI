@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using CA = Chrome_Adapter;
+using CA = BH.Adapter.Chrome;
 using Grasshopper.Kernel.Types;
 
 namespace Alligator.Mongo
@@ -70,7 +70,11 @@ namespace Alligator.Mongo
                     config.Add(split[0].Trim(), split[1].Trim());
             }
 
-            bool done = link.Execute(command, parameters, config);
+            Dictionary<string, object> param = new Dictionary<string, object>();  //TODO: need a proper way to deal with parameters
+            if (command == "bake" && parameters.Count > 0)
+                param["folder"] = parameters[0];
+
+            bool done = link.Execute(command, param, config);
             DA.SetData(0, done);
         }
 

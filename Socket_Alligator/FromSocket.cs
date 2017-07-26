@@ -13,8 +13,8 @@ namespace Alligator.Socket
     {
         public FromSocket() : base("FromSocket", "FromSocket", "Send string to a socket", "Alligator", "Socket")
         {
-            m_Socket = new Socket_Engine.SocketServer();
-            m_Socket.MessageReceived += MessageReceived;
+            m_Socket = new BH.Adapter.Socket.SocketServer();
+            m_Socket.DataObservers += MessageReceived;
         }
 
         public override Guid ComponentGuid
@@ -39,7 +39,7 @@ namespace Alligator.Socket
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("data", "data", "data received", GH_ParamAccess.item);
+            pManager.AddGenericParameter("data", "data", "data received", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -49,14 +49,14 @@ namespace Alligator.Socket
 
             if (!active) return;
 
-            m_Socket.Listen(port);
+            m_Socket.Start(port);
             DA.SetData(0, m_Message);
         }
 
-        private Socket_Engine.SocketServer m_Socket;
-        private String m_Message = "";
+        private BH.Adapter.Socket.SocketServer m_Socket;
+        private List<object> m_Message = new List<object>();
 
-        private void MessageReceived(string message)
+        private void MessageReceived(List<object> message)
         {
             m_Message = message;
             ExpireSolution(true);

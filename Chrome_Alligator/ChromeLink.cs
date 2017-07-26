@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
 //using GHE = Grasshopper_Engine;
-using CA = Chrome_Adapter;
+using CA = BH.Adapter.Chrome;
 
 namespace Alligator.Mongo
 {
@@ -41,9 +41,16 @@ namespace Alligator.Mongo
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            int port = 0; // = GHE.DataUtils.GetData<int>(DA, 0);
-            DA.GetData<int>(0, ref port);
-            DA.SetData(0, new CA.ChromeAdapter(port));
+            try
+            {
+                int port = 0; // = GHE.DataUtils.GetData<int>(DA, 0);
+                DA.GetData<int>(0, ref port);
+                DA.SetData(0, new CA.ChromeAdapter(port));
+            }
+            catch(Exception e)
+            {
+
+            }
         }
     }
 }

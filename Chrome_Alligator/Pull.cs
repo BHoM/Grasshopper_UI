@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using CA = Chrome_Adapter;
+using CA = BH.Adapter.Chrome;
 using Grasshopper.Kernel.Types;
-using BHoM.Base;
+using BH.oM.Base;
 
 namespace Alligator.Mongo
 {
@@ -76,9 +76,9 @@ namespace Alligator.Mongo
 
 
         int m_Port = 0;
-        private object m_Message = null;
+        private List<object> m_Message = null;
 
-        private void MessageReceived(string message)
+        private void MessageReceived(List<object> message)
         {
             m_Message = message; /*JsonReader.ReadObject(message);*/
             ExpireSolution(true);

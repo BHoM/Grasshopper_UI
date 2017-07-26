@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using CA = Chrome_Adapter;
+using CA = BH.Adapter.Chrome;
 using Grasshopper.Kernel.Types;
 
 namespace Alligator.Mongo

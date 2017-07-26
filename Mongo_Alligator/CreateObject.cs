@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using MA = Mongo_Adapter;
-using BHB = BHoM.Base;
+using MA = BH.Adapter.Mongo;
+using BHB = BH.oM.Base;
 using GHE = Grasshopper_Engine;
 
 namespace Alligator.Mongo
