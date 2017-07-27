@@ -73,17 +73,31 @@ namespace Alligator.Structural.Loads.CustomLoadGrouping
 
                     int rafterIndex, purlinIndex;
 
-                    if (!(int.TryParse(loadNameArr[1], out rafterIndex) && int.TryParse(loadNameArr[2], out purlinIndex)))
+                    string rafterName = loadNameArr[1];
+                    bool mirror = false;
+                    if (rafterName.Contains("M"))
+                    {
+                        rafterName = rafterName.Trim('M');
+                        mirror = true;
+                    }
+
+                    if (!(int.TryParse(rafterName, out rafterIndex) && int.TryParse(loadNameArr[2], out purlinIndex)))
                     {
                         AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Int parsing failed");
                         return;
                     }
 
                     rafterIndex -= 1;
-
-                    foreach (int rI in GetAllRafterIndecies(rafterIndex))
+                    if (mirror)
                     {
-                        group.Data.Add(rafterNodes[rI][purlinIndex]);
+                        foreach (int rI in GetAllRafterIndecies(rafterIndex))
+                        {
+                            group.Data.Add(rafterNodes[rI][purlinIndex]);
+                        }
+                    }
+                    else
+                    {
+                        group.Data.Add(rafterNodes[rafterIndex][purlinIndex]);
                     }
                     groupDict.Add(groupName, group);
                 }
