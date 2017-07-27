@@ -31,6 +31,7 @@ namespace Alligator.Structural.Loads
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            bool success = false;
             if (GHE.DataUtils.Run(DA, 1))
             {
                 BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
@@ -42,6 +43,8 @@ namespace Alligator.Structural.Loads
 
                     DA.SetDataList(1, loadcases);
                 }
+                success = true;
+                DA.SetData(2, success);
             }
         }
 
@@ -55,6 +58,7 @@ namespace Alligator.Structural.Loads
         {
             pManager.AddTextParameter("Ids", "Id", "Id of loadcases", GH_ParamAccess.list);
             pManager.AddGenericParameter("Loadcases", "Loadcases", "Loadcases", GH_ParamAccess.list);
+            pManager.AddBooleanParameter("Success", "Success", "Success", GH_ParamAccess.item);
         }
 
         public override Guid ComponentGuid

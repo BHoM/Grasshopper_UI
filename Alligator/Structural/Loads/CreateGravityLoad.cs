@@ -28,7 +28,7 @@ namespace Alligator.Structural.Loads
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("Name", "N", "Name of the load", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Objects", "obj", "Group of objects to apply the gravity to", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Objects", "obj", "Group of objects to apply the gravity to", GH_ParamAccess.list);
             pManager.AddGenericParameter("Load Case", "LC", "Load case for the gravity load", GH_ParamAccess.item);
             pManager.AddVectorParameter("Gravity direction", "G", "The direction to apply the gravity too. Default set to negative z", GH_ParamAccess.item, new Rhino.Geometry.Vector3d(0, 0, -1));
             pManager.AddGenericParameter("Custom Data", "CD", "Custom data for the load", GH_ParamAccess.item);
@@ -45,9 +45,9 @@ namespace Alligator.Structural.Loads
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             string name = GHE.DataUtils.GetData<string>(DA, 0);
-            BHB.Group<BHB.BHoMObject> objects = GHE.DataUtils.GetGenericDataGroup<BHB.BHoMObject>(DA, 1);
+            BHB.Group<BHB.BHoMObject> objects = GHE.DataUtils.GetGenericDataList<BHB.BHoMObject>(DA, 1);
             BHL.Loadcase loadCase = GHE.DataUtils.GetGenericData<BHL.Loadcase>(DA, 2);
-            BHG.Vector dir = (BHG.Vector)GHE.DataUtils.GetDataGeom(DA, 3);
+            BHG.Vector dir = GHE.GeometryUtils.Convert(GHE.DataUtils.GetData<Rhino.Geometry.Vector3d>(DA, 3));
             Dictionary<string, object> customData = GHE.DataUtils.GetGenericData<Dictionary<string, object>>(DA, 4);
 
             BHL.GravityLoad load = new BHoM.Structural.Loads.GravityLoad();
