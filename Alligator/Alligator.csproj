@@ -37,6 +37,9 @@
     <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoReporting">
+      <HintPath>..\..\Excel_Toolkit\Build\AutoReporting.dll</HintPath>
+    </Reference>
     <Reference Include="BHoM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
@@ -86,6 +89,7 @@
     <Compile Include="Structural\Commands\CloseFile.cs" />
     <Compile Include="Structural\Commands\RunAnalysis.cs" />
     <Compile Include="Structural\Commands\SaveFile.cs" />
+    <Compile Include="Structural\Commands\ScreenCapture.cs" />
     <Compile Include="Structural\Elements\CreateGroup.cs" />
     <Compile Include="Base\ObjectFilter.cs" />
     <Compile Include="Base\ViewCustomData.cs" />
