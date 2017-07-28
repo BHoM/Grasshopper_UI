@@ -61,6 +61,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeechRecognition_Alligator
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeechSynthesis_Alligator", "SpeechSynthesis_Alligator\SpeechSynthesis_Alligator.csproj", "{C9ACF28F-9650-40B8-B421-57ADB7DCAE0B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Excel_Alligator", "Excel_Alligator\Excel_Alligator.csproj", "{FBBD4401-B1B6-4486-B74E-BA62A12B5E63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -206,6 +208,12 @@ Global
 		{C9ACF28F-9650-40B8-B421-57ADB7DCAE0B}.Debug64|Any CPU.Build.0 = Debug|Any CPU
 		{C9ACF28F-9650-40B8-B421-57ADB7DCAE0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9ACF28F-9650-40B8-B421-57ADB7DCAE0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBBD4401-B1B6-4486-B74E-BA62A12B5E63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBBD4401-B1B6-4486-B74E-BA62A12B5E63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBBD4401-B1B6-4486-B74E-BA62A12B5E63}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBBD4401-B1B6-4486-B74E-BA62A12B5E63}.Debug64|Any CPU.Build.0 = Debug|Any CPU
+		{FBBD4401-B1B6-4486-B74E-BA62A12B5E63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBBD4401-B1B6-4486-B74E-BA62A12B5E63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
