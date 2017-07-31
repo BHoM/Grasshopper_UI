@@ -46,18 +46,18 @@ namespace Acoustic_Alligator
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<BHA.Ray> rays = new List<BHoM.Acoustic.Ray>();
-            List<BHG.Polyline> path = new List<BHoM.Geometry.Polyline>();
-            List<string> sID = new List<string>();
-            List<string> rID = new List<string>();
+            List<BHA.Ray> rays = new List<BHA.Ray>();
+            List<BHG.Curve> path = new List<BHG.Curve>();
+            List<int> sID = new List<int>();
+            List<int> rID = new List<int>();
 
             if (!DA.GetDataList(0, rays)) { return; }
 
             for (int i = 0; i<rays.Count;i++)
             {
                 path.Add(rays[i].Path);
-                sID.Add(rays[i].Source);
-                rID.Add(rays[i].Target);
+                sID.Add(rays[i].SpeakerID);
+                rID.Add(rays[i].ReceiverID);
             }
 
             DA.SetDataList(0, path);

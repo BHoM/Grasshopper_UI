@@ -45,7 +45,7 @@ namespace Acoustic_Alligator
             List<BHA.Ray> rays = new List<BHA.Ray>();
             if (!DA.GetDataList(0, rays)) { return; }
 
-            DA.SetDataList(0, AcousticSPI_Engine.SPLCalculator.Solve(rays));
+            DA.SetData(0, AcousticSPI_Engine.SPLCalculator.Solve(rays));
         }
 
         /// <summary>

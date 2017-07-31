@@ -58,9 +58,18 @@ namespace Acoustic_Alligator
             if (!DA.GetDataList(0, spk)) { return; }
             if (!DA.GetDataList(1, rec)) { return; }
             if (!DA.GetDataList(2, pan)) { pan = null; }
-            if (!DA.GetData(3, ref par)) { par = 0; }
-          
-            DA.SetDataList(0, DirectSound.Solve(spk, rec, pan, par));
+            if (!DA.GetData(3, ref par)) { }
+            
+            if (par == 0)
+                DA.SetDataList(0, DirectSound.Solve(spk, rec, pan));
+            else if (par == 1)
+                DA.SetDataList(0, DirectSound.SolveCpu(spk, rec, pan)); 
+            else if (par == 2)
+                DA.SetDataList(0, DirectSoundGPU.Solve(spk.ToArray(), rec.ToArray()));
+            else if (par == 3)
+                DA.SetDataList(0, DirectSound.SolveCuda(spk, rec, pan));
+            else
+                throw new Exception("Parallel parameter cannot be left blank or be higher than 3. Please specify calculation method: [0] Serial, [1] CPU Threaded, [2] CUDA accelerated. WIP: GPU not working, [3] OpenCL accelerated. WIP: Not Working");
         }
 
         /// <summary>

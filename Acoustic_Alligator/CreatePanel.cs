@@ -26,7 +26,7 @@ namespace Acoustic_Alligator
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Mesh", "M", "Triangular or Quadrangular Mesh. Do not input joined mesh, but single faces.", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Absorption", "a", "Absorbtion coefficient between 0 and 1", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Absorption", "a", "Absorbtion coefficient between 0 and 1", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Acoustic_Alligator
         {
             List<BHA.Panel> panels = new List<BHA.Panel>();
 
-            List<BHG.Mesh> mesh = new List<BHoM.Geometry.Mesh>();
+            List<BHG.Mesh> mesh = new List<BHG.Mesh>();
             List<List<double>> r = new List<List<double>>();
 
             if (!DA.GetDataList(0, mesh)) { return; }
