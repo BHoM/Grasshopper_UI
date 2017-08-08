@@ -83,6 +83,7 @@
     <Compile Include="PageStop.cs" />
     <Compile Include="PageTravelerConfig.cs" />
     <Compile Include="ParallelChart.cs" />
+    <Compile Include="PieChart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pull.cs" />
     <Compile Include="Push.cs" />
