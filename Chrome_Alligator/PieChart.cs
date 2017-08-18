@@ -52,10 +52,9 @@ namespace Chrome_Alligator
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("parent", "parent", "Define the parent to this component", GH_ParamAccess.item, "body");
-            pManager.AddTextParameter("Radius", "rDim1", "First pie value argument", GH_ParamAccess.item,"");
-            pManager.AddTextParameter("Radius", "rDim2", "Second pie value argument for nested pies", GH_ParamAccess.item, "");
-            pManager.AddTextParameter("Radius", "rDim3", "Third pie value argument for nested pies", GH_ParamAccess.item, "");
+            pManager.AddTextParameter("Radius", "rDims", "First pie value argument", GH_ParamAccess.list);
             pManager.AddTextParameter("Colour", "cDim", "Property that conveys colors criteria", GH_ParamAccess.item, "red");
+            pManager.AddIntegerParameter("Legend Type", "Legend", "[0] Lateral legend, [1] for radial legend", GH_ParamAccess.item, 0);
         }
 
         /// <summary>
@@ -73,24 +72,39 @@ namespace Chrome_Alligator
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             string parent = "";
-            string rDim1 = "", rDim2 = "", rDim3 = "";
             string cDim = "";
+            List<string> rDims = new List<string>();
+            int legend = 0;
+
+            DA.GetDataList<string>(1, rDims);
+
             DA.GetData<string>(0, ref parent);
-            DA.GetData<string>(1, ref rDim1);
-            DA.GetData<string>(2, ref rDim2);
-            DA.GetData<string>(3, ref rDim3);
-            DA.GetData<string>(4, ref cDim);
+            DA.GetData<string>(2, ref cDim);
+            DA.GetData<int>(3, ref legend);
 
             List<string> config = new List<string>();
 
             config.Add("type: pieChart");
             config.Add("parent: " + parent);
 
-            if (rDim1.Length > 0) { config.Add("rDim1: " + rDim1); }
-            if (rDim2.Length > 0) { config.Add("rDim2: " + rDim2); }
-            if (rDim3.Length > 0) { config.Add("rDim3: " + rDim3); }
+            string s = "rDims: [";
+            for (int i = 0; i < rDims.Count; i++)
+            {
+                /*
+                if (rDims[i].Length > 0)
+                {
+                    config.Add("rDim" + i + ": " + rDims[i]);
+                }
+                */
+                s += rDims[i];
+                s += ",";
+            }
+
+            config.Add(s.Trim(',') + ']');
+
             if (cDim.Length > 0 && (cDim.StartsWith("{") || cDim.IndexOf(',') == -1))
                 config.Add("cDim: " + cDim);
+            config.Add("legendType: " + legend);
 
             DA.SetDataList(0, config);
         }
