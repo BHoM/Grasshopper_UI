@@ -89,6 +89,7 @@
     <Compile Include="Push.cs" />
     <Compile Include="SliderFilter.cs" />
     <Compile Include="StatLineChart.cs" />
+    <Compile Include="StreamChart.cs" />
     <Compile Include="StyleConfig.cs" />
     <Compile Include="TextConfig.cs" />
     <Compile Include="TextFilter.cs" />
