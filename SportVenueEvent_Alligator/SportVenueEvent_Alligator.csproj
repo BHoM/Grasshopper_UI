@@ -48,8 +48,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Build\Grasshopper_Engine.dll</HintPath>
     </Reference>
-    <Reference Include="SportVenueEvent_oM">
-      <HintPath>..\..\SportVenueEvent_Toolkit\Build\SportVenueEvent_oM.dll</HintPath>
+    <Reference Include="SportVenueEvent, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\AppData\Roaming\BHoM\SportVenueEvent.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -62,15 +63,31 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreatePitch.cs" />
+    <Compile Include="CreateRake.cs" />
+    <Compile Include="CreateRow.cs" />
+    <Compile Include="CreateSeat.cs" />
+    <Compile Include="CreateTier.cs" />
+    <Compile Include="CreateVomitory.cs" />
+    <Compile Include="DeRake.cs" />
+    <Compile Include="DeRow.cs" />
+    <Compile Include="DeSeat.cs" />
+    <Compile Include="DeTier.cs" />
+    <Compile Include="DeVomitory.cs" />
     <Compile Include="Elements\SVE_About.cs" />
     <Compile Include="Elements\SVE_PrecastSeatingPlank.cs" />
     <Compile Include="Elements\SVE_ConcreteRakerBeam.cs" />
+    <Compile Include="GenerateRake.cs" />
+    <Compile Include="GenerateTiers.cs" />
+    <Compile Include="GetClosestVomitory.cs" />
+    <Compile Include="ParseStadium.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ResampleBowl.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -102,9 +119,7 @@
   <PropertyGroup>
     <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
 
-Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
-
-copy /Y "$(TargetDir)\SportVenueEvent_oM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\SportVenueEvent_oM.dll"</PostBuildEvent>
+Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
