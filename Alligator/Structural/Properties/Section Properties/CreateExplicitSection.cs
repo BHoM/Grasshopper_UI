@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BHoM.Structural.Properties;
+using BH.oM.Structural.Properties;
 using Grasshopper_Engine.Components;
 
 namespace Alligator.Structural.Properties.Section_Properties

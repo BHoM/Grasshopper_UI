@@ -2,7 +2,7 @@
 using Grasshopper.Kernel;
 using MLE = ModelLaundry_Engine;
 using GHE = Grasshopper_Engine;
-using BHG = BHoM.Geometry;
+using BHG = BH.oM.Geometry;
 
 
 namespace Alligator.ModelLaundry
@@ -24,7 +24,7 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("BHoM Elements", "bhElements", "Element owning the curves to be filtered", GH_ParamAccess.item);
+            pManager.AddGenericParameter("BH.oM Elements", "bhElements", "Element owning the curves to be filtered", GH_ParamAccess.item);
             pManager.AddNumberParameter("max Length", "maxL", "max length of the curve", GH_ParamAccess.item);
         }
 

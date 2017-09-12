@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using BHL = BHoM.Structural.Loads;
-using BHE = BHoM.Structural.Elements;
+using BHL = BH.oM.Structural.Loads;
+using BHE = BH.oM.Structural.Elements;
 using Grasshopper_Engine.Components;
 using Grasshopper.Kernel.Parameters;
 using Rhino.Geometry;
@@ -28,7 +28,7 @@ namespace Alligator.Structural.Loads
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_AreaLoad; }
+            get { return Alligator.Properties.Resources.BH.oM_AreaLoad; }
         }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
@@ -63,7 +63,7 @@ namespace Alligator.Structural.Loads
             BHL.AreaUniformalyDistributedLoad areaLoad = new BHL.AreaUniformalyDistributedLoad(loadcase, pressure.X, pressure.Y, pressure.Z);
             areaLoad.Projected = projected;
             areaLoad.Loadcase = loadcase;
-            BHoM.Base.Group<BHE.IAreaElement> objects = new BHoM.Base.Group<BHE.IAreaElement>(areaelements);
+            BH.oM.Base.Group<BHE.IAreaElement> objects = new BH.oM.Base.Group<BHE.IAreaElement>(areaelements);
 
             switch ((BHL.LoadAxis)m_SelectedOption[0])
             {

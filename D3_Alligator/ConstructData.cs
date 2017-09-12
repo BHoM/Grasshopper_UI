@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using GHE = Grasshopper_Engine;
-using BHB = BHoM.Base;
+using BHB = BH.oM.Base;
 using D3T = D3_Toolkit;
 
 namespace Alligator.D3
@@ -26,7 +26,7 @@ namespace Alligator.D3
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return D3_Alligator.Properties.Resources.BHoM_D3_Construct_Data; }
+            get { return D3_Alligator.Properties.Resources.BH.oM_D3_Construct_Data; }
         }
         public override GH_Exposure Exposure
         {

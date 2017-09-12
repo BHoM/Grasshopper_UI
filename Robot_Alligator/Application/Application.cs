@@ -35,7 +35,7 @@ namespace Alligator.Robot
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Robot_Alligator.Properties.Resources.BHoM_ROBO_App; }
+            get { return Robot_Alligator.Properties.Resources.BH.oM_ROBO_App; }
         }
 
     }

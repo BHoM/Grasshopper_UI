@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using MLE = ModelLaundry_Engine;
 using GHE = Grasshopper_Engine;
-using BHE = BHoM.Structural.Elements;
+using BHE = BH.oM.Structural.Elements;
 
 
 namespace ModelLaundry_Alligator

@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GHE = Grasshopper_Engine;
-using BHR = BHoM.Base.Results;
-using BHI = BHoM.Structural.Interface;
+using BHR = BH.oM.Base.Results;
+using BHI = BH.oM.Structural.Interface;
 using System.Windows.Forms;
 
 namespace Alligator.Structural.Results
@@ -20,7 +20,7 @@ namespace Alligator.Structural.Results
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_LoadResults; }
+            get { return Alligator.Properties.Resources.BH.oM_LoadResults; }
         }
 
         public override GH_Exposure Exposure
@@ -54,7 +54,7 @@ namespace Alligator.Structural.Results
         {
             string filename = GHE.DataUtils.GetData<string>(DA, 0);
 
-            DA.SetData(0, new BHoM.Structural.Results.StructuralResultServer(filename));                         
+            DA.SetData(0, new BH.oM.Structural.Results.StructuralResultServer(filename));                         
         }   
     }
 
@@ -76,7 +76,7 @@ namespace Alligator.Structural.Results
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_StoreResults; }
+            get { return Alligator.Properties.Resources.BH.oM_StoreResults; }
         }
 
         public override GH_Exposure Exposure
@@ -122,7 +122,7 @@ namespace Alligator.Structural.Results
                     List<string> loadcases = GHE.DataUtils.GetDataList<string>(DA, 2);
                     bool append = GHE.DataUtils.GetData<bool>(DA, 3);
 
-                    List<BHR.ResultType> types = new List<BHoM.Base.Results.ResultType>();
+                    List<BHR.ResultType> types = new List<BH.oM.Base.Results.ResultType>();
 
                     foreach (CheckBox b in checkBoxes)
                     {

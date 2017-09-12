@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BHoM.Structural.Loads;
+using BH.oM.Structural.Loads;
 using Grasshopper.Kernel;
 using Alligator.Components;
 using GHE = Grasshopper_Engine;
-using BHE = BHoM.Structural.Elements;
-using BHI = BHoM.Structural.Interface;
+using BHE = BH.oM.Structural.Elements;
+using BHI = BH.oM.Structural.Interface;
 using Grasshopper_Engine.Components;
 
 namespace Alligator.Structural.Loads
@@ -28,7 +28,7 @@ namespace Alligator.Structural.Loads
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Bar_Gravity; }
+            get { return Alligator.Properties.Resources.BH.oM_Bar_Gravity; }
         }
     }
 
@@ -47,7 +47,7 @@ namespace Alligator.Structural.Loads
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Bar_Prestress; }
+            get { return Alligator.Properties.Resources.BH.oM_Bar_Prestress; }
         }
     }
 
@@ -66,7 +66,7 @@ namespace Alligator.Structural.Loads
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Application", "App", "Application to export bars to", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Loads", "L", "BHoM loads to export", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Loads", "L", "BH.oM loads to export", GH_ParamAccess.list);
             pManager.AddBooleanParameter("Execute", "R", "Generate loads", GH_ParamAccess.item);
 
             pManager[2].Optional = true;
@@ -103,7 +103,7 @@ namespace Alligator.Structural.Loads
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Bar_Force_Export; }
+            get { return Alligator.Properties.Resources.BH.oM_Bar_Force_Export; }
         }
     }
 

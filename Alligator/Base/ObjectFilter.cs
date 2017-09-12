@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GH_IO.Serialization;
-using BHoM.Base;
+using BH.oM.Base;
 
 namespace Alligator.Base
 {
@@ -15,11 +15,11 @@ namespace Alligator.Base
     {
         public ComboBox _FilterType;
         public string _SelectedOption;
-        public ObjectFilter() : base("ObjectFilter", "ObjectFilter", "Filter a list of BHoM objects", "Alligator", "Base")
+        public ObjectFilter() : base("ObjectFilter", "ObjectFilter", "Filter a list of BH.oM objects", "Alligator", "Base")
         {
             _FilterType = new ComboBox();
             _FilterType.DropDownStyle = ComboBoxStyle.DropDownList;
-            _FilterType.Items.AddRange(Enum.GetNames(typeof(BHoM.Base.FilterOption)));
+            _FilterType.Items.AddRange(Enum.GetNames(typeof(BH.oM.Base.FilterOption)));
 
             _FilterType.SelectedIndex = 0;
             _FilterType.SelectedValueChanged += _FilterType_SelectedValueChanged;
@@ -28,7 +28,7 @@ namespace Alligator.Base
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Filter; }
+            get { return Alligator.Properties.Resources.BH.oM_Filter; }
         }
         public override GH_Exposure Exposure
         {
@@ -54,27 +54,27 @@ namespace Alligator.Base
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("BHoMObjects", "Objects", "List of BHoM to apply filter to", GH_ParamAccess.list);
+            pManager.AddGenericParameter("BHoMObjects", "Objects", "List of BH.oM to apply filter to", GH_ParamAccess.list);
             pManager.AddTextParameter("Match Parameter", "Key", "Name of property or key to match", GH_ParamAccess.item);
             pManager.AddGenericParameter("Match Value", "Values", "Values to match", GH_ParamAccess.list);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("BHoM object", "object", "Resulting BHoM object", GH_ParamAccess.list);
+            pManager.AddGenericParameter("BH.oM object", "object", "Resulting BH.oM object", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             Dictionary<string, string> addedTypes = new Dictionary<string, string>();
-            List<BHoM.Base.BHoMObject> objects = DataUtils.GetGenericDataList<BHoM.Base.BHoMObject>(DA, 0);
+            List<BH.oM.Base.BHoMObject> objects = DataUtils.GetGenericDataList<BH.oM.Base.BHoMObject>(DA, 0);
             string key = DataUtils.GetData<string>(DA, 1);
             List<string> values = DataUtils.GetGenericDataList<string>(DA, 2);
             FilterOption option = (FilterOption)Enum.Parse(typeof(FilterOption), _SelectedOption);
 
-            Dictionary<string, BHoMObject> filter = new BHoM.Base.ObjectFilter(objects).ToDictionary<string>(key, option);
+            Dictionary<string, BHoMObject> filter = new BH.oM.Base.ObjectFilter(objects).ToDictionary<string>(key, option);
 
-            List<BHoM.Base.BHoMObject> result = new List<BHoMObject>();
+            List<BH.oM.Base.BHoMObject> result = new List<BHoMObject>();
 
             for (int i = 0; i < values.Count; i++)
             {

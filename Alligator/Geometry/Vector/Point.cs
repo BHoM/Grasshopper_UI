@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using RG = Rhino.Geometry;
-using BHG = BHoM.Geometry;
+using BHG = BH.oM.Geometry;
 
 namespace Alligator.Geometry
 {
     public class Point : GH_Component
     {
-        public Point() : base("BHPoint", "BHPoint", "Create a BHoM Point", "Alligator", "geometry") { }
+        public Point() : base("BHPoint", "BHPoint", "Create a BH.oM Point", "Alligator", "geometry") { }
 
         public override Guid ComponentGuid
         {
@@ -22,7 +22,7 @@ namespace Alligator.Geometry
         }
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Point; }
+            get { return Alligator.Properties.Resources.BH.oM_Point; }
         }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
@@ -32,7 +32,7 @@ namespace Alligator.Geometry
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Point", "Point", "BHoM Point", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Point", "Point", "BH.oM Point", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)

@@ -63,9 +63,9 @@ namespace D3_Alligator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BHoM_D3_BubbleChart {
+        internal static System.Drawing.Bitmap BH.oM_D3_BubbleChart {
             get {
-                object obj = ResourceManager.GetObject("BHoM_D3_BubbleChart", resourceCulture);
+                object obj = ResourceManager.GetObject("BH.oM_D3_BubbleChart", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace D3_Alligator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BHoM_D3_Construct_Axis {
+        internal static System.Drawing.Bitmap BH.oM_D3_Construct_Axis {
             get {
-                object obj = ResourceManager.GetObject("BHoM_D3_Construct_Axis", resourceCulture);
+                object obj = ResourceManager.GetObject("BH.oM_D3_Construct_Axis", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace D3_Alligator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BHoM_D3_Construct_Data {
+        internal static System.Drawing.Bitmap BH.oM_D3_Construct_Data {
             get {
-                object obj = ResourceManager.GetObject("BHoM_D3_Construct_Data", resourceCulture);
+                object obj = ResourceManager.GetObject("BH.oM_D3_Construct_Data", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace D3_Alligator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BHoM_D3_ParallelCoord {
+        internal static System.Drawing.Bitmap BH.oM_D3_ParallelCoord {
             get {
-                object obj = ResourceManager.GetObject("BHoM_D3_ParallelCoord", resourceCulture);
+                object obj = ResourceManager.GetObject("BH.oM_D3_ParallelCoord", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

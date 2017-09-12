@@ -2,8 +2,8 @@
 using Grasshopper.Kernel;
 using Alligator.Components;
 using System.Collections.Generic;
-using BHE = BHoM.Structural.Elements;
-using BHP = BHoM.Structural.Properties;
+using BHE = BH.oM.Structural.Elements;
+using BHP = BH.oM.Structural.Properties;
 using Grasshopper_Engine.Components;
 using System.Windows.Forms;
 using Grasshopper.Kernel.Parameters;
@@ -28,7 +28,7 @@ namespace Alligator.Structural.Properties
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_PanelProperty; }
+            get { return Alligator.Properties.Resources.BH.oM_PanelProperty; }
         }
         public override GH_Exposure Exposure
         {
@@ -84,7 +84,7 @@ namespace Alligator.Structural.Properties
                 }
             }
 
-            BHoM.Materials.Material mat = Grasshopper_Engine.DataUtils.GetGenericData<BHoM.Materials.Material>(DA, 1);
+            BH.oM.Materials.Material mat = Grasshopper_Engine.DataUtils.GetGenericData<BH.oM.Materials.Material>(DA, 1);
 
             if (mat != null)
                 panelProperty.Material = mat;

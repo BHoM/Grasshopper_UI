@@ -2,16 +2,16 @@
 using Grasshopper.Kernel;
 using System.Collections.Generic;
 using GHE = Grasshopper_Engine;
-using BHE = BHoM.Structural.Elements;
-using BHI = BHoM.Structural.Interface;
-using BHoM.Structural;
+using BHE = BH.oM.Structural.Elements;
+using BHI = BH.oM.Structural.Interface;
+using BH.oM.Structural;
 using Rhino.Geometry;
 using Grasshopper;
 using Grasshopper_Engine.Components;
 
 namespace Alligator.Structural.Elements
 {
-    public class CreateRadial : BHoMBaseComponent<BHE.Radial>
+    public class CreateRadial : BH.oMBaseComponent<BHE.Radial>
     {
         /// <summary>
         /// Initializes a new instance of the MyComponent1 class.

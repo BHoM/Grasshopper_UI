@@ -384,7 +384,7 @@ namespace Grasshopper_Engine
         ///********************************************/
 
 
-        //public static BH.Vector ToBHoMVector(this R.Vector3d vec)
+        //public static BH.Vector ToBH.oMVector(this R.Vector3d vec)
         //{
         //    return Convert(vec);
         //}

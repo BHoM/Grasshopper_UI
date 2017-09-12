@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using BHL = BHoM.Structural.Loads;
-using BHE = BHoM.Structural.Elements;
+using BHL = BH.oM.Structural.Loads;
+using BHE = BH.oM.Structural.Elements;
 using Grasshopper_Engine.Components;
 using Grasshopper.Kernel.Parameters;
 using Rhino.Geometry;
@@ -30,7 +30,7 @@ namespace Alligator.Structural.Loads
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_BarForce; }
+            get { return Alligator.Properties.Resources.BH.oM_BarForce; }
         }
 
         public override Guid ComponentGuid
@@ -80,10 +80,10 @@ namespace Alligator.Structural.Loads
                     double pos = 0;
 
                     if (DA.GetData(ind1, ref force))
-                        ((BHL.BarPointLoad)load).ForceVector = force.ToBHoMVector();
+                        ((BHL.BarPointLoad)load).ForceVector = force.ToBH.oMVector();
 
                     if (DA.GetData(ind1+1, ref moment))
-                        ((BHL.BarPointLoad)load).MomentVector = moment.ToBHoMVector();
+                        ((BHL.BarPointLoad)load).MomentVector = moment.ToBH.oMVector();
 
                     if (DA.GetData(ind1 + 2, ref pos))
                         ((BHL.BarPointLoad)load).DistanceFromA = pos;
@@ -104,10 +104,10 @@ namespace Alligator.Structural.Loads
                     double posB = 0;
 
                     if (DA.GetData(ind1, ref forceA))
-                        ((BHL.BarVaryingDistributedLoad)load).ForceVectorA = forceA.ToBHoMVector();
+                        ((BHL.BarVaryingDistributedLoad)load).ForceVectorA = forceA.ToBH.oMVector();
 
                     if (DA.GetData(ind1 + 1, ref momentA))
-                        ((BHL.BarVaryingDistributedLoad)load).MomentVectorA = momentA.ToBHoMVector();
+                        ((BHL.BarVaryingDistributedLoad)load).MomentVectorA = momentA.ToBH.oMVector();
 
                     if (DA.GetData(ind1 + 2, ref posA))
                         ((BHL.BarVaryingDistributedLoad)load).DistanceFromA = posA;
@@ -115,10 +115,10 @@ namespace Alligator.Structural.Loads
                         ((BHL.BarVaryingDistributedLoad)load).DistanceFromA = 0;
 
                     if (DA.GetData(ind1+3, ref forceB))
-                        ((BHL.BarVaryingDistributedLoad)load).ForceVectorB = forceB.ToBHoMVector();
+                        ((BHL.BarVaryingDistributedLoad)load).ForceVectorB = forceB.ToBH.oMVector();
 
                     if (DA.GetData(ind1 + 4, ref momentB))
-                        ((BHL.BarVaryingDistributedLoad)load).MomentVectorB = momentB.ToBHoMVector();
+                        ((BHL.BarVaryingDistributedLoad)load).MomentVectorB = momentB.ToBH.oMVector();
 
                     if (DA.GetData(ind1 + 5, ref posB))
                         ((BHL.BarVaryingDistributedLoad)load).DistanceFromB = posB;
@@ -137,7 +137,7 @@ namespace Alligator.Structural.Loads
                     load = new BHL.BarTemperatureLoad();
                     Vector3d tempratureChange = Vector3d.Unset;
                     if (DA.GetData(ind1, ref tempratureChange))
-                        ((BHL.BarTemperatureLoad)load).TemperatureChange = tempratureChange.ToBHoMVector();
+                        ((BHL.BarTemperatureLoad)load).TemperatureChange = tempratureChange.ToBH.oMVector();
                     break;
 
                 case BarLoadTypes.BarUniformLoad:
@@ -146,10 +146,10 @@ namespace Alligator.Structural.Loads
                     Vector3d distForce = Vector3d.Unset;
                     Vector3d distMoment = Vector3d.Unset;
                     if (DA.GetData(ind1, ref distForce))
-                        ((BHL.BarUniformlyDistributedLoad)load).ForceVector = distForce.ToBHoMVector();
+                        ((BHL.BarUniformlyDistributedLoad)load).ForceVector = distForce.ToBH.oMVector();
 
                     if (DA.GetData(ind1 + 1, ref distMoment))
-                        ((BHL.BarUniformlyDistributedLoad)load).MomentVector = distMoment.ToBHoMVector();
+                        ((BHL.BarUniformlyDistributedLoad)load).MomentVector = distMoment.ToBH.oMVector();
                     break;
             }
 

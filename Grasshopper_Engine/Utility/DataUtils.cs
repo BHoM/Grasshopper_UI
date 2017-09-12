@@ -285,7 +285,7 @@ namespace Grasshopper_Engine
         //        return true;
         //    }
 
-        //    //Gets node from BHoM point
+        //    //Gets node from BH.oM point
         //    if (typeof(BHG.Point).IsAssignableFrom(n.GetType()))
         //    {
         //        node = new BH.oM.Structural.Elements.Node((BHG.Point)n);

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BHoM.Structural;
+using BH.oM.Structural;
 using Grasshopper.Kernel;
 using Alligator.Components;
-using BHP = BHoM.Structural.Properties;
+using BHP = BH.oM.Structural.Properties;
 
 namespace Alligator.Structural.Properties
 {

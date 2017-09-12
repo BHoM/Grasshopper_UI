@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using System.Linq;
 using GHE = Grasshopper_Engine;
-using BHG = BHoM.Geometry;
+using BHG = BH.oM.Geometry;
 using RG = Rhino.Geometry;
 
 namespace Alligator.ModelLaundry
@@ -25,7 +25,7 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("BHoMLines", "BHoMLines", "Insert BHoM lines", GH_ParamAccess.item);
+            pManager.AddGenericParameter("BH.oMLines", "BH.oMLines", "Insert BH.oM lines", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Alligator.ModelLaundry
             List<BHG.Curve> explodedCrvs = new List<BHG.Curve>();
             List<BHG.Curve> output = new List<BHG.Curve>();
 
-            if (crv is BHoM.Geometry.Group<BHG.Curve>)
+            if (crv is BH.oM.Geometry.Group<BHG.Curve>)
             {
                 BHG.Group<BHG.Curve> newCrv = crv as BHG.Group<BHG.Curve>;
                 explodedCrvs = newCrv.ToList();
@@ -70,14 +70,14 @@ namespace Alligator.ModelLaundry
 
             for (int i = 0; i < output.Count; i++)
             {
-                if (output[i] is BHoM.Geometry.Line)
+                if (output[i] is BH.oM.Geometry.Line)
                 {
                     BHG.Line ln = output[i] as BHG.Line;
                     RG.LineCurve tempLn = new RG.LineCurve(new RG.Line(ln.StartPoint.X, ln.StartPoint.Y, ln.StartPoint.Z, ln.EndPoint.X, ln.EndPoint.Y, ln.EndPoint.Z));
                     newCrvs.Add(tempLn);
                 }
 
-                if (output[i] is BHoM.Geometry.Polyline)
+                if (output[i] is BH.oM.Geometry.Polyline)
                 {
                     BHG.Polyline pLine = output[i] as BHG.Polyline;
                     List<RG.Point3d> pts = new List<RG.Point3d>();
@@ -90,7 +90,7 @@ namespace Alligator.ModelLaundry
                     newCrvs.Add(tempPLnCrv);
                 }
 
-                if (output[i] is BHoM.Geometry.PolyCurve)
+                if (output[i] is BH.oM.Geometry.PolyCurve)
                 {
                     BHG.PolyCurve pCrv = output[i] as BHG.PolyCurve;
                     List<BHG.Curve> segments = pCrv.Explode();

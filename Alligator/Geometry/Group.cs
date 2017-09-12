@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using RG = Rhino.Geometry;
-using BHG = BHoM.Geometry;
+using BHG = BH.oM.Geometry;
 using GHE = Grasshopper_Engine;
 
 namespace Alligator.Geometry
 {
     public class Group : GH_Component
     {
-        public Group() : base("BHGroup", "BHGroup", "Create a BHoM Group", "Alligator", "geometry") { }
+        public Group() : base("BHGroup", "BHGroup", "Create a BH.oM Group", "Alligator", "geometry") { }
 
         public override Guid ComponentGuid
         {
@@ -28,12 +28,12 @@ namespace Alligator.Geometry
         }
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Geometry_Group; }
+            get { return Alligator.Properties.Resources.BH.oM_Geometry_Group; }
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Group", "Group", "BHoM Group", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Group", "Group", "BH.oM Group", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)

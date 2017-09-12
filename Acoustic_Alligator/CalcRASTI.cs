@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Rhino.Geometry;
 using Grasshopper.Kernel;
-using BHG = BHoM.Geometry;
-using BHA = BHoM.Acoustic;
+using BHG = BH.oM.Geometry;
+using BHA = BH.oM.Acoustic;
 using AcousticSPI_Engine;
 using GHE = Grasshopper_Engine;
 
@@ -25,13 +25,13 @@ namespace Acoustic_Alligator
         }
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Acoustic_Alligator.Properties.Resources.BHoM_Acoustics_RASTI; }
+            get { return Acoustic_Alligator.Properties.Resources.BH.oM_Acoustics_RASTI; }
         }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("BHoM Zone", "Zone", "BHoM Zone", GH_ParamAccess.item);
-            pManager.AddGenericParameter("BHoM Speakers", "Speakers", "BHoM Speakers", GH_ParamAccess.list);
+            pManager.AddGenericParameter("BH.oM Zone", "Zone", "BH.oM Zone", GH_ParamAccess.item);
+            pManager.AddGenericParameter("BH.oM Speakers", "Speakers", "BH.oM Speakers", GH_ParamAccess.list);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)

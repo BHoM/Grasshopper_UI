@@ -4,8 +4,8 @@
 //using System.Text;
 //using System.Threading.Tasks;
 //using Grasshopper.Kernel;
-//using BHoM.Structural.Elements;
-//using BHoM.Structural.ModelTracker;
+//using BH.oM.Structural.Elements;
+//using BH.oM.Structural.ModelTracker;
 //using GHE = Grasshopper_Engine;
 
 //namespace Alligator.Structural.ModelTracker

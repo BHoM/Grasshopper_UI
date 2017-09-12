@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BHE = BHoM.Structural.Elements;
-using BHP = BHoM.Structural.Properties;
-using BHoM.Structural.Databases;
+using BHE = BH.oM.Structural.Elements;
+using BHP = BH.oM.Structural.Properties;
+using BH.oM.Structural.Databases;
 
 namespace Alligator.Structural.Properties.Section_Properties
 {
@@ -16,12 +16,12 @@ namespace Alligator.Structural.Properties.Section_Properties
     {
         public LoadSteelSectionFromDB() : base("Load Steel Section", "SteelDB", "Load a steel section from database", "Structure", "Properties")
         {
-            this.Initialise(BHoM.Base.Data.Database.SteelSection);
+            this.Initialise(BH.oM.Base.Data.Database.SteelSection);
         }
 
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Section_List; }
+            get { return Alligator.Properties.Resources.BH.oM_Section_List; }
         }
 
         public override GH_Exposure Exposure
@@ -42,7 +42,7 @@ namespace Alligator.Structural.Properties.Section_Properties
 
         protected override void SetData()
         {
-            BHoM.Global.Project.ActiveProject.Config.SectionDatabase = TableName;
+            BH.oM.Global.Project.ActiveProject.Config.SectionDatabase = TableName;
             BHP.SectionProperty prop = BHP.SectionProperty.LoadFromSteelSectionDB(ObjectName);
             AddVolatileData(new Grasshopper.Kernel.Data.GH_Path(0), 0, new GH_ObjectWrapper(prop));
         }

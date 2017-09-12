@@ -1,7 +1,7 @@
-﻿using BHoM.Structural;
+﻿using BH.oM.Structural;
 using System;
 using Alligator.Components;
-using BHP = BHoM.Structural.Properties;
+using BHP = BH.oM.Structural.Properties;
 using Grasshopper.Kernel;
 using Grasshopper_Engine.Components;
 
@@ -25,7 +25,7 @@ namespace Alligator.Structural.Properties
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Constraint; }
+            get { return Alligator.Properties.Resources.BH.oM_Constraint; }
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Alligator.Components;
-using BHoM.Structural.Elements;
-using BHoM.Structural.Interface;
+using BH.oM.Structural.Elements;
+using BH.oM.Structural.Interface;
 using Grasshopper;
 using Grasshopper.Kernel;
 using Grasshopper_Engine;
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BHG = BHoM.Geometry;
+using BHG = BH.oM.Geometry;
 using Grasshopper_Engine.Components;
 using Grasshopper.Kernel.Data;
 
@@ -31,7 +31,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>     
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Level; }
+            get { return Alligator.Properties.Resources.BH.oM_Level; }
         }
     }
 
@@ -50,7 +50,7 @@ namespace Alligator.Structural.Elements
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Application", "Application", "Application to export Levels to", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Levels", "Level", "BHoM Levels to export", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Levels", "Level", "BH.oM Levels to export", GH_ParamAccess.list);
             pManager.AddBooleanParameter("Activate", "Activate", "Generate Levels", GH_ParamAccess.item);
 
             pManager[2].Optional = true;
@@ -84,7 +84,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>     
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Level_Export; }
+            get { return Alligator.Properties.Resources.BH.oM_Level_Export; }
         }
     }
 
@@ -154,7 +154,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>     
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Level_Import; }
+            get { return Alligator.Properties.Resources.BH.oM_Level_Import; }
         }
     }
 }

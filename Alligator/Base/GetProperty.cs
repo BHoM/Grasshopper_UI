@@ -10,12 +10,12 @@ namespace Alligator.Base
 {
     public class GetProperty : GH_Component
     {
-        public GetProperty() : base("GetProperty", "GetProperty", "Get property of a BHoM object from the property name", "Alligator", "Base") { }
+        public GetProperty() : base("GetProperty", "GetProperty", "Get property of a BH.oM object from the property name", "Alligator", "Base") { }
 
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_GetProperty; }
+            get { return Alligator.Properties.Resources.BH.oM_GetProperty; }
         }
 
         public override Guid ComponentGuid
@@ -35,7 +35,7 @@ namespace Alligator.Base
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("BHoM object", "object", "BHoM object to convert", GH_ParamAccess.item);
+            pManager.AddGenericParameter("BH.oM object", "object", "BH.oM object to convert", GH_ParamAccess.item);
             pManager.AddTextParameter("key", "key", "Property name", GH_ParamAccess.item);
         }
 

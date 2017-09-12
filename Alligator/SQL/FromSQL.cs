@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using BHB = BHoM.Base;
+using BHB = BH.oM.Base;
 using GHE = Grasshopper_Engine;
 
 namespace Alligator.SQL
 {
     //public class FromSQL : GH_Component
     //{
-    //    //public FromSQL() : base("FromSQL", "FromSQL", "Get BHoM objects from a SQL database", "Alligator", "SQL") { }
+    //    //public FromSQL() : base("FromSQL", "FromSQL", "Get BH.oM objects from a SQL database", "Alligator", "SQL") { }
 
         //public override Guid ComponentGuid
         //{
@@ -24,7 +24,7 @@ namespace Alligator.SQL
         ///// <summary> Icon (24x24 pixels)</summary>
         //protected override System.Drawing.Bitmap Internal_Icon_24x24
         //{
-        //    get { return Alligator.Properties.Resources.BHoM_SQL_GetObject; }
+        //    get { return Alligator.Properties.Resources.BH.oM_SQL_GetObject; }
         //}
 
         //protected override void RegisterInputParams(GH_InputParamManager pManager)

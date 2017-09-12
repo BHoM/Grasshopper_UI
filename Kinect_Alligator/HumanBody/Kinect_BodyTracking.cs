@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using R = Rhino.Geometry;
 using Kinect_Adapter;
-using BHoM.HumanBody;
-using BH = BHoM.Geometry;
+using BH.oM.HumanBody;
+using BH = BH.oM.Geometry;
 using Grasshopper_Engine;
 
 namespace Alligator.Kinect.BodyTracking
@@ -24,19 +24,19 @@ namespace Alligator.Kinect.BodyTracking
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Skeleton", "S", "BHoM Skeleton", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Skeleton", "S", "BH.oM Skeleton", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
              {
-                List<BHoM.Geometry.Point> points = new List<BHoM.Geometry.Point>();
+                List<BH.oM.Geometry.Point> points = new List<BH.oM.Geometry.Point>();
 
                 Sensor app = DataUtils.GetGenericData<Sensor>(DA, 0);
                 if (!DA.GetData(0, ref app)) return;
 
                 KinectBody kinectBody = new KinectBody();
-                List<BHoM.HumanBody.Skeleton> skeletons = new List<BHoM.HumanBody.Skeleton>();
+                List<BH.oM.HumanBody.Skeleton> skeletons = new List<BH.oM.HumanBody.Skeleton>();
                 kinectBody.GetSkeleton(out skeletons, out points, app);
                 
                 DA.SetData(0, skeletons);
@@ -57,11 +57,11 @@ namespace Alligator.Kinect.BodyTracking
 
     public class SkeletonLines : GH_Component
     {
-        public SkeletonLines() : base("Get skeleton lines", "SkeletonLines", "Gets lines from BHoM Skeleton", "Kinect", "BodyTracking") { }
+        public SkeletonLines() : base("Get skeleton lines", "SkeletonLines", "Gets lines from BH.oM Skeleton", "Kinect", "BodyTracking") { }
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Skeleton", "S", "BHoM Skeleton", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Skeleton", "S", "BH.oM Skeleton", GH_ParamAccess.item);
             pManager[0].Optional = true;
         }
 
@@ -84,7 +84,7 @@ namespace Alligator.Kinect.BodyTracking
                 foreach (BH.Line line in trackingLines.Values)
                 {
                     BodyPartNames.Add(trackingLines.GetEnumerator().Current.Key);
-                    TrackingLines.Add(GeometryUtils.Convert(line as BHoM.Geometry.GeometryBase));
+                    TrackingLines.Add(GeometryUtils.Convert(line as BH.oM.Geometry.GeometryBase));
                     trackingLines.GetEnumerator().MoveNext();
                 }
 

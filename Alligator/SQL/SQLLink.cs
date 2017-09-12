@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using BHB = BHoM.Base;
+using BHB = BH.oM.Base;
 using GHE = Grasshopper_Engine;
 
 namespace Alligator.SQL
@@ -24,7 +24,7 @@ namespace Alligator.SQL
     //    /// <summary> Icon (24x24 pixels)</summary>
     //    protected override System.Drawing.Bitmap Internal_Icon_24x24
     //    {
-    //        get { return Alligator.Properties.Resources.BHoM_SQL_Link; }
+    //        get { return Alligator.Properties.Resources.BH.oM_SQL_Link; }
     //    }
 
     //    protected override void RegisterInputParams(GH_InputParamManager pManager)

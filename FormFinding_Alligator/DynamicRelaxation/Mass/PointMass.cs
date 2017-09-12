@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 using Rhino.Geometry;
 using FormFinding_Engine.Structural;
 using GHE = Grasshopper_Engine;
-using BH = BHoM.Geometry;
+using BH = BH.oM.Geometry;
 
 namespace FormFinding_Alligator.DynamicRelaxation.Mass
 {

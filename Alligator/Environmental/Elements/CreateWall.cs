@@ -1,11 +1,11 @@
-﻿//using BHoM.Environmental;
+﻿//using BH.oM.Environmental;
 //using System;
 //using Grasshopper.Kernel;
 //using System.Collections.Generic;
 //using GHE = Grasshopper_Engine;
 //using Alligator.Components;
-//using BHE = BHoM.Environmental.Elements;
-//using BHG = BHoM.Geometry;
+//using BHE = BH.oM.Environmental.Elements;
+//using BHG = BH.oM.Geometry;
 //using System.Windows.Forms;
 //using R = Rhino.Geometry;
 //using Grasshopper;

@@ -52,7 +52,7 @@ namespace Alligator.Components
         /// </summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Alligator_Icon; }
+            get { return Alligator.Properties.Resources.BH.oM_Alligator_Icon; }
         }
 
 
@@ -71,7 +71,7 @@ namespace Alligator.Components
 
         /// <summary>
         /// Create version Stamp based on current build version and concatinated build date and time
-        /// TODO: move functionality to common utility namespace in the BHoM?
+        /// TODO: move functionality to common utility namespace in the BH.oM?
         /// </summary>
         /// <param name="version"></param>
         /// <returns></returns>

@@ -2,8 +2,8 @@
 using Grasshopper.Kernel;
 using Alligator.Components;
 using System.Collections.Generic;
-using BHE = BHoM.Structural.Elements;
-using BHP = BHoM.Structural.Properties;
+using BHE = BH.oM.Structural.Elements;
+using BHP = BH.oM.Structural.Properties;
 using Grasshopper_Engine;
 using Grasshopper_Engine.Components;
 using System.Windows.Forms;

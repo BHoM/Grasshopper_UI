@@ -2,8 +2,8 @@
 using Grasshopper.Kernel;
 using Alligator.Components;
 using System.Collections.Generic;
-using BHE = BHoM.Structural.Elements;
-using BHoM.Structural.Properties;
+using BHE = BH.oM.Structural.Elements;
+using BH.oM.Structural.Properties;
 using Grasshopper_Engine.Components;
 using System.Windows.Forms;
 using Grasshopper.Kernel.Parameters;
@@ -19,7 +19,7 @@ namespace Alligator.Structural.Properties.Section_Properties
         }
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_ConcreteSection; }
+            get { return Alligator.Properties.Resources.BH.oM_ConcreteSection; }
         }
         public override GH_Exposure Exposure
         {
@@ -69,7 +69,7 @@ namespace Alligator.Structural.Properties.Section_Properties
         }
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Layer_Reinforcement; }
+            get { return Alligator.Properties.Resources.BH.oM_Layer_Reinforcement; }
         }
 
         public override GH_Exposure Exposure
@@ -98,7 +98,7 @@ namespace Alligator.Structural.Properties.Section_Properties
         }
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Tie_Reinforcement; }
+            get { return Alligator.Properties.Resources.BH.oM_Tie_Reinforcement; }
         }
 
         public override GH_Exposure Exposure
@@ -129,7 +129,7 @@ namespace Alligator.Structural.Properties.Section_Properties
         }
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Perimiter_Reinforcement; }
+            get { return Alligator.Properties.Resources.BH.oM_Perimiter_Reinforcement; }
         }
 
         public override GH_Exposure Exposure

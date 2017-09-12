@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BHE = BHoM.Structural.Elements;
-using BHL = BHoM.Structural.Loads;
+using BHE = BH.oM.Structural.Elements;
+using BHL = BH.oM.Structural.Loads;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 using GHE = Grasshopper_Engine;
-using BHB = BHoM.Base;
+using BHB = BH.oM.Base;
 
 
 namespace Alligator.Structural.Loads

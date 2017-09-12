@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BHoM.Structural.Loads;
+using BH.oM.Structural.Loads;
 using Grasshopper.Kernel;
 using Alligator.Components;
 using GHE = Grasshopper_Engine;
-using BHE = BHoM.Structural.Elements;
-using BHI = BHoM.Structural.Interface;
+using BHE = BH.oM.Structural.Elements;
+using BHI = BH.oM.Structural.Interface;
 using Grasshopper_Engine.Components;
 using Grasshopper;
 
@@ -65,7 +65,7 @@ namespace Alligator.Structural.Loads
                     /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Loadcase_Import; }
+            get { return Alligator.Properties.Resources.BH.oM_Loadcase_Import; }
         }
 
 

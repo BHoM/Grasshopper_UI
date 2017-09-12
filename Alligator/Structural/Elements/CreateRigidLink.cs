@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using BHE = BHoM.Structural.Elements;
-using BHP = BHoM.Structural.Properties;
+using BHE = BH.oM.Structural.Elements;
+using BHP = BH.oM.Structural.Properties;
 using Grasshopper_Engine;
 
 namespace Alligator.Structural.Elements
@@ -17,7 +17,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_RigidLink; }
+            get { return Alligator.Properties.Resources.BH.oM_RigidLink; }
         }
 
         public override Guid ComponentGuid
@@ -57,7 +57,7 @@ namespace Alligator.Structural.Elements
                 constriant = BHP.LinkConstraint.Fixed;
 
 
-            BHE.RigidLink link = new BHoM.Structural.Elements.RigidLink(master, slaves, constriant);
+            BHE.RigidLink link = new BH.oM.Structural.Elements.RigidLink(master, slaves, constriant);
 
             DA.SetData(0, link);
         }

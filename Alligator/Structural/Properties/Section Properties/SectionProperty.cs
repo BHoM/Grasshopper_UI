@@ -2,8 +2,8 @@
 using Grasshopper.Kernel;
 using Alligator.Components;
 using System.Collections.Generic;
-using BHE = BHoM.Structural.Elements;
-using BHP = BHoM.Structural.Properties;
+using BHE = BH.oM.Structural.Elements;
+using BHP = BH.oM.Structural.Properties;
 using Grasshopper_Engine.Components;
 using System.Windows.Forms;
 using Grasshopper.Kernel.Parameters;
@@ -36,14 +36,14 @@ namespace Alligator.Structural.Properties
             string propertyName = null;
             BHP.SectionProperty barProperty = null;
             DA.GetData<string>(0, ref propertyName);
-            BHoM.Materials.MaterialType matType = BHoM.Materials.MaterialType.Steel;
+            BH.oM.Materials.MaterialType matType = BH.oM.Materials.MaterialType.Steel;
             if (typeof(T) == typeof(BHP.ConcreteSection))
             {
-                matType = BHoM.Materials.MaterialType.Concrete;
+                matType = BH.oM.Materials.MaterialType.Concrete;
             }
             else if (typeof(T) == typeof(BHP.SteelSection))
             {
-                matType = BHoM.Materials.MaterialType.Steel;
+                matType = BH.oM.Materials.MaterialType.Steel;
             }
 
             if (barProperty == null)
@@ -88,7 +88,7 @@ namespace Alligator.Structural.Properties
                 return;
             }
 
-            BHoM.Materials.Material mat = Grasshopper_Engine.DataUtils.GetGenericData<BHoM.Materials.Material>(DA, 2);
+            BH.oM.Materials.Material mat = Grasshopper_Engine.DataUtils.GetGenericData<BH.oM.Materials.Material>(DA, 2);
             Dictionary<string, object> customData = Grasshopper_Engine.DataUtils.GetGenericData<Dictionary<string, object>>(DA, 1);
 
             if (mat != null)
@@ -141,7 +141,7 @@ namespace Alligator.Structural.Properties
                         }
                         break;
                     case BHP.ShapeType.Box:
-                    case BHoM.Structural.Properties.ShapeType.Tee:
+                    case BH.oM.Structural.Properties.ShapeType.Tee:
                         CreateParam("Depth", "Depth", "Total Depth (m)", GH_ParamAccess.item, firstParamIndex, false);
                         CreateParam("Width", "Width", "Total Width (m)", GH_ParamAccess.item, firstParamIndex + 1, false);
                         CreateParam("Flange thickness", "Tf", "Thickness of flange (m)", GH_ParamAccess.item, firstParamIndex +2);
@@ -226,7 +226,7 @@ namespace Alligator.Structural.Properties
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_SectionProperty; }
+            get { return Alligator.Properties.Resources.BH.oM_SectionProperty; }
         }
         public override GH_Exposure Exposure
         {

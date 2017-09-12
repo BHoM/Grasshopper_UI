@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using GHE = Grasshopper_Engine;
-using BHG = BHoM.Geometry;
-using BHE = BHoM.Structural.Elements;
+using BHG = BH.oM.Geometry;
+using BHE = BH.oM.Structural.Elements;
 
 namespace ModelLaundry_Alligator
 {

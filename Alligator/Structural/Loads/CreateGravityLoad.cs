@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using GHE = Grasshopper_Engine;
-using BHB = BHoM.Base;
-using BHL = BHoM.Structural.Loads;
-using BHG = BHoM.Geometry;
+using BHB = BH.oM.Base;
+using BHL = BH.oM.Structural.Loads;
+using BHG = BH.oM.Geometry;
 
 namespace Alligator.Structural.Loads
 {
@@ -50,7 +50,7 @@ namespace Alligator.Structural.Loads
             BHG.Vector dir = (BHG.Vector)GHE.DataUtils.GetDataGeom(DA, 3);
             Dictionary<string, object> customData = GHE.DataUtils.GetGenericData<Dictionary<string, object>>(DA, 4);
 
-            BHL.GravityLoad load = new BHoM.Structural.Loads.GravityLoad();
+            BHL.GravityLoad load = new BH.oM.Structural.Loads.GravityLoad();
 
             if (name != null)
                 load.Name = name;
@@ -71,7 +71,7 @@ namespace Alligator.Structural.Loads
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Bar_Gravity; }
+            get { return Alligator.Properties.Resources.BH.oM_Bar_Gravity; }
         }
     }
 }

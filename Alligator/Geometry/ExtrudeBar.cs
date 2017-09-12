@@ -1,5 +1,5 @@
-﻿using BHoM.Structural.Elements;
-using BH = BHoM.Geometry;
+﻿using BH.oM.Structural.Elements;
+using BH = BH.oM.Geometry;
 using R = Rhino.Geometry;
 using Grasshopper.Kernel;
 using Grasshopper_Engine;
@@ -19,7 +19,7 @@ namespace Alligator.Geometry
         }
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Extrude_Bar; }
+            get { return Alligator.Properties.Resources.BH.oM_Extrude_Bar; }
         }
 
         public override Guid ComponentGuid
@@ -42,7 +42,7 @@ namespace Alligator.Geometry
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BHoM.Structural.Elements.Bar bar = DataUtils.GetGenericData<Bar>(DA, 0);
+            BH.oM.Structural.Elements.Bar bar = DataUtils.GetGenericData<Bar>(DA, 0);
             if (bar != null && bar.SectionProperty != null)
             {
                 R.Curve centreline = GeometryUtils.Convert(bar.Line).ToNurbsCurve();

@@ -24,7 +24,7 @@ namespace Alligator.Mongo
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Mongo_Alligator.Properties.Resources.BHoM_Mongo_Link; }
+            get { return Mongo_Alligator.Properties.Resources.BH.oM_Mongo_Link; }
         }
         public override GH_Exposure Exposure
         {
@@ -38,7 +38,7 @@ namespace Alligator.Mongo
         {
             pManager.AddTextParameter("server", "server", "address of the server", GH_ParamAccess.item, "mongodb://localhost:27017");
             pManager.AddTextParameter("database", "database", "name of the database", GH_ParamAccess.item, "project");
-            pManager.AddTextParameter("collection", "collection", "name of the collection", GH_ParamAccess.item, "bhomObjects");
+            pManager.AddTextParameter("collection", "collection", "name of the collection", GH_ParamAccess.item, "BHoMObjects");
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)

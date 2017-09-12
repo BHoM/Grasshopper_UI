@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GHE = Grasshopper_Engine;
-using BHR = BHoM.Base.Results;
-using BHI = BHoM.Structural.Interface;
-using BHD = BHoM.Databases;
+using BHR = BH.oM.Base.Results;
+using BHI = BH.oM.Structural.Interface;
+using BHD = BH.oM.Databases;
 using System.Windows.Forms;
 
 namespace Alligator.Structural.Results
@@ -30,7 +30,7 @@ namespace Alligator.Structural.Results
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_StoreResults; }
+            get { return Alligator.Properties.Resources.BH.oM_StoreResults; }
         }
 
         public override GH_Exposure Exposure
@@ -78,7 +78,7 @@ namespace Alligator.Structural.Results
                     string key = GHE.DataUtils.GetData<string>(DA, 3);
                     bool append = GHE.DataUtils.GetData<bool>(DA, 4);
 
-                    List<BHR.ResultType> types = new List<BHoM.Base.Results.ResultType>();
+                    List<BHR.ResultType> types = new List<BH.oM.Base.Results.ResultType>();
 
                     foreach (CheckBox b in checkBoxes)
                     {

@@ -49,9 +49,6 @@
       <HintPath>..\External Libraries\Grasshopper.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Grasshopper_Engine">
-      <HintPath>..\Build\Grasshopper_Engine.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -391,37 +388,37 @@
     <None Include="Resources\Icons\Structure\Properties\BHoM_ConcreteSection.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Loadcase_Import.png" />
-    <None Include="Resources\BHoM_Run_Analasis.png" />
-    <None Include="Resources\BHoM_AreaLoad.png" />
-    <None Include="Resources\BHoM_Bar_Constraints.png" />
-    <None Include="Resources\BHoM_DesignBar_Export.png" />
-    <None Include="Resources\BHoM_DesignBar_Import.png" />
-    <None Include="Resources\BHoM_BarOffsets.png" />
-    <None Include="Resources\BHoM_Extrude_Bar.png" />
-    <None Include="Resources\BHoM_Geometry_Group.png" />
-    <None Include="Resources\BHoM_Line.png" />
-    <None Include="Resources\BHoM_Point.png" />
-    <None Include="Resources\BHoM_PolyLine.png" />
-    <None Include="Resources\BHoM_App_Run.png" />
-    <None Include="Resources\BHoM_App_Save.png" />
-    <None Include="Resources\BHoM_App_Clean.png" />
-    <None Include="Resources\BHoM_App_Close.png" />
-    <None Include="Resources\BHoM_GetBarForce.png" />
-    <None Include="Resources\BHoM_GetNodeDisplacement.png" />
-    <None Include="Resources\BHoM_GetNodeReaction.png" />
-    <None Include="Resources\BHoM_GetPanelForce.png" />
-    <None Include="Resources\BHoM_GetPanelStress.png" />
-    <None Include="Resources\BHoM_Get_Bar_Coordinates.png" />
-    <None Include="Resources\BHoM_Get_BarUtilisation.png" />
-    <None Include="Resources\BHoM_Get_Node_Coordinates.png" />
-    <None Include="Resources\BHoM_Get_Slabreinforcement.png" />
-    <None Include="Resources\BHoM_Composite_Section.png" />
-    <None Include="Resources\BHoM_Geo_GHToBH.png" />
-    <None Include="Resources\BHoM_Geo_BHToGH.png" />
-    <None Include="Resources\BHoM_Alligator_Icon.png" />
-    <None Include="Resources\BHoM_SQL_GetObject.png" />
-    <None Include="Resources\BHoM_SQL_Link.png" />
+    <None Include="Resources\BH.oM_Loadcase_Import.png" />
+    <None Include="Resources\BH.oM_Run_Analasis.png" />
+    <None Include="Resources\BH.oM_AreaLoad.png" />
+    <None Include="Resources\BH.oM_Bar_Constraints.png" />
+    <None Include="Resources\BH.oM_DesignBar_Export.png" />
+    <None Include="Resources\BH.oM_DesignBar_Import.png" />
+    <None Include="Resources\BH.oM_BarOffsets.png" />
+    <None Include="Resources\BH.oM_Extrude_Bar.png" />
+    <None Include="Resources\BH.oM_Geometry_Group.png" />
+    <None Include="Resources\BH.oM_Line.png" />
+    <None Include="Resources\BH.oM_Point.png" />
+    <None Include="Resources\BH.oM_PolyLine.png" />
+    <None Include="Resources\BH.oM_App_Run.png" />
+    <None Include="Resources\BH.oM_App_Save.png" />
+    <None Include="Resources\BH.oM_App_Clean.png" />
+    <None Include="Resources\BH.oM_App_Close.png" />
+    <None Include="Resources\BH.oM_GetBarForce.png" />
+    <None Include="Resources\BH.oM_GetNodeDisplacement.png" />
+    <None Include="Resources\BH.oM_GetNodeReaction.png" />
+    <None Include="Resources\BH.oM_GetPanelForce.png" />
+    <None Include="Resources\BH.oM_GetPanelStress.png" />
+    <None Include="Resources\BH.oM_Get_Bar_Coordinates.png" />
+    <None Include="Resources\BH.oM_Get_BarUtilisation.png" />
+    <None Include="Resources\BH.oM_Get_Node_Coordinates.png" />
+    <None Include="Resources\BH.oM_Get_Slabreinforcement.png" />
+    <None Include="Resources\BH.oM_Composite_Section.png" />
+    <None Include="Resources\BH.oM_Geo_GHToBH.png" />
+    <None Include="Resources\BH.oM_Geo_BHToGH.png" />
+    <None Include="Resources\BH.oM_Alligator_Icon.png" />
+    <None Include="Resources\BH.oM_SQL_GetObject.png" />
+    <None Include="Resources\BH.oM_SQL_Link.png" />
     <Content Include="Resources\Icons\Alligator\BHoM_BHoM_Object.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

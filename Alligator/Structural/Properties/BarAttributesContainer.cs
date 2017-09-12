@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BHSP = BHoM.Structural.Properties;
-using BHSE = BHoM.Structural.Elements;
+using BHSP = BH.oM.Structural.Properties;
+using BHSE = BH.oM.Structural.Elements;
 
 namespace Alligator.Structural.Properties
 {

@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using BHSP = BHoM.Structural.Properties;
-using BHSE = BHoM.Structural.Elements;
+using BHSP = BH.oM.Structural.Properties;
+using BHSE = BH.oM.Structural.Elements;
 using GHE = Grasshopper_Engine;
 
 
@@ -22,7 +22,7 @@ namespace Alligator.Structural.Properties
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Bar_Attributes; }
+            get { return Alligator.Properties.Resources.BH.oM_Bar_Attributes; }
         }
 
         public override Guid ComponentGuid
@@ -48,7 +48,7 @@ namespace Alligator.Structural.Properties
 
         private static string GetFeTypeDescription(int deafaultIndex)
         {
-            Type enumType = typeof(BHoM.Structural.Elements.BarFEAType);
+            Type enumType = typeof(BH.oM.Structural.Elements.BarFEAType);
 
             string desc = "Type of element that will be used in structural analysis softwares.Default set to ";
 
@@ -61,7 +61,7 @@ namespace Alligator.Structural.Properties
         private static string GetStructuralUsageTypeDesciption(int deafaultIndex)
         {
 
-            Type enumType = typeof(BHoM.Structural.Elements.BarStructuralUsage);
+            Type enumType = typeof(BH.oM.Structural.Elements.BarStructuralUsage);
 
             string desc = "Sets what the usage will be for the element. Used for post processing. Default set to ";
 

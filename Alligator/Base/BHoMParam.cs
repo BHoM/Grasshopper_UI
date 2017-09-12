@@ -6,24 +6,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GH_IO.Serialization;
-using BHoM.Base;
+using BH.oM.Base;
 using Grasshopper.Kernel.Data;
-using BHoM.Structural.Elements;
+using BH.oM.Structural.Elements;
 using System.Windows.Forms;
 
 namespace Alligator.Base
 {
     public class BHoMParam : GH_Param<GH_ObjectWrapper>
     {
-        private List<BHoM.Base.BHoMObject> m_Objects;
+        private List<BH.oM.Base.BHoMObject> m_Objects;
 
-        public BHoMParam() : base("BHoM Object", "BHoMObject", "Parameter storing the BH object", "Params", "Geometry", GH_ParamAccess.list)
+        public BHoMParam() : base("BH.oM Object", "BHoMObject", "Parameter storing the BH object", "Params", "Geometry", GH_ParamAccess.list)
         {
-            m_Objects = new List<BHoM.Base.BHoMObject>();
+            m_Objects = new List<BH.oM.Base.BHoMObject>();
         }
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_BHoM_Object; }
+            get { return Alligator.Properties.Resources.BH.oM_BH.oM_Object; }
         }
 
         public override Guid ComponentGuid
@@ -83,7 +83,7 @@ namespace Alligator.Base
         }
         public override bool Write(GH_IWriter writer)
         {
-            writer.SetString("Objects", BHoM.Base.BHoMJSON.WritePackage(m_Objects));
+            writer.SetString("Objects", BH.oM.Base.BH.oMJSON.WritePackage(m_Objects));
             return base.Write(writer);
         }
 
@@ -92,7 +92,7 @@ namespace Alligator.Base
             string json = "";
             reader.TryGetString("Objects", ref json);
 
-            m_Objects = BHoM.Base.BHoMJSON.ReadPackage(json);
+            m_Objects = BH.oM.Base.BH.oMJSON.ReadPackage(json);
 
             return base.Read(reader);
         }

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
-using BHB = BHoM.Base;
+using BHB = BH.oM.Base;
 using MLE = ModelLaundry_Engine;
 using GHE = Grasshopper_Engine;
-using BHG = BHoM.Geometry;
+using BHG = BH.oM.Geometry;
 
 
 namespace Alligator.ModelLaundry
@@ -26,8 +26,8 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("BHoM Elements", "bhElements", "BHoM object or geometry to snap", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Reference BHoM Elements", "refBHElem", "reference BHoM object or geometry to snap to", GH_ParamAccess.list);
+            pManager.AddGenericParameter("BH.oM Elements", "bhElements", "BH.oM object or geometry to snap", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Reference BH.oM Elements", "refBHElem", "reference BH.oM object or geometry to snap to", GH_ParamAccess.list);
             pManager.AddNumberParameter("Tolerance", "tolerance", "Set a tolerance for the snapping", GH_ParamAccess.item, 0.2);
             pManager.AddBooleanParameter("AnyHeight", "anyheight", "Snap to a vertical projection of the reference elements", GH_ParamAccess.item, false);
             pManager.AddNumberParameter("AngleTolerance", "angleTol", "Set angle tolerance for parallel test (in degrees)", GH_ParamAccess.item, 2);
@@ -38,7 +38,7 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("SnappedElement", "snapped", "resulting BHoM object or geometry", GH_ParamAccess.item);
+            pManager.AddGenericParameter("SnappedElement", "snapped", "resulting BH.oM object or geometry", GH_ParamAccess.item);
         }
 
         /// <summary>

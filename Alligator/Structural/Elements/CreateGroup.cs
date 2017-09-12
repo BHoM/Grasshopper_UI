@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using Grasshopper.Kernel;
-using BHB = BHoM.Base;
+using BHB = BH.oM.Base;
 using Grasshopper_Engine;
 using Grasshopper.Kernel.Types;
 
@@ -21,7 +21,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Group; }
+            get { return Alligator.Properties.Resources.BH.oM_Group; }
         }
 
         public override Guid ComponentGuid

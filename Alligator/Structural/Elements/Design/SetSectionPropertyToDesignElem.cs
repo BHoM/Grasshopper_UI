@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using Grasshopper_Engine.Components;
 using Grasshopper_Engine;
-using BHE = BHoM.Structural.Elements;
-using BHP = BHoM.Structural.Properties;
+using BHE = BH.oM.Structural.Elements;
+using BHP = BH.oM.Structural.Properties;
 
 namespace Alligator.Structural.Elements.Design
 {

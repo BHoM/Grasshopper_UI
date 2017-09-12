@@ -2,8 +2,8 @@
 using Grasshopper.Kernel;
 using System.Collections.Generic;
 using GHE = Grasshopper_Engine;
-using BHE = BHoM.Structural.Elements;
-using BHI = BHoM.Structural.Interface;
+using BHE = BH.oM.Structural.Elements;
+using BHI = BH.oM.Structural.Interface;
 
 
 namespace Alligator.Structural.Elements
@@ -15,7 +15,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_RigidLink_Export; }
+            get { return Alligator.Properties.Resources.BH.oM_RigidLink_Export; }
         }
 
 
@@ -38,7 +38,7 @@ namespace Alligator.Structural.Elements
     //    /// <summary> Icon (24x24 pixels)</summary>
     //    protected override System.Drawing.Bitmap Internal_Icon_24x24
     //    {
-    //        get { return Alligator.Properties.Resources.BHoM_RigidLink_Export; }
+    //        get { return Alligator.Properties.Resources.BH.oM_RigidLink_Export; }
     //    }
 
     //    public override GH_Exposure Exposure
@@ -52,7 +52,7 @@ namespace Alligator.Structural.Elements
     //    protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
     //    {
     //        pManager.AddGenericParameter("Application", "A", "Application to export bars to", GH_ParamAccess.item);
-    //        pManager.AddGenericParameter("Rigid Links", "RL", "BHoM bars to export", GH_ParamAccess.list);
+    //        pManager.AddGenericParameter("Rigid Links", "RL", "BH.oM bars to export", GH_ParamAccess.list);
     //        pManager.AddBooleanParameter("Activate", "Go", "Generate Bars", GH_ParamAccess.item);
 
     //        pManager[2].Optional = true;

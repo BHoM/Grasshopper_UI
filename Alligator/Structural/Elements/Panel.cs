@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BHoM.Structural;
+using BH.oM.Structural;
 using Alligator.Components;
 using Grasshopper.Kernel;
 using GHE = Grasshopper_Engine;
-using BHG = BHoM.Geometry;
-using BHE = BHoM.Structural.Elements;
-using BHI = BHoM.Structural.Interface;
+using BHG = BH.oM.Geometry;
+using BHE = BH.oM.Structural.Elements;
+using BHI = BH.oM.Structural.Interface;
 using Rhino.Geometry;
 using Grasshopper;
 using Grasshopper_Engine.Components;
@@ -32,7 +32,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Panel; }
+            get { return Alligator.Properties.Resources.BH.oM_Panel; }
         }
     }
 
@@ -50,13 +50,13 @@ namespace Alligator.Structural.Elements
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Panel", "Panel", "BHoM Panel", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Panel", "Panel", "BH.oM Panel", GH_ParamAccess.item);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Panel", "Panel", "BHoM Panel", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Openings", "Openings", "BHoM Openings", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Panel", "Panel", "BH.oM Panel", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Openings", "Openings", "BH.oM Openings", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -109,7 +109,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>     
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Panel_Export; }
+            get { return Alligator.Properties.Resources.BH.oM_Panel_Export; }
         }
     }
 
@@ -182,7 +182,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Panel_Import; }
+            get { return Alligator.Properties.Resources.BH.oM_Panel_Import; }
         }
     }
 }
