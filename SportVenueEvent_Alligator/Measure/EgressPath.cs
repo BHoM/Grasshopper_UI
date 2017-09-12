@@ -4,30 +4,38 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-using SportVenueEvent.En;
-using SportVenueEvent.oM;
+using BHoM.Geometry;
+using BH.oM.SportVenueEvent;
+using BH.Engine.SportVenueEvent;
 
-namespace SportVenueEvent_Alligator
+namespace BH.UI.Grasshopper.SportVenueEvent
 {
-    public class ResampleBowl : GH_Component
+    public class ExitPath : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the ResampleBowl class.
+        /// Initializes a new instance of the ExitPath class.
         /// </summary>
-        public ResampleBowl()
-          : base("ResampleBowl", "ReBowl",
+        public ExitPath()
+          : base("EgressPath", "EgressPath",
               "",
-              "SporVenueEvent", "Stadium")
+              "SportVenueEvent", "Measure")
         {
         }
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.tertiary;
+            }
+        }
+
 
         /// <summary>
         /// Registers all the input parameters for this component.
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Tiers", "Tiers", "", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Seat width", "Width", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Tier", "Tier", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -35,7 +43,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Tiers", "Tiers", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Path", "Path", "", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -44,13 +52,9 @@ namespace SportVenueEvent_Alligator
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<Tier> tiers = new List<Tier>();
-            double width = 0;
-            DA.GetDataList(0, tiers);
-            DA.GetData(1, ref width);
-
-            Bowl bowl = new Bowl(tiers);
-            DA.SetDataList(0, bowl.ResampleBowl(width));
+            Tier tier = null;
+            DA.GetData(0, ref tier);
+            DA.SetDataList(0, tier.EgressPath());
         }
 
         /// <summary>
@@ -71,7 +75,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("d038b156-bc7c-4377-8d83-aae19775b444"); }
+            get { return new Guid("f85e8f4b-a500-4d70-a929-59f4cfe00b09"); }
         }
     }
 }

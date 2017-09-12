@@ -1,11 +1,11 @@
 ﻿using System;
-using BHoM.Structural;
+using BH.oM.Structural;
 using Grasshopper.Kernel;
 using System.Collections.Generic;
 using Grasshopper_Engine.Components;
 using GHE = Grasshopper_Engine;
 
-namespace Alligator.SportVenueEvent.Structural
+namespace BH.UI.Grasshopper.SportVenueEvent
 {
     public class ConcreteRakerBeam : GH_Component
     {
@@ -34,7 +34,7 @@ namespace Alligator.SportVenueEvent.Structural
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BHoM.Structural.Elements.ConcreteRakerBeam CR = new BHoM.Structural.Elements.ConcreteRakerBeam();
+            BH.oM.Structural.Elements.ConcreteRakerBeam CR = new BH.oM.Structural.Elements.ConcreteRakerBeam();
             CR.Profile = GHE.DataUtils.GetData<BHoM.Geometry.Polyline>(DA, 0);
             CR.Location = GHE.GeometryUtils.Convert(GHE.DataUtils.GetData<Rhino.Geometry.Point3d>(DA, 1));
             CR.Orientation = GHE.GeometryUtils.Convert(GHE.DataUtils.GetData<Rhino.Geometry.Vector3d>(DA, 2));

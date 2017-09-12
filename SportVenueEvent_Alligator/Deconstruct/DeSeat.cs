@@ -5,19 +5,19 @@ using Grasshopper.Kernel;
 using RHG = Rhino.Geometry;
 
 using BHG = BHoM.Geometry;
-using SportVenueEvent.oM;
+using BH.oM.SportVenueEvent;
 
-namespace SportVenueEvent_Alligator
+namespace BH.UI.Grasshopper.SportVenueEvent
 {
-    public class DeVomitory : GH_Component
+    public class DeSeat : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the DeVomitory class.
+        /// Initializes a new instance of the DeSeat class.
         /// </summary>
-        public DeVomitory()
-          : base("Deconstruct Vomitory", "DeVom",
+        public DeSeat()
+          : base("Deconstruct Seat", "DeSeat",
               "",
-              "SportVenueEvent", "Stadium")
+              "SportVenueEvent", "Deconstuct")
         {
         }
 
@@ -34,7 +34,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Vomitory", "Vom", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Seat", "Seat", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -42,9 +42,9 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Tier", "Tier", "", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Centre", "Centre", "", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Width", "Width", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Position", "Position", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Focus", "Focus", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Vomitory", "Vomitory", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -53,12 +53,11 @@ namespace SportVenueEvent_Alligator
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Vomitory vomitory = new Vomitory();
-
-            DA.GetData(0, ref vomitory);
-            DA.SetData(0, vomitory.Tier);
-            DA.SetData(1, vomitory.Centre);
-            DA.SetData(2, vomitory.Width);
+            Seat seat = null;
+            DA.GetData(0, ref seat);
+            DA.SetData(0, seat.Geometry);
+            DA.SetData(1, seat.FocusPoint);
+            DA.SetData(2, seat.Vomitory);
         }
 
         /// <summary>
@@ -79,7 +78,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("cf49230a-d626-4850-94d5-0505432e2908"); }
+            get { return new Guid("4d704d8f-32fa-401a-a44f-e2a83def3d31"); }
         }
     }
 }

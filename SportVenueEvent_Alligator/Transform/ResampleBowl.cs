@@ -2,31 +2,23 @@
 using System.Collections.Generic;
 
 using Grasshopper.Kernel;
-using RHG = Rhino.Geometry;
+using Rhino.Geometry;
 
-using BHG = BHoM.Geometry;
-using SportVenueEvent.oM;
+using BH.Engine.SportVenueEvent;
+using BH.oM.SportVenueEvent;
 
-namespace SportVenueEvent_Alligator
+namespace BH.UI.Grasshopper.SportVenueEvent
 {
-    public class DeRow : GH_Component
+    public class ResampleBowl : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the DeRake class.
+        /// Initializes a new instance of the ResampleBowl class.
         /// </summary>
-        public DeRow()
-          : base("Deconstruct Row", "DeRow",
+        public ResampleBowl()
+          : base("ResampleBowl", "ReBowl",
               "",
-              "SportVenueEvent", "Stadium")
+              "SportVenueEvent", "Transform")
         {
-        }
-
-        public override GH_Exposure Exposure
-        {
-            get
-            {
-                return GH_Exposure.secondary;
-            }
         }
 
         /// <summary>
@@ -34,7 +26,8 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Row", "Row", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Tiers", "Tiers", "", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Seat width", "Width", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -42,7 +35,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Seats", "Seats", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Tiers", "Tiers", "", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -51,14 +44,13 @@ namespace SportVenueEvent_Alligator
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Row row = new Row();
-            List<Seat> seats = new List<Seat>();
+            List<Tier> tiers = new List<Tier>();
+            double width = 0;
+            DA.GetDataList(0, tiers);
+            DA.GetData(1, ref width);
 
-            DA.GetData(0, ref row);
-
-            seats.AddRange(row.Seats);
-
-            DA.SetDataList(0, seats);
+            Bowl bowl = new Bowl(tiers);
+            DA.SetDataList(0, bowl.ResampleBowl(width));
         }
 
         /// <summary>
@@ -79,7 +71,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("b51e4cbd-073c-416c-8d18-b4f8d9283f03"); }
+            get { return new Guid("d038b156-bc7c-4377-8d83-aae19775b444"); }
         }
     }
 }

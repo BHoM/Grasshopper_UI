@@ -4,21 +4,18 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-using SportVenueEvent.oM;
-using SportVenueEvent.En;
-using SportVenueEvent.Utils;
+using BH.oM.SportVenueEvent;
+using BH.Engine.SportVenueEvent;
 
-namespace SportVenueEvent_Alligator
+namespace BH.UI.Grasshopper.SportVenueEvent
 {
-    public class GenerateRake : GH_Component
+    public class ClosestVomitory : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the GenerateRake class.
+        /// Initializes a new instance of the GetClosestVomitory class.
         /// </summary>
-        public GenerateRake()
-          : base("GenerateRake", "Rakes",
-              "",
-              "SportVenueEvent", "Stadium")
+        public ClosestVomitory()
+          : base("Closest Vomitory", "ClosestVom", "", "SportVenueEvent", "Measure")
         {
         }
 
@@ -27,10 +24,8 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Tier", "Tier", "", GH_ParamAccess.list);
-            pManager.AddIntegerParameter("Seats per row", "Count", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("GangWidth", "Gangway", "", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("SeatsWidth", "Seat", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Tier", "Tier", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Vomitories", "Vomitories","", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -38,7 +33,8 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Rakes", "Rakes", "", GH_ParamAccess.list);
+            pManager.AddIntegerParameter("Index", "Index", "Index of closest vomitory", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Tier", "Tier", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -47,17 +43,12 @@ namespace SportVenueEvent_Alligator
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<Tier> tiers = new List<Tier>();
-            int seats = 0;
-            double gangway = 0;
-            int width = 0;
-
-            DA.GetDataList(0, tiers);
-            DA.GetData(1, ref seats);
-            DA.GetData(2, ref gangway);
-            DA.GetData(3, ref width);
-
-            DA.SetDataList(0, tiers.GenRakes(seats, gangway, width));
+            Tier tier = new Tier();
+            List<Vomitory> vomitories = new List<Vomitory>();
+            DA.GetData(0, ref tier);
+            DA.GetDataList(1, vomitories);
+            DA.SetDataList(0, tier.AssignVomitories(vomitories));
+            DA.SetData(1, tier);
         }
 
         /// <summary>
@@ -78,7 +69,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("c62a1572-ef95-4b24-ba8a-cb70c7a825f7"); }
+            get { return new Guid("1ced8fe7-9afd-4bab-88c7-7cd93f0d288b"); }
         }
     }
 }

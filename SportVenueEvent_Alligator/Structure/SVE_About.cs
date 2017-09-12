@@ -1,9 +1,9 @@
 ﻿using System;
-using BHoM.Structural;
+using BH.oM.Structural;
 using Grasshopper.Kernel;
 using System.Collections.Generic;
 
-namespace Alligator.SportVenueEvent.General
+namespace BH.UI.Grasshopper.SportVenueEvent
 {
     public class About : GH_Component 
     {

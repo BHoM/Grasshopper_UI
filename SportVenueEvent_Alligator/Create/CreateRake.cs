@@ -4,20 +4,19 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-using BHG = BHoM.Geometry;
-using SportVenueEvent.oM;
+using BH.oM.SportVenueEvent;
 
-namespace SportVenueEvent_Alligator
+namespace BH.UI.Grasshopper.SportVenueEvent
 {
-    public class DeTier : GH_Component
+    public class CreateRake : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the DeTier class.
+        /// Initializes a new instance of the CreateRake class.
         /// </summary>
-        public DeTier()
-          : base("Deconstruct Tier", "DeTier",
+        public CreateRake()
+          : base("CreateRake", "Rake",
               "",
-              "SportVenueEvent", "Stadium")
+              "SportVenueEvent", "Create")
         {
         }
 
@@ -25,7 +24,7 @@ namespace SportVenueEvent_Alligator
         {
             get
             {
-                return GH_Exposure.secondary;
+                return GH_Exposure.primary;
             }
         }
 
@@ -34,7 +33,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Tier", "Tier", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Rows", "Rows", "", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -42,7 +41,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Row", "Row", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Rakes", "Rakes", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -51,14 +50,9 @@ namespace SportVenueEvent_Alligator
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Tier tier = new Tier();
             List<Row> rows = new List<Row>();
-
-            DA.GetData(0, ref tier);
-
-            rows.AddRange(tier.Rows);
-
-            DA.SetDataList(0, rows);
+            DA.GetDataList(0, rows);
+            DA.SetData(0, new Rake(rows));
         }
 
         /// <summary>
@@ -79,7 +73,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("348f78cd-bb1e-4eb8-a13e-ed115d904fae"); }
+            get { return new Guid("18ccf2a0-abea-48f1-a7e4-64c51c12314d"); }
         }
     }
 }

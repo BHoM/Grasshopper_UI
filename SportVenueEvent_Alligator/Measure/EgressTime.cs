@@ -3,21 +3,20 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using BH.oM.SportVenueEvent;
+using BH.Engine.SportVenueEvent;
 
-using SportVenueEvent.oM;
-using SportVenueEvent.En;
-
-namespace SportVenueEvent_Alligator
+namespace SportVenueEvent_Alligator.Measure
 {
-    public class CreateTier : GH_Component
+    public class EgressTime : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the CreateTier class.
+        /// Initializes a new instance of the EgressTime class.
         /// </summary>
-        public CreateTier()
-          : base("Create Tier", "Tier",
+        public EgressTime()
+          : base("EgressTime", "EgressTime",
               "",
-              "SportVenueEvent", "Stadium")
+              "SportVenueEvent", "Measure")
         {
         }
 
@@ -26,7 +25,8 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Rows", "Rows", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Tier", "Tier", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Flow", "Flow", "Flow rate in [people/ (min * m)]", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Tier", "Tier", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Egress time", "Time", "", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -43,9 +43,11 @@ namespace SportVenueEvent_Alligator
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<Row> rows = new List<Row>();
-            DA.GetDataList(0, rows);
-            DA.SetData(0, new Tier(rows));
+            Tier tier = null;
+            double flowRate = 66;
+            DA.GetData(0, ref tier);
+            DA.GetData(1, ref flowRate);
+            DA.SetDataList(0, tier.EgressTime(flowRate));
         }
 
         /// <summary>
@@ -66,7 +68,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("d32777de-3e0d-49db-a8fe-3c3e18006b8a"); }
+            get { return new Guid("81cf34b9-78b2-4e30-8c5b-23027930ca46"); }
         }
     }
 }

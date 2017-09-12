@@ -2,22 +2,32 @@
 using System.Collections.Generic;
 
 using Grasshopper.Kernel;
-using Rhino.Geometry;
+using RHG = Rhino.Geometry;
 
-using SportVenueEvent.oM;
+using BHG = BH.oM.Geometry;
+using BH.oM.SportVenueEvent;
 
-namespace SportVenueEvent_Alligator
+
+namespace BH.UI.Grasshopper.SportVenueEvent
 {
-    public class DeRake : GH_Component
+    public class CreateVomitory : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the DeRake1 class.
+        /// Initializes a new instance of the CreatVomitory class.
         /// </summary>
-        public DeRake()
-          : base("Deconstruct Rake", "DeRake",
+        public CreateVomitory()
+          : base("Create Vomitory", "Vomitory",
               "",
-              "SportVenueEvent", "Stadium")
+              "SportVenueEvent", "Create")
         {
+        }
+
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.primary;
+            }
         }
 
         /// <summary>
@@ -25,7 +35,9 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Rake", "Rake", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Tier", "Tier", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Centre", "Centre", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Width", "Width", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -33,7 +45,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Rows", "Rows", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Vomitory", "Vom", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -42,9 +54,15 @@ namespace SportVenueEvent_Alligator
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Rake rake = new Rake();
-            DA.GetData(0, ref rake);
-            DA.SetDataList(0, rake.Rows);   
+            Vomitory vom = new Vomitory();
+            Tier tier = new Tier();
+            BHG.Point centre = new BHG.Point();
+            double width = 0;
+
+            DA.GetData(0, ref tier);
+            DA.GetData(1, ref centre);
+            DA.GetData(2, ref width);
+            DA.SetData(0, new Vomitory(tier, centre, width));
         }
 
         /// <summary>
@@ -65,7 +83,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("0e548465-ba36-4fef-96c3-ecc77ea7a938"); }
+            get { return new Guid("bddd3f85-2e7f-4b2d-9b16-2a12a6154c2a"); }
         }
     }
 }

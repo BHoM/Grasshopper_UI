@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug64</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SportVenueEvent_Alligator</RootNamespace>
     <AssemblyName>SportVenueEvent_Alligator</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
@@ -36,7 +36,7 @@
   <ItemGroup>
     <Reference Include="BHoM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
+      <HintPath>..\..\..\..\AppData\Roaming\BHoM\BHoM.dll</HintPath>
     </Reference>
     <Reference Include="GH_IO">
       <HintPath>..\External Libraries\GH_IO.dll</HintPath>
@@ -63,31 +63,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CreatePitch.cs" />
-    <Compile Include="CreateRake.cs" />
-    <Compile Include="CreateRow.cs" />
-    <Compile Include="CreateSeat.cs" />
-    <Compile Include="CreateTier.cs" />
-    <Compile Include="CreateVomitory.cs" />
-    <Compile Include="DeRake.cs" />
-    <Compile Include="DeRow.cs" />
-    <Compile Include="DeSeat.cs" />
-    <Compile Include="DeTier.cs" />
-    <Compile Include="DeVomitory.cs" />
-    <Compile Include="Elements\SVE_About.cs" />
-    <Compile Include="Elements\SVE_PrecastSeatingPlank.cs" />
-    <Compile Include="Elements\SVE_ConcreteRakerBeam.cs" />
-    <Compile Include="GenerateRake.cs" />
-    <Compile Include="GenerateTiers.cs" />
-    <Compile Include="GetClosestVomitory.cs" />
-    <Compile Include="ParseStadium.cs" />
+    <Compile Include="Create\CreatePitch.cs" />
+    <Compile Include="Create\CreateRake.cs" />
+    <Compile Include="Create\CreateRow.cs" />
+    <Compile Include="Create\CreateSeat.cs" />
+    <Compile Include="Create\CreateTier.cs" />
+    <Compile Include="Create\CreateVomitory.cs" />
+    <Compile Include="Deconstruct\DeRake.cs" />
+    <Compile Include="Deconstruct\DeRow.cs" />
+    <Compile Include="Deconstruct\DeSeat.cs" />
+    <Compile Include="Deconstruct\DeTier.cs" />
+    <Compile Include="Deconstruct\DeVomitory.cs" />
+    <Compile Include="Generative\GenVomitorySize.cs" />
+    <Compile Include="Measure\EgressTime.cs" />
+    <Compile Include="Structure\SVE_About.cs" />
+    <Compile Include="Measure\EgressPath.cs" />
+    <Compile Include="Generative\GenerateRake.cs" />
+    <Compile Include="Generative\GenerateTiers.cs" />
+    <Compile Include="Measure\ClosestVomitory.cs" />
+    <Compile Include="Generative\ParseStadium.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ResampleBowl.cs" />
+    <Compile Include="Transform\ResampleBowl.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -96,9 +97,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Application\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\ConcreteRaker.png" />
   </ItemGroup>

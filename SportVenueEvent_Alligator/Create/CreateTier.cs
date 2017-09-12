@@ -4,19 +4,20 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-using BHG = BHoM.Geometry;
-using SportVenueEvent.oM;
-using SportVenueEvent.En;
+using BH.oM.SportVenueEvent;
+using BH.Engine.SportVenueEvent;
 
-namespace SportVenueEvent_Alligator
+namespace BH.UI.Grasshopper.SportVenueEvent
 {
-    public class CreatePitch : GH_Component
+    public class CreateTier : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the CreatePitch class.
+        /// Initializes a new instance of the CreateTier class.
         /// </summary>
-        public CreatePitch()
-          : base("CreatePitch", "Pitch", "Description", "SportVenueEvent", "Stadium")
+        public CreateTier()
+          : base("Create Tier", "Tier",
+              "",
+              "SportVenueEvent", "Create")
         {
         }
 
@@ -33,8 +34,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Boundary", "Polyline", "Boundary polyline of Pitch", GH_ParamAccess.item);
-
+            pManager.AddGenericParameter("Rows", "Rows", "", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Pitch", "Pitch", "Pitch BHoM object", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Tier", "Tier", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -51,11 +51,9 @@ namespace SportVenueEvent_Alligator
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BHG.Polyline polyline = null;
-
-            DA.GetData(0, ref polyline);
-
-            DA.SetData(0, new Pitch(polyline));
+            List<Row> rows = new List<Row>();
+            DA.GetDataList(0, rows);
+            DA.SetData(0, new Tier(rows));
         }
 
         /// <summary>
@@ -76,7 +74,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("{a6c975de-deba-4857-a520-e4c707a1456b}"); }
+            get { return new Guid("d32777de-3e0d-49db-a8fe-3c3e18006b8a"); }
         }
     }
 }

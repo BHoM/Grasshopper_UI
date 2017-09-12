@@ -4,14 +4,10 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using RHG = Rhino.Geometry;
 
-using BHA = BHoM.Acoustic;
-using BHG = BHoM.Geometry;
-using SportVenueEvent.oM;
-using SportVenueEvent.En;
-using Grasshopper_Engine;
+using BHG = BH.oM.Geometry;
+using BH.oM.SportVenueEvent;
 
-
-namespace SportVenueEvent_Alligator
+namespace BH.UI.Grasshopper.SportVenueEvent
 {
     public class CreateSeat : GH_Component
     {
@@ -21,7 +17,7 @@ namespace SportVenueEvent_Alligator
         public CreateSeat()
           : base("CreateSeat", "Seat",
               "Create a BHoM Stadium Seat",
-              "SportVenueEvent", "Stadium")
+              "SportVenueEvent", "Create")
         {
         }
 

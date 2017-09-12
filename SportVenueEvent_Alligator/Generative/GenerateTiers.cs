@@ -6,12 +6,12 @@ using Grasshopper.Kernel.Data;
 using Grasshopper.Kernel.Types;
 using RHG = Rhino.Geometry;
 
-using BHG = BHoM.Geometry;
+using BHG = BH.oM.Geometry;
 using GHE = Grasshopper_Engine;
-using SportVenueEvent.oM;
-using SportVenueEvent.En;
+using BH.oM.SportVenueEvent;
+using BH.Engine.SportVenueEvent;
 
-namespace SportVenueEvent_Alligator
+namespace BH.UI.Grasshopper.SportVenueEvent
 {
     public class GenerateTiers : GH_Component, IGH_PreviewObject
     {
@@ -21,7 +21,7 @@ namespace SportVenueEvent_Alligator
         public GenerateTiers()
           : base("Generative Tier", "Tiers",
               "Generates a set of tiers according to a certain c-Value",
-              "SportVenueEvent", "Stadium")
+              "SportVenueEvent", "Generative")
         {
         }
 
@@ -75,7 +75,7 @@ namespace SportVenueEvent_Alligator
             DA.GetDataList(4, depths);
             DA.GetDataList(5, cValues);
 
-            List<Tier> tiers = SportVenueEvent.En.GenerateTiers.GenTiers(seats, tierNo, tierPos, rowsNos, depths, cValues);
+            List<Tier> tiers = Create.GenTiers(seats, tierNo, tierPos, rowsNos, depths, cValues);
             DA.SetDataList(0, tiers);
 
             // QUICK_PREVIEW
@@ -88,7 +88,7 @@ namespace SportVenueEvent_Alligator
                     for (int k = 0; k < tiers[i].Rows[j].Seats.Count; k++)
                     {
                         //tree.Append(tiers[i].Rows[j].Seats[k], new GH_Path(new int[] { i, j, k }));
-                        samples.Add(GHE.GeometryUtils.Convert(tiers[i].Rows[j].Seats[k].Geometry));
+                        //samples.Add(GHE.GeometryUtils.Convert(tiers[i].Rows[j].Seats[k].Geometry));
                     }
                 }
             }

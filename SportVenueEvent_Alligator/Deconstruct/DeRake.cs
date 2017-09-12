@@ -4,28 +4,36 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-using SportVenueEvent.oM;
-using SportVenueEvent.En;
+using BH.oM.SportVenueEvent;
 
-namespace SportVenueEvent_Alligator
+namespace BH.UI.Grasshopper.SportVenueEvent
 {
-    public class GetClosestVomitory : GH_Component
+    public class DeRake : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the GetClosestVomitory class.
+        /// Initializes a new instance of the DeRake1 class.
         /// </summary>
-        public GetClosestVomitory()
-          : base("Closest Vomitory", "ClosestVom", "", "SportVenueEvent", "Utils")
+        public DeRake()
+          : base("Deconstruct Rake", "DeRake",
+              "",
+              "SportVenueEvent", "Deconstuct")
         {
         }
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.secondary;
+            }
+        }
+
 
         /// <summary>
         /// Registers all the input parameters for this component.
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Tier", "Tier", "", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Vomitories", "Vomitories","", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Rake", "Rake", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -33,7 +41,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddIntegerParameter("Index", "Index", "Index of closest vomitory", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Rows", "Rows", "", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -42,11 +50,9 @@ namespace SportVenueEvent_Alligator
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Tier tier = new Tier();
-            List<Vomitory> vomitories = new List<Vomitory>();
-            DA.GetData(0, ref tier);
-            DA.GetDataList(1, vomitories);
-            DA.SetDataList(0, SportVenueEvent.oM.Tier.SetClosestVomitory(tier, vomitories));
+            Rake rake = new Rake();
+            DA.GetData(0, ref rake);
+            DA.SetDataList(0, rake.Rows);   
         }
 
         /// <summary>
@@ -67,7 +73,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("1ced8fe7-9afd-4bab-88c7-7cd93f0d288b"); }
+            get { return new Guid("0e548465-ba36-4fef-96c3-ecc77ea7a938"); }
         }
     }
 }

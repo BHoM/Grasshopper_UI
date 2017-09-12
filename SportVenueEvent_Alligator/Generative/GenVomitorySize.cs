@@ -2,31 +2,22 @@
 using System.Collections.Generic;
 
 using Grasshopper.Kernel;
-using RHG = Rhino.Geometry;
+using Rhino.Geometry;
+using BH.oM.SportVenueEvent;
+using BH.Engine.SportVenueEvent;
 
-using BHG = BHoM.Geometry;
-using SportVenueEvent.oM;
-
-namespace SportVenueEvent_Alligator
+namespace BH.UI.Grasshopper.SportVenueEvent
 {
-    public class DeSeat : GH_Component
+    public class GenVomitorySize : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the DeSeat class.
+        /// Initializes a new instance of the MinVomWidth class.
         /// </summary>
-        public DeSeat()
-          : base("Deconstruct Seat", "DeSeat",
+        public GenVomitorySize()
+          : base("Vomitory size", "VomSize",
               "",
-              "SportVenueEvent", "Stadium")
+              "SportVenueEvent", "Generative")
         {
-        }
-
-        public override GH_Exposure Exposure
-        {
-            get
-            {
-                return GH_Exposure.secondary;
-            }
         }
 
         /// <summary>
@@ -34,7 +25,10 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Seat", "Seat", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Tier", "Tier", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Flow", "Flow", "Flow rate in [people/ (min * m)]", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Time", "Time", "", GH_ParamAccess.item, 8);
+            pManager[2].Optional = true;
         }
 
         /// <summary>
@@ -42,8 +36,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Position", "Position", "", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Focus", "Focus", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Width", "Width", "", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -52,12 +45,13 @@ namespace SportVenueEvent_Alligator
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Seat seat = new Seat();
-
-            DA.GetData(0, ref seat);
-            DA.SetData(0, seat.Geometry);
-            DA.SetData(1, seat.FocusPoint);
-
+            Tier tier = null;
+            double flowRate = 66;
+            double time = 8;
+            DA.GetData(0, ref tier);
+            DA.GetData(1, ref flowRate);
+            DA.GetData(2, ref time);
+            DA.SetDataList(0, tier.GenVomitorySize(flowRate, time));
         }
 
         /// <summary>
@@ -78,7 +72,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("4d704d8f-32fa-401a-a44f-e2a83def3d31"); }
+            get { return new Guid("c3006a87-a618-4a0f-83bb-fd4011783d88"); }
         }
     }
 }

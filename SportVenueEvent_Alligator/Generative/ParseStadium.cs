@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-using SportVenueEvent.oM;
-using SportVenueEvent.En;
+using BH.oM.SportVenueEvent;
+using BH.Engine.SportVenueEvent;
 using GHE = Grasshopper_Engine;
 
-namespace SportVenueEvent_Alligator
+namespace BH.UI.Grasshopper.SportVenueEvent
 {
     public class ParseStadium : GH_Component
     {
@@ -18,7 +18,7 @@ namespace SportVenueEvent_Alligator
         public ParseStadium()
           : base("ParseStadium", "ParseStadium",
               "Characterize an undefined stadium geometry and returns them as as BHoM Stadium parts",
-              "SportVenueEvent", "Stadium")
+              "SportVenueEvent", "Generative")
         {
         }
 

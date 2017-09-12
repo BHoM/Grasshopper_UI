@@ -2,22 +2,30 @@
 using System.Collections.Generic;
 
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 
-using SportVenueEvent.oM;
+using BHG = BH.oM.Geometry;
+using BH.oM.SportVenueEvent;
 
-namespace SportVenueEvent_Alligator
+namespace BH.UI.Grasshopper
 {
-    public class CreateRake : GH_Component
+    public class CreatePitch : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the CreateRake class.
+        /// Initializes a new instance of the CreatePitch class.
         /// </summary>
-        public CreateRake()
-          : base("CreateRake", "Rake",
-              "",
-              "SportVenueEvent", "Stadium")
+        public CreatePitch()
+          : base("CreatePitch", "Pitch", "Description", "SportVenueEvent", "Create")
         {
+        }
+
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.primary;
+            }
         }
 
         /// <summary>
@@ -25,7 +33,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Rows", "Rows", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Boundary", "Polyline", "Boundary polyline of Pitch", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -33,7 +41,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Rakes", "Rakes", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Pitch", "Pitch", "Pitch BHoM object", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -42,9 +50,11 @@ namespace SportVenueEvent_Alligator
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<Row> rows = new List<Row>();
-            DA.GetDataList(0, rows);
-            DA.SetData(0, new Rake(rows));
+            BHG.Polyline polyline = null;
+
+            DA.GetData(0, ref polyline);
+
+            DA.SetData(0, new Pitch(polyline));
         }
 
         /// <summary>
@@ -65,7 +75,7 @@ namespace SportVenueEvent_Alligator
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("18ccf2a0-abea-48f1-a7e4-64c51c12314d"); }
+            get { return new Guid("{a6c975de-deba-4857-a520-e4c707a1456b}"); }
         }
     }
 }
