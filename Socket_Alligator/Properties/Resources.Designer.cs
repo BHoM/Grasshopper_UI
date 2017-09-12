@@ -63,9 +63,9 @@ namespace Socket_Alligator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BH.oM_FromSocket {
+        internal static System.Drawing.Bitmap BHoM_FromSocket {
             get {
-                object obj = ResourceManager.GetObject("BH.oM_FromSocket", resourceCulture);
+                object obj = ResourceManager.GetObject("BHoM_FromSocket", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace Socket_Alligator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BH.oM_ToSocket {
+        internal static System.Drawing.Bitmap BHoM_ToSocket {
             get {
-                object obj = ResourceManager.GetObject("BH.oM_ToSocket", resourceCulture);
+                object obj = ResourceManager.GetObject("BHoM_ToSocket", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

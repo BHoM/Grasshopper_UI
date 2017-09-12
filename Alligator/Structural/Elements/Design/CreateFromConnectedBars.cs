@@ -1,4 +1,4 @@
-﻿using BH.oM.Structural.Elements;
+﻿using BHoM.Structural.Elements;
 using Grasshopper.Kernel;
 using Grasshopper_Engine;
 using System;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper_Engine.Components;
-using BHL = BH.oM.Structural.Loads;
+using BHL = BHoM.Structural.Loads;
 
 namespace Alligator.Structural.Loads
 {
@@ -15,7 +15,7 @@ namespace Alligator.Structural.Loads
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_LoadCase_Combination; }
+            get { return Alligator.Properties.Resources.BHoM_LoadCase_Combination; }
         }
 
         public override Guid ComponentGuid

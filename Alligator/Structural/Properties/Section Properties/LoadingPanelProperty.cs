@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using BHP = BH.oM.Structural.Properties;
+using BHP = BHoM.Structural.Properties;
 using GHE = Grasshopper_Engine;
 
 namespace Alligator.Structural.Properties.Section_Properties
@@ -16,7 +16,7 @@ namespace Alligator.Structural.Properties.Section_Properties
         }
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_Panel_Loading; }
+            get { return Alligator.Properties.Resources.BHoM_Panel_Loading; }
         }
         public override GH_Exposure Exposure
         {

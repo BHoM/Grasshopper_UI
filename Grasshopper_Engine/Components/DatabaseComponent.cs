@@ -9,8 +9,7 @@
 //using System.Drawing;
 //using Grasshopper.GUI.Canvas;
 //using System.Windows.Forms;
-//using BH.oM.Base;
-
+//using BH.oM.Base.Data;
 
 //namespace Grasshopper_Engine.Components
 //{
@@ -122,7 +121,7 @@
 //        private ComboBox m_Types;
 //        private ComboBox m_Names;
 
-//        public DatabaseComponent(string name, string nickname, string description, string category, string subCategory)
+//        public DatabaseComponent(string name, string nickname, string description, string category, string subCategory) 
 //            : base(name, nickname, description, category, subCategory, GH_ParamAccess.item)
 //        {
 //            CreateMenus();
@@ -152,14 +151,13 @@
 //        private void M_Names_SelectedIndexChanged(object sender, EventArgs e)
 //        {
 //            SetData();
-//            this.ExpirePreview(true);
+//            this.ExpirePreview(true);     
 //        }
 
 //        private void M_Types_SelectedIndexChanged(object sender, EventArgs e)
 //        {
 //            try
 //            {
-                
 //                BH.oM.Base.Data.IDataAdapter dataAdapter = BH.oM.Global.Project.ActiveProject.GetDatabase<T>(m_DatabaseType);
 //                m_Names.Items.Clear();
 //                m_Names.Items.AddRange(dataAdapter.GetDataColumn("Name", "Type", ObjectType).ToArray());
@@ -169,7 +167,7 @@
 //            {
 //                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, ex.Message);
 //            }
-
+            
 //        }
 
 //        private void M_Tables_SelectedIndexChanged(object sender, EventArgs e)
@@ -203,7 +201,7 @@
 //                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, ex.Message);
 //            }
 
-//        }
+//        } 
 
 //        public override Guid ComponentGuid
 //        {
@@ -234,7 +232,7 @@
 //            else
 //                return base.AppendMenuItems(menu);
 //        }
-
+        
 //        private void On_Cancel(object sender, EventArgs e)
 //        {
 
@@ -264,7 +262,7 @@
 //        public override bool Read(GH_IO.Serialization.GH_IReader reader)
 //        {
 //            string name = "";
-//            if (reader.TryGetString("Table", ref name)) m_Tables.Text = name;
+//            if (reader.TryGetString ("Table", ref name)) m_Tables.Text = name;
 //            if (reader.TryGetString("Type", ref name)) m_Types.Text = name;
 //            if (reader.TryGetString("Name", ref name)) m_Names.Text = name;
 //            if (reader.TryGetString("Title", ref name)) this.Name = name;

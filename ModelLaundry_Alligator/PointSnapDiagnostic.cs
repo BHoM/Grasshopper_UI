@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using MLE = ModelLaundry_Engine;
 using GHE = Grasshopper_Engine;
-using BHG = BH.oM.Geometry;
+using BHG = BHoM.Geometry;
 using RG = Rhino.Geometry;
 
 namespace Alligator.ModelLaundry
@@ -20,9 +20,9 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("BH.oM Elements", "bhElements", "BH.oM object or geometry to diagnose", GH_ParamAccess.list);
+            pManager.AddGenericParameter("BHoM Elements", "bhElements", "BHoM object or geometry to diagnose", GH_ParamAccess.list);
             pManager.AddNumberParameter("Distance", "distance", "tolerance distance", GH_ParamAccess.item);
-            pManager.AddNumberParameter("zero", "zero", "zero threshold", GH_ParamAccess.item, BH.oM.Base.Tolerance.MIN_DIST);
+            pManager.AddNumberParameter("zero", "zero", "zero threshold", GH_ParamAccess.item, BHoM.Base.Tolerance.MIN_DIST);
         }
 
         /// <summary>

@@ -63,9 +63,9 @@ namespace Robot_Alligator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BH.oM_ROBO_App {
+        internal static System.Drawing.Bitmap BHoM_ROBO_App {
             get {
-                object obj = ResourceManager.GetObject("BH.oM_ROBO_App", resourceCulture);
+                object obj = ResourceManager.GetObject("BHoM_ROBO_App", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

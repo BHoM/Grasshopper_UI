@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BH.oM.Structural;
+using BHoM.Structural;
 using Alligator.Components;
 using Grasshopper.Kernel;
 using GHE = Grasshopper_Engine;
-using BHG = BH.oM.Geometry;
-using BHE = BH.oM.Structural.Elements;
-using BHI = BH.oM.Structural.Interface;
+using BHG = BHoM.Geometry;
+using BHE = BHoM.Structural.Elements;
+using BHI = BHoM.Structural.Interface;
 using Rhino.Geometry;
 using Grasshopper;
 using Grasshopper_Engine.Components;
@@ -31,7 +31,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_Grid; }
+            get { return Alligator.Properties.Resources.BHoM_Grid; }
         }
     }
 
@@ -50,7 +50,7 @@ namespace Alligator.Structural.Elements
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Application", "App", "Application to export bars to", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Grids", "P", "BH.oM Grids to export", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Grids", "P", "BHoM Grids to export", GH_ParamAccess.list);
             pManager.AddBooleanParameter("Execute", "R", "Generate Grids", GH_ParamAccess.item);
 
             pManager[2].Optional = true;
@@ -84,7 +84,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_Grid_Export; }
+            get { return Alligator.Properties.Resources.BHoM_Grid_Export; }
         }
     }
 
@@ -125,7 +125,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_Grid_Import; }
+            get { return Alligator.Properties.Resources.BHoM_Grid_Import; }
         }
     }
 }

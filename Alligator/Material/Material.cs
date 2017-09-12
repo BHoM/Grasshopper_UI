@@ -1,9 +1,9 @@
-﻿using BH.oM.Structural;
+﻿using BHoM.Structural;
 using System;
 using Grasshopper.Kernel;
 using System.Collections.Generic;
 using Alligator.Components;
-using BHM = BH.oM.Materials;
+using BHM = BHoM.Materials;
 using Grasshopper_Engine.Components;
 
 namespace Alligator.Materials
@@ -30,7 +30,7 @@ namespace Alligator.Materials
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_Material; }
+            get { return Alligator.Properties.Resources.BHoM_Material; }
         }
     }
 

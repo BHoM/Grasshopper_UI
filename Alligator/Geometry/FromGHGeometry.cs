@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
 using RG = Rhino.Geometry;
-using BHG = BH.oM.Geometry;
+using BHG = BHoM.Geometry;
 using GHE = Grasshopper_Engine;
 
 
@@ -14,7 +14,7 @@ namespace Alligator.Geometry
 {
     public class FromGHGeometry : GH_Component
     {
-        public FromGHGeometry() : base("FromGHGeometry", "FromGHGeom", "Convert a GH geometry into a BH.oM geometry", "Alligator", "geometry") { }
+        public FromGHGeometry() : base("FromGHGeometry", "FromGHGeom", "Convert a GH geometry into a BHoM geometry", "Alligator", "geometry") { }
 
         public override Guid ComponentGuid
         {
@@ -26,7 +26,7 @@ namespace Alligator.Geometry
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_Geo_GHToBH; }
+            get { return Alligator.Properties.Resources.BHoM_Geo_GHToBH; }
         }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)

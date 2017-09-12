@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using BHG = BH.oM.Geometry;
+using BHG = BHoM.Geometry;
 using Grasshopper.Kernel;
 using RHG = Rhino.Geometry;
 using GHE = Grasshopper_Engine;

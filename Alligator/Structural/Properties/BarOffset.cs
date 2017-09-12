@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GHE = Grasshopper_Engine;
-using BHG = BH.oM.Geometry;
-using BHE = BH.oM.Structural.Elements;
-using BHI = BH.oM.Structural.Interface;
-using BHP = BH.oM.Structural.Properties;
+using BHG = BHoM.Geometry;
+using BHE = BHoM.Structural.Elements;
+using BHI = BHoM.Structural.Interface;
+using BHP = BHoM.Structural.Properties;
 using Grasshopper_Engine.Components;
 
 namespace Alligator.Structural.Properties
@@ -27,7 +27,7 @@ namespace Alligator.Structural.Properties
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_BarOffsets; }
+            get { return Alligator.Properties.Resources.BHoM_BarOffsets; }
         }
     }
 }

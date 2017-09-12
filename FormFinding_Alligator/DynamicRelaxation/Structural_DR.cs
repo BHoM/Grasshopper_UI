@@ -91,11 +91,11 @@ namespace FormFinding_Alligator.DynamicRelaxation
                    
                 }
 
-                List<BH.oM.Geometry.Point> bhPts = relaxEngine.GetPoints();
+                List<BHoM.Geometry.Point> bhPts = relaxEngine.GetPoints();
 
                 m_rPts = new List<Point3d>();
 
-                foreach (BH.oM.Geometry.Point bhP in bhPts)
+                foreach (BHoM.Geometry.Point bhP in bhPts)
                 {
                     m_rPts.Add(GHE.GeometryUtils.Convert(bhP));
                 }

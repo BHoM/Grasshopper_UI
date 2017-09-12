@@ -1,11 +1,11 @@
-﻿using BH.oM.Structural;
+﻿using BHoM.Structural;
 using System;
 using Grasshopper.Kernel;
 using System.Collections.Generic;
 using Alligator.Components;
 using GHE = Grasshopper_Engine;
-using BHE = BH.oM.Structural.Elements;
-using BHI = BH.oM.Structural.Interface;
+using BHE = BHoM.Structural.Elements;
+using BHI = BHoM.Structural.Interface;
 using Rhino.Geometry;
 using Grasshopper;
 using Grasshopper_Engine.Components;
@@ -28,7 +28,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_Node; }
+            get { return Alligator.Properties.Resources.BHoM_Node; }
         }
     }
 
@@ -47,7 +47,7 @@ namespace Alligator.Structural.Elements
         //protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         //{
         //    pManager.AddGenericParameter("Application", "Application", "Application to import nodes from", GH_ParamAccess.item);
-        //    pManager.AddGenericParameter("Nodes", "Nodes", "BH.oM nodes to export", GH_ParamAccess.list);
+        //    pManager.AddGenericParameter("Nodes", "Nodes", "BHoM nodes to export", GH_ParamAccess.list);
         //    pManager.AddBooleanParameter("Activate", "Activate", "Generate Nodes", GH_ParamAccess.item);
 
         //    pManager[2].Optional = true;
@@ -88,7 +88,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_Node_Export; }
+            get { return Alligator.Properties.Resources.BHoM_Node_Export; }
         }
     }
 
@@ -151,7 +151,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_Node_Import; }
+            get { return Alligator.Properties.Resources.BHoM_Node_Import; }
         }
     }
 }

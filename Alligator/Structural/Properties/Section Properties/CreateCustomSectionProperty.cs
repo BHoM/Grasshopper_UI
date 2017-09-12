@@ -2,8 +2,8 @@
 using Grasshopper.Kernel;
 using System.Collections.Generic;
 using GHE = Grasshopper_Engine;
-using BHP = BH.oM.Structural.Properties;
-using BHG = BH.oM.Geometry;
+using BHP = BHoM.Structural.Properties;
+using BHG = BHoM.Geometry;
 using R = Rhino.Geometry;
 using Grasshopper_Engine.Components;
 using System.Reflection;
@@ -52,7 +52,7 @@ namespace Alligator.Structural.Properties
 
             BHG.Group<BHG.Curve> edges = new BHG.Group<BHG.Curve>();
             string name = GHE.DataUtils.GetData<string>(DA, 0);
-            BH.oM.Materials.Material m = GHE.DataUtils.GetGenericData<BH.oM.Materials.Material>(DA, 2); GHE.DataUtils.GetGenericData<BH.oM.Materials.Material>(DA, 2); 
+            BHoM.Materials.Material m = GHE.DataUtils.GetGenericData<BHoM.Materials.Material>(DA, 2); GHE.DataUtils.GetGenericData<BHoM.Materials.Material>(DA, 2); 
             foreach (R.Curve crv in crvs)
             {
                 edges.Add(GHE.GeometryUtils.Convert(crv));

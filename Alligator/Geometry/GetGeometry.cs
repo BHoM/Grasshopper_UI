@@ -1,5 +1,5 @@
-﻿using BH.oM.Structural.Elements;
-using BH = BH.oM.Geometry;
+﻿using BHoM.Structural.Elements;
+using BH = BHoM.Geometry;
 using R = Rhino.Geometry;
 using Grasshopper.Kernel;
 using Grasshopper_Engine;
@@ -14,13 +14,13 @@ namespace Alligator.Geometry
 {
     public class GetGeometry : GH_Component
     {
-        public GetGeometry() : base("Get Geometry", "GetGeometry", "Gets the Geometry of a BH.oM Objects", "Structure", "Geometry")
+        public GetGeometry() : base("Get Geometry", "GetGeometry", "Gets the Geometry of a BHoM Objects", "Structure", "Geometry")
         {
 
         }
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_Element_Geometry; }
+            get { return Alligator.Properties.Resources.BHoM_Element_Geometry; }
         }
 
         public override Guid ComponentGuid
@@ -43,7 +43,7 @@ namespace Alligator.Geometry
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BH.oM.Base.BHoMObject obj = DataUtils.GetGenericData<BH.oM.Base.BHoMObject>(DA, 0);
+            BHoM.Base.BHoMObject obj = DataUtils.GetGenericData<BHoM.Base.BHoMObject>(DA, 0);
             if (obj != null)
             {
                 BH.GeometryBase geom = obj.GetGeometry();
@@ -52,7 +52,7 @@ namespace Alligator.Geometry
                 {
                     Type listType = geom.GetType().GetGenericArguments()[0];
 
-                    if (typeof(BH.oM.Geometry.GeometryBase).IsAssignableFrom(listType))
+                    if (typeof(BHoM.Geometry.GeometryBase).IsAssignableFrom(listType))
                     {
                         var utils = typeof(GeometryUtils);
                         var methodInfo = utils.GetMethod("ConvertGroup", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);

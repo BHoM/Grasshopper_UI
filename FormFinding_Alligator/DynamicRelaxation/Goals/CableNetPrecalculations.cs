@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 using Rhino.Geometry;
 using FormFinding_Engine.Structural.CableNetFormFinding;
 using FormFinding_Engine.Structural.Goals;
-using BG = BH.oM.Geometry;
+using BG = BHoM.Geometry;
 using GHE = Grasshopper_Engine;
 
 

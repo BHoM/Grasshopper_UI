@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using Alligator.Components;
 using GHE = Grasshopper_Engine;
-using BHL = BH.oM.Structural.Loads;
-using BHI = BH.oM.Structural.Interface;
+using BHL = BHoM.Structural.Loads;
+using BHI = BHoM.Structural.Interface;
 using Grasshopper_Engine.Components;
 
 namespace Alligator.Structural.Loads
@@ -27,7 +27,7 @@ namespace Alligator.Structural.Loads
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_LoadCase; }
+            get { return Alligator.Properties.Resources.BHoM_LoadCase; }
         }
     }
 
@@ -38,7 +38,7 @@ namespace Alligator.Structural.Loads
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_LoadCase_Export; }
+            get { return Alligator.Properties.Resources.BHoM_LoadCase_Export; }
         }
 
         public override GH_Exposure Exposure
@@ -52,7 +52,7 @@ namespace Alligator.Structural.Loads
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Application", "App", "Application to export loadcases to", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Loadcase", "L", "BH.oM loadcase to export", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Loadcase", "L", "BHoM loadcase to export", GH_ParamAccess.list);
             pManager.AddBooleanParameter("Execute", "R", "Generate loadcases", GH_ParamAccess.item);
 
             pManager[2].Optional = true;

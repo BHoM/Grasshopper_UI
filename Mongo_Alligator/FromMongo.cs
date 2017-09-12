@@ -12,7 +12,7 @@ namespace Alligator.Mongo
 {
     public class FromMongo : GH_Component
     {
-        public FromMongo() : base("FromMongo", "FromMongo", "Get BH.oM objects from a Mongo database", "Alligator", "Mongo") { }
+        public FromMongo() : base("FromMongo", "FromMongo", "Get BHoM objects from a Mongo database", "Alligator", "Mongo") { }
 
         public override Guid ComponentGuid
         {
@@ -25,7 +25,7 @@ namespace Alligator.Mongo
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Mongo_Alligator.Properties.Resources.BH.oM_Mongo_From; }
+            get { return Mongo_Alligator.Properties.Resources.BHoM_Mongo_From; }
         }
         public override GH_Exposure Exposure
         {

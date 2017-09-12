@@ -1,4 +1,4 @@
-﻿using BH.oM.Structural.Properties;
+﻿using BHoM.Structural.Properties;
 using Grasshopper_Engine.Components;
 using Grasshopper.Kernel;
 using System;
@@ -26,7 +26,7 @@ namespace Alligator.Structural.Properties.Section_Properties
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_Composite_Section; }
+            get { return Alligator.Properties.Resources.BHoM_Composite_Section; }
         }
         public override GH_Exposure Exposure
         {

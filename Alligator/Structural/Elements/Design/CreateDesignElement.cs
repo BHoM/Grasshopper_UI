@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using Grasshopper_Engine;
-using BHE = BH.oM.Structural.Elements;
+using BHE = BHoM.Structural.Elements;
 
 namespace Alligator.Structural.Elements.Design
 {

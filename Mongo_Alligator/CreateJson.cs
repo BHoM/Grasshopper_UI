@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using MA = BH.Adapter.Mongo;
 using BHB = BH.oM.Base;
-using BHC = BH.oM_Engine.DataStream.Convert;
+using BHC = BHoM_Engine.DataStream.Convert;
 using GHE = Grasshopper_Engine;
 
 namespace Alligator.Mongo
@@ -26,7 +26,7 @@ namespace Alligator.Mongo
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Mongo_Alligator.Properties.Resources.BH.oM_Mongo_ToJson; }
+            get { return Mongo_Alligator.Properties.Resources.BHoM_Mongo_ToJson; }
         }
 
         public bool CanInsertParameter(GH_ParameterSide side, int index)

@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Rhino.Geometry;
 using Grasshopper.Kernel;
-using BHG = BH.oM.Geometry;
-using BHA = BH.oM.Acoustic;
+using BHG = BHoM.Geometry;
+using BHA = BHoM.Acoustic;
 
 namespace Acoustic_Alligator
 {
     public class CreateZone : GH_Component
     {
-        public CreateZone() : base("Create Zone", "Create Zone", "Create BH.oM Zone", "Alligator", "Acoustics") { }
+        public CreateZone() : base("Create Zone", "Create Zone", "Create BHoM Zone", "Alligator", "Acoustics") { }
 
         public override Guid ComponentGuid
         {
@@ -23,7 +23,7 @@ namespace Acoustic_Alligator
         }
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Acoustic_Alligator.Properties.Resources.BH.oM_Acoustics_Zone; }
+            get { return Acoustic_Alligator.Properties.Resources.BHoM_Acoustics_Zone; }
         }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
@@ -36,13 +36,13 @@ namespace Acoustic_Alligator
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("BH.oM Zone", "BH.oM Zone", "BH.oM Zone", GH_ParamAccess.item);
+            pManager.AddGenericParameter("BHoM Zone", "BHoM Zone", "BHoM Zone", GH_ParamAccess.item);
             pManager.AddPointParameter("Sample Points", "Sample Points", "GH Sample Points", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<BHG.Point> points = new List<BH.oM.Geometry.Point>();
+            List<BHG.Point> points = new List<BHoM.Geometry.Point>();
             List<Point3d> samplePoints = new List<Point3d>();
 
             Rhino.Geometry.Brep geom = new Rhino.Geometry.Brep();
@@ -67,7 +67,7 @@ namespace Acoustic_Alligator
                 //for (double y = bBox.Min.Y; y <= bBox.Max.Y; y += recieverStep)
                 //{
                     //Point3d pt = new Point3d(x, y, recieverHeight);
-                    //points.Add(new BH.oM.Geometry.Point(pt.X, pt.Y, pt.Z));
+                    //points.Add(new BHoM.Geometry.Point(pt.X, pt.Y, pt.Z));
                     //samplePoints.Add(pt);
                 //}
             //}

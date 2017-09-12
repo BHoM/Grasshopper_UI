@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using BH.oM.Structural.Elements;
-using BH.oM.Structural.Properties;
+using BHoM.Structural.Elements;
+using BHoM.Structural.Properties;
 using Rhino.Geometry;
 using GHE = Grasshopper_Engine;
 
@@ -18,7 +18,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_Mesh; }
+            get { return Alligator.Properties.Resources.BHoM_Mesh; }
         }
 
         public override Guid ComponentGuid

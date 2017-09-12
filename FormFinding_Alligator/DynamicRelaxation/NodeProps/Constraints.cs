@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 using Rhino.Geometry;
 using FormFinding_Engine.Structural;
 using GHE = Grasshopper_Engine;
-using BH =BH.oM.Geometry;
+using BH =BHoM.Geometry;
 
 namespace FormFinding_Alligator.DynamicRelaxation.NodeProps
 {
@@ -46,7 +46,7 @@ namespace FormFinding_Alligator.DynamicRelaxation.NodeProps
             if (!DA.GetDataList(0, pts)) { return; }
 
 
-            List<BH.Point> bhPts = new List<BH.oM.Geometry.Point>();
+            List<BH.Point> bhPts = new List<BHoM.Geometry.Point>();
 
             foreach (Point3d pt in pts)
             {

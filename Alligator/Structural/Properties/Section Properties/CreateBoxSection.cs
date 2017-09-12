@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using BHP = BH.oM.Structural.Properties;
-using BH.oM.Materials;
+using BHP = BHoM.Structural.Properties;
+using BHoM.Materials;
 
 namespace Alligator.Structural.Properties
 {
@@ -15,7 +15,7 @@ namespace Alligator.Structural.Properties
 
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_Custom_Box_Section; }
+            get { return Alligator.Properties.Resources.BHoM_Custom_Box_Section; }
         }
         public override GH_Exposure Exposure
         {
@@ -77,7 +77,7 @@ namespace Alligator.Structural.Properties
                 prop = BHP.SectionProperty.CreateBoxSection(MaterialType.Steel, h, w, tf, tw);
             }
 
-            BH.oM.Materials.Material mat = Grasshopper_Engine.DataUtils.GetGenericData<BH.oM.Materials.Material>(DA, 7);
+            BHoM.Materials.Material mat = Grasshopper_Engine.DataUtils.GetGenericData<BHoM.Materials.Material>(DA, 7);
 
             if (mat == null)
                 return;

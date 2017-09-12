@@ -65,7 +65,7 @@ namespace Revit_Alligator.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap BHoM_Revit_App {
             get {
-                object obj = ResourceManager.GetObject("BH.oM_Revit_App", resourceCulture);
+                object obj = ResourceManager.GetObject("BHoM_Revit_App", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

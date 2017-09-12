@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 using GHE = Grasshopper_Engine;
-using BHG = BH.oM.Geometry;
+using BHG = BHoM.Geometry;
 
 
 namespace Alligator.ModelLaundry
@@ -15,7 +15,7 @@ namespace Alligator.ModelLaundry
         /// </summary>
         public JoinCurves()
           : base("JoinCurves", "JoinCrvs",
-              "Joining BH.oM curves",
+              "Joining BHoM curves",
               "Alligator", "ModelLaundry")
         {
         }
@@ -49,7 +49,7 @@ namespace Alligator.ModelLaundry
 
             for (int i = 0; i < crvs.Count; i++)
             {
-                if (crvs[i] is BH.oM.Geometry.Group<BHG.Curve>)
+                if (crvs[i] is BHoM.Geometry.Group<BHG.Curve>)
                 {
                     BHG.Group<BHG.Curve> newCrv = (BHG.Group<BHG.Curve>)crvs[i];
                     JoinCurves = BHG.Curve.Join(newCrv.ToList());

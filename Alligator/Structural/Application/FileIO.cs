@@ -1,4 +1,4 @@
-﻿using BH.oM.Structural;
+﻿using BHoM.Structural;
 using Grasshopper.Kernel;
 using Grasshopper_Engine;
 using System;
@@ -11,7 +11,7 @@ namespace Alligator.Structural.Application
 {
     public class FileApp : GH_Component
     {
-        public FileApp() : base("File Input Output", "FileIO", "Imports or Exports BH.oM files to text", "Structure", "Application") { }
+        public FileApp() : base("File Input Output", "FileIO", "Imports or Exports BHoM files to text", "Structure", "Application") { }
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
@@ -30,7 +30,7 @@ namespace Alligator.Structural.Application
             string directoryOut = DataUtils.GetData<string>(DA, 1);
 
             FileIO app = new FileIO(directoryIn, directoryOut);
-            app.Identifier = BH.oM.Base.FilterOption.Guid;
+            app.Identifier = BHoM.Base.FilterOption.Guid;
             DA.SetData(0, app);
         }
 

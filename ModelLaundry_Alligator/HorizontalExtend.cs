@@ -23,7 +23,7 @@ namespace Alligator.ModelLaundry
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("BH.oM Elements", "bhElements", "BH.oM object or geometry to extend", GH_ParamAccess.item);
+            pManager.AddGenericParameter("BHoM Elements", "bhElements", "BHoM object or geometry to extend", GH_ParamAccess.item);
             pManager.AddNumberParameter("Distance", "distance", "Extention distance", GH_ParamAccess.item);
         }
 

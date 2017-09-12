@@ -4,7 +4,7 @@
 //using RG = Rhino.Geometry;
 //using FormFinding_Engine.Structural;
 //using GHE = Grasshopper_Engine;
-//using BG = BH.oM.Geometry;
+//using BG = BHoM.Geometry;
 
 //namespace FormFinding_Alligator.DynamicRelaxation
 //{

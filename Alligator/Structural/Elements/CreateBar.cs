@@ -1,13 +1,13 @@
-﻿using BH.oM.Structural;
+﻿using BHoM.Structural;
 using System;
 using Grasshopper.Kernel;
 using System.Collections.Generic;
 using GHE = Grasshopper_Engine;
 using Alligator.Components;
-using BHE = BH.oM.Structural.Elements;
-using BHI = BH.oM.Structural.Interface;
-using BHP = BH.oM.Structural.Properties;
-using BHG = BH.oM.Geometry;
+using BHE = BHoM.Structural.Elements;
+using BHI = BHoM.Structural.Interface;
+using BHP = BHoM.Structural.Properties;
+using BHG = BHoM.Geometry;
 using System.Windows.Forms;
 using R = Rhino.Geometry;
 using Grasshopper;
@@ -25,7 +25,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_Bar; }
+            get { return Alligator.Properties.Resources.BHoM_Bar; }
         }
 
 
@@ -73,7 +73,7 @@ namespace Alligator.Structural.Elements
 
             if (!GetEndNodes(DA, 1, out stNode, out enNode)) { return; }
 
-            //BH.oM.Materials.Material mat = GHE.DataUtils.GetGenericData<BH.oM.Materials.Material>(DA, 3);
+            //BHoM.Materials.Material mat = GHE.DataUtils.GetGenericData<BHoM.Materials.Material>(DA, 3);
 
             object angOrVec = null;
 
@@ -181,7 +181,7 @@ namespace Alligator.Structural.Elements
                 return true;
             }
 
-            //Constructs end nodes from BH.oM curve
+            //Constructs end nodes from BHoM curve
             if (typeof(BHG.Curve).IsAssignableFrom(ncl.GetType()))
             {
                 stNode = new BHE.Node(((BHG.Curve)ncl).StartPoint);
@@ -225,7 +225,7 @@ namespace Alligator.Structural.Elements
         //        return true;
         //    }
 
-        //    //Gets node from BH.oM point
+        //    //Gets node from BHoM point
         //    if (typeof(BHG.Point).IsAssignableFrom(n.GetType()))
         //    {
         //        node = new BHE.Node((BHG.Point)n);

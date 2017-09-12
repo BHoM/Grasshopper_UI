@@ -10,14 +10,14 @@ namespace Alligator.Base
 {
     public class ViewCustomData : GH_Component
     {
-        public ViewCustomData() : base("ViewCustomData", "ViewData", "view a custom data dictionary on a BHoMObject", "Alligator", "Base")
+        public ViewCustomData() : base("ViewCustomData", "ViewData", "view a custom data dictionary on a BHoMobject", "Alligator", "Base")
         {
 
         }
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_Read__CustomData; }
+            get { return Alligator.Properties.Resources.BHoM_Read__CustomData; }
         }
 
         public override Guid ComponentGuid
@@ -48,7 +48,7 @@ namespace Alligator.Base
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BH.oM.Base.BHoMObject obj = DataUtils.GetGenericData<BH.oM.Base.BHoMObject>(DA, 0);
+            BHoM.Base.BHoMObject obj = DataUtils.GetGenericData<BHoM.Base.BHoMObject>(DA, 0);
             if (obj != null)
             {
                 List<string> keys = new List<string>();

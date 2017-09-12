@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using BHSP = BH.oM.Structural.Properties;
-using BHSE = BH.oM.Structural.Elements;
+using BHSP = BHoM.Structural.Properties;
+using BHSE = BHoM.Structural.Elements;
 
 
 namespace Alligator.Structural.Properties
@@ -58,7 +58,7 @@ namespace Alligator.Structural.Properties
 
             if(!DA.GetData(6, ref name)) { return; }
 
-            BHSP.NodeConstraint rel = new BH.oM.Structural.Properties.NodeConstraint(name, fixities, new double[] { 0, 0, 0, 0, 0, 0 });
+            BHSP.NodeConstraint rel = new BHoM.Structural.Properties.NodeConstraint(name, fixities, new double[] { 0, 0, 0, 0, 0, 0 });
 
 
             DA.SetData(0, rel);
@@ -67,7 +67,7 @@ namespace Alligator.Structural.Properties
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_Constraint; }
+            get { return Alligator.Properties.Resources.BHoM_Constraint; }
         }
     }
 }

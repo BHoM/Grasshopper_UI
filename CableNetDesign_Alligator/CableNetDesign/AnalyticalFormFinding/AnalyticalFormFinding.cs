@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
-using BH.oM.Geometry;
+using BHoM.Geometry;
 using CableNetDesignToolkit;
 
 namespace Alligator.Components
@@ -56,8 +56,8 @@ namespace Alligator.Components
             List<Point3d> cPts = new List<Point3d>();
             List<Point3d> tPts = new List<Point3d>();
 
-            List<BH.oM.Geometry.Point> _cPts = new List<BH.oM.Geometry.Point>();
-            List<BH.oM.Geometry.Point> _tPts = new List<BH.oM.Geometry.Point>();
+            List<BHoM.Geometry.Point> _cPts = new List<BHoM.Geometry.Point>();
+            List<BHoM.Geometry.Point> _tPts = new List<BHoM.Geometry.Point>();
             int startGrid = 0;
             List<int> fixedGrids = new List<int>();
 
@@ -78,10 +78,10 @@ namespace Alligator.Components
             if (!DA.GetData(8, ref heightStep)) return;
 
             foreach (Point3d pt in cPts)
-                _cPts.Add(new BH.oM.Geometry.Point(pt.X, pt.Y, pt.Z));
+                _cPts.Add(new BHoM.Geometry.Point(pt.X, pt.Y, pt.Z));
 
             foreach (Point3d pt in tPts)
-                _tPts.Add(new BH.oM.Geometry.Point(pt.X, pt.Y, pt.Z));
+                _tPts.Add(new BHoM.Geometry.Point(pt.X, pt.Y, pt.Z));
 
             CableNet cableNet = new CableNet(_cPts, _tPts);
 
@@ -93,10 +93,10 @@ namespace Alligator.Components
             cPts.Clear();
             tPts.Clear();
 
-            foreach (BH.oM.Geometry.Point pt in cableNet.GetCompressionRingPoints())
+            foreach (BHoM.Geometry.Point pt in cableNet.GetCompressionRingPoints())
                 cPts.Add(new Point3d(pt.X, pt.Y, pt.Z));
 
-            foreach (BH.oM.Geometry.Point pt in cableNet.GetTensionRingPoints())
+            foreach (BHoM.Geometry.Point pt in cableNet.GetTensionRingPoints())
                 tPts.Add(new Point3d(pt.X, pt.Y, pt.Z));
 
             DA.SetDataList(0, cPts);

@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using Rhino.Geometry;
 using Grasshopper;
 using Grasshopper.Kernel;
-using BHG = BH.oM.Geometry;
-using BHA = BH.oM.Acoustic;
+using BHG = BHoM.Geometry;
+using BHA = BHoM.Acoustic;
 
 namespace Acoustic_Alligator
 {
     public class CreateSpeaker : GH_Component
     {
-        public CreateSpeaker() : base("Create Speaker", "Create Speaker", "Create BH.oM Speaker", "Alligator", "Acoustics") { }
+        public CreateSpeaker() : base("Create Speaker", "Create Speaker", "Create BHoM Speaker", "Alligator", "Acoustics") { }
 
         public override Guid ComponentGuid
         {
@@ -24,7 +24,7 @@ namespace Acoustic_Alligator
         }
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Acoustic_Alligator.Properties.Resources.BH.oM_Acoustics_Speaker; }
+            get { return Acoustic_Alligator.Properties.Resources.BHoM_Acoustics_Speaker; }
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -33,7 +33,7 @@ namespace Acoustic_Alligator
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("BH.oM Speaker", "Speaker", "BH.oM Speaker Position and Direction", GH_ParamAccess.list);
+            pManager.AddGenericParameter("BHoM Speaker", "Speaker", "BHoM Speaker Position and Direction", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using BHB = BH.oM.Base;
-using BHL = BH.oM.Structural.Loads;
-using BHE = BH.oM.Structural.Elements;
+using BHB = BHoM.Base;
+using BHL = BHoM.Structural.Loads;
+using BHE = BHoM.Structural.Elements;
 using Grasshopper_Engine.Components;
 using Grasshopper.Kernel.Parameters;
 using GHE = Grasshopper_Engine;
@@ -29,7 +29,7 @@ namespace Alligator.Structural.Loads
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_NodeForce; }
+            get { return Alligator.Properties.Resources.BHoM_NodeForce; }
         }
 
         public override Guid ComponentGuid

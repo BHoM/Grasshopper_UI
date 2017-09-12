@@ -4,14 +4,14 @@ using System.Text.RegularExpressions;
 using Grasshopper.Kernel;
 using Alligator.Components;
 using System.Collections.Generic;
-using BHE = BH.oM.Structural.Elements;
-using BHP = BH.oM.Structural.Properties;
+using BHE = BHoM.Structural.Elements;
+using BHP = BHoM.Structural.Properties;
 using Grasshopper_Engine.Components;
 using System.Windows.Forms;
 using Grasshopper.Kernel.Parameters;
 using GH_IO.Serialization;
 using Grasshopper.Kernel.Types;
-using BH.oM.Structural.Databases;
+using BHoM.Structural.Databases;
 
 namespace Alligator.Material
 {
@@ -19,12 +19,12 @@ namespace Alligator.Material
     {
         public LoadMaterialFromDB() : base("Load Material", "MaterialDB", "Load a material from database", "Structure", "Properties")
         {
-            this.Initialise(BH.oM.Base.Data.Database.Material);
+            this.Initialise(BHoM.Base.Data.Database.Material);
         }
 
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_Material_List; }
+            get { return Alligator.Properties.Resources.BHoM_Material_List; }
         }
 
         public override Guid ComponentGuid
@@ -45,8 +45,8 @@ namespace Alligator.Material
 
         protected override void SetData()
         {
-            BH.oM.Global.Project.ActiveProject.Config.MaterialDatabase = TableName;
-            BH.oM.Materials.Material prop = BH.oM.Materials.Material.LoadFromDB(ObjectName);
+            BHoM.Global.Project.ActiveProject.Config.MaterialDatabase = TableName;
+            BHoM.Materials.Material prop = BHoM.Materials.Material.LoadFromDB(ObjectName);
             AddVolatileData(new Grasshopper.Kernel.Data.GH_Path(0), 0, new GH_ObjectWrapper(prop));
         }
         protected override void CollectVolatileData_Custom()

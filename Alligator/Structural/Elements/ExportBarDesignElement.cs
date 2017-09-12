@@ -3,8 +3,8 @@ using Grasshopper.Kernel;
 using System.Collections.Generic;
 using System.Linq;
 using GHE = Grasshopper_Engine;
-using BHE = BH.oM.Structural.Elements;
-using BHI = BH.oM.Structural.Interface;
+using BHE = BHoM.Structural.Elements;
+using BHI = BHoM.Structural.Interface;
 using GH_IO.Serialization;
 
 namespace Alligator.Structural.Elements
@@ -51,7 +51,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_DesignBar_Export; }
+            get { return Alligator.Properties.Resources.BHoM_DesignBar_Export; }
         }
 
     }

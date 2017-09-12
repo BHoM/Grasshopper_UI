@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BH.oM.Structural;
+using BHoM.Structural;
 using System.IO;
 using System.Drawing;
 
@@ -29,7 +29,7 @@ namespace Revit_Alligator
         {
             string directory = Path.Combine(Path.GetTempPath(), "RevitExchange");
             FileIO app = new FileIO(Path.Combine(directory,"Out"), Path.Combine(directory, "In"));
-            app.Identifier = BH.oM.Base.FilterOption.UserData;
+            app.Identifier = BHoM.Base.FilterOption.UserData;
             app.Key = "Revit Id";
             DA.SetData(0, app);
         }
@@ -42,7 +42,7 @@ namespace Revit_Alligator
         /// <summary> Icon (24x24 pixels)</summary>
         protected override Bitmap Internal_Icon_24x24
         {
-            get { return Revit_Alligator.Properties.Resources.BH.oM_Revit_App; }
+            get { return Revit_Alligator.Properties.Resources.BHoM_Revit_App; }
         }
 
     }

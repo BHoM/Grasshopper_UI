@@ -12,7 +12,7 @@ namespace Alligator.Mongo
 {
     public class ToMongo : GH_Component
     {
-        public ToMongo() : base("ToMongo", "ToMongo", "Send BH.oM objects to a Mongo database", "Alligator", "Mongo") { }
+        public ToMongo() : base("ToMongo", "ToMongo", "Send BHoM objects to a Mongo database", "Alligator", "Mongo") { }
 
         public override Guid ComponentGuid
         {
@@ -25,7 +25,7 @@ namespace Alligator.Mongo
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Mongo_Alligator.Properties.Resources.BH.oM_Mongo_To; }
+            get { return Mongo_Alligator.Properties.Resources.BHoM_Mongo_To; }
         }
         public override GH_Exposure Exposure
         {

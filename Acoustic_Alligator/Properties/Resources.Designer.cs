@@ -63,9 +63,9 @@ namespace Acoustic_Alligator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BH.oM_Acoustics_RASTI {
+        internal static System.Drawing.Bitmap BHoM_Acoustics_RASTI {
             get {
-                object obj = ResourceManager.GetObject("BH.oM_Acoustics_RASTI", resourceCulture);
+                object obj = ResourceManager.GetObject("BHoM_Acoustics_RASTI", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace Acoustic_Alligator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BH.oM_Acoustics_Speaker {
+        internal static System.Drawing.Bitmap BHoM_Acoustics_Speaker {
             get {
-                object obj = ResourceManager.GetObject("BH.oM_Acoustics_Speaker", resourceCulture);
+                object obj = ResourceManager.GetObject("BHoM_Acoustics_Speaker", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace Acoustic_Alligator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BH.oM_Acoustics_Zone {
+        internal static System.Drawing.Bitmap BHoM_Acoustics_Zone {
             get {
-                object obj = ResourceManager.GetObject("BH.oM_Acoustics_Zone", resourceCulture);
+                object obj = ResourceManager.GetObject("BHoM_Acoustics_Zone", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

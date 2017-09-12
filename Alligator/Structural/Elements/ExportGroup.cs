@@ -2,9 +2,9 @@
 using Grasshopper.Kernel;
 using System.Collections.Generic;
 using GHE = Grasshopper_Engine;
-using BHE = BH.oM.Structural.Elements;
-using BHI = BH.oM.Structural.Interface;
-using BHB = BH.oM.Base;
+using BHE = BHoM.Structural.Elements;
+using BHI = BHoM.Structural.Interface;
+using BHB = BHoM.Base;
 
 
 namespace Alligator.Structural.Elements
@@ -15,7 +15,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_Group_Export; }
+            get { return Alligator.Properties.Resources.BHoM_Group_Export; }
         }
         public override GH_Exposure Exposure
         {

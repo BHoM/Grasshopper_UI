@@ -1,13 +1,13 @@
-﻿using BH.oM.Structural;
+﻿using BHoM.Structural;
 using System;
 using Grasshopper.Kernel;
 using System.Collections.Generic;
 using GHE = Grasshopper_Engine;
 using Alligator.Components;
-using BHE = BH.oM.Structural.Elements;
-using BHI = BH.oM.Structural.Interface;
-using BHP = BH.oM.Structural.Properties;
-using BHG = BH.oM.Geometry;
+using BHE = BHoM.Structural.Elements;
+using BHI = BHoM.Structural.Interface;
+using BHP = BHoM.Structural.Properties;
+using BHG = BHoM.Geometry;
 using System.Windows.Forms;
 using R = Rhino.Geometry;
 using Grasshopper;
@@ -82,7 +82,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_Bar_Import; }
+            get { return Alligator.Properties.Resources.BHoM_Bar_Import; }
         }
     }
 

@@ -12,12 +12,12 @@ namespace Alligator.Base
 {
     public class SetProperty : GH_Component
     {
-        public SetProperty() : base("SetProperty", "SetProperty", "Set property of a BH.oM object", "Alligator", "Base") { }
+        public SetProperty() : base("SetProperty", "SetProperty", "Set property of a BHoM object", "Alligator", "Base") { }
 
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_SetProperty; }
+            get { return Alligator.Properties.Resources.BHoM_SetProperty; }
         }
         public override Guid ComponentGuid
         {
@@ -36,14 +36,14 @@ namespace Alligator.Base
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("BH.oM object", "object", "BH.oM object to convert", GH_ParamAccess.item);
+            pManager.AddGenericParameter("BHoM object", "object", "BHoM object to convert", GH_ParamAccess.item);
             pManager.AddTextParameter("key", "key", "Property name", GH_ParamAccess.item);
             pManager.AddGenericParameter("value", "value", "Property value", GH_ParamAccess.item);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("BH.oM object", "object", "BH.oM object to convert", GH_ParamAccess.item);
+            pManager.AddGenericParameter("BHoM object", "object", "BHoM object to convert", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)

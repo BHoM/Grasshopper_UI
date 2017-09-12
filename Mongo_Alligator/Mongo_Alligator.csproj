@@ -34,10 +34,11 @@
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
     </Reference>
     <Reference Include="BHoM_Adapter">
-      <HintPath>..\..\BHoM_Adapter\Build\BHoM_Adapter.dll</HintPath>
+      <HintPath>..\..\BHoM_Engine\Build\BHoM_Adapter.dll</HintPath>
     </Reference>
-    <Reference Include="DataStructure_Engine">
-      <HintPath>..\..\BHoM_Adapter\Build\DataStructure_Engine.dll</HintPath>
+    <Reference Include="DataStream_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BHoM_Engine\Build\DataStream_Engine.dll</HintPath>
     </Reference>
     <Reference Include="GH_IO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97" />
     <Reference Include="Grasshopper">

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BHE = BH.oM.Structural.Elements;
-using BHL = BH.oM.Structural.Loads;
+using BHE = BHoM.Structural.Elements;
+using BHL = BHoM.Structural.Loads;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 using GHE = Grasshopper_Engine;
-using BHB = BH.oM.Base;
+using BHB = BHoM.Base;
 
 namespace Alligator.Structural.Loads
 {
@@ -60,10 +60,10 @@ namespace Alligator.Structural.Loads
 
 
 
-            List<BH.oM.Geometry.Point> points = mesh.Nodes.Select(x => x.Point).ToList();
+            List<BHoM.Geometry.Point> points = mesh.Nodes.Select(x => x.Point).ToList();
             Point3d midPt = new Point3d(0, 0, 0);
 
-            foreach (BH.oM.Geometry.Point p in points)
+            foreach (BHoM.Geometry.Point p in points)
             {
                 midPt += GHE.GeometryUtils.Convert(p);
             }

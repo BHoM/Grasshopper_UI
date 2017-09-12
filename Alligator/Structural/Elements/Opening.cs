@@ -1,6 +1,6 @@
 ﻿using Alligator.Components;
-using BH.oM.Structural.Elements;
-using BH.oM.Structural.Interface;
+using BHoM.Structural.Elements;
+using BHoM.Structural.Interface;
 using Grasshopper;
 using Grasshopper.Kernel;
 using Grasshopper_Engine;
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BHG = BH.oM.Geometry;
+using BHG = BHoM.Geometry;
 using Grasshopper_Engine.Components;
 using Grasshopper.Kernel.Data;
 
@@ -29,7 +29,7 @@ namespace Alligator.Structural.Elements
         }
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_Opening; }
+            get { return Alligator.Properties.Resources.BHoM_Opening; }
         }
 
     }
@@ -53,7 +53,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>     
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_Opening_Export; }
+            get { return Alligator.Properties.Resources.BHoM_Opening_Export; }
         }
 
         protected override List<Opening> SetObjects(IElementAdapter app, List<Opening> objects, out List<string> ids)
@@ -102,7 +102,7 @@ namespace Alligator.Structural.Elements
         /// <summary> Icon (24x24 pixels)</summary>     
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_Opening_Import; }
+            get { return Alligator.Properties.Resources.BHoM_Opening_Import; }
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Alligator.Socket
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Socket_Alligator.Properties.Resources.BH.oM_ToSocket; }
+            get { return Socket_Alligator.Properties.Resources.BHoM_ToSocket; }
         }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)

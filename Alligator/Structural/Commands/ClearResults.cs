@@ -3,10 +3,10 @@ using Grasshopper.Kernel;
 using System.Collections.Generic;
 using System.Linq;
 using GHE = Grasshopper_Engine;
-using BHI = BH.oM.Structural.Interface;
-using BHL = BH.oM.Structural.Loads;
+using BHI = BHoM.Structural.Interface;
+using BHL = BHoM.Structural.Loads;
 using GH_IO.Serialization;
-using BH.oM.Base;
+using BHoM.Base;
 
 namespace Alligator.Structural.Commands
 {
@@ -27,7 +27,7 @@ namespace Alligator.Structural.Commands
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BH.oM_App_Clean; }
+            get { return Alligator.Properties.Resources.BHoM_App_Clean; }
         }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
