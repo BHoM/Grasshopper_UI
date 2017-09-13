@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using GHE = Grasshopper_Engine;
+using GHE = BH.Engine.Grasshopper;
 
-namespace Alligator.Base
+namespace BH.UI.Alligator.Base
 {
     public class CreateCustomData : GH_Component
     {

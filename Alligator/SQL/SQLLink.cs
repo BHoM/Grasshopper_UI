@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using BHB = BHoM.Base;
-using GHE = Grasshopper_Engine;
+using BHB = BH.oM.Base;
+using GHE = BH.Engine.Grasshopper;
 
-namespace Alligator.SQL
+namespace BH.UI.Alligator.SQL
 {
     //public class SQLLink : GH_Component
     //{

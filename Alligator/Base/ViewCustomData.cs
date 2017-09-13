@@ -1,12 +1,13 @@
 ﻿using Grasshopper.Kernel;
-using Grasshopper_Engine;
+using BH.Engine.Grasshopper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BH.oM.Base;
 
-namespace Alligator.Base
+namespace BH.UI.Alligator.Base
 {
     public class ViewCustomData : GH_Component
     {
@@ -48,7 +49,7 @@ namespace Alligator.Base
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BHoM.Base.BHoMObject obj = DataUtils.GetGenericData<BHoM.Base.BHoMObject>(DA, 0);
+            BHoMObject obj = DataUtils.GetGenericData<BHoMObject>(DA, 0);
             if (obj != null)
             {
                 List<string> keys = new List<string>();

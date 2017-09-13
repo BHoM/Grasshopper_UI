@@ -2,7 +2,7 @@
 using System.Drawing;
 using Grasshopper.Kernel;
 
-namespace Alligator
+namespace BH.UI.Alligator
 {
     public class AlligatorInfo : GH_AssemblyInfo
     {

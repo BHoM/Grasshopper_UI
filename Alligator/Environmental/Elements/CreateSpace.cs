@@ -1,18 +1,18 @@
 ﻿//using System;
 //using Grasshopper.Kernel;
 //using System.Collections.Generic;
-//using GHE = Grasshopper_Engine;
-//using Alligator.Components;
+//using GHE = BH.Engine.Grasshopper;
+//using BH.UI.Alligator.Components;
 //using BHE = BHoM.Environmental.Elements;
-//using BHG = BHoM.Geometry;
+//using BHG = BH.oM.Geometry;
 //using System.Windows.Forms;
 //using R = Rhino.Geometry;
 //using Grasshopper;
-//using GHKT = Grasshopper.Kernel.Types;
-//using Grasshopper_Engine.Components;
-//using ASP = Alligator.Structural.Properties;
+//using GHKT = GH.Kernel.Types;
+//using BH.Engine.Grasshopper.Components;
+//using ASP = BH.UI.Alligator.Structural.Properties;
 
-//namespace Alligator.Environmental.Elements
+//namespace BH.UI.Alligator.Environmental.Elements
 //{
 //    public class CreateSpace : GH_Component
 //    {

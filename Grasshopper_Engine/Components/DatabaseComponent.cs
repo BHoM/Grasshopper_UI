@@ -11,7 +11,7 @@
 //using System.Windows.Forms;
 //using BH.oM.Base.Data;
 
-//namespace Grasshopper_Engine.Components
+//namespace BH.Engine.Grasshopper.Components
 //{
 //    public class DBAttribute<T> : GH_Attributes<DatabaseComponent<T>> where T : IDataRow
 //    {

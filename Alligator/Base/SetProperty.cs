@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using GHE = Grasshopper_Engine;
+using GHE = BH.Engine.Grasshopper;
 using Grasshopper.Kernel.Types;
 using System.Reflection;
 
-namespace Alligator.Base
+namespace BH.UI.Alligator.Base
 {
     public class SetProperty : GH_Component
     {

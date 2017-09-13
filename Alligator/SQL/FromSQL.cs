@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using BHB = BHoM.Base;
-using GHE = Grasshopper_Engine;
+using GHE = BH.Engine.Grasshopper;
 
-namespace Alligator.SQL
+namespace BH.UI.Alligator.SQL
 {
     //public class FromSQL : GH_Component
     //{
@@ -52,7 +51,7 @@ namespace Alligator.SQL
         //    Grasshopper.DataTree<string> tree = new Grasshopper.DataTree<string>();
         //    for (int i = 1; i < result.Count; i++)
         //    {
-        //        Grasshopper.Kernel.Data.GH_Path path = new Grasshopper.Kernel.Data.GH_Path(i);
+        //        GH.Kernel.Data.GH_Path path = new GH.Kernel.Data.GH_Path(i);
         //        foreach (string val in result[i])
         //            tree.Add(val, path);  
         //    }

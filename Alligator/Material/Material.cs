@@ -1,12 +1,12 @@
-﻿using BHoM.Structural;
+﻿using BH.oM.Structural;
 using System;
 using Grasshopper.Kernel;
 using System.Collections.Generic;
-using Alligator.Components;
-using BHM = BHoM.Materials;
-using Grasshopper_Engine.Components;
+using BH.UI.Alligator.Components;
+using BHM = BH.oM.Materials;
+using BH.Engine.Grasshopper.Components;
 
-namespace Alligator.Materials
+namespace BH.UI.Alligator.Materials
 {
     public class CreateMaterial : BHoMBaseComponent<BHM.Material>
     {

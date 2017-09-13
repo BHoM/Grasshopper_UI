@@ -1,103 +1,103 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using Grasshopper.Kernel;
-//using BHI = BH.oM.Structural.Interface;
-//using BHB = BH.oM.Base;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Grasshopper.Kernel;
+using BHI = BH.oM.Structural.Interface;
+using BHB = BH.oM.Base;
 
-//namespace Grasshopper_Engine.Components
-//{
-//    /// <summary>
-//    /// Export component. Creates a copy of every Item about to be exported by deep cloning.
-//    /// </summary>
-//    /// <typeparam name="T"></typeparam>
-//    public abstract class ExportComponent<T> : GH_Component where T:BHB.IBase
-//    {
-//        protected List<string> m_ids;
-//        protected List<T> m_exportedObjects;
+namespace BH.Engine.Grasshopper.Components
+{
+    /// <summary>
+    /// Export component. Creates a copy of every Item about to be exported by deep cloning.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public abstract class ExportComponent<T> : GH_Component where T : BHB.BHoMObject
+    {
+        protected List<string> m_ids;
+        protected List<T> m_exportedObjects;
 
-//        private static readonly string m_typeName = typeof(T).Name;
-//        private static readonly string m_typeNickname = typeof(T).Name.ToString();
+        private static readonly string m_typeName = typeof(T).Name;
+        private static readonly string m_typeNickname = typeof(T).Name.ToString();
 
-//        public override GH_Exposure Exposure
-//        {
-//            get
-//            {
-//                return GH_Exposure.secondary;
-//            }
-//        }
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.secondary;
+            }
+        }
 
-//        public ExportComponent()
-//        { }
+        public ExportComponent()
+        { }
 
-//        public ExportComponent(string name, string nickname, string description, string category, string subcategory) : base(name, nickname, description, category, subcategory)
-//        {
-//            m_ids = new List<string>();
-//            m_exportedObjects = new List<T>();
+        public ExportComponent(string name, string nickname, string description, string category, string subcategory) : base(name, nickname, description, category, subcategory)
+        {
+            m_ids = new List<string>();
+            m_exportedObjects = new List<T>();
 
-//        }
+        }
 
-//        protected override void RegisterInputParams(GH_InputParamManager pManager)
-//        {
-//            pManager.AddGenericParameter("Application", "App", "Application to export " +m_typeName+"s to", GH_ParamAccess.item);
-//            pManager.AddGenericParameter(m_typeName+"s", m_typeNickname, m_typeName + "s to export", GH_ParamAccess.list);
-//            pManager.AddBooleanParameter("Activate", "Go", "Generate " + m_typeName + "s", GH_ParamAccess.item);
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddGenericParameter("Application", "App", "Application to export " + m_typeName + "s to", GH_ParamAccess.item);
+            pManager.AddGenericParameter(m_typeName + "s", m_typeNickname, m_typeName + "s to export", GH_ParamAccess.list);
+            pManager.AddBooleanParameter("Activate", "Go", "Generate " + m_typeName + "s", GH_ParamAccess.item);
 
-//            pManager[2].Optional = true;
-//            pManager[1].DataMapping = GH_DataMapping.Flatten;
-//        }
+            pManager[2].Optional = true;
+            pManager[1].DataMapping = GH_DataMapping.Flatten;
+        }
 
-//        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
-//        {
-//            pManager.AddTextParameter("Ids", "Ids", m_typeName +" Numbers", GH_ParamAccess.list);
-//            pManager.AddGenericParameter(m_typeName, m_typeNickname, "Exported " + m_typeName + "s", GH_ParamAccess.list);
-//            pManager.AddBooleanParameter("Success", "Success", "Return whether the operation was successfull or not", GH_ParamAccess.item);
-//        }
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddTextParameter("Ids", "Ids", m_typeName + " Numbers", GH_ParamAccess.list);
+            pManager.AddGenericParameter(m_typeName, m_typeNickname, "Exported " + m_typeName + "s", GH_ParamAccess.list);
+            pManager.AddBooleanParameter("Success", "Success", "Return whether the operation was successfull or not", GH_ParamAccess.item);
+        }
 
-//        protected override void SolveInstance(IGH_DataAccess DA)
-//        {
-//            bool success = false;
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            bool success = false;
 
-//            if (DataUtils.Run(DA, 2))
-//            {
-//                BHI.IElementAdapter app = DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
-//                if (app != null)
-//                {
+            if (DataUtils.Run(DA, 2))
+            {
+                BHI.IElementAdapter app = DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
+                if (app != null)
+                {
 
-//                    List<T> clonedObjects = CloneObjects(DataUtils.GetGenericDataList<T>(DA, 1));
+                    List<T> clonedObjects = CloneObjects(DataUtils.GetGenericDataList<T>(DA, 1));
 
-//                    m_ids = null;
+                    m_ids = null;
 
-//                    if (m_exportedObjects == null)
-//                        return;
+                    if (m_exportedObjects == null)
+                        return;
 
-//                    m_exportedObjects = SetObjects(app, clonedObjects, out m_ids);
+                    m_exportedObjects = SetObjects(app, clonedObjects, out m_ids);
 
-//                    success = m_exportedObjects != null;
-//                }
-//            }
+                    success = m_exportedObjects != null;
+                }
+            }
 
-//            DA.SetDataList(0, m_ids);
-//            DA.SetDataList(1, m_exportedObjects);
-//            DA.SetData(2, success);
-//        }
+            DA.SetDataList(0, m_ids);
+            DA.SetDataList(1, m_exportedObjects);
+            DA.SetData(2, success);
+        }
 
-//        /// <summary>
-//        /// Calls the correct set method in the app
-//        /// </summary>
-//        protected abstract List<T> SetObjects(BHI.IElementAdapter app, List<T> objects, out List<string> ids);
+        /// <summary>
+        /// Calls the correct set method in the app
+        /// </summary>
+        protected abstract List<T> SetObjects(BHI.IElementAdapter app, List<T> objects, out List<string> ids);
 
-//        protected List<T> CloneObjects(List<T> objects)
-//        {
-//            if (objects == null)
-//                return null;
+        protected List<T> CloneObjects(List<T> objects)
+        {
+            if (objects == null)
+                return null;
 
-//            List<T> clones = objects.Select(x => (T)(object)x.ShallowClone()).ToList();
-//            clones.ForEach(x => x.CustomData = new Dictionary<string, object>(x.CustomData));
-            
-//            return clones;
-//        }
-//    }
-//}
+            List<T> clones = objects.Select(x => (T)x.GetShallowClone()).ToList();
+            clones.ForEach(x => x.CustomData = new Dictionary<string, object>(x.CustomData));
+
+            return clones;
+        }
+    }
+}

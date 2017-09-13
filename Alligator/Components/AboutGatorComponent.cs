@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using Grasshopper.Kernel;
 using Rhino.Geometry;
+using Grasshopper.Kernel;
 
-namespace Alligator.Components
+namespace BH.UI.Alligator.Components
 {
     public class AboutGatorComponent : GH_Component
     {

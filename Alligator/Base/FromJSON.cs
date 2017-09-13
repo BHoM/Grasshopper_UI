@@ -1,50 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Grasshopper.Kernel;
-using BHB = BHoM.Base;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+//using Grasshopper.Kernel;
+//using BHB = BH.oM.Base;
 
-namespace Alligator.Base
-{
-    public class FromJSON : GH_Component
-    {
-        public FromJSON() : base("FromJSON", "FromJSON", "Create a BHoM object from a JSON string", "Alligator", "Base") { }
+//namespace BH.UI.Alligator.Base
+//{
+//    public class FromJSON : GH_Component    //TODO: I don't think this component make sense in BHoM 2.0
+//    {
+//        public FromJSON() : base("FromJSON", "FromJSON", "Create a BHoM object from a JSON string", "Alligator", "Base") { }
 
-        /// <summary> Icon (24x24 pixels)</summary>
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return Alligator.Properties.Resources.BHoM_FromJSON; }
-        }
+//        /// <summary> Icon (24x24 pixels)</summary>
+//        protected override System.Drawing.Bitmap Internal_Icon_24x24
+//        {
+//            get { return Alligator.Properties.Resources.BHoM_FromJSON; }
+//        }
 
 
-        public override Guid ComponentGuid
-        {
-            get
-            {
-                return new Guid("45912883-EE6F-49F4-BEBA-4A123EC2370C");
-            }
-        }
+//        public override Guid ComponentGuid
+//        {
+//            get
+//            {
+//                return new Guid("45912883-EE6F-49F4-BEBA-4A123EC2370C");
+//            }
+//        }
 
-        protected override void RegisterInputParams(GH_InputParamManager pManager)
-        {
-            pManager.AddTextParameter("json", "json", "json representation of the BHoM object", GH_ParamAccess.item);
-            pManager.AddTextParameter("password", "password", "password to decrypt data", GH_ParamAccess.item, "");
-        }
+//        protected override void RegisterInputParams(GH_InputParamManager pManager)
+//        {
+//            pManager.AddTextParameter("json", "json", "json representation of the BHoM object", GH_ParamAccess.item);
+//            pManager.AddTextParameter("password", "password", "password to decrypt data", GH_ParamAccess.item, "");
+//        }
 
-        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
-        {
-            pManager.AddGenericParameter("BHoM object", "object", "Resulting BHoM object", GH_ParamAccess.list);
-        }
+//        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+//        {
+//            pManager.AddGenericParameter("BHoM object", "object", "Resulting BHoM object", GH_ParamAccess.list);
+//        }
 
-        protected override void SolveInstance(IGH_DataAccess DA)
-        {
-            string json = ""; // Utils.GetGenericData<string>(DA, 0);
-            string password = "";
-            DA.GetData<string>(0, ref json);
-            DA.GetData<string>(1, ref password);
-            DA.SetDataList(0, BHB.BHoMJSON.ReadPackage(json, password));
-        }
-    }
-}
+//        protected override void SolveInstance(IGH_DataAccess DA)
+//        {
+//            string json = ""; // Utils.GetGenericData<string>(DA, 0);
+//            string password = "";
+//            DA.GetData<string>(0, ref json);
+//            DA.GetData<string>(1, ref password);
+//            DA.SetDataList(0, BHB.BHoMJSON.ReadPackage(json, password));
+//        }
+//    }
+//}

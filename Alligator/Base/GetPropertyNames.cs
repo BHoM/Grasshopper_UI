@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using GHE = Grasshopper_Engine;
-using BHB = BHoM.Base;
+using GHE = BH.Engine.Grasshopper;
+using BHB = BH.oM.Base;
+using BH.Engine.Reflection;
 
-namespace Alligator.Base
+namespace BH.UI.Alligator.Base
 {
     public class GetPropertyNames : GH_Component
     {
@@ -51,8 +52,6 @@ namespace Alligator.Base
 
             if (o == null)
                 return;
-
-
 
             DA.SetDataList(0, o.GetPropertyNames());
         }
