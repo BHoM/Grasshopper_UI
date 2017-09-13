@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug64</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -8,9 +8,9 @@
     <ProjectGuid>{2E3B219E-7BD2-4F75-BFAF-9B7735827ED4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Alligator</RootNamespace>
+    <RootNamespace>BH.UI.Alligator</RootNamespace>
     <AssemblyName>Alligator</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
@@ -41,6 +41,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
     </Reference>
+    <Reference Include="BHoM_Adapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BHoM_Adapter\Build\BHoM_Adapter.dll</HintPath>
+    </Reference>
+    <Reference Include="BHoM_Engine">
+      <HintPath>..\..\BHoM_Engine\Build\BHoM_Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="Geometry_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BHoM_Engine\Build\Geometry_Engine.dll</HintPath>
+    </Reference>
     <Reference Include="GH_IO">
       <HintPath>..\External Libraries\GH_IO.dll</HintPath>
       <Private>False</Private>
@@ -49,12 +60,16 @@
       <HintPath>..\External Libraries\Grasshopper.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Grasshopper_Engine">
-      <HintPath>..\Build\Grasshopper_Engine.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Reflection_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BHoM_Engine\Build\Reflection_Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="Structure_Engine">
+      <HintPath>..\..\BHoM_Engine\Build\Structure_Engine.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -74,19 +89,14 @@
     <Compile Include="Environmental\Elements\CreateSpace.cs" />
     <Compile Include="Environmental\Elements\CreateWall.cs" />
     <Compile Include="Environmental\Elements\CreatePanel.cs" />
-    <Compile Include="Geometry\ExtrudeBar.cs" />
-    <Compile Include="Geometry\FromGHGeometry.cs" />
-    <Compile Include="Geometry\GetGeometry.cs" />
-    <Compile Include="Geometry\ToGHGeometry.cs" />
     <Compile Include="Material\LoadMaterialFromDB.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SQL\FromSQL.cs" />
     <Compile Include="SQL\SQLLink.cs" />
-    <Compile Include="Structural\Application\FileIO.cs" />
-    <Compile Include="Structural\Commands\ClearResults.cs" />
-    <Compile Include="Structural\Commands\CloseFile.cs" />
-    <Compile Include="Structural\Commands\RunAnalysis.cs" />
-    <Compile Include="Structural\Commands\SaveFile.cs" />
-    <Compile Include="Structural\Elements\CreateGroup.cs" />
     <Compile Include="Base\ObjectFilter.cs" />
     <Compile Include="Base\ViewCustomData.cs" />
     <Compile Include="Components\AboutGatorComponent.cs" />
@@ -95,78 +105,8 @@
     <Compile Include="Base\GetProperty.cs" />
     <Compile Include="Base\SetProperty.cs" />
     <Compile Include="Base\ToJSON.cs" />
-    <Compile Include="Geometry\Curve\Polyline.cs" />
-    <Compile Include="Geometry\Curve\Line.cs" />
-    <Compile Include="Geometry\Group.cs" />
-    <Compile Include="Geometry\Vector\Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Structural\Elements\CreateBar.cs" />
-    <Compile Include="Structural\Elements\CreateFEMesh.cs" />
-    <Compile Include="Structural\Elements\CreateRigidLink.cs" />
-    <Compile Include="Structural\Elements\Design\CreateDesignElement.cs" />
-    <Compile Include="Structural\Elements\Design\CreateFromConnectedBars.cs" />
-    <Compile Include="Structural\Elements\Design\GenerateSpans.cs" />
-    <Compile Include="Structural\Elements\Design\SetEffectiveLength.cs" />
-    <Compile Include="Structural\Elements\Design\SetSectionPropertyToDesignElem.cs" />
-    <Compile Include="Structural\Elements\ExportBar.cs" />
-    <Compile Include="Structural\Elements\ExportBarDesignElement.cs" />
-    <Compile Include="Structural\Elements\ExportFEMesh.cs" />
-    <Compile Include="Structural\Elements\ExportGroup.cs" />
-    <Compile Include="Structural\Elements\ExportRigidLink.cs" />
-    <Compile Include="Structural\Elements\Grid.cs" />
-    <Compile Include="Structural\Elements\ImportDesignElement.cs" />
-    <Compile Include="Structural\Elements\Level.cs" />
-    <Compile Include="Structural\Elements\Opening.cs" />
-    <Compile Include="Structural\Loads\CustomLoadGrouping\AplyGroupToLoadObject.cs" />
-    <Compile Include="Structural\Loads\CustomLoadGrouping\CheckLoadRegionContainment.cs" />
-    <Compile Include="Structural\Loads\CreateBarLoad.cs" />
-    <Compile Include="Structural\Loads\CreateGravityLoad.cs" />
-    <Compile Include="Structural\Loads\CreateLoadCombination.cs" />
-    <Compile Include="Structural\Loads\CreateNodalLoad.cs" />
-    <Compile Include="Structural\Loads\CustomLoadGrouping\GroupByPropertyName.cs" />
-    <Compile Include="Structural\Loads\ImportLoad.cs" />
-    <Compile Include="Structural\Loads\ImportLoadcases.cs" />
-    <Compile Include="Structural\Loads\UniformAreaLoad.cs" />
-    <Compile Include="Structural\ModelTracker\GenerateBarTrackers.cs" />
-    <Compile Include="Structural\ModelTracker\StoreModelTrackingData.cs" />
-    <Compile Include="Structural\Properties\BarAttributesContainer.cs" />
-    <Compile Include="Structural\Properties\BarOffset.cs" />
-    <Compile Include="Structural\Properties\Constraints\CreateBarRelease.cs" />
-    <Compile Include="Structural\Properties\Constraints\CreateLinkConstraint.cs" />
-    <Compile Include="Structural\Properties\CreateBarAttributes.cs" />
-    <Compile Include="Structural\Properties\Constraints\BarConstraint.cs" />
-    <Compile Include="Structural\Properties\Constraints\DoF.cs" />
-    <Compile Include="Structural\Loads\Load.cs" />
-    <Compile Include="Structural\Loads\Loadcase.cs" />
     <Compile Include="Material\Material.cs" />
-    <Compile Include="Structural\Properties\Section Properties\CompositeSection.cs" />
-    <Compile Include="Structural\Properties\Section Properties\ConcreteSection.cs" />
-    <Compile Include="Structural\Properties\Section Properties\CreateBoxSection.cs" />
-    <Compile Include="Structural\Properties\Section Properties\CreateCableSectionFromDiameter.cs" />
-    <Compile Include="Structural\Properties\Section Properties\CreateExplicitSection.cs" />
-    <Compile Include="Structural\Properties\Section Properties\GH_InputParamManager.cs" />
-    <Compile Include="Structural\Properties\Section Properties\LoadingPanelProperty.cs" />
-    <Compile Include="Structural\Properties\Section Properties\LoadSteelSectionFromDB.cs" />
-    <Compile Include="Structural\Properties\Section Properties\PanelProperty.cs" />
-    <Compile Include="Structural\Properties\Section Properties\CreateCustomSectionProperty.cs" />
-    <Compile Include="Structural\Properties\Section Properties\SectionProperty.cs" />
-    <Compile Include="Structural\Elements\ImportBar.cs" />
-    <Compile Include="Structural\Elements\Node.cs" />
-    <Compile Include="Structural\Properties\Constraints\NodeConstraint.cs" />
-    <Compile Include="Structural\Elements\Panel.cs" />
-    <Compile Include="Structural\Properties\Section Properties\SteelSection.cs" />
-    <Compile Include="Structural\Results\BarResults.cs" />
-    <Compile Include="Structural\Results\BarUtilisation.cs" />
-    <Compile Include="Structural\Results\NodeResults.cs" />
-    <Compile Include="Structural\Results\PanelResults.cs" />
-    <Compile Include="Structural\Results\PushResultsToDataBase.cs" />
-    <Compile Include="Structural\Results\ResultServer.cs" />
-    <Compile Include="Structural\Results\SlabReinforcementResults.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -190,112 +130,10 @@
     <Folder Include="Global\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Icons\Structure\Loads\BHoM_BarForce.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_Constraint.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Grid.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Grid_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Grid_Import.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Level.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Level_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Level_Import.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Loads\BHoM_LoadCase.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Icons\Structure\Results\BHoM_LoadResults.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_Material.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_Material_List.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Loads\BHoM_NodeForce.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Opening.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Opening_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Opening_Import.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Panel.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Panel_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Panel_Import.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_PanelProperty.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_RigidLink.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_RigidLink_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_Section_List.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_SectionProperty.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Icons\Structure\Results\BHoM_StoreResults.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Bar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_Bar_Attributes.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Bar_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Loads\BHoM_Bar_Force_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Loads\BHoM_Bar_Force_Import.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Loads\BHoM_Bar_Gravity.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Bar_Import.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Loads\BHoM_Bar_Prestress.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Node_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Node_Import.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Node.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Icons\Structure\Results\BHoM_GetNodeReaction.png" />
@@ -310,12 +148,6 @@
     <None Include="Resources\Icons\Structure\Results\BHoM_GetNodeDisplacement.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Group.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Group_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Icons\Structure\Results\BHoM_GetPanelStress.png" />
   </ItemGroup>
   <ItemGroup>
@@ -323,18 +155,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Icons\Alligator\BHoM_FromJSON.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Loads\BHoM_LoadCase_Combination.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Loads\BHoM_LoadCase_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Mesh.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Mesh_Export.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Icons\Structure\Apps\BHoM_GSA_App.png" />
@@ -361,12 +181,6 @@
     <None Include="Resources\Icons\Alligator\BHoM_Read _CustomData.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_Custom_Box_Section.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_Custom_Cable_Section.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Icons\Structure\Geometry\BHoM_Element_Geometry.png" />
   </ItemGroup>
   <ItemGroup>
@@ -376,53 +190,22 @@
     <None Include="Resources\Icons\Alligator\BHoM_GetPropertyNames.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_Layer_Reinforcement.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_Panel_Loading.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_Perimiter_Reinforcement.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_Tie_Reinforcement.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_ConcreteSection.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BHoM_Loadcase_Import.png" />
     <None Include="Resources\BHoM_Run_Analasis.png" />
-    <None Include="Resources\BHoM_AreaLoad.png" />
-    <None Include="Resources\BHoM_Bar_Constraints.png" />
-    <None Include="Resources\BHoM_DesignBar_Export.png" />
-    <None Include="Resources\BHoM_DesignBar_Import.png" />
-    <None Include="Resources\BHoM_BarOffsets.png" />
-    <None Include="Resources\BHoM_Extrude_Bar.png" />
-    <None Include="Resources\BHoM_Geometry_Group.png" />
-    <None Include="Resources\BHoM_Line.png" />
-    <None Include="Resources\BHoM_Point.png" />
-    <None Include="Resources\BHoM_PolyLine.png" />
     <None Include="Resources\BHoM_App_Run.png" />
     <None Include="Resources\BHoM_App_Save.png" />
     <None Include="Resources\BHoM_App_Clean.png" />
     <None Include="Resources\BHoM_App_Close.png" />
-    <None Include="Resources\BHoM_GetBarForce.png" />
-    <None Include="Resources\BHoM_GetNodeDisplacement.png" />
-    <None Include="Resources\BHoM_GetNodeReaction.png" />
-    <None Include="Resources\BHoM_GetPanelForce.png" />
-    <None Include="Resources\BHoM_GetPanelStress.png" />
-    <None Include="Resources\BHoM_Get_Bar_Coordinates.png" />
-    <None Include="Resources\BHoM_Get_BarUtilisation.png" />
-    <None Include="Resources\BHoM_Get_Node_Coordinates.png" />
-    <None Include="Resources\BHoM_Get_Slabreinforcement.png" />
-    <None Include="Resources\BHoM_Composite_Section.png" />
-    <None Include="Resources\BHoM_Geo_GHToBH.png" />
-    <None Include="Resources\BHoM_Geo_BHToGH.png" />
     <None Include="Resources\BHoM_Alligator_Icon.png" />
     <None Include="Resources\BHoM_SQL_GetObject.png" />
     <None Include="Resources\BHoM_SQL_Link.png" />
+    <None Include="Resources\BHoM_Material.png" />
     <Content Include="Resources\Icons\Alligator\BHoM_BHoM_Object.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
+      <Project>{c273f369-b83a-4183-9a97-18cdb23c25c6}</Project>
+      <Name>Grasshopper_Engine</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
