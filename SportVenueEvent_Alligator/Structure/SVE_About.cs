@@ -1,9 +1,9 @@
 ﻿using System;
-using BHoM.Structural;
+using BH.oM.Structural;
 using Grasshopper.Kernel;
 using System.Collections.Generic;
 
-namespace Alligator.SportVenueEvent.General
+namespace BH.UI.Grasshopper.SportVenueEvent
 {
     public class About : GH_Component 
     {
@@ -35,12 +35,6 @@ namespace Alligator.SportVenueEvent.General
         public override Guid ComponentGuid
         {
             get { return new Guid("2220dc1b-87b3-491a-93fa-1495315ca5a3"); }
-        }
-
-        /// <summary> Icon (24x24 pixels)</summary>
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return SportVenueEvent.Properties.Resources.ConcreteRaker; }
         }
     }
 }
