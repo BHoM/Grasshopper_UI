@@ -42,6 +42,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Rows", "Rows", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Gangways", "Gangways", "", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -52,7 +53,8 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         {
             Rake rake = new Rake();
             DA.GetData(0, ref rake);
-            DA.SetDataList(0, rake.Rows);   
+            DA.SetDataList(0, rake.Rows);
+            DA.SetDataList(1, rake.Gangways);
         }
 
         /// <summary>

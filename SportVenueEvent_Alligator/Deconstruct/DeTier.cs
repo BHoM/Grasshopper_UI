@@ -42,7 +42,8 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Row", "Row", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Rakes", "Rakes", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Rows", "Rows", "", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -52,13 +53,9 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             Tier tier = new Tier();
-            List<Row> rows = new List<Row>();
-
             DA.GetData(0, ref tier);
-
-            rows.AddRange(tier.Rows);
-
-            DA.SetDataList(0, rows);
+            DA.SetDataList(0, tier.Rakes);
+            DA.SetDataList(1, tier.Rows);
         }
 
         /// <summary>

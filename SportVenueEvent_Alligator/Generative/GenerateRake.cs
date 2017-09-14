@@ -15,7 +15,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// Initializes a new instance of the GenerateRake class.
         /// </summary>
         public GenerateRake()
-          : base("GenerateRake", "Rakes",
+          : base("GenerateRakes", "Rakes",
               "",
               "SportVenueEvent", "Generative")
         {
@@ -28,8 +28,8 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         {
             pManager.AddGenericParameter("Tier", "Tier", "", GH_ParamAccess.list);
             pManager.AddIntegerParameter("Seats per row", "Count", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("GangWidth", "Gangway", "", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("SeatsWidth", "Seat", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("GangwayWidth", "GangWidth", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("SeatWidth", "SeatWidth", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
             List<Tier> tiers = new List<Tier>();
             int seats = 0;
             double gangway = 0;
-            int width = 0;
+            double width = 0;
 
             DA.GetDataList(0, tiers);
             DA.GetData(1, ref seats);
