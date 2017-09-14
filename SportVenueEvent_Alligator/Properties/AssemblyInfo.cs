@@ -7,7 +7,7 @@ using Rhino.PlugIns;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Alligator.SportVenueEvent")]
+[assembly: AssemblyTitle("BH.UI.Grasshopper.SportVenueEvent")]
 [assembly: AssemblyDescription("BuroHappold Computational Engineering for Grasshopper")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("BuroHappold Engineering")]
