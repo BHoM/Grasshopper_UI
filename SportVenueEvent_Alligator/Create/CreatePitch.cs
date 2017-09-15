@@ -7,6 +7,7 @@ using Rhino.Geometry;
 
 using BHG = BH.oM.Geometry;
 using BH.oM.SportVenueEvent;
+using BH.UI.Alligator.Base;
 
 namespace BH.UI.Grasshopper
 {
@@ -33,7 +34,7 @@ namespace BH.UI.Grasshopper
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Boundary", "Polyline", "Boundary polyline of Pitch", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMObjectParameter(), "Boundary", "Polyline", "Boundary polyline of Pitch", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -41,7 +42,7 @@ namespace BH.UI.Grasshopper
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Pitch", "Pitch", "Pitch BHoM object", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMObjectParameter(), "Pitch", "Pitch", "Pitch BHoM object", GH_ParamAccess.item);
         }
 
         /// <summary>

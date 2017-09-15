@@ -60,6 +60,10 @@
       <HintPath>..\External Libraries\Grasshopper.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Grasshopper_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Build\Grasshopper_Engine.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -82,8 +86,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\BHoMParam.cs" />
+    <Compile Include="Base\BHoMTypes.cs" />
     <Compile Include="Base\CustomData.cs" />
+    <Compile Include="Base\FromJSON.cs" />
     <Compile Include="Base\GetPropertyNames.cs" />
     <Compile Include="Base\ListExpandAndCollapse.cs" />
     <Compile Include="Environmental\Elements\CreateSpace.cs" />
@@ -101,7 +106,6 @@
     <Compile Include="Base\ViewCustomData.cs" />
     <Compile Include="Components\AboutGatorComponent.cs" />
     <Compile Include="AlligatorInfo.cs" />
-    <Compile Include="Base\FromJSON.cs" />
     <Compile Include="Base\GetProperty.cs" />
     <Compile Include="Base\SetProperty.cs" />
     <Compile Include="Base\ToJSON.cs" />
@@ -200,12 +204,6 @@
     <None Include="Resources\BHoM_SQL_Link.png" />
     <None Include="Resources\BHoM_Material.png" />
     <Content Include="Resources\Icons\Alligator\BHoM_BHoM_Object.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
-      <Project>{c273f369-b83a-4183-9a97-18cdb23c25c6}</Project>
-      <Name>Grasshopper_Engine</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -37,7 +37,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Rakes", "Rakes", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Tier", "Tier", "", GH_ParamAccess.list);
         }
 
         /// <summary>

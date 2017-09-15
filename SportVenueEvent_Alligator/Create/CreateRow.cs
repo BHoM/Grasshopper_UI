@@ -5,6 +5,7 @@ using Grasshopper.Kernel;
 using Rhino.Geometry;
 
 using BH.oM.SportVenueEvent;
+using BH.UI.Alligator.Base;
 
 namespace BH.UI.Grasshopper.SportVenueEvent
 {
@@ -33,7 +34,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Seats", "Seats", "", GH_ParamAccess.list);
+            pManager.AddParameter(new BHoMObjectParameter(), "Seats", "Seats", "", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -41,7 +42,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Row", "Row", "", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMObjectParameter(), "Row", "Row", "", GH_ParamAccess.item);
         }
 
         /// <summary>

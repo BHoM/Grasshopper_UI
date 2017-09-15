@@ -3,31 +3,21 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
-
-using BH.oM.SportVenueEvent;
-using BH.Engine.SportVenueEvent;
 using BH.UI.Alligator.Base;
+using BH.oM.Base;
 
 namespace BH.UI.Grasshopper.SportVenueEvent
 {
-    public class CreateTier : GH_Component
+    public class Point : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the CreateTier class.
+        /// Initializes a new instance of the Point class.
         /// </summary>
-        public CreateTier()
-          : base("Create Tier", "Tier",
-              "",
-              "SportVenueEvent", "Create")
+        public Point()
+          : base("Point", "Nickname",
+              "Description",
+              "SportVenueEvent", "Subcategory")
         {
-        }
-
-        public override GH_Exposure Exposure
-        {
-            get
-            {
-                return GH_Exposure.primary;
-            }
         }
 
         /// <summary>
@@ -35,7 +25,9 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddParameter(new BHoMObjectParameter(), "Rows", "Rows", "", GH_ParamAccess.list);
+            pManager.AddNumberParameter("A", "A", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("B", "B", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("C", "C", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -43,7 +35,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddParameter(new BHoMObjectParameter(), "Tier", "Tier", "", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMGeometryParameter(), "C", "C", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -52,9 +44,11 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<Row> rows = new List<Row>();
-            DA.GetDataList(0, rows);
-            DA.SetData(0, new Tier(rows));
+            double x = 0, y = 0, z = 0;
+            DA.GetData(0, ref x);
+            DA.GetData(1, ref y);
+            DA.GetData(2, ref z);
+            DA.SetData(0, new BH_GeometricGoo(new BH.oM.Geometry.Point(x, y, z)));
         }
 
         /// <summary>
@@ -75,7 +69,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("d32777de-3e0d-49db-a8fe-3c3e18006b8a"); }
+            get { return new Guid("98771510-4c54-40c4-a306-99f750b600c3"); }
         }
     }
 }

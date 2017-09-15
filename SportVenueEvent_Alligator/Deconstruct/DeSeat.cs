@@ -6,6 +6,7 @@ using RHG = Rhino.Geometry;
 
 using BHG = BHoM.Geometry;
 using BH.oM.SportVenueEvent;
+using BH.UI.Alligator.Base;
 
 namespace BH.UI.Grasshopper.SportVenueEvent
 {
@@ -34,7 +35,8 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Seat", "Seat", "", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMObjectParameter(), "Seat", "Seat", "", GH_ParamAccess.item);
+
         }
 
         /// <summary>
@@ -42,9 +44,9 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Position", "Position", "", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Focus", "Focus", "", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Vomitory", "Vomitory", "", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMObjectParameter(), "Position", "Position", "", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMObjectParameter(), "Focus", "Focus", "", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMObjectParameter(), "Vomitory", "Vomitory", "", GH_ParamAccess.item);
         }
 
         /// <summary>

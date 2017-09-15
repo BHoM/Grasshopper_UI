@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Types;
 using RHG = Rhino.Geometry;
 
+using BH.oM.Base;
 using BHG = BH.oM.Geometry;
 using BH.oM.SportVenueEvent;
+using BH.UI.Alligator.Base;
 
 namespace BH.UI.Grasshopper.SportVenueEvent
 {
@@ -34,28 +37,8 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            /*
-            pManager.AddGenericParameter("Position", "Position", "Seat location", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Direction", "Direction", "Seat direction", GH_ParamAccess.list);
-            pManager.AddTextParameter("Name", "ID", "Seat identifier", GH_ParamAccess.list);
-            pManager.AddNumberParameter("C-Value", "C-Value", "C-value parameter", GH_ParamAccess.list);
-            pManager.AddNumberParameter("A-Value", "A-Value", "A-Value parameter", GH_ParamAccess.list);
-            pManager.AddNumberParameter("S-Value", "S-Value", "S-Value", GH_ParamAccess.list);
-            pManager.AddNumberParameter("STI", "STI", "Speech Transmittion Index", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Noise", "Noise", "Sound Pressure Level at point", GH_ParamAccess.list);
-
-            pManager[0].Optional = false;
-            pManager[1].Optional = true;
-            pManager[2].Optional = false;
-            pManager[3].Optional = true;
-            pManager[4].Optional = true;
-            pManager[5].Optional = true;
-            pManager[6].Optional = true;
-            pManager[7].Optional = true;
-            */
-
-            pManager.AddGenericParameter("Position", "Position", "Seat location", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Focues", "Focus", "Seat focus", GH_ParamAccess.list);
+            pManager.AddParameter(new BHoMGeometryParameter(), "Position", "Position", "Seat location", GH_ParamAccess.list);
+            pManager.AddParameter(new BHoMGeometryParameter(), "Focues", "Focus", "Seat focus", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -63,7 +46,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Seats", "Seats", "List of BHoM stadium seats", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMObjectParameter(), "Seats", "Seats", "List of BHoM stadium seats", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -72,38 +55,15 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<Seat> seats = new List<Seat>();
-            /*
-            List<BHG.Point> position = new List<BHG.Point>();
-            List<BHG.Vector> direction = new List<BHG.Vector>();
-            List<string> ID = new List<string>();
-            List<double?> cValue = new List<double?>();
-            List<double?> aValue = new List<double?>();
-            List<double?> sValue = new List<double?>();
-            List<double?> sti = new List<double?>();
-            List<double?> noise = new List<double?>();
-
-            if (!DA.GetDataList(0, position)) { return; }
-            if (!DA.GetDataList(1, direction)) { direction = null; }
-            if (!DA.GetDataList(2, ID)) { ID = null; }
-            if (!DA.GetDataList(3, cValue)) { cValue = null; }
-            if (!DA.GetDataList(4, aValue)) { aValue = null; }
-            if (!DA.GetDataList(5, sValue)) { sValue = null; }
-            if (!DA.GetDataList(6, sti)) { sti = null; }
-            if (!DA.GetDataList(7, noise)) { noise = null; }
-            */
-
-            List<BHG.Point> positions = new List<BHG.Point>();
-            List<BHG.Point> focuses = new List<BHG.Point>();
+            List<BH_Goo> seats = new List<BH_Goo>();
+            List<BH_GeometricGoo> positions = new List<BH_GeometricGoo>();
+            List<BH_GeometricGoo> focuses = new List<BH_GeometricGoo>();
 
             DA.GetDataList(0, positions);
             DA.GetDataList(1, focuses);
-
-
-
             for (int i = 0; i < positions.Count; i++)
             {
-                seats.Add(new Seat(positions[i], focuses[i]));   
+                seats.Add(new BH_Goo(new Seat(positions[i].Value as BH.oM.Geometry.Point, focuses[i].Value as BH.oM.Geometry.Point)));
             }
             DA.SetDataList(0, seats);
         }
