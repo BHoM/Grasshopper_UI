@@ -78,11 +78,14 @@ namespace BH.UI.Alligator.Base
 
     public class BHoMObjectParameter : GH_Param<BH_Goo>
     {
+        #region Constructors
         public BHoMObjectParameter()
             : base(new GH_InstanceDescription("BHoM object", "BHoM", "Represents a collection of generic BHoM objects", "Params", "Primitive"))
         {
         }
+        #endregion
 
+        #region Properties
         protected override System.Drawing.Bitmap Icon
         {
             get
@@ -102,30 +105,6 @@ namespace BH.UI.Alligator.Base
             get { return new Guid("d3a2b455-74d5-4b26-bdf2-bf672d1dd927"); }
         }
 
-        //We do not allow users to pick BHoMObjects, therefore the following 4 methods disable all this ui.
-        //protected override GH_GetterResult Prompt_Plural(ref List<BH_Goo> values)
-        //{
-        //    return GH_GetterResult.accept;
-        //}
-        //protected override GH_GetterResult Prompt_Singular(ref BH_Goo value)
-        //{
-        //    return GH_GetterResult.accept;
-        //}
-        //protected override System.Windows.Forms.ToolStripMenuItem Menu_CustomSingleValueItem()
-        //{
-        //    System.Windows.Forms.ToolStripMenuItem item = new System.Windows.Forms.ToolStripMenuItem();
-        //    item.Text = "Not available";
-        //    item.Visible = false;
-        //    return item;
-        //}
-        //protected override System.Windows.Forms.ToolStripMenuItem Menu_CustomMultiValueItem()
-        //{
-        //    System.Windows.Forms.ToolStripMenuItem item = new System.Windows.Forms.ToolStripMenuItem();
-        //    item.Text = "Not available";
-        //    item.Visible = false;
-        //    return item;
-        //}
-
         private bool m_hidden = false;
         public bool Hidden
         {
@@ -136,6 +115,7 @@ namespace BH.UI.Alligator.Base
         {
             get { return false; }
         }
+        #endregion
     }
 
     public class BH_GeometricGoo : GH_GeometricGoo<IBHoMGeometry>, IGH_PreviewData
@@ -210,10 +190,46 @@ namespace BH.UI.Alligator.Base
             }
             if (typeof(Rhino.Geometry.GeometryBase).IsAssignableFrom(source.GetType()))
             {
-                this.Value = BH.Engine.Grasshopper.GeometryUtils.Convert((Rhino.Geometry.GeometryBase) source);
+                this.Value = BH.Engine.Grasshopper.GeometryUtils.Convert((Rhino.Geometry.GeometryBase)source);
                 return true;
             }
-            return base.CastFrom(source);
+            if (typeof(GH_Point).IsAssignableFrom(source.GetType()))
+            {
+                Value = BH.Engine.Grasshopper.GeometryUtils.Convert(((GH_Point)source).Value);
+            }
+            else if (typeof(GH_Vector).IsAssignableFrom(source.GetType()))
+            {
+                Value = BH.Engine.Grasshopper.GeometryUtils.Convert(((GH_Vector)source).Value);
+            }
+            else if (typeof(GH_Line).IsAssignableFrom(source.GetType()))
+            {
+                Value = BH.Engine.Grasshopper.GeometryUtils.Convert(((GH_Line)source).Value);
+            }
+            else if (typeof(GH_Circle).IsAssignableFrom(source.GetType()))
+            {
+                Value = BH.Engine.Grasshopper.GeometryUtils.Convert(((GH_Circle)source).Value);
+            }
+            else if (typeof(GH_Curve).IsAssignableFrom(source.GetType()))
+            {
+                Value = BH.Engine.Grasshopper.GeometryUtils.Convert(((GH_Curve)source).Value);
+            }
+            else if (typeof(GH_Plane).IsAssignableFrom(source.GetType()))
+            {
+                Value = BH.Engine.Grasshopper.GeometryUtils.Convert(((GH_Plane)source).Value);
+            }
+            else if (typeof(GH_Surface).IsAssignableFrom(source.GetType()))
+            {
+                Value = BH.Engine.Grasshopper.GeometryUtils.Convert(((GH_Surface)source).Value);
+            }
+            else if (typeof(GH_Brep).IsAssignableFrom(source.GetType()))
+            {
+                Value = BH.Engine.Grasshopper.GeometryUtils.Convert(((GH_Brep)source).Value);
+            }
+            else if (typeof(GH_Mesh).IsAssignableFrom(source.GetType()))
+            {
+                Value = BH.Engine.Grasshopper.GeometryUtils.Convert(((GH_Mesh)source).Value);
+            }
+            return true;
         }
         public override bool CastTo<Q>(ref Q target)
         {
@@ -267,11 +283,14 @@ namespace BH.UI.Alligator.Base
 
     public class BHoMGeometryParameter : GH_Param<BH_GeometricGoo>
     {
+        #region Constructors
         public BHoMGeometryParameter()
             : base(new GH_InstanceDescription("BHoM geometry", "BHoMGeo", "Represents a collection of generic BHoM geometries", "Params", "Geometry"))
         {
         }
+        #endregion
 
+        #region Properties
         protected override System.Drawing.Bitmap Icon
         {
             get
@@ -300,5 +319,6 @@ namespace BH.UI.Alligator.Base
         {
             get { return true; }
         }
+        #endregion
     }
 }
