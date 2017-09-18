@@ -10,6 +10,7 @@ using BHG = BH.oM.Geometry;
 using GHE = Grasshopper_Engine;
 using BH.oM.SportVenueEvent;
 using BH.Engine.SportVenueEvent;
+using BH.UI.Alligator.Base;
 
 namespace BH.UI.Grasshopper.SportVenueEvent
 {
@@ -38,9 +39,9 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("First Row of seats", "Seats", "", GH_ParamAccess.list);
+            pManager.AddParameter(new BHoMObjectParameter(), "First Row of seats", "Seats", "", GH_ParamAccess.list);
             pManager.AddIntegerParameter("Tiers number", "Tiers", "", GH_ParamAccess.item);
-            pManager.AddGenericParameter("BH Vector", "Vector", "Vector list that defines the position of the new tier", GH_ParamAccess.list);
+            pManager.AddParameter(new BHoMGeometryParameter(), "BH Vector", "Vector", "Vector list that defines the position of the new tier", GH_ParamAccess.list);
             pManager.AddIntegerParameter("Rows", "Rows", "", GH_ParamAccess.list);
             pManager.AddNumberParameter("Seat Depth", "Depth", "", GH_ParamAccess.list);
             pManager.AddNumberParameter("C-Value", "C", "", GH_ParamAccess.list);
@@ -51,8 +52,8 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Tiers", "Tiers", "", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Samples", "Samples", "", GH_ParamAccess.list);
+            pManager.AddParameter(new BHoMObjectParameter(), "Tier", "Tier", "", GH_ParamAccess.list);
+            pManager.AddParameter(new BHoMObjectParameter(), "Samples", "Samples", "", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -68,31 +69,15 @@ namespace BH.UI.Grasshopper.SportVenueEvent
             List<double> cValues = new List<double>();
             List<BHG.Vector> tierPos = new List<BHG.Vector>();
 
-            DA.GetDataList(0, seats);
+            DA.BH_GetDataList(0, seats);
             DA.GetData(1, ref tierNo);
-            DA.GetDataList(2, tierPos);
+            DA.BH_GetDataList(2, tierPos);
             DA.GetDataList(3, rowsNos);
             DA.GetDataList(4, depths);
             DA.GetDataList(5, cValues);
 
             List<Tier> tiers = Create.GenTiers(seats, tierNo, tierPos, rowsNos, depths, cValues);
-            DA.SetDataList(0, tiers);
-
-            // QUICK_PREVIEW
-            GH_Structure<GH_Goo<Seat>> tree = new GH_Structure<GH_Goo<Seat>>();
-            List<RHG.Point3d> samples = new List<Rhino.Geometry.Point3d>();
-            for (int i = 0; i < tiers.Count; i++)
-            {
-                for (int j = 0; j < tiers[i].Rows.Count; j++)
-                {
-                    for (int k = 0; k < tiers[i].Rows[j].Seats.Count; k++)
-                    {
-                        //tree.Append(tiers[i].Rows[j].Seats[k], new GH_Path(new int[] { i, j, k }));
-                        //samples.Add(GHE.GeometryUtils.Convert(tiers[i].Rows[j].Seats[k].Geometry));
-                    }
-                }
-            }
-            DA.SetDataTree(1, tree);
+            DA.BH_SetDataList(0, tiers);
         }
 
         /// <summary>

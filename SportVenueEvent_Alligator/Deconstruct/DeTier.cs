@@ -54,9 +54,11 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             Tier tier = new Tier();
-            DA.GetData(0, ref tier);
-            DA.SetDataList(0, tier.Rakes);
-            DA.SetDataList(1, tier.Rows);
+            DA.BH_GetData(0, tier);
+            List<Rake> rakes = tier.Rakes;
+            List<Row> rows= tier.Rows;
+            DA.BH_SetDataList(0, rakes);
+            DA.BH_SetDataList(1, rows);
         }
 
         /// <summary>

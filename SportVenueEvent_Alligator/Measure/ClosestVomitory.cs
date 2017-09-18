@@ -6,6 +6,7 @@ using Rhino.Geometry;
 
 using BH.oM.SportVenueEvent;
 using BH.Engine.SportVenueEvent;
+using BH.UI.Alligator.Base;
 
 namespace BH.UI.Grasshopper.SportVenueEvent
 {
@@ -24,7 +25,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Tier", "Tier", "", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMObjectParameter(), "Tier", "Tier", "", GH_ParamAccess.item);
             pManager.AddGenericParameter("Vomitories", "Vomitories","", GH_ParamAccess.list);
         }
 
@@ -34,7 +35,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.AddIntegerParameter("Index", "Index", "Index of closest vomitory", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Tier", "Tier", "", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMObjectParameter(), "Tier", "Tier", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -45,10 +46,10 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         {
             Tier tier = new Tier();
             List<Vomitory> vomitories = new List<Vomitory>();
-            DA.GetData(0, ref tier);
-            DA.GetDataList(1, vomitories);
+            DA.BH_GetData(0, tier);
+            DA.BH_GetDataList(1, vomitories);
             DA.SetDataList(0, tier.AssignVomitories(vomitories));
-            DA.SetData(1, tier);
+            DA.BH_SetData(1, tier);
         }
 
         /// <summary>

@@ -87,7 +87,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\BHoMTypes.cs" />
+    <Compile Include="Base\CreateObject.cs" />
     <Compile Include="Base\CustomData.cs" />
+    <Compile Include="Base\ExplodeObject.cs" />
     <Compile Include="Base\FromJSON.cs" />
     <Compile Include="Base\GetPropertyNames.cs" />
     <Compile Include="Base\ListExpandAndCollapse.cs" />

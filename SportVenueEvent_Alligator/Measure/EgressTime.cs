@@ -5,6 +5,7 @@ using Grasshopper.Kernel;
 using Rhino.Geometry;
 using BH.oM.SportVenueEvent;
 using BH.Engine.SportVenueEvent;
+using BH.UI.Alligator.Base;
 
 namespace SportVenueEvent_Alligator.Measure
 {
@@ -25,8 +26,8 @@ namespace SportVenueEvent_Alligator.Measure
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Tier", "Tier", "", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Flow", "Flow", "Flow rate in [people/ (min * m)]", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMObjectParameter(), "Tier", "Tier", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Flow", "Flow", "Flow rate in [people/ (min * m)]", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -45,7 +46,7 @@ namespace SportVenueEvent_Alligator.Measure
         {
             Tier tier = null;
             double flowRate = 66;
-            DA.GetData(0, ref tier);
+            DA.BH_GetData(0, tier);
             DA.GetData(1, ref flowRate);
             DA.SetDataList(0, tier.EgressTime(flowRate));
         }

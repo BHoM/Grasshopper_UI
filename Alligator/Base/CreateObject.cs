@@ -2,32 +2,20 @@
 using System.Collections.Generic;
 
 using Grasshopper.Kernel;
-using RHG = Rhino.Geometry;
+using Rhino.Geometry;
 
-using BHG = BH.oM.Geometry;
-using BH.oM.SportVenueEvent;
-using BH.UI.Alligator.Base;
-
-namespace BH.UI.Grasshopper.SportVenueEvent
+namespace BH.UI.Alligator.Base
 {
-    public class DeSeat : GH_Component
+    public class CreateObject : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the DeSeat class.
+        /// Initializes a new instance of the CreateObject class.
         /// </summary>
-        public DeSeat()
-          : base("Deconstruct Seat", "DeSeat",
-              "",
-              "SportVenueEvent", "Deconstuct")
+        public CreateObject()
+          : base("CreateObject", "CreateBH",
+              "Create a custom BHoM object",
+              "Alligator", "Base")
         {
-        }
-
-        public override GH_Exposure Exposure
-        {
-            get
-            {
-                return GH_Exposure.secondary;
-            }
         }
 
         /// <summary>
@@ -35,8 +23,6 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddParameter(new BHoMObjectParameter(), "Seat", "Seat", "", GH_ParamAccess.item);
-
         }
 
         /// <summary>
@@ -44,9 +30,6 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddParameter(new BHoMGeometryParameter(), "Position", "Position", "", GH_ParamAccess.item);
-            pManager.AddParameter(new BHoMGeometryParameter(), "Focus", "Focus", "", GH_ParamAccess.item);
-            pManager.AddParameter(new BHoMObjectParameter(), "Vomitory", "Vomitory", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -55,14 +38,6 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Seat seat = new Seat();
-            DA.BH_GetData(0, seat);
-            BHG.Point geometry = seat.Geometry;
-            BHG.Point focusPoint = seat.FocusPoint;
-            Vomitory vomitory = seat.Vomitory;
-            DA.BH_SetData(0, geometry);
-            DA.BH_SetData(1, focusPoint);
-            DA.BH_SetData(2, vomitory);
         }
 
         /// <summary>
@@ -83,7 +58,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("4d704d8f-32fa-401a-a44f-e2a83def3d31"); }
+            get { return new Guid("dbd3fe50-423a-4ea4-8bc7-7ad94d1d67e9"); }
         }
     }
 }

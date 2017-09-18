@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using RHG = Rhino.Geometry;
 
-using BHG = BHoM.Geometry;
+using BHG = BH.oM.Geometry;
 using BH.oM.SportVenueEvent;
 using BH.UI.Alligator.Base;
 
@@ -44,7 +44,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.AddParameter(new BHoMObjectParameter(), "Tier", "Tier", "", GH_ParamAccess.item);
-            pManager.AddParameter(new BHoMObjectParameter(), "Centre", "Centre", "", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMGeometryParameter(), "Centre", "Centre", "", GH_ParamAccess.item);
             pManager.AddParameter(new BHoMObjectParameter(), "Width", "Width", "", GH_ParamAccess.item);
         }
 
@@ -55,10 +55,13 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             Vomitory vomitory = new Vomitory();
+            DA.BH_GetData(0, vomitory);
+            Tier tier = vomitory.Tier;
+            BHG.Point centre = vomitory.Centre;
+            double width = vomitory.Width;
 
-            DA.GetData(0, ref vomitory);
-            DA.SetData(0, vomitory.Tier);
-            DA.SetData(1, vomitory.Centre);
+            DA.BH_SetData(0, tier);
+            DA.BH_GetData(1, centre);
             DA.SetData(2, vomitory.Width);
         }
 

@@ -8,20 +8,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BH.UI.Alligator.Base;
 
 namespace BH.UI.Alligator.Base
 {
-    public class BH_Goo : GH_Goo<BHoMObject>
+    public class BH_Goo : GH_Goo<IObject>
     {
         #region Constructors
         public BH_Goo()
         {
-            this.Value = new BHoMObject();
+            this.Value = null;
         }
-        public BH_Goo(BHoMObject bh)
+        public BH_Goo(IObject bh)
         {
-            if (bh == null)
-                bh = new BHoMObject();
             this.Value = bh;
         }
         #endregion
@@ -60,9 +59,9 @@ namespace BH.UI.Alligator.Base
         public override bool CastFrom(object source)
         {
             if (source == null) { return false; }
-            if (source.GetType() == typeof(GH_Goo<BHoMObject>))
+            if (source.GetType() == typeof(GH_Goo<IObject>))
             {
-                this.Value = (BHoMObject)source;
+                this.Value = (IObject)source;
                 return true;
             }
             return base.CastFrom(source);
@@ -320,5 +319,180 @@ namespace BH.UI.Alligator.Base
             get { return true; }
         }
         #endregion
+    }
+
+    public static class RetrieveInput
+    {
+        public static bool BH_GetData<T>(this IGH_DataAccess DA, int index, T destination)
+        {
+            if (typeof(IBHoMGeometry).IsAssignableFrom(destination.GetType()))
+            {
+                BH_GeometricGoo bhg = new BH_GeometricGoo();
+                if (!DA.GetData(index, ref bhg)) { return false; }
+                destination = (T)bhg.Value;
+                return true;
+            }
+            else if (typeof(IObject).IsAssignableFrom(destination.GetType()))
+            {
+                BH_Goo bho = new BH_Goo();
+                if (!DA.GetData(index, ref bho)) { return false; }
+                destination = (T)bho.Value;
+                return true;
+            }
+            else { return DA.GetData(index, ref destination); }
+        }
+
+        public static bool BH_GetDataList<T>(this IGH_DataAccess DA, int index, List<T> destination)
+        {
+            if (typeof(IBHoMGeometry).IsAssignableFrom(typeof(T)))
+            {
+                List<BH_GeometricGoo> bhg = new List<BH_GeometricGoo>();
+                if (!DA.GetDataList(index, bhg)) { return false; }
+                destination.Clear();
+                for (int i = 0; i < bhg.Count; i++)
+                {
+                    destination.Add((T)(bhg[i].Value));
+                }
+                return true;
+            }
+            else if (typeof(IObject).IsAssignableFrom(typeof(T)))
+            {
+                List<BH_Goo> bho = new List<BH_Goo>();
+                if (!DA.GetDataList(index, bho)) { return false; }
+                destination.Clear();
+                for (int i = 0; i < bho.Count; i++)
+                {
+                    destination.Add((T)(bho[i].Value));
+                }
+                return true;
+            }
+            else { return DA.GetDataList(index, destination); }
+        }
+
+        public static bool BH_SetData<T>(this IGH_DataAccess DA, int index, T source)
+        {
+            if (typeof(IBHoMGeometry).IsAssignableFrom(source.GetType()))
+            {
+                BH_GeometricGoo bhg = new BH_GeometricGoo((source as IBHoMGeometry));
+                return DA.SetData(index, bhg);
+            }
+            if (typeof(IObject).IsAssignableFrom(source.GetType()))
+            {
+                BH_Goo bho = new BH_Goo(source as IObject);
+                return DA.SetData(index, bho);
+            }
+            else { return DA.SetData(index, source); }
+        }
+        public static bool BH_SetDataList<T>(this IGH_DataAccess DA, int index, List<T> source)
+        {
+            if (typeof(IBHoMGeometry).IsAssignableFrom(typeof(T)))
+            {
+                List<BH_GeometricGoo> bhg = new List<BH_GeometricGoo>();
+                for (int i = 0; i < source.Count(); i++)
+                {
+                    bhg.Add(new BH_GeometricGoo(source[i] as IBHoMGeometry));
+                }
+                return DA.SetDataList(index, bhg);
+            }
+            if (typeof(IObject).IsAssignableFrom(typeof(T)))
+            {
+                List<BH_Goo> bho = new List<BH_Goo>();
+                for (int i = 0; i < source.Count; i++)
+                {
+                    bho.Add(new BH_Goo(source[i] as IObject));
+                }
+                return DA.SetDataList(index, bho);
+            }
+            else { return DA.SetDataList(index, source); }
+
+            //private static bool BH_GetData<T, T1, T2>(this IGH_DataAccess DA, int index, T destination)
+            //    where T1 : IObject
+            //    where T2 : IBHoMGeometry
+            //{
+            //    if (typeof(T1).IsAssignableFrom(typeof(IBHoMGeometry)) || typeof(T2).IsAssignableFrom(typeof(IBHoMGeometry)))
+            //    {
+            //        BH_GeometricGoo bhg = new BH_GeometricGoo();
+            //        if (!DA.GetData(index, ref bhg)) { return false; }
+            //        destination = (T)bhg.Value;
+            //        return true;
+            //    }
+            //    else if (typeof(T1).IsAssignableFrom(typeof(IObject)) || typeof(T2).IsAssignableFrom(typeof(IObject)))
+            //    {
+            //        if (typeof(IBHoMGeometry).IsAssignableFrom(typeof(T))) { throw new ArgumentException("When dealing with BHoM Geometries you should use the DA.GetDataGeo method"); }
+            //        BH_Goo bho = new BH_Goo();
+            //        if (!DA.GetData(index, ref bho)) { return false; }
+            //        destination = (T)bho.Value;
+            //        return true;
+            //    }
+            //    else { return false; }
+            //}
+            //public static bool GetBHData<T>(this IGH_DataAccess DA, int index, T destination) where T : BHoMObject
+            //{
+            //    if (typeof(IBHoMGeometry).IsAssignableFrom(typeof(T))) { throw new ArgumentException("When dealing with BHoM Geometries you should use the DA.GetDataGeo method"); }
+            //    BH_Goo bho = new BH_Goo();
+            //    if (!DA.GetData(index, ref bho)) { return false; }
+            //    destination = (T)bho.Value;
+            //    return true;
+            //}
+            //public static bool GetBHGeo<T>(this IGH_DataAccess DA, int index, T destination) where T : IBHoMGeometry
+            //{
+            //    if (typeof(BHoMObject).IsAssignableFrom(typeof(T))) { throw new ArgumentException("When dealing with BHoM Geometries you should use the DA.GetDataGeo method"); }
+            //    BH_GeometricGoo bhg = new BH_GeometricGoo();
+            //    if (!DA.GetData(index, ref bhg)) { return false; }
+            //    destination = (T)bhg.Value;
+            //    return true;
+            //}
+            //public static bool GetBHGeoList<T>(this IGH_DataAccess DA, int index, List<T> destination) where T : IBHoMGeometry
+            //{
+            //    List<BH_GeometricGoo> bhg = new List<BH_GeometricGoo>();
+            //    if (!DA.GetDataList(index, bhg)) { return false; }
+            //    destination.Clear();
+            //    for (int i = 0; i < bhg.Count; i++)
+            //    {
+            //        destination.Add((T)(bhg[i].Value));
+            //    }
+            //    return true;
+            //}
+            //public static bool GetBHDataList<T>(this IGH_DataAccess DA, int index, List<T> destination) where T : BHoMObject
+            //{
+            //    List<BH_Goo> bho = new List<BH_Goo>();
+            //    if (!DA.GetDataList(index, bho)) { return false; }
+            //    destination.Clear();
+            //    for (int i = 0; i < bho.Count; i++)
+            //    {
+            //        destination.Add((T)(bho[i].Value));
+            //    }
+            //    return true;
+            //}
+
+            //public static bool BH_SetDataGeo<T>(this IGH_DataAccess DA, int index, T source) where T : IBHoMGeometry
+            //{
+            //    BH_GeometricGoo bhg = new BH_GeometricGoo((T)source);
+            //    return DA.SetData(index, bhg);
+            //}
+            //public static bool BH_SetData<T>(this IGH_DataAccess DA, int index, T source) where T : BHoMObject
+            //{
+            //    BH_Goo bho = new BH_Goo((T)source);
+            //    return DA.SetData(index, bho);
+            //}
+            //public static bool BH_SetDataGeoList<T>(this IGH_DataAccess DA, int index, List<T> source) where T : IBHoMGeometry
+            //{
+            //    List<BH_GeometricGoo> bhg = new List<BH_GeometricGoo>();
+            //    for (int i = 0; i < source.Count(); i++)
+            //    {
+            //        bhg.Add(new BH_GeometricGoo((T)source[i]));
+            //    }
+            //    return DA.SetDataList(index, bhg);
+            //}
+            //public static bool BH_SetDataList<T>(this IGH_DataAccess DA, int index, List<T> source) where T : BHoMObject
+            //{
+            //    List<BH_Goo> bho = new List<BH_Goo>();
+            //    for (int i = 0; i < source.Count; i++)
+            //    {
+            //        bho.Add(new BH_Goo((T)source[DA.Iteration]));
+            //    }
+            //    return DA.SetDataList(index, bho);
+            //}
+        }
     }
 }

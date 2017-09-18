@@ -6,6 +6,7 @@ using Rhino.Geometry;
 
 using BH.Engine.SportVenueEvent;
 using BH.oM.SportVenueEvent;
+using BH.UI.Alligator.Base;
 
 namespace BH.UI.Grasshopper.SportVenueEvent
 {
@@ -26,7 +27,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Tiers", "Tiers", "", GH_ParamAccess.list);
+            pManager.AddParameter(new BHoMObjectParameter(), "Tier", "Tier", "", GH_ParamAccess.item);
             pManager.AddNumberParameter("Seat width", "Width", "", GH_ParamAccess.item);
         }
 
@@ -35,7 +36,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Tiers", "Tiers", "", GH_ParamAccess.list);
+            pManager.AddParameter(new BHoMObjectParameter(), "Tier", "Tier", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -46,11 +47,11 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         {
             List<Tier> tiers = new List<Tier>();
             double width = 0;
-            DA.GetDataList(0, tiers);
+            DA.BH_GetDataList(0, tiers);
             DA.GetData(1, ref width);
 
             Bowl bowl = new Bowl(tiers);
-            DA.SetDataList(0, bowl.ResampleBowl(width));
+            DA.BH_SetDataList(0, bowl.ResampleBowl(width));
         }
 
         /// <summary>

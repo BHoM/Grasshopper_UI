@@ -46,7 +46,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddParameter(new BHoMObjectParameter(), "Seats", "Seats", "List of BHoM stadium seats", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMObjectParameter(), "Seats", "Seats", "List of BHoM stadium seats", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -55,17 +55,17 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<BH_Goo> seats = new List<BH_Goo>();
-            List<BH_GeometricGoo> positions = new List<BH_GeometricGoo>();
-            List<BH_GeometricGoo> focuses = new List<BH_GeometricGoo>();
+            List<Seat> seats = new List<Seat>();
+            List<BHG.Point> positions = new List<BHG.Point>();
+            List<BHG.Point> focuses = new List<BHG.Point>();
 
-            DA.GetDataList(0, positions);
-            DA.GetDataList(1, focuses);
+            DA.BH_GetDataList(0, positions);
+            DA.BH_GetDataList(1, focuses);
             for (int i = 0; i < positions.Count; i++)
             {
-                seats.Add(new BH_Goo(new Seat(positions[i].Value as BH.oM.Geometry.Point, focuses[i].Value as BH.oM.Geometry.Point)));
+                seats.Add(new Seat(positions[i], focuses[i]));
             }
-            DA.SetDataList(0, seats);
+            DA.BH_SetDataList(0, seats);
         }
 
         /// <summary>

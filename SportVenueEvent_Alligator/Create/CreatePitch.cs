@@ -34,7 +34,7 @@ namespace BH.UI.Grasshopper
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddParameter(new BHoMObjectParameter(), "Boundary", "Polyline", "Boundary polyline of Pitch", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMGeometryParameter(), "Boundary", "Polyline", "Boundary polyline of Pitch", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -52,10 +52,8 @@ namespace BH.UI.Grasshopper
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             BHG.Polyline polyline = null;
-
-            DA.GetData(0, ref polyline);
-
-            DA.SetData(0, new Pitch(polyline));
+            DA.BH_GetData(0, polyline);
+            DA.BH_SetData(0, new Pitch(polyline));
         }
 
         /// <summary>

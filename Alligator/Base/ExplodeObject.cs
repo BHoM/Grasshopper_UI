@@ -3,20 +3,22 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
-using BH.oM.SportVenueEvent;
-using BH.Engine.SportVenueEvent;
+using BH.oM.Base;
+using BH.Engine.Reflection;
+using System.Linq;
+using BH.UI.Alligator.Base;
 
-namespace BH.UI.Grasshopper.SportVenueEvent
+namespace BH.UI.Alligator.Base
 {
-    public class GenVomitorySize : GH_Component
+    public class ExplodeObject : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the MinVomWidth class.
+        /// Initializes a new instance of the ExplodeObject class.
         /// </summary>
-        public GenVomitorySize()
-          : base("Vomitory size", "VomSize",
-              "",
-              "SportVenueEvent", "Generative")
+        public ExplodeObject()
+          : base("ExplodeObject", "ExplodeBH",
+              "Get all properties from a BHoM objects",
+              "Alligator", "Base")
         {
         }
 
@@ -25,10 +27,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Tier", "Tier", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Flow", "Flow", "Flow rate in [people/ (min * m)]", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Time", "Time", "", GH_ParamAccess.item, 8);
-            pManager[2].Optional = true;
+            pManager.AddParameter(new BHoMObjectParameter(), "BHoM object", "BHoM", "BHoM object", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -36,7 +35,11 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddNumberParameter("Width", "Width", "", GH_ParamAccess.list);
+            pManager.AddParameter(new BHoMObjectParameter(), "Properties", "Properties", "Get object properties", GH_ParamAccess.list);
+        }
+
+        protected override void BeforeSolveInstance()
+        {
         }
 
         /// <summary>
@@ -45,13 +48,11 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Tier tier = null;
-            double flowRate = 66;
-            double time = 8;
-            DA.GetData(0, ref tier);
-            DA.GetData(1, ref flowRate);
-            DA.GetData(2, ref time);
-            DA.SetDataList(0, tier.GenVomitorySize(flowRate, time));
+            BHoMObject bh = new BHoMObject();
+            DA.BH_GetData(0, bh);
+            Dictionary<string, object> dict = bh.GetPropertyDictionary();
+            List<object> values = dict.Values.ToList();
+            DA.SetDataList(0, values);
         }
 
         /// <summary>
@@ -72,7 +73,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("c3006a87-a618-4a0f-83bb-fd4011783d88"); }
+            get { return new Guid("5e53b348-439a-4421-ba08-b18a5df1ff53"); }
         }
     }
 }

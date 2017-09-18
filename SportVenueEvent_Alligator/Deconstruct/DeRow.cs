@@ -53,13 +53,9 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             Row row = new Row();
-            List<Seat> seats = new List<Seat>();
-
-            DA.GetData(0, ref row);
-
-            seats.AddRange(row.Seats);
-
-            DA.SetDataList(0, seats);
+            List<Seat> seats = row.Seats;
+            DA.BH_GetData(0, row);
+            DA.BH_SetDataList(0, seats);
         }
 
         /// <summary>

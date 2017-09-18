@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-using BHoM.Geometry;
+using BHG = BH.oM.Geometry;
 using BH.oM.SportVenueEvent;
 using BH.Engine.SportVenueEvent;
+using BH.UI.Alligator.Base;
 
 namespace BH.UI.Grasshopper.SportVenueEvent
 {
@@ -35,7 +36,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Tier", "Tier", "", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMObjectParameter(), "Tier", "Tier", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -43,7 +44,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Path", "Path", "", GH_ParamAccess.list);
+            pManager.AddParameter(new BHoMGeometryParameter(), "Path", "Path", "", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -53,8 +54,9 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             Tier tier = null;
-            DA.GetData(0, ref tier);
-            DA.SetDataList(0, tier.EgressPath());
+            List<BHG.Polyline> polylines = new List<BHG.Polyline>();
+            DA.BH_GetData(0, tier);
+            //DA.BH_SetDataGeoList(0, tier.EgressPath());
         }
 
         /// <summary>

@@ -2,32 +2,24 @@
 using System.Collections.Generic;
 
 using Grasshopper.Kernel;
-using RHG = Rhino.Geometry;
+using Rhino.Geometry;
 
-using BHG = BH.oM.Geometry;
 using BH.oM.SportVenueEvent;
+using BH.Engine.SportVenueEvent;
 using BH.UI.Alligator.Base;
 
 namespace BH.UI.Grasshopper.SportVenueEvent
 {
-    public class DeSeat : GH_Component
+    public class GenerateRake : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the DeSeat class.
+        /// Initializes a new instance of the GenerateRake class.
         /// </summary>
-        public DeSeat()
-          : base("Deconstruct Seat", "DeSeat",
+        public GenerateRake()
+          : base("GenerateRakes", "Rakes",
               "",
-              "SportVenueEvent", "Deconstuct")
+              "SportVenueEvent", "Generative")
         {
-        }
-
-        public override GH_Exposure Exposure
-        {
-            get
-            {
-                return GH_Exposure.secondary;
-            }
         }
 
         /// <summary>
@@ -35,8 +27,10 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddParameter(new BHoMObjectParameter(), "Seat", "Seat", "", GH_ParamAccess.item);
-
+            pManager.AddParameter(new BHoMObjectParameter(), "Tier", "Tier", "", GH_ParamAccess.list);
+            pManager.AddIntegerParameter("Seats per row", "Count", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("GangwayWidth", "GangWidth", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("SeatWidth", "SeatWidth", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -44,9 +38,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddParameter(new BHoMGeometryParameter(), "Position", "Position", "", GH_ParamAccess.item);
-            pManager.AddParameter(new BHoMGeometryParameter(), "Focus", "Focus", "", GH_ParamAccess.item);
-            pManager.AddParameter(new BHoMObjectParameter(), "Vomitory", "Vomitory", "", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMObjectParameter(), "Tier", "Tier", "", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -55,14 +47,16 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Seat seat = new Seat();
-            DA.BH_GetData(0, seat);
-            BHG.Point geometry = seat.Geometry;
-            BHG.Point focusPoint = seat.FocusPoint;
-            Vomitory vomitory = seat.Vomitory;
-            DA.BH_SetData(0, geometry);
-            DA.BH_SetData(1, focusPoint);
-            DA.BH_SetData(2, vomitory);
+            List<Tier> tiers = new List<Tier>();
+            int seats = 0;
+            double gangway = 0;
+            double width = 0;
+
+            DA.BH_GetDataList(0, tiers);
+            DA.GetData(1, ref seats);
+            DA.GetData(2, ref gangway);
+            DA.GetData(3, ref width);
+            DA.BH_SetDataList(0, tiers.GenRakes(seats, gangway, width));
         }
 
         /// <summary>
@@ -83,7 +77,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("4d704d8f-32fa-401a-a44f-e2a83def3d31"); }
+            get { return new Guid("c62a1572-ef95-4b24-ba8a-cb70c7a825f7"); }
         }
     }
 }
