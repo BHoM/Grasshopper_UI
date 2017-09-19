@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BH.UI.Alligator.Base;
 using Grasshopper.Kernel;
-using GHE = Grasshopper_Engine;
-using MachineLearning_Engine;
+using BH.Engine.MachineLearning;
 
-namespace MachineLearning_Alligator
+namespace BH.UI.Alligator.MachineLearning
 {
     public class VideoMotionAnalysis : GH_Component
     {
@@ -43,23 +41,24 @@ namespace MachineLearning_Alligator
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            string videoFile = GHE.DataUtils.GetData<string>(DA, 0);
-            bool active = GHE.DataUtils.GetData<bool>(DA, 7);
+            string videoFile = "";
+            bool active = false;
+            videoFile = DA.BH_GetData(0, videoFile);
+            active = DA.BH_GetData(7, active);
 
             if (!active) return;
 
             MotionLevelAnalyser analyser = new MotionLevelAnalyser();
-            MachineLearning_Engine.MotionLevelAnalyser.Config config = new MachineLearning_Engine.MotionLevelAnalyser.Config();
-            config.StartFrame = GHE.DataUtils.GetData<int>(DA, 1);
-            config.EndFrame = GHE.DataUtils.GetData<int>(DA, 2);
-            config.FrameStep = GHE.DataUtils.GetData<int>(DA, 3);
-            config.NbRows = GHE.DataUtils.GetData<int>(DA, 4);
-            config.NbColumns = GHE.DataUtils.GetData<int>(DA, 5);
-            config.OutFolder = GHE.DataUtils.GetData<string>(DA, 6);
+            MotionLevelAnalyser.Config config = new MotionLevelAnalyser.Config();
+            config.EndFrame = DA.BH_GetData(2, config.EndFrame);
+            config.FrameStep = DA.BH_GetData(3, config.FrameStep);
+            config.NbRows = DA.BH_GetData(4, config.NbRows);
+            config.NbColumns = DA.BH_GetData(5, config.NbColumns);
+            config.OutFolder = DA.BH_GetData(6, config.OutFolder);
 
             Dictionary<int, List<double>> result = analyser.Run(videoFile, config).Result;
             List<List<double>> motionLevel = result.Values.ToList();
-            DA.SetDataList(0, motionLevel);
+            DA.BH_SetDataList(0, motionLevel);
         }
     }
 }
