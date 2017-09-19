@@ -34,7 +34,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddParameter(new BHoMObjectParameter(), "Rake", "Rake", "", GH_ParamAccess.list);
+            pManager.AddParameter(new BHoMObjectParameter(), "Rake", "Rake", "", GH_ParamAccess.item);
         }
 
         /// <summary>

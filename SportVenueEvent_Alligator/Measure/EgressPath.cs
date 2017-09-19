@@ -44,7 +44,8 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddParameter(new BHoMGeometryParameter(), "Path", "Path", "", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Path", "Path", "", GH_ParamAccess.list);
+            //pManager.AddParameter(new BHoMGeometryParameter(), "Path", "Path", "", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -56,7 +57,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
             Tier tier = new Tier();
             List<BHG.Polyline> polylines = new List<BHG.Polyline>();
             tier = DA.BH_GetData(0, tier);
-            DA.BH_SetDataList(0, tier.EgressPath());
+            DA.SetDataList(0, tier.EgressPath());
         }
 
         /// <summary>
