@@ -69,12 +69,12 @@ namespace BH.UI.Grasshopper.SportVenueEvent
             List<double> cValues = new List<double>();
             List<BHG.Vector> tierPos = new List<BHG.Vector>();
 
-            DA.BH_GetDataList(0, seats);
-            DA.GetData(1, ref tierNo);
-            DA.BH_GetDataList(2, tierPos);
-            DA.GetDataList(3, rowsNos);
-            DA.GetDataList(4, depths);
-            DA.GetDataList(5, cValues);
+            seats = DA.BH_GetDataList(0, seats);
+            tierNo = DA.BH_GetData(1, tierNo);
+            tierPos = DA.BH_GetDataList(2, tierPos);
+            rowsNos = DA.BH_GetDataList(3, rowsNos);
+            depths = DA.BH_GetDataList(4, depths);
+            cValues = DA.BH_GetDataList(5, cValues);
 
             List<Tier> tiers = Create.GenTiers(seats, tierNo, tierPos, rowsNos, depths, cValues);
             DA.BH_SetDataList(0, tiers);

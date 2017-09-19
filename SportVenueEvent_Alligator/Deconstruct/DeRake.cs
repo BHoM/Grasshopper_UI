@@ -53,11 +53,10 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             Rake rake = new Rake();
-            List<Row> rows = rake.Rows;
-            List<Gangway> gangways = rake.Gangways;
-            DA.BH_GetData(0, rake);
-            DA.BH_SetDataList(0, rows);
-            DA.BH_SetDataList(1, gangways);
+            rake = DA.BH_GetData(0, rake);
+
+            DA.BH_SetDataList(0, rake.Rows);
+            DA.BH_SetDataList(1, rake.Gangways);
         }
 
         /// <summary>

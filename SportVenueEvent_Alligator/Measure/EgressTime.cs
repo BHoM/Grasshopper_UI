@@ -44,11 +44,11 @@ namespace SportVenueEvent_Alligator.Measure
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Tier tier = null;
+            Tier tier = new Tier();
             double flowRate = 66;
-            DA.BH_GetData(0, tier);
-            DA.GetData(1, ref flowRate);
-            DA.SetDataList(0, tier.EgressTime(flowRate));
+            tier =  DA.BH_GetData(0, tier);
+            flowRate = DA.BH_GetData(1, flowRate);
+            DA.BH_SetDataList(0, tier.EgressTime(flowRate));
         }
 
         /// <summary>

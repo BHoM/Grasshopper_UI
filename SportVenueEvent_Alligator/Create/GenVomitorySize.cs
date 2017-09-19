@@ -46,13 +46,13 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Tier tier = null;
+            Tier tier = new Tier();
             double flowRate = 66;
             double time = 8;
-            DA.BH_GetData(0, tier);
-            DA.GetData(1, ref flowRate);
-            DA.GetData(2, ref time);
-            DA.SetDataList(0, tier.GenVomitorySize(flowRate, time));
+            tier = DA.BH_GetData(0, tier);
+            flowRate = DA.BH_GetData(1, flowRate);
+            time = DA.BH_GetData(2, time);
+            DA.BH_SetDataList(0, tier.GenVomitorySize(flowRate, time));
         }
 
         /// <summary>

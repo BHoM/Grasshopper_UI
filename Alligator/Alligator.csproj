@@ -89,6 +89,7 @@
     <Compile Include="Base\BHoMTypes.cs" />
     <Compile Include="Base\CreateObject.cs" />
     <Compile Include="Base\CustomData.cs" />
+    <Compile Include="Base\CustomScriptable.cs" />
     <Compile Include="Base\ExplodeObject.cs" />
     <Compile Include="Base\FromJSON.cs" />
     <Compile Include="Base\GetPropertyNames.cs" />

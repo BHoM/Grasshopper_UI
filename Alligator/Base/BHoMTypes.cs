@@ -42,6 +42,12 @@ namespace BH.UI.Alligator.Base
         {
             if (Value == null)
                 return "Null BHoMObject";
+            else if (typeof(BH.oM.Geometry.Point).IsAssignableFrom(Value.GetType()))
+            {
+                return (Value.GetType().ToString() + " {" + ((BH.oM.Geometry.Point)Value).X + ", " +
+                                                            ((BH.oM.Geometry.Point)Value).Y + ", " +
+                                                            ((BH.oM.Geometry.Point)Value).Z + "}");
+            }
             else
                 return Value.ToString();
         }
@@ -323,57 +329,65 @@ namespace BH.UI.Alligator.Base
 
     public static class RetrieveInput
     {
-        public static bool BH_GetData<T>(this IGH_DataAccess DA, int index, T destination)
+        public static T BH_GetData<T>(this IGH_DataAccess DA, int index, T destination)
         {
             if (typeof(IBHoMGeometry).IsAssignableFrom(destination.GetType()))
             {
                 BH_GeometricGoo bhg = new BH_GeometricGoo();
-                if (!DA.GetData(index, ref bhg)) { return false; }
-                destination = (T)bhg.Value;
-                return true;
+                if (!DA.GetData(index, ref bhg)) { return default(T); }
+                return (T)bhg.Value;
+                //return true;
             }
             else if (typeof(IObject).IsAssignableFrom(destination.GetType()))
             {
                 BH_Goo bho = new BH_Goo();
-                if (!DA.GetData(index, ref bho)) { return false; }
-                destination = (T)bho.Value;
-                return true;
+                if (!DA.GetData(index, ref bho)) { return default(T); }
+                return (T)(bho.Value);
+                //return true;
             }
-            else { return DA.GetData(index, ref destination); }
+            else
+            {
+                DA.GetData(index, ref destination);
+                return destination;
+            }
         }
 
-        public static bool BH_GetDataList<T>(this IGH_DataAccess DA, int index, List<T> destination)
+        public static List<T> BH_GetDataList<T>(this IGH_DataAccess DA, int index, List<T> destination)
         {
             if (typeof(IBHoMGeometry).IsAssignableFrom(typeof(T)))
             {
                 List<BH_GeometricGoo> bhg = new List<BH_GeometricGoo>();
-                if (!DA.GetDataList(index, bhg)) { return false; }
+                if (!DA.GetDataList(index, bhg)) { return null; }
                 destination.Clear();
                 for (int i = 0; i < bhg.Count; i++)
                 {
                     destination.Add((T)(bhg[i].Value));
                 }
-                return true;
+                return destination;
             }
             else if (typeof(IObject).IsAssignableFrom(typeof(T)))
             {
                 List<BH_Goo> bho = new List<BH_Goo>();
-                if (!DA.GetDataList(index, bho)) { return false; }
+                if (!DA.GetDataList(index, bho)) { return null; }
                 destination.Clear();
                 for (int i = 0; i < bho.Count; i++)
                 {
                     destination.Add((T)(bho[i].Value));
                 }
-                return true;
+                return destination;
             }
-            else { return DA.GetDataList(index, destination); }
+            else
+            {
+                DA.GetDataList(index, destination);
+                return destination;
+            }
         }
 
         public static bool BH_SetData<T>(this IGH_DataAccess DA, int index, T source)
         {
             if (typeof(IBHoMGeometry).IsAssignableFrom(source.GetType()))
             {
-                BH_GeometricGoo bhg = new BH_GeometricGoo((source as IBHoMGeometry));
+                BH_GeometricGoo bhg = new BH_GeometricGoo(source as IBHoMGeometry);
                 return DA.SetData(index, bhg);
             }
             if (typeof(IObject).IsAssignableFrom(source.GetType()))
@@ -383,6 +397,7 @@ namespace BH.UI.Alligator.Base
             }
             else { return DA.SetData(index, source); }
         }
+
         public static bool BH_SetDataList<T>(this IGH_DataAccess DA, int index, List<T> source)
         {
             if (typeof(IBHoMGeometry).IsAssignableFrom(typeof(T)))

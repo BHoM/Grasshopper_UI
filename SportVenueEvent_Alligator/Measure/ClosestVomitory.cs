@@ -46,9 +46,10 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         {
             Tier tier = new Tier();
             List<Vomitory> vomitories = new List<Vomitory>();
-            DA.BH_GetData(0, tier);
-            DA.BH_GetDataList(1, vomitories);
-            DA.SetDataList(0, tier.AssignVomitories(vomitories));
+            tier = DA.BH_GetData(0, tier);
+            vomitories = DA.BH_GetDataList(1, vomitories);
+
+            DA.BH_SetDataList(0, tier.AssignVomitories(vomitories));
             DA.BH_SetData(1, tier);
         }
 

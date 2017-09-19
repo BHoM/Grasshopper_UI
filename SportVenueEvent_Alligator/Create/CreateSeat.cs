@@ -59,8 +59,8 @@ namespace BH.UI.Grasshopper.SportVenueEvent
             List<BHG.Point> positions = new List<BHG.Point>();
             List<BHG.Point> focuses = new List<BHG.Point>();
 
-            DA.BH_GetDataList(0, positions);
-            DA.BH_GetDataList(1, focuses);
+            positions = DA.BH_GetDataList(0, positions);
+            focuses = DA.BH_GetDataList(1, focuses);
             for (int i = 0; i < positions.Count; i++)
             {
                 seats.Add(new Seat(positions[i], focuses[i]));

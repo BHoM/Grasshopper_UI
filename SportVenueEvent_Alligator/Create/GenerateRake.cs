@@ -52,10 +52,11 @@ namespace BH.UI.Grasshopper.SportVenueEvent
             double gangway = 0;
             double width = 0;
 
-            DA.BH_GetDataList(0, tiers);
-            DA.GetData(1, ref seats);
-            DA.GetData(2, ref gangway);
-            DA.GetData(3, ref width);
+            tiers = DA.BH_GetDataList(0, tiers);
+            seats = DA.BH_GetData(1, seats);
+            gangway = DA.BH_GetData(2, gangway);
+            width = DA.BH_GetData(3, width);
+
             DA.BH_SetDataList(0, tiers.GenRakes(seats, gangway, width));
         }
 

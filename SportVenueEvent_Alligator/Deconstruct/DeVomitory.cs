@@ -45,7 +45,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         {
             pManager.AddParameter(new BHoMObjectParameter(), "Tier", "Tier", "", GH_ParamAccess.item);
             pManager.AddParameter(new BHoMGeometryParameter(), "Centre", "Centre", "", GH_ParamAccess.item);
-            pManager.AddParameter(new BHoMObjectParameter(), "Width", "Width", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Width", "Width", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -55,14 +55,11 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             Vomitory vomitory = new Vomitory();
-            DA.BH_GetData(0, vomitory);
-            Tier tier = vomitory.Tier;
-            BHG.Point centre = vomitory.Centre;
-            double width = vomitory.Width;
+            vomitory = DA.BH_GetData(0, vomitory);
 
-            DA.BH_SetData(0, tier);
-            DA.BH_GetData(1, centre);
-            DA.SetData(2, vomitory.Width);
+            DA.BH_SetData(0, vomitory.Tier);
+            DA.BH_SetData(1, vomitory.Centre);
+            DA.BH_SetData(2, vomitory.Width);
         }
 
         /// <summary>

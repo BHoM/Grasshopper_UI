@@ -47,8 +47,8 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         {
             List<Tier> tiers = new List<Tier>();
             double width = 0;
-            DA.BH_GetDataList(0, tiers);
-            DA.GetData(1, ref width);
+            tiers = DA.BH_GetDataList(0, tiers);
+            width = DA.BH_GetData(1, width);
 
             Bowl bowl = new Bowl(tiers);
             DA.BH_SetDataList(0, bowl.ResampleBowl(width));

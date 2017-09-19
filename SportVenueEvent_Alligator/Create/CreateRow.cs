@@ -52,7 +52,7 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             List<Seat> seats = new List<Seat>();
-            DA.BH_GetDataList(0, seats);
+            seats = DA.BH_GetDataList(0, seats);
             DA.BH_SetData(0, new Row(seats));
         }
 

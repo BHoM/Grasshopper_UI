@@ -53,10 +53,10 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Tier tier = null;
+            Tier tier = new Tier();
             List<BHG.Polyline> polylines = new List<BHG.Polyline>();
-            DA.BH_GetData(0, tier);
-            //DA.BH_SetDataGeoList(0, tier.EgressPath());
+            tier = DA.BH_GetData(0, tier);
+            DA.BH_SetDataList(0, tier.EgressPath());
         }
 
         /// <summary>

@@ -56,13 +56,10 @@ namespace BH.UI.Grasshopper.SportVenueEvent
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             Seat seat = new Seat();
-            DA.BH_GetData(0, seat);
-            BHG.Point geometry = seat.Geometry;
-            BHG.Point focusPoint = seat.FocusPoint;
-            Vomitory vomitory = seat.Vomitory;
-            DA.BH_SetData(0, geometry);
-            DA.BH_SetData(1, focusPoint);
-            DA.BH_SetData(2, vomitory);
+            seat = DA.BH_GetData<Seat>(0, seat);
+            DA.BH_SetData(0, seat.Geometry);
+            DA.BH_SetData(1, seat.FocusPoint);
+            DA.BH_SetData(2, seat.Vomitory);
         }
 
         /// <summary>

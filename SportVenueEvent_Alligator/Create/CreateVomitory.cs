@@ -59,9 +59,9 @@ namespace BH.UI.Grasshopper.SportVenueEvent
             BHG.Point centre = new BHG.Point();
             double width = 0;
 
-            DA.BH_GetData(0, tier);
-            DA.BH_GetData(1, centre);
-            DA.GetData(2, ref width);
+            tier = DA.BH_GetData(0, tier);
+            centre = DA.BH_GetData(1, centre);
+            width = DA.BH_GetData(2, width);
             DA.BH_SetData(0, new Vomitory(tier, centre, width));
         }
 
