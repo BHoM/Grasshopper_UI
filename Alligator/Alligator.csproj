@@ -226,6 +226,14 @@ Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries
 
 copy /Y "$(TargetDir)BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\BHoM.dll"
 
+copy /Y "$(TargetDir)BHoM_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\BHoM_Adapter.dll"
+
+copy /Y "$(TargetDir)BHoM_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\BHoM_Engine.dll"
+
+copy /Y "$(TargetDir)Grasshopper_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Grasshopper_Engine.dll"
+
+copy /Y "$(TargetDir)Structure_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Structure_Engine.dll"
+
 copy /Y "$(TargetDir)Newtonsoft.Json.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Newtonsoft.Json.dll"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>

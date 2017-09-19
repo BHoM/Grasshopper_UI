@@ -33,33 +33,33 @@ namespace BH.UI.Alligator.Structural.Elements
             }
         }
 
-        //protected override void SolveInstance(IGH_DataAccess DA)
-        //{
-        //    if (GHE.DataUtils.Run(DA, 2))
-        //    {
-        //        BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
-        //        if (app != null)
-        //        {
-        //            List<string> ids = null;
-        //            List<BHE.Bar> bars = null;
-        //            DataTree<R.Curve> curves = new DataTree<R.Curve>();
-        //            if (m_Selection == BHI.ObjectSelection.FromInput)
-        //                ids = GHE.DataUtils.GetDataList<string>(DA, 1);
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            if (GHE.DataUtils.Run(DA, 2))
+            {
+                BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
+                if (app != null)
+                {
+                    List<string> ids = null;
+                    List<BHE.Bar> bars = null;
+                    DataTree<R.Line> curves = new DataTree<R.Line>();
+                    if (m_Selection == BHI.ObjectSelection.FromInput)
+                        ids = GHE.DataUtils.GetDataList<string>(DA, 1);
 
-        //            app.Selection = m_Selection;
-        //            ids = app.GetBars(out bars, ids);
+                    app.Selection = m_Selection;
+                    ids = app.GetBars(out bars, ids);
 
-        //            for (int i = 0; i < bars.Count;i++)
-        //            {
-        //                curves.Add(GHE.GeometryUtils.Convert(bars[i].Line));
-        //            }
+                    for (int i = 0; i < bars.Count; i++)
+                    {
+                        curves.Add(GHE.GeometryUtils.Convert(bars[i].Line));
+                    }
 
-        //            DA.SetDataList(0, ids);
-        //            DA.SetDataList(1, bars);
-        //            DA.SetDataTree(2, curves);
-        //        }
-        //    }
-        //}
+                    DA.SetDataList(0, ids);
+                    DA.SetDataList(1, bars);
+                    DA.SetDataTree(2, curves);
+                }
+            }
+        }
 
         public override List<BHE.Bar> GetObjects(BHI.IElementAdapter app, List<string> objectIds, out IGH_DataTree geom, out List<string> outIds)
         {
