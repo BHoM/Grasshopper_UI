@@ -41,11 +41,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
     </Reference>
-    <Reference Include="BHoM_Adapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="BHoM_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\BHoM_Adapter\Build\BHoM_Adapter.dll</HintPath>
-    </Reference>
-    <Reference Include="BHoM_Engine">
       <HintPath>..\..\BHoM_Engine\Build\BHoM_Engine.dll</HintPath>
     </Reference>
     <Reference Include="Geometry_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -71,9 +68,6 @@
     <Reference Include="Reflection_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_Engine\Build\Reflection_Engine.dll</HintPath>
-    </Reference>
-    <Reference Include="Structure_Engine">
-      <HintPath>..\..\BHoM_Engine\Build\Structure_Engine.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

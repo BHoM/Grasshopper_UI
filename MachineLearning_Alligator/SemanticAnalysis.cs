@@ -1,12 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-
 using Grasshopper.Kernel;
-using Grasshopper.Kernel.Parameters;
-
-using BH.oM;
-using BH.Engine.MachineLearning;
 
 namespace MachineLearning_Alligator
 {
@@ -84,22 +78,22 @@ namespace MachineLearning_Alligator
 
             if ((!DA.GetData(0, ref path)) && (DA.GetData(1, ref text)))
             {
-                annotation = SemanticAnalysis.RunAnalysis(text);
+                annotation = BH.Engine.MachineLearning.SemanticAnalysis.RunAnalysis(text);
             }
             else if ((DA.GetData(0, ref path)) && (!DA.GetData(1, ref text)))
             {
                 analysisText = System.IO.File.ReadAllText(path);
-                annotation = SemanticAnalysis.RunAnalysis(analysisText);
+                annotation = BH.Engine.MachineLearning.SemanticAnalysis.RunAnalysis(analysisText);
             }
             else { return; }
 
             Dictionary<string, List<object>> fields = new Dictionary<string, List<object>>();
             for (int i = 0; i < properties.Count; i++)
             {
-                fields.Add(properties[i], SemanticAnalysis.ParseAnnotation(annotation, properties[i]));
+                fields.Add(properties[i], BH.Engine.MachineLearning.SemanticAnalysis.ParseAnnotation(annotation, properties[i]));
             }
 
-            List<string> sentences = (SemanticAnalysis.getSentences(annotation));
+            List<string> sentences = (BH.Engine.MachineLearning.SemanticAnalysis.getSentences(annotation));
 
             DA.SetData(0, annotation);
             DA.SetDataList(1, sentences);
