@@ -69,6 +69,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_Engine\Build\Reflection_Engine.dll</HintPath>
     </Reference>
+    <Reference Include="Script">
+      <HintPath>..\..\..\..\AppData\Roaming\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\Components\Script.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -191,6 +194,7 @@
     <None Include="Resources\Icons\Alligator\BHoM_GetPropertyNames.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\VBH_Script.png" />
     <None Include="Resources\BHoM_Run_Analasis.png" />
     <None Include="Resources\BHoM_App_Run.png" />
     <None Include="Resources\BHoM_App_Save.png" />
@@ -200,6 +204,7 @@
     <None Include="Resources\BHoM_SQL_GetObject.png" />
     <None Include="Resources\BHoM_SQL_Link.png" />
     <None Include="Resources\BHoM_Material.png" />
+    <None Include="Resources\BS.png" />
     <Content Include="Resources\Icons\Alligator\BHoM_BHoM_Object.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
