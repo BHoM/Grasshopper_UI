@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using MA = BH.Adapter.Mongo;
-using BHB = BH.oM.Base;
-using BHC = BHoM_Engine.DataStream.Convert;
-using GHE = BH.Engine.Grasshopper;
+using Newtonsoft.Json;
+using BH.UI.Alligator.Base;
+using MongoDB.Bson;
 
-namespace Alligator.Mongo
+namespace BH.UI.Alligator.Mongo
 {
     public class CreateJson : GH_Component, IGH_VariableParameterComponent
     {
@@ -26,7 +23,7 @@ namespace Alligator.Mongo
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Mongo_Alligator.Properties.Resources.BHoM_Mongo_ToJson; }
+            get { return Resources.BHoM_Mongo_ToJson; }
         }
 
         public bool CanInsertParameter(GH_ParameterSide side, int index)
@@ -53,7 +50,7 @@ namespace Alligator.Mongo
         {
             for (int i = 0; i < Params.Input.Count; i++)
             {
-                Params.Input[i].Access = GH_ParamAccess.list;
+                Params.Input[i].Access = GH_ParamAccess.item;
             }
         }
 
@@ -68,33 +65,20 @@ namespace Alligator.Mongo
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            string json = "{";
-
+            BH.oM.Base.CustomObject customObj = new oM.Base.CustomObject();
             for (int i = 0; i < Params.Input.Count; i++)
             {
-                IGH_Param param = Params.Input[i];
-                string key = param.NickName;
-                List<object> objects = new List<object>();
-                DA.GetDataList<object>(i, objects);
-
-                string valJson = "";
-                switch (objects.Count())
-                {
-                    case 0:
-                        continue;
-                    case 1:
-                        valJson =  BHC.Json.Write(GHE.DataUtils.UnwrapObject(objects[0]));
-                        break;
-                    default:
-                        valJson = "[" + objects.Select(x => BHC.Json.Write(GHE.DataUtils.UnwrapObject(x))).Aggregate((a, b) => a + ',' + b) + "]";
-                        break;
-                }
-
-                json += "\"" + key + "\":" +valJson + ","; 
+                customObj.Name = this.Name;
+                object obj = new object();
+                obj = DA.BH_GetData(i, obj);
+                customObj.CustomData.Add(Params.Input[i].NickName, obj.UnwrapObject());
             }
-            json = json.TrimEnd(',') + "}";
-
+            string json = customObj.ToJson();
             DA.SetData(0, json);
         }
+        //public override string ToString()
+        //{
+        //    return Params.Output[0].ToString();
+        //}
     }
 }

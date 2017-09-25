@@ -580,6 +580,30 @@ namespace BH.UI.Alligator.Base
             }
             else { return DA.SetDataList(index, source); }
         }
+
+        public static object UnwrapObject(this object obj)
+        {
+            if (obj is GH_ObjectWrapper)
+                return ((GH_ObjectWrapper)obj).Value;
+            else if (obj is GH_String)
+                return ((GH_String)obj).Value;
+            else if (obj is IGH_Goo)
+            {
+                try
+                {
+                    System.Reflection.PropertyInfo prop = obj.GetType().GetProperty("Value");
+                    return prop.GetValue(obj);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Grasshopper sucks, what can I do?" + e.ToString());
+                }
+                return obj;
+
+            }
+            else
+                return obj;
+        }
     }
 
     public class BH_PointHint : IGH_TypeHint

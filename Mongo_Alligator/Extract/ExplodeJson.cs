@@ -1,49 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using MA = BH.Adapter.Mongo;
-using BHB = BH.oM.Base;
-using GHE = BH.Engine.Grasshopper;
 using System.Collections;
 using System.Windows.Forms;
+using BH.UI.Alligator.Base;
+using MongoDB;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using BH.oM.Base;
+using BH.Engine.Reflection;
 
-namespace Alligator.Mongo
+namespace BH.UI.Alligator.Mongo
 {
-    public class ExplodeObject : GH_Component, IGH_VariableParameterComponent
+    public class ExplodeJson : GH_Component, IGH_VariableParameterComponent
     {
-        public ExplodeObject() : base("ExplodeObject", "ExplodeObject", "Explode object into its parts", "Alligator", "Mongo") { }
-
-        public override Guid ComponentGuid
-        {
-            get
-            {
-                return new Guid("99EA41FB-B8E0-4E44-A76D-B0BA0AB07DEC");
-            }
-        }
+        public ExplodeJson() : base("ExplodeJson", "ExplodeJson", "Explode json string into objects", "Alligator", "Mongo") { }
+        public override Guid ComponentGuid { get { return new Guid("020CF2C8-CB67-4731-9CCA-50F0932E18DC"); } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Resources.BHoM_Mongo_FromJson; } }
+        private Dictionary<string, object> m_Outputs = new Dictionary<string, object>();
 
         public bool CanInsertParameter(GH_ParameterSide side, int index)
         {
             return false;
         }
-
         public bool CanRemoveParameter(GH_ParameterSide side, int index)
         {
             return false;
         }
-
         public IGH_Param CreateParameter(GH_ParameterSide side, int index)
         {
             return new Grasshopper.Kernel.Parameters.Param_GenericObject();
         }
-
         public bool DestroyParameter(GH_ParameterSide side, int index)
         {
             return true;
         }
-
         public void VariableParameterMaintenance()
         {
 
@@ -51,7 +43,7 @@ namespace Alligator.Mongo
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("object", "object", "object", GH_ParamAccess.item);
+            pManager.AddTextParameter("json", "json", "json object", GH_ParamAccess.item);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -61,8 +53,13 @@ namespace Alligator.Mongo
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            var input = GHE.DataUtils.GetData<object>(DA, 0);
-            m_Outputs = input as Dictionary<string, object>;
+            string json = "";
+            json = DA.BH_GetData(0, json);
+            if (json == null) return;
+
+            Dictionary<string, object> bJson = BsonDocument.Parse(json).ToDictionary();
+            //CustomObject customObj = obj.ToDictionary() as CustomObject; // TODO Implement explicit cast between Dictionary and Custom Object
+            m_Outputs = bJson["CustomData"] as Dictionary<string, object>;
 
             List<string> keys = m_Outputs.Keys.ToList();
             if (keys.Count == Params.Output.Count)
@@ -70,6 +67,8 @@ namespace Alligator.Mongo
                 for (int i = 0; i < keys.Count; i++)
                 {
                     var val = m_Outputs[keys[i]];
+                    if (keys[i] == "_t") { Convert.ChangeType(m_Outputs[keys[i]], Type.GetType(); }
+                    Convert.ChangeType(m_Outputs[keys[i]], Type.GetType();
                     if (val is IList)
                         DA.SetDataList(i, val as IList);
                     else
@@ -109,11 +108,32 @@ namespace Alligator.Mongo
                 newParam.NickName = keys[i];
                 Params.RegisterOutputParam(newParam);
             }
-
             this.OnAttributesChanged();
             ExpireSolution(true);
         }
 
-        private Dictionary<string, object> m_Outputs = new Dictionary<string, object>();
+        protected override void AfterSolveInstance()
+        {
+            List<string> keys = m_Outputs.Keys.ToList();
+
+            int nbNew = keys.Count();
+            int nbOld = Params.Output.Count();
+
+            for (int i = 0; i < Math.Min(nbNew, nbOld); i++)
+            {
+                Params.Output[i].NickName = keys[i];
+            }
+
+            for (int i = nbOld - 1; i > nbNew; i--)
+                Params.UnregisterOutputParameter(Params.Output[i]);
+
+            for (int i = nbOld; i < nbNew; i++)
+            {
+                Grasshopper.Kernel.Parameters.Param_GenericObject newParam = new Grasshopper.Kernel.Parameters.Param_GenericObject();
+                newParam.NickName = keys[i];
+                Params.RegisterOutputParam(newParam);
+            }
+        }
+
     }
 }

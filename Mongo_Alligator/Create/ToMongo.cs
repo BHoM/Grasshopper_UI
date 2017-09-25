@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using BHB = BH.oM.Base;
+using Grasshopper.Kernel.Types;
 using MA = BH.Adapter.Mongo;
-using GHE = BH.Engine.Grasshopper;
+using BH.UI.Alligator.Base;
 
-namespace Alligator.Mongo
+namespace BH.UI.Alligator.Mongo
 {
     public class ToMongo : GH_Component
     {
@@ -25,7 +25,7 @@ namespace Alligator.Mongo
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Mongo_Alligator.Properties.Resources.BHoM_Mongo_To; }
+            get { return Resources.BHoM_Mongo_To; }
         }
         public override GH_Exposure Exposure
         {
@@ -51,17 +51,20 @@ namespace Alligator.Mongo
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            MA.MongoAdapter link = GHE.DataUtils.GetGenericData<MA.MongoAdapter>(DA, 0);
-            List<object> objects = GHE.DataUtils.GetGenericDataList<object>(DA, 1);
-            string key = GHE.DataUtils.GetData<string>(DA, 2);
-            bool active = false; DA.GetData<bool>(3, ref active);
+            MA.MongoAdapter link = new MA.MongoAdapter();
+            List<object> objects = new List<object>();
+            string key = "";
+            bool active = false;
+            link = DA.BH_GetData(0, link);
+            objects = DA.BH_GetDataList(1, objects);
+            key = DA.BH_GetData(2, key);
+            active = DA.BH_GetData(3, active);
 
             if (!active || objects.Count == 0)
             {
                 DA.SetData(0, false);
                 return;
             }
-
             bool done = link.Push(objects, key);
             DA.SetData(0, done);
         }

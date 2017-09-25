@@ -41,6 +41,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
     </Reference>
+    <Reference Include="BHoM_Adapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Build\BHoM_Adapter.dll</HintPath>
+    </Reference>
     <Reference Include="BHoM_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_Engine\Build\BHoM_Engine.dll</HintPath>
@@ -104,7 +108,7 @@
     <Compile Include="SQL\SQLLink.cs" />
     <Compile Include="Base\ObjectFilter.cs" />
     <Compile Include="Base\ViewCustomData.cs" />
-    <Compile Include="Components\AboutGatorComponent.cs" />
+    <Compile Include="Base\AboutGator.cs" />
     <Compile Include="AlligatorInfo.cs" />
     <Compile Include="Base\GetProperty.cs" />
     <Compile Include="Base\SetProperty.cs" />
@@ -205,6 +209,8 @@
     <None Include="Resources\BHoM_SQL_Link.png" />
     <None Include="Resources\BHoM_Material.png" />
     <None Include="Resources\BS.png" />
+    <None Include="Resources\BHoM_Mongo_ToJson.png" />
+    <None Include="Resources\BHoM_Mongo_FromJson.png" />
     <Content Include="Resources\Icons\Alligator\BHoM_BHoM_Object.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

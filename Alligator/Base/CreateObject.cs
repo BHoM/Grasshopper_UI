@@ -1,64 +1,58 @@
 ﻿using System;
-using System.Collections.Generic;
-
 using Grasshopper.Kernel;
-using Rhino.Geometry;
+using BH.UI.Alligator.Base;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Alligator.Mongo
 {
-    public class CreateObject : GH_Component
+    public class CreateJson : GH_Component, IGH_VariableParameterComponent
     {
-        /// <summary>
-        /// Initializes a new instance of the CreateObject class.
-        /// </summary>
-        public CreateObject()
-          : base("CreateObject", "CreateBH",
-              "Create a custom BHoM object",
-              "Alligator", "Base")
-        {
-        }
+        public CreateJson() : base("CreateJson", "CreateJson", "Create json object from inputs", "Alligator", "Mongo") { }
+        public override Guid ComponentGuid { get { return new Guid("dbd3fe50-423a-4ea4-8bc7-7ad94d1d67e9"); } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return null; } }
 
-        /// <summary>
-        /// Registers all the input parameters for this component.
-        /// </summary>
-        protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
+        public bool CanInsertParameter(GH_ParameterSide side, int index)
         {
+            return (side == GH_ParameterSide.Input);
         }
-
-        /// <summary>
-        /// Registers all the output parameters for this component.
-        /// </summary>
-        protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
+        public bool CanRemoveParameter(GH_ParameterSide side, int index)
         {
+            return (side == GH_ParameterSide.Input);
         }
-
-        /// <summary>
-        /// This is the method that actually does the work.
-        /// </summary>
-        /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
-        protected override void SolveInstance(IGH_DataAccess DA)
+        public IGH_Param CreateParameter(GH_ParameterSide side, int index)
         {
+            return new Grasshopper.Kernel.Parameters.Param_GenericObject();
         }
-
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
+        public bool DestroyParameter(GH_ParameterSide side, int index)
         {
-            get
+            return true;
+        }
+        public void VariableParameterMaintenance()
+        {
+            for (int i = 0; i < Params.Input.Count; i++)
             {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
-                return null;
+                Params.Input[i].Access = GH_ParamAccess.list;
             }
         }
 
-        /// <summary>
-        /// Gets the unique ID for this component. Do not change this ID after release.
-        /// </summary>
-        public override Guid ComponentGuid
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            get { return new Guid("dbd3fe50-423a-4ea4-8bc7-7ad94d1d67e9"); }
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddTextParameter("json", "json", "json object", GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            BH.oM.Base.CustomObject customObj = new oM.Base.CustomObject();
+            for (int i = 0; i < Params.Input.Count; i++)
+            {
+                object obj = Params.Input[i].UnwrapObject();
+                customObj.CustomData.Add(Params.Input[i].NickName, obj);
+                customObj.CustomData["BHoM_Guid"] = customObj.CustomData["BHoM_Guid"].ToString();
+            }
+            DA.SetData(0, customObj);
         }
     }
 }
