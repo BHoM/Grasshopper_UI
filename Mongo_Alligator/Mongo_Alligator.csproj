@@ -85,6 +85,7 @@
   <ItemGroup>
     <Compile Include="Create\CreateJson.cs" />
     <Compile Include="Create\MongoServer.cs" />
+    <Compile Include="Extract\ExplodeJson.cs" />
     <Compile Include="Extract\FromMongo.cs" />
     <Compile Include="Create\MongoLink.cs" />
     <Compile Include="Extract\GetDatabases.cs" />

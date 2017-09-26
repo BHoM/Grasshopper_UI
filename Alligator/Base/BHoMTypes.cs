@@ -6,10 +6,6 @@ using BH.Engine.Geometry;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BH.UI.Alligator.Base;
-using Rhino.Geometry;
 using System.Drawing;
 using BH.Engine.Base;
 using Grasshopper.Kernel.Parameters;
@@ -46,11 +42,10 @@ namespace BH.UI.Alligator.Base
         {
             if (Value == null)
                 return "Null BHoMObject";
-            else if (typeof(BH.oM.Geometry.Point).IsAssignableFrom(Value.GetType()))
+
+            else if (typeof(BH.oM.Base.CustomObject).IsAssignableFrom(Value.GetType()))
             {
-                return (Value.GetType().ToString() + " {" + ((BH.oM.Geometry.Point)Value).X + ", " +
-                                                            ((BH.oM.Geometry.Point)Value).Y + ", " +
-                                                            ((BH.oM.Geometry.Point)Value).Z + "}");
+                return "BH.oM.Base.Custom." + Value.Name;
             }
             else
                 return Value.ToString();
@@ -260,6 +255,12 @@ namespace BH.UI.Alligator.Base
         {
             if (Value == null)
                 return "Null IBHoMGeometry";
+            else if (typeof(BH.oM.Geometry.Point).IsAssignableFrom(Value.GetType()))
+            {
+                return (Value.GetType().ToString() + " {" + ((BH.oM.Geometry.Point)Value).X + ", " +
+                                                            ((BH.oM.Geometry.Point)Value).Y + ", " +
+                                                            ((BH.oM.Geometry.Point)Value).Z + "}");
+            }
             else
                 return Value.ToString();
         }

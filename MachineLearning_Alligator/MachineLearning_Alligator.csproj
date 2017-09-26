@@ -74,6 +74,7 @@
 Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
 
 copy /Y "$(TargetDir)\MachineLearning_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\MachineLearning_Engine.dll"
+copy /Y "$(TargetDir)\stanford-corenlp-3.8.0.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\stanford-corenlp-3.8.0.dll"
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

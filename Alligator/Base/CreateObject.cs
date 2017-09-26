@@ -1,14 +1,16 @@
 ﻿using System;
 using Grasshopper.Kernel;
 using BH.UI.Alligator.Base;
+using System.Collections.Generic;
 
 namespace BH.UI.Alligator.Mongo
 {
     public class CreateJson : GH_Component, IGH_VariableParameterComponent
     {
-        public CreateJson() : base("CreateJson", "CreateJson", "Create json object from inputs", "Alligator", "Mongo") { }
+        public CreateJson() : base("CreateBHoMObject", "BHoMObj", "Creates a custom BHoMObject from custom inputs", "Alligator", "Base") { }
         public override Guid ComponentGuid { get { return new Guid("dbd3fe50-423a-4ea4-8bc7-7ad94d1d67e9"); } }
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return null; } }
+        public BH.oM.Base.CustomObject customObj { get; set; } = new oM.Base.CustomObject();
 
         public bool CanInsertParameter(GH_ParameterSide side, int index)
         {
@@ -28,31 +30,40 @@ namespace BH.UI.Alligator.Mongo
         }
         public void VariableParameterMaintenance()
         {
-            for (int i = 0; i < Params.Input.Count; i++)
+            for (int i = 2; i < Params.Input.Count; i++)
             {
                 Params.Input[i].Access = GH_ParamAccess.list;
+                Params.Input[i].NickName = "D" + (i-2);
             }
         }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
+            pManager.AddTextParameter("Name", "Name", "Name of the object", GH_ParamAccess.item);
+            pManager.AddTextParameter("Tags", "Tags", "Tags of the object", GH_ParamAccess.list);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("json", "json", "json object", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMObjectParameter(), "BHoMObject", "BHoM", "BHoMObject", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BH.oM.Base.CustomObject customObj = new oM.Base.CustomObject();
-            for (int i = 0; i < Params.Input.Count; i++)
+            customObj = new oM.Base.CustomObject();
+            string name = "";
+            List<string> tags = new List<string>();
+            name = DA.BH_GetData(0, name);
+            tags = DA.BH_GetDataList(1, tags);
+            customObj.Name = name;
+            customObj.Tags = new HashSet<string>(tags);
+            for (int i = 2; i < Params.Input.Count; i++) // Skips Name and Tags parameter
             {
-                object obj = Params.Input[i].UnwrapObject();
-                customObj.CustomData.Add(Params.Input[i].NickName, obj);
-                customObj.CustomData["BHoM_Guid"] = customObj.CustomData["BHoM_Guid"].ToString();
+                List<object> dX = new List<object>();
+                dX = DA.BH_GetDataList(i, dX);
+                customObj.CustomData.Add(Params.Input[i].NickName, dX);
             }
-            DA.SetData(0, customObj);
+            DA.BH_SetData(0, customObj);
         }
     }
 }

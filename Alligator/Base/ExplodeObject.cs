@@ -1,79 +1,130 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
 using Grasshopper.Kernel;
-using Rhino.Geometry;
+using System.Collections;
+using System.Windows.Forms;
+using BH.UI.Alligator.Base;
 using BH.oM.Base;
 using BH.Engine.Reflection;
-using System.Linq;
-using BH.UI.Alligator.Base;
+using BH.oM.Geometry;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Alligator.Mongo
 {
-    public class ExplodeObject : GH_Component
+    public class ExplodeJson : GH_Component, IGH_VariableParameterComponent
     {
-        /// <summary>
-        /// Initializes a new instance of the ExplodeObject class.
-        /// </summary>
-        public ExplodeObject()
-          : base("ExplodeObject", "ExplodeBH",
-              "Get all properties from a BHoM objects",
-              "Alligator", "Base")
+        public ExplodeJson() : base("ExplodeObject", "DeObj", "Explode a BHoMObject into child objects", "Alligator", "Base") { }
+        public override Guid ComponentGuid { get { return new Guid("f2080175-a812-4dfb-86de-ae7dc8245668"); } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return null; } }
+        private Dictionary<string, object> m_Outputs = new Dictionary<string, object>();
+        public bool additional { get; set; }
+
+        public bool CanInsertParameter(GH_ParameterSide side, int index) { return false; }
+        public bool CanRemoveParameter(GH_ParameterSide side, int index) { return false; }
+        public IGH_Param CreateParameter(GH_ParameterSide side, int index) { return new Grasshopper.Kernel.Parameters.Param_GenericObject(); }
+        public bool DestroyParameter(GH_ParameterSide side, int index) { return true; }
+        public void VariableParameterMaintenance() { }
+
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddParameter(new BHoMObjectParameter(),"BHoMObject", "BHoM", "BHoMObject", GH_ParamAccess.item);
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
         }
 
-        /// <summary>
-        /// Registers all the input parameters for this component.
-        /// </summary>
-        protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
-        {
-            pManager.AddParameter(new BHoMObjectParameter(), "BHoM object", "BHoM", "BHoM object", GH_ParamAccess.item);
-        }
-
-        /// <summary>
-        /// Registers all the output parameters for this component.
-        /// </summary>
-        protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
-        {
-            pManager.AddParameter(new BHoMObjectParameter(), "Properties", "Properties", "Get object properties", GH_ParamAccess.list);
-        }
-
-        protected override void BeforeSolveInstance()
-        {
-        }
-
-        /// <summary>
-        /// This is the method that actually does the work.
-        /// </summary>
-        /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BHoMObject bh = new BHoMObject();
-            DA.BH_GetData(0, bh);
-            Dictionary<string, object> dict = bh.GetPropertyDictionary();
-            List<object> values = dict.Values.ToList();
-            DA.SetDataList(0, values);
-        }
+            BHoMObject bhObj = new BHoMObject();
+            bhObj = DA.BH_GetData(0, bhObj);
+            if (bhObj == null) return;
 
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
-        {
-            get
+            m_Outputs = bhObj.GetPropertyDictionary();
+
+            List<string> keys = m_Outputs.Keys.ToList();
+            if (keys.Count == Params.Output.Count)
             {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
-                return null;
+                for (int i = 0; i < keys.Count; i++)
+                {
+                    var val = m_Outputs[keys[i]];
+                    if (typeof(List<object>).IsAssignableFrom(val.GetType()))
+                        DA.BH_SetDataList(i, val as List<object>);
+                    else
+                        DA.BH_SetData(i, val);
+                }
+            }
+            else
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "The outputs need to be updated first. Please right-click on component and select update.");
             }
         }
 
-        /// <summary>
-        /// Gets the unique ID for this component. Do not change this ID after release.
-        /// </summary>
-        public override Guid ComponentGuid
+        protected override void AppendAdditionalComponentMenuItems(ToolStripDropDown menu)
         {
-            get { return new Guid("5e53b348-439a-4421-ba08-b18a5df1ff53"); }
+            base.AppendAdditionalComponentMenuItems(menu);
+            Menu_AppendItem(menu, "Update Outputs", Menu_DoClick);
+            Menu_AppendItem(menu, "Append additional data", Menu_SetTrue);
+        }
+        private void Menu_SetTrue(object sender, EventArgs e)
+        {
+            if (additional) { additional = false; }
+            else { additional = false; }
+            UpdateOutputs();
+        }
+
+        private void Menu_DoClick(object sender, EventArgs e)
+        {
+            UpdateOutputs();
+        }
+
+        protected override void AfterSolveInstance()
+        {
+            UpdateOutputs();
+        }
+        private void UpdateOutputs()
+        {
+            List<string> keys = m_Outputs.Keys.ToList();
+
+            int nbNew = keys.Count();
+            int nbOld = Params.Output.Count();
+
+            for (int i = 0; i < Math.Min(nbNew, nbOld); i++)
+            {
+                Params.Output[i].NickName = keys[i];
+            }
+
+            for (int i = nbOld - 1; i > nbNew - 1; i--)
+                Params.UnregisterOutputParameter(Params.Output[i]);
+
+            for (int i = nbOld; i < nbNew; i++)
+            {
+                if (typeof(IBHoMGeometry).IsAssignableFrom(m_Outputs[keys[i]].GetType()) ||
+                    typeof(List<IBHoMGeometry>).IsAssignableFrom(m_Outputs[keys[i]].GetType()))
+                {
+                    BHoMGeometryParameter newParam = new BHoMGeometryParameter();
+                    newParam.NickName = keys[i];
+                    Params.RegisterOutputParam(newParam);
+                }
+                else if (typeof(IObject).IsAssignableFrom(m_Outputs[keys[i]].GetType()) ||
+                         typeof(List<IObject>).IsAssignableFrom(m_Outputs[keys[i]].GetType()))
+                {
+                    BHoMObjectParameter newParam = new BHoMObjectParameter();
+                    newParam.NickName = keys[i];
+                    Params.RegisterOutputParam(newParam);
+                }
+                else
+                {
+                    Grasshopper.Kernel.Parameters.Param_GenericObject newParam = new Grasshopper.Kernel.Parameters.Param_GenericObject();
+                    newParam.NickName = keys[i];
+                    Params.RegisterOutputParam(newParam);
+                }
+            }
+            this.OnAttributesChanged();
+            if (nbNew != nbOld)
+            {
+                ExpireSolution(true);
+            }
         }
     }
 }
