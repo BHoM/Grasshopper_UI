@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using GHE = BH.Engine.Grasshopper;
 using MA = BH.Adapter.Mongo;
+using BH.UI.Alligator.Base;
 
-namespace Alligator.Mongo
+namespace BH.UI.Alligator.Mongo
 {
     public class MongoAdapter : GH_Component
     {
@@ -24,7 +24,7 @@ namespace Alligator.Mongo
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Mongo_Alligator.Properties.Resources.BHoM_Mongo_Link; }
+            get { return Resources.BHoM_Mongo_Link; }
         }
         public override GH_Exposure Exposure
         {
@@ -48,9 +48,10 @@ namespace Alligator.Mongo
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            string server = GHE.DataUtils.GetData<string>(DA, 0);
-            string database = GHE.DataUtils.GetData<string>(DA, 1);
-            string collection = GHE.DataUtils.GetData<string>(DA, 2);
+            string server = "", database = "", collection = "";
+            server = DA.BH_GetData(0, server);
+            database = DA.BH_GetData(1, database);
+            collection = DA.BH_GetData(2, collection);
 
             DA.SetData(0, new MA.MongoAdapter(server, database, collection));
         }

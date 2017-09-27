@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using GHE = BH.Engine.Grasshopper;
 using MA = BH.Adapter.Mongo;
+using BH.UI.Alligator.Base;
 
-namespace Alligator.Mongo
+namespace BH.UI.Alligator.Mongo
 {
     public class GetDatabases : GH_Component
     {
-        public GetDatabases() : base("GetDatabases", "GetDatabases", "Get the list of databases curretly available in the Mongo server.", "Alligator", "Mongo") { }
+        public GetDatabases() : base("GetDatabases", "GetDatabases", "Get the list of databases currently available in the Mongo server.", "Alligator", "Mongo") { }
 
         public override Guid ComponentGuid
         {
@@ -24,7 +22,7 @@ namespace Alligator.Mongo
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Mongo_Alligator.Properties.Resources.BHoM_Mongo_GetDatabases; }
+            get { return Resources.BHoM_Mongo_GetDatabases; }
         }
 
         public override GH_Exposure Exposure
@@ -47,8 +45,8 @@ namespace Alligator.Mongo
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            MA.MongoServer server = GHE.DataUtils.GetGenericData<MA.MongoServer>(DA, 0);
-
+            MA.MongoServer server = new MA.MongoServer(null);
+            server = DA.BH_GetData(0, server);
             DA.SetDataList(0, server.GetAllDatabases());
         }
     }

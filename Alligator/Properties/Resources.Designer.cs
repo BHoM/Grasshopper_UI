@@ -213,6 +213,26 @@ namespace BH.UI.Alligator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BHoM_Mongo_FromJson {
+            get {
+                object obj = ResourceManager.GetObject("BHoM_Mongo_FromJson", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BHoM_Mongo_ToJson {
+            get {
+                object obj = ResourceManager.GetObject("BHoM_Mongo_ToJson", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BHoM_Read__CustomData {
             get {
                 object obj = ResourceManager.GetObject("BHoM_Read__CustomData", resourceCulture);
@@ -303,6 +323,16 @@ namespace BH.UI.Alligator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BS {
+            get {
+                object obj = ResourceManager.GetObject("BS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap DOF {
             get {
                 object obj = ResourceManager.GetObject("DOF", resourceCulture);
@@ -326,6 +356,16 @@ namespace BH.UI.Alligator.Properties {
         internal static System.Drawing.Bitmap skeleton {
             get {
                 object obj = ResourceManager.GetObject("skeleton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap VBH_Script {
+            get {
+                object obj = ResourceManager.GetObject("VBH_Script", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

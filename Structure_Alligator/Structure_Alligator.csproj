@@ -355,15 +355,6 @@
     <None Include="Resources\BHoM_App_Save.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator" mkdir "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
-
-copy /Y "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).dll"
-
-copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
-
-copy /Y "$(TargetDir)$(ProjectName).gha" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"</PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
