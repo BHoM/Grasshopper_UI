@@ -54,11 +54,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
+    <PostBuildEvent>if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator" mkdir "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
 
-Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
+copy /Y "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).dll"
 
-copy /Y "$(TargetDir)\Etabs_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Etabs_Adapter.dll"
+copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
 
 Erase "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>

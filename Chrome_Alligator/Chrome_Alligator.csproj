@@ -99,11 +99,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
+    <PostBuildEvent>if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator" mkdir "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
 
-Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
+copy /Y "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).dll"
 
-copy /Y "$(TargetDir)\BHoM_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM_Adapter.dll"
+copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
 
 copy /Y "$(TargetDir)\Chrome_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Chrome_Adapter.dll"</PostBuildEvent>
   </PropertyGroup>
