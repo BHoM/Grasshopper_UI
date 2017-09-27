@@ -60,7 +60,8 @@ namespace BH.UI.Alligator.Base
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            IList list = DataUtils.GetGenericDataList<object>(DA, 0);
+            IList list = default(IList);
+            list = DA.BH_GetData(0, list);
             DA.SetData(0, list);
         }
     }

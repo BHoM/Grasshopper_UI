@@ -5,9 +5,9 @@ using Grasshopper.Kernel;
 
 namespace BH.UI.Alligator.Components
 {
-    public class AboutGatorComponent : GH_Component
+    public class AboutGator : GH_Component
     {
-        public AboutGatorComponent()
+        public AboutGator()
             : base("Alligator", "Gator",
                 "About Alligator",
                 "Alligator", "Gator")

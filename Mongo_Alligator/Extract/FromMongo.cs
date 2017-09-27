@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using MA = BH.Adapter.Mongo;
-using GHE = BH.Engine.Grasshopper;
 using BH.Adapter.Queries;
+using BH.UI.Alligator.Base;
 
-namespace Alligator.Mongo
+namespace BH.UI.Alligator.Mongo
 {
     public class FromMongo : GH_Component
     {
@@ -25,7 +23,7 @@ namespace Alligator.Mongo
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Mongo_Alligator.Properties.Resources.BHoM_Mongo_From; }
+            get { return Resources.BHoM_Mongo_From; }
         }
         public override GH_Exposure Exposure
         {
@@ -50,10 +48,14 @@ namespace Alligator.Mongo
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            MA.MongoAdapter link = GHE.DataUtils.GetGenericData<MA.MongoAdapter>(DA, 0);
-            List<string> query = GHE.DataUtils.GetDataList<string>(DA, 1);
-            bool toJson = GHE.DataUtils.GetData<bool>(DA, 2);
-            bool active = false; DA.GetData<bool>(3, ref active);
+            MA.MongoAdapter link = new MA.MongoAdapter();
+            List<string> query = new List<string>();
+            bool toJson = true, active = false;
+
+            link = DA.BH_GetData(0, link);
+            query = DA.BH_GetDataList(1, query);
+            toJson = DA.BH_GetData(2, toJson);
+            active = DA.BH_GetData(3, active);
 
             Dictionary<string, string> config = new Dictionary<string, string>
             {
@@ -63,7 +65,7 @@ namespace Alligator.Mongo
             if (active)
                 m_LastResult = link.Pull(query.Select(x => new CustomQuery(x)), config) as List<object>;
 
-            DA.SetDataList(0, m_LastResult);
+            DA.BH_SetDataList(0, m_LastResult);
         }
 
 

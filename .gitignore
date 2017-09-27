@@ -56,7 +56,6 @@ bld/
 *.suo
 *.user
 .vs/
-Alligator/Alligator.csproj.orig
 Alligator/Alligator_BACKUP_9848.csproj
 Alligator/Alligator_BASE_9848.csproj
 Alligator/Alligator_LOCAL_9848.csproj
