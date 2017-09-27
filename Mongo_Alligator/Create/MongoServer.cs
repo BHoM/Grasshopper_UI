@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using GHE = BH.Engine.Grasshopper;
 using MA = BH.Adapter.Mongo;
+using BH.UI.Alligator.Base;
 
-namespace Alligator.Mongo
+namespace BH.UI.Alligator.Mongo
 {
     public class MongoServer : GH_Component
     {
@@ -24,7 +20,7 @@ namespace Alligator.Mongo
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Mongo_Alligator.Properties.Resources.BHoM_Mongo_CreateServer; }
+            get { return Resources.BHoM_Mongo_CreateServer; }
         }
         public override GH_Exposure Exposure
         {
@@ -46,12 +42,11 @@ namespace Alligator.Mongo
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            string folder = GHE.DataUtils.GetData<string>(DA, 0);
-
-            MA.MongoServer server = new MA.MongoServer(folder);
+            string directory = Environment.CurrentDirectory;
+            directory = DA.BH_GetData(0, directory);
+            MA.MongoServer server = new MA.MongoServer(directory);
             server.Killed += ServerKilled;
-
-            DA.SetData(0, new MA.MongoServer(folder));
+            DA.SetData(0, new MA.MongoServer(directory));
         }
 
         private void ServerKilled()

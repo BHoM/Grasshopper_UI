@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Mongo_Alligator.Properties {
+namespace BH.UI.Alligator.Mongo {
     using System;
     
     

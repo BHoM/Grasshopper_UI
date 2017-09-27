@@ -43,9 +43,10 @@
     </Reference>
     <Reference Include="BHoM_Adapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\BHoM_Adapter\Build\BHoM_Adapter.dll</HintPath>
+      <HintPath>..\Build\BHoM_Adapter.dll</HintPath>
     </Reference>
-    <Reference Include="BHoM_Engine">
+    <Reference Include="BHoM_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_Engine\Build\BHoM_Engine.dll</HintPath>
     </Reference>
     <Reference Include="Geometry_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -60,6 +61,10 @@
       <HintPath>..\External Libraries\Grasshopper.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Grasshopper_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Build\Grasshopper_Engine.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -68,8 +73,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_Engine\Build\Reflection_Engine.dll</HintPath>
     </Reference>
-    <Reference Include="Structure_Engine">
-      <HintPath>..\..\BHoM_Engine\Build\Structure_Engine.dll</HintPath>
+    <Reference Include="Script">
+      <HintPath>..\..\..\..\AppData\Roaming\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\Components\Script.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -82,8 +87,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\BHoMParam.cs" />
-    <Compile Include="Base\CustomData.cs" />
+    <Compile Include="Base\BHoMTypes.cs" />
+    <Compile Include="Base\CreateObject.cs" />
+    <Compile Include="Base\CustomScriptable.cs" />
+    <Compile Include="Base\ExplodeObject.cs" />
     <Compile Include="Base\GetPropertyNames.cs" />
     <Compile Include="Base\ListExpandAndCollapse.cs" />
     <Compile Include="Environmental\Elements\CreateSpace.cs" />
@@ -99,12 +106,10 @@
     <Compile Include="SQL\SQLLink.cs" />
     <Compile Include="Base\ObjectFilter.cs" />
     <Compile Include="Base\ViewCustomData.cs" />
-    <Compile Include="Components\AboutGatorComponent.cs" />
+    <Compile Include="Base\AboutGator.cs" />
     <Compile Include="AlligatorInfo.cs" />
-    <Compile Include="Base\FromJSON.cs" />
     <Compile Include="Base\GetProperty.cs" />
     <Compile Include="Base\SetProperty.cs" />
-    <Compile Include="Base\ToJSON.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Material\Material.cs" />
   </ItemGroup>
@@ -190,6 +195,7 @@
     <None Include="Resources\Icons\Alligator\BHoM_GetPropertyNames.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\VBH_Script.png" />
     <None Include="Resources\BHoM_Run_Analasis.png" />
     <None Include="Resources\BHoM_App_Run.png" />
     <None Include="Resources\BHoM_App_Save.png" />
@@ -199,13 +205,10 @@
     <None Include="Resources\BHoM_SQL_GetObject.png" />
     <None Include="Resources\BHoM_SQL_Link.png" />
     <None Include="Resources\BHoM_Material.png" />
+    <None Include="Resources\BS.png" />
+    <None Include="Resources\BHoM_Mongo_ToJson.png" />
+    <None Include="Resources\BHoM_Mongo_FromJson.png" />
     <Content Include="Resources\Icons\Alligator\BHoM_BHoM_Object.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
-      <Project>{c273f369-b83a-4183-9a97-18cdb23c25c6}</Project>
-      <Name>Grasshopper_Engine</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -218,15 +221,15 @@
   <PropertyGroup>
     <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
 
-if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator" mkdir "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
+Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
 
-copy /Y "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).dll"
+copy /Y "$(TargetDir)\RobotToolKit.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\RobotToolKit.dll"
 
-Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
+copy /Y "$(TargetDir)\Databases_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Databases_Engine.dll"
 
-copy /Y "$(TargetDir)BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\BHoM.dll"
+copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM.dll"
 
-copy /Y "$(TargetDir)Newtonsoft.Json.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Newtonsoft.Json.dll"</PostBuildEvent>
+copy /Y "$(TargetDir)\Newtonsoft.Json.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Newtonsoft.Json.dll"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
