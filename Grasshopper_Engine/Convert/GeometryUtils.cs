@@ -289,6 +289,69 @@ namespace BH.Engine.Grasshopper
 
 
         /**********************************************/
+        /****               Meshes                 ****/
+        /**********************************************/
+
+        public static BHG.Mesh Convert(R.Mesh rMesh)
+        {
+            List<R.Point3f> rVertices = rMesh.Vertices.ToList();
+            List<BHG.Point> vertices = new List<BHG.Point>();
+            for (int i = 0; i < rVertices.Count; i++)
+            {
+                BHG.Point Vertex = Convert(rVertices[i]); vertices.Add(Vertex);
+            }
+            List<R.MeshFace> rFaces = rMesh.Faces.ToList();
+            List<BHG.Face> Faces = new List<BHG.Face>();                  //BH Faces list
+            for (int i = 0; i < rFaces.Count; i++)
+            {
+                if (rFaces[i].IsQuad)
+                {
+                    BHG.Face Face = new BHG.Face(rFaces[i].A, rFaces[i].B, rFaces[i].C, rFaces[i].D);
+                    Faces.Add(Face);
+                }
+                if ((rFaces[i].IsTriangle))
+                {
+                    BHG.Face Face = new BHG.Face(rFaces[i].A, rFaces[i].B, rFaces[i].C);
+                    Faces.Add(Face);
+                }
+            }
+            return new BHG.Mesh(vertices, Faces);
+        }
+
+        /**********************************************/
+
+        public static R.Mesh Convert(BHG.Mesh mesh)
+        {
+            List<BHG.Point> vertices = mesh.Vertices.ToList();
+            List<R.Point3d> rVertices = new List<R.Point3d>();      //Rhino Vertices list
+            for (int i = 0; i < vertices.Count; i++)
+            {
+                R.Point3d rVertex = Convert(vertices[i]);
+                rVertices.Add(rVertex);
+            }
+            List<BHG.Face> faces = mesh.Faces;
+            List<R.MeshFace> rFaces = new List<R.MeshFace>();       // Rhino MeshFaces list
+            for (int i = 0; i < faces.Count; i++)
+            {
+                if (faces[i].IsQuad())
+                {
+                    R.MeshFace rFace = new R.MeshFace(faces[i].A, faces[i].B, faces[i].C, faces[i].D);
+                    rFaces.Add(rFace);
+                }
+                else
+                {
+                    R.MeshFace rFace = new R.MeshFace(faces[i].A, faces[i].B, faces[i].C);
+                    rFaces.Add(rFace);
+                }
+            }
+            R.Mesh rMesh = new R.Mesh();
+            rMesh.Faces.AddFaces(rFaces);
+            rMesh.Vertices.AddVertices(rVertices);
+            return rMesh;
+        }
+
+
+        /**********************************************/
         /****  Geoemtry bases                      ****/
         /**********************************************/
 
@@ -305,6 +368,10 @@ namespace BH.Engine.Grasshopper
             else if (geom is BHG.Point)
             {
                 return new R.Point(Convert(geom as BHG.Point));
+            }
+            else if (geom is BHG.Mesh)
+            {
+                return Convert(geom as BHG.Mesh);
             }
 
             return null;
