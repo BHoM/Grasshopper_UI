@@ -95,8 +95,7 @@ copy /Y "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Librar
 
 copy /Y "$(TargetDir)$(ProjectName).dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
 
-copy /Y "$(TargetDir)Robot_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Robot_Adapter.dll"
-</PostBuildEvent>
+copy /Y "$(TargetDir)Robot_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Robot_Adapter.dll"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>

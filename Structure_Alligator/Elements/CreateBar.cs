@@ -38,24 +38,27 @@ namespace BH.UI.Alligator.Structural.Elements
                 return new Guid("c5bcd137-c3f3-4e8c-876a-199194c8389c");
             }
         }
-
+        
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Section Property", "P", "The section property of the bar", GH_ParamAccess.item);
+            
             pManager.AddGenericParameter("Node/CL", "NCL", "Start node or centreline of the bar", GH_ParamAccess.item);
             pManager.AddGenericParameter("Node2", "N2", "End node of the bar", GH_ParamAccess.item);
-            //pManager.AddGenericParameter("Material", "M", "Material of the bar", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Material", "M", "Material of the bar", GH_ParamAccess.item);
             pManager.AddGenericParameter("Orientation angel", "O", "Orientationangle or vector", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Section Property", "P", "The section property of the bar", GH_ParamAccess.item);
             pManager.AddGenericParameter("Attributes", "A", "Attributes of the bar", GH_ParamAccess.item);
             pManager.AddTextParameter("Name", "N", "Name of the element", GH_ParamAccess.item);
             pManager.AddGenericParameter("Custom Data", "CD", "Custom data to add to the bar", GH_ParamAccess.item);
-            
 
+            pManager[1].Optional = true;
             pManager[2].Optional = true;
+            pManager[3].Optional = true;
             pManager[4].Optional = true;
             pManager[5].Optional = true;
             pManager[6].Optional = true;
-            pManager[3].AddVolatileData(new Grasshopper.Kernel.Data.GH_Path(0), 0, 0);
+            pManager[7].Optional = true;
+            pManager[2].AddVolatileData(new Grasshopper.Kernel.Data.GH_Path(0), 0, 0);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -75,7 +78,7 @@ namespace BH.UI.Alligator.Structural.Elements
 
             if (!GetEndNodes(DA, 1, out stNode, out enNode)) { return; }
 
-            //BHoM.Materials.Material mat = GHE.DataUtils.GetGenericData<BHoM.Materials.Material>(DA, 3);
+            BH.oM.Materials.Material mat = GHE.DataUtils.GetGenericData<BH.oM.Materials.Material>(DA, 2);
 
             object angOrVec = null;
 
@@ -88,7 +91,7 @@ namespace BH.UI.Alligator.Structural.Elements
                 return;
             }
 
-            ASP.BarAttributesContainer att = GHE.DataUtils.GetGenericData<ASP.BarAttributesContainer>(DA, 4);
+            ASP.BarAttributesContainer att = GHE.DataUtils.GetGenericData<ASP.BarAttributesContainer>(DA, 5);
 
             if (att != null)
             {
@@ -100,12 +103,12 @@ namespace BH.UI.Alligator.Structural.Elements
 
             string name = "";
 
-            if (DA.GetData(5, ref name))
+            if (DA.GetData(6, ref name))
             {
                 bar.Name = name;
             }
 
-            Dictionary<string, object> customData = GHE.DataUtils.GetData<Dictionary<string, object>>(DA, 6);
+            Dictionary<string, object> customData = GHE.DataUtils.GetData<Dictionary<string, object>>(DA, 7);
 
             if (customData != null)
             {

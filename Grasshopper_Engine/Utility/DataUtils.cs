@@ -179,10 +179,14 @@ namespace BH.Engine.Grasshopper
         {
             object obj = null;
             DA.GetData<object>(index, ref obj);
-
+            int test = 0;
+            
             T app = default(T);
             if (obj is GH.Kernel.Types.GH_ObjectWrapper)
+            {
+                test = test + 1;
                 (obj as GH.Kernel.Types.GH_ObjectWrapper).CastTo<T>(out app);
+            }
             else
                 return (T)obj;
             return app;

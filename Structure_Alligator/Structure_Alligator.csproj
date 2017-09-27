@@ -33,6 +33,10 @@
     <Reference Include="BHoM">
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
     </Reference>
+    <Reference Include="BHoM_Adapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BHoM_Adapter\Build\BHoM_Adapter.dll</HintPath>
+    </Reference>
     <Reference Include="BHoM_Engine">
       <HintPath>..\..\BHoM_Engine\Build\BHoM_Engine.dll</HintPath>
     </Reference>
@@ -47,6 +51,9 @@
     </Reference>
     <Reference Include="RhinoCommon">
       <HintPath>..\..\..\..\..\..\Program Files\Rhinoceros 5 (64-bit)\System\RhinoCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="Structural_Adapter">
+      <HintPath>..\..\BHoM_Adapter\Build\Structural_Adapter.dll</HintPath>
     </Reference>
     <Reference Include="Structure_Engine">
       <HintPath>..\..\BHoM_Engine\Build\Structure_Engine.dll</HintPath>
@@ -362,7 +369,9 @@ copy /Y "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Librar
 
 copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
 
-copy /Y "$(TargetDir)$(ProjectName).gha" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"</PostBuildEvent>
+copy /Y "$(TargetDir)$(ProjectName).gha" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
+
+copy /Y "$(TargetDir)Structure_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Structure_Engine.dll"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

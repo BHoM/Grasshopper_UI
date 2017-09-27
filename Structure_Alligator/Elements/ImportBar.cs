@@ -15,6 +15,8 @@ using GHKT = Grasshopper.Kernel.Types;
 using BH.Engine.Grasshopper.Components;
 using Grasshopper.Kernel.Data;
 using BH.Engine.Structure;
+using BH.Adapter;
+
 
 namespace BH.UI.Alligator.Structural.Elements
 {
@@ -37,7 +39,7 @@ namespace BH.UI.Alligator.Structural.Elements
         {
             if (GHE.DataUtils.Run(DA, 2))
             {
-                BHI.IElementAdapter app = GHE.DataUtils.GetGenericData<BHI.IElementAdapter>(DA, 0);
+                IndexAdapter app = GHE.DataUtils.GetGenericData<IndexAdapter>(DA, 0);
                 if (app != null)
                 {
                     List<string> ids = null;
@@ -46,12 +48,13 @@ namespace BH.UI.Alligator.Structural.Elements
                     if (m_Selection == BHI.ObjectSelection.FromInput)
                         ids = GHE.DataUtils.GetDataList<string>(DA, 1);
 
-                    app.Selection = m_Selection;
+                    //app.Selection = m_Selection;
                     ids = app.GetBars(out bars, ids);
+                    app.Pull()
 
                     for (int i = 0; i < bars.Count; i++)
                     {
-                        curves.Add(GHE.GeometryUtils.Convert(bars[i].Line));
+                        curves.Add(GHE.GeometryUtils.Convert(bars[i].GetCentreline()));
                     }
 
                     DA.SetDataList(0, ids);
