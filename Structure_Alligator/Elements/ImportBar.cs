@@ -39,28 +39,28 @@ namespace BH.UI.Alligator.Structural.Elements
         {
             if (GHE.DataUtils.Run(DA, 2))
             {
-                IndexAdapter app = GHE.DataUtils.GetGenericData<IndexAdapter>(DA, 0);
-                if (app != null)
-                {
-                    List<string> ids = null;
-                    List<BHE.Bar> bars = null;
-                    DataTree<R.Line> curves = new DataTree<R.Line>();
-                    if (m_Selection == BHI.ObjectSelection.FromInput)
-                        ids = GHE.DataUtils.GetDataList<string>(DA, 1);
+                //IndexAdapter app = GHE.DataUtils.GetGenericData<IndexAdapter>(DA, 0);
+                //if (app != null)
+                //{
+                //    List<string> ids = null;
+                //    List<BHE.Bar> bars = null;
+                //    DataTree<R.Line> curves = new DataTree<R.Line>();
+                //    if (m_Selection == BHI.ObjectSelection.FromInput)
+                //        ids = GHE.DataUtils.GetDataList<string>(DA, 1);
 
-                    //app.Selection = m_Selection;
-                    ids = app.GetBars(out bars, ids);
-                    app.Pull()
+                //    //app.Selection = m_Selection;
+                //    ids = app.GetBars(out bars, ids);
+                //    app.Pull()
 
-                    for (int i = 0; i < bars.Count; i++)
-                    {
-                        curves.Add(GHE.GeometryUtils.Convert(bars[i].GetCentreline()));
-                    }
+                //    for (int i = 0; i < bars.Count; i++)
+                //    {
+                //        curves.Add(GHE.GeometryUtils.Convert(bars[i].GetCentreline()));
+                //    }
 
-                    DA.SetDataList(0, ids);
-                    DA.SetDataList(1, bars);
-                    DA.SetDataTree(2, curves);
-                }
+                //    DA.SetDataList(0, ids);
+                //    DA.SetDataList(1, bars);
+                //    DA.SetDataTree(2, curves);
+                //}
             }
         }
 

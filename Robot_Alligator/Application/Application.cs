@@ -23,8 +23,8 @@ namespace Alligator.Robot
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            RSI.RobotAdapter app = new RSI.RobotAdapter();
-            DA.SetData(0, app);
+            //RSI.RobotAdapter app = new RSI.RobotAdapter();
+            //DA.SetData(0, app);
         }
 
         public override Guid ComponentGuid
