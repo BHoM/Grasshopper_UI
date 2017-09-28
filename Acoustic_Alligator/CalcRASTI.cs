@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using Rhino.Geometry;
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Types;
+using Grasshopper.Kernel.Parameters;
+
 using BHG = BHoM.Geometry;
 using BHA = BHoM.Acoustic;
 using AcousticSPI_Engine;
@@ -30,8 +34,15 @@ namespace Acoustic_Alligator
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("BHoM Zone", "Zone", "BHoM Zone", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Signal", "Signal", "Option Signal to measure. Default value 85dB if the parameter is left blank.", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Ambient Noise", "Noise", "Optional Ambient Noise. Default value 53.5 dB if the parameter is left blank.", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Reverberation Time", "RT", "Reverberation Time. Default value 0.001s if the parameter is left blank.", GH_ParamAccess.list);
             pManager.AddGenericParameter("BHoM Speakers", "Speakers", "BHoM Speakers", GH_ParamAccess.list);
+            pManager.AddGenericParameter("BHoM Zone", "Zone", "BHoM Zone", GH_ParamAccess.item);         
+               
+            pManager[0].Optional = true;
+            pManager[1].Optional = true;
+            pManager[2].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -41,15 +52,19 @@ namespace Acoustic_Alligator
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            List<double> signal = new List<double>();
+            List<double> noise = new List<double>();
+            List<double> rt = new List<double>();
+            List<BHA.Speaker> speakers = new List<BHA.Speaker>();
+            BHA.Zone zone = null;
 
-            BHA.Zone zone = GHE.DataUtils.GetGenericData<BHA.Zone>(DA, 0);
-            List<BHA.Speaker> speakers = GHE.DataUtils.GetGenericDataList<BHA.Speaker>(DA, 1);
+            if (!DA.GetDataList(0, signal)) { signal = null; }
+            if (!DA.GetDataList(1, noise)) { noise = null; }
+            if (!DA.GetDataList(2, rt)) { rt = null; }
+            if (!DA.GetDataList(3, speakers)) { return; }
+            if (!DA.GetData(4, ref zone)) { return; }
 
-
-            BHA.AcousticParameters param = new BHA.AcousticRASTIParameters();
-            STICalculator rasti = new STICalculator(param);
-
-            DA.SetDataList(0, rasti.CalculateRASTI(speakers, zone, param.Frequencies, param.Octaves));
+            DA.SetDataList(0, STICalculator.Solve(signal, noise, rt, speakers, zone));
         }
     }
 }

@@ -14,7 +14,7 @@ namespace BH.UI.Alligator.Geometry
 {
     public class FromGHGeometry : GH_Component
     {
-        public FromGHGeometry() : base("FromGHGeometry", "FromGHGeom", "Convert a GH geometry into a BHoM geometry", "Alligator", "geometry") { }
+        public FromGHGeometry() : base("FromGHGeometry", "GtoB", "Convert a GH geometry into a BHoM geometry", "Alligator", "geometry") { }
 
         public override Guid ComponentGuid
         {
