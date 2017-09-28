@@ -434,14 +434,14 @@ namespace BH.Engine.Grasshopper
 
         ///**********************************************/
 
-        public static List<R.GeometryBase> ConvertGroup(BHG.GeometryGroup geom)
+        public static List<R.GeometryBase> ConvertGroup(BHG.CompositeGeometry geom)
         {
             List<R.GeometryBase> rGeom = new List<Rhino.Geometry.GeometryBase>();
             foreach (BHG.IBHoMGeometry item in geom.Elements)
             {
-                if (typeof(BHG.GeometryGroup).IsAssignableFrom(item.GetType()))
+                if (typeof(BHG.CompositeGeometry).IsAssignableFrom(item.GetType()))
                 {
-                    rGeom.AddRange(ConvertGroup((BHG.GeometryGroup)item));
+                    rGeom.AddRange(ConvertGroup((BHG.CompositeGeometry)item));
                 }
                 else
                 {

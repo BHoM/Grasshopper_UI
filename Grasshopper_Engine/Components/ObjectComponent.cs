@@ -125,7 +125,7 @@ namespace BH.Engine.Grasshopper.Components
                         {
                             pManager.AddBrepParameter(name, nickName, description, access);
                         }
-                        else if (pType == typeof(BHG.GeometryGroup))
+                        else if (pType == typeof(BHG.CompositeGeometry))
                         {
                             pManager.AddCurveParameter(name, nickName, description, GH_ParamAccess.list);
                         }
