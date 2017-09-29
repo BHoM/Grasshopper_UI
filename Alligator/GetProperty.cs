@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using GHE = BH.Engine.Grasshopper;
+using BH.oM.Base;
+using BH.Engine.Reflection;
 
 namespace BH.UI.Alligator.Base
 {
@@ -35,7 +36,7 @@ namespace BH.UI.Alligator.Base
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("BHoM object", "object", "BHoM object to convert", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMObjectParameter(), "BHoM object", "object", "BHoM object to convert", GH_ParamAccess.item);
             pManager.AddTextParameter("key", "key", "Property name", GH_ParamAccess.item);
         }
 
@@ -46,14 +47,13 @@ namespace BH.UI.Alligator.Base
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            object o = GHE.DataUtils.GetGenericData<object>(DA, 0);
-            string key = GHE.DataUtils.GetData<string>(DA, 1);
+            BHoMObject obj = new BHoMObject();
+            string key = "";
 
-            System.Reflection.PropertyInfo prop = o.GetType().GetProperty(key);
-            if (prop == null)
-                DA.SetData(0, null);
-            else
-                DA.SetData(0, prop.GetValue(o));
+            obj = DA.BH_GetData(0, obj);
+            key = DA.BH_GetData(1, key);
+
+            DA.SetData(0, Query.GetPropertyValue(obj, key));
         }
     }
 }
