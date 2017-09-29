@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using RHG = Rhino.Geometry;
 using BHG = BH.oM.Geometry;
+using Rhino;
 
-namespace BH.Adapter.Rhino
+namespace BH.Adapter.Rhinoceros
 {
     public static partial class Convert
     {
@@ -43,17 +44,40 @@ namespace BH.Adapter.Rhino
         {
             return new RHG.Line(line.Start.ToRhino(), line.End.ToRhino());
         }
-        public static BHG.NurbCurve ToRhino(this RHG.Curve nurbCurve)
+        public static RHG.NurbsCurve ToRhino(this BHG.NurbCurve nurbCurve)
         {
+            // Old Code is not used since the BHoM2.0 implementatation of NurbCurve lacks some fields
+            #region Old Code
+            //R.NurbsCurve c = new R.NurbsCurve(curve.GetDegree(), curve.ControlPoints.Count);
+            //for (int i = 1; i < curve.Knots.Count - 1; i++)
+            //{
+            //    if (c.Knots.Count < i)
+            //    {
+            //        c.Knots.InsertKnot(curve.Knots[i]);
+            //    }
+            //    else
+            //    {
+            //        c.Knots[i - 1] = curve.Knots[i];
+            //    }
+            //}
+            //int index = 0;
+            //foreach (BHG.Point p in curve.ControlPoints)
+            //{
+            //    c.Points.SetPoint(index, p.X, p.Y, p.Z, curve.Weights[index]);
+            //    index++;
+            //}
+            //return c;
+            #endregion
             throw new NotImplementedException();    // TODO Rhino_Adapter conversion to NurbsCurve
         }
         public static RHG.Plane ToRhino(this BHG.Plane plane)
         {
             return new RHG.Plane(plane.Origin.ToRhino(), plane.Normal.ToRhino());
         }
-        public static BHG.PolyCurve ToRhino(this RHG.PolyCurve polyCurve)
+        public static RHG.PolyCurve ToRhino(this BHG.PolyCurve polyCurve)
         {
-            throw new NotImplementedException();    // TODO Rhino_Adapter conversion to Polycurve
+            //return Rhino.Geometry.Curve.((polyCurve.Curves.Select(x => x.ToRhino())) as IEnumerable<RHG.Curve>));
+            throw new NotImplementedException();
         }
         public static RHG.Polyline ToRhino(this BHG.Polyline polyline)
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using RHG = Rhino.Geometry;
 using BHG = BH.oM.Geometry;
 
-namespace BH.Adapter.Rhino
+namespace BH.Adapter.Rhinoceros
 {
     public static partial class Convert
     {
@@ -113,7 +113,7 @@ namespace BH.Adapter.Rhino
         }
         public static BHG.PolyCurve FromRhino(this RHG.PolyCurve polyCurve)
         {
-            throw new NotImplementedException();    // TODO Rhino_Adapter conversion from Polycurve
+            return new BHG.PolyCurve(polyCurve.Explode().Select(x => x.FromRhino()));
         }
         public static BHG.Polyline FromRhino(this RHG.Polyline polyline)
         {
@@ -158,5 +158,40 @@ namespace BH.Adapter.Rhino
         }
         #endregion
 
+        #region Unused Code not to waste
+        //public static List<R.Surface> ExtrudeAlong(R.Curve section, R.Curve centreline, R.Plane sectionPlane)
+        //{
+        //    R.Vector3d globalUp = R.Vector3d.ZAxis;
+        //    R.Vector3d localX = sectionPlane.XAxis;
+        //    R.Curve[] baseCurves = centreline.DuplicateSegments();
+        //    List<R.Surface> extrustions = new List<R.Surface>();
+        //    if (baseCurves.Length == 0) baseCurves = new R.Curve[] { centreline };
+        //    for (int i = 0; i < baseCurves.Length; i++)
+        //    {
+        //        R.Vector3d v = baseCurves[i].PointAtEnd - baseCurves[i].PointAtStart;
+        //        R.Curve start = section.Duplicate() as R.Curve;
+        //        if (v.IsParallelTo(globalUp) == 0)
+        //        {
+        //            R.Vector3d direction = sectionPlane.Normal;
+        //            double angle = R.Vector3d.VectorAngle(v, direction);
+        //            R.Transform alignPerpendicular = R.Transform.Rotation(-angle, R.Vector3d.CrossProduct(v, R.Vector3d.ZAxis), R.Point3d.Origin);
+        //            localX.Transform(alignPerpendicular);
+        //            direction.Transform(alignPerpendicular);
+        //            double angleAxisAlign = R.Vector3d.VectorAngle(localX, R.Vector3d.CrossProduct(globalUp, v));
+        //            if (localX * globalUp > 0) angleAxisAlign = -angleAxisAlign;
+        //            R.Transform axisAlign = R.Transform.Rotation(angleAxisAlign, v, R.Point3d.Origin);
+        //            R.Transform result = R.Transform.Translation(baseCurves[i].PointAtStart - R.Point3d.Origin) * axisAlign * alignPerpendicular;// * axisAlign *                
+
+        //            start.Transform(result);
+        //        }
+        //        else
+        //        {
+        //            start.Translate(baseCurves[i].PointAtStart - R.Point3d.Origin);
+        //        }
+        //        extrustions.Add(R.Extrusion.CreateExtrusion(start, v));
+        //    }
+        //    return extrustions;
+        //}
+        #endregion
     }
 }
