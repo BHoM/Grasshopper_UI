@@ -9,6 +9,7 @@ using Grasshopper.Kernel.Types;
 using Grasshopper.Kernel.Parameters;
 using BH.oM.Acoustic;
 using BH.Engine.Acoustic;
+using BH.UI.Alligator.Base;
 
 namespace BH.UI.Alligator.Acoustic
 {
@@ -33,9 +34,9 @@ namespace BH.UI.Alligator.Acoustic
             pManager.AddNumberParameter("Signal", "Signal", "Option Signal to measure. Default value 85dB if the parameter is left blank.", GH_ParamAccess.list);
             pManager.AddNumberParameter("Ambient Noise", "Noise", "Optional Ambient Noise. Default value 53.5 dB if the parameter is left blank.", GH_ParamAccess.list);
             pManager.AddNumberParameter("Reverberation Time", "RT", "Reverberation Time. Default value 0.001s if the parameter is left blank.", GH_ParamAccess.list);
-            pManager.AddGenericParameter("BHoM Speakers", "Speakers", "BHoM Speakers", GH_ParamAccess.list);
-            pManager.AddGenericParameter("BHoM Zone", "Zone", "BHoM Zone", GH_ParamAccess.item);         
-               
+            pManager.AddParameter(new BHoMObjectParameter(), "BHoM Speakers", "Speakers", "BHoM Speakers", GH_ParamAccess.list);
+            pManager.AddParameter(new BHoMObjectParameter(), "BHoM Zone", "Zone", "BHoM Zone", GH_ParamAccess.item);
+
             pManager[0].Optional = true;
             pManager[1].Optional = true;
             pManager[2].Optional = true;
@@ -52,13 +53,13 @@ namespace BH.UI.Alligator.Acoustic
             List<double> noise = new List<double>();
             List<double> rt = new List<double>();
             List<Speaker> speakers = new List<Speaker>();
-            Zone zone = null;
+            Zone zone = default(Zone);
 
-            if (!DA.GetDataList(0, signal)) { signal = null; }
-            if (!DA.GetDataList(1, noise)) { noise = null; }
-            if (!DA.GetDataList(2, rt)) { rt = null; }
-            if (!DA.GetDataList(3, speakers)) { return; }
-            if (!DA.GetData(4, ref zone)) { return; }
+            signal = DA.BH_GetDataList(0, signal);
+            noise = DA.BH_GetDataList(1, noise);
+            rt = DA.BH_GetDataList(2, rt);
+            speakers = DA.BH_GetDataList(3, speakers);
+            zone = DA.BH_GetData(4, zone);
 
             DA.SetDataList(0, Query.GetSTI(signal, noise, rt, speakers, zone));
         }
