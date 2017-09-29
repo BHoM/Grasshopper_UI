@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using BHG = BHoM.Geometry;
-using BHA = BHoM.Acoustic;
-
+using BHG = BH.oM.Geometry;
+using BH.oM.Acoustic;
 using Grasshopper.Kernel;
-using Rhino.Geometry;
+using BH.UI.Alligator.Base;
 
-namespace Acoustic_Alligator
+namespace BH.UI.Alligator.Acoustic
 {
     public class CreatePanel : GH_Component
     {
@@ -25,8 +24,8 @@ namespace Acoustic_Alligator
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Mesh", "M", "Triangular or Quadrangular Mesh. Do not input joined mesh, but single faces.", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Absorption", "a", "Absorbtion coefficient between 0 and 1", GH_ParamAccess.list);
+            pManager.AddParameter(new BHoMGeometryParameter(), "Mesh", "M", "Triangular or Quadrangular Mesh. Do not input joined mesh, but single faces.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Absorption", "a", "Absorbtion coefficient between 0 and 1", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -34,7 +33,7 @@ namespace Acoustic_Alligator
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Panel", "Panel", "BHoM Acoustic Panel", GH_ParamAccess.list);
+            pManager.AddParameter(new BHoMObjectParameter(), "Panel", "Panel", "BHoM Acoustic Panel", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -43,24 +42,13 @@ namespace Acoustic_Alligator
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<BHA.Panel> panels = new List<BHA.Panel>();
+            Panel panels = new Panel();
+            BHG.Mesh mesh = new BHG.Mesh();
+            List<double> r = new List<double>() { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 };
+            mesh = DA.BH_GetData(0, mesh);
 
-            List<BHG.Mesh> mesh = new List<BHG.Mesh>();
-            List<List<double>> r = new List<List<double>>();
-
-            if (!DA.GetDataList(0, mesh)) { return; }
-
-            for (int i = 0; i < mesh.Count; i++)
-            {
-                if (r.Count < mesh.Count)
-                {
-                    r.Add( new List<double> { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0} );
-                }
-                BHA.Panel panel = new BHA.Panel(mesh[i],r[i]);
-                panels.Add(panel);
-
-                DA.SetDataList(0, panels);
-            }
+            Panel panel = new Panel(mesh, r);
+            DA.BH_SetData(0, panels);
         }
 
         /// <summary>

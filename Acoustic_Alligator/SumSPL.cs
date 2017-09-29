@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using Grasshopper.Kernel;
-using Rhino.Geometry;
+using BH.oM.Acoustic;
+using BH.Engine.Acoustic;
+using BH.UI.Alligator.Base;
 
-using BHA = BHoM.Acoustic;
-
-namespace Acoustic_Alligator
+namespace BH.UI.Alligator.Acoustic
 {
     public class SumSPL : GH_Component
     {
@@ -25,7 +24,7 @@ namespace Acoustic_Alligator
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Rays", "Rays", "List of BHoM Acoustic Rays", GH_ParamAccess.list);
+            pManager.AddParameter(new BHoMObjectParameter(), "Rays", "Rays", "List of BHoM Acoustic Rays", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -42,10 +41,10 @@ namespace Acoustic_Alligator
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<BHA.Ray> rays = new List<BHA.Ray>();
-            if (!DA.GetDataList(0, rays)) { return; }
+            List<Ray> rays = new List<Ray>();
+            rays = DA.BH_GetDataList(0, rays);
 
-            DA.SetData(0, AcousticSPI_Engine.SPLCalculator.Solve(rays));
+            DA.SetData(0, Query.GetSoundPressureLevel(rays));
         }
 
         /// <summary>

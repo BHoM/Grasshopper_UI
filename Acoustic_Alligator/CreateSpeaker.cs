@@ -3,17 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-using Rhino.Geometry;
-using Grasshopper;
 using Grasshopper.Kernel;
-using Grasshopper.Kernel.Types;
-using Grasshopper.Kernel.Parameters;
+using BHG = BH.oM.Geometry;
+using BH.oM.Acoustic;
+using BH.UI.Alligator.Base;
 
-using BHG = BHoM.Geometry;
-using BHA = BHoM.Acoustic;
-
-namespace Acoustic_Alligator
+namespace BH.UI.Alligator.Acoustic
 {
     public class CreateSpeaker : GH_Component
     {
@@ -32,37 +27,30 @@ namespace Acoustic_Alligator
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Position", "P", "Position of source", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Speaker direction", "V", "Main emissive direction of speaker", GH_ParamAccess.list);
-            pManager.AddTextParameter("Speaker Category", "T", "Category of speaker for directivity specification", GH_ParamAccess.list);
+            pManager.AddParameter(new BHoMGeometryParameter(), "Position", "P", "Position of source", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMGeometryParameter(), "Speaker direction", "V", "Main emissive direction of speaker", GH_ParamAccess.item);
+            pManager.AddTextParameter("Speaker Category", "T", "Category of speaker for directivity specification", GH_ParamAccess.item);
 
             pManager[2].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("BHoM Speaker", "Speaker", "BHoM Speaker Position and Direction", GH_ParamAccess.list);
+            pManager.AddParameter(new BHoMObjectParameter(), "BHoM Speaker", "Speaker", "BHoM Speaker Position and Direction", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<BHA.Speaker> speakers = new List<BHA.Speaker>();
+            BHG.Point pos = new BHG.Point();
+            BHG.Vector dir = new BHG.Vector();
+            string cat = "Omni";
 
-            List<BHG.Point> pos = new List<BHG.Point>();            //Add automatic conversion if Rhino.Point3d
-            List<BHG.Vector> dir = new List<BHG.Vector>();          //Add automatic conversion if Rhino.Vector3d         
-            List<String> cat = new List<String>();
+            pos = DA.BH_GetData(0, pos);
+            dir = DA.BH_GetData(1, dir);
+            cat = DA.BH_GetData(2, cat);
 
-            if (!DA.GetDataList(0, pos)) { return; }
-            if (!DA.GetDataList(1, dir)) { dir.Add(new BHG.Vector(1,0,0)); }
-            if (!DA.GetDataList(2, cat)) { cat.Add("Omni"); }
-
-            for (int i=0; i<pos.Count;i++)
-            {
-                BHA.Speaker speaker = new BHA.Speaker(pos[i], dir.Count==1?dir[0]:dir[i], cat.Count==1?cat[0]:cat[i]);
-                speakers.Add(speaker);
-            }
-                        
-            DA.SetDataList(0, speakers);
+            Speaker speaker = new Speaker(pos, dir, cat);
+            DA.SetData(0, speaker);
         }
     }
 }

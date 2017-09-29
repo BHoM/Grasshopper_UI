@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-namespace Acoustic_Alligator
+namespace BH.UI.Alligator.Acoustic
 {
     public class RayFilter : GH_Component
     {
