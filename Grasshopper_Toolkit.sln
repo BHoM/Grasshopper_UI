@@ -71,6 +71,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Excel_Alligator", "Excel_Al
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Environmental_Alligator", "Environmental_Alligator\Environmental_Alligator.csproj", "{F1BC843B-88A6-4F72-BE9E-EA602BF6C917}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rhino_Adapter", "Rhino_Adapter\Rhino_Adapter.csproj", "{2696610B-D0E0-43ED-BF38-79E48CAF50D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -243,6 +245,12 @@ Global
 		{F1BC843B-88A6-4F72-BE9E-EA602BF6C917}.Debug64|Any CPU.Build.0 = Debug|Any CPU
 		{F1BC843B-88A6-4F72-BE9E-EA602BF6C917}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1BC843B-88A6-4F72-BE9E-EA602BF6C917}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2696610B-D0E0-43ED-BF38-79E48CAF50D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2696610B-D0E0-43ED-BF38-79E48CAF50D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2696610B-D0E0-43ED-BF38-79E48CAF50D8}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
+		{2696610B-D0E0-43ED-BF38-79E48CAF50D8}.Debug64|Any CPU.Build.0 = Debug|Any CPU
+		{2696610B-D0E0-43ED-BF38-79E48CAF50D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2696610B-D0E0-43ED-BF38-79E48CAF50D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
