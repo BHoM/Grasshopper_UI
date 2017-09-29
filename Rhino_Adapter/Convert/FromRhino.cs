@@ -14,6 +14,10 @@ namespace BH.Adapter.Rhino
         {
             return Convert.FromRhino(geometry as dynamic);
         }
+        public static BHG.CompositeGeometry FromRhino(this List<RHG.GeometryBase> geometries)
+        {
+                return new BHG.CompositeGeometry(geometries.Select(x => x.FromRhino()));
+        }
 
         #region 1D
         public static BHG.Point FromRhino(this RHG.Point3d rhinoPoint)
@@ -49,7 +53,7 @@ namespace BH.Adapter.Rhino
         }
         public static BHG.Circle FromRhino(this RHG.Circle circle)
         {
-            return new BHG.Circle(circle.Center.FromRhino(), circle.Normal.FromRhino());
+            return new BHG.Circle(circle.Center.FromRhino(), circle.Normal.FromRhino(), circle.Radius);
         }
         public static BHG.Line FromRhino(this RHG.Line line)
         {
