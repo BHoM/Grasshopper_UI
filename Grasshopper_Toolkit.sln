@@ -67,6 +67,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geometry_Alligator", "Geome
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structure_Alligator", "Structure_Alligator\Structure_Alligator.csproj", "{08DDBB2D-EEBB-4A3E-917E-65790A176C53}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Excel_Alligator", "Excel_Alligator\Excel_Alligator.csproj", "{FBBD4401-B1B6-4486-B74E-BA62A12B5E63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Environmental_Alligator", "Environmental_Alligator\Environmental_Alligator.csproj", "{F1BC843B-88A6-4F72-BE9E-EA602BF6C917}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -230,6 +234,15 @@ Global
 		{08DDBB2D-EEBB-4A3E-917E-65790A176C53}.Debug64|Any CPU.Build.0 = Debug|Any CPU
 		{08DDBB2D-EEBB-4A3E-917E-65790A176C53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08DDBB2D-EEBB-4A3E-917E-65790A176C53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBBD4401-B1B6-4486-B74E-BA62A12B5E63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBBD4401-B1B6-4486-B74E-BA62A12B5E63}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBBD4401-B1B6-4486-B74E-BA62A12B5E63}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1BC843B-88A6-4F72-BE9E-EA602BF6C917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1BC843B-88A6-4F72-BE9E-EA602BF6C917}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1BC843B-88A6-4F72-BE9E-EA602BF6C917}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1BC843B-88A6-4F72-BE9E-EA602BF6C917}.Debug64|Any CPU.Build.0 = Debug|Any CPU
+		{F1BC843B-88A6-4F72-BE9E-EA602BF6C917}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1BC843B-88A6-4F72-BE9E-EA602BF6C917}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -93,9 +93,6 @@
     <Compile Include="Base\ExplodeObject.cs" />
     <Compile Include="Base\GetPropertyNames.cs" />
     <Compile Include="Base\ListExpandAndCollapse.cs" />
-    <Compile Include="Environmental\Elements\CreateSpace.cs" />
-    <Compile Include="Environmental\Elements\CreateWall.cs" />
-    <Compile Include="Environmental\Elements\CreatePanel.cs" />
     <Compile Include="Material\LoadMaterialFromDB.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -131,9 +128,7 @@
   <ItemGroup>
     <None Include="Resources\Icons\Alligator\DOF.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Global\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\Icons\Structure\Results\BHoM_LoadResults.png" />
   </ItemGroup>
