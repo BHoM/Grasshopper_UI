@@ -1,5 +1,4 @@
 ﻿using Grasshopper.Kernel;
-using BH.Engine.Grasshopper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +19,7 @@ namespace BH.UI.Alligator.Base
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Read__CustomData; }
+            get { return Resources.BHoM_Read__CustomData; }
         }
 
         public override Guid ComponentGuid

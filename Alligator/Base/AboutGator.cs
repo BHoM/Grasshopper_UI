@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Rhino.Geometry;
 using Grasshopper.Kernel;
 
-namespace BH.UI.Alligator.Components
+namespace BH.UI.Alligator.Base
 {
     public class AboutGator : GH_Component
     {
@@ -51,7 +50,7 @@ namespace BH.UI.Alligator.Components
         /// </summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Alligator.Properties.Resources.BHoM_Alligator_Icon; }
+            get { return Resources.BHoM_Alligator_Icon; }
         }
 
 

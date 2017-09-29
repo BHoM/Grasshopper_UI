@@ -65,6 +65,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_Engine\Build\Reflection_Engine.dll</HintPath>
     </Reference>
+    <Reference Include="Rhino_Adapter">
+      <HintPath>..\Rhino_Adapter\obj\Debug\Rhino_Adapter.dll</HintPath>
+    </Reference>
     <Reference Include="Script">
       <HintPath>..\packages\Script.dll</HintPath>
     </Reference>
@@ -79,6 +82,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Base\BH_CSNET_Script.cs" />
     <Compile Include="Base\BH_VBNET_Script.cs" />
     <Compile Include="Base\VsScriptEditor.cs" />
@@ -103,27 +107,84 @@
     <Compile Include="Base\AboutGator.cs" />
     <Compile Include="Base\GetProperty.cs" />
     <Compile Include="Base\SetProperty.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resource.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Alligator_Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_App_Clean.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_App_Close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_App_Run.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_App_Save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_BHoM_Object.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Create_CustomData.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_FromJSON.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_GetProperty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_GetPropertyNames.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Material.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Read _CustomData.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_Run_Analasis.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_SetProperty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BHoM_ToJSON.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BS_Script.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DOF.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\node.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\skeleton.png" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\VBH_Script.png" />
-    <None Include="Resources\BHoM_Run_Analasis.png" />
-    <None Include="Resources\BHoM_App_Run.png" />
-    <None Include="Resources\BHoM_App_Save.png" />
-    <None Include="Resources\BHoM_App_Clean.png" />
-    <None Include="Resources\BHoM_App_Close.png" />
-    <None Include="Resources\BHoM_Alligator_Icon.png" />
-    <None Include="Resources\BHoM_Material.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

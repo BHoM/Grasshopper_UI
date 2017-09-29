@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Convert\FromRhino.cs" />
-    <Compile Include="Convert\GeometryUtils.cs" />
     <Compile Include="Convert\ToRhino.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,13 +1,10 @@
 ﻿using Grasshopper.Kernel;
-using BH.Engine.Grasshopper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using GH_IO.Serialization;
-using BH.oM.Base;
 
 namespace BH.UI.Alligator.Base
 {

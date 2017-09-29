@@ -9,6 +9,7 @@ using System.Linq;
 using System.Drawing;
 using BH.Engine.Base;
 using Grasshopper.Kernel.Parameters;
+using BH.Adapter.Rhinoceros;
 
 namespace BH.UI.Alligator.Base
 {
@@ -90,44 +91,44 @@ namespace BH.UI.Alligator.Base
             }
             if (typeof(Rhino.Geometry.GeometryBase).IsAssignableFrom(source.GetType()))
             {
-                this.Value = BH.Engine.Grasshopper.GeometryUtils.Convert((Rhino.Geometry.GeometryBase)source);
+                this.Value = ((Rhino.Geometry.GeometryBase)source).FromRhino();
                 return true;
             }
             if (typeof(GH_Point).IsAssignableFrom(source.GetType()))
             {
-                Value = BH.Engine.Grasshopper.GeometryUtils.Convert(((GH_Point)source).Value);
+                Value = (((GH_Point)source).Value).FromRhino();
             }
             else if (typeof(GH_Vector).IsAssignableFrom(source.GetType()))
             {
-                Value = BH.Engine.Grasshopper.GeometryUtils.Convert(((GH_Vector)source).Value);
+                Value = (((GH_Vector)source).Value).FromRhino();
             }
             else if (typeof(GH_Line).IsAssignableFrom(source.GetType()))
             {
-                Value = BH.Engine.Grasshopper.GeometryUtils.Convert(((GH_Line)source).Value);
+                Value = (((GH_Line)source).Value).FromRhino();
             }
             else if (typeof(GH_Circle).IsAssignableFrom(source.GetType()))
             {
-                Value = BH.Engine.Grasshopper.GeometryUtils.Convert(((GH_Circle)source).Value);
+                Value = (((GH_Circle)source).Value).FromRhino();
             }
             else if (typeof(GH_Curve).IsAssignableFrom(source.GetType()))
             {
-                Value = BH.Engine.Grasshopper.GeometryUtils.Convert(((GH_Curve)source).Value);
+                Value = (((GH_Curve)source).Value).FromRhino();
             }
             else if (typeof(GH_Plane).IsAssignableFrom(source.GetType()))
             {
-                Value = BH.Engine.Grasshopper.GeometryUtils.Convert(((GH_Plane)source).Value);
+                Value = (((GH_Plane)source).Value).FromRhino();
             }
             else if (typeof(GH_Surface).IsAssignableFrom(source.GetType()))
             {
-                Value = BH.Engine.Grasshopper.GeometryUtils.Convert(((GH_Surface)source).Value);
+                Value = (((GH_Surface)source).Value).FromRhino();
             }
             else if (typeof(GH_Brep).IsAssignableFrom(source.GetType()))
             {
-                Value = BH.Engine.Grasshopper.GeometryUtils.Convert(((GH_Brep)source).Value);
+                Value = (((GH_Brep)source).Value).FromRhino();
             }
             else if (typeof(GH_Mesh).IsAssignableFrom(source.GetType()))
             {
-                Value = BH.Engine.Grasshopper.GeometryUtils.Convert(((GH_Mesh)source).Value);
+                Value = (((GH_Mesh)source).Value).FromRhino();
             }
             return true;
         }
@@ -163,11 +164,11 @@ namespace BH.UI.Alligator.Base
         {
             if (typeof(BH.oM.Geometry.Mesh).IsAssignableFrom(Value.GetType()))
             {
-                args.Pipeline.DrawMeshWires((Rhino.Geometry.Mesh)(BH.Engine.Grasshopper.GeometryUtils.Convert((BH.oM.Geometry.Mesh)Value)), args.Material.Diffuse);
+                args.Pipeline.DrawMeshWires(((BH.oM.Geometry.Mesh)Value).ToRhino(), args.Material.Diffuse);
             }
             if (typeof(BH.oM.Geometry.Mesh).IsAssignableFrom(Value.GetType()))
             {
-                args.Pipeline.DrawMeshShaded((Rhino.Geometry.Mesh)(BH.Engine.Grasshopper.GeometryUtils.Convert((BH.oM.Geometry.Mesh)Value)), args.Material);
+                args.Pipeline.DrawMeshShaded(((BH.oM.Geometry.Mesh)Value).ToRhino(), args.Material);
             }
         }
         public void DrawViewportWires(GH_PreviewWireArgs args)
@@ -181,24 +182,24 @@ namespace BH.UI.Alligator.Base
             if (Value == null) { return; }
             if (typeof(BH.oM.Geometry.Point).IsAssignableFrom(Value.GetType()))
             {
-                args.Pipeline.DrawPoint((BH.Engine.Grasshopper.GeometryUtils.Convert((BH.oM.Geometry.Point)Value)), Rhino.Display.PointStyle.Simple, 3, BHcolour);
+                args.Pipeline.DrawPoint(((BH.oM.Geometry.Point)Value).ToRhino(), Rhino.Display.PointStyle.Simple, 3, BHcolour);
             }
             else if (typeof(BH.oM.Geometry.Vector).IsAssignableFrom(Value.GetType()))
             {
-                //args.Pipeline.DrawLineArrow(BH.Engine.Grasshopper.GeometryUtils.Convert(((BH.oM.Geometry.Vector)Value)), args.Color, args.Thickness, args.Thickness);
+                //args.Pipeline.DrawLineArrow((((BH.oM.Geometry.Vector)Value)), args.Color, args.Thickness, args.Thickness);
             }
             else if (typeof(BH.oM.Geometry.Line).IsAssignableFrom(Value.GetType()))
             {
-                args.Pipeline.DrawLine(BH.Engine.Grasshopper.GeometryUtils.Convert((BH.oM.Geometry.Line)Value), BHcolour);
+                args.Pipeline.DrawLine(((BH.oM.Geometry.Line)Value).ToRhino(), BHcolour);
             }
             else if (typeof(BH.oM.Geometry.Circle).IsAssignableFrom(Value.GetType()))
             {
-                args.Pipeline.DrawCircle(BH.Engine.Grasshopper.GeometryUtils.Convert((BH.oM.Geometry.Circle)Value), BHcolour);
+                args.Pipeline.DrawCircle(((BH.oM.Geometry.Circle)Value).ToRhino(), BHcolour);
             }
             else if (typeof(BH.oM.Geometry.Polyline).IsAssignableFrom(Value.GetType()))
             {
                 List<BH.oM.Geometry.Point> bhomPoints = ((BH.oM.Geometry.Polyline)Value).ControlPoints;
-                IEnumerable<Rhino.Geometry.Point3d> rhinoPoints = bhomPoints.Select(x => BH.Engine.Grasshopper.GeometryUtils.Convert(x));
+                IEnumerable<Rhino.Geometry.Point3d> rhinoPoints = bhomPoints.Select(x => (x).ToRhino());
                 args.Pipeline.DrawPolyline(rhinoPoints, BHcolour);
             }
             else if (typeof(BH.oM.Geometry.NurbCurve).IsAssignableFrom(Value.GetType()))
@@ -206,7 +207,7 @@ namespace BH.UI.Alligator.Base
             }
             else if (typeof(BH.oM.Geometry.Plane).IsAssignableFrom(Value.GetType()))
             {
-                args.Pipeline.DrawConstructionPlane(new Rhino.DocObjects.ConstructionPlane() { Plane = (BH.Engine.Grasshopper.GeometryUtils.Convert((BH.oM.Geometry.Plane)Value)) });
+                args.Pipeline.DrawConstructionPlane(new Rhino.DocObjects.ConstructionPlane() { Plane = (((BH.oM.Geometry.Plane)Value).ToRhino()) });
             }
             else if (typeof(BH.oM.Geometry.NurbSurface).IsAssignableFrom(Value.GetType()))
             {
