@@ -41,10 +41,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
     </Reference>
-    <Reference Include="BHoM_Adapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Build\BHoM_Adapter.dll</HintPath>
-    </Reference>
     <Reference Include="BHoM_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_Engine\Build\BHoM_Engine.dll</HintPath>
@@ -60,10 +56,6 @@
     <Reference Include="Grasshopper">
       <HintPath>..\External Libraries\Grasshopper.dll</HintPath>
       <Private>False</Private>
-    </Reference>
-    <Reference Include="Grasshopper_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Build\Grasshopper_Engine.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -87,108 +79,42 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\BHoMTypes.cs" />
+    <Compile Include="Base\BH_CSNET_Script.cs" />
+    <Compile Include="Base\BH_VBNET_Script.cs" />
+    <Compile Include="Base\VsScriptEditor.cs" />
+    <Compile Include="BH_Hints\BH_LineHint.cs" />
+    <Compile Include="BH_Hints\BH_MeshHint.cs" />
+    <Compile Include="BH_Hints\BH_NurbCurveHint.cs" />
+    <Compile Include="BH_Hints\BH_PointHint.cs" />
+    <Compile Include="BH_Hints\BH_PolylineHint.cs" />
+    <Compile Include="BH_Hints\BH_VectorHint.cs" />
+    <Compile Include="BH_Types\BHoMGeometryParameter.cs" />
+    <Compile Include="BH_Types\BHoMObjectParameter.cs" />
+    <Compile Include="Base\CollapseList.cs" />
     <Compile Include="Base\CreateObject.cs" />
-    <Compile Include="Base\CustomScriptable.cs" />
     <Compile Include="Base\ExplodeObject.cs" />
     <Compile Include="Base\GetPropertyNames.cs" />
-    <Compile Include="Base\ListExpandAndCollapse.cs" />
-    <Compile Include="Material\LoadMaterialFromDB.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="SQL\FromSQL.cs" />
-    <Compile Include="SQL\SQLLink.cs" />
+    <Compile Include="Base\ExpandList.cs" />
+    <Compile Include="BH_Types\BH_GeometricGoo.cs" />
+    <Compile Include="BH_Types\BH_Goo.cs" />
     <Compile Include="Base\ObjectFilter.cs" />
+    <Compile Include="Query\GetSetData.cs" />
     <Compile Include="Base\ViewCustomData.cs" />
     <Compile Include="Base\AboutGator.cs" />
-    <Compile Include="AlligatorInfo.cs" />
     <Compile Include="Base\GetProperty.cs" />
     <Compile Include="Base\SetProperty.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Material\Material.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
-    <None Include="Resources\Icons\Alligator\gator.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Alligator\skeleton.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Alligator\DOF.png" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Results\BHoM_LoadResults.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Results\BHoM_StoreResults.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Results\BHoM_GetNodeReaction.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Results\BHoM_GetPanelForce.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Results\BHoM_GetBarForce.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Results\BHoM_GetNodeDisplacement.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Results\BHoM_GetPanelStress.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Alligator\BHoM_ToJSON.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Alligator\BHoM_FromJSON.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Apps\BHoM_GSA_App.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Apps\BHoM_Revit_App.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Apps\BHoM_ROBO_App.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Alligator\BHoM_GetProperty.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Alligator\BHoM_SetProperty.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Alligator\BHoM_Filter.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Alligator\BHoM_Create_CustomData.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Alligator\BHoM_Read _CustomData.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Geometry\BHoM_Element_Geometry.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Geometry\BHoM_Extrude_Bar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Alligator\BHoM_GetPropertyNames.png" />
-  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\VBH_Script.png" />
     <None Include="Resources\BHoM_Run_Analasis.png" />
@@ -197,13 +123,7 @@
     <None Include="Resources\BHoM_App_Clean.png" />
     <None Include="Resources\BHoM_App_Close.png" />
     <None Include="Resources\BHoM_Alligator_Icon.png" />
-    <None Include="Resources\BHoM_SQL_GetObject.png" />
-    <None Include="Resources\BHoM_SQL_Link.png" />
     <None Include="Resources\BHoM_Material.png" />
-    <None Include="Resources\BS.png" />
-    <None Include="Resources\BHoM_Mongo_ToJson.png" />
-    <None Include="Resources\BHoM_Mongo_FromJson.png" />
-    <Content Include="Resources\Icons\Alligator\BHoM_BHoM_Object.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
