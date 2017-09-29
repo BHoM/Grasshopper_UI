@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Rhino.Geometry;
 using Grasshopper.Kernel;
-using BHG = BHoM.Geometry;
-using BHA = BHoM.Acoustic;
+using BHG = BH.oM.Geometry;
+using BH.oM.Acoustic;
+using BH.UI.Alligator.Base;
 
-namespace Acoustic_Alligator
+namespace BH.UI.Alligator.Acoustic
 {
     public class CreateZone : GH_Component
     {
@@ -29,52 +29,26 @@ namespace Acoustic_Alligator
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddBrepParameter("Zone", "Zone", "Brep Zone", GH_ParamAccess.item);
-            pManager.AddPointParameter("Reciever Points", "RecieverPts", "Point3d Reciever Location", GH_ParamAccess.list);
-            //pManager.AddNumberParameter("Sample Height", "Sample Height", "Height of Recievers", GH_ParamAccess.item);
-            //pManager.AddNumberParameter("Sample Step", "Sample Step", "Distance Between Point Cloud", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMGeometryParameter(), "Reciever Points", "RecieverPts", "Point3d Reciever Location", GH_ParamAccess.list);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("BHoM Zone", "BHoM Zone", "BHoM Zone", GH_ParamAccess.item);
-            pManager.AddPointParameter("Sample Points", "Sample Points", "GH Sample Points", GH_ParamAccess.list);
+            pManager.AddParameter(new BHoMObjectParameter(), "BHoM Zone", "BHoM Zone", "BHoM Zone", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMGeometryParameter(), "Sample Points", "Sample Points", "GH Sample Points", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<BHG.Point> points = new List<BHoM.Geometry.Point>();
-            List<Point3d> samplePoints = new List<Point3d>();
-
+            List<BHG.Point> points = new List<BHG.Point>();
             Rhino.Geometry.Brep geom = new Rhino.Geometry.Brep();
-            //double recieverHeight = 0;
-            //double recieverStep = 0;
 
             if (!DA.GetData(0, ref geom)) { return; }
-            if (!DA.GetDataList(1, samplePoints)) { return; }
+            if (!DA.GetDataList(1, points)) { return; }
 
-            foreach (Point3d pt in samplePoints)
-            {
-                points.Add(new BHG.Point(pt.X, pt.Y, pt.Z));
-            }
-
-            //if (!DA.GetData(1, ref recieverHeight)) { return; }
-            //if (!DA.GetData(2, ref recieverStep)) { return; }
-
-            //Rhino.Geometry.BoundingBox bBox = geom.GetBoundingBox(false);
-
-            //for (double x = bBox.Min.X; x <= bBox.Max.X; x += recieverStep)
-            //{
-                //for (double y = bBox.Min.Y; y <= bBox.Max.Y; y += recieverStep)
-                //{
-                    //Point3d pt = new Point3d(x, y, recieverHeight);
-                    //points.Add(new BHoM.Geometry.Point(pt.X, pt.Y, pt.Z));
-                    //samplePoints.Add(pt);
-                //}
-            //}
-
-            BHA.Zone zone = new BHA.Zone(points, geom.GetArea(), geom.GetVolume());
-            DA.SetData(0, zone);
-            DA.SetDataList(1, samplePoints);
+            Zone zone = new Zone(points, geom.GetArea(), geom.GetVolume());
+            DA.BH_SetData(0, zone);
+            DA.BH_SetDataList(1, points);
         }
     }
 }

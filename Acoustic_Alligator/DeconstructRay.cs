@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using Grasshopper.Kernel;
-using Rhino.Geometry;
+using BH.oM.Acoustic;
+using BHG = BH.oM.Geometry;
+using BH.UI.Alligator.Base;
 
-using GHE = Grasshopper_Engine;
-using BHA = BHoM.Acoustic;
-using BHG = BHoM.Geometry;
-
-namespace Acoustic_Alligator
+namespace BH.UI.Alligator.Acoustic
 {
     public class DeconstructRay : GH_Component
     {
@@ -27,7 +24,7 @@ namespace Acoustic_Alligator
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Ray", "Ray", "BHoM Acoustic Ray", GH_ParamAccess.list);
+            pManager.AddParameter(new BHoMObjectParameter(), "Ray", "Ray", "BHoM Acoustic Ray", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -35,9 +32,9 @@ namespace Acoustic_Alligator
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Path", "P", "Ray polyline", GH_ParamAccess.list);
-            pManager.AddTextParameter("Source", "S", "ID of the ray source", GH_ParamAccess.list);
-            pManager.AddTextParameter("Receiver", "R", "ID of the ray target", GH_ParamAccess.list);
+            pManager.AddParameter(new BHoMGeometryParameter(), "Path", "P", "Ray polyline", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Source", "S", "ID of the ray source", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Receiver", "R", "ID of the ray target", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -46,23 +43,12 @@ namespace Acoustic_Alligator
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<BHA.Ray> rays = new List<BHA.Ray>();
-            List<BHG.Curve> path = new List<BHG.Curve>();
-            List<int> sID = new List<int>();
-            List<int> rID = new List<int>();
+            Ray ray = new Ray();
+            ray = DA.BH_GetData(0, ray);
 
-            if (!DA.GetDataList(0, rays)) { return; }
-
-            for (int i = 0; i<rays.Count;i++)
-            {
-                path.Add(rays[i].Path);
-                sID.Add(rays[i].SpeakerID);
-                rID.Add(rays[i].ReceiverID);
-            }
-
-            DA.SetDataList(0, path);
-            DA.SetDataList(1, sID);
-            DA.SetDataList(2, rID);
+            DA.BH_SetData(0, ray.Path);
+            DA.BH_SetData(1, ray.SpeakerID);
+            DA.BH_SetData(2, ray.ReceiverID);
         }
 
         /// <summary>

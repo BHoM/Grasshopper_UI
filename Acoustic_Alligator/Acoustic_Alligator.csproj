@@ -46,8 +46,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AcousticSPI_Engine">
-      <HintPath>..\..\BHoM_Engine\Build\AcousticSPI_Engine.dll</HintPath>
+    <Reference Include="Acoustic_Engine">
+      <HintPath>..\..\BHoM_Engine\Build\Acoustic_Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="Alligator, Version=0.1.6480.31097, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Build\Alligator.dll</HintPath>
     </Reference>
     <Reference Include="BHoM">
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
@@ -114,12 +118,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BHoM_Acoustics_RASTI.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
-      <Project>{c273f369-b83a-4183-9a97-18cdb23c25c6}</Project>
-      <Name>Grasshopper_Engine</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

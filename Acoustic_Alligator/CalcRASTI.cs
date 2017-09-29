@@ -3,18 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Rhino.Geometry;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
 using Grasshopper.Kernel.Parameters;
+using BH.oM.Acoustic;
+using BH.Engine.Acoustic;
 
-using BHG = BHoM.Geometry;
-using BHA = BHoM.Acoustic;
-using AcousticSPI_Engine;
-using GHE = Grasshopper_Engine;
-
-namespace Acoustic_Alligator
+namespace BH.UI.Alligator.Acoustic
 {
     public class CalcRASTI : GH_Component
     {
@@ -55,8 +51,8 @@ namespace Acoustic_Alligator
             List<double> signal = new List<double>();
             List<double> noise = new List<double>();
             List<double> rt = new List<double>();
-            List<BHA.Speaker> speakers = new List<BHA.Speaker>();
-            BHA.Zone zone = null;
+            List<Speaker> speakers = new List<Speaker>();
+            Zone zone = null;
 
             if (!DA.GetDataList(0, signal)) { signal = null; }
             if (!DA.GetDataList(1, noise)) { noise = null; }
@@ -64,7 +60,7 @@ namespace Acoustic_Alligator
             if (!DA.GetDataList(3, speakers)) { return; }
             if (!DA.GetData(4, ref zone)) { return; }
 
-            DA.SetDataList(0, STICalculator.Solve(signal, noise, rt, speakers, zone));
+            DA.SetDataList(0, Query.GetSTI(signal, noise, rt, speakers, zone));
         }
     }
 }

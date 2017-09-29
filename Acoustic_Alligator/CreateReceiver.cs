@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using BHG = BHoM.Geometry;
-using BHA = BHoM.Acoustic;
+using BHG = BH.oM.Geometry;
+using BH.oM.Acoustic;
 using Grasshopper.Kernel;
-using Rhino.Geometry;
+using BH.UI.Alligator.Base;
 
-namespace Acoustic_Alligator
+namespace BH.UI.Alligator.Acoustic
 {
     public class CreateReceiver : GH_Component
     {
@@ -24,8 +24,8 @@ namespace Acoustic_Alligator
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Position", "P", "Receiver central point", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Category", "T", "Category type of Receiver for directivity calculation", GH_ParamAccess.list);
+            pManager.AddParameter(new BHoMGeometryParameter(), "Position", "P", "Receiver central point", GH_ParamAccess.item);
+            pManager.AddTextParameter("Category", "T", "Category type of Receiver for directivity calculation", GH_ParamAccess.item);
             pManager[1].Optional = true;
         }
 
@@ -34,7 +34,7 @@ namespace Acoustic_Alligator
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Receiver", "Rec", "BHoM Acoustic Receiver", GH_ParamAccess.list);
+            pManager.AddParameter(new BHoMObjectParameter(), "Receiver", "Rec", "BHoM Acoustic Receiver", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -43,19 +43,13 @@ namespace Acoustic_Alligator
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<BHA.Receiver> receivers = new List<BHA.Receiver>();
+            List<Receiver> receivers = new List<Receiver>();
+            BHG.Point pos = new BHG.Point();
+            string cat = "Omni";
+            pos = DA.BH_GetData(0, pos);
+            cat = DA.BH_GetData(1, cat);
 
-            List<BHG.Point> pos = new List<BHG.Point>();
-            List<String> cat = new List<string>();
-
-            if (!DA.GetDataList(0,pos)) { return; }
-            if (!DA.GetDataList(1, cat)) { cat.Add("Omni"); }
-
-            for (int i = 0; i < pos.Count; i++)
-            {
-                BHA.Receiver receiver = new BHA.Receiver(pos[i],cat.Count==1?cat[0]:cat[i]);
-                receivers.Add(receiver);
-            }
+            Receiver receiver = new Receiver(pos, cat);
 
             DA.SetDataList(0, receivers);
         }
