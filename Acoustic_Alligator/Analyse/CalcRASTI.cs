@@ -62,7 +62,7 @@ namespace BH.UI.Alligator.Acoustic
             speakers = DA.BH_GetDataList(3, speakers);
             zone = DA.BH_GetData(4, zone);
 
-            DA.SetDataList(0, Acoustic. GetSTI(signal, noise, rt, speakers, zone));
+            DA.SetDataList(0, BH.Engine.Acoustic.Query.GetSTI(signal, noise, rt, speakers, zone));
         }
     }
 }

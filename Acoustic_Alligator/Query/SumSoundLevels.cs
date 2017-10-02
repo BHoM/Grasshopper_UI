@@ -45,7 +45,7 @@ namespace BH.UI.Alligator.Acoustic
             List<Ray> rays = new List<Ray>();
             rays = DA.BH_GetDataList(0, rays);
 
-            DA.SetData(0, Query.GetSoundPressureLevel(rays));
+            DA.SetData(0, Engine.Acoustic.Query.GetSoundPressureLevel(rays));
         }
 
         /// <summary>
