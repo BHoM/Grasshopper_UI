@@ -67,11 +67,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CableNetDesign\Analysis\CableSizing.cs" />
-    <Compile Include="CableNetDesign\Analysis\CableTonnage.cs" />
-    <Compile Include="CableNetDesign\Analysis\DeformedLengthToAxialForce.cs" />
-    <Compile Include="CableNetDesign\Analysis\PrestressToSlackLength.cs" />
-    <Compile Include="CableNetDesign\AnalyticalFormFinding\AnalyticalFormFinding.cs" />
+    <Compile Include="Analyse\CableSizing.cs" />
+    <Compile Include="Analyse\CableTonnage.cs" />
+    <Compile Include="Analyse\DeformedLengthToAxialForce.cs" />
+    <Compile Include="Analyse\PrestressToSlackLength.cs" />
+    <Compile Include="Analyse\AnalyticalFormFinding.cs" />
     <Compile Include="CableNetDesign_AlligatorInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -79,11 +79,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Structural\Elements\CompressionRingBeam.cs" />
-    <Compile Include="Structural\Elements\Radial.cs" />
-    <Compile Include="Structural\Elements\RafterBeam.cs" />
-    <Compile Include="Structural\Elements\TensionRing.cs" />
-    <Compile Include="Structural\Elements\TensionRingNode.cs" />
+    <Compile Include="Create\CompressionRingBeam.cs" />
+    <Compile Include="Create\Radial.cs" />
+    <Compile Include="Create\RafterBeam.cs" />
+    <Compile Include="Create\TensionRing.cs" />
+    <Compile Include="Create\TensionRingNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

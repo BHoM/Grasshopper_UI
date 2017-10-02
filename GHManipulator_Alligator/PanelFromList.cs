@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace Alligator.GH_Manipulator
+namespace BH.UI.Alligator.Base
 {
     public class PanelFromList : GH_Component
     {

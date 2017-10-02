@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace Alligator.GH_Manipulator
+namespace BH.UI.Alligator.Base
 {
     public class LinksBetweenGroups : GH_Component
     {

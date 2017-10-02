@@ -12,7 +12,7 @@ using System.Drawing;
 using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Types;
 
-namespace Alligator.GH_Manipulator
+namespace BH.UI.Alligator.Base
 {
     public class DuplicateComponent : GH_Component
     {
