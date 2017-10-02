@@ -13,7 +13,7 @@ namespace BH.UI.Alligator.MachineLearning
     public class GridSetUp : GH_Component
     {
         public GridSetUp()
-            : base("Set Analysis grid", "SetGrid",
+            : base("StadiaCrowdAnalysisGridSetUp", "StadiaAnalysisGridSetUp",
                   "Set up a grid on a video frame for analysis",
                   "Alligator", "MachineLearning")
         {
@@ -26,17 +26,14 @@ namespace BH.UI.Alligator.MachineLearning
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
+            //pManager.AddPointParameter("TopLeftPoint", "TopLeftPoint", "What is the top left point of the grid", GH_ParamAccess.item);
             pManager.AddGeometryParameter("Grid Rows", "GridRows", "The lines that make up the rows of the grid", GH_ParamAccess.list);
             pManager.AddGeometryParameter("Grid Columns", "GridCols", "The lines that make up the columns of the grid", GH_ParamAccess.list);
-            pManager.AddTextParameter("VideoFile", "VideoFile", "Full path to the video file", GH_ParamAccess.item);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddPointParameter("Intersect", "IN", "TEST", GH_ParamAccess.list);
-            pManager.AddPointParameter("Intersect", "IN2", "TEST", GH_ParamAccess.list);
-            pManager.AddGeometryParameter("LINES", "IN3", "TEST", GH_ParamAccess.list);
-            pManager.AddGeometryParameter("LINES", "IN4", "TEST", GH_ParamAccess.list);
+            pManager.AddGeometryParameter("Grid", "Grid", "The grid to divide the frame by", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -48,8 +45,6 @@ namespace BH.UI.Alligator.MachineLearning
             rows = DA.BH_GetDataList(0, rows);
             cols = DA.BH_GetDataList(1, cols);
             videoFile = DA.BH_GetData(2, videoFile);
-
-            if (videoFile == null) return;
 
             //Get the intersecting points
             Dictionary<PolylineCurve, List<Point3d>> intersectingPointsByLine = InitialIntersectingPoints(rows, cols);
@@ -63,8 +58,7 @@ namespace BH.UI.Alligator.MachineLearning
             //Tidy up - remove duplicated rects
             rects = Tidy(rects);
 
-            DA.SetDataList(2, rects);
-            //DA.SetDataList(3, rects2);
+            DA.SetDataList(0, rects);
         }
 
         private Dictionary<PolylineCurve, List<Point3d>> InitialIntersectingPoints(List<GeometryBase> rows, List<GeometryBase> cols)
@@ -205,7 +199,6 @@ namespace BH.UI.Alligator.MachineLearning
                                 //Search for a change in X
                                 if (lookRight)
                                 {
-
                                     pl2 = FindRight(connected, lastSearch);
                                     if (pl2 == null)
                                     {
@@ -228,7 +221,6 @@ namespace BH.UI.Alligator.MachineLearning
                                     }
                                     lookDown = false; //Look up on the next run through this rectangle
                                 }
-
                             }
                             else
                             {
@@ -275,12 +267,26 @@ namespace BH.UI.Alligator.MachineLearning
                         }
                     }
 
-                    if (pts.Last() == pts.First())
+                    if (pts.Last() == pts.First() && IsRectangle(pts))
                         rects.Add(new Polyline(pts));
                 }
             }
 
             return rects;
+        }
+
+        private bool IsRectangle(List<Point3d> pts)
+        {
+            for (int x = 1; x < pts.Count - 1; x++)
+            {
+                int count = pts.Count(y => y == pts[x]);
+                if (count > 1) return false; //No point should be in the list twice other than the first and last points
+            }
+
+            int fCount = pts.Count(y => y == pts[0]);
+            if (fCount != 2) return false; //First point should be the last point so should not have more or less than 2 instances in the list
+
+            return true; //Reach here if everything is ok
         }
 
         private List<Polyline> Tidy(List<Polyline> rects)
