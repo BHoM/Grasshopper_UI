@@ -7,12 +7,12 @@ using BH.UI.Alligator.Base;
 
 namespace BH.UI.Alligator.Acoustic
 {
-    public class SumSPL : GH_Component
+    public class SumSoundLevels : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the SumSPL class.
         /// </summary>
-        public SumSPL()
+        public SumSoundLevels()
           : base("SumSPL", "Sum SPL",
               "Sound Pressure Level summation",
               "Alligator", "Acoustics")

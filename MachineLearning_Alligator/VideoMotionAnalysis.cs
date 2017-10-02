@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Grasshopper.Kernel;
 using BH.Engine.MachineLearning;
-using BH.UI.Alligator.Base;
+using BH.UI.Alligator.Query;
 
 namespace BH.UI.Alligator.MachineLearning
 {
@@ -57,9 +57,9 @@ namespace BH.UI.Alligator.MachineLearning
             config.OutFolder = DA.BH_GetData(6, config.OutFolder);
 
             // TODO VideoMotionAnalyser.Result does not exist. Ask Fraser
-            //Dictionary<int, List<double>> result = analyser.Run(videoFile, config).Result;
-            //List<List<double>> motionLevel = result.Values.ToList();
-            //DA.BH_SetDataList(0, motionLevel);
+            Dictionary<int, List<double>> result = analyser.Run(videoFile, config).Result;
+            List<List<double>> motionLevel = result.Values.ToList();
+            DA.BH_SetDataList(0, motionLevel);
         }
     }
 }

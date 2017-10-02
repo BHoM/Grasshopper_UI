@@ -76,21 +76,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CalcRASTI.cs" />
-    <Compile Include="CreatePanel.cs" />
-    <Compile Include="CreateReceiver.cs" />
-    <Compile Include="CreateSpeaker.cs" />
-    <Compile Include="CreateZone.cs" />
+    <Compile Include="Analyse\CalcRASTI.cs" />
+    <Compile Include="Create\CreatePanel.cs" />
+    <Compile Include="Create\CreateReceiver.cs" />
+    <Compile Include="Create\CreateSpeaker.cs" />
+    <Compile Include="Create\CreateZone.cs" />
     <Compile Include="DeconstructRay.cs" />
-    <Compile Include="DirectSoundSolver.cs" />
+    <Compile Include="Analyse\DirectSoundSolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RayFilter.cs" />
-    <Compile Include="SumSPL.cs" />
+    <Compile Include="Query\RayFilter.cs" />
+    <Compile Include="Query\SumSoundLevels.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
