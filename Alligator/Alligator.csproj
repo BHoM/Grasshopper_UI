@@ -211,6 +211,8 @@ copy /Y "$(TargetDir)Grasshopper_Engine.dll" "C:\Users\$(Username)\AppData\Roami
 
 copy /Y "$(TargetDir)Structure_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Structure_Engine.dll"
 
+copy /Y "$(TargetDir)Reflection_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Reflection_Engine.dll"
+
 copy /Y "$(TargetDir)Newtonsoft.Json.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Newtonsoft.Json.dll"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
