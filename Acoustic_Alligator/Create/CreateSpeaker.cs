@@ -7,6 +7,7 @@ using Grasshopper.Kernel;
 using BHG = BH.oM.Geometry;
 using BH.oM.Acoustic;
 using BH.UI.Alligator.Base;
+using BH.UI.Alligator.Query;
 
 namespace BH.UI.Alligator.Acoustic
 {

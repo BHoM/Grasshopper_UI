@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alligator", "Alligator\Alligator.csproj", "{2E3B219E-7BD2-4F75-BFAF-9B7735827ED4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C273F369-B83A-4183-9A97-18CDB23C25C6} = {C273F369-B83A-4183-9A97-18CDB23C25C6}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mongo_Alligator", "Mongo_Alligator\Mongo_Alligator.csproj", "{E2311055-2431-440E-A199-7336878BB80A}"
 EndProject
@@ -47,10 +50,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Design_Alligator", "Design_Alligator\Design_Alligator.csproj", "{14072B3C-490D-487B-849B-845C052BFBDF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acoustic_Alligator", "Acoustic_Alligator\Acoustic_Alligator.csproj", "{CE1FA42F-8595-45ED-9F7A-393EE7DDDA92}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2E3B219E-7BD2-4F75-BFAF-9B7735827ED4} = {2E3B219E-7BD2-4F75-BFAF-9B7735827ED4}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D3_Alligator", "D3_Alligator\D3_Alligator.csproj", "{586B86B3-631A-4EF4-A1F5-1BFC051ADCE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unreal_Alligator", "Unreal_Alligator\Unreal_Alligator.csproj", "{CB0957D5-B6C3-44B8-92C3-423D6AACF482}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unreal_Alligator", "ClassLibrary2\Unreal_Alligator.csproj", "{CB0957D5-B6C3-44B8-92C3-423D6AACF482}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miscellaneous_Alligator", "Miscellaneous_Alligator\Miscellaneous_Alligator.csproj", "{FC0EE5C3-0E47-40D2-91ED-AB843C80BB3F}"
 EndProject
@@ -63,14 +69,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geometry_Alligator", "Geometry_Alligator\Geometry_Alligator.csproj", "{9F9D9053-C0F9-4618-AD6C-D307BDE36D49}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structure_Alligator", "Structure_Alligator\Structure_Alligator.csproj", "{08DDBB2D-EEBB-4A3E-917E-65790A176C53}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Excel_Alligator", "Excel_Alligator\Excel_Alligator.csproj", "{FBBD4401-B1B6-4486-B74E-BA62A12B5E63}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Environmental_Alligator", "Environmental_Alligator\Environmental_Alligator.csproj", "{F1BC843B-88A6-4F72-BE9E-EA602BF6C917}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rhino_Adapter", "Rhino_Adapter\Rhino_Adapter.csproj", "{2696610B-D0E0-43ED-BF38-79E48CAF50D8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQL_Alligator", "SQL_Alligator\SQL_Alligator.csproj", "{00740EDE-995C-49B7-AFA1-C8749476E1C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XML_Alligator", "XML_Alligator\XML_Alligator.csproj", "{DB8B50D2-4D41-4D11-BADE-6D93DB7634A5}"
 EndProject
@@ -237,27 +235,6 @@ Global
 		{08DDBB2D-EEBB-4A3E-917E-65790A176C53}.Debug64|Any CPU.Build.0 = Debug|Any CPU
 		{08DDBB2D-EEBB-4A3E-917E-65790A176C53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08DDBB2D-EEBB-4A3E-917E-65790A176C53}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FBBD4401-B1B6-4486-B74E-BA62A12B5E63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FBBD4401-B1B6-4486-B74E-BA62A12B5E63}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
-		{FBBD4401-B1B6-4486-B74E-BA62A12B5E63}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1BC843B-88A6-4F72-BE9E-EA602BF6C917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1BC843B-88A6-4F72-BE9E-EA602BF6C917}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F1BC843B-88A6-4F72-BE9E-EA602BF6C917}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1BC843B-88A6-4F72-BE9E-EA602BF6C917}.Debug64|Any CPU.Build.0 = Debug|Any CPU
-		{F1BC843B-88A6-4F72-BE9E-EA602BF6C917}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F1BC843B-88A6-4F72-BE9E-EA602BF6C917}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2696610B-D0E0-43ED-BF38-79E48CAF50D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2696610B-D0E0-43ED-BF38-79E48CAF50D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2696610B-D0E0-43ED-BF38-79E48CAF50D8}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
-		{2696610B-D0E0-43ED-BF38-79E48CAF50D8}.Debug64|Any CPU.Build.0 = Debug|Any CPU
-		{2696610B-D0E0-43ED-BF38-79E48CAF50D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2696610B-D0E0-43ED-BF38-79E48CAF50D8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{00740EDE-995C-49B7-AFA1-C8749476E1C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{00740EDE-995C-49B7-AFA1-C8749476E1C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{00740EDE-995C-49B7-AFA1-C8749476E1C8}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
-		{00740EDE-995C-49B7-AFA1-C8749476E1C8}.Debug64|Any CPU.Build.0 = Debug|Any CPU
-		{00740EDE-995C-49B7-AFA1-C8749476E1C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{00740EDE-995C-49B7-AFA1-C8749476E1C8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DB8B50D2-4D41-4D11-BADE-6D93DB7634A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DB8B50D2-4D41-4D11-BADE-6D93DB7634A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB8B50D2-4D41-4D11-BADE-6D93DB7634A5}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Acoustic_Alligator</RootNamespace>
     <AssemblyName>Acoustic_Alligator</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
@@ -49,7 +49,7 @@
     <Reference Include="Acoustic_Engine">
       <HintPath>..\..\BHoM_Engine\Build\Acoustic_Engine.dll</HintPath>
     </Reference>
-    <Reference Include="Alligator, Version=0.1.6480.31097, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Alligator, Version=0.1.6484.23363, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Build\Alligator.dll</HintPath>
     </Reference>

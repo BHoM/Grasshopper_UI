@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Kinect_Alligator</RootNamespace>
     <AssemblyName>Kinect_Alligator</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -89,10 +90,6 @@
     <ProjectReference Include="..\Alligator\Alligator.csproj">
       <Project>{2e3b219e-7bd2-4f75-bfaf-9b7735827ed4}</Project>
       <Name>Alligator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
-      <Project>{c273f369-b83a-4183-9a97-18cdb23c25c6}</Project>
-      <Name>Grasshopper_Engine</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
