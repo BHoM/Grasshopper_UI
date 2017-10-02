@@ -13,7 +13,6 @@ namespace BH.UI.Alligator.MachineLearning
         {
         }
 
-
         public override Guid ComponentGuid
         {
             get

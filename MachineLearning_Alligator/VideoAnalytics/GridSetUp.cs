@@ -3,19 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Grasshopper.Kernel;
-using Grasshopper.Kernel.Geometry;
-using Grasshopper.Kernel.Types;
-using GHE = Grasshopper_Engine;
-
-using StadiaCrowdAnalysis_Engine;
-
 using Rhino.Geometry;
+using BH.UI.Alligator.Base;
 
 //using BHoM.Geometry;
 
-namespace StadiaCrowdAnalytics_Alligator
+namespace BH.UI.Alligator.MachineLearning
 {
     public class GridSetUp : GH_Component
     {
@@ -31,7 +25,6 @@ namespace StadiaCrowdAnalytics_Alligator
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            //pManager.AddPointParameter("TopLeftPoint", "TopLeftPoint", "What is the top left point of the grid", GH_ParamAccess.item);
             pManager.AddGeometryParameter("Grid Rows", "GridRows", "The lines that make up the rows of the grid", GH_ParamAccess.list);
             pManager.AddGeometryParameter("Grid Columns", "GridCols", "The lines that make up the columns of the grid", GH_ParamAccess.list);
             pManager.AddTextParameter("VideoFile", "VideoFile", "Full path to the video file", GH_ParamAccess.item);
@@ -47,10 +40,13 @@ namespace StadiaCrowdAnalytics_Alligator
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            //GH_Point topLeft = GHE.DataUtils.GetData<GH_Point>(DA, 0);
-            List<GeometryBase> rows = GHE.DataUtils.GetDataList<GeometryBase>(DA, 0);
-            List<GeometryBase> cols = GHE.DataUtils.GetDataList<GeometryBase>(DA, 1);
-            String videoFile = GHE.DataUtils.GetData<String>(DA, 2);
+            List<GeometryBase> rows = new List<GeometryBase>();
+            List<GeometryBase> cols = new List<GeometryBase>();
+            string videoFile = "";
+
+            rows = DA.BH_GetDataList(0, rows);
+            cols = DA.BH_GetDataList(1, cols);
+            videoFile = DA.BH_GetData(2, videoFile);
 
             if (videoFile == null) return;
 

@@ -4,11 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using GHE = Grasshopper_Engine;
 
-using StadiaCrowdAnalysis_Engine;
-
-namespace StadiaCrowdAnalytics_Alligator
+namespace BH.UI.Alligator.MachineLearning
 {
     public class StadiaCrowdAnalysis
     {
