@@ -115,77 +115,75 @@
     <EmbeddedResource Include="Resource.resx" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\bar.png" />
+    <None Include="Properties\Resources\bar.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Alligator_Icon.png" />
+    <None Include="Properties\Resources\BHoM_Alligator_Icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_App_Clean.png" />
+    <None Include="Properties\Resources\BHoM_App_Clean.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_App_Close.png" />
+    <None Include="Properties\Resources\BHoM_App_Close.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_App_Run.png" />
+    <None Include="Properties\Resources\BHoM_App_Run.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_App_Save.png" />
+    <None Include="Properties\Resources\BHoM_App_Save.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_BHoM_Object.png" />
+    <None Include="Properties\Resources\BHoM_BHoM_Object.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Create_CustomData.png" />
+    <None Include="Properties\Resources\BHoM_Create_CustomData.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Filter.png" />
+    <None Include="Properties\Resources\BHoM_Filter.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_FromJSON.png" />
+    <None Include="Properties\Resources\BHoM_FromJSON.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_GetProperty.png" />
+    <None Include="Properties\Resources\BHoM_GetProperty.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_GetPropertyNames.png" />
+    <None Include="Properties\Resources\BHoM_GetPropertyNames.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Material.png" />
+    <None Include="Properties\Resources\BHoM_Material.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Read _CustomData.png" />
+    <None Include="Properties\Resources\BHoM_Read _CustomData.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Run_Analasis.png" />
+    <None Include="Properties\Resources\BHoM_Run_Analasis.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_SetProperty.png" />
+    <None Include="Properties\Resources\BHoM_SetProperty.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_ToJSON.png" />
+    <None Include="Properties\Resources\BHoM_ToJSON.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BS_Script.png" />
+    <None Include="Properties\Resources\BS_Script.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\DOF.png" />
+    <None Include="Properties\Resources\DOF.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\gator.png" />
+    <None Include="Properties\Resources\gator.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\node.png" />
+    <None Include="Properties\Resources\node.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\skeleton.png" />
+    <None Include="Properties\Resources\skeleton.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\VBH_Script.png" />
+    <None Include="Properties\Resources\VBH_Script.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
