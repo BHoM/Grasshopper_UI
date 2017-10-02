@@ -10,6 +10,7 @@ namespace BH.Adapter.Rhinoceros
 {
     public static partial class Convert
     {
+        #region Public Methods
         public static BHG.IBHoMGeometry FromRhino(this RHG.GeometryBase geometry)
         {
             return Convert.FromRhino(geometry as dynamic);
@@ -122,6 +123,10 @@ namespace BH.Adapter.Rhinoceros
         #endregion
 
         #region 3D
+        public static BHG.BoundingBox FromRhino(this RHG.BoundingBox boundingBox)
+        {
+            return new BHG.BoundingBox(boundingBox.Min.FromRhino(), boundingBox.Max.FromRhino());
+        }
         public static BHG.NurbSurface FromRhino(this RHG.Surface surface)
         {
             throw new NotImplementedException();    // TODO Rhino_Adapter conversion from Surface
@@ -156,6 +161,7 @@ namespace BH.Adapter.Rhinoceros
             }
             return new BHG.Mesh(vertices, Faces);
         }
+        #endregion
         #endregion
 
         #region Unused Code not to waste

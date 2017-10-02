@@ -11,6 +11,7 @@ namespace BH.Adapter.Rhinoceros
 {
     public static partial class Convert
     {
+        #region Public Methods
         public static RHG.GeometryBase ToRhino(this BHG.IBHoMGeometry geometry)
         {
             return Convert.ToRhino(geometry as dynamic);
@@ -86,6 +87,10 @@ namespace BH.Adapter.Rhinoceros
         #endregion
 
         #region 3D
+        public static RHG.BoundingBox ToRhino(this BHG.BoundingBox boundingBox)
+        {
+            return new RHG.BoundingBox(boundingBox.Min.ToRhino(), boundingBox.Max.ToRhino());
+        }
         public static RHG.Surface ToRhino(this BHG.NurbSurface surface)
         {
             throw new NotImplementedException();    // TODO Rhino_Adapter conversion to Surface
@@ -119,6 +124,7 @@ namespace BH.Adapter.Rhinoceros
             rMesh.Vertices.AddVertices(rVertices);
             return rMesh;
         }
+        #endregion
         #endregion
     }
 }
