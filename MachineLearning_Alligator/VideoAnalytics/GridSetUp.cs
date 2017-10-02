@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 using BH.UI.Alligator.Base;
-
-//using BHoM.Geometry;
+using BH.UI.Alligator.Query;
 
 namespace BH.UI.Alligator.MachineLearning
 {
     public class GridSetUp : GH_Component
     {
         public GridSetUp()
-            : base("StadiaCrowdAnalysisGridSetUp", "StadiaAnalysisGridSetUp", "Set up a grid on a video frame for analysis", "Alligator", "StadiaCrowdAnalytics")
+            : base("Set Analysis grid", "SetGrid",
+                  "Set up a grid on a video frame for analysis",
+                  "Alligator", "MachineLearning")
         {
         }
 

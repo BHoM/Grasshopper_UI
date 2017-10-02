@@ -9,7 +9,9 @@ namespace BH.UI.Alligator.MachineLearning
 {
     public class VideoMotionAnalysis : GH_Component
     {
-        public VideoMotionAnalysis() : base("VideoMotionAnalysis", "VideoMotion", "Analyse the motion level in each frame of a video", "Alligator", "MachineLearning")
+        public VideoMotionAnalysis() : base("VideoMotionAnalysis", "VideoMotion",
+            "Analyse the motion level in each frame of a video",
+            "Alligator", "MachineLearning")
         {
         }
 
@@ -55,10 +57,9 @@ namespace BH.UI.Alligator.MachineLearning
             config.NbColumns = DA.BH_GetData(5, config.NbColumns);
             config.OutFolder = DA.BH_GetData(6, config.OutFolder);
 
-            // TODO VideoMotionAnalyser.Result does not exist. Ask Fraser
-            // Dictionary<int, List<double>> result = analyser.Run(videoFile, config).Result;
-            // List<List<double>> motionLevel = result.Values.ToList();
-            // DA.BH_SetDataList(0, motionLevel);
+            Dictionary<int, List<double>> result = analyser.Run(videoFile, config);
+            List<List<double>> motionLevel = result.Values.ToList();
+            DA.BH_SetDataList(0, motionLevel);
         }
     }
 }

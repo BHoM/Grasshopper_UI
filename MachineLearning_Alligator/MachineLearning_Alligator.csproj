@@ -62,7 +62,6 @@
     <Compile Include="VideoAnalytics\AnalysisFileSetUp.cs" />
     <Compile Include="VideoAnalytics\GridSetUp.cs" />
     <Compile Include="TextAnalytics\SemanticAnalysis.cs" />
-    <Compile Include="VideoAnalytics\StadiaCrowdAnalysis.cs" />
     <Compile Include="VideoAnalytics\VideoMotionAnalysis.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

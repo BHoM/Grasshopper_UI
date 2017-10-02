@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 
-namespace MachineLearning_Alligator
+namespace BH.UI.Alligator.MachineLearning
 {
     public class SemanticAnalysis : GH_Component, IGH_VariableParameterComponent
     {
@@ -10,7 +10,7 @@ namespace MachineLearning_Alligator
         /// Initializes a new instance of the SemanticAnalysis class.
         /// </summary>
         public SemanticAnalysis()
-          : base("SemanticAnalysis", "SemanticAnalysis",
+          : base("SemanticAnalysis", "Semantics",
               "Semantic analysis of a text file based on the Stanford CoreNPL neural network",
               "Alligator", "MachineLearning")
         {

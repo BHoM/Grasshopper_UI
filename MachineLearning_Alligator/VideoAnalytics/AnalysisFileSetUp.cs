@@ -4,17 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using BH.oM.Geometry;
 using System.IO;
 using BH.Engine.MachineLearning;
-using BH.UI.Alligator.Base;
+using BH.UI.Alligator.Query;
 
 namespace BH.UI.Alligator.MachineLearning
 {
     public class AnalysisFileSetUp : GH_Component
     {
         public AnalysisFileSetUp()
-            : base("StadiaAnalysisFrameDisplay", "StadiaAnalysisFrameDisplay", "Set up a video frame in Rhino to begin drawing a grid on", "Alligator", "StadiaCrowdAnalytics")
+            : base("Map frame to Surface", "MapFrame",
+                  "Set up a video frame in Rhino to begin drawing a grid on",
+                  "Alligator", "MachineLearning")
         {
         }
 
