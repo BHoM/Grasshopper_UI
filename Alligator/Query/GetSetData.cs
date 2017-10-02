@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BH.UI.Alligator.Query
 {
-    public static class RetrieveInput
+    public static partial class Query
     {
         public static T BH_GetData<T>(this IGH_DataAccess DA, int index, T destination)
         {

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Drawing;
 using BH.Engine.Base;
 using Grasshopper.Kernel.Parameters;
+using BH.UI.Alligator;
 
 namespace BH.UI.Alligator.Base
 {
@@ -26,7 +27,7 @@ namespace BH.UI.Alligator.Base
         {
             get
             {
-                return Properties.Resources.BHoM_BHoM_Object;
+                return Resource.BHoM_BHoM_Object;
             }
         }
         public override GH_Exposure Exposure

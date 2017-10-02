@@ -72,7 +72,6 @@
     <Compile Include="Components\ObjectComponent.cs" />
     <Compile Include="Components\ResultComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Query\DataUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

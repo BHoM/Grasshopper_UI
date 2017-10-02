@@ -92,8 +92,8 @@
     <Compile Include="BH_Hints\BH_PointHint.cs" />
     <Compile Include="BH_Hints\BH_PolylineHint.cs" />
     <Compile Include="BH_Hints\BH_VectorHint.cs" />
-    <Compile Include="BH_Types\BHoMGeometryParameter.cs" />
-    <Compile Include="BH_Types\BHoMObjectParameter.cs" />
+    <Compile Include="Base\BHoMGeometryParameter.cs" />
+    <Compile Include="Base\BHoMObjectParameter.cs" />
     <Compile Include="Base\CollapseList.cs" />
     <Compile Include="Base\CreateObject.cs" />
     <Compile Include="Base\ExplodeObject.cs" />
@@ -107,12 +107,14 @@
     <Compile Include="Base\AboutGator.cs" />
     <Compile Include="Base\GetProperty.cs" />
     <Compile Include="Base\SetProperty.cs" />
+    <Compile Include="Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resource.resx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\Resources\bar.png" />
@@ -183,7 +185,12 @@
   <ItemGroup>
     <None Include="Properties\Resources\VBH_Script.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
