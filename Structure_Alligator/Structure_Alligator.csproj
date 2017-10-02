@@ -33,6 +33,10 @@
     <Reference Include="BHoM">
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
     </Reference>
+    <Reference Include="BHoM_Adapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BHoM_Adapter\Build\BHoM_Adapter.dll</HintPath>
+    </Reference>
     <Reference Include="BHoM_Engine">
       <HintPath>..\..\BHoM_Engine\Build\BHoM_Engine.dll</HintPath>
     </Reference>
@@ -44,6 +48,10 @@
     </Reference>
     <Reference Include="Grasshopper">
       <HintPath>..\..\..\..\AppData\Roaming\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\Grasshopper.dll</HintPath>
+    </Reference>
+    <Reference Include="Reflection_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BHoM_Engine\Build\Reflection_Engine.dll</HintPath>
     </Reference>
     <Reference Include="RhinoCommon">
       <HintPath>..\..\..\..\..\..\Program Files\Rhinoceros 5 (64-bit)\System\RhinoCommon.dll</HintPath>
@@ -89,7 +97,7 @@
     <Compile Include="Elements\ExportGroup.cs" />
     <Compile Include="Elements\ExportRigidLink.cs" />
     <Compile Include="Elements\Grid.cs" />
-    <Compile Include="Elements\ImportBar.cs" />
+    <Compile Include="Elements\ImportObject.cs" />
     <Compile Include="Elements\ImportDesignElement.cs" />
     <Compile Include="Elements\Level.cs" />
     <Compile Include="Elements\Node.cs" />
