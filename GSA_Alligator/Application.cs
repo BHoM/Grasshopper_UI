@@ -11,6 +11,8 @@ namespace BH.UI.Alligator.GSA
     public class GSAApp : GH_Component
     {
         public GSAApp() : base("GSA Application", "GSAApp", "Creates a GSA Application", "Structure", "Application") { }
+        public override Guid ComponentGuid { get { return new Guid("92ee004b-afe3-4ed3-b2d2-73248f8578d6"); } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return GSA_Alligator.Properties.Resources.BHoM_GSA_App; } }
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
@@ -35,17 +37,5 @@ namespace BH.UI.Alligator.GSA
                 app = new GSAAdapter();
             DA.SetData(0, app);
         }
-
-        public override Guid ComponentGuid
-        {
-            get { return new Guid("92ee004b-afe3-4ed3-b2d2-73248f8578d6"); }
-        }
-
-        /// <summary> Icon (24x24 pixels)</summary>
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return GSA_Alligator.Properties.Resources.BHoM_GSA_App; }
-        }
-
     }
 }
