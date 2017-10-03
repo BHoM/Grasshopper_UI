@@ -49,10 +49,6 @@
     <Reference Include="Acoustic_Engine">
       <HintPath>..\..\BHoM_Engine\Build\Acoustic_Engine.dll</HintPath>
     </Reference>
-    <Reference Include="Alligator, Version=0.1.6484.23363, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Build\Alligator.dll</HintPath>
-    </Reference>
     <Reference Include="BHoM">
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
     </Reference>
@@ -117,6 +113,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BHoM_Acoustics_RASTI.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Alligator\Alligator.csproj">
+      <Project>{2e3b219e-7bd2-4f75-bfaf-9b7735827ed4}</Project>
+      <Name>Alligator</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

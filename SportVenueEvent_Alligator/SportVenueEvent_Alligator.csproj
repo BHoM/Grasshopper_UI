@@ -101,6 +101,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Resources\ConcreteRaker.png" />
   </ItemGroup>
   <ItemGroup>

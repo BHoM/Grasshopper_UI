@@ -164,6 +164,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Resources\BHoM_Bar_Constraints.png" />
   </ItemGroup>
   <ItemGroup>
