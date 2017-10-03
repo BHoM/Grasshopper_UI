@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GSAToolkit;
+using BH.Adapter.GSA;
 using Grasshopper.Kernel;
-using GSA_Adapter.Structural.Interface;
 
-namespace Alligator.GSA
+namespace BH.UI.Alligator.GSA
 {
     public class GSAApp : GH_Component
     {

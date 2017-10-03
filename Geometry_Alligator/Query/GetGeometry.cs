@@ -15,10 +15,7 @@ namespace BH.UI.Alligator.Geometry
 {
     public class GetGeometry : GH_Component   //TODO: Requires corresonding method in engine 2.0
     {
-        public GetGeometry() : base("Get Geometry", "GetGeometry",
-            "Gets the Geometry of a BHoM Objects",
-            "Structure", "Geometry")
-        { }
+        public GetGeometry() : base("Get Geometry", "GetGeometry", "Gets the Geometry of a BHoM Objects", "Structure", "Geometry") { }
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return null; } }
         public override Guid ComponentGuid { get { return new Guid("{99745777-C5C7-44AB-B75E-A61D7E0D0B05}"); } }
 
