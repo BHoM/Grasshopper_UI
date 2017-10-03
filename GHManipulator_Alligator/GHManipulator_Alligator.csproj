@@ -47,10 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComponentsFromObjectList.cs" />
-    <Compile Include="DuplicateComponent.cs" />
-    <Compile Include="LinksBetweenGroups.cs" />
-    <Compile Include="PanelFromList.cs" />
+    <Compile Include="Create\ComponentsFromObjectList.cs" />
+    <Compile Include="Create\DuplicateComponent.cs" />
+    <Compile Include="Create\LinksBetweenGroups.cs" />
+    <Compile Include="Create\PanelFromList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

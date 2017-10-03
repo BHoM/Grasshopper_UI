@@ -26,7 +26,7 @@ namespace BH.UI.Alligator.Base
         }
         public override IGH_GeometricGoo DuplicateGeometry()
         {
-            return new BH_GeometricGoo { Value = Value.GetClone() };
+            return new BH_GeometricGoo { Value = Value.IGetClone() };
         }
         #endregion
 
@@ -67,7 +67,7 @@ namespace BH.UI.Alligator.Base
             {
                 if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
                 if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
-                BH.oM.Geometry.BoundingBox bb = Value.GetBounds(); // TODO Replace with a proper conversion between Rhino and BH BoundingBox
+                BH.oM.Geometry.BoundingBox bb = Value.IGetBounds();
                 return new Rhino.Geometry.BoundingBox(bb.Min.X, bb.Min.Y, bb.Min.Z, bb.Max.X, bb.Max.Y, bb.Max.Z);
             }
         }
@@ -75,7 +75,7 @@ namespace BH.UI.Alligator.Base
         {
             if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
             if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
-            BH.oM.Geometry.BoundingBox bb = Value.GetBounds(); // TODO Replace with a proper conversion between Rhino and BH BoundingBox
+            BH.oM.Geometry.BoundingBox bb = Value.IGetBounds();
             return new Rhino.Geometry.BoundingBox(bb.Min.X, bb.Min.Y, bb.Min.Z, bb.Max.X, bb.Max.Y, bb.Max.Z);
         }
         #endregion

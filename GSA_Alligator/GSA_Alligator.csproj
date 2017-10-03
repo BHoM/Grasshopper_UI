@@ -45,7 +45,7 @@
       <HintPath>..\..\GSA_Toolkit\Build\GSA_Adapter.dll</HintPath>
     </Reference>
     <Reference Include="Interop.Gsa_8_7">
-      <HintPath>..\..\..\..\..\..\Program Files\Oasys\GSA 8.7\Interop.Gsa_8_7.dll</HintPath>
+      <HintPath>..\lib\Interop.Gsa_8_7.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="RhinoCommon">
@@ -83,7 +83,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_GSA_App.png" />
+    <None Include="Properties\Resources\BHoM_GSA_App.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

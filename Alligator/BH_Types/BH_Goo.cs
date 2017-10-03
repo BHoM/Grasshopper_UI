@@ -9,6 +9,7 @@ using System.Linq;
 using System.Drawing;
 using BH.Engine.Base;
 using Grasshopper.Kernel.Parameters;
+using BH.Adapter.Rhinoceros;
 
 namespace BH.UI.Alligator.Base
 {
@@ -66,16 +67,14 @@ namespace BH.UI.Alligator.Base
 
                 if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
                 if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
-                BH.oM.Geometry.BoundingBox bb = ((BHoMObject)Value).GetGeometry().GetBounds(); // TODO Replace with a proper conversion between Rhino and BH BoundingBox
-                return new Rhino.Geometry.BoundingBox(bb.Min.X, bb.Min.Y, bb.Min.Z, bb.Max.X, bb.Max.Y, bb.Max.Z);
+                return ((BHoMObject)Value).GetGeometry().IGetBounds().ToRhino();
             }
         }
         public Rhino.Geometry.BoundingBox GetBoundingBox(Rhino.Geometry.Transform xform)
         {
             if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
             if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
-            BH.oM.Geometry.BoundingBox bb = ((BHoMObject)Value).GetGeometry().GetBounds(); // TODO Replace with a proper conversion between Rhino and BH BoundingBox
-            return new Rhino.Geometry.BoundingBox(bb.Min.X, bb.Min.Y, bb.Min.Z, bb.Max.X, bb.Max.Y, bb.Max.Z);
+            return ((BHoMObject)Value).GetGeometry().IGetBounds().ToRhino();
         }
         #endregion
 
