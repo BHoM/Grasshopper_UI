@@ -64,4 +64,5 @@ Alligator/Alligator_REMOTE_9848.csproj
 
 # Exceptions #
 ##############
-[Pp]ackages/lib/
+![Pp]ackages/lib
+![Pp]ackages/lib/Script.dll
