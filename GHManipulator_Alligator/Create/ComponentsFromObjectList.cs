@@ -1,11 +1,4 @@
-﻿
-using GH_IO;
-using GH_IO.Serialization;
-using Grasshopper;
-using Grasshopper.Documentation;
-using Grasshopper.Kernel;
-using Grasshopper.Kernel.Data;
-using Grasshopper.Kernel.Types;
+﻿using Grasshopper.Kernel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

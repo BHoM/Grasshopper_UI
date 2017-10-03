@@ -79,6 +79,11 @@
     <Compile Include="Design\GetCapacityCurves.cs" />
     <Compile Include="Design\Steel\SteelDesign.cs" />
     <Compile Include="Design\Steel\SteelDesign_Superseeded.cs" />
+    <Compile Include="Grasshopper_Engine_Legacy\DatabaseComponent.cs" />
+    <Compile Include="Grasshopper_Engine_Legacy\ExportComponent.cs" />
+    <Compile Include="Grasshopper_Engine_Legacy\ImportComponent.cs" />
+    <Compile Include="Grasshopper_Engine_Legacy\ObjectComponent.cs" />
+    <Compile Include="Grasshopper_Engine_Legacy\ResultComponent.cs" />
     <Compile Include="Loads\PlanarContourLoad.cs" />
     <Compile Include="Miscellaneous_Alligator\ExportToFBeam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -159,10 +164,6 @@
     <ProjectReference Include="..\Alligator\Alligator.csproj">
       <Project>{2e3b219e-7bd2-4f75-bfaf-9b7735827ed4}</Project>
       <Name>Alligator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
-      <Project>{c273f369-b83a-4183-9a97-18cdb23c25c6}</Project>
-      <Name>Grasshopper_Engine</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
