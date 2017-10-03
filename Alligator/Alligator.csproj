@@ -8,7 +8,7 @@
     <ProjectGuid>{2E3B219E-7BD2-4F75-BFAF-9B7735827ED4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BH.UI.Alligator</RootNamespace>
+    <RootNamespace>BH.UI.Alligator.Base</RootNamespace>
     <AssemblyName>Alligator</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

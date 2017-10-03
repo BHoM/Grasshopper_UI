@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Grasshopper.Kernel;
-using Newtonsoft.Json;
-using BH.UI.Alligator.Base;
 using MongoDB.Bson;
+using BH.UI.Alligator.Query;
 
 namespace BH.UI.Alligator.Mongo
 {
@@ -13,7 +12,7 @@ namespace BH.UI.Alligator.Mongo
         public CreateJson() : base("CreateJson", "CreateJson", "Create json object from inputs", "Alligator", "Mongo") { }
 
         public override Guid ComponentGuid { get { return new Guid("A046C2E8-37C8-4AD3-A8A9-1D8849C53E8A"); } }
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Resources.BHoM_Mongo_ToJson; } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.BHoM_Mongo_ToJson; } }
         public bool CanInsertParameter(GH_ParameterSide side, int index) { return (side == GH_ParameterSide.Input); }
         public bool CanRemoveParameter(GH_ParameterSide side, int index) { return (side == GH_ParameterSide.Input); }
         public IGH_Param CreateParameter(GH_ParameterSide side, int index) { return new Grasshopper.Kernel.Parameters.Param_GenericObject(); }

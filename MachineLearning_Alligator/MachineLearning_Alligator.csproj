@@ -7,7 +7,7 @@
     <ProjectGuid>{3B01F04E-EAB3-4F08-A2FF-5A3A4C4A0A9F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MachineLearning_Alligator</RootNamespace>
+    <RootNamespace>BH.UI.Alligator.MachineLearning</RootNamespace>
     <AssemblyName>MachineLearning_Alligator</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

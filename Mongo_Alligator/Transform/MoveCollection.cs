@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using MA = BH.Adapter.Mongo;
 using BH.UI.Alligator.Base;
+using BH.UI.Alligator.Query;
 
 namespace Mongo_Alligator
 {

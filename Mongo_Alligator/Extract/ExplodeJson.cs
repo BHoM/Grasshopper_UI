@@ -8,8 +8,8 @@ using BH.UI.Alligator.Base;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using BH.oM.Base;
-using BH.Engine.Reflection;
 using BH.oM.Geometry;
+using BH.UI.Alligator.Query;
 
 namespace BH.UI.Alligator.Mongo
 {
@@ -17,8 +17,7 @@ namespace BH.UI.Alligator.Mongo
     {
         public ExplodeJson() : base("ExplodeJson", "ExplodeJson", "Explode json string into objects", "Alligator", "Mongo") { }
         public override Guid ComponentGuid { get { return new Guid("020CF2C8-CB67-4731-9CCA-50F0932E18DC"); } }
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Resources.BHoM_Mongo_FromJson; } }
-        private Dictionary<string, object> m_Outputs = new Dictionary<string, object>();
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.BHoM_Mongo_FromJson; } }
         public bool additional { get; set; }
 
         public bool CanInsertParameter(GH_ParameterSide side, int index)
@@ -151,5 +150,6 @@ namespace BH.UI.Alligator.Mongo
                 ExpireSolution(true);
             }
         }
+        private Dictionary<string, object> m_Outputs = new Dictionary<string, object>();
     }
 }

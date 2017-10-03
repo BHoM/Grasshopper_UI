@@ -1,7 +1,7 @@
 ﻿using System;
 using Grasshopper.Kernel;
 using MA = BH.Adapter.Mongo;
-using BH.UI.Alligator.Base;
+using BH.UI.Alligator.Query;
 
 namespace BH.UI.Alligator.Mongo
 {
@@ -9,26 +9,9 @@ namespace BH.UI.Alligator.Mongo
     {
         public MongoServer() : base("MongoServer", "MongoServer", "Starts a Mongo server on you machine.", "Alligator", "Mongo") { }
 
-        public override Guid ComponentGuid
-        {
-            get
-            {
-                return new Guid("AFBA2519-A2B9-451E-BDE0-821AB7B2E301");
-            }
-        }
-
-        /// <summary> Icon (24x24 pixels)</summary>
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return Resources.BHoM_Mongo_CreateServer; }
-        }
-        public override GH_Exposure Exposure
-        {
-            get
-            {
-                return GH_Exposure.tertiary;
-            }
-        }
+        public override Guid ComponentGuid { get { return new Guid("AFBA2519-A2B9-451E-BDE0-821AB7B2E301"); } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.BHoM_Mongo_CreateServer; } }
+        public override GH_Exposure Exposure { get { return GH_Exposure.tertiary; } }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {

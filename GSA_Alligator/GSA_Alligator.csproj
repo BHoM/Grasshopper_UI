@@ -7,7 +7,7 @@
     <ProjectGuid>{8738F324-C0B3-48A7-A98C-22434F86D609}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GSA_Alligator</RootNamespace>
+    <RootNamespace>BH.UI.Alligator.GSA</RootNamespace>
     <AssemblyName>GSA_Alligator</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

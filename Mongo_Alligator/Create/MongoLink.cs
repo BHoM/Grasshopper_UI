@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using MA = BH.Adapter.Mongo;
-using BH.UI.Alligator.Base;
+using BH.UI.Alligator.Query;
 
 namespace BH.UI.Alligator.Mongo
 {
@@ -13,26 +13,9 @@ namespace BH.UI.Alligator.Mongo
     {
         public MongoAdapter() : base("MongoAdapter", "MongoAdapter", "Create a link to a Mongo database", "Alligator", "Mongo") { }
 
-        public override Guid ComponentGuid
-        {
-            get
-            {
-                return new Guid("7E81BE63-D7FC-4EC9-A41D-CAFB7B1097A7");
-            }
-        }
-
-        /// <summary> Icon (24x24 pixels)</summary>
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return Resources.BHoM_Mongo_Link; }
-        }
-        public override GH_Exposure Exposure
-        {
-            get
-            {
-                return GH_Exposure.secondary;
-            }
-        }
+        public override Guid ComponentGuid { get { return new Guid("7E81BE63-D7FC-4EC9-A41D-CAFB7B1097A7"); } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.BHoM_Mongo_Link; } }
+        public override GH_Exposure Exposure { get { return GH_Exposure.secondary; } }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {

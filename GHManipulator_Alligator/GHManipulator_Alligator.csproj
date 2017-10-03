@@ -7,7 +7,7 @@
     <ProjectGuid>{215BD43E-2500-4A6C-B56A-38ABF9C6E7A0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GHManipulator_Alligator</RootNamespace>
+    <RootNamespace>BH.UI.Alligator.GHManipulator</RootNamespace>
     <AssemblyName>GHManipulator_Alligator</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

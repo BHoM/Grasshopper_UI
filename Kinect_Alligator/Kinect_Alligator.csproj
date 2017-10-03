@@ -7,7 +7,7 @@
     <ProjectGuid>{96940580-6D5F-4FF6-B01D-0D77A85C6079}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Kinect_Alligator</RootNamespace>
+    <RootNamespace>BH.UI.Alligator.Kinect</RootNamespace>
     <AssemblyName>Kinect_Alligator</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -31,9 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BHoM">
+    <Reference Include="BHoM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="GH_IO">
       <HintPath>..\External Libraries\GH_IO.dll</HintPath>
@@ -59,8 +59,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application\Kinect_Application.cs" />
-    <Compile Include="HumanBody\Kinect_BodyTracking.cs" />
+    <Compile Include="Application\Application.cs" />
+    <Compile Include="HumanBody\GetSkeleton.cs" />
+    <Compile Include="HumanBody\SkeletonLines.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -69,29 +70,30 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <None Include="Properties\app.config" />
+    <None Include="Properties\Resources\kinect_app.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="Resources\kinect_app.png" />
+    <None Include="Properties\Resources\skeleton.png" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\skeleton.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\skeleton_lines.png" />
+    <None Include="Properties\Resources\skeleton_lines.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Alligator\Alligator.csproj">
       <Project>{2e3b219e-7bd2-4f75-bfaf-9b7735827ed4}</Project>
       <Name>Alligator</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Rhino_Adapter\Rhino_Adapter.csproj">
+      <Project>{D9DB200C-455B-4ED4-B983-D027C543342B}</Project>
+      <Name>Rhino_Adapter</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

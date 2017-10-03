@@ -7,7 +7,7 @@
     <ProjectGuid>{E2311055-2431-440E-A199-7336878BB80A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Mongo_Alligator</RootNamespace>
+    <RootNamespace>BH.UI.Alligator.Mongo</RootNamespace>
     <AssemblyName>Mongo_Alligator</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -90,14 +90,42 @@
     <Compile Include="Create\MongoLink.cs" />
     <Compile Include="Extract\GetDatabases.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Create\ToMongo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Create\ToMongo.cs" />
     <Compile Include="Transform\MoveCollection.cs" />
     <Compile Include="Transform\MoveData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\packages.config" />
+    <None Include="Properties\Resources\BHoM_Mongo_CreateServer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_Mongo_DeleteDatabases.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_Mongo_DeleteObjects.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_Mongo_From.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_Mongo_FromJson.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_Mongo_GetDatabases.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_Mongo_Link.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_Mongo_To.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_Mongo_ToJson.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -105,41 +133,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="Resources\BHoM_Mongo_CreateServer.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BHoM_Mongo_DeleteDatabases.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BHoM_Mongo_DeleteObjects.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BHoM_Mongo_From.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BHoM_Mongo_FromJson.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BHoM_Mongo_GetDatabases.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BHoM_Mongo_Link.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BHoM_Mongo_To.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BHoM_Mongo_ToJson.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
-      <Project>{c273f369-b83a-4183-9a97-18cdb23c25c6}</Project>
-      <Name>Grasshopper_Engine</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

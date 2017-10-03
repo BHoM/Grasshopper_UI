@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
+using BH.oM.Geometry;
+using BH.oM.Base;
+using BH.UI.Alligator.Base;
+using System.Linq;
 
 namespace BH.UI.Alligator.MachineLearning
 {
     public class SemanticAnalysis : GH_Component, IGH_VariableParameterComponent
     {
-        /// <summary>
-        /// Initializes a new instance of the SemanticAnalysis class.
-        /// </summary>
-        public SemanticAnalysis()
-          : base("SemanticAnalysis", "Semantics",
-              "Semantic analysis of a text file based on the Stanford CoreNPL neural network",
-              "Alligator", "MachineLearning")
-        {
-        }
+        public SemanticAnalysis() : base("SemanticAnalysis", "Semantics", "Semantic analysis of a text file based on the Stanford CoreNPL neural network", "Alligator", "MachineLearning") { }
+        protected override System.Drawing.Bitmap Icon { get { return null; } }
+        public override Guid ComponentGuid { get { return new Guid("95a29710-43f4-4681-bb7b-2042b2d16469"); } }
 
         public bool CanInsertParameter(GH_ParameterSide side, int index)
         {
@@ -36,14 +34,8 @@ namespace BH.UI.Alligator.MachineLearning
             return true;
         }
 
-        public void VariableParameterMaintenance()
-        {
+        public void VariableParameterMaintenance() { }
 
-        }
-
-        /// <summary>
-        /// Registers all the input parameters for this component.
-        /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("Path", "Path", "Path of the text file to analyse", GH_ParamAccess.item);
@@ -53,28 +45,19 @@ namespace BH.UI.Alligator.MachineLearning
             pManager[1].Optional = true;
         }
 
-        /// <summary>
-        /// Registers all the output parameters for this component.
-        /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.AddTextParameter("Output", "Output", "Semantic analysis annotation complete output", GH_ParamAccess.item);
             pManager.AddTextParameter("Sentences", "Sentences", "Sentences split result of the annotation", GH_ParamAccess.list);
-            pManager.AddTextParameter("Fields", "Fields", "Fields", GH_ParamAccess.item);
         }
 
-        /// <summary>
-        /// This is the method that actually does the work.
-        /// </summary>
-        /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             string path = "", text = "", analysisText = "";
             string annotation = "";
 
             List<string> properties = new List<string>();
-            DA.GetDataList<string>(2, properties);
-
+            DA.GetDataList(2, properties);
 
             if ((!DA.GetData(0, ref path)) && (DA.GetData(1, ref text)))
             {
@@ -87,17 +70,56 @@ namespace BH.UI.Alligator.MachineLearning
             }
             else { return; }
 
-            Dictionary<string, List<object>> fields = new Dictionary<string, List<object>>();
             for (int i = 0; i < properties.Count; i++)
             {
-                fields.Add(properties[i], BH.Engine.MachineLearning.SemanticAnalysis.ParseAnnotation(annotation, properties[i]));
+                List<string> values = new List<string>();
+                values.AddRange(BH.Engine.MachineLearning.SemanticAnalysis.ParseAnnotation(annotation, properties[i]).Select(x=>x.ToString()));
+                if (m_Outputs.ContainsKey(properties[i]))
+                {
+                    continue;
+                }
+                else
+                {
+                    m_Outputs.Add(properties[i], values);
+                }
             }
 
             List<string> sentences = (BH.Engine.MachineLearning.SemanticAnalysis.getSentences(annotation));
 
             DA.SetData(0, annotation);
             DA.SetDataList(1, sentences);
-            DA.SetData(2, fields);
+        }
+
+        protected override void AfterSolveInstance()
+        {
+            UpdateOutputs();
+        }
+        private void UpdateOutputs()
+        {
+            List<string> keys = m_Outputs.Keys.ToList();
+
+            int nbNew = keys.Count();
+            int nbOld = Params.Output.Count();
+
+            for (int i = 2; i < Math.Min(nbNew, nbOld); i++)
+            {
+                Params.Output[i].NickName = keys[i];
+            }
+
+            for (int i = nbOld - 1 +2; i > nbNew - 1 +2 ; i--)
+                Params.UnregisterOutputParameter(Params.Output[i]);
+
+            for (int i = nbOld+2; i < nbNew+2; i++)
+            {
+                Grasshopper.Kernel.Parameters.Param_GenericObject newParam = new Grasshopper.Kernel.Parameters.Param_GenericObject();
+                newParam.NickName = keys[i];
+                Params.RegisterOutputParam(newParam);
+            }
+            this.OnAttributesChanged();
+            if (nbNew != nbOld)
+            {
+                ExpireSolution(true);
+            }
         }
         /*
         protected override void AfterSolveInstance()
@@ -127,25 +149,6 @@ namespace BH.UI.Alligator.MachineLearning
             }
         }
         */
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
-        {
-            get
-            {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Gets the unique ID for this component. Do not change this ID after release.
-        /// </summary>
-        public override Guid ComponentGuid
-        {
-            get { return new Guid("95a29710-43f4-4681-bb7b-2042b2d16469"); }
-        }
+        private Dictionary<string, List<string>> m_Outputs = new Dictionary<string, List<string>>();
     }
 }

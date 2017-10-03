@@ -5,33 +5,16 @@ using Grasshopper.Kernel;
 using MA = BH.Adapter.Mongo;
 using BH.Adapter.Queries;
 using BH.UI.Alligator.Base;
+using BH.UI.Alligator.Query;
 
 namespace BH.UI.Alligator.Mongo
 {
     public class FromMongo : GH_Component
     {
         public FromMongo() : base("FromMongo", "FromMongo", "Get BHoM objects from a Mongo database", "Alligator", "Mongo") { }
-
-        public override Guid ComponentGuid
-        {
-            get
-            {
-                return new Guid("AE8F5C54-8746-48BF-A01D-7B4D28A2D91A");
-            }
-        }
-
-        /// <summary> Icon (24x24 pixels)</summary>
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return Resources.BHoM_Mongo_From; }
-        }
-        public override GH_Exposure Exposure
-        {
-            get
-            {
-                return GH_Exposure.secondary;
-            }
-        }
+        public override Guid ComponentGuid { get { return new Guid("AE8F5C54-8746-48BF-A01D-7B4D28A2D91A"); } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.BHoM_Mongo_From; } }
+        public override GH_Exposure Exposure { get { return GH_Exposure.secondary; } }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -67,7 +50,6 @@ namespace BH.UI.Alligator.Mongo
 
             DA.BH_SetDataList(0, m_LastResult);
         }
-
 
         private List<object> m_LastResult = new List<object>();
     }

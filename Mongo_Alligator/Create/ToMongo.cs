@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using Grasshopper.Kernel.Types;
 using MA = BH.Adapter.Mongo;
-using BH.UI.Alligator.Base;
+using BH.UI.Alligator.Query;
 
 namespace BH.UI.Alligator.Mongo
 {
@@ -14,26 +13,9 @@ namespace BH.UI.Alligator.Mongo
     {
         public ToMongo() : base("ToMongo", "ToMongo", "Send BHoM objects to a Mongo database", "Alligator", "Mongo") { }
 
-        public override Guid ComponentGuid
-        {
-            get
-            {
-                return new Guid("30CA2D65-C265-43A5-A7FA-E183C2B916EB");
-            }
-        }
-
-        /// <summary> Icon (24x24 pixels)</summary>
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return Resources.BHoM_Mongo_To; }
-        }
-        public override GH_Exposure Exposure
-        {
-            get
-            {
-                return GH_Exposure.secondary;
-            }
-        }
+        public override Guid ComponentGuid { get { return new Guid("30CA2D65-C265-43A5-A7FA-E183C2B916EB"); } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.BHoM_Mongo_To; } }
+        public override GH_Exposure Exposure { get { return GH_Exposure.secondary; } }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
