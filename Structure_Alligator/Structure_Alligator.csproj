@@ -72,7 +72,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\ScreenCapture.cs" />
+    <Compile Include="Design\Composite\CompositeDesign.cs" />
+    <Compile Include="Design\Concrete\ColumnDesign.cs" />
+    <Compile Include="Design\ElementDesignBase.cs" />
+    <Compile Include="Design\GenerateSpanSupportedNodes.cs" />
+    <Compile Include="Design\GetCapacityCurves.cs" />
+    <Compile Include="Design\Steel\SteelDesign.cs" />
+    <Compile Include="Design\Steel\SteelDesign_Superseeded.cs" />
     <Compile Include="Loads\PlanarContourLoad.cs" />
+    <Compile Include="Miscellaneous_Alligator\ExportToFBeam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -364,6 +372,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BHoM_App_Save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Structural Dynamics\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

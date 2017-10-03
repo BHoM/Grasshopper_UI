@@ -32,8 +32,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Robot_Alligator", "Robot_Al
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportVenueEvent_Alligator", "SportVenueEvent_Alligator\SportVenueEvent_Alligator.csproj", "{0E6AC63F-EE17-4655-84E9-558D17CCBF7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StructuralDynamics_Alligator", "StructuralDynamics_Alligator\StructuralDynamics_Alligator.csproj", "{D6DFAEC2-6DEB-41B0-ADF2-5DBE009DC894}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Etabs_Alligator", "Etabs_Alligator\Etabs_Alligator.csproj", "{EE6DA5F6-FA86-4D74-AA86-B87DD3868BC0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CableNetDesign_Alligator", "CableNetDesign_Alligator\CableNetDesign_Alligator.csproj", "{8FBB29BE-C234-485E-BC15-2497D24026CA}"
@@ -47,8 +45,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Socket_Alligator", "Socket_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revit_Alligator", "Revit_Alligator\Revit_Alligator.csproj", "{1748380C-9CE5-41F0-AA96-3A603ADCAF83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Design_Alligator", "Design_Alligator\Design_Alligator.csproj", "{14072B3C-490D-487B-849B-845C052BFBDF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acoustic_Alligator", "Acoustic_Alligator\Acoustic_Alligator.csproj", "{CE1FA42F-8595-45ED-9F7A-393EE7DDDA92}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2E3B219E-7BD2-4F75-BFAF-9B7735827ED4} = {2E3B219E-7BD2-4F75-BFAF-9B7735827ED4}
@@ -56,9 +52,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acoustic_Alligator", "Acous
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D3_Alligator", "D3_Alligator\D3_Alligator.csproj", "{586B86B3-631A-4EF4-A1F5-1BFC051ADCE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unreal_Alligator", "ClassLibrary2\Unreal_Alligator.csproj", "{CB0957D5-B6C3-44B8-92C3-423D6AACF482}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miscellaneous_Alligator", "Miscellaneous_Alligator\Miscellaneous_Alligator.csproj", "{FC0EE5C3-0E47-40D2-91ED-AB843C80BB3F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unreal_Alligator", "Unreal_Alligator\Unreal_Alligator.csproj", "{CB0957D5-B6C3-44B8-92C3-423D6AACF482}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeechRecognition_Alligator", "SpeechRecognition_Alligator\SpeechRecognition_Alligator.csproj", "{C783A548-8FD4-4352-B9B2-74589FB4FA0D}"
 EndProject
@@ -71,6 +65,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structure_Alligator", "Structure_Alligator\Structure_Alligator.csproj", "{08DDBB2D-EEBB-4A3E-917E-65790A176C53}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XML_Alligator", "XML_Alligator\XML_Alligator.csproj", "{DB8B50D2-4D41-4D11-BADE-6D93DB7634A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rhino_Adapter", "Rhino_Adapter\Rhino_Adapter.csproj", "{D9DB200C-455B-4ED4-B983-D027C543342B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -139,12 +135,6 @@ Global
 		{0E6AC63F-EE17-4655-84E9-558D17CCBF7A}.Debug64|Any CPU.Build.0 = Debug64|Any CPU
 		{0E6AC63F-EE17-4655-84E9-558D17CCBF7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E6AC63F-EE17-4655-84E9-558D17CCBF7A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D6DFAEC2-6DEB-41B0-ADF2-5DBE009DC894}.Debug|Any CPU.ActiveCfg = Debug64|Any CPU
-		{D6DFAEC2-6DEB-41B0-ADF2-5DBE009DC894}.Debug|Any CPU.Build.0 = Debug64|Any CPU
-		{D6DFAEC2-6DEB-41B0-ADF2-5DBE009DC894}.Debug64|Any CPU.ActiveCfg = Debug64|Any CPU
-		{D6DFAEC2-6DEB-41B0-ADF2-5DBE009DC894}.Debug64|Any CPU.Build.0 = Debug64|Any CPU
-		{D6DFAEC2-6DEB-41B0-ADF2-5DBE009DC894}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D6DFAEC2-6DEB-41B0-ADF2-5DBE009DC894}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EE6DA5F6-FA86-4D74-AA86-B87DD3868BC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EE6DA5F6-FA86-4D74-AA86-B87DD3868BC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE6DA5F6-FA86-4D74-AA86-B87DD3868BC0}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
@@ -175,12 +165,6 @@ Global
 		{1748380C-9CE5-41F0-AA96-3A603ADCAF83}.Debug64|Any CPU.Build.0 = Debug|Any CPU
 		{1748380C-9CE5-41F0-AA96-3A603ADCAF83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1748380C-9CE5-41F0-AA96-3A603ADCAF83}.Release|Any CPU.Build.0 = Release|Any CPU
-		{14072B3C-490D-487B-849B-845C052BFBDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{14072B3C-490D-487B-849B-845C052BFBDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{14072B3C-490D-487B-849B-845C052BFBDF}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
-		{14072B3C-490D-487B-849B-845C052BFBDF}.Debug64|Any CPU.Build.0 = Debug|Any CPU
-		{14072B3C-490D-487B-849B-845C052BFBDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{14072B3C-490D-487B-849B-845C052BFBDF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CE1FA42F-8595-45ED-9F7A-393EE7DDDA92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CE1FA42F-8595-45ED-9F7A-393EE7DDDA92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE1FA42F-8595-45ED-9F7A-393EE7DDDA92}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
@@ -199,12 +183,6 @@ Global
 		{CB0957D5-B6C3-44B8-92C3-423D6AACF482}.Debug64|Any CPU.Build.0 = Debug|Any CPU
 		{CB0957D5-B6C3-44B8-92C3-423D6AACF482}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB0957D5-B6C3-44B8-92C3-423D6AACF482}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FC0EE5C3-0E47-40D2-91ED-AB843C80BB3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC0EE5C3-0E47-40D2-91ED-AB843C80BB3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FC0EE5C3-0E47-40D2-91ED-AB843C80BB3F}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC0EE5C3-0E47-40D2-91ED-AB843C80BB3F}.Debug64|Any CPU.Build.0 = Debug|Any CPU
-		{FC0EE5C3-0E47-40D2-91ED-AB843C80BB3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC0EE5C3-0E47-40D2-91ED-AB843C80BB3F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C783A548-8FD4-4352-B9B2-74589FB4FA0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C783A548-8FD4-4352-B9B2-74589FB4FA0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C783A548-8FD4-4352-B9B2-74589FB4FA0D}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
@@ -241,6 +219,12 @@ Global
 		{DB8B50D2-4D41-4D11-BADE-6D93DB7634A5}.Debug64|Any CPU.Build.0 = Debug|Any CPU
 		{DB8B50D2-4D41-4D11-BADE-6D93DB7634A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB8B50D2-4D41-4D11-BADE-6D93DB7634A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9DB200C-455B-4ED4-B983-D027C543342B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9DB200C-455B-4ED4-B983-D027C543342B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9DB200C-455B-4ED4-B983-D027C543342B}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9DB200C-455B-4ED4-B983-D027C543342B}.Debug64|Any CPU.Build.0 = Debug|Any CPU
+		{D9DB200C-455B-4ED4-B983-D027C543342B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9DB200C-455B-4ED4-B983-D027C543342B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
