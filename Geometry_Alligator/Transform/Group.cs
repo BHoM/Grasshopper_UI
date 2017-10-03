@@ -14,7 +14,7 @@ namespace BH.UI.Alligator.Geometry
     {
         public Group() : base("BHGroup", "BHGroup", "Create a BHoM Group", "Alligator", "geometry") { }
         public override Guid ComponentGuid { get { return new Guid("8E80E222-5459-402A-BDB7-45FD1E3374B0"); } }
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Alligator.Geometry.Properties.Resources.BHoM_Geometry_Group; } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.BHoM_Geometry_Group; } }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {

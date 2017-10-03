@@ -33,10 +33,6 @@ namespace BH.Adapter.Rhinoceros
         #endregion
 
         #region 2D
-        publci static RHG.Curve ToRhino(this BHG.ICurve curves)
-        {
-
-        }
         public static RHG.Arc ToRhino(this BHG.Arc arc)
         {
             return new RHG.Arc(arc.Start.ToRhino(), arc.Middle.ToRhino(), arc.End.ToRhino());

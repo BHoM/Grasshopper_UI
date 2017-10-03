@@ -27,7 +27,7 @@ namespace BH.UI.Alligator.Base
         {
             get
             {
-                return Resource.BHoM_BHoM_Object;
+                return Properties.Resources.BHoM_BHoM_Object;
             }
         }
         public override GH_Exposure Exposure

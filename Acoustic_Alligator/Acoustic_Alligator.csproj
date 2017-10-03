@@ -84,14 +84,8 @@
     <Compile Include="Create\CreateZone.cs" />
     <Compile Include="Analyse\DirectSoundSolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Query\RayFilter.cs" />
     <Compile Include="Query\SumSoundLevels.cs" />
-    <Compile Include="Resources.Designer.cs">
+    <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -110,25 +104,15 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <None Include="Properties\app.config" />
+    <None Include="Properties\packages.config" />
+    <None Include="Properties\Resources\BHoM_Acoustics_Speaker.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-    <None Include="Resources\BHoM_Acoustics_Speaker.png" />
+    <None Include="Properties\Resources\BHoM_Acoustics_Zone.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_Acoustics_Zone.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BHoM_Acoustics_RASTI.png" />
+    <None Include="Properties\Resources\BHoM_Acoustics_RASTI.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Alligator\Alligator.csproj">
@@ -139,6 +123,12 @@
       <Project>{d9db200c-455b-4ed4-b983-d027c543342b}</Project>
       <Name>Rhino_Adapter</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

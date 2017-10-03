@@ -50,7 +50,7 @@ namespace BH.UI.Alligator.Base
         /// </summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Resource.BHoM_Alligator_Icon; }
+            get { return Properties.Resources.BHoM_Alligator_Icon; }
         }
 
 

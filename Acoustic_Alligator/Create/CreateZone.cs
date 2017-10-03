@@ -14,18 +14,8 @@ namespace BH.UI.Alligator.Acoustic
     public class CreateZone : GH_Component
     {
         public CreateZone() : base("Create Zone", "Create Zone", "Create BHoM Zone", "Alligator", "Acoustics") { }
-
-        public override Guid ComponentGuid
-        {
-            get
-            {
-                return new Guid("6A8D2D81-EFA3-4DF3-8A5A-9C76005248F3");
-            }
-        }
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return Resources.BHoM_Acoustics_Zone; }
-        }
+        public override Guid ComponentGuid { get { return new Guid("6A8D2D81-EFA3-4DF3-8A5A-9C76005248F3"); } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.BHoM_Acoustics_Zone; } }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {

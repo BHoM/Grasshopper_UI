@@ -17,18 +17,8 @@ namespace BH.UI.Alligator.Acoustic
     public class CalcRASTI : GH_Component
     {
         public CalcRASTI() : base("Calculate RASTI", "CalcRASTI", "Calculate RASTI For A Zone And Speakers", "Alligator", "Acoustics") { }
-
-        public override Guid ComponentGuid
-        {
-            get
-            {
-                return new Guid("42DABE3F-3D6F-40F5-8F4A-AC7BC875F4CE");
-            }
-        }
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return Resources.BHoM_Acoustics_RASTI; }
-        }
+        public override Guid ComponentGuid { get { return new Guid("42DABE3F-3D6F-40F5-8F4A-AC7BC875F4CE"); } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.BHoM_Acoustics_RASTI; } }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {

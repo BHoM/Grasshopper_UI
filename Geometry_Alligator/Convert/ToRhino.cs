@@ -16,7 +16,7 @@ namespace BH.UI.Alligator.Geometry
         public ToRhino() : base("ToGHGeometry", "BtoG", "Convert a BHoM geometry into a GH geometry", "Alligator", "geometry") { }
 
         public override Guid ComponentGuid { get { return new Guid("5F1FE47C-FF14-4101-8048-3FBC00EB5767"); } }
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Alligator.Geometry.Properties.Resources.BHoM_Geo_BHToGH; } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.BHoM_Geo_BHToGH; } }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {

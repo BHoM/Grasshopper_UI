@@ -14,18 +14,9 @@ namespace BH.UI.Alligator.Acoustic
     public class CreateSpeaker : GH_Component
     {
         public CreateSpeaker() : base("Create Speaker", "Spk", "Create BHoM Acoustic Speaker", "Alligator", "Acoustics") { }
+        public override Guid ComponentGuid { get { return new Guid("8B40B2DF-8245-4230-8BCE-006427426F11"); } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.BHoM_Acoustics_Speaker; } }
 
-        public override Guid ComponentGuid
-        {
-            get
-            {
-                return new Guid("8B40B2DF-8245-4230-8BCE-006427426F11");
-            }
-        }
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return Resources.BHoM_Acoustics_Speaker; }
-        }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddParameter(new BHoMGeometryParameter(), "Position", "P", "Position of source", GH_ParamAccess.item);

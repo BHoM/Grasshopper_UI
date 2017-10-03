@@ -18,7 +18,7 @@ namespace BH.UI.Alligator.Base
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Resource.BHoM_SetProperty; }
+            get { return Properties.Resources.BHoM_SetProperty; }
         }
         public override Guid ComponentGuid
         {

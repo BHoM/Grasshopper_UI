@@ -11,19 +11,10 @@ namespace BH.UI.Alligator.Acoustic
 {
     public class DirectSoundSolver : GH_Component
     {
-        /// <summary>
-        /// Initializes a new instance of the DirectSoundSolver class.
-        /// </summary>
-        public DirectSoundSolver()
-          : base("DirectSound", "DS",
-              "Solve Direct Sound calculation",
-              "Alligator", "Acoustics")
-        {
-        }
+        public DirectSoundSolver() : base("DirectSound", "DS", "Solve Direct Sound calculation", "Alligator", "Acoustics") { }
+        protected override System.Drawing.Bitmap Icon { get { return null; } }
+        public override Guid ComponentGuid { get { return new Guid("{cb8d1c29-7b65-4d54-9a55-e3851b5feba5}"); } }
 
-        /// <summary>
-        /// Registers all the input parameters for this component.
-        /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddParameter(new BHoMObjectParameter(), "Speaker", "Spk", "BHoM Acoustic Speaker", GH_ParamAccess.list);
@@ -35,18 +26,11 @@ namespace BH.UI.Alligator.Acoustic
             pManager[3].Optional = true;
         }
 
-        /// <summary>
-        /// Registers all the output parameters for this component.
-        /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.AddParameter(new BHoMObjectParameter(), "Rays", "Rays", "BHoM Acoustic Rays", GH_ParamAccess.list);
         }
 
-        /// <summary>
-        /// This is the method that actually does the work.
-        /// </summary>
-        /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             List <Speaker> spk = new List<Speaker>();
@@ -69,27 +53,6 @@ namespace BH.UI.Alligator.Acoustic
                 DA.SetDataList(0, Analyse.DirectSoundCuda(spk, rec, pan));
             else
                 throw new Exception("Parallel parameter cannot be left blank or be higher than 3. Please specify calculation method: [0] Serial, [1] CPU Threaded, [2] CUDA accelerated. WIP: GPU not working, [3] OpenCL accelerated. WIP: Not Working");
-        }
-
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
-        {
-            get
-            {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Gets the unique ID for this component. Do not change this ID after release.
-        /// </summary>
-        public override Guid ComponentGuid
-        {
-            get { return new Guid("{cb8d1c29-7b65-4d54-9a55-e3851b5feba5}"); }
         }
     }
 }
