@@ -27,7 +27,7 @@ namespace BH.UI.Alligator.Acoustic
         }
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Acoustic_Alligator.Properties.Resources.BHoM_Acoustics_RASTI; }
+            get { return Resources.BHoM_Acoustics_RASTI; }
         }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)

@@ -24,7 +24,7 @@ namespace BH.UI.Alligator.Acoustic
         }
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Acoustic_Alligator.Properties.Resources.BHoM_Acoustics_Speaker; }
+            get { return Resources.BHoM_Acoustics_Speaker; }
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {

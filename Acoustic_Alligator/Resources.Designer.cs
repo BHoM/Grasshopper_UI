@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BH.UI.Alligator.Acoustic.Properties {
+namespace BH.UI.Alligator.Acoustic {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace BH.UI.Alligator.Acoustic.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BH.UI.Alligator.Acoustic.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BH.UI.Alligator.Acoustic.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

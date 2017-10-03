@@ -72,7 +72,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Script">
-      <HintPath>..\packages\Script.dll</HintPath>
+      <HintPath>..\packages\lib\Script.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -105,11 +105,6 @@
     <Compile Include="Base\AboutGator.cs" />
     <Compile Include="Base\GetProperty.cs" />
     <Compile Include="Base\SetProperty.cs" />
-    <Compile Include="Resource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -185,10 +180,13 @@
     <None Include="Properties\Resources\VBH_Script.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Resource.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Rhino_Adapter\Rhino_Adapter.csproj">
+      <Project>{d9db200c-455b-4ed4-b983-d027c543342b}</Project>
+      <Name>Rhino_Adapter</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

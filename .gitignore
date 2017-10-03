@@ -62,6 +62,6 @@ Alligator/Alligator_BASE_9848.csproj
 Alligator/Alligator_LOCAL_9848.csproj
 Alligator/Alligator_REMOTE_9848.csproj
 
-# Sigle file #
+# Exceptions #
 ##############
-!Script.dll
+[Pp]ackages/lib/
