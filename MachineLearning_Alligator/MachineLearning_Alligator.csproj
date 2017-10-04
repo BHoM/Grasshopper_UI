@@ -61,6 +61,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TextAnalytics\ToolStripDropDown.cs" />
     <Compile Include="VideoAnalytics\AnalysisFileSetUp.cs" />
     <Compile Include="VideoAnalytics\AnimationTimer.cs" />
     <Compile Include="VideoAnalytics\FramePlayer.cs" />

@@ -5,6 +5,9 @@ using BH.oM.Geometry;
 using BH.oM.Base;
 using BH.UI.Alligator.Base;
 using System.Linq;
+using BH.Engine.MachineLearning;
+using Grasshopper.Kernel.Parameters;
+using System.Windows.Forms;
 
 namespace BH.UI.Alligator.MachineLearning
 {
@@ -51,6 +54,11 @@ namespace BH.UI.Alligator.MachineLearning
             pManager.AddTextParameter("Sentences", "Sentences", "Sentences split result of the annotation", GH_ParamAccess.list);
         }
 
+        protected override void BeforeSolveInstance()
+        {
+            StaticParamCount = Params.Output.Count;
+        }
+
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             string path = "", text = "", analysisText = "";
@@ -61,19 +69,19 @@ namespace BH.UI.Alligator.MachineLearning
 
             if ((!DA.GetData(0, ref path)) && (DA.GetData(1, ref text)))
             {
-                annotation = BH.Engine.MachineLearning.SemanticAnalysis.RunAnalysis(text);
+                annotation = BH.Engine.MachineLearning.Analyse.Semantics(text);
             }
             else if ((DA.GetData(0, ref path)) && (!DA.GetData(1, ref text)))
             {
                 analysisText = System.IO.File.ReadAllText(path);
-                annotation = BH.Engine.MachineLearning.SemanticAnalysis.RunAnalysis(analysisText);
+                annotation = BH.Engine.MachineLearning.Analyse.Semantics(analysisText);
             }
             else { return; }
 
             for (int i = 0; i < properties.Count; i++)
             {
                 List<string> values = new List<string>();
-                values.AddRange(BH.Engine.MachineLearning.SemanticAnalysis.ParseAnnotation(annotation, properties[i]).Select(x=>x.ToString()));
+                values.AddRange(BH.Engine.MachineLearning.Analyse.ParseAnnotation(annotation, properties[i]).Select(x => x.ToString()));
                 if (m_Outputs.ContainsKey(properties[i]))
                 {
                     continue;
@@ -84,10 +92,20 @@ namespace BH.UI.Alligator.MachineLearning
                 }
             }
 
-            List<string> sentences = (BH.Engine.MachineLearning.SemanticAnalysis.getSentences(annotation));
+            List<string> sentences = (annotation.getSentences());
 
             DA.SetData(0, annotation);
             DA.SetDataList(1, sentences);
+        }
+
+        protected override void AppendAdditionalComponentMenuItems(ToolStripDropDown menu)
+        {
+            base.AppendAdditionalComponentMenuItems(menu);
+            Menu_AppendItem(menu, "Update Outputs", Menu_DoClick);
+        }
+        private void Menu_DoClick(object sender, EventArgs e)
+        {
+            UpdateOutputs();
         }
 
         protected override void AfterSolveInstance()
@@ -99,17 +117,17 @@ namespace BH.UI.Alligator.MachineLearning
             List<string> keys = m_Outputs.Keys.ToList();
 
             int nbNew = keys.Count();
-            int nbOld = Params.Output.Count();
+            int nbOld = Params.Output.Count() - StaticParamCount;
 
-            for (int i = 2; i < Math.Min(nbNew, nbOld); i++)
+            for (int i = 0; i < Math.Min(nbNew, nbOld); i++)
             {
-                Params.Output[i].NickName = keys[i];
+                Params.Output[i + StaticParamCount].NickName = keys[i];
             }
 
-            for (int i = nbOld - 1 +2; i > nbNew - 1 +2 ; i--)
-                Params.UnregisterOutputParameter(Params.Output[i]);
+            for (int i = nbOld; i > nbNew; i--)
+                Params.UnregisterOutputParameter(Params.Output[i + StaticParamCount]);
 
-            for (int i = nbOld+2; i < nbNew+2; i++)
+            for (int i = nbOld; i < nbNew; i++)
             {
                 Grasshopper.Kernel.Parameters.Param_GenericObject newParam = new Grasshopper.Kernel.Parameters.Param_GenericObject();
                 newParam.NickName = keys[i];
@@ -121,34 +139,7 @@ namespace BH.UI.Alligator.MachineLearning
                 ExpireSolution(true);
             }
         }
-        /*
-        protected override void AfterSolveInstance()
-        {
-            //base.AfterSolveInstance();
-            Grasshopper.Kernel.Data.IGH_Structure keys = Params.Input[2].VolatileData;
-            IEnumerable<string> properties = keys.AllData(true).Cast<string>();
-
-            Grasshopper.Kernel.Data.IGH_Structure json = Params.Output[0].VolatileData;
-            IEnumerable<string> annotation = keys.AllData(true).Cast<string>();
-
-            for (int i = 0; i < keys.DataCount; i++)
-            {
-                
-                if (Params.Output.Count > keys.DataCount + 1)
-                {
-                    if (Params.Output[i + 1].Name == keys.AllData(false).ToList()[i]) { Params.UnregisterOutputParameter(Params.Output[i + 1]); }
-                }
-                
-                Param_GenericObject newParam = new Param_GenericObject();
-                newParam.Name = properties.ElementAt(i).ToString();
-                newParam.NickName = properties.ElementAt(i).ToString();
-                newParam.Description = properties.ElementAt(i).ToString() + " field of analysed text";
-                newParam.Access = GH_ParamAccess.list;
-                Params.RegisterOutputParam(newParam);
-                Params.Output[i+1].AddVolatileDataList(new Grasshopper.Kernel.Data.GH_Path(0), SemanticAnalysis_Engine.SemanticAnalysis.ParseAnnotation(annotation.ElementAt(0), properties.ElementAt(i)));
-            }
-        }
-        */
         private Dictionary<string, List<string>> m_Outputs = new Dictionary<string, List<string>>();
+        private int StaticParamCount = 0;
     }
 }

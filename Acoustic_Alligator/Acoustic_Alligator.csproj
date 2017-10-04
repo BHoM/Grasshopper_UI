@@ -83,7 +83,7 @@
     <Compile Include="Create\CreateSpeaker.cs" />
     <Compile Include="Create\CreateZone.cs" />
     <Compile Include="Analyse\DirectSoundSolver.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Query\SumSoundLevels.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -104,8 +104,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\app.config" />
-    <None Include="Properties\packages.config" />
+    <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Resources\BHoM_Acoustics_Speaker.png" />
   </ItemGroup>
   <ItemGroup>

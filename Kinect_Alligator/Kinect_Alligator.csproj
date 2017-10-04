@@ -62,7 +62,7 @@
     <Compile Include="Application\Application.cs" />
     <Compile Include="HumanBody\GetSkeleton.cs" />
     <Compile Include="HumanBody\SkeletonLines.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -70,7 +70,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\app.config" />
+    <None Include="app.config" />
     <None Include="Properties\Resources\kinect_app.png" />
   </ItemGroup>
   <ItemGroup>
