@@ -44,7 +44,7 @@ namespace BH.UI.Alligator.Mongo
 
             Dictionary<string, string> config = new Dictionary<string, string>();
             if (!active) { return; }
-            DA.SetData(0, source.MoveToCollection(queries.Select(x => new CustomQuery(x)), target, config));
+           // DA.SetData(0, source.MoveToCollection(queries.Select(x => new CustomQuery(x)), target, config));
 
         }
     }

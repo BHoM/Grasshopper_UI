@@ -69,7 +69,10 @@
     <Compile Include="TextAnalytics\SemanticAnalysis.cs" />
     <Compile Include="VideoAnalytics\StadiaCrowdAnalysis.cs" />
     <Compile Include="VideoAnalytics\VideoMotionAnalysis.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

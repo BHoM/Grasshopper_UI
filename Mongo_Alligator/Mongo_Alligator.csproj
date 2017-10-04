@@ -89,7 +89,7 @@
     <Compile Include="Extract\FromMongo.cs" />
     <Compile Include="Create\MongoLink.cs" />
     <Compile Include="Extract\GetDatabases.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Create\ToMongo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -100,7 +100,7 @@
     <Compile Include="Transform\MoveData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\packages.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Resources\BHoM_Mongo_CreateServer.png" />
   </ItemGroup>
   <ItemGroup>
