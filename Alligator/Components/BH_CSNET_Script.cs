@@ -29,7 +29,7 @@ namespace BH.UI.Alligator.Base
         {
             script.References.Clear();
             string username = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split('\\')[1];
-            script.References.Add("C:\\Users\\" + username + "\\AppData\\Roaming\\BHoM\\BHoM.dll");
+            script.References.Add("C:\\Users\\" + username + "\\AppData\\Roaming\\Grasshopper\\Libraries\\Alligator\\BHoM.dll");
             return base.CreateSourceForCompile(script);
         }
         protected override List<IGH_TypeHint> AvailableTypeHints
