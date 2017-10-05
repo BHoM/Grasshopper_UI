@@ -60,6 +60,10 @@
   <PropertyGroup>
     <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
 
+if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator" mkdir "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
+if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib" mkdir "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib"
+if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\packages" mkdir "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\packages"
+
 Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

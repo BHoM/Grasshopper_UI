@@ -81,11 +81,16 @@
   <PropertyGroup>
     <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
 
-Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
+if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator" mkdir "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
+if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib" mkdir "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib"
+if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\packages" mkdir "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\packages"
 
-copy /Y "$(TargetDir)\MachineLearning_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib\MachineLearning_Engine.dll"
+Copy /Y "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
 
-copy /Y "$(TargetDir)\stanford-corenlp-3.8.0.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\packages\stanford-corenlp-3.8.0.dll"
+Copy /Y "$(TargetDir)\Alligator.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Alligator.dll"
+Copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib\BHoM.dll"
+Copy /Y "$(TargetDir)\MachineLearning_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib\MachineLearning_Engine.dll"
+Copy /Y "$(TargetDir)\stanford-corenlp-3.8.0.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\packages\stanford-corenlp-3.8.0.dll"
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
