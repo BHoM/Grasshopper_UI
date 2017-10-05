@@ -57,6 +57,7 @@
       <HintPath>..\packages\Grasshopper.0.9.76\lib\net35\Grasshopper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -80,30 +81,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Base\BH_CSNET_Script.cs" />
-    <Compile Include="Base\BH_VBNET_Script.cs" />
-    <Compile Include="Base\VsScriptEditor.cs" />
-    <Compile Include="BH_Hints\BH_LineHint.cs" />
-    <Compile Include="BH_Hints\BH_MeshHint.cs" />
-    <Compile Include="BH_Hints\BH_NurbCurveHint.cs" />
-    <Compile Include="BH_Hints\BH_PointHint.cs" />
-    <Compile Include="BH_Hints\BH_PolylineHint.cs" />
-    <Compile Include="BH_Hints\BH_VectorHint.cs" />
-    <Compile Include="Base\BHoMGeometryParameter.cs" />
-    <Compile Include="Base\BHoMObjectParameter.cs" />
-    <Compile Include="Base\CollapseList.cs" />
-    <Compile Include="Base\CreateObject.cs" />
-    <Compile Include="Base\ExplodeObject.cs" />
-    <Compile Include="Base\GetPropertyNames.cs" />
-    <Compile Include="Base\ExpandList.cs" />
-    <Compile Include="BH_Types\BH_GeometricGoo.cs" />
-    <Compile Include="BH_Types\BH_Goo.cs" />
-    <Compile Include="Base\ObjectFilter.cs" />
-    <Compile Include="Query\GetSetData.cs" />
-    <Compile Include="Base\ViewCustomData.cs" />
-    <Compile Include="Base\AboutGator.cs" />
-    <Compile Include="Base\GetProperty.cs" />
-    <Compile Include="Base\SetProperty.cs" />
+    <Compile Include="Components\BH_CSNET_Script.cs" />
+    <Compile Include="Components\BH_VBNET_Script.cs" />
+    <Compile Include="Components\VsScriptEditor.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_LineHint.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_MeshHint.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_NurbCurveHint.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_PointHint.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_PolylineHint.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_VectorHint.cs" />
+    <Compile Include="Components\BHoMGeometryParameter.cs" />
+    <Compile Include="Components\BHoMObjectParameter.cs" />
+    <Compile Include="Components\CollapseList.cs" />
+    <Compile Include="Components\CreateObject.cs" />
+    <Compile Include="Components\ExplodeObject.cs" />
+    <Compile Include="Components\GetPropertyNames.cs" />
+    <Compile Include="Components\ExpandList.cs" />
+    <Compile Include="NonComponents\BH_Types\BH_GeometricGoo.cs" />
+    <Compile Include="NonComponents\BH_Types\BH_Goo.cs" />
+    <Compile Include="Components\ObjectFilter.cs" />
+    <Compile Include="NonComponents\BH_Types\DrawBHoMObjects.cs" />
+    <Compile Include="NonComponents\Query\GetSetData.cs" />
+    <Compile Include="Components\ViewCustomData.cs" />
+    <Compile Include="Components\AboutGator.cs" />
+    <Compile Include="Components\GetProperty.cs" />
+    <Compile Include="Components\SetProperty.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

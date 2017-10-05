@@ -10,12 +10,12 @@ using System.Drawing;
 using BH.Engine.Base;
 using Grasshopper.Kernel.Parameters;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Alligator
 {
-    public class BH_LineHint : IGH_TypeHint
+    public class BH_MeshHint : IGH_TypeHint
     {
-        public Guid HintID { get { return new Guid("e630327b-d9b4-41b8-8dc9-c74436e4bca9"); } }
-        public string TypeName { get { return typeof(BH.oM.Geometry.Line).ToString(); } }
+        public Guid HintID { get { return new Guid("66457d29-e0ab-410a-9159-a51015d2923c"); } }
+        public string TypeName { get { return typeof(BH.oM.Geometry.Mesh).ToString(); } }
         public bool Cast(object data, out object target)
         {
             target = data;

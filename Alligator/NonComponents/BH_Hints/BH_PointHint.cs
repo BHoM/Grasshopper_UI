@@ -10,12 +10,12 @@ using System.Drawing;
 using BH.Engine.Base;
 using Grasshopper.Kernel.Parameters;
 
-namespace BH.UI.Alligator.BH_Hints
+namespace BH.UI.Alligator
 {
-    public class BH_PolylineHint : IGH_TypeHint
+    public class BH_PointHint : IGH_TypeHint
     {
-        public Guid HintID { get { return new Guid("bee5c313-57ad-44d0-bd36-30f390261b9f"); } }
-        public string TypeName { get { return typeof(BH.oM.Geometry.Polyline).ToString(); } }
+        public Guid HintID { get { return new Guid("67b20827-0326-4442-a4bc-42cfc8d69674"); } }
+        public string TypeName { get { return typeof(BH.oM.Geometry.Point).ToString(); } }
         public bool Cast(object data, out object target)
         {
             target = data;
