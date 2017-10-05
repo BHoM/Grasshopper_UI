@@ -4,7 +4,7 @@ using ScriptComponents;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Parameters.Hints;
-using BH.UI.Alligator.BH_Hints;
+using BH.UI.Alligator.GeometryHints;
 
 namespace BH.UI.Alligator.Base
 {

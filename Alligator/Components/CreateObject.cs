@@ -4,7 +4,7 @@ using BH.UI.Alligator.Base;
 using System.Collections.Generic;
 using BH.UI.Alligator.Query;
 
-namespace BH.UI.Alligator.Mongo
+namespace BH.UI.Alligator.Base
 {
     public class CreateJson : GH_Component, IGH_VariableParameterComponent
     {

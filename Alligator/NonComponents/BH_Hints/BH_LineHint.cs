@@ -10,7 +10,7 @@ using System.Drawing;
 using BH.Engine.Base;
 using Grasshopper.Kernel.Parameters;
 
-namespace BH.UI.Alligator
+namespace BH.UI.Alligator.GeometryHints
 {
     public class BH_LineHint : IGH_TypeHint
     {

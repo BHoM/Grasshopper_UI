@@ -77,12 +77,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Analyse\CalcRASTI.cs" />
+    <Compile Include="Query\CalcRASTI.cs" />
     <Compile Include="Create\CreatePanel.cs" />
     <Compile Include="Create\CreateReceiver.cs" />
     <Compile Include="Create\CreateSpeaker.cs" />
     <Compile Include="Create\CreateZone.cs" />
-    <Compile Include="Analyse\DirectSoundSolver.cs" />
+    <Compile Include="Query\DirectSoundSolver.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Query\SumSoundLevels.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

@@ -174,20 +174,10 @@ namespace BH.UI.Alligator
         }
         public void DrawViewportWires(GH_PreviewWireArgs args)
         {
-            //args.Pipeline.ZBiasMode = 0;
-            //Color bhColour = new Color();   // To automatically keep the change of color when selected a BHcolour is set as dependent from GH colour
-            //int R = args.Color.R - 59;      // Difference to BuroHappold Green
-            //int G = args.Color.G + 168;     // Difference to BuroHappold Green
-            //int B = args.Color.B;           // Difference to BuroHappold Green
-            //bhColour = Color.FromArgb(100, R < 255 && R > 0 ? R : 0, G < 255 && G > 0 ? G : 255, B);
             if (Value == null) { return; }
 
-            Render.IDrawBHoMGeometry(Value as dynamic, args);
-
+            Render.IRenderBHoMGeometry(Value as dynamic, args);
         }
-
-
-
         #endregion
     }
 }
