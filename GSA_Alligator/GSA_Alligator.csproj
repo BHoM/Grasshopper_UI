@@ -97,8 +97,8 @@ if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligat
 Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
 
 Copy /Y "$(TargetDir)\Alligator.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Alligator.dll"
-Copy /Y "$(TargetDir)\BHoM_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib\BHoM_Adapter.dll"
-Copy /Y "$(TargetDir)\GSA_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib\GSA_Adapter.dll"
+Copy /Y "$(TargetDir)\BHoM_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\BHoM_Adapter.dll"
+Copy /Y "$(TargetDir)\GSA_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\GSA_Adapter.dll"
 Copy /Y "$(TargetDir)\Interop.Gsa_8_7.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\packages\Interop.Gsa_8_7.dll"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

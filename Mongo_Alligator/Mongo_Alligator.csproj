@@ -150,15 +150,15 @@ if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligat
 Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
 
 Copy /Y "$(TargetDir)\Alligator.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Alligator.dll"
-Copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib\BHoM.dll"
-Copy /Y "$(TargetDir)\BHoM_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib\BHoM_Adapter.dll"
-Copy /Y "$(TargetDir)\Mongo_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib\Mongo_Adapter.dll"
-Copy /Y "$(TargetDir)\Reflection_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib\Reflection_Engine.dll"
+Copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\BHoM.dll"
+Copy /Y "$(TargetDir)\BHoM_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\BHoM_Adapter.dll"
+Copy /Y "$(TargetDir)\Mongo_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Mongo_Adapter.dll"
+Copy /Y "$(TargetDir)\Reflection_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Reflection_Engine.dll"
 
-Copy /Y "$(TargetDir)\MongoDB.Bson.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\packages\MongoDB.Bson.dll"
-Copy /Y "$(TargetDir)\MongoDB.Driver.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\packages\MongoDB.Driver.dll"
-Copy /Y "$(TargetDir)\MongoDB.Driver.Core.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\packages\MongoDB.Driver.Core.dll"
-Copy /Y "$(TargetDir)\System.Runtime.InteropServices.RuntimeInformation.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\packages\System.Runtime.InteropServices.RuntimeInformation.dll"</PostBuildEvent>
+Copy /Y "$(TargetDir)\MongoDB.Bson.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\MongoDB.Bson.dll"
+Copy /Y "$(TargetDir)\MongoDB.Driver.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\MongoDB.Driver.dll"
+Copy /Y "$(TargetDir)\MongoDB.Driver.Core.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\MongoDB.Driver.Core.dll"
+Copy /Y "$(TargetDir)\System.Runtime.InteropServices.RuntimeInformation.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\System.Runtime.InteropServices.RuntimeInformation.dll"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
