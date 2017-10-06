@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BHoM.Structural;
+using BH.oM.Structural;
 using System.IO;
 using System.Drawing;
 
