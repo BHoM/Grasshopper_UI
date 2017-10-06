@@ -8,7 +8,7 @@ using CA = BH.Adapter.Chrome;
 using Grasshopper.Kernel.Types;
 using BH.oM.Base;
 
-namespace Alligator.Mongo
+namespace BH.UI.Alligator.Chrome
 {
     public class Pull : GH_Component
     {

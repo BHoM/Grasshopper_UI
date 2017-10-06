@@ -53,22 +53,22 @@ namespace BH.UI.Alligator.Base
         }
         #endregion
 
-        //#region Drawing methods
-        //public Rhino.Geometry.BoundingBox ClippingBox
-        //{
-        //    get
-        //    {
-        //        return Preview_ComputeClippingBox();
-        //    }
-        //}
-        //public void DrawViewportMeshes(IGH_PreviewArgs args)
-        //{
-        //    Preview_DrawMeshes(args);
-        //}
-        //public void DrawViewportWires(IGH_PreviewArgs args)
-        //{
-        //    Preview_DrawWires(args);
-        //}
-        //#endregion
+        #region Drawing methods
+        public Rhino.Geometry.BoundingBox ClippingBox
+        {
+            get
+            {
+                return Preview_ComputeClippingBox();
+            }
+        }
+        public void DrawViewportMeshes(IGH_PreviewArgs args)
+        {
+            Preview_DrawMeshes(args);
+        }
+        public void DrawViewportWires(IGH_PreviewArgs args)
+        {
+            Preview_DrawWires(args);
+        }
+        #endregion
     }
 }

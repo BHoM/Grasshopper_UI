@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-//using GHE = Grasshopper_Engine;
 using CA = BH.Adapter.Chrome;
 
-namespace Alligator.Mongo
+namespace BH.UI.Alligator.Chrome
 {
     public class ConfigLinkConfig : GH_Component
     {

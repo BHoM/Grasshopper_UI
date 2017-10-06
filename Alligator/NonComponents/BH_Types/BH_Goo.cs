@@ -8,9 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
 using BH.Engine.Base;
-using Grasshopper.Kernel.Parameters;
 using BH.Adapter.Rhinoceros;
-using BH.UI.Alligator.Base;
 
 namespace BH.UI.Alligator
 {
@@ -109,20 +107,18 @@ namespace BH.UI.Alligator
             if (geometry == null) { return; }
             if (typeof(BH.oM.Geometry.Mesh).IsAssignableFrom(Value.GetType()))
             {
-                args.Pipeline.DrawMeshWires((Rhino.Geometry.Mesh)(((BH.oM.Geometry.Mesh)geometry).ToRhino()), args.Material.Diffuse);
+                args.Pipeline.DrawMeshWires((((BH.oM.Geometry.Mesh)geometry).ToRhino()), args.Material.Diffuse);
             }
             if (typeof(BH.oM.Geometry.Mesh).IsAssignableFrom(Value.GetType()))
             {
-                args.Pipeline.DrawMeshShaded((Rhino.Geometry.Mesh)(((BH.oM.Geometry.Mesh)geometry).ToRhino()), args.Material);
+                args.Pipeline.DrawMeshShaded((((BH.oM.Geometry.Mesh)geometry).ToRhino()), args.Material);
             }
         }
         public void DrawViewportWires(GH_PreviewWireArgs args)
         {
+            if (Value == null) { return; }
             IBHoMGeometry geometry = ((BHoMObject)Value).GetGeometry();
-
-            if (geometry == null) { return; }
-
-            Render.IDrawBHoMGeometry(geometry, args);
+            Render.IRenderBHoMGeometry(geometry, args);
         }
         #endregion
     }

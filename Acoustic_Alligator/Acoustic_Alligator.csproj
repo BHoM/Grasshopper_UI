@@ -77,12 +77,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Analyse\CalcRASTI.cs" />
+    <Compile Include="Query\CalcRASTI.cs" />
     <Compile Include="Create\CreatePanel.cs" />
     <Compile Include="Create\CreateReceiver.cs" />
     <Compile Include="Create\CreateSpeaker.cs" />
     <Compile Include="Create\CreateZone.cs" />
-    <Compile Include="Analyse\DirectSoundSolver.cs" />
+    <Compile Include="Query\DirectSoundSolver.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Query\SumSoundLevels.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -140,10 +140,10 @@ if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligat
 
 Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
 
-Copy /Y "$(TargetDir)\Acoustic_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib\Acoustic_Engine.dll"
+Copy /Y "$(TargetDir)\Acoustic_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Acoustic_Engine.dll"
 Copy /Y "$(TargetDir)\Alligator.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Alligator.dll"
-Copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib\BHoM.dll"
-Copy /Y "$(TargetDir)\Rhino_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib\Rhino_Adapter.dll"
+Copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\BHoM.dll"
+Copy /Y "$(TargetDir)\Rhino_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Rhino_Adapter.dll"
 
 
 </PostBuildEvent>

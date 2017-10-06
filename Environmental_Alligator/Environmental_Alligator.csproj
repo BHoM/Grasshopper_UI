@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F1BC843B-88A6-4F72-BE9E-EA602BF6C917}</ProjectGuid>
+    <ProjectGuid>{CCA0E90E-0862-40B0-B888-67243D097B38}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Environmental_Alligator</RootNamespace>

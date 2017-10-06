@@ -7,7 +7,7 @@ using Grasshopper.Kernel;
 using CA = BH.Adapter.Chrome;
 using Grasshopper.Kernel.Types;
 
-namespace Alligator.Mongo
+namespace BH.UI.Alligator.Chrome
 {
     public class Execute : GH_Component
     {
