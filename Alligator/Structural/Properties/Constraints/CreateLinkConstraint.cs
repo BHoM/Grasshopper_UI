@@ -9,7 +9,7 @@ using Grasshopper_Engine.Components;
 using System.Windows.Forms;
 using Grasshopper.Kernel.Parameters;
 using System.Reflection;
-using Grasshopper_Engine;
+
 
 
 namespace Alligator.Structural.Properties.Constraints
