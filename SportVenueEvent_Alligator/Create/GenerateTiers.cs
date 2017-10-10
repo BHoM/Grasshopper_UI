@@ -7,10 +7,10 @@ using Grasshopper.Kernel.Types;
 using RHG = Rhino.Geometry;
 
 using BHG = BH.oM.Geometry;
-using GHE = Grasshopper_Engine;
 using BH.oM.SportVenueEvent;
 using BH.Engine.SportVenueEvent;
 using BH.UI.Alligator.Base;
+using BH.UI.Alligator.Query;
 
 namespace BH.UI.Grasshopper.SportVenueEvent
 {

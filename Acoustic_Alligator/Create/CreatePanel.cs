@@ -32,7 +32,7 @@ namespace BH.UI.Alligator.Acoustic
             List<double> r = new List<double>() { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 };
             mesh = DA.BH_GetData(0, mesh);
 
-            Panel panel = new Panel(mesh, r);
+            //Panel panel = new Panel(mesh, r);     // TODO Replace Acoustic Panel constructor 
             DA.BH_SetData(0, panels);
         }
     }

@@ -14,20 +14,20 @@ using BH.UI.Alligator.Base;
 
 namespace BH.UI.Alligator
 {
-    public class BH_GeometricGoo : GH_GeometricGoo<IBHoMGeometry>, IGH_PreviewData
+    public class GH_IBHoMGeometry : GH_GeometricGoo<IBHoMGeometry>, IGH_PreviewData
     {
         #region Constructors
-        public BH_GeometricGoo()
+        public GH_IBHoMGeometry()
         {
             this.Value = null;
         }
-        public BH_GeometricGoo(IBHoMGeometry bh)
+        public GH_IBHoMGeometry(IBHoMGeometry bh)
         {
             this.Value = bh;
         }
         public override IGH_GeometricGoo DuplicateGeometry()
         {
-            return new BH_GeometricGoo { Value = Value.IGetClone() };
+            return new GH_IBHoMGeometry { Value = Value.IGetClone() };
         }
         #endregion
 
@@ -92,44 +92,44 @@ namespace BH.UI.Alligator
             }
             if (typeof(Rhino.Geometry.GeometryBase).IsAssignableFrom(source.GetType()))
             {
-                this.Value = ((Rhino.Geometry.GeometryBase)source).FromRhino();
+                this.Value = ((Rhino.Geometry.GeometryBase)source).ToBHoM();
                 return true;
             }
             if (typeof(GH_Point).IsAssignableFrom(source.GetType()))
             {
-                Value = (((GH_Point)source).Value).FromRhino();
+                Value = (((GH_Point)source).Value).ToBHoM();
             }
             else if (typeof(GH_Vector).IsAssignableFrom(source.GetType()))
             {
-                Value = (((GH_Vector)source).Value).FromRhino();
+                Value = (((GH_Vector)source).Value).ToBHoM();
             }
             else if (typeof(GH_Line).IsAssignableFrom(source.GetType()))
             {
-                Value = (((GH_Line)source).Value).FromRhino();
+                Value = (((GH_Line)source).Value).ToBHoM();
             }
             else if (typeof(GH_Circle).IsAssignableFrom(source.GetType()))
             {
-                Value = (((GH_Circle)source).Value).FromRhino();
+                Value = (((GH_Circle)source).Value).ToBHoM();
             }
             else if (typeof(GH_Curve).IsAssignableFrom(source.GetType()))
             {
-                Value = (((GH_Curve)source).Value).FromRhino();
+                Value = (((GH_Curve)source).Value).ToBHoM();
             }
             else if (typeof(GH_Plane).IsAssignableFrom(source.GetType()))
             {
-                Value = (((GH_Plane)source).Value).FromRhino();
+                Value = (((GH_Plane)source).Value).ToBHoM();
             }
             else if (typeof(GH_Surface).IsAssignableFrom(source.GetType()))
             {
-                Value = (((GH_Surface)source).Value).FromRhino();
+                Value = (((GH_Surface)source).Value).ToBHoM();
             }
             else if (typeof(GH_Brep).IsAssignableFrom(source.GetType()))
             {
-                Value = (((GH_Brep)source).Value).FromRhino();
+                Value = (((GH_Brep)source).Value).ToBHoM();
             }
             else if (typeof(GH_Mesh).IsAssignableFrom(source.GetType()))
             {
-                Value = (((GH_Mesh)source).Value).FromRhino();
+                Value = (((GH_Mesh)source).Value).ToBHoM();
             }
             return true;
         }
@@ -146,13 +146,13 @@ namespace BH.UI.Alligator
         {
             // This does not make any sense, so I will just do a validity check
             if (Value == null) { return null; }
-            return new BH_GeometricGoo();
+            return new GH_IBHoMGeometry();
         }
         public override IGH_GeometricGoo Morph(Rhino.Geometry.SpaceMorph xmorph)
         {
             // This does not make any sense, so I will just do a validity check
             if (Value == null) { return null; }
-            return new BH_GeometricGoo();
+            return new GH_IBHoMGeometry();
         }
         #endregion
 

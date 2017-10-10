@@ -71,17 +71,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Create\BarRelease.cs" />
+    <Compile Include="Create\BarLoad.cs" />
+    <Compile Include="Create\CreateGravityLoad.cs" />
+    <Compile Include="Create\CreateLinkConstraint.cs" />
+    <Compile Include="Create\CreateNodalLoad.cs" />
+    <Compile Include="Create\NodeConstraint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Create\CreateBar.cs" />
+    <Compile Include="Create\Bar.cs" />
     <Compile Include="Create\CreateFEMesh.cs" />
     <Compile Include="Create\CreateGroup.cs" />
     <Compile Include="Create\CreateRigidLink.cs" />
-    <Compile Include="Create\CreateNode.cs" />
+    <Compile Include="Create\Node.cs" />
     <Compile Include="Create\CreateOpening.cs" />
     <Compile Include="Create\CreatePanel.cs" />
   </ItemGroup>

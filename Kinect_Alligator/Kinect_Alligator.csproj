@@ -48,6 +48,10 @@
     <Reference Include="Kinect_Adapter">
       <HintPath>..\..\Kinect_Toolkit\Build\Kinect_Adapter.dll</HintPath>
     </Reference>
+    <Reference Include="Rhinoceros_Adapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Rhinoceros_Toolkit\Build\Rhinoceros_Adapter.dll</HintPath>
+    </Reference>
     <Reference Include="RhinoCommon, Version=5.1.30000.16, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
       <HintPath>..\packages\RhinoCommon.5.12.50810.13095\lib\net35\RhinoCommon.dll</HintPath>
       <Private>True</Private>
@@ -94,10 +98,6 @@
     <ProjectReference Include="..\Alligator\Alligator.csproj">
       <Project>{2e3b219e-7bd2-4f75-bfaf-9b7735827ed4}</Project>
       <Name>Alligator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Rhino_Adapter\Rhino_Adapter.csproj">
-      <Project>{d9db200c-455b-4ed4-b983-d027c543342b}</Project>
-      <Name>Rhino_Adapter</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

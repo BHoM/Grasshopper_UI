@@ -12,9 +12,9 @@ using BH.UI.Alligator.Query;
 
 namespace BH.UI.Alligator.Structural.Elements
 {
-    public class ExportNode : GH_Component
+    public class CreateNode : GH_Component
     {
-        public ExportNode() : base("Create Node", "Node", "Creates BHoM Structural Node", "Structure", "Elements") { }
+        public CreateNode() : base("Create Node", "Node", "Creates BHoM Structural Node", "Structure", "Elements") { }
         public override GH_Exposure Exposure { get { return GH_Exposure.secondary; } }
         public override Guid ComponentGuid { get { return new Guid("c811c998-a60f-4015-8bed-a79d22467a20"); } }
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.BHoM_Node; } }
@@ -33,14 +33,13 @@ namespace BH.UI.Alligator.Structural.Elements
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Node node = new Node();
-
             BHG.Point point = new BHG.Point();
             NodeConstraint constraint = new NodeConstraint();
 
             point = DA.BH_GetData(0, point);
             constraint = DA.BH_GetData(1, constraint);
 
+            Node node = new Node();
             node.Point = point;
             node.Constraint = constraint;
             
