@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 14 for Windows Desktop
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alligator", "Alligator\Alligator.csproj", "{2E3B219E-7BD2-4F75-BFAF-9B7735827ED4}"
 EndProject
@@ -59,6 +59,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Environmental_Alligator", "Environmental_Alligator\Environmental_Alligator.csproj", "{CCA0E90E-0862-40B0-B888-67243D097B38}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQL_Alligator", "SQL_Alligator\SQL_Alligator.csproj", "{473CDAA8-1823-4BC6-A055-C44713C0C7E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adapter_Alligator", "Adapter_Alligator\Adapter_Alligator.csproj", "{3EE040A0-2BBC-4A60-BA82-5023DE6F159D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -229,6 +231,12 @@ Global
 		{473CDAA8-1823-4BC6-A055-C44713C0C7E0}.Debug64|Any CPU.Build.0 = Debug|Any CPU
 		{473CDAA8-1823-4BC6-A055-C44713C0C7E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{473CDAA8-1823-4BC6-A055-C44713C0C7E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EE040A0-2BBC-4A60-BA82-5023DE6F159D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EE040A0-2BBC-4A60-BA82-5023DE6F159D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EE040A0-2BBC-4A60-BA82-5023DE6F159D}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EE040A0-2BBC-4A60-BA82-5023DE6F159D}.Debug64|Any CPU.Build.0 = Debug|Any CPU
+		{3EE040A0-2BBC-4A60-BA82-5023DE6F159D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EE040A0-2BBC-4A60-BA82-5023DE6F159D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
