@@ -6,7 +6,6 @@ using Rhino.Geometry;
 
 using BH.oM.SportVenueEvent;
 using BH.Engine.SportVenueEvent;
-using GHE = Grasshopper_Engine;
 
 namespace BH.UI.Grasshopper.SportVenueEvent
 {

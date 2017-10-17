@@ -6,6 +6,7 @@ using Rhino.Geometry;
 using BH.oM.SportVenueEvent;
 using BH.Engine.SportVenueEvent;
 using BH.UI.Alligator.Base;
+using BH.UI.Alligator.Query;
 
 namespace SportVenueEvent_Alligator.Measure
 {

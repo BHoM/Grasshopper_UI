@@ -5,6 +5,7 @@ using Grasshopper.Kernel;
 using Rhino.Geometry;
 using BH.UI.Alligator.Base;
 using BH.oM.Base;
+using BH.UI.Alligator;
 
 namespace BH.UI.Grasshopper.SportVenueEvent
 {
