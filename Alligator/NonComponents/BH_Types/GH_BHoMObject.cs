@@ -12,7 +12,7 @@ using BH.Adapter.Rhinoceros;
 
 namespace BH.UI.Alligator
 {
-    public class GH_BHoMObject : GH_Goo<IObject>
+    public class GH_BHoMObject : GH_Goo<IObject>, IGH_PreviewData
     {
         #region Constructors
         public GH_BHoMObject()

@@ -175,7 +175,6 @@ namespace BH.UI.Alligator
         public void DrawViewportWires(GH_PreviewWireArgs args)
         {
             if (Value == null) { return; }
-
             Render.IRenderBHoMGeometry(Value as dynamic, args);
         }
         #endregion
