@@ -9,7 +9,7 @@ using BHG = BH.oM.Geometry;
 using System.Windows.Forms;
 using Grasshopper.Kernel.Types;
 using BH.Engine.Structure;
-using BH.UI.Alligator.Query;
+using BH.UI.Alligator;
 using BH.UI.Alligator.Base;
 using BH.oM.Base;
 using BH.oM.Materials;
