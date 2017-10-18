@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
 using BH.oM.Base;
-using BH.UI.Alligator.Query;
+using BH.UI.Alligator;
 using BH.Engine.Reflection;
 
 namespace BH.UI.Alligator.Base

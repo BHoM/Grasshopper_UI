@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 using MA = BH.Adapter.Mongo;
 using BH.Adapter.Queries;
 using BH.UI.Alligator.Base;
-using BH.UI.Alligator.Query;
+using BH.UI.Alligator;
 
 namespace BH.UI.Alligator.Mongo
 {

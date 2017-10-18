@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using System.IO;
 using BH.Engine.MachineLearning;
-using BH.UI.Alligator.Query;
+using BH.UI.Alligator;
 
 namespace BH.UI.Alligator.MachineLearning
 {

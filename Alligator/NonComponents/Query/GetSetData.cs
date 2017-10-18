@@ -9,19 +9,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BH.UI.Alligator.Query
+namespace BH.UI.Alligator
 {
     public static partial class Query
     {
         public static T BH_GetData<T>(this IGH_DataAccess DA, int index, T destination)
         {
-            if (typeof(IBHoMGeometry).IsAssignableFrom(destination.GetType()))
+            if (typeof(IBHoMGeometry).IsAssignableFrom(typeof(T)))
             {
                 GH_IBHoMGeometry bhg = new GH_IBHoMGeometry();
                 if (!DA.GetData(index, ref bhg)) { return default(T); }
                 return (T)bhg.Value;
             }
-            else if (typeof(IObject).IsAssignableFrom(destination.GetType()))
+            else if (typeof(IObject).IsAssignableFrom(typeof(T)))
             {
                 GH_BHoMObject bho = new GH_BHoMObject();
                 if (!DA.GetData(index, ref bho)) { return default(T); }
@@ -101,30 +101,6 @@ namespace BH.UI.Alligator.Query
                 return DA.SetDataList(index, bho);
             }
             else { return DA.SetDataList(index, source); }
-        }
-
-        public static object UnwrapObject(this object obj)
-        {
-            if (obj is GH_ObjectWrapper)
-                return ((GH_ObjectWrapper)obj).Value;
-            else if (obj is GH_String)
-                return ((GH_String)obj).Value;
-            else if (obj is IGH_Goo)
-            {
-                try
-                {
-                    System.Reflection.PropertyInfo prop = obj.GetType().GetProperty("Value");
-                    return prop.GetValue(obj);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Grasshopper sucks, what can I do?" + e.ToString());
-                }
-                return obj;
-
-            }
-            else
-                return obj;
         }
     }
 }

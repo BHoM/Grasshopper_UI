@@ -7,7 +7,7 @@ using Grasshopper.Kernel;
 using Kinect_Adapter;
 using BH.oM.HumanBody;
 using BHG = BH.oM.Geometry;
-using BH.UI.Alligator.Query;
+using BH.UI.Alligator;
 
 namespace BH.UI.Alligator.Kinect
 {

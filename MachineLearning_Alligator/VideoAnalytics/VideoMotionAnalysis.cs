@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Grasshopper.Kernel;
 using BH.Engine.MachineLearning;
-using BH.UI.Alligator.Query;
+using BH.UI.Alligator;
 
 namespace BH.UI.Alligator.MachineLearning
 {

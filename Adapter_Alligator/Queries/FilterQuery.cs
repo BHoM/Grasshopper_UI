@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Collections;
 using BH.UI.Alligator.Base;
 using BH.oM.Base;
-using BH.UI.Alligator.Query;
+using BH.UI.Alligator;
 
 namespace BH.UI.Alligator.Adapter
 {

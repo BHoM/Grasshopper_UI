@@ -7,7 +7,7 @@ using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
 using BH.oM.Base;
 using B = BH.oM.Geometry;
-using BH.UI.Alligator.Query;
+using BH.UI.Alligator;
 using BH.Engine.SVG;
 
 namespace BH.UI.Alligator.SVG

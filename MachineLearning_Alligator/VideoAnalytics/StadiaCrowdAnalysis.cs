@@ -8,7 +8,7 @@ using Grasshopper.Kernel.Geometry;
 using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 using BH.Engine.MachineLearning;
-using BH.UI.Alligator.Query;
+using BH.UI.Alligator;
 
 namespace StadiaCrowdAnalytics_Alligator
 {

@@ -9,7 +9,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using BH.oM.Base;
 using BH.oM.Geometry;
-using BH.UI.Alligator.Query;
+using BH.UI.Alligator;
 
 namespace BH.UI.Alligator.Mongo
 {

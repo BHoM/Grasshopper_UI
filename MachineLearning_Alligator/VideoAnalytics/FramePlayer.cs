@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
-using BH.UI.Alligator.Query;
+using BH.UI.Alligator;
 using BH.Engine.MachineLearning;
 
 namespace StadiaCrowdAnalytics_Alligator

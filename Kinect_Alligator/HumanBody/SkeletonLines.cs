@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 using BH.oM.HumanBody;
 using RHG = Rhino.Geometry;
 using BHG = BH.oM.Geometry;
-using BH.UI.Alligator.Query;
+using BH.UI.Alligator;
 using BH.Adapter.Rhinoceros;
 
 namespace BH.UI.Alligator.Kinect

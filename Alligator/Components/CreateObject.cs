@@ -2,7 +2,7 @@
 using Grasshopper.Kernel;
 using BH.UI.Alligator.Base;
 using System.Collections.Generic;
-using BH.UI.Alligator.Query;
+using BH.UI.Alligator;
 
 namespace BH.UI.Alligator.Base
 {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BH.oM.Base;
-using BH.UI.Alligator.Query;
+using BH.UI.Alligator;
 using BH.Engine.Reflection;
 
 namespace BH.UI.Alligator.Base

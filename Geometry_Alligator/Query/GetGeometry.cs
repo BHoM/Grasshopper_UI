@@ -8,7 +8,7 @@ using System.Collections;
 using BH.oM.Base;
 using BH.oM.Geometry;
 using BH.Engine.Base;
-using BH.UI.Alligator.Query;
+using BH.UI.Alligator;
 using BH.UI.Alligator.Base;
 
 namespace BH.UI.Alligator.Geometry

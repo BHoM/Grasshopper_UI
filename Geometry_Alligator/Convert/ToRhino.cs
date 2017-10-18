@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using BHG = BH.oM.Geometry;
-using BH.UI.Alligator.Query;
+using BH.UI.Alligator;
 using BH.Adapter.Rhinoceros;
 using BH.UI.Alligator.Base;
 
