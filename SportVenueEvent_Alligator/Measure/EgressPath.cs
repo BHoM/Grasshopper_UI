@@ -8,6 +8,7 @@ using BHG = BH.oM.Geometry;
 using BH.oM.SportVenueEvent;
 using BH.Engine.SportVenueEvent;
 using BH.UI.Alligator.Base;
+using BH.UI.Alligator.Query;
 
 namespace BH.UI.Grasshopper.SportVenueEvent
 {
