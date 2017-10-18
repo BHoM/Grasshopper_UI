@@ -17,13 +17,13 @@ namespace BH.UI.Alligator.Query
         {
             if (typeof(IBHoMGeometry).IsAssignableFrom(destination.GetType()))
             {
-                BH_GeometricGoo bhg = new BH_GeometricGoo();
+                GH_IBHoMGeometry bhg = new GH_IBHoMGeometry();
                 if (!DA.GetData(index, ref bhg)) { return default(T); }
                 return (T)bhg.Value;
             }
             else if (typeof(IObject).IsAssignableFrom(destination.GetType()))
             {
-                BH_Goo bho = new BH_Goo();
+                GH_BHoMObject bho = new GH_BHoMObject();
                 if (!DA.GetData(index, ref bho)) { return default(T); }
                 return (T)(bho.Value);
             }
@@ -38,7 +38,7 @@ namespace BH.UI.Alligator.Query
         {
             if (typeof(IBHoMGeometry).IsAssignableFrom(typeof(T)))
             {
-                List<BH_GeometricGoo> bhg = new List<BH_GeometricGoo>();
+                List<GH_IBHoMGeometry> bhg = new List<GH_IBHoMGeometry>();
                 if (!DA.GetDataList(index, bhg)) { return null; }
                 destination.Clear();
                 for (int i = 0; i < bhg.Count; i++)
@@ -49,7 +49,7 @@ namespace BH.UI.Alligator.Query
             }
             else if (typeof(IObject).IsAssignableFrom(typeof(T)))
             {
-                List<BH_Goo> bho = new List<BH_Goo>();
+                List<GH_BHoMObject> bho = new List<GH_BHoMObject>();
                 if (!DA.GetDataList(index, bho)) { return null; }
                 destination.Clear();
                 for (int i = 0; i < bho.Count; i++)
@@ -69,12 +69,12 @@ namespace BH.UI.Alligator.Query
         {
             if (typeof(IBHoMGeometry).IsAssignableFrom(source.GetType()))
             {
-                BH_GeometricGoo bhg = new BH_GeometricGoo(source as IBHoMGeometry);
+                GH_IBHoMGeometry bhg = new GH_IBHoMGeometry(source as IBHoMGeometry);
                 return DA.SetData(index, bhg);
             }
             if (typeof(IObject).IsAssignableFrom(source.GetType()))
             {
-                BH_Goo bho = new BH_Goo(source as IObject);
+                GH_BHoMObject bho = new GH_BHoMObject(source as IObject);
                 return DA.SetData(index, bho);
             }
             else { return DA.SetData(index, source); }
@@ -84,19 +84,19 @@ namespace BH.UI.Alligator.Query
         {
             if (typeof(IBHoMGeometry).IsAssignableFrom(typeof(T)))
             {
-                List<BH_GeometricGoo> bhg = new List<BH_GeometricGoo>();
+                List<GH_IBHoMGeometry> bhg = new List<GH_IBHoMGeometry>();
                 for (int i = 0; i < source.Count(); i++)
                 {
-                    bhg.Add(new BH_GeometricGoo(source[i] as IBHoMGeometry));
+                    bhg.Add(new GH_IBHoMGeometry(source[i] as IBHoMGeometry));
                 }
                 return DA.SetDataList(index, bhg);
             }
             if (typeof(IObject).IsAssignableFrom(typeof(T)))
             {
-                List<BH_Goo> bho = new List<BH_Goo>();
+                List<GH_BHoMObject> bho = new List<GH_BHoMObject>();
                 for (int i = 0; i < source.Count; i++)
                 {
-                    bho.Add(new BH_Goo(source[i] as IObject));
+                    bho.Add(new GH_BHoMObject(source[i] as IObject));
                 }
                 return DA.SetDataList(index, bho);
             }

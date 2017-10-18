@@ -12,14 +12,14 @@ using BH.Adapter.Rhinoceros;
 
 namespace BH.UI.Alligator
 {
-    public class BH_Goo : GH_Goo<IObject>
+    public class GH_BHoMObject : GH_Goo<IObject>, IGH_PreviewData
     {
         #region Constructors
-        public BH_Goo()
+        public GH_BHoMObject()
         {
             this.Value = null;
         }
-        public BH_Goo(IObject bh)
+        public GH_BHoMObject(IObject bh)
         {
             this.Value = bh;
         }
@@ -36,7 +36,7 @@ namespace BH.UI.Alligator
         }
         public override IGH_Goo Duplicate()
         {
-            return new BH_Goo();
+            return new GH_BHoMObject();
         }
         public override string ToString()
         {

@@ -71,94 +71,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\ScreenCapture.cs" />
-    <Compile Include="Design\Composite\CompositeDesign.cs" />
-    <Compile Include="Design\Concrete\ColumnDesign.cs" />
-    <Compile Include="Design\ElementDesignBase.cs" />
-    <Compile Include="Design\GenerateSpanSupportedNodes.cs" />
-    <Compile Include="Design\GetCapacityCurves.cs" />
-    <Compile Include="Design\Steel\SteelDesign.cs" />
-    <Compile Include="Design\Steel\SteelDesign_Superseeded.cs" />
-    <Compile Include="Grasshopper_Engine_Legacy\DatabaseComponent.cs" />
-    <Compile Include="Grasshopper_Engine_Legacy\ExportComponent.cs" />
-    <Compile Include="Grasshopper_Engine_Legacy\ImportComponent.cs" />
-    <Compile Include="Grasshopper_Engine_Legacy\ObjectComponent.cs" />
-    <Compile Include="Grasshopper_Engine_Legacy\ResultComponent.cs" />
-    <Compile Include="Loads\PlanarContourLoad.cs" />
-    <Compile Include="Miscellaneous_Alligator\ExportToFBeam.cs" />
+    <Compile Include="Create\BarRelease.cs" />
+    <Compile Include="Create\CreateGravityLoad.cs" />
+    <Compile Include="Create\CreateLinkConstraint.cs" />
+    <Compile Include="Create\CreateNodalLoad.cs" />
+    <Compile Include="Create\NodeConstraint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Application\FileIO.cs" />
-    <Compile Include="Commands\ClearResults.cs" />
-    <Compile Include="Commands\CloseFile.cs" />
-    <Compile Include="Commands\RunAnalysis.cs" />
-    <Compile Include="Commands\SaveFile.cs" />
-    <Compile Include="Elements\CreateBar.cs" />
-    <Compile Include="Elements\CreateFEMesh.cs" />
-    <Compile Include="Elements\CreateGroup.cs" />
-    <Compile Include="Elements\CreateRigidLink.cs" />
-    <Compile Include="Elements\Design\CreateDesignElement.cs" />
-    <Compile Include="Elements\Design\CreateFromConnectedBars.cs" />
-    <Compile Include="Elements\Design\GenerateSpans.cs" />
-    <Compile Include="Elements\Design\SetEffectiveLength.cs" />
-    <Compile Include="Elements\Design\SetSectionPropertyToDesignElem.cs" />
-    <Compile Include="Elements\ExportBar.cs" />
-    <Compile Include="Elements\ExportBarDesignElement.cs" />
-    <Compile Include="Elements\ExportFEMesh.cs" />
-    <Compile Include="Elements\ExportGroup.cs" />
-    <Compile Include="Elements\ExportRigidLink.cs" />
-    <Compile Include="Elements\Grid.cs" />
-    <Compile Include="Elements\ImportObject.cs" />
-    <Compile Include="Elements\ImportDesignElement.cs" />
-    <Compile Include="Elements\Level.cs" />
-    <Compile Include="Elements\Node.cs" />
-    <Compile Include="Elements\Opening.cs" />
-    <Compile Include="Elements\Panel.cs" />
-    <Compile Include="Loads\CreateBarLoad.cs" />
-    <Compile Include="Loads\CreateGravityLoad.cs" />
-    <Compile Include="Loads\CreateLoadCombination.cs" />
-    <Compile Include="Loads\CreateNodalLoad.cs" />
-    <Compile Include="Loads\CustomLoadGrouping\AplyGroupToLoadObject.cs" />
-    <Compile Include="Loads\CustomLoadGrouping\CheckLoadRegionContainment.cs" />
-    <Compile Include="Loads\CustomLoadGrouping\GroupByPropertyName.cs" />
-    <Compile Include="Loads\ImportLoad.cs" />
-    <Compile Include="Loads\ImportLoadcases.cs" />
-    <Compile Include="Loads\Load.cs" />
-    <Compile Include="Loads\Loadcase.cs" />
-    <Compile Include="Loads\UniformAreaLoad.cs" />
-    <Compile Include="ModelTracker\GenerateBarTrackers.cs" />
-    <Compile Include="ModelTracker\StoreModelTrackingData.cs" />
-    <Compile Include="Structural\Properties\BarAttributesContainer.cs" />
-    <Compile Include="Structural\Properties\BarOffset.cs" />
-    <Compile Include="Structural\Properties\Constraints\BarConstraint.cs" />
-    <Compile Include="Structural\Properties\Constraints\CreateBarRelease.cs" />
-    <Compile Include="Structural\Properties\Constraints\CreateLinkConstraint.cs" />
-    <Compile Include="Structural\Properties\Constraints\DoF.cs" />
-    <Compile Include="Structural\Properties\Constraints\NodeConstraint.cs" />
-    <Compile Include="Structural\Properties\CreateBarAttributes.cs" />
-    <Compile Include="Structural\Properties\Section Properties\CompositeSection.cs" />
-    <Compile Include="Structural\Properties\Section Properties\ConcreteSection.cs" />
-    <Compile Include="Structural\Properties\Section Properties\CreateBoxSection.cs" />
-    <Compile Include="Structural\Properties\Section Properties\CreateCableSectionFromDiameter.cs" />
-    <Compile Include="Structural\Properties\Section Properties\CreateCustomSectionProperty.cs" />
-    <Compile Include="Structural\Properties\Section Properties\CreateExplicitSection.cs" />
-    <Compile Include="Structural\Properties\Section Properties\GH_InputParamManager.cs" />
-    <Compile Include="Structural\Properties\Section Properties\LoadingPanelProperty.cs" />
-    <Compile Include="Structural\Properties\Section Properties\LoadSteelSectionFromDB.cs" />
-    <Compile Include="Structural\Properties\Section Properties\PanelProperty.cs" />
-    <Compile Include="Structural\Properties\Section Properties\SectionProperty.cs" />
-    <Compile Include="Structural\Properties\Section Properties\SteelSection.cs" />
-    <Compile Include="Results\BarResults.cs" />
-    <Compile Include="Results\BarUtilisation.cs" />
-    <Compile Include="Results\NodeResults.cs" />
-    <Compile Include="Results\PanelResults.cs" />
-    <Compile Include="Results\PushResultsToDataBase.cs" />
-    <Compile Include="Results\ResultServer.cs" />
-    <Compile Include="Results\SlabReinforcementResults.cs" />
+    <Compile Include="Create\Bar.cs" />
+    <Compile Include="Create\CreateFEMesh.cs" />
+    <Compile Include="Create\CreateGroup.cs" />
+    <Compile Include="Create\CreateRigidLink.cs" />
+    <Compile Include="Create\Node.cs" />
+    <Compile Include="Create\CreateOpening.cs" />
+    <Compile Include="Create\CreatePanel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Alligator\Alligator.csproj">
@@ -374,9 +304,7 @@
   <ItemGroup>
     <None Include="Resources\BHoM_App_Save.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Structural Dynamics\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator" mkdir "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"

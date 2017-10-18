@@ -63,14 +63,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Create\BH_GeometricGoo.cs" />
     <Compile Include="Create\CreatePitch.cs" />
     <Compile Include="Create\CreateRake.cs" />
     <Compile Include="Create\CreateRow.cs" />
     <Compile Include="Create\CreateSeat.cs" />
     <Compile Include="Create\CreateTier.cs" />
     <Compile Include="Create\CreateVomitory.cs" />
-    <Compile Include="Create\Point.cs" />
-    <Compile Include="Create\Point_Compiled.cs" />
     <Compile Include="Deconstruct\DeRake.cs" />
     <Compile Include="Deconstruct\DeRow.cs" />
     <Compile Include="Deconstruct\DeSeat.cs" />

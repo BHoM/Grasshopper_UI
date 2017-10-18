@@ -12,7 +12,7 @@ using Grasshopper.Kernel.Parameters;
 
 namespace BH.UI.Alligator.Base
 {
-    public class BHoMObjectParameter : GH_Param<BH_Goo>
+    public class BHoMObjectParameter : GH_Param<GH_BHoMObject>
     {
         #region Constructors
         public BHoMObjectParameter()

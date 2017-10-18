@@ -13,7 +13,7 @@ using BH.UI.Alligator;
 
 namespace BH.UI.Alligator.Base
 {
-    public class BHoMGeometryParameter : GH_Param<BH_GeometricGoo>, IGH_PreviewObject
+    public class BHoMGeometryParameter : GH_Param<GH_IBHoMGeometry>, IGH_PreviewObject
     {
         #region Constructors
         public BHoMGeometryParameter()

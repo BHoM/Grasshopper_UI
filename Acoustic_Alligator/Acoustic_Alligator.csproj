@@ -125,10 +125,6 @@
       <Project>{2e3b219e-7bd2-4f75-bfaf-9b7735827ed4}</Project>
       <Name>Alligator</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Rhino_Adapter\Rhino_Adapter.csproj">
-      <Project>{d9db200c-455b-4ed4-b983-d027c543342b}</Project>
-      <Name>Rhino_Adapter</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
