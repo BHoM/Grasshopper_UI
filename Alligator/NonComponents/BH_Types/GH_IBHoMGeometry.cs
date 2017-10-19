@@ -92,7 +92,7 @@ namespace BH.UI.Alligator
             }
             if (typeof(Rhino.Geometry.GeometryBase).IsAssignableFrom(source.GetType()))
             {
-                this.Value = ((Rhino.Geometry.GeometryBase)source).ToBHoM();
+               // this.Value = ((Rhino.Geometry.GeometryBase)source).ToBHoM();
                 return true;
             }
             if (typeof(GH_Point).IsAssignableFrom(source.GetType()))

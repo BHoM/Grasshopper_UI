@@ -50,8 +50,8 @@ namespace BH.UI.Alligator.Base
             BHoMObject obj = new BHoMObject();
             string key = "";
 
-            obj = DA.BH_GetData(0, obj);
-            key = DA.BH_GetData(1, key);
+            obj = DA.BH_GetData(0, ref obj);
+            key = DA.BH_GetData(1, ref key);
 
             DA.SetData(0, BH.Engine.Reflection.Query.GetPropertyValue(obj, key));
         }

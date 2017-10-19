@@ -32,7 +32,7 @@ namespace BH.UI.Alligator.Adapter
         protected override void SolveInstance(IGH_DataAccess DA)
         {
 
-            string queryString = ""; DA.BH_GetData<string>(0, queryString);;
+            string queryString = ""; DA.BH_GetData<string>(0, ref queryString);;
 
             BH.Adapter.Queries.CustomQuery query = new BH.Adapter.Queries.CustomQuery(queryString);
             DA.BH_SetData(0, query);

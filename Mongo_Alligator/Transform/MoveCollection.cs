@@ -32,10 +32,10 @@ namespace Mongo_Alligator
             MA.MongoAdapter source = new BH.Adapter.Mongo.MongoAdapter();
             MA.MongoAdapter target = new BH.Adapter.Mongo.MongoAdapter();
             bool overwrite = false, active = false, success = false;
-            source = DA.BH_GetData(0, source);
-            target = DA.BH_GetData(1, target);
-            overwrite = DA.BH_GetData(2, overwrite);
-            active = DA.BH_GetData(3, overwrite);
+            source = DA.BH_GetData(0, ref source);
+            target = DA.BH_GetData(1, ref target);
+            overwrite = DA.BH_GetData(2, ref overwrite);
+            active = DA.BH_GetData(3, ref overwrite);
 
             if (active)
             {

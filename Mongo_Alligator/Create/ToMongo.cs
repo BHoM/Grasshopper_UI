@@ -37,10 +37,10 @@ namespace BH.UI.Alligator.Mongo
             List<object> objects = new List<object>();
             string key = "";
             bool active = false;
-            link = DA.BH_GetData(0, link);
+            link = DA.BH_GetData(0, ref link);
             objects = DA.BH_GetDataList(1, objects);
-            key = DA.BH_GetData(2, key);
-            active = DA.BH_GetData(3, active);
+            key = DA.BH_GetData(2, ref key);
+            active = DA.BH_GetData(3, ref active);
 
             if (!active || objects.Count == 0)
             {

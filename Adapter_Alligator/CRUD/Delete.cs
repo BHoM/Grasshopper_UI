@@ -36,10 +36,10 @@ namespace BH.UI.Alligator.Adapter
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BHoMAdapter adapter = null; DA.BH_GetData(0, adapter);
-            BH.Adapter.Queries.FilterQuery query = null; DA.BH_GetData(1, query);
-            Dictionary<string, string> config = null; DA.BH_GetData(2, config);
-            bool active = false; DA.BH_GetData(3, active);
+            BHoMAdapter adapter = null; DA.BH_GetData(0, ref adapter);
+            BH.Adapter.Queries.FilterQuery query = null; DA.BH_GetData(1, ref query);
+            Dictionary<string, string> config = null; DA.BH_GetData(2, ref config);
+            bool active = false; DA.BH_GetData(3, ref active);
 
             if (!active) return;
 

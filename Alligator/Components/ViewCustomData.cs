@@ -51,7 +51,7 @@ namespace BH.UI.Alligator.Base
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             BHoMObject obj = new BHoMObject();
-            obj = DA.BH_GetData(0, obj);
+            obj = DA.BH_GetData(0, ref obj);
 
             Dictionary<string, object> dict = obj.GetPropertyDictionary();
 

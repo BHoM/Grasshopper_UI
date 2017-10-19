@@ -52,12 +52,12 @@ namespace StadiaCrowdAnalytics_Alligator
             VideoAnalyser va = new VideoAnalyser();
             bool showMesh = false;
 
-            folder = DA.BH_GetData(0, folder);
-            analysedFrames = DA.BH_GetData(1, analysedFrames);
-            frameNumber = Convert.ToInt32(DA.BH_GetData(2, frameNumber));
-            srf = DA.BH_GetData(3, srf);
-            va = DA.BH_GetData(4, va);
-            showMesh = DA.BH_GetData(5, showMesh);
+            folder = DA.BH_GetData(0, ref folder);
+            DA.BH_GetData(1, ref analysedFrames);
+            frameNumber = Convert.ToInt32(DA.BH_GetData(2, ref frameNumber));
+            srf = DA.BH_GetData(3, ref srf);
+            va = DA.BH_GetData(4, ref va);
+            showMesh = DA.BH_GetData(5, ref showMesh);
 
             if (folder == null || frameNumber < 0) return; //Try again
 

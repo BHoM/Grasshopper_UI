@@ -27,7 +27,7 @@ namespace BH.UI.Alligator.Mongo
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             MA.MongoServer server = new MA.MongoServer(null);
-            server = DA.BH_GetData(0, server);
+            server = DA.BH_GetData(0, ref server);
             DA.SetDataList(0, server.GetAllDatabases());
         }
     }

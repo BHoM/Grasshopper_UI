@@ -31,9 +31,9 @@ namespace BH.UI.Alligator.Geometry
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             BHG.IBHoMGeometry geometry = default(BHG.IBHoMGeometry);
-            geometry = DA.BH_GetData(0, geometry);
+            geometry = DA.BH_GetData(0, ref geometry);
 
-            DA.SetData(0, geometry.ToRhino());
+            //DA.SetData(0, geometry.ToRhino());
         }
     }
 }

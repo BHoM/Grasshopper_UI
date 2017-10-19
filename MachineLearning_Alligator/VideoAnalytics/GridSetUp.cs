@@ -44,7 +44,7 @@ namespace BH.UI.Alligator.MachineLearning
 
             rows = DA.BH_GetDataList(0, rows);
             cols = DA.BH_GetDataList(1, cols);
-            videoFile = DA.BH_GetData(2, videoFile);
+            videoFile = DA.BH_GetData(2, ref videoFile);
 
             //Get the intersecting points
             Dictionary<PolylineCurve, List<Point3d>> intersectingPointsByLine = InitialIntersectingPoints(rows, cols);
