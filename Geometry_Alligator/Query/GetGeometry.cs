@@ -32,7 +32,7 @@ namespace BH.UI.Alligator.Geometry
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             BHoMObject obj = new BHoMObject();
-            obj = DA.BH_GetData(0, obj);
+            obj = DA.BH_GetData(0, ref obj);
 
             IBHoMGeometry geom = obj.GetGeometry();
             DA.BH_SetData(0, geom);

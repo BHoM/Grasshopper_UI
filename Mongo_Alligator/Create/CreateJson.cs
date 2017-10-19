@@ -42,7 +42,7 @@ namespace BH.UI.Alligator.Mongo
             {
                 customObj.Name = this.Name;
                 object obj = new object();
-                obj = DA.BH_GetData(i, obj);
+                obj = DA.BH_GetData(i, ref obj);
                 customObj.CustomData.Add(Params.Input[i].NickName, obj.UnwrapObject());
             }
             string json = customObj.ToJson<BH.oM.Base.CustomObject>();

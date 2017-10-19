@@ -37,11 +37,11 @@ namespace BH.UI.Alligator.Adapter
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BHoMAdapter adapter = null; DA.BH_GetData(0, adapter);
+            BHoMAdapter adapter = null; DA.BH_GetData(0, ref adapter);
             List<BHoMObject> objects = new List<BHoMObject>(); DA.BH_GetDataList(1, objects);
-            string tag = ""; DA.BH_GetData(2, tag);
-            Dictionary<string, string> config = null; DA.BH_GetData(3, config);
-            bool active = false; DA.BH_GetData(4, active);
+            string tag = ""; DA.BH_GetData(2, ref tag);
+            Dictionary<string, string> config = null; DA.BH_GetData(3, ref config);
+            bool active = false; DA.BH_GetData(4, ref active);
 
             if (!active) return;
 

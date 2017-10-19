@@ -44,8 +44,8 @@ namespace BH.UI.Alligator.MachineLearning
             Grasshopper.Kernel.Types.GH_Surface srf = new Grasshopper.Kernel.Types.GH_Surface();
             bool display = false;
 
-            videoFile = DA.BH_GetData(0, videoFile);
-            srf = DA.BH_GetData(1, srf);
+            videoFile = DA.BH_GetData(0, ref videoFile);
+            srf = DA.BH_GetData(1, ref srf);
             
             if (videoFile == null || srf == null) return;
 
@@ -53,7 +53,7 @@ namespace BH.UI.Alligator.MachineLearning
             analyser.FileName = videoFile;
             analyser.LoadFile();
 
-            display = DA.BH_GetData(2, display);
+            display = DA.BH_GetData(2, ref display);
             if (!display) return;
 
             //Display the frame on the Rhino window as a wallpaper

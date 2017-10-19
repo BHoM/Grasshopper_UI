@@ -54,7 +54,7 @@ namespace BH.UI.Alligator.Base
             customObj = new oM.Base.CustomObject();
             string name = "";
             List<string> tags = new List<string>();
-            name = DA.BH_GetData(0, name);
+            name = DA.BH_GetData(0, ref name);
             tags = DA.BH_GetDataList(1, tags);
             customObj.Name = name;
             customObj.Tags = new HashSet<string>(tags);

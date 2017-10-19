@@ -13,7 +13,7 @@ namespace BH.UI.Alligator
 {
     public static partial class Query
     {
-        public static T BH_GetData<T>(this IGH_DataAccess DA, int index, T destination)
+        public static T BH_GetData<T>(this IGH_DataAccess DA, int index, ref T destination)
         {
             if (typeof(IBHoMGeometry).IsAssignableFrom(typeof(T)))
             {
@@ -30,7 +30,7 @@ namespace BH.UI.Alligator
             else
             {
                 if (!DA.GetData(index, ref destination)) { return default(T); }
-                return destination;
+                return (T)destination;
             }
         }
 

@@ -35,10 +35,10 @@ namespace BH.UI.Alligator.Mongo
             List<string> query = new List<string>();
             bool toJson = true, active = false;
 
-            link = DA.BH_GetData(0, link);
+            link = DA.BH_GetData(0, ref link);
             query = DA.BH_GetDataList(1, query);
-            toJson = DA.BH_GetData(2, toJson);
-            active = DA.BH_GetData(3, active);
+            toJson = DA.BH_GetData(2, ref toJson);
+            active = DA.BH_GetData(3, ref active);
 
             Dictionary<string, string> config = new Dictionary<string, string>
             {

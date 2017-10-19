@@ -37,10 +37,10 @@ namespace BH.UI.Alligator.Mongo
             MA.MongoAdapter target = new BH.Adapter.Mongo.MongoAdapter();
             List<string> queries = new List<string>();
             bool active = false;
-            source = DA.BH_GetData(0, source);
-            target = DA.BH_GetData(1, target);
+            source = DA.BH_GetData(0, ref source);
+            target = DA.BH_GetData(1, ref target);
             queries = DA.BH_GetDataList(2, queries);
-            active = DA.BH_GetData(3, active);
+            active = DA.BH_GetData(3,ref active);
 
             Dictionary<string, string> config = new Dictionary<string, string>();
             if (!active) { return; }
