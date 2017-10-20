@@ -33,7 +33,7 @@ namespace BH.UI.Alligator.Geometry
             BHG.IBHoMGeometry geometry = default(BHG.IBHoMGeometry);
             geometry = DA.BH_GetData(0, geometry);
 
-            DA.SetData(0, geometry.ToRhino());
+            DA.SetData(0, geometry.IToRhino());
         }
     }
 }
