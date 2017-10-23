@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using MA = BH.Adapter.Mongo;
 using BH.UI.Alligator;
+using BH.oM.Base;
 
 namespace BH.UI.Alligator.Mongo
 {
@@ -34,7 +35,7 @@ namespace BH.UI.Alligator.Mongo
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             MA.MongoAdapter link = new MA.MongoAdapter();
-            List<object> objects = new List<object>();
+            List<BHoMObject> objects = new List<BHoMObject>();
             string key = "";
             bool active = false;
             link = DA.BH_GetData(0, link);

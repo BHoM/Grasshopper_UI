@@ -46,7 +46,7 @@ namespace BH.UI.Alligator.Mongo
             };
 
             if (active)
-                m_LastResult = link.Pull(query.Select(x => new CustomQuery(x)), config) as List<object>;
+                m_LastResult = link.Pull(new BatchQuery(query.Select(x => new CustomQuery(x))), config) as List<object>;
 
             DA.BH_SetDataList(0, m_LastResult);
         }

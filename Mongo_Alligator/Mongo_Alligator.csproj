@@ -35,8 +35,9 @@
     <Reference Include="BHoM">
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
     </Reference>
-    <Reference Include="BHoM_Adapter">
-      <HintPath>..\..\BHoM_Engine\Build\BHoM_Adapter.dll</HintPath>
+    <Reference Include="BHoM_Adapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BHoM_Adapter\Build\BHoM_Adapter.dll</HintPath>
     </Reference>
     <Reference Include="GH_IO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97, processorArchitecture=MSIL">
       <HintPath>..\packages\Grasshopper.0.9.76\lib\net35\GH_IO.dll</HintPath>
@@ -153,18 +154,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
-
-if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator" mkdir "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
-if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib" mkdir "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib"
-if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\packages" mkdir "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\packages"
-
 Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
 
-Copy /Y "$(TargetDir)\Alligator.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Alligator.dll"
-Copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\BHoM.dll"
-Copy /Y "$(TargetDir)\BHoM_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\BHoM_Adapter.dll"
 Copy /Y "$(TargetDir)\Mongo_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Mongo_Adapter.dll"
-Copy /Y "$(TargetDir)\Reflection_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Reflection_Engine.dll"
 
 Copy /Y "$(TargetDir)\MongoDB.Bson.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\MongoDB.Bson.dll"
 Copy /Y "$(TargetDir)\MongoDB.Driver.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\MongoDB.Driver.dll"
