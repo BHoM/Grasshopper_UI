@@ -85,7 +85,8 @@ if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligat
 if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib" mkdir "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib"
 if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\packages" mkdir "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\packages"
 
-Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"</PostBuildEvent>
+Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
+copy /Y "$(TargetDir)Rhinoceros_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Rhinoceros_Adapter.dll"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
