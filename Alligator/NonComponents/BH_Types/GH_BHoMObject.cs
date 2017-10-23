@@ -43,11 +43,11 @@ namespace BH.UI.Alligator
             if (Value == null)
                 return "Null BHoMObject";
 
-            else if (typeof(BH.oM.Base.CustomObject).IsAssignableFrom(Value.GetType()))
+            /*else if (typeof(BH.oM.Base.CustomObject).IsAssignableFrom(Value.GetType()))
             {
                 return "BH.oM.Base.Custom." + Value.Name;
             }
-            else
+            else*/
                 return Value.ToString();
         }
         public override string TypeName

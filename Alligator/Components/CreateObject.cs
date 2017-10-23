@@ -10,6 +10,7 @@ using Grasshopper.Kernel.Parameters.Hints;
 using System.Runtime.CompilerServices;
 using Grasshopper.Kernel.Data;
 using Grasshopper;
+using System.Collections;
 
 namespace BH.UI.Alligator.Base
 {
@@ -88,18 +89,26 @@ namespace BH.UI.Alligator.Base
 
             for (int i = 0; i < Params.Input.Count; i++)
             {
-                switch (this.Params.Input[i].Access)
+                if (Params.Input[i].NickName == "Name")
+                    customObj.Name = GetItemFromParameter(DA, i) as string;
+                if (Params.Input[i].NickName == "Tags")
+                    customObj.Tags = new HashSet<string>(((List<object>)GetListFromParameter(DA, i)).Cast<string>());
+                else
                 {
-                    case GH_ParamAccess.item:
-                        customObj.CustomData.Add(Params.Input[i].NickName, RuntimeHelpers.GetObjectValue(this.GetItemFromParameter(DA, i)));
-                        break;
-                    case GH_ParamAccess.list:
-                        customObj.CustomData.Add(Params.Input[i].NickName, RuntimeHelpers.GetObjectValue(this.GetListFromParameter(DA, i)));
-                        break;
-                    case GH_ParamAccess.tree:
-                        customObj.CustomData.Add(Params.Input[i].NickName, RuntimeHelpers.GetObjectValue(this.GetTreeFromParameter(DA, i)));
-                        break;
+                    switch (this.Params.Input[i].Access)
+                    {
+                        case GH_ParamAccess.item:
+                            customObj.CustomData.Add(Params.Input[i].NickName, RuntimeHelpers.GetObjectValue(this.GetItemFromParameter(DA, i)));
+                            break;
+                        case GH_ParamAccess.list:
+                            customObj.CustomData.Add(Params.Input[i].NickName, RuntimeHelpers.GetObjectValue(this.GetListFromParameter(DA, i)));
+                            break;
+                        case GH_ParamAccess.tree:
+                            customObj.CustomData.Add(Params.Input[i].NickName, RuntimeHelpers.GetObjectValue(this.GetTreeFromParameter(DA, i)));
+                            break;
+                    }
                 }
+                
             }
 
             /*customObj = new oM.Base.CustomObject();
