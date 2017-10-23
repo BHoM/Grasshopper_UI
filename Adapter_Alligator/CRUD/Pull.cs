@@ -27,24 +27,25 @@ namespace BH.UI.Alligator.Adapter
             pManager.AddGenericParameter("Query", "Query", "BHoM Query", GH_ParamAccess.item);
             pManager.AddGenericParameter("Config", "Config", "Delete config", GH_ParamAccess.item);
             pManager.AddBooleanParameter("Active", "Active", "Execute the pull", GH_ParamAccess.item);
+            Params.Input[2].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddParameter(new BHoMObjectParameter(), "Objects", "Objects", "Objects obtained from the query", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Objects", "Objects", "Objects obtained from the query", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BHoMAdapter adapter = null; DA.BH_GetData(0, adapter);
-            BH.Adapter.Queries.IQuery query = null; DA.BH_GetData(1, query);
-            Dictionary<string, string> config = null; DA.BH_GetData(2, config);
-            bool active = false; DA.BH_GetData(3, active);
+            BHoMAdapter adapter = null; DA.GetData(0, ref adapter);
+            IQuery query = null; DA.GetData(1, ref query);
+            Dictionary<string, string> config = null; DA.GetData(2, ref config);
+            bool active = false; DA.GetData(3, ref active);
 
             if (!active) return;
 
             IEnumerable<object> objects = adapter.Pull(query, config);
-            DA.BH_SetData(0, objects);
+            DA.SetDataList(0, objects);
         }
     }
 }
