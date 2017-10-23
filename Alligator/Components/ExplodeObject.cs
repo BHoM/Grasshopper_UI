@@ -38,8 +38,8 @@ namespace BH.UI.Alligator.Base
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             BHoMObject bhObj = new BHoMObject();
-            bhObj = DA.BH_GetData(0, bhObj);
-            if (bhObj == null) return;
+            if (!DA.GetData(0, ref bhObj) || bhObj == null)
+                return;
 
             m_Outputs = bhObj.GetPropertyDictionary();
 
@@ -50,9 +50,9 @@ namespace BH.UI.Alligator.Base
                 {
                     var val = m_Outputs[keys[i]];
                     if (typeof(List<object>).IsAssignableFrom(val.GetType()))
-                        DA.BH_SetDataList(i, val as List<object>);
+                        DA.SetDataList(i, val as List<object>);
                     else
-                        DA.BH_SetData(i, val);
+                        DA.SetData(i, val);
                 }
             }
             else
