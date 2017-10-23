@@ -33,8 +33,8 @@ namespace BH.UI.Alligator.Adapter
         protected override void SolveInstance(IGH_DataAccess DA)
         {
 
-            string typeString = "";  DA.BH_GetData<string>(0, typeString);
-            string tag = ""; DA.BH_GetData<string>(1, tag);
+            string typeString = "";  DA.GetData(0, ref typeString);
+            string tag = ""; DA.GetData(1, ref tag);
 
             Type type = null;
             if (typeString != "")
