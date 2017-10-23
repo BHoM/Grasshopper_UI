@@ -80,11 +80,11 @@ namespace BH.UI.Alligator.Structure
             if (DA.GetData(1, ref elementB))
             {
                 DA.GetData(0, ref lineOrPoint);
-                bar = Engine.Structure.Create.IBar(lineOrPoint.UnwrapObject(), elementB.UnwrapObject());
+                //bar = Engine.Structure.Create.IBar(lineOrPoint.UnwrapObject(), elementB.UnwrapObject());
             }
             else if (DA.GetData(0, ref lineOrPoint))
             {
-                bar = Engine.Structure.Create.IBar(lineOrPoint.UnwrapObject() as BHG.ICurve);
+                //bar = Engine.Structure.Create.IBar(lineOrPoint.UnwrapObject() as BHG.ICurve);
             }
             else { return; }
             if (DA.GetData(2, ref secProp))
