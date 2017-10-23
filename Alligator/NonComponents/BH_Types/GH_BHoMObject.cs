@@ -86,6 +86,11 @@ namespace BH.UI.Alligator
                 this.Value = (IObject)source;
                 return true;
             }
+            else
+            {
+                this.Value = (BHoMObject)source;
+                return true;
+            }
             return base.CastFrom(source);
         }
         public override bool CastTo<Q>(ref Q target)
