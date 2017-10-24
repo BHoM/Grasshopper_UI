@@ -38,6 +38,15 @@ namespace BH.UI.Alligator.Base
         {
             get { return new Guid("a96cbe64-8352-47b1-9d24-153927d14795"); }
         }
+
+        public override string TypeName
+        {
+            get
+            {
+                return "BHoM Geometry";
+            }
+        }
+
         private bool m_hidden = false;
         public bool Hidden
         {
