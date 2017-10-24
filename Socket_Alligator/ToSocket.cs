@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using GHE = BH.Engine.Grasshopper;
 
 namespace Alligator.Socket
 {

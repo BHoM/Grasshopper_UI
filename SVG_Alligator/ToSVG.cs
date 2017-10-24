@@ -52,7 +52,7 @@ namespace BH.UI.Alligator.SVG
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             B.Circle circle = new B.Circle();
-            circle = DA.BH_GetData(0, circle);
+            DA.GetData(0, ref circle);
             DA.SetData(0, circle.ToSVG());
 
 

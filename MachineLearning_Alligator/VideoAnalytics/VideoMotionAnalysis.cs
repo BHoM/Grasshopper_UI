@@ -44,22 +44,22 @@ namespace BH.UI.Alligator.MachineLearning
         {
             string videoFile = "";
             bool active = false;
-            videoFile = DA.BH_GetData(0, videoFile);
-            active = DA.BH_GetData(7, active);
+            DA.GetData(0, ref videoFile);
+            DA.GetData(7, ref active);
 
             if (!active) return;
 
             MotionLevelAnalyser analyser = new MotionLevelAnalyser();
             MotionLevelAnalyser.Config config = new MotionLevelAnalyser.Config();
-            config.EndFrame = DA.BH_GetData(2, config.EndFrame);
-            config.FrameStep = DA.BH_GetData(3, config.FrameStep);
-            config.NbRows = DA.BH_GetData(4, config.NbRows);
-            config.NbColumns = DA.BH_GetData(5, config.NbColumns);
-            config.OutFolder = DA.BH_GetData(6, config.OutFolder);
+            DA.GetData(2, ref config.EndFrame);
+            DA.GetData(3, ref config.FrameStep);
+            DA.GetData(4, ref config.NbRows);
+            DA.GetData(5, ref config.NbColumns);
+            DA.GetData(6, ref config.OutFolder);
 
             Dictionary<int, List<double>> result = analyser.Run(videoFile, config);
             List<List<double>> motionLevel = result.Values.ToList();
-            DA.BH_SetDataList(0, motionLevel);
+            DA.SetDataList(0, motionLevel);
         }
     }
 }
