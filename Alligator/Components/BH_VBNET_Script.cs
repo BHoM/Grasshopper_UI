@@ -12,7 +12,7 @@ namespace BH.UI.Alligator.Base
     {
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.VBH_Script; } }
         public override Guid ComponentGuid { get { return new Guid("7fe983b6-5121-4c29-8157-6203923fbafb"); } }
-        public override GH_Exposure Exposure { get { return GH_Exposure.secondary; } }
+        public override GH_Exposure Exposure { get { return GH_Exposure.tertiary; } }
 
         public BH_VBNET_Script() : base()
         {

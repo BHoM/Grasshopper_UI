@@ -12,7 +12,7 @@ namespace BH.UI.Alligator.Mongo
         public GetDatabases() : base("GetDatabases", "GetDatabases", "Get the list of databases currently available in the Mongo server.", "Alligator", "Mongo") { }
         public override Guid ComponentGuid { get { return new Guid("551E958A-0EBC-4833-ABED-47ED8E9B7A1B"); } }
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.BHoM_Mongo_GetDatabases; } }
-        public override GH_Exposure Exposure { get { return GH_Exposure.tertiary; } }
+        public override GH_Exposure Exposure { get { return GH_Exposure.secondary; } }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {

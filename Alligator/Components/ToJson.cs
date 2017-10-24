@@ -1,32 +1,29 @@
-﻿using Grasshopper.Kernel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Grasshopper.Kernel;
 using BH.oM.Base;
 using BH.UI.Alligator;
-using BH.Engine.Reflection;
 
 namespace BH.UI.Alligator.Base
 {
-    public class ViewCustomData : GH_Component
+    public class ToJson : GH_Component
     {
-        public ViewCustomData() : base("ViewData", "ViewData", "view the list of properties of a BHoMobject and their value", "Alligator", "Base")
-        {
+        public ToJson() : base("ToJson", "ToJson", "Convert the object to a Json string", "Alligator", "Base") { }
 
-        }
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
         {
-            get { return Properties.Resources.BHoM_Read__CustomData; }
+            get { return null; }
         }
 
         public override Guid ComponentGuid
         {
             get
             {
-                return new Guid("{BB22A083-3B0C-4E89-9D4E-FECCEDA95099}");
+                return new Guid("3564A67C-3444-4A9B-AE6B-591F1CA9A53A");
             }
         }
         public override GH_Exposure Exposure
@@ -39,13 +36,12 @@ namespace BH.UI.Alligator.Base
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("BHoMObject", "Object", "View Custom data", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMObjectParameter(), "BHoM object", "object", "BHoM object to convert", GH_ParamAccess.item);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("Data Name", "Names", "Property names", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Data value", "Values", "Property values", GH_ParamAccess.list);
+            pManager.AddTextParameter("Json", "Json", "Json string", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -53,10 +49,7 @@ namespace BH.UI.Alligator.Base
             BHoMObject obj = new BHoMObject();
             DA.GetData(0, ref obj);
 
-            Dictionary<string, object> dict = obj.GetPropertyDictionary();
-
-            DA.SetDataList(0, dict.Keys);
-            DA.SetDataList(1, dict.Values);
+            DA.SetData(0, BH.Adapter.Convert.ToJson(obj));
         }
     }
 }
