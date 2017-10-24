@@ -13,6 +13,7 @@ using BH.UI.Alligator;
 using BH.UI.Alligator.Base;
 using BH.oM.Base;
 using BH.oM.Materials;
+using BH.Engine.Base;
 
 namespace BH.UI.Alligator.Structure
 {

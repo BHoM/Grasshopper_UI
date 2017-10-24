@@ -66,14 +66,14 @@ namespace BH.UI.Alligator
 
                 if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
                 if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
-                return ((BHoMObject)Value).GetGeometry().IGetBounds().ToRhino();
+                return ((BHoMObject)Value).IGetGeometry().IGetBounds().ToRhino();
             }
         }
         public Rhino.Geometry.BoundingBox GetBoundingBox(Rhino.Geometry.Transform xform)
         {
             if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
             if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
-            return ((BHoMObject)Value).GetGeometry().IGetBounds().ToRhino();
+            return ((BHoMObject)Value).IGetGeometry().IGetBounds().ToRhino();
         }
         #endregion
 
@@ -91,7 +91,6 @@ namespace BH.UI.Alligator
                 this.Value = (BHoMObject)source;
                 return true;
             }
-            return base.CastFrom(source);
         }
         public override bool CastTo<Q>(ref Q target)
         {
@@ -108,7 +107,7 @@ namespace BH.UI.Alligator
         }
         public void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
-            IBHoMGeometry geometry = ((BHoMObject)Value).GetGeometry();
+            IBHoMGeometry geometry = ((BHoMObject)Value).IGetGeometry();
             if (geometry == null) { return; }
             if (typeof(BH.oM.Geometry.Mesh).IsAssignableFrom(Value.GetType()))
             {
@@ -122,7 +121,7 @@ namespace BH.UI.Alligator
         public void DrawViewportWires(GH_PreviewWireArgs args)
         {
             if (Value == null) { return; }
-            IBHoMGeometry geometry = ((BHoMObject)Value).GetGeometry();
+            IBHoMGeometry geometry = ((BHoMObject)Value).IGetGeometry();
             Render.IRenderBHoMGeometry(geometry, args);
         }
         #endregion
