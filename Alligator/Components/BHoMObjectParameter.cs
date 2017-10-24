@@ -12,7 +12,7 @@ using Grasshopper.Kernel.Parameters;
 
 namespace BH.UI.Alligator.Base
 {
-    public class BHoMObjectParameter : GH_Param<GH_BHoMObject>
+    public class BHoMObjectParameter : GH_Param<GH_BHoMObject>, IGH_PreviewObject
     {
         public BHoMObjectParameter()
             : base(new GH_InstanceDescription("BHoM object", "BHoM", "Represents a collection of generic BHoM objects", "Params", "Primitive"))
@@ -36,6 +36,14 @@ namespace BH.UI.Alligator.Base
         public override Guid ComponentGuid
         {
             get { return new Guid("d3a2b455-74d5-4b26-bdf2-bf672d1dd927"); }
+        }
+
+        public override string TypeName
+        {
+            get
+            {
+                return "BHoM Objects";
+            }
         }
 
         private bool m_hidden = false;
