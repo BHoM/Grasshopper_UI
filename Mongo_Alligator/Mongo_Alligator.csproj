@@ -90,21 +90,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Create\CreateJson.cs" />
     <Compile Include="Create\MongoServer.cs" />
-    <Compile Include="Extract\ExplodeJson.cs" />
-    <Compile Include="Extract\FromMongo.cs" />
     <Compile Include="Create\MongoLink.cs" />
     <Compile Include="Extract\GetDatabases.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Create\ToMongo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Transform\MoveCollection.cs" />
-    <Compile Include="Transform\MoveData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -15,7 +15,7 @@ namespace BH.UI.Alligator.Mongo
 
         public override Guid ComponentGuid { get { return new Guid("7E81BE63-D7FC-4EC9-A41D-CAFB7B1097A7"); } }
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.BHoM_Mongo_Link; } }
-        public override GH_Exposure Exposure { get { return GH_Exposure.secondary; } }
+        public override GH_Exposure Exposure { get { return GH_Exposure.primary; } }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {

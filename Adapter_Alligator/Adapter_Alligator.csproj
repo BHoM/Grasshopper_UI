@@ -66,6 +66,7 @@
     <Compile Include="CRUD\Push.cs" />
     <Compile Include="CRUD\UpdateProperty.cs" />
     <Compile Include="Queries\CustomQuery.cs" />
+    <Compile Include="Queries\BatchQuery.cs" />
     <Compile Include="Queries\FilterQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CRUD\Pull.cs" />
