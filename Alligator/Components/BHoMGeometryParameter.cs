@@ -15,14 +15,11 @@ namespace BH.UI.Alligator.Base
 {
     public class BHoMGeometryParameter : GH_Param<GH_IBHoMGeometry>, IGH_PreviewObject
     {
-        #region Constructors
         public BHoMGeometryParameter()
             : base(new GH_InstanceDescription("BHoM geometry", "BHoMGeo", "Represents a collection of generic BHoM geometries", "Params", "Geometry"))
         {
         }
-        #endregion
 
-        #region Properties
         protected override System.Drawing.Bitmap Icon
         {
             get
@@ -51,9 +48,7 @@ namespace BH.UI.Alligator.Base
         {
             get { return true; }
         }
-        #endregion
 
-        #region Drawing methods
         public Rhino.Geometry.BoundingBox ClippingBox
         {
             get
@@ -69,6 +64,5 @@ namespace BH.UI.Alligator.Base
         {
             Preview_DrawWires(args);
         }
-        #endregion
     }
 }

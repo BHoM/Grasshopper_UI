@@ -10,7 +10,6 @@ namespace BH.Adapter.Rhinoceros
 {
     public static partial class Convert
     {
-        #region Public Methods
         public static BHG.IBHoMGeometry FromRhino(this RHG.GeometryBase geometry)
         {
             return Convert.FromRhino(geometry as dynamic);
@@ -20,7 +19,6 @@ namespace BH.Adapter.Rhinoceros
                 return new BHG.CompositeGeometry(geometries.Select(x => x.FromRhino()));
         }
 
-        #region 1D
         public static BHG.Point FromRhino(this RHG.Point3d rhinoPoint)
         {
             return new BHG.Point(rhinoPoint.X, rhinoPoint.Y, rhinoPoint.Z);
@@ -41,9 +39,7 @@ namespace BH.Adapter.Rhinoceros
         {
             return new BHG.Vector(vector.X, vector.Y, vector.Z);
         }
-        #endregion
 
-        #region 2D
         public static BHG.Arc FromRhino(this RHG.Arc arc)
         {
             return new BHG.Arc(arc.StartPoint.FromRhino(), arc.MidPoint.FromRhino(), arc.EndPoint.FromRhino());
@@ -63,7 +59,7 @@ namespace BH.Adapter.Rhinoceros
         public static BHG.NurbCurve FromRhino(this RHG.Curve nurbCurve)
         {
             // Old Code is not used since the BHoM2.0 implementatation of NurbCurve lacks some fields
-            #region Old Code
+
             //if (rCurve is R.ArcCurve && (rCurve as R.ArcCurve).AngleRadians < Math.PI * 2 / 3)
             //{
             //    R.Arc arc = (rCurve as R.ArcCurve).Arc;
@@ -104,8 +100,7 @@ namespace BH.Adapter.Rhinoceros
             //        weight[i] = nurbCurve.Points[i].Weight;
             //    }
             //    return new BHG.NurbCurve(points, knots, weight);
-            //}
-            #endregion                                  
+            //}                                
             throw new NotImplementedException();    // TODO Rhino_Adapter conversion from NurbsCurve
         }
         public static BHG.Plane FromRhino(this RHG.Plane plane)
@@ -120,9 +115,7 @@ namespace BH.Adapter.Rhinoceros
         {
             return new BHG.Polyline(polyline.Select(x => x.FromRhino()));
         }
-        #endregion
 
-        #region 3D
         public static BHG.BoundingBox FromRhino(this RHG.BoundingBox boundingBox)
         {
             return new BHG.BoundingBox(boundingBox.Min.FromRhino(), boundingBox.Max.FromRhino());
@@ -161,10 +154,8 @@ namespace BH.Adapter.Rhinoceros
             }
             return new BHG.Mesh(vertices, Faces);
         }
-        #endregion
-        #endregion
 
-        #region Unused Code not to waste
+
         //public static List<R.Surface> ExtrudeAlong(R.Curve section, R.Curve centreline, R.Plane sectionPlane)
         //{
         //    R.Vector3d globalUp = R.Vector3d.ZAxis;
@@ -198,6 +189,5 @@ namespace BH.Adapter.Rhinoceros
         //    }
         //    return extrustions;
         //}
-        #endregion
     }
 }

@@ -11,7 +11,6 @@ namespace BH.Adapter.Rhinoceros
 {
     public static partial class Convert
     {
-        #region Public Methods
         public static RHG.GeometryBase ToRhino(this BHG.IBHoMGeometry geometry)
         {
             return Convert.ToRhino(geometry as dynamic);
@@ -21,7 +20,6 @@ namespace BH.Adapter.Rhinoceros
         //    return geometries.Decompose().Select(x => x.ToRhino()); // TODO Waiting for the CompositeGeometry.Decompose() method
         //}
 
-        #region 1D
         public static RHG.Point3d ToRhino(this BHG.Point point)
         {
             return new RHG.Point3d(point.X, point.Y, point.Z);
@@ -30,9 +28,7 @@ namespace BH.Adapter.Rhinoceros
         {
             return new RHG.Vector3d(vector.X, vector.Y, vector.Z);
         }
-        #endregion
 
-        #region 2D
         public static RHG.Arc ToRhino(this BHG.Arc arc)
         {
             return new RHG.Arc(arc.Start.ToRhino(), arc.Middle.ToRhino(), arc.End.ToRhino());
@@ -48,7 +44,6 @@ namespace BH.Adapter.Rhinoceros
         public static RHG.NurbsCurve ToRhino(this BHG.NurbCurve nurbCurve)
         {
             // Old Code is not used since the BHoM2.0 implementatation of NurbCurve lacks some fields
-            #region Old Code
             //R.NurbsCurve c = new R.NurbsCurve(curve.GetDegree(), curve.ControlPoints.Count);
             //for (int i = 1; i < curve.Knots.Count - 1; i++)
             //{
@@ -68,7 +63,6 @@ namespace BH.Adapter.Rhinoceros
             //    index++;
             //}
             //return c;
-            #endregion
             throw new NotImplementedException();    // TODO Rhino_Adapter conversion to NurbsCurve
         }
         public static RHG.Plane ToRhino(this BHG.Plane plane)
@@ -84,9 +78,7 @@ namespace BH.Adapter.Rhinoceros
         {
             return new RHG.Polyline(polyline.ControlPoints.Select(x => x.ToRhino()));
         }
-        #endregion
 
-        #region 3D
         public static RHG.BoundingBox ToRhino(this BHG.BoundingBox boundingBox)
         {
             return new RHG.BoundingBox(boundingBox.Min.ToRhino(), boundingBox.Max.ToRhino());
@@ -124,7 +116,6 @@ namespace BH.Adapter.Rhinoceros
             rMesh.Vertices.AddVertices(rVertices);
             return rMesh;
         }
-        #endregion
-        #endregion
+
     }
 }
