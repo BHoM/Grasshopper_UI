@@ -14,14 +14,11 @@ namespace BH.UI.Alligator.Base
 {
     public class BHoMObjectParameter : GH_Param<GH_BHoMObject>
     {
-        #region Constructors
         public BHoMObjectParameter()
             : base(new GH_InstanceDescription("BHoM object", "BHoM", "Represents a collection of generic BHoM objects", "Params", "Primitive"))
         {
         }
-        #endregion
 
-        #region Properties
         protected override System.Drawing.Bitmap Icon
         {
             get
@@ -51,9 +48,7 @@ namespace BH.UI.Alligator.Base
         {
             get { return true; }
         }
-        #endregion
 
-        #region Drawing methods
         public Rhino.Geometry.BoundingBox ClippingBox
         {
             get
@@ -69,6 +64,5 @@ namespace BH.UI.Alligator.Base
         {
             Preview_DrawWires(args);
         }
-        #endregion
     }
 }

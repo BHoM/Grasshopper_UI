@@ -16,7 +16,6 @@ namespace BH.UI.Alligator
 {
     public class GH_IBHoMGeometry : GH_GeometricGoo<IBHoMGeometry>, IGH_PreviewData
     {
-        #region Constructors
         public GH_IBHoMGeometry()
         {
             this.Value = null;
@@ -29,9 +28,7 @@ namespace BH.UI.Alligator
         {
             return new GH_IBHoMGeometry { Value = Value.IGetClone() };
         }
-        #endregion
 
-        #region Properties
         public override bool IsValid
         {
             get
@@ -79,9 +76,7 @@ namespace BH.UI.Alligator
             BH.oM.Geometry.BoundingBox bb = Value.IGetBounds();
             return new Rhino.Geometry.BoundingBox(bb.Min.X, bb.Min.Y, bb.Min.Z, bb.Max.X, bb.Max.Y, bb.Max.Z);
         }
-        #endregion
 
-        #region Casting Methods
         public override bool CastFrom(object source)
         {
             if (source == null) { return false; }
@@ -139,9 +134,7 @@ namespace BH.UI.Alligator
             target = (Q)ptr;
             return true;
         }
-        #endregion
 
-        #region Transformation Methods
         public override IGH_GeometricGoo Transform(Rhino.Geometry.Transform xform)
         {
             // This does not make any sense, so I will just do a validity check
@@ -154,9 +147,7 @@ namespace BH.UI.Alligator
             if (Value == null) { return null; }
             return new GH_IBHoMGeometry();
         }
-        #endregion
 
-        #region Drawing methods
         public Rhino.Geometry.BoundingBox ClippingBox
         {
             get { return Boundingbox; }
@@ -177,6 +168,6 @@ namespace BH.UI.Alligator
             if (Value == null) { return; }
             Render.IRenderBHoMGeometry(Value as dynamic, args);
         }
-        #endregion
+
     }
 }
