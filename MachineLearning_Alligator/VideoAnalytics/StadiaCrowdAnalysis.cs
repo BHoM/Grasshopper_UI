@@ -50,11 +50,11 @@ namespace StadiaCrowdAnalytics_Alligator
             string outFile = "";
             double fps = 0;
 
-            grid = DA.BH_GetData(0, grid);
-            videoFile = DA.BH_GetData(1, videoFile);
-            srf = DA.BH_GetData(2, srf);
-            outFile = DA.BH_GetData(3, outFile);
-            fps = DA.BH_GetData(4, fps);
+            DA.GetData(0, ref grid);
+            DA.GetData(1, ref videoFile);
+            DA.GetData(2, ref srf);
+            DA.GetData(3, ref outFile);
+            DA.GetData(4, ref fps);
 
             if (grid == null || grid.Count == 0 || videoFile == null || srf == null || outFile == null) return; //Nope try again
             if (!outFile.EndsWith("\\"))

@@ -46,7 +46,7 @@ namespace BH.UI.Alligator.Chrome
                 DA.GetData<int>(0, ref port);
                 DA.SetData(0, new CA.ChromeAdapter(port));
             }
-            catch(Exception e)
+            catch(Exception)
             {
 
             }

@@ -45,7 +45,6 @@ namespace BH.UI.Alligator.Chrome
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             string parent = "", dim = "", pos = "", target = "";
-            bool controls = true, autoplay = false;
             DA.GetData<string>(0, ref parent);
             DA.GetData<string>(1, ref dim);
             DA.GetData<string>(2, ref pos);

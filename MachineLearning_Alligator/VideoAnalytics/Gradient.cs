@@ -10,13 +10,9 @@ namespace StadiaCrowdAnalytics_Alligator
 {
     public class Gradient
     {
-
-        #region Gradient variables
         private double mdMaxGradient;
         private double mdMinGradient;
         protected Grasshopper.GUI.Gradient.GH_Gradient mgGradient;
-        private bool mbUpdateColours;
-        #endregion
 
         Grasshopper.Kernel.GH_ActiveObject mOwner;
 
@@ -28,7 +24,6 @@ namespace StadiaCrowdAnalytics_Alligator
             mdMaxGradient = 1;
             mdMinGradient = 0;
             mgGradient = DefaultGradient;
-            mbUpdateColours = false;
         }
 
         public double MaxGradient
@@ -132,7 +127,6 @@ namespace StadiaCrowdAnalytics_Alligator
 
         private void GradientChanged(object sender, Grasshopper.GUI.Gradient.GH_GradientChangedEventArgs e)
         {
-            mbUpdateColours = true;
             mOwner.ExpireSolution(true);
         }
 
