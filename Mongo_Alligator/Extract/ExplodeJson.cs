@@ -53,7 +53,7 @@ namespace BH.UI.Alligator.Mongo
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             string json = "";
-            json = DA.BH_GetData(0, json);
+            DA.GetData(0, ref json);
             if (json == null) return;
 
             BsonDocument bJson = BsonDocument.Parse(json);
@@ -73,9 +73,9 @@ namespace BH.UI.Alligator.Mongo
                 {
                     var val = m_Outputs[keys[i]];
                     if (typeof(List<object>).IsAssignableFrom(val.GetType()))
-                        DA.BH_SetDataList(i, val as List<object>);
+                        DA.SetDataList(i, val as List<object>);
                     else
-                        DA.BH_SetData(i, val);
+                        DA.SetData(i, val);
                 }
             }
             else

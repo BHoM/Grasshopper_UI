@@ -36,14 +36,14 @@ namespace BH.UI.Alligator.Structural.Elements
             BHG.Point point = new BHG.Point();
             NodeConstraint constraint = new NodeConstraint();
 
-            point = DA.BH_GetData(0, point);
-            constraint = DA.BH_GetData(1, constraint);
+            DA.GetData(0, ref point);
+            DA.GetData(1, ref constraint);
 
             Node node = new Node();
             node.Point = point;
             node.Constraint = constraint;
             
-            DA.BH_SetData(0, node);
+            DA.SetData(0, node);
         }
     }
 }

@@ -41,7 +41,7 @@ namespace BH.UI.Alligator.Adapter
                 type = BH.Engine.Reflection.Create.Type(typeString);
 
             BH.Adapter.Queries.FilterQuery query = new BH.Adapter.Queries.FilterQuery(type, tag);
-            DA.BH_SetData(0, query);
+            DA.SetData(0, query);
         }
     }
 }

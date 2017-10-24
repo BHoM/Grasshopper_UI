@@ -32,14 +32,14 @@ namespace BH.UI.Alligator.Structural.Properties
             NodeConstraint dofI= new NodeConstraint();
             NodeConstraint dofJ = new NodeConstraint();
 
-            dofI = DA.BH_GetData(0, dofI);
-            dofJ = DA.BH_GetData(0, dofJ);
+            DA.GetData(0, ref dofI);
+            DA.GetData(0, ref dofJ);
 
             BarRelease release = new BarRelease();
             release.StartConstraint = dofI;
             release.EndConstraint = dofJ;
 
-            DA.BH_SetData(0, release);
+            DA.SetData(0, release);
         }
     }
 }

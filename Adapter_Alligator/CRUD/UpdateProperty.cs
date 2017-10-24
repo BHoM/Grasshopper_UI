@@ -38,17 +38,17 @@ namespace BH.UI.Alligator.Adapter
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BHoMAdapter adapter = null; DA.BH_GetData(0, adapter);
-            BH.Adapter.Queries.FilterQuery query = null; DA.BH_GetData(1, query);
-            string property = ""; DA.BH_GetData(2, property);
-            object value = null; DA.BH_GetData(3, value);
-            Dictionary<string, string> config = null; DA.BH_GetData(4, config);
-            bool active = false; DA.BH_GetData(5, active);
+            BHoMAdapter adapter = null; DA.GetData(0, ref adapter);
+            BH.Adapter.Queries.FilterQuery query = null; DA.GetData(1, ref query);
+            string property = ""; DA.GetData(2, ref property);
+            object value = null; DA.GetData(3, ref value);
+            Dictionary<string, string> config = null; DA.GetData(4, ref config);
+            bool active = false; DA.GetData(5, ref active);
 
             if (!active) return;
 
             int nb = adapter.UpdateProperty(query, property, value, config);
-            DA.BH_SetData(0, nb);
+            DA.SetData(0, nb);
         }
     }
 }

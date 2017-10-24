@@ -26,7 +26,7 @@ namespace BH.UI.Alligator.Mongo
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             string directory = Environment.CurrentDirectory;
-            directory = DA.BH_GetData(0, directory);
+            DA.GetData(0, ref directory);
             MA.MongoServer server = new MA.MongoServer(directory);
             server.Killed += ServerKilled;
             DA.SetData(0, new MA.MongoServer(directory));

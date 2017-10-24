@@ -89,7 +89,7 @@ namespace BH.UI.Alligator.Structure
             else { return; }
             if (DA.GetData(2, ref secProp))
             {
-                material = DA.BH_GetData(3, material);
+                DA.GetData(3, ref material);
                 secProp.Material = material;
                 bar.SectionProperty = secProp;
             }

@@ -60,7 +60,7 @@ namespace BH.UI.Alligator.Structural.Create
             constr.RY = (DOFType)ry;
             constr.RZ = (DOFType)rz;
 
-            DA.BH_SetData(0, constr);
+            DA.SetData(0, constr);
         }
     }
 }

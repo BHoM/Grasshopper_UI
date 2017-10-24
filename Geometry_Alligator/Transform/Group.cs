@@ -29,10 +29,10 @@ namespace BH.UI.Alligator.Geometry
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             List<BHG.ICurve> curves = new List<BHG.ICurve>();
-            curves = DA.BH_GetDataList(0, curves);
+            DA.GetDataList(0, curves);
 
             BHG.CompositeGeometry geom = new BHG.CompositeGeometry(curves);
-            DA.BH_SetData(0, geom);
+            DA.SetData(0, geom);
         }
     }
 }
