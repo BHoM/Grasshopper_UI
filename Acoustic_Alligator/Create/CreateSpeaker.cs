@@ -7,7 +7,6 @@ using Grasshopper.Kernel;
 using BHG = BH.oM.Geometry;
 using BH.oM.Acoustic;
 using BH.UI.Alligator.Base;
-using BH.UI.Alligator.Query;
 
 namespace BH.UI.Alligator.Acoustic
 {
@@ -37,9 +36,9 @@ namespace BH.UI.Alligator.Acoustic
             BHG.Vector dir = new BHG.Vector();
             string cat = "Omni";
 
-            pos = DA.BH_GetData(0, pos);
-            dir = DA.BH_GetData(1, dir);
-            cat = DA.BH_GetData(2, cat);
+            DA.GetData(0, ref pos);
+            DA.GetData(1, ref dir);
+            DA.GetData(2, ref cat);
 
             Speaker speaker = new Speaker(pos, dir, cat);
             DA.SetData(0, speaker);

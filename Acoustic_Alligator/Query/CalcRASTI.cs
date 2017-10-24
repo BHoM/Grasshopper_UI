@@ -10,7 +10,6 @@ using Grasshopper.Kernel.Parameters;
 using BH.oM.Acoustic;
 using BH.Engine.Acoustic;
 using BH.UI.Alligator.Base;
-using BH.UI.Alligator.Query;
 
 namespace BH.UI.Alligator.Acoustic
 {
@@ -46,11 +45,11 @@ namespace BH.UI.Alligator.Acoustic
             List<Speaker> speakers = new List<Speaker>();
             Zone zone = default(Zone);
 
-            signal = DA.BH_GetDataList(0, signal);
-            noise = DA.BH_GetDataList(1, noise);
-            rt = DA.BH_GetDataList(2, rt);
-            speakers = DA.BH_GetDataList(3, speakers);
-            zone = DA.BH_GetData(4, zone);
+            DA.GetDataList(0, signal);
+            DA.GetDataList(1, noise);
+            DA.GetDataList(2, rt);
+            DA.GetDataList(3, speakers);
+            DA.GetData(4, ref zone);
 
             DA.SetDataList(0, BH.Engine.Acoustic.Query.GetSTI(signal, noise, rt, speakers, zone));
         }

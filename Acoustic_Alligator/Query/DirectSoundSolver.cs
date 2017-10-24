@@ -5,7 +5,6 @@ using BHG = BH.oM.Geometry;
 using BH.oM.Acoustic;
 using BH.Engine.Acoustic;
 using BH.UI.Alligator.Base;
-using BH.UI.Alligator.Query;
 
 namespace BH.UI.Alligator.Acoustic
 {
@@ -38,10 +37,10 @@ namespace BH.UI.Alligator.Acoustic
             List<Panel> pan = new List<Panel>();
             int par = 0;
 
-            DA.BH_GetDataList(0, spk);
-            DA.BH_GetDataList(1, rec);
-            DA.BH_GetDataList(2, pan);
-            DA.BH_GetData(3, par);
+            DA.GetDataList(0, spk);
+            DA.GetDataList(1, rec);
+            DA.GetDataList(2, pan);
+            DA.GetData(3, ref par);
             
             if (par == 0)
                 DA.SetDataList(0, Analyse.DirectSound(spk, rec, pan));

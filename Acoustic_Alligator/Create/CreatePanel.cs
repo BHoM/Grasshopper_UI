@@ -4,7 +4,6 @@ using BHG = BH.oM.Geometry;
 using BH.oM.Acoustic;
 using Grasshopper.Kernel;
 using BH.UI.Alligator.Base;
-using BH.UI.Alligator.Query;
 
 namespace BH.UI.Alligator.Acoustic
 {
@@ -30,10 +29,10 @@ namespace BH.UI.Alligator.Acoustic
             Panel panels = new Panel();
             BHG.Mesh mesh = new BHG.Mesh();
             List<double> r = new List<double>() { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 };
-            mesh = DA.BH_GetData(0, mesh);
+            DA.GetData(0, ref mesh);
 
             //Panel panel = new Panel(mesh, r);     // TODO Replace Acoustic Panel constructor 
-            DA.BH_SetData(0, panels);
+            DA.SetData(0, panels);
         }
     }
 }
