@@ -4,7 +4,6 @@ using BHG = BH.oM.Geometry;
 using BH.oM.Acoustic;
 using Grasshopper.Kernel;
 using BH.UI.Alligator.Base;
-using BH.UI.Alligator.Query;
 
 namespace BH.UI.Alligator.Acoustic
 {
@@ -31,8 +30,8 @@ namespace BH.UI.Alligator.Acoustic
             List<Receiver> receivers = new List<Receiver>();
             BHG.Point pos = new BHG.Point();
             string cat = "Omni";
-            pos = DA.BH_GetData(0, pos);
-            cat = DA.BH_GetData(1, cat);
+            DA.GetData(0, ref pos);
+            DA.GetData(1, ref cat);
 
             Receiver receiver = new Receiver(pos, cat);
 

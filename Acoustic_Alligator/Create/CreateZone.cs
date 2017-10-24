@@ -7,7 +7,6 @@ using Grasshopper.Kernel;
 using BHG = BH.oM.Geometry;
 using BH.oM.Acoustic;
 using BH.UI.Alligator.Base;
-using BH.UI.Alligator.Query;
 
 namespace BH.UI.Alligator.Acoustic
 {
@@ -38,8 +37,8 @@ namespace BH.UI.Alligator.Acoustic
             if (!DA.GetDataList(1, points)) { return; }
 
             Zone zone = new Zone(points, geom.GetArea(), geom.GetVolume());
-            DA.BH_SetData(0, zone);
-            DA.BH_SetDataList(1, points);
+            DA.SetData(0, zone);
+            DA.SetDataList(1, points);
         }
     }
 }

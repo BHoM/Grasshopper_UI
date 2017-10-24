@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using BH.oM.Acoustic;
 using BH.UI.Alligator.Base;
-using BH.UI.Alligator.Query;
 
 namespace BH.UI.Alligator.Acoustic
 {
@@ -26,7 +25,7 @@ namespace BH.UI.Alligator.Acoustic
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             List<Ray> rays = new List<Ray>();
-            rays = DA.BH_GetDataList(0, rays);
+            DA.GetDataList(0, rays);
 
             DA.SetData(0, Engine.Acoustic.Query.GetSoundPressureLevel(rays));
         }

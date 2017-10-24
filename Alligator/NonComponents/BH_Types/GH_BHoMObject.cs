@@ -14,7 +14,6 @@ namespace BH.UI.Alligator
 {
     public class GH_BHoMObject : GH_Goo<IObject>, IGH_PreviewData
     {
-        #region Constructors
         public GH_BHoMObject()
         {
             this.Value = null;
@@ -23,9 +22,7 @@ namespace BH.UI.Alligator
         {
             this.Value = bh;
         }
-        #endregion
 
-        #region Properties
         public override bool IsValid
         {
             get
@@ -75,9 +72,7 @@ namespace BH.UI.Alligator
             if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
             return ((BHoMObject)Value).IGetGeometry().IGetBounds().ToRhino();
         }
-        #endregion
 
-        #region Casting Methods
         public override bool CastFrom(object source)
         {
             if (source == null) { return false; }
@@ -98,9 +93,7 @@ namespace BH.UI.Alligator
             target = (Q)ptr;
             return true;
         }
-        #endregion
 
-        #region Drawing methods
         public Rhino.Geometry.BoundingBox ClippingBox
         {
             get { return Boundingbox; }
@@ -124,6 +117,6 @@ namespace BH.UI.Alligator
             IBHoMGeometry geometry = ((BHoMObject)Value).IGetGeometry();
             Render.IRenderBHoMGeometry(geometry, args);
         }
-        #endregion
+
     }
 }
