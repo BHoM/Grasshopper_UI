@@ -53,14 +53,14 @@ namespace BH.UI.Alligator.Base
             string key = "";
             object value = default(object);
 
-            obj = DA.BH_GetData(0, obj);
-            key = DA.BH_GetData(1, key);
-            value = DA.BH_GetData(2, value);
+            DA.GetData(0, ref obj);
+            DA.GetData(1, ref key);
+            DA.GetData(2, ref value);
 
             BHoMObject newObject = obj.GetShallowClone();
             newObject.SetPropertyValue(key, value);
 
-            DA.BH_SetData(0, newObject);
+            DA.SetData(0, newObject);
         }
     }
 }

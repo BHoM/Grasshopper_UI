@@ -35,7 +35,7 @@ namespace BH.UI.Alligator.Adapter
             string queryString = ""; DA.GetData(0, ref queryString);
 
             BH.Adapter.Queries.CustomQuery query = new BH.Adapter.Queries.CustomQuery(queryString);
-            DA.BH_SetData(0, query);
+            DA.SetData(0, query);
         }
     }
 }

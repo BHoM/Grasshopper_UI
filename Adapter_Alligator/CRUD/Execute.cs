@@ -37,16 +37,16 @@ namespace BH.UI.Alligator.Adapter
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BHoMAdapter adapter = null; DA.BH_GetData(0, adapter);
-            string command = ""; DA.BH_GetData(1, command);
-            Dictionary<string, object> parameters = null; DA.BH_GetData(2, parameters);
-            Dictionary<string, string> config = null; DA.BH_GetData(3, config);
-            bool active = false; DA.BH_GetData(4, active);
+            BHoMAdapter adapter = null; DA.GetData(0, ref adapter);
+            string command = ""; DA.GetData(1, ref command);
+            Dictionary<string, object> parameters = null; DA.GetData(2, ref parameters);
+            Dictionary<string, string> config = null; DA.GetData(3, ref config);
+            bool active = false; DA.GetData(4, ref active);
 
             if (!active) return;
 
             bool success = adapter.Execute(command, parameters, config);
-            DA.BH_SetData(0, success);
+            DA.SetData(0, success);
         }
     }
 }

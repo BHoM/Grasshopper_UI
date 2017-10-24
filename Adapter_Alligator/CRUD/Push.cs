@@ -47,7 +47,7 @@ namespace BH.UI.Alligator.Adapter
             if (!active) return;
 
             bool success = adapter.Push(objects, tag, config);
-            DA.BH_SetData(0, success);
+            DA.SetData(0, success);
         }
     }
 }

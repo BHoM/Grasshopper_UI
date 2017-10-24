@@ -111,35 +111,7 @@ namespace BH.UI.Alligator.Base
                 
             }
 
-            /*customObj = new oM.Base.CustomObject();
-            string name = "";
-            List<string> tags = new List<string>();
-            name = DA.BH_GetData(0, name);
-            tags = DA.BH_GetDataList(1, tags);
-            customObj.Name = name;
-            customObj.Tags = new HashSet<string>(tags);
-            for (int i = 2; i < Params.Input.Count; i++) // Skips Name and Tags parameter
-            {
-                List<object> dX = new List<object>();
-                dX = DA.BH_GetDataList(i, dX);
-                if (dX.Count == 1)
-                {
-                    var obj = dX[0];
-                    if (obj is GH_String)
-                        customObj.CustomData.Add(Params.Input[i].NickName, obj.ToString());
-                    else
-                        customObj.CustomData.Add(Params.Input[i].NickName, obj);
-                }
-                else
-                {
-                    if (dX.All(x => x is GH_String))
-                        customObj.CustomData.Add(Params.Input[i].NickName, dX.Select(x => x.ToString()).ToList());
-                    else
-                        customObj.CustomData.Add(Params.Input[i].NickName, dX);
-                }
-            }*/
-
-            DA.BH_SetData(0, customObj);
+            DA.SetData(0, customObj);
         }
 
 
