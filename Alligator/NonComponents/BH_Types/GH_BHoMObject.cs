@@ -63,14 +63,18 @@ namespace BH.UI.Alligator
 
                 if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
                 if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
-                return ((BHoMObject)Value).IGetGeometry().IGetBounds().ToRhino();
+                IBHoMGeometry geometry = ((BHoMObject)Value).IGetGeometry();
+                if (geometry != null) { return geometry.IGetBounds().ToRhino(); }
+                else return Rhino.Geometry.BoundingBox.Empty;
             }
         }
         public Rhino.Geometry.BoundingBox GetBoundingBox(Rhino.Geometry.Transform xform)
         {
             if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
             if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
-            return ((BHoMObject)Value).IGetGeometry().IGetBounds().ToRhino();
+            IBHoMGeometry geometry = ((BHoMObject)Value).IGetGeometry();
+            if (geometry != null) { return geometry.IGetBounds().ToRhino(); }
+            else return Rhino.Geometry.BoundingBox.Empty;
         }
 
         public override bool CastFrom(object source)

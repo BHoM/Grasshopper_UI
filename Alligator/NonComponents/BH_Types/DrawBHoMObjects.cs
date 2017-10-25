@@ -16,8 +16,10 @@ namespace BH.UI.Alligator
         {
             args.Pipeline.ZBiasMode = 0;
             Color bhColour = GetBHColor(args.Color);
-
-            RenderBHoMGeometry(geometry as dynamic, args.Pipeline, bhColour);
+            if (geometry != null)
+            {
+                RenderBHoMGeometry(geometry as dynamic, args.Pipeline, bhColour);
+            }
         }
 
         public static void IRenderBHoMGeometry(this BHG.IBHoMGeometry geometry, IGH_PreviewArgs args)
