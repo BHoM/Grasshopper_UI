@@ -14,9 +14,9 @@ using System.Collections;
 
 namespace BH.UI.Alligator.Base
 {
-    public class CreateJson : GH_Component, IGH_VariableParameterComponent
+    public class CreateCustomObject : GH_Component, IGH_VariableParameterComponent
     {
-        public CreateJson() : base("CreateBHoMObject", "BHoMObj", "Creates a custom BHoMObject from custom inputs", "Alligator", "Base") { }
+        public CreateCustomObject() : base("CreateCustomObject", "CustomObj", "Creates a custom BHoMObject from custom inputs", "Alligator", "Base") { }
         public override Guid ComponentGuid { get { return new Guid("dbd3fe50-423a-4ea4-8bc7-7ad94d1d67e9"); } }
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return null; } }
         public BH.oM.Base.CustomObject customObj { get; set; } = new oM.Base.CustomObject();
@@ -80,7 +80,7 @@ namespace BH.UI.Alligator.Base
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddParameter(new BHoMObjectParameter(), "BHoMObject", "BHoM", "BHoMObject", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMObjectParameter(), "BHoMObject", "object", "BHoMObject", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)

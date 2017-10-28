@@ -86,6 +86,7 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Components\BH_CSNET_Script.cs" />
     <Compile Include="Components\BH_VBNET_Script.cs" />
+    <Compile Include="Components\CreateBHoMObject.cs" />
     <Compile Include="Components\ToJson.cs" />
     <Compile Include="Components\VsScriptEditor.cs" />
     <Compile Include="NonComponents\BH_Hints\BH_LineHint.cs" />
@@ -97,7 +98,7 @@
     <Compile Include="Components\BHoMGeometryParameter.cs" />
     <Compile Include="Components\BHoMObjectParameter.cs" />
     <Compile Include="Components\CollapseList.cs" />
-    <Compile Include="Components\CreateObject.cs" />
+    <Compile Include="Components\CreateCustomObject.cs" />
     <Compile Include="Components\ExplodeObject.cs" />
     <Compile Include="Components\GetPropertyNames.cs" />
     <Compile Include="Components\ExpandList.cs" />
