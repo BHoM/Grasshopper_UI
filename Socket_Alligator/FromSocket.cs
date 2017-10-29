@@ -46,10 +46,17 @@ namespace Alligator.Socket
             int port = 8888; DA.GetData<int>(0, ref port);
             bool active = false; DA.GetData<bool>(1, ref active);
 
-            if (!active) return;
+            if (!active)
+            {
+                if (m_Socket.IsActive())
+                    m_Socket.Stop();
+                return;
+            }
 
-            m_Socket.Start(port);
-            DA.SetData(0, m_Message);
+            if (!m_Socket.IsActive())
+                m_Socket.Start(port);
+
+            DA.SetDataList(0, m_Message);
         }
 
         private BH.Adapter.Socket.SocketServer m_Socket;

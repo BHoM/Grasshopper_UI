@@ -54,8 +54,9 @@
       <HintPath>..\packages\RhinoCommon.5.12.50810.13095\lib\net35\RhinoCommon.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Socket_Engine">
-      <HintPath>..\..\BHoM_Engine\Build\Socket_Engine.dll</HintPath>
+    <Reference Include="Socket_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Socket_Toolkit\Build\Socket_Engine.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -124,7 +125,7 @@ Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries
 Copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\BHoM.dll"
 Copy /Y "$(TargetDir)\BHoM_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\BHoM_Adapter.dll"
 Copy /Y "$(TargetDir)\Chrome_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Chrome_Adapter.dll"
-Copy /Y "$(TargetDir)\Chrome_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Socket_Engine.dll"</PostBuildEvent>
+Copy /Y "$(TargetDir)\Socket_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Socket_Engine.dll"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets" Condition="Exists('..\packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

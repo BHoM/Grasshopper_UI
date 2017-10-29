@@ -36,8 +36,7 @@
     <Reference Include="Grasshopper">
       <HintPath>..\..\..\..\AppData\Roaming\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\Grasshopper.dll</HintPath>
     </Reference>
-    <Reference Include="Socket_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Socket_Engine">
       <HintPath>..\..\Socket_Toolkit\Build\Socket_Engine.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -76,9 +75,9 @@
   <PropertyGroup>
     <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
 
-Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
+Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
 
-copy /Y "$(TargetDir)\Socket_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Socket_Engine.dll"</PostBuildEvent>
+copy /Y "$(TargetDir)\Socket_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Socket_Engine.dll"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
