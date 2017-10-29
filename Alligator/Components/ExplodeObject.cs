@@ -49,8 +49,8 @@ namespace BH.UI.Alligator.Base
                 for (int i = 0; i < keys.Count; i++)
                 {
                     var val = m_Outputs[keys[i]];
-                    if (typeof(List<object>).IsAssignableFrom(val.GetType()))
-                        DA.SetDataList(i, val as List<object>);
+                    if (typeof(IList).IsAssignableFrom(val.GetType()))
+                        DA.SetDataList(i, ((IList)val).Cast<object>());
                     else
                         DA.SetData(i, val);
                 }
