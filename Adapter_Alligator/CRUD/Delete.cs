@@ -26,7 +26,8 @@ namespace BH.UI.Alligator.Adapter
             pManager.AddGenericParameter("Adapter", "Adapter", "Adapter to the external software", GH_ParamAccess.item);
             pManager.AddGenericParameter("Filter", "Filter", "Filter Query", GH_ParamAccess.item);
             pManager.AddGenericParameter("Config", "Config", "Delete config", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("Active", "Active", "Execute the delete", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Active", "Active", "Execute the delete", GH_ParamAccess.item, false);
+            pManager[2].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
