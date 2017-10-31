@@ -6,7 +6,7 @@ namespace Alligator.Robot
 {
     public class RobotApp : GH_Component
     {
-        public RobotApp() : base("Robot Application", "RobotApp", "Creates a robot Application", "Structure", "Application") { }
+        public RobotApp() : base("Robot Adapter", "RobotApp", "Creates a Robot adapter connected to an application", "Structure", "Application") { }
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
@@ -18,7 +18,7 @@ namespace Alligator.Robot
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Application", "A", "Robot Application", GH_ParamAccess.item);
+            pManager.AddGenericParameter("RobotAdapter", "A", "Robot Adapter", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)

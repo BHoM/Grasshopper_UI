@@ -25,9 +25,10 @@ namespace BH.UI.Alligator.Adapter
         {
             pManager.AddGenericParameter("Adapter", "Adapter", "Adapter to the external software", GH_ParamAccess.item);
             pManager.AddParameter(new BHoMObjectParameter(), "Objects", "Objects", "Objects to push", GH_ParamAccess.list);
-            pManager.AddTextParameter("Tag", "Tag", "Tag to apply to the objects being pushed", GH_ParamAccess.item);
+            pManager.AddTextParameter("Tag", "Tag", "Tag to apply to the objects being pushed", GH_ParamAccess.item,"");
             pManager.AddGenericParameter("Config", "Config", "Delete config", GH_ParamAccess.item);
             pManager.AddBooleanParameter("Active", "Active", "Execute the push", GH_ParamAccess.item);
+            Params.Input[2].Optional = true;
             Params.Input[3].Optional = true;
         }
 
