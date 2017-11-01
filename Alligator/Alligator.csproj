@@ -51,7 +51,7 @@
     </Reference>
     <Reference Include="DataStructure_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\BHoM_Engine\DataStructure_Engine\obj\Debug\DataStructure_Engine.dll</HintPath>
+      <HintPath>..\..\BHoM_Engine\Build\DataStructure_Engine.dll</HintPath>
     </Reference>
     <Reference Include="Geometry_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
