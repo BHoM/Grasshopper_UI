@@ -68,7 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\Application.cs" />
-    <Compile Include="CRUD\Push_SteelDesignGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -85,6 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BHoM_ROBO_App.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CRUD\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
