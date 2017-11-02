@@ -2,12 +2,7 @@
 using Grasshopper.Kernel;
 using System.Collections.Generic;
 using System.Linq;
-using Grasshopper.Kernel.Parameters;
-using System.Collections;
-using System.Windows.Forms;
 using BH.oM.Base;
-using System.Reflection;
-using BH.oM.Geometry;
 using BH.UI.Alligator.Templates;
 
 
