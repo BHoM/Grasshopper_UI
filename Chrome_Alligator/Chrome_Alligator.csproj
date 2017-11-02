@@ -42,6 +42,9 @@
     <Reference Include="Chrome_Adapter">
       <HintPath>..\..\Chrome_Toolkit\Build\Chrome_Adapter.dll</HintPath>
     </Reference>
+    <Reference Include="Chrome_oM">
+      <HintPath>..\..\Chrome_Toolkit\Build\Chrome_oM.dll</HintPath>
+    </Reference>
     <Reference Include="GH_IO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97, processorArchitecture=MSIL">
       <HintPath>..\packages\Grasshopper.0.9.76\lib\net35\GH_IO.dll</HintPath>
       <Private>True</Private>
@@ -49,6 +52,10 @@
     <Reference Include="Grasshopper, Version=1.0.0.20, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
       <HintPath>..\packages\Grasshopper.0.9.76\lib\net35\Grasshopper.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Reflection_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BHoM_Engine\Build\Reflection_Engine.dll</HintPath>
     </Reference>
     <Reference Include="RhinoCommon, Version=5.1.30000.16, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
       <HintPath>..\packages\RhinoCommon.5.12.50810.13095\lib\net35\RhinoCommon.dll</HintPath>
@@ -61,6 +68,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -69,41 +77,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BubbleChart.cs" />
-    <Compile Include="ChartConfig.cs" />
-    <Compile Include="ChoroplethChart.cs" />
-    <Compile Include="ColourConfig.cs" />
-    <Compile Include="CompositeChart.cs" />
-    <Compile Include="ConfigLink.cs" />
-    <Compile Include="ConfigLinkConfig.cs" />
-    <Compile Include="DataConfig.cs" />
-    <Compile Include="DataFilter.cs" />
-    <Compile Include="DataKey.cs" />
-    <Compile Include="DataLink.cs" />
-    <Compile Include="DataLinkConfig.cs" />
-    <Compile Include="DimConfig.cs" />
-    <Compile Include="Drawing.cs" />
-    <Compile Include="HistogramChart.cs" />
-    <Compile Include="HtmlConfig.cs" />
-    <Compile Include="ImageConfig.cs" />
-    <Compile Include="LineChart.cs" />
-    <Compile Include="MapChart.cs" />
-    <Compile Include="MarginConfig.cs" />
-    <Compile Include="ChromeLink.cs" />
-    <Compile Include="Execute.cs" />
-    <Compile Include="Model3D.cs" />
-    <Compile Include="PageStop.cs" />
-    <Compile Include="PageTravelerConfig.cs" />
-    <Compile Include="ParallelChart.cs" />
+    <Compile Include="CreateView.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Pull.cs" />
-    <Compile Include="Push.cs" />
-    <Compile Include="SliderFilter.cs" />
-    <Compile Include="StatLineChart.cs" />
-    <Compile Include="StyleConfig.cs" />
-    <Compile Include="TextConfig.cs" />
-    <Compile Include="TextFilter.cs" />
-    <Compile Include="VideoConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
@@ -111,6 +86,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Alligator\Alligator.csproj">
+      <Project>{2e3b219e-7bd2-4f75-bfaf-9b7735827ed4}</Project>
+      <Name>Alligator</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
@@ -122,9 +103,8 @@ if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligat
 
 Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
 
-Copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\BHoM.dll"
-Copy /Y "$(TargetDir)\BHoM_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\BHoM_Adapter.dll"
 Copy /Y "$(TargetDir)\Chrome_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Chrome_Adapter.dll"
+Copy /Y "$(TargetDir)\Chrome_oM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Chrome_oM.dll"
 Copy /Y "$(TargetDir)\Socket_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Socket_Engine.dll"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets" Condition="Exists('..\packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets')" />

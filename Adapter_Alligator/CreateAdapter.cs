@@ -5,8 +5,6 @@ using System.Linq;
 using BH.oM.Base;
 using BH.UI.Alligator.Templates;
 using BH.Adapter;
-using BH.Adapter.Chrome;
-using BH.Adapter.Mongo;
 using System.IO;
 using System.Reflection;
 
