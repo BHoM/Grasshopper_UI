@@ -18,7 +18,11 @@ namespace BH.UI.Alligator
             Color bhColour = GetBHColor(args.Color);
             if (geometry != null)
             {
-                RenderBHoMGeometry(geometry as dynamic, args.Pipeline, bhColour);
+                try
+                {
+                    RenderBHoMGeometry(geometry as dynamic, args.Pipeline, bhColour);
+                }
+                catch (Exception) { }
             }
         }
 
@@ -64,6 +68,19 @@ namespace BH.UI.Alligator
         }
         public static void RenderBHoMGeometry(BHG.Mesh mesh, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
         {
+        }
+
+        public static void RenderBHoMGeometry(BHG.CompositeGeometry composite, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        {
+            foreach (BHG.IBHoMGeometry geom in composite.Elements)
+            {
+                try
+                {
+                    RenderBHoMGeometry(geom as dynamic, pipeline, bhColour);
+                }
+                catch (Exception) { }
+            }
+                
         }
 
 
