@@ -173,7 +173,7 @@ namespace BH.UI.Alligator.Templates
             int nbOld = Params.Input.Count();
 
             for (int i = nbOld - 1; i >= 0; i--)
-                Params.UnregisterInputParameter(Params.Input[i]);
+                Params.UnregisterInputParameter(Params.Input[i]);                
 
             for (int i = 0; i < nbNew; i++)
             {
@@ -187,6 +187,9 @@ namespace BH.UI.Alligator.Templates
 
                 if (isList)
                     Params.Input[i].Access = GH_ParamAccess.list;
+
+                if (inputs[i].DefaultValue != null)
+                    Params.Input[i].Optional = true;                    
             }
             this.OnAttributesChanged();
             if (nbNew != nbOld)

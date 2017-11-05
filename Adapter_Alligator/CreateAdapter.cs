@@ -29,7 +29,7 @@ namespace BH.UI.Alligator.Base
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Adapter", "Adapter", "Adapter", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Adapter", "A", "Adapter", GH_ParamAccess.item);
         }
 
         /*************************************/
