@@ -82,7 +82,7 @@ namespace BH.UI.Alligator.Templates
         {
             if (m_SelectedType != null && m_Constructor != null)
             {
-                writer.SetString("TypeName", m_SelectedType.FullName);
+                writer.SetString("TypeName", m_SelectedType.AssemblyQualifiedName);
             }
             return base.Write(writer);
         }
@@ -94,7 +94,7 @@ namespace BH.UI.Alligator.Templates
             string typeString = "";
             reader.TryGetString("TypeName", ref typeString);
 
-            m_SelectedType = BH.Engine.Reflection.Create.Type(typeString);
+            m_SelectedType = Type.GetType(typeString);
 
             ConstructorInfo[] constructors = m_SelectedType.GetConstructors();
             m_Constructor = constructors[0];
@@ -169,27 +169,33 @@ namespace BH.UI.Alligator.Templates
 
         protected void UpdateInputs(List<ParameterInfo> inputs)
         {
-            int nbNew = inputs.Count();
             int nbOld = Params.Input.Count();
 
             for (int i = nbOld - 1; i >= 0; i--)
                 Params.UnregisterInputParameter(Params.Input[i]);
 
-            for (int i = 0; i < nbNew; i++)
+            for (int i = 0; i < inputs.Count(); i++)
             {
-                Type type = inputs[i].ParameterType;
+                ParameterInfo input = inputs[i];
+                Type type = input.ParameterType;
                 bool isList = (type != typeof(string) && (typeof(IEnumerable).IsAssignableFrom(type)));
 
                 if (isList)
                     type = type.GenericTypeArguments.First();
 
-                RegisterInputParameter(type, inputs[i].Name);
+                RegisterInputParameter(type, input.Name);
+
+                if (input.HasDefaultValue)
+                {
+                    //Params.Input[i].Optional = true;  //TODO: Handle default values for the optional inputs
+                }
+                    
 
                 if (isList)
                     Params.Input[i].Access = GH_ParamAccess.list;
             }
             this.OnAttributesChanged();
-            if (nbNew != nbOld)
+            if (inputs.Count() != nbOld)
                 ExpireSolution(true);
         }
 
