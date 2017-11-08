@@ -33,12 +33,12 @@ namespace BH.UI.Alligator.SVG
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("Stroke Width", "StrokeWidth", "double", GH_ParamAccess.item, 1);
-            pManager.AddTextParameter("Stroke Color", "StrokeColor", "string", GH_ParamAccess.item, "black");
-            pManager.AddTextParameter("Fill Color", "FillColor", "string", GH_ParamAccess.item, "none");
-            pManager.AddNumberParameter("Stroke Opacity", "StrokeOpac", "double: 0=transparent, 1=completely filled", GH_ParamAccess.item, 1);
-            pManager.AddNumberParameter("Fill Opacity", "FillOpac", "double: 0=transparent, 1=completely filled", GH_ParamAccess.item, 1);
-            pManager.AddNumberParameter("Stroke DashArray", "StrokeDash", "list of doubles", GH_ParamAccess.list, new List<double>() { 0 });
+            pManager.AddNumberParameter("Stroke Width", "StrokeWidth", "Double", GH_ParamAccess.item, 1);
+            pManager.AddTextParameter("Stroke Color", "StrokeColor", "String or color swatch", GH_ParamAccess.item, "black");
+            pManager.AddTextParameter("Fill Color", "FillColor", "String or color swatch", GH_ParamAccess.item, "none");
+            pManager.AddNumberParameter("Stroke Opacity", "StrokeOpac", "Double: 0=transparent, 1=opaque", GH_ParamAccess.item, 1);
+            pManager.AddNumberParameter("Fill Opacity", "FillOpac", "Double: 0=transparent, 1=opaque", GH_ParamAccess.item, 1);
+            pManager.AddNumberParameter("Stroke DashArray", "StrokeDash", "List of doubles", GH_ParamAccess.list, new List<double>() { 0 });
 
             pManager[0].Optional = true;
             pManager[1].Optional = true;

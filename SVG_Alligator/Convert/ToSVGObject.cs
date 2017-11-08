@@ -44,7 +44,7 @@ namespace BH.UI.Alligator.SVG
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddParameter(new BHoMObjectParameter(), "SVGObject", "SVGObject", "SVGObject", GH_ParamAccess.item);
-            pManager.AddTextParameter("SVGString", "SVGString", "Returns string in SVG format", GH_ParamAccess.item);
+            pManager.AddTextParameter("SVGString", "SVGString", "String in SVG format", GH_ParamAccess.item);
         }
 
         /// <summary>
