@@ -39,7 +39,7 @@ namespace BH.UI.Alligator.Adapter
         {
             BHoMAdapter adapter = null; DA.GetData(0, ref adapter);
             BH.Adapter.Queries.FilterQuery query = null; DA.GetData(1, ref query);
-            Dictionary<string, string> config = null; DA.GetData(2, ref config);
+            Dictionary<string, object> config = null; DA.GetData(2, ref config);
             bool active = false; DA.GetData(3, ref active);
 
             if (!active) return;

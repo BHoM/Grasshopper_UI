@@ -40,7 +40,7 @@ namespace BH.UI.Alligator.Adapter
             BHoMAdapter adapter = null; DA.GetData(0, ref adapter);
             string command = ""; DA.GetData(1, ref command);
             Dictionary<string, object> parameters = null; DA.GetData(2, ref parameters);
-            Dictionary<string, string> config = null; DA.GetData(3, ref config);
+            Dictionary<string, object> config = null; DA.GetData(3, ref config);
             bool active = false; DA.GetData(4, ref active);
 
             if (!active) return;

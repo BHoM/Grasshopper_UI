@@ -10,6 +10,7 @@ using BH.oM.Base;
 using BH.UI.Alligator;
 using BH.Adapter.Queries;
 using BH.Adapter;
+using System.Dynamic;
 
 namespace BH.UI.Alligator.Adapter
 {
@@ -26,7 +27,7 @@ namespace BH.UI.Alligator.Adapter
             pManager.AddGenericParameter("Adapter", "Adapter", "Adapter to the external software", GH_ParamAccess.item);
             pManager.AddParameter(new BHoMObjectParameter(), "Objects", "Objects", "Objects to push", GH_ParamAccess.list);
             pManager.AddTextParameter("Tag", "Tag", "Tag to apply to the objects being pushed", GH_ParamAccess.item,"");
-            pManager.AddGenericParameter("Config", "Config", "Delete config", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMObjectParameter(), "Config", "Config", "Delete config", GH_ParamAccess.item);
             pManager.AddBooleanParameter("Active", "Active", "Execute the push", GH_ParamAccess.item);
             Params.Input[2].Optional = true;
             Params.Input[3].Optional = true;
@@ -42,12 +43,12 @@ namespace BH.UI.Alligator.Adapter
             BHoMAdapter adapter = null; DA.GetData(0, ref adapter);
             List<BHoMObject> objects = new List<BHoMObject>(); DA.GetDataList(1, objects);
             string tag = ""; DA.GetData(2, ref tag);
-            Dictionary<string, string> config = null; DA.GetData(3, ref config);
+            CustomObject config = null; DA.GetData(3, ref config);
             bool active = false; DA.GetData(4, ref active);
 
             if (!active) return;
 
-            bool success = adapter.Push(objects, tag, config);
+            bool success = adapter.Push(objects, tag, config.CustomData);
             DA.SetData(0, success);
         }
     }
