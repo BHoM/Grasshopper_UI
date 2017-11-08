@@ -42,7 +42,7 @@ namespace BH.UI.Alligator.Adapter
             BH.Adapter.Queries.FilterQuery query = null; DA.GetData(1, ref query);
             string property = ""; DA.GetData(2, ref property);
             object value = null; DA.GetData(3, ref value);
-            Dictionary<string, string> config = null; DA.GetData(4, ref config);
+            Dictionary<string, object> config = null; DA.GetData(4, ref config);
             bool active = false; DA.GetData(5, ref active);
 
             if (!active) return;
