@@ -79,14 +79,14 @@
     <Compile Include="CRUD\Pull.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Alligator\Alligator.csproj">
       <Project>{2e3b219e-7bd2-4f75-bfaf-9b7735827ed4}</Project>
       <Name>Alligator</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

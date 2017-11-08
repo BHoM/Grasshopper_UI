@@ -44,11 +44,16 @@
       <HintPath>..\packages\Grasshopper.0.9.76\lib\net35\Grasshopper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Rhinoceros_Adapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Rhinoceros_Toolkit\Build\Rhinoceros_Adapter.dll</HintPath>
+    </Reference>
     <Reference Include="RhinoCommon, Version=5.1.30000.16, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
       <HintPath>..\packages\RhinoCommon.5.12.50810.13095\lib\net35\RhinoCommon.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SVG_Engine">
+    <Reference Include="SVG_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_Engine\Build\SVG_Engine.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -90,9 +95,11 @@
   </Target>
   <Import Project="..\packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets" Condition="Exists('..\packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets')" />
   <PropertyGroup>
-    <PostBuildEvent>
+    <PostBuildEvent>copy /Y "$(TargetDir)$(ProjectName).dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
 
-copy /Y "$(TargetDir)$(ProjectName).dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"</PostBuildEvent>
+copy /Y "$(TargetDir)SVG_Alligator.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\SVG_Alligator.dll"
+
+copy /Y "$(TargetDir)SVG_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\SVG_Engine.dll"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
