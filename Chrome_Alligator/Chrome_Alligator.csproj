@@ -77,7 +77,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CreateView.cs" />
+    <Compile Include="DataType.cs" />
+    <Compile Include="Command.cs" />
+    <Compile Include="Link.cs" />
+    <Compile Include="Domain.cs" />
+    <Compile Include="Dimension.cs" />
+    <Compile Include="View.cs" />
     <Compile Include="AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
