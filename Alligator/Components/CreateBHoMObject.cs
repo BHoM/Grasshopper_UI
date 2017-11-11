@@ -42,7 +42,8 @@ namespace BH.UI.Alligator.Base
         protected override IEnumerable<Type> GetRelevantTypes()
         {
             Type bhomType = typeof(BHoMObject);
-            return BH.Engine.Reflection.Create.TypeList().Where(x => x.IsSubclassOf(bhomType) && !x.ContainsGenericParameters).OrderBy(x => x.Name);
+            Type customType = typeof(CustomObject);
+            return BH.Engine.Reflection.Create.TypeList().Where(x => x.IsSubclassOf(bhomType) && !x.ContainsGenericParameters && x != customType).OrderBy(x => x.Name);
         }
   
     }
