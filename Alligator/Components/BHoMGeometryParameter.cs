@@ -13,7 +13,7 @@ using BH.UI.Alligator;
 
 namespace BH.UI.Alligator.Base
 {
-    public class BHoMGeometryParameter : GH_Param<GH_IBHoMGeometry>, IGH_PreviewObject
+    public class BHoMGeometryParameter : GH_PersistentParam<GH_IBHoMGeometry>, IGH_PreviewObject
     {
         public BHoMGeometryParameter()
             : base(new GH_InstanceDescription("BHoM geometry", "BHoMGeo", "Represents a collection of generic BHoM geometries", "Params", "Geometry"))
@@ -72,6 +72,16 @@ namespace BH.UI.Alligator.Base
         public void DrawViewportWires(IGH_PreviewArgs args)
         {
             Preview_DrawWires(args);
+        }
+
+        protected override GH_GetterResult Prompt_Singular(ref GH_IBHoMGeometry value)
+        {
+            return GH_GetterResult.cancel;
+        }
+
+        protected override GH_GetterResult Prompt_Plural(ref List<GH_IBHoMGeometry> values)
+        {
+            return GH_GetterResult.cancel;
         }
     }
 }
