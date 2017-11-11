@@ -43,7 +43,7 @@ namespace BH.UI.Alligator.Adapter
             BHoMAdapter adapter = null; DA.GetData(0, ref adapter);
             List<BHoMObject> objects = new List<BHoMObject>(); DA.GetDataList(1, objects);
             string tag = ""; DA.GetData(2, ref tag);
-            CustomObject config = null; DA.GetData(3, ref config);
+            CustomObject config = new CustomObject(); DA.GetData(3, ref config);
             bool active = false; DA.GetData(4, ref active);
 
             if (!active) return;
