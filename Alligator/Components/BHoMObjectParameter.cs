@@ -12,7 +12,7 @@ using Grasshopper.Kernel.Parameters;
 
 namespace BH.UI.Alligator.Base
 {
-    public class BHoMObjectParameter : GH_Param<GH_BHoMObject>, IGH_PreviewObject
+    public class BHoMObjectParameter : GH_PersistentParam<GH_BHoMObject>, IGH_PreviewObject
     {
         public BHoMObjectParameter()
             : base(new GH_InstanceDescription("BHoM object", "BHoM", "Represents a collection of generic BHoM objects", "Params", "Primitive"))
@@ -71,6 +71,16 @@ namespace BH.UI.Alligator.Base
         public void DrawViewportWires(IGH_PreviewArgs args)
         {
             Preview_DrawWires(args);
+        }
+
+        protected override GH_GetterResult Prompt_Singular(ref GH_BHoMObject value)
+        {
+            return GH_GetterResult.cancel;
+        }
+
+        protected override GH_GetterResult Prompt_Plural(ref List<GH_BHoMObject> values)
+        {
+            return GH_GetterResult.cancel;
         }
     }
 }
