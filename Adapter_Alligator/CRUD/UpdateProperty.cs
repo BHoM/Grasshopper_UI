@@ -27,8 +27,9 @@ namespace BH.UI.Alligator.Adapter
             pManager.AddGenericParameter("Filter", "Filter", "Filer Query", GH_ParamAccess.item);
             pManager.AddTextParameter("Property", "Property", "Name of the property to change", GH_ParamAccess.item);
             pManager.AddGenericParameter("NewValue", "NewValue", "New value to assign to the property", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Config", "Config", "Delete config", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMObjectParameter(), "Config", "Config", "Delete config", GH_ParamAccess.item);
             pManager.AddBooleanParameter("Active", "Active", "Execute the pull", GH_ParamAccess.item);
+            pManager[4].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -42,12 +43,12 @@ namespace BH.UI.Alligator.Adapter
             BH.Adapter.Queries.FilterQuery query = null; DA.GetData(1, ref query);
             string property = ""; DA.GetData(2, ref property);
             object value = null; DA.GetData(3, ref value);
-            Dictionary<string, object> config = null; DA.GetData(4, ref config);
+            CustomObject config = new CustomObject(); DA.GetData(4, ref config);
             bool active = false; DA.GetData(5, ref active);
 
             if (!active) return;
 
-            int nb = adapter.UpdateProperty(query, property, value, config);
+            int nb = adapter.UpdateProperty(query, property, value, config.CustomData);
             DA.SetData(0, nb);
         }
     }
