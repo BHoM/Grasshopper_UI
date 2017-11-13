@@ -25,7 +25,7 @@ namespace BH.UI.Alligator.Chrome
         protected override IEnumerable<Type> GetRelevantTypes()
         {
             Type viewType = typeof(ICommand);
-            return BH.Engine.Reflection.Create.TypeList().Where(x => viewType.IsAssignableFrom(x)).OrderBy(x => x.Name);
+            return BH.Engine.Reflection.Query.GetBHoMTypeList().Where(x => viewType.IsAssignableFrom(x)).OrderBy(x => x.Name);
         }
     }
 }
