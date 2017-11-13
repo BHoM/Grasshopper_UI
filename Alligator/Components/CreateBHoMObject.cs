@@ -44,6 +44,7 @@ namespace BH.UI.Alligator.Base
             Type bhomType = typeof(BHoMObject);
             Type customType = typeof(CustomObject);
             return BH.Engine.Reflection.Query.GetBHoMTypeList().Where(x => x.IsSubclassOf(bhomType) && !x.ContainsGenericParameters && x != customType).OrderBy(x => x.Name);
+
         }
   
     }
