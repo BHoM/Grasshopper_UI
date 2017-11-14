@@ -75,7 +75,7 @@ namespace BH.UI.Alligator.SVG
             SVGDocument svgDoc = Create.SVGDocument(newSVGObjects);
 
             DA.SetData(0, svgDoc);
-            DA.SetData(1, Transform.ToSVGString(svgDoc));
+            DA.SetData(1, Engine.Graphics.Convert.ToSVGString(svgDoc));
         }
 
         /// <summary>

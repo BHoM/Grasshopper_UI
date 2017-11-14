@@ -58,7 +58,7 @@ namespace BH.UI.Alligator.SVG
             SVGStyle style = new SVGStyle(); DA.GetData(1, ref style);
             SVGObject obj = new SVGObject(geometry, style);
             DA.SetData(0, obj);
-            DA.SetData(1, Transform.ToSVGString(obj));
+            DA.SetData(1, Engine.Graphics.Convert.ToSVGString(obj));
         }
     
         /// <summary>
