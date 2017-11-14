@@ -52,7 +52,7 @@ namespace BH.UI.Alligator.Templates
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            if (m_SelectedType == null)
+            if (m_Constructor == null)
             { 
                 DA.SetData(0, null);
                 return;
@@ -63,7 +63,10 @@ namespace BH.UI.Alligator.Templates
             for (int i = 0; i < m_Constructor.GetParameters().Length; i++)
                 inputs.Add(m_DaGets[i].Invoke(null, new object[] { DA, i }));
 
-            SetData(DA, m_Constructor.Invoke(inputs.ToArray()));
+            if (m_Constructor.IsConstructor)
+                SetData(DA, ((ConstructorInfo)m_Constructor).Invoke(inputs.ToArray()));
+            else
+                SetData(DA, m_Constructor.Invoke(null, inputs.ToArray()));
         }
 
         /*************************************/
@@ -80,9 +83,13 @@ namespace BH.UI.Alligator.Templates
 
         public override bool Write(GH_IO.Serialization.GH_IWriter writer)
         {
-            if (m_SelectedType != null && m_Constructor != null)
+            if ( m_Constructor != null)
             {
-                writer.SetString("TypeName", m_SelectedType.AssemblyQualifiedName);
+                ParameterInfo[] parameters = m_Constructor.GetParameters();
+                writer.SetString("TypeName", m_Constructor.DeclaringType.AssemblyQualifiedName);
+                writer.SetInt32("NbParams", parameters.Count());
+                for (int i = 0; i < parameters.Count(); i++)
+                    writer.SetString("ParamType", i, parameters[i].ParameterType.AssemblyQualifiedName);
             }
             return base.Write(writer);
         }
@@ -91,18 +98,33 @@ namespace BH.UI.Alligator.Templates
 
         public override bool Read(GH_IO.Serialization.GH_IReader reader)
         {
-            string typeString = "";
-            reader.TryGetString("TypeName", ref typeString);
+            string typeString = ""; reader.TryGetString("TypeName", ref typeString);
+            int nbParams = 0; reader.TryGetInt32("NbParams", ref nbParams);
 
-            m_SelectedType = Type.GetType(typeString);
+            List<Type> paramTypes = new List<Type>();
+            for(int i = 0; i < nbParams; i++)
+            {
+                string paramType = ""; reader.TryGetString("ParamType", i, ref paramType);
+                paramTypes.Add(Type.GetType(paramType));
+            }
 
-            ConstructorInfo[] constructors = m_SelectedType.GetConstructors();
-            m_Constructor = constructors[0];
+            Type type = Type.GetType(typeString);
+
+            ConstructorInfo[] constructors = type.GetConstructors();
+            m_Constructor = null;
             foreach (ConstructorInfo info in constructors)
             {
-                ParameterInfo[] param = info.GetParameters();
-                if (info.GetParameters().Length > m_Constructor.GetParameters().Length)
-                    m_Constructor = info;
+                ParameterInfo[] parameters = info.GetParameters();
+                if (parameters.Length == paramTypes.Count)
+                {
+                    bool matching = true;
+                    for (int i = 0; i < paramTypes.Count; i++)
+                    {
+                        matching &= (parameters[i].ParameterType == paramTypes[i]);
+                    }
+                    if (matching)
+                        m_Constructor = info;
+                }   
             }
 
             ComputerDaGets(m_Constructor.GetParameters().ToList());
@@ -119,15 +141,37 @@ namespace BH.UI.Alligator.Templates
         {
             base.AppendAdditionalComponentMenuItems(menu);
 
-            if (m_SelectedType == null)
+            if (m_Constructor == null)
             {
                 ToolStripMenuItem typeMenu = Menu_AppendItem(menu, "Types");
 
-                m_TypeLinks = new Dictionary<ToolStripMenuItem, Type>();
-                foreach (Type type in GetRelevantTypes())
+                foreach (var group in GetRelevantTypes().GroupBy(x => x.FullName.Split('.')[2]).OrderBy(x => x.Key))
                 {
-                    ToolStripMenuItem item = Menu_AppendItem(typeMenu.DropDown, type.Name, Item_Click);
-                    m_TypeLinks[item] = type;
+                    ToolStripMenuItem groupItem = Menu_AppendItem(typeMenu.DropDown, group.Key);
+
+                    foreach (Type type in group)
+                    {
+                        ConstructorInfo[] constructors = type.GetConstructors();
+                        if (constructors.Count() > 2)
+                        {
+                            ToolStripMenuItem typeItem = Menu_AppendItem(groupItem.DropDown, type.Name);
+                            foreach (ConstructorInfo info in constructors)
+                            {
+                                if (info.GetParameters().Count() > 0)
+                                {
+                                    string name = "(" + info.GetParameters().Select(x => x.Name).Aggregate((x, y) => x + ", " + y) + ")";
+                                    ToolStripMenuItem item = Menu_AppendItem(typeItem.DropDown, name, Item_Click);
+                                    m_ConstructorLinks[item] = info;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            ToolStripMenuItem typeItem = Menu_AppendItem(groupItem.DropDown, type.Name, Item_Click);
+                            m_ConstructorLinks[typeItem] = constructors.OrderBy(x => x.GetParameters().Count()).Last();
+                        }
+                        
+                    }
                 }
             } 
         }
@@ -141,21 +185,11 @@ namespace BH.UI.Alligator.Templates
         protected void Item_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem item = (ToolStripMenuItem)sender;
-            if (!m_TypeLinks.ContainsKey(item))
+            if (!m_ConstructorLinks.ContainsKey(item))
                 return;
 
-            Type type = m_TypeLinks[item];
-            this.NickName = item.Text;
-            m_SelectedType = m_TypeLinks[item];
-
-            ConstructorInfo[] constructors = type.GetConstructors();
-            m_Constructor = constructors[0];
-            foreach (ConstructorInfo info in constructors)
-            {
-                ParameterInfo[] param = info.GetParameters();
-                if (info.GetParameters().Length > m_Constructor.GetParameters().Length)
-                    m_Constructor = info;
-            }
+            m_Constructor = m_ConstructorLinks[item];
+            this.NickName = m_Constructor.DeclaringType.Name;
 
             List<ParameterInfo> inputs = m_Constructor.GetParameters().ToList();
             ComputerDaGets(inputs);
@@ -183,13 +217,13 @@ namespace BH.UI.Alligator.Templates
                 if (isList)
                     type = type.GenericTypeArguments.First();
 
-                RegisterInputParameter(type, input.Name);
-
                 if (input.HasDefaultValue)
                 {
-                    //Params.Input[i].Optional = true;  //TODO: Handle default values for the optional inputs
+                    RegisterInputParameter(type, input.Name, input.DefaultValue);
+                    Params.Input[i].Optional = true;
                 }
-                    
+                else
+                    RegisterInputParameter(type, input.Name);
 
                 if (isList)
                     Params.Input[i].Access = GH_ParamAccess.list;
@@ -224,22 +258,29 @@ namespace BH.UI.Alligator.Templates
 
         /*************************************/
 
-        protected void RegisterInputParameter(Type type, string name)
+        protected void RegisterInputParameter(Type type, string name, object defaultVal = null)
         {
+            dynamic p;
+
             if (typeof(IBHoMGeometry).IsAssignableFrom(type))
-                Params.RegisterInputParam(new BHoMGeometryParameter { NickName = name });
+                p = new BHoMGeometryParameter { NickName = name };
             else if (typeof(IObject).IsAssignableFrom(type))
-                Params.RegisterInputParam(new BHoMObjectParameter { NickName = name });
+                p = new BHoMObjectParameter { NickName = name };
             else if (type == typeof(string))
-                Params.RegisterInputParam(new Param_String { NickName = name });
+                p = new Param_String { NickName = name };
             else if (type == typeof(int))
-                Params.RegisterInputParam(new Param_Integer { NickName = name });
+                p = new Param_Integer { NickName = name };
             else if (type == typeof(double))
-                Params.RegisterInputParam(new Param_Number { NickName = name });
+                p = new Param_Number { NickName = name };
             else if (type == typeof(bool))
-                Params.RegisterInputParam(new Param_Boolean { NickName = name });
+                p = new Param_Boolean { NickName = name };
             else
-                Params.RegisterInputParam(new Param_GenericObject { NickName = name });
+                p = new Param_GenericObject { NickName = name };
+
+            if (defaultVal != null)
+                p.SetPersistentData(defaultVal);
+
+            Params.RegisterInputParam(p);
         }
 
 
@@ -269,11 +310,8 @@ namespace BH.UI.Alligator.Templates
         /*************************************/
 
         protected List<MethodInfo> m_DaGets = new List<MethodInfo>();
+        protected MethodBase m_Constructor = null;
+        protected Dictionary<ToolStripMenuItem, MethodBase> m_ConstructorLinks = new Dictionary<ToolStripMenuItem, MethodBase>();
 
-        protected Type m_SelectedType = null;
-        protected ConstructorInfo m_Constructor = null;
-        protected Dictionary<ToolStripMenuItem, Type> m_TypeLinks = new Dictionary<ToolStripMenuItem, Type>();
-
-        
     }
 }

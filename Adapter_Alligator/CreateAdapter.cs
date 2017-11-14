@@ -37,7 +37,7 @@ namespace BH.UI.Alligator.Base
         protected override IEnumerable<Type> GetRelevantTypes()
         {
             Type adapterType = typeof(BHoMAdapter);
-            return BH.Engine.Reflection.Create.AdapterTypeList().Where(x => x.IsSubclassOf(adapterType)).OrderBy(x => x.Name);
+            return BH.Engine.Reflection.Query.GetAdapterTypeList().Where(x => x.IsSubclassOf(adapterType)).OrderBy(x => x.Name);
         }
   
     }

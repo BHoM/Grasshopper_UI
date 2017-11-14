@@ -76,6 +76,9 @@ namespace BH.UI.Alligator.Base
             pManager.AddScriptVariableParameter("Tags", "Tags", "Tags of the object", GH_ParamAccess.list);
             ((Param_ScriptVariable)Params.Input[0]).TypeHint = new GH_StringHint_CS();
             ((Param_ScriptVariable)Params.Input[1]).TypeHint = new GH_StringHint_CS();
+            Params.Input[0].Optional = true;
+            Params.Input[1].Optional = true;
+            ((Param_ScriptVariable)pManager[0]).PersistentData.Append(new GH_String(""));
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -91,7 +94,7 @@ namespace BH.UI.Alligator.Base
             {
                 if (Params.Input[i].NickName == "Name")
                     customObj.Name = GetItemFromParameter(DA, i) as string;
-                if (Params.Input[i].NickName == "Tags")
+                else if (Params.Input[i].NickName == "Tags")
                     customObj.Tags = new HashSet<string>(((List<object>)GetListFromParameter(DA, i)).Cast<string>());
                 else
                 {

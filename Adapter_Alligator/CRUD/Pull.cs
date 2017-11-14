@@ -25,7 +25,7 @@ namespace BH.UI.Alligator.Adapter
         {
             pManager.AddGenericParameter("Adapter", "Adapter", "Adapter to the external software", GH_ParamAccess.item);
             pManager.AddGenericParameter("Query", "Query", "BHoM Query", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Config", "Config", "Delete config", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMObjectParameter(), "Config", "Config", "Delete config", GH_ParamAccess.item);
             pManager.AddBooleanParameter("Active", "Active", "Execute the pull", GH_ParamAccess.item);
             Params.Input[2].Optional = true;
         }
@@ -39,12 +39,12 @@ namespace BH.UI.Alligator.Adapter
         {
             BHoMAdapter adapter = null; DA.GetData(0, ref adapter);
             IQuery query = null; DA.GetData(1, ref query);
-            Dictionary<string, string> config = null; DA.GetData(2, ref config);
+            CustomObject config = new CustomObject(); DA.GetData(2, ref config);
             bool active = false; DA.GetData(3, ref active);
 
             if (!active) return;
 
-            IEnumerable<object> objects = adapter.Pull(query, config);
+            IEnumerable<object> objects = adapter.Pull(query, config.CustomData);
             DA.SetDataList(0, objects);
         }
     }
