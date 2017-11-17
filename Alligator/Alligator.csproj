@@ -90,6 +90,7 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Components\BH_CSNET_Script.cs" />
     <Compile Include="Components\BH_VBNET_Script.cs" />
+    <Compile Include="Components\Query.cs" />
     <Compile Include="Components\CreateBHoMObject.cs" />
     <Compile Include="Components\ToJson.cs" />
     <Compile Include="Components\VsScriptEditor.cs" />
@@ -119,6 +120,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Templates\MethodCallTemplate.cs" />
     <Compile Include="Templates\CreateObjectTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
