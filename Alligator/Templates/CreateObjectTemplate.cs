@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using BH.oM.Base;
 using System.Reflection;
 using BH.oM.Geometry;
+using BH.oM.DataStructure;
 
 // Instructions to implement this template
 // ***************************************
@@ -24,7 +25,7 @@ using BH.oM.Geometry;
 
 namespace BH.UI.Alligator.Templates
 {
-    public abstract class CreateObjectTemplate : GH_Component, IGH_VariableParameterComponent
+    public abstract class CreateObjectTemplate : MethodCallTemplate
     {
         /*************************************/
         /**** Parameters Handling         ****/
@@ -32,13 +33,13 @@ namespace BH.UI.Alligator.Templates
 
         protected CreateObjectTemplate(string name, string nickname, string description, string category, string subCategory) : base(name, nickname, description, category, subCategory) { }
 
-        public bool CanInsertParameter(GH_ParameterSide side, int index) { return false; }
+        /*public bool CanInsertParameter(GH_ParameterSide side, int index) { return false; }
         public bool CanRemoveParameter(GH_ParameterSide side, int index) { return false; }
         public IGH_Param CreateParameter(GH_ParameterSide side, int index) { return new Param_GenericObject(); }
         public bool DestroyParameter(GH_ParameterSide side, int index) { return true; }
         public void VariableParameterMaintenance() { }
 
-        protected override void RegisterInputParams(GH_InputParamManager pManager) { }
+        protected override void RegisterInputParams(GH_InputParamManager pManager) { }*/
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)    // 1. Override this method if you want a different type of output
         {
@@ -50,7 +51,7 @@ namespace BH.UI.Alligator.Templates
         /**** Solving Instance            ****/
         /*************************************/
 
-        protected override void SolveInstance(IGH_DataAccess DA)
+        /*protected override void SolveInstance(IGH_DataAccess DA)
         {
             if (m_Constructor == null)
             { 
@@ -67,38 +68,40 @@ namespace BH.UI.Alligator.Templates
                 SetData(DA, ((ConstructorInfo)m_Constructor).Invoke(inputs.ToArray()));
             else
                 SetData(DA, m_Constructor.Invoke(null, inputs.ToArray()));
-        }
+        }*/
 
         /*************************************/
 
-        protected virtual void SetData(IGH_DataAccess DA, object result)    // 2. Override this method if you want a different type of output
+        /*protected virtual void SetData(IGH_DataAccess DA, object result)    // 2. Override this method if you want a different type of output
         {
             DA.SetData(0, result);
-        }
+        }*/
 
 
         /*************************************/
         /**** Saving Component            ****/
         /*************************************/
 
-        public override bool Write(GH_IO.Serialization.GH_IWriter writer)
+        /*public override bool Write(GH_IO.Serialization.GH_IWriter writer)
         {
             if ( m_Constructor != null)
             {
                 ParameterInfo[] parameters = m_Constructor.GetParameters();
                 writer.SetString("TypeName", m_Constructor.DeclaringType.AssemblyQualifiedName);
+                writer.SetString("MethodName", m_Constructor.Name);
                 writer.SetInt32("NbParams", parameters.Count());
                 for (int i = 0; i < parameters.Count(); i++)
                     writer.SetString("ParamType", i, parameters[i].ParameterType.AssemblyQualifiedName);
             }
             return base.Write(writer);
-        }
+        }*/
 
         /*************************************/
 
-        public override bool Read(GH_IO.Serialization.GH_IReader reader)
+        /*public override bool Read(GH_IO.Serialization.GH_IReader reader)
         {
             string typeString = ""; reader.TryGetString("TypeName", ref typeString);
+            string methodName = ""; reader.TryGetString("MethodName", ref methodName);
             int nbParams = 0; reader.TryGetInt32("NbParams", ref nbParams);
 
             List<Type> paramTypes = new List<Type>();
@@ -109,35 +112,47 @@ namespace BH.UI.Alligator.Templates
             }
 
             Type type = Type.GetType(typeString);
-
-            ConstructorInfo[] constructors = type.GetConstructors();
             m_Constructor = null;
-            foreach (ConstructorInfo info in constructors)
+
+            List<MethodBase> methods;
+            if (methodName == ".ctor")
+                methods = type.GetConstructors().ToList<MethodBase>();
+            else
+                methods = type.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly).ToList<MethodBase>();
+
+            foreach (MethodBase method in methods)
             {
-                ParameterInfo[] parameters = info.GetParameters();
-                if (parameters.Length == paramTypes.Count)
+                if (method.Name == methodName)
                 {
-                    bool matching = true;
-                    for (int i = 0; i < paramTypes.Count; i++)
+                    ParameterInfo[] parameters = method.GetParameters();
+                    if (parameters.Length == paramTypes.Count)
                     {
-                        matching &= (parameters[i].ParameterType == paramTypes[i]);
+                        bool matching = true;
+                        for (int i = 0; i < paramTypes.Count; i++)
+                        {
+                            matching &= (parameters[i].ParameterType == paramTypes[i]);
+                        }
+                        if (matching)
+                        {
+                            m_Constructor = method;
+                            break;
+                        }
+                                
                     }
-                    if (matching)
-                        m_Constructor = info;
-                }   
+                }
             }
 
             ComputerDaGets(m_Constructor.GetParameters().ToList());
 
             return base.Read(reader);
-        }
+        }*/
 
 
         /*************************************/
         /**** Creating Menu               ****/
         /*************************************/
 
-        protected override void AppendAdditionalComponentMenuItems(ToolStripDropDown menu)
+        /*protected override void AppendAdditionalComponentMenuItems(ToolStripDropDown menu)
         {
             base.AppendAdditionalComponentMenuItems(menu);
 
@@ -145,23 +160,37 @@ namespace BH.UI.Alligator.Templates
             {
                 ToolStripMenuItem typeMenu = Menu_AppendItem(menu, "Types");
 
+                List<MethodInfo> methods = BH.Engine.Reflection.Query.GetBHoMMethodList().Where(x => x.DeclaringType.Name == "Create").ToList();
+
                 foreach (var group in GetRelevantTypes().GroupBy(x => x.FullName.Split('.')[2]).OrderBy(x => x.Key))
                 {
                     ToolStripMenuItem groupItem = Menu_AppendItem(typeMenu.DropDown, group.Key);
 
                     foreach (Type type in group)
                     {
-                        ConstructorInfo[] constructors = type.GetConstructors();
+                        MethodBase[] constructors = type.GetConstructors();
+                        try
+                        {
+                            List<MethodInfo> m2 = methods.Where(x => x.ReturnType == type).ToList();
+                            constructors = constructors.Concat(m2).ToArray();
+                        }
+                        catch(Exception)
+                        {
+                            Console.WriteLine("Failed to load some object definitions. Make sure everything in the chain has been recompiled");
+                        }
+                        
                         if (constructors.Count() > 2)
                         {
                             ToolStripMenuItem typeItem = Menu_AppendItem(groupItem.DropDown, type.Name);
-                            foreach (ConstructorInfo info in constructors)
+                            foreach (MethodBase method in constructors)
                             {
-                                if (info.GetParameters().Count() > 0)
+                                if (method.GetParameters().Count() > 0)
                                 {
-                                    string name = "(" + info.GetParameters().Select(x => x.Name).Aggregate((x, y) => x + ", " + y) + ")";
+                                    string name = "(" + method.GetParameters().Select(x => x.Name).Aggregate((x, y) => x + ", " + y) + ")";
+                                    if (!method.IsConstructor && method.Name != type.Name)
+                                        name = method.Name + name;
                                     ToolStripMenuItem item = Menu_AppendItem(typeItem.DropDown, name, Item_Click);
-                                    m_ConstructorLinks[item] = info;
+                                    m_ConstructorLinks[item] = method;
                                 }
                             }
                         }
@@ -174,6 +203,59 @@ namespace BH.UI.Alligator.Templates
                     }
                 }
             } 
+        }*/
+
+        /*************************************/
+
+        protected override Tree<MethodBase> GetRelevantMethods()
+        {
+            Tree<MethodBase> root = new Tree<MethodBase> { Name = "Create methods" };
+            List<MethodInfo> createObjectMethods = BH.Engine.Reflection.Query.GetBHoMMethodList().Where(x => x.DeclaringType.Name == "Create").ToList();
+
+            foreach (Type type in GetRelevantTypes().OrderBy(x => x.Name))
+            {
+                // Make sure the part of the tree corresponding to the namespace exists
+                Tree<MethodBase> tree = root;
+                foreach (string part in type.Namespace.Split('.').Skip(2))
+                {
+                    if (!tree.Children.ContainsKey(part))
+                        tree.Children.Add(part, new Tree<MethodBase> { Name = part });
+                    tree = tree.Children[part];
+                }
+
+                // Create the list of methods available to create this object type
+                MethodBase[] methods = type.GetConstructors();
+                try
+                {
+                    List<MethodInfo> m2 = createObjectMethods.Where(x => x.ReturnType == type).ToList();
+                    methods = methods.Concat(m2).ToArray();
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Failed to load some object definitions. Make sure everything in the chain has been recompiled");
+                }
+
+                // Add the methods to the tree
+                if (methods.Count() > 2)
+                {
+                    tree.Children.Add(type.Name, new Tree<MethodBase> { Name = type.Name });
+                    tree = tree.Children[type.Name];
+
+                    foreach (MethodBase method in methods)
+                    {
+                        string name = (!method.IsConstructor && method.Name != type.Name) ? method.Name : "";
+                        name = GetMethodString(name, method.GetParameters());
+                        tree.Children.Add(name, new Tree<MethodBase>(method, name));
+                    }
+                }
+                else
+                {
+                    MethodBase method = methods.OrderBy(x => x.GetParameters().Count()).Last();
+                    tree.Children.Add(type.Name, new Tree<MethodBase>(method, type.Name));
+                }
+            }
+
+            return root;
         }
 
         /*************************************/
@@ -182,7 +264,7 @@ namespace BH.UI.Alligator.Templates
 
         /*************************************/
 
-        protected void Item_Click(object sender, EventArgs e)
+        /*protected void Item_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem item = (ToolStripMenuItem)sender;
             if (!m_ConstructorLinks.ContainsKey(item))
@@ -194,14 +276,14 @@ namespace BH.UI.Alligator.Templates
             List<ParameterInfo> inputs = m_Constructor.GetParameters().ToList();
             ComputerDaGets(inputs);
             UpdateInputs(inputs);
-        }
+        }*/
 
 
         /*************************************/
         /**** Dynamic Update              ****/
         /*************************************/
 
-        protected void UpdateInputs(List<ParameterInfo> inputs)
+        /*protected void UpdateInputs(List<ParameterInfo> inputs)
         {
             int nbOld = Params.Input.Count();
 
@@ -231,11 +313,11 @@ namespace BH.UI.Alligator.Templates
             this.OnAttributesChanged();
             if (inputs.Count() != nbOld)
                 ExpireSolution(true);
-        }
+        }*/
 
         /*************************************/
 
-        protected void ComputerDaGets(List<ParameterInfo> inputs)
+        /*protected void ComputerDaGets(List<ParameterInfo> inputs)
         {
             int nbNew = inputs.Count();
 
@@ -254,11 +336,11 @@ namespace BH.UI.Alligator.Templates
                 MethodInfo method = isList ? getListMethod : getMethod;
                 m_DaGets.Add(method.MakeGenericMethod(type));
             }
-        }
+        }*/
 
         /*************************************/
 
-        protected void RegisterInputParameter(Type type, string name, object defaultVal = null)
+        /*protected void RegisterInputParameter(Type type, string name, object defaultVal = null)
         {
             dynamic p;
 
@@ -281,37 +363,37 @@ namespace BH.UI.Alligator.Templates
                 p.SetPersistentData(defaultVal);
 
             Params.RegisterInputParam(p);
-        }
+        }*/
 
 
         /*************************************/
         /**** Access Methods              ****/
         /*************************************/
 
-        public static T GetData<T>(IGH_DataAccess DA, int index)
+        /*public static T GetData<T>(IGH_DataAccess DA, int index)
         {
             T obj = default(T);
             DA.GetData<T>(index, ref obj);
             return obj;
-        }
+        }*/
 
         /*************************************/
 
-        public static List<T> GetDataList<T>(IGH_DataAccess DA, int index)
+        /*public static List<T> GetDataList<T>(IGH_DataAccess DA, int index)
         {
             List<T> obj = new List<T>();
             DA.GetDataList<T>(index, obj);
             return obj;
-        }
+        }*/
 
 
         /*************************************/
         /**** Protected Fields            ****/
         /*************************************/
 
-        protected List<MethodInfo> m_DaGets = new List<MethodInfo>();
+        /*protected List<MethodInfo> m_DaGets = new List<MethodInfo>();
         protected MethodBase m_Constructor = null;
-        protected Dictionary<ToolStripMenuItem, MethodBase> m_ConstructorLinks = new Dictionary<ToolStripMenuItem, MethodBase>();
+        protected Dictionary<ToolStripMenuItem, MethodBase> m_ConstructorLinks = new Dictionary<ToolStripMenuItem, MethodBase>();*/
 
     }
 }
