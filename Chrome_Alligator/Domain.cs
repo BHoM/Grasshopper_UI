@@ -9,17 +9,13 @@ namespace BH.UI.Alligator.Chrome
 {
     public class Domain : CreateObjectTemplate
     {
-        public Domain() : base("ChromeDomain", "Domain", "Creates a specific domain definition to be used by a dimension", "Alligator", "Chrome") { }
+        public Domain() : base("ChromeDomain", "Domain", "Creates a specific domain definition to be used by a dimension", "Alligator", "Chrome")
+        {
+            m_MenuMaxDepth = 0;
+        }
         public override Guid ComponentGuid { get { return new Guid("E258EC5C-9D91-4039-9960-BAADD2926B09"); } }
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return null; } }
         public override GH_Exposure Exposure { get { return GH_Exposure.secondary; } }
-
-        /*************************************/
-
-        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
-        {
-            pManager.AddGenericParameter("Domain", "Domain", "Domain", GH_ParamAccess.item);
-        }
 
         /*************************************/
 

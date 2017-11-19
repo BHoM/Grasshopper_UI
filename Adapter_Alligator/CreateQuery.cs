@@ -1,0 +1,33 @@
+﻿using System;
+using Grasshopper.Kernel;
+using System.Collections.Generic;
+using System.Linq;
+using BH.oM.Base;
+using BH.UI.Alligator.Templates;
+using BH.Adapter;
+using System.IO;
+using System.Reflection;
+
+namespace BH.UI.Alligator.Base
+{
+    public class CreateQuery : CreateObjectTemplate
+    {
+        public CreateQuery() : base("CreateQuery", "Query", "Creates a specific class of query", "Alligator", "Adapter")
+        {
+            m_MenuMaxDepth = 0;
+        }
+        public override Guid ComponentGuid { get { return new Guid("E1BC4C14-9F5B-4879-B8EB-CCAC49178CFE"); } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return null; } }
+        public override GH_Exposure Exposure { get { return GH_Exposure.tertiary; } }
+
+
+        /*************************************/
+
+        protected override IEnumerable<Type> GetRelevantTypes()
+        {
+            Type queryType = typeof(BH.Adapter.Queries.IQuery);
+            return BH.Engine.Reflection.Query.GetAdapterTypeList().Where(x => queryType.IsAssignableFrom(x)).OrderBy(x => x.Name);
+        }
+
+    }
+}

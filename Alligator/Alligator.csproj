@@ -90,8 +90,9 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Components\BH_CSNET_Script.cs" />
     <Compile Include="Components\BH_VBNET_Script.cs" />
-    <Compile Include="Components\Query.cs" />
-    <Compile Include="Components\CreateBHoMObject.cs" />
+    <Compile Include="Components\ModifyBHoM.cs" />
+    <Compile Include="Components\QueryBHoM.cs" />
+    <Compile Include="Components\CreateBHoM.cs" />
     <Compile Include="Components\ToJson.cs" />
     <Compile Include="Components\VsScriptEditor.cs" />
     <Compile Include="NonComponents\BH_Hints\BH_LineHint.cs" />
@@ -102,16 +103,12 @@
     <Compile Include="NonComponents\BH_Hints\BH_VectorHint.cs" />
     <Compile Include="Components\BHoMGeometryParameter.cs" />
     <Compile Include="Components\BHoMObjectParameter.cs" />
-    <Compile Include="Components\CollapseList.cs" />
     <Compile Include="Components\CreateCustomObject.cs" />
     <Compile Include="Components\ExplodeObject.cs" />
     <Compile Include="Components\GetPropertyNames.cs" />
-    <Compile Include="Components\ExpandList.cs" />
     <Compile Include="NonComponents\BH_Types\GH_IBHoMGeometry.cs" />
     <Compile Include="NonComponents\BH_Types\GH_BHoMObject.cs" />
-    <Compile Include="Components\ObjectFilter.cs" />
     <Compile Include="NonComponents\BH_Types\DrawBHoMObjects.cs" />
-    <Compile Include="Components\ViewCustomData.cs" />
     <Compile Include="Components\AboutGator.cs" />
     <Compile Include="Components\GetProperty.cs" />
     <Compile Include="Components\SetProperty.cs" />
@@ -218,12 +215,11 @@ if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligat
 if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\packages" mkdir "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\packages"
 
 Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
+Copy /Y "$(TargetDir)Alligator.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
+Copy /Y "$(TargetDir)BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
+Copy /Y "$(TargetDir)Rhinoceros_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
 
-Copy /Y "$(TargetDir)Alligator.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Alligator.dll"
-Copy /Y "$(TargetDir)BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\BHoM.dll"
-Copy /Y "$(TargetDir)BHoM_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\BHoM_Engine.dll"
-Copy /Y "$(TargetDir)Reflection_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Reflection_Engine.dll"
-Copy /Y "$(TargetDir)DataStructure_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\DataStructure_Engine.dll"</PostBuildEvent>
+Copy /Y ..\..\BHoM_Engine\Build\*.dll "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>

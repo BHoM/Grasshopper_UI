@@ -7,32 +7,31 @@ using BH.UI.Alligator.Templates;
 using System.IO;
 using System.Reflection;
 using BH.oM.DataStructure;
+using System.Collections;
 
 namespace BH.UI.Alligator.Base
 {
-    public class Query : MethodCallTemplate
+    public class QueryBHoM : MethodCallTemplate
     {
-        public Query() : base("Query BHoM Object", "Query", "Query information about a BHoMObject", "Alligator", "Base")
+        public QueryBHoM() : base("Query BHoM Object", "QueryBHoM", "Query information about a BHoMObject", "Alligator", "Base")
         {
         }
         public override Guid ComponentGuid { get { return new Guid("63DA0CAC-87BC-48AC-9C49-1D1B2F06BE83"); } }
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return null; } }
 
-        /*************************************/
-
-        protected override void SetData(IGH_DataAccess DA, object result)
-        {
-            DA.SetData(0, result as dynamic);
-        }
 
         /*************************************/
 
         protected override Tree<MethodBase> GetRelevantMethods()
         {
-            Tree<MethodBase> root = new Tree<MethodBase> { Name = "Query methods" };
+            Type enumerableType = typeof(IEnumerable);
+            Tree<MethodBase> root = new Tree<MethodBase> { Name = "Select query" };
 
             foreach (MethodBase method in BH.Engine.Reflection.Query.GetBHoMMethodList().Where(x => x.DeclaringType.Name == "Query"))
-                AddMethodToTree(root, method.DeclaringType.Namespace.Split('.').Skip(2), method);
+            {
+                AddMethodToTree(root, method);
+            }
+                
 
             return root;
         }

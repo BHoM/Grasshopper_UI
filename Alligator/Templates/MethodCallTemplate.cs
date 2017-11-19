@@ -14,14 +14,8 @@ using BH.oM.DataStructure;
 // Instructions to implement this template
 // ***************************************
 //
-// If your output type is not a generic type
-//      1. Override the RegisterOutputParams method
-//      2. Override the SetData method
-//
-// In all cases
-//      3. Override the GetRelevantTypes() method that provide the lis of types this component can create
-//         If you need help building your catalogue of methods you can use AddMethodToTree() 
-// 
+//  1. Override the GetRelevantMethods() method that provide the lis of methods this component can call
+//  2. If you need help building your catalogue of methods, you can use AddMethodToTree() 
 //
 
 namespace BH.UI.Alligator.Templates
@@ -41,11 +35,7 @@ namespace BH.UI.Alligator.Templates
         public void VariableParameterMaintenance() { }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager) { }
-
-        protected override void RegisterOutputParams(GH_OutputParamManager pManager)    // 1. Override this method if you want a different type of output
-        {
-            pManager.AddGenericParameter("Result", "result", "result", GH_ParamAccess.item);    
-        }
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager) { }
 
 
         /*************************************/
@@ -55,26 +45,25 @@ namespace BH.UI.Alligator.Templates
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             if (m_Method == null)
-            { 
-                DA.SetData(0, null);
                 return;
-            }
 
             List<object> inputs = new List<object>();
             for (int i = 0; i < m_DaGets.Count; i++)
                 inputs.Add(m_DaGets[i].Invoke(null, new object[] { DA, i }));
 
+            dynamic result;
             if (m_Method.IsConstructor)
-                SetData(DA, ((ConstructorInfo)m_Method).Invoke(inputs.ToArray()));
+                result = ((ConstructorInfo)m_Method).Invoke(inputs.ToArray());
             else
-                SetData(DA, m_Method.Invoke(null, inputs.ToArray()));
-        }
+                result = m_Method.Invoke(null, inputs.ToArray());
 
-        /*************************************/
-
-        protected virtual void SetData(IGH_DataAccess DA, object result)    // 2. Override this method if you want a different type of output
-        {
-            DA.SetData(0, result);
+            if (Params.Output.Count > 0)
+            {
+                if (Params.Output[0].Access == GH_ParamAccess.item)
+                    DA.SetData(0, result);
+                else
+                    DA.SetDataList(0, result);
+            }
         }
 
 
@@ -136,8 +125,7 @@ namespace BH.UI.Alligator.Templates
                         {
                             m_Method = method;
                             break;
-                        }
-                                
+                        }        
                     }
                 }
             }
@@ -169,7 +157,7 @@ namespace BH.UI.Alligator.Templates
             if (tree.Children.Count > 0)
             {
                 ToolStripMenuItem treeMenu = Menu_AppendItem(menu, tree.Name);
-                foreach (Tree<MethodBase> childTree in tree.Children.Values)
+                foreach (Tree<MethodBase> childTree in tree.Children.Values.OrderBy(x => x.Name))
                     AppendMethodTreeToMenu(childTree, treeMenu.DropDown);
             }
             else
@@ -182,15 +170,31 @@ namespace BH.UI.Alligator.Templates
 
         /*************************************/
 
-        protected abstract Tree<MethodBase> GetRelevantMethods();    // 3. Define the list of relevant methods that can be created
+        protected abstract Tree<MethodBase> GetRelevantMethods();    // 1. Define the list of relevant methods that can be created
 
         /*************************************/
 
-        protected virtual void AddMethodToTree(Tree<MethodBase> tree, IEnumerable<string> names, MethodBase method) // Helper function to build your catalogue of methods
+        protected virtual void AddMethodToTree(Tree<MethodBase> tree, MethodBase method) //2. Helper function to build your catalogue of methods
+        {
+            ParameterInfo[] parameters = method.GetParameters();
+            string typeName = "Global";
+            if (parameters.Length > 0)
+            {
+                Type type = parameters[0].ParameterType;
+                if (type.IsGenericType)
+                    type = type.GenericTypeArguments.First();
+                typeName = type.Name;
+            }
+
+            IEnumerable<string> path = method.DeclaringType.Namespace.Split('.').Skip(2).Concat(new string[] { typeName });
+            AddMethodToTree(tree, path, method);
+        }
+
+        protected virtual void AddMethodToTree(Tree<MethodBase> tree, IEnumerable<string> path, MethodBase method) 
         {
             Dictionary<string, Tree<MethodBase>> children = tree.Children;
 
-            if (names.Count() == 0)
+            if (path.Count() == 0)
             {
                 string name = method.Name;
                 bool isIMethod = (name.Length > 1 && Char.IsUpper(name[1]));
@@ -205,16 +209,16 @@ namespace BH.UI.Alligator.Templates
             }
             else
             {
-                string name = names.First();
+                string name = path.First();
                 if (!children.ContainsKey(name))
                     children.Add(name, new Tree<MethodBase> { Name = name });
-                AddMethodToTree(children[name], names.Skip(1), method);
+                AddMethodToTree(children[name], path.Skip(1), method);
             }
         }
 
         /*************************************/
 
-        protected virtual string GetMethodString(string methodName, ParameterInfo[] parameters)   // Helper function to build a string representing your method
+        protected virtual string GetMethodString(string methodName, ParameterInfo[] parameters)   // 2. Helper function to build a string representing your method
         {
             string name = methodName + "(";
             if (parameters.Length > 0)
@@ -233,11 +237,12 @@ namespace BH.UI.Alligator.Templates
                 return;
 
             m_Method = m_MethodLinks[item];
-            this.NickName = m_Method.DeclaringType.Name;
+            this.NickName = m_Method.IsConstructor ? m_Method.DeclaringType.Name : m_Method.Name;
 
             List<ParameterInfo> inputs = m_Method.GetParameters().ToList();
+            Type output = m_Method.IsConstructor ? m_Method.DeclaringType : ((MethodInfo)m_Method).ReturnType;
             ComputerDaGets(inputs);
-            UpdateInputs(inputs);
+            UpdateInputs(inputs, output);
         }
 
 
@@ -245,18 +250,16 @@ namespace BH.UI.Alligator.Templates
         /**** Dynamic Update              ****/
         /*************************************/
 
-        protected void UpdateInputs(List<ParameterInfo> inputs)
+        protected void UpdateInputs(List<ParameterInfo> inputs, Type output)
         {
-            int nbOld = Params.Input.Count();
+            Type enumerableType = typeof(IEnumerable);
 
-            for (int i = nbOld - 1; i >= 0; i--)
-                Params.UnregisterInputParameter(Params.Input[i]);
-
+            // Create the inputs
             for (int i = 0; i < inputs.Count(); i++)
             {
                 ParameterInfo input = inputs[i];
                 Type type = input.ParameterType;
-                bool isList = (type != typeof(string) && (typeof(IEnumerable).IsAssignableFrom(type)));
+                bool isList = (type != typeof(string) && (enumerableType.IsAssignableFrom(type)));
 
                 if (isList)
                     type = type.GenericTypeArguments.First();
@@ -272,9 +275,22 @@ namespace BH.UI.Alligator.Templates
                 if (isList)
                     Params.Input[i].Access = GH_ParamAccess.list;
             }
+
+            // Create the output
+            if (output != null)
+            {
+                if ((output != typeof(string) && (enumerableType.IsAssignableFrom(output))))
+                {
+                    RegisterOutputParameter(output.GenericTypeArguments.First());
+                    Params.Output[0].Access = GH_ParamAccess.list;
+                }
+                else
+                    RegisterOutputParameter(output);
+            }
+
+            // Refresh the component
             this.OnAttributesChanged();
-            if (inputs.Count() != nbOld)
-                ExpireSolution(true);
+            ExpireSolution(true);
         }
 
         /*************************************/
@@ -290,6 +306,10 @@ namespace BH.UI.Alligator.Templates
             for (int i = 0; i < nbNew; i++)
             {
                 Type type = inputs[i].ParameterType;
+
+                if (type.IsByRef)
+                    type = type.GetElementType();
+
                 bool isList = (type != typeof(string) && (typeof(IEnumerable).IsAssignableFrom(type)));
 
                 if (isList)
@@ -303,6 +323,25 @@ namespace BH.UI.Alligator.Templates
         /*************************************/
 
         protected void RegisterInputParameter(Type type, string name, object defaultVal = null)
+        {
+            dynamic p = GetGH_Param(type, name);
+
+            if (defaultVal != null)
+                p.SetPersistentData(defaultVal);
+
+            Params.RegisterInputParam(p);
+        }
+
+        /*************************************/
+
+        protected void RegisterOutputParameter(Type type)
+        {
+            Params.RegisterOutputParam(GetGH_Param(type, ""));
+        }
+
+        /*************************************/
+
+        protected dynamic GetGH_Param(Type type, string name)
         {
             dynamic p;
 
@@ -321,10 +360,7 @@ namespace BH.UI.Alligator.Templates
             else
                 p = new Param_GenericObject { NickName = name };
 
-            if (defaultVal != null)
-                p.SetPersistentData(defaultVal);
-
-            Params.RegisterInputParam(p);
+            return p;
         }
 
 
