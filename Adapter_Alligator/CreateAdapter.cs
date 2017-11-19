@@ -20,17 +20,13 @@ namespace BH.UI.Alligator.Base
                 if (file.EndsWith("_Adapter.dll"))
                     Assembly.LoadFrom(file);
             }
+
+            m_MenuMaxDepth = 0;
         }
         public override Guid ComponentGuid { get { return new Guid("A2D956AE-98A8-486D-A2AB-371B45F8B3AE"); } }
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return null; } }
         public override GH_Exposure Exposure { get { return GH_Exposure.tertiary; } }
 
-        /*************************************/
-
-        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
-        {
-            pManager.AddGenericParameter("Adapter", "Adapter", "Adapter", GH_ParamAccess.item);
-        }
 
         /*************************************/
 

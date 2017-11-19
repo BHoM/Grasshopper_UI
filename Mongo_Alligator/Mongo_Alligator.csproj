@@ -91,7 +91,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Create\MongoServer.cs" />
-    <Compile Include="Create\MongoLink.cs" />
     <Compile Include="Extract\GetDatabases.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

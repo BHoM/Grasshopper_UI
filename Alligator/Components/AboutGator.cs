@@ -9,7 +9,7 @@ namespace BH.UI.Alligator.Base
         public AboutGator()
             : base("Alligator", "Gator",
                 "About Alligator",
-                "Alligator", "Gator")
+                "Alligator", "About")
         {
         }
 

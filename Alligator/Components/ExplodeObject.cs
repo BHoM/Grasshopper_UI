@@ -20,6 +20,8 @@ namespace BH.UI.Alligator.Base
         private Dictionary<string, object> m_Outputs = new Dictionary<string, object>();
         public bool additional { get; set; }
 
+        public override GH_Exposure Exposure { get { return GH_Exposure.secondary; } }
+
         public bool CanInsertParameter(GH_ParameterSide side, int index) { return false; }
         public bool CanRemoveParameter(GH_ParameterSide side, int index) { return false; }
         public IGH_Param CreateParameter(GH_ParameterSide side, int index) { return new Grasshopper.Kernel.Parameters.Param_GenericObject(); }

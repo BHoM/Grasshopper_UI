@@ -8,7 +8,7 @@ using Grasshopper.Kernel.Types;
 using BH.oM.Base;
 using B = BH.oM.Geometry;
 using BH.UI.Alligator;
-using BH.Engine.SVG;
+using BH.Engine.Graphics;
 
 namespace BH.UI.Alligator.SVG
 {

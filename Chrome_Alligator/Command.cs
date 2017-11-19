@@ -9,16 +9,13 @@ namespace BH.UI.Alligator.Chrome
 {
     public class Command : CreateObjectTemplate
     {
-        public Command() : base("ChromeCommand", "Command", "Creates a command to execute in Chrome", "Alligator", "Chrome") { }
+        public Command() : base("ChromeCommand", "Command", "Creates a command to execute in Chrome", "Alligator", "Chrome")
+        {
+            m_MenuMaxDepth = 0;
+        }
         public override Guid ComponentGuid { get { return new Guid("595933A0-A1B2-483C-974C-3A80818350EB"); } }
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return null; } }
 
-        /*************************************/
-
-        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
-        {
-            pManager.AddGenericParameter("Command", "Command", "Command", GH_ParamAccess.item);
-        }
 
         /*************************************/
 
