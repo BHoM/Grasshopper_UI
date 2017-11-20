@@ -56,7 +56,7 @@ namespace BH.UI.Alligator.Templates
                 }
 
                 // Add the methods to the tree
-                if (methods.Count() > 2)
+                if (methods.Length > 2)
                 {
                     tree.Children.Add(type.Name, new Tree<MethodBase> { Name = type.Name });
                     tree = tree.Children[type.Name];
@@ -72,7 +72,7 @@ namespace BH.UI.Alligator.Templates
                         }
                     }
                 }
-                else
+                else if (methods.Length > 0)
                 {
                     MethodBase method = methods.OrderBy(x => x.GetParameters().Count()).Last();
                     tree.Children.Add(type.Name, new Tree<MethodBase>(method, type.Name));
