@@ -135,7 +135,7 @@ Copy /Y "$(TargetDir)\Alligator.dll" "C:\Users\$(Username)\AppData\Roaming\Grass
 Copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\BHoM.dll"
 Copy /Y "$(TargetDir)\BHoM_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\BHoM_Engine.dll"
 Copy /Y "$(TargetDir)\Geometry_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Geometry_Engine.dll"
-Copy /Y "$(TargetDir)\Rhino_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Rhino_Adapter.dll"</PostBuildEvent>
+Copy /Y "$(TargetDir)\Rhinoceros_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Rhinoceros_Adapter.dll"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets" Condition="Exists('..\packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
