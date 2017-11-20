@@ -63,9 +63,13 @@ namespace BH.UI.Alligator.Templates
 
                     foreach (MethodBase method in methods)
                     {
-                        string name = (!method.IsConstructor && method.Name != type.Name) ? method.Name : "";
-                        name = GetMethodString(name, method.GetParameters());
-                        tree.Children.Add(name, new Tree<MethodBase>(method, name));
+                        ParameterInfo[] parameters = method.GetParameters();
+                        if (parameters.Length > 0)
+                        {
+                            string name = (!method.IsConstructor && method.Name != type.Name) ? method.Name : "";
+                            name = GetMethodString(name, parameters);
+                            tree.Children.Add(name, new Tree<MethodBase>(method, name));
+                        }
                     }
                 }
                 else
