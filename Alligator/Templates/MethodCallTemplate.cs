@@ -413,6 +413,8 @@ namespace BH.UI.Alligator.Templates
                 p = new BHoMGeometryParameter { NickName = name };
             else if (typeof(IObject).IsAssignableFrom(type))
                 p = new BHoMObjectParameter { NickName = name };
+            else if (type == typeof(Type))
+                p = new TypeParameter { NickName = name };
             else if (type == typeof(string))
                 p = new Param_String { NickName = name };
             else if (type == typeof(int))
