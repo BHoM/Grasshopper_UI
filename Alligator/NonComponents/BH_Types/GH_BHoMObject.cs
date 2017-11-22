@@ -39,7 +39,7 @@ namespace BH.UI.Alligator
             get
             {
                 if (Value == null) { return false; }
-                return Value != null;
+                return true;
             }
         }
 
@@ -50,8 +50,7 @@ namespace BH.UI.Alligator
             get
             {
                 if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
-                IBHoMGeometry geometry = ((BHoMObject)Value).IGetGeometry();
-                if (geometry != null) { return geometry.IGetBounds().ToRhino(); }
+                if (Geometry != null) { return Geometry.IGetBounds().ToRhino(); }
                 else return Rhino.Geometry.BoundingBox.Empty;
             }
         }
@@ -95,7 +94,7 @@ namespace BH.UI.Alligator
         public override string ToString()
         {
             if (Value == null)
-                return "Null BHoMObject";
+                return "null BHoMObject";
             return Value.ToString();
         }
 
@@ -104,10 +103,10 @@ namespace BH.UI.Alligator
         public Rhino.Geometry.BoundingBox GetBoundingBox(Rhino.Geometry.Transform xform)
         {
             if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
-            if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
-            IBHoMGeometry geometry = ((BHoMObject)Value).IGetGeometry();
-            if (geometry != null) { return geometry.IGetBounds().ToRhino(); }
-            else return Rhino.Geometry.BoundingBox.Empty;
+            if (Geometry == null) { return Rhino.Geometry.BoundingBox.Empty; }
+            BH.oM.Geometry.BoundingBox bhBox = Geometry.IGetBounds();
+            if (bhBox == null) { return Rhino.Geometry.BoundingBox.Empty; }
+            return bhBox.ToRhino();
         }
 
 
@@ -146,8 +145,7 @@ namespace BH.UI.Alligator
 
         public void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
-            IBHoMGeometry geometry = ((BHoMObject)Value).IGetGeometry();
-            if (geometry == null) { return; }
+            if (Geometry == null) { return; }
             if (typeof(BH.oM.Geometry.Mesh).IsAssignableFrom(Value.GetType()))
                 Render.RenderBHoMGeometry((BH.oM.Geometry.Mesh)Value, args);
         }
@@ -158,8 +156,7 @@ namespace BH.UI.Alligator
         {
             if (Value == null) { return; }
             if (Render.IRenderBHoMObject(Value, args)) { return; };
-            IBHoMGeometry geometry = ((BHoMObject)Value).IGetGeometry();
-            Render.IRenderBHoMGeometry(geometry, args);
+            Render.IRenderBHoMGeometry(Geometry, args);
         }
 
 
@@ -169,9 +166,21 @@ namespace BH.UI.Alligator
 
         public bool BakeGeometry(RhinoDoc doc, ObjectAttributes att, out Guid obj_guid)
         {
-            IBHoMGeometry geometry = ((BHoMObject)Value).IGetGeometry();
-            obj_guid = doc.Objects.Add(geometry.IToRhino(), att);
+            obj_guid = doc.Objects.Add(Geometry.IToRhino(), att);
             return true;
+        }
+
+        /***************************************************/
+        /**** Private Properties                        ****/
+        /***************************************************/
+
+        private IBHoMGeometry Geometry
+        {
+            get
+            {
+                if (Value == null) { return null; }
+                return ((BHoMObject)Value).IGetGeometry();
+            }
         }
     }
 }
