@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Rhino.PlugIns;
+using Grasshopper.Kernel;
 
 
 // General Information about an assembly is controlled through the following 
@@ -15,6 +16,7 @@ using Rhino.PlugIns;
 [assembly: AssemblyCopyright("Copyright © BuroHappold Engineering 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+[assembly: Grasshopper.Kernel.GH_Loading(GH_LoadingDemand.ForceDirect)]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
