@@ -62,7 +62,7 @@ namespace BH.UI.Alligator
         public static bool RenderBHoMObject(BH.oM.Acoustic.Receiver receiver, GH_PreviewWireArgs args, Color bhColour)
         {
             BHG.Point pt = receiver.Location;
-            RHG.Point3d location = pt.ToRhino().ToScreen(args);
+            RHG.Point3d location = pt.ToRhino();
             RenderBHoMGeometry(pt, args.Pipeline, bhColour);
             args.Pipeline.Draw2dText(receiver.ReceiverID.ToString(), Color.Navy, location, false, 10);
             return true;
