@@ -77,10 +77,6 @@
       <HintPath>..\packages\RhinoCommon.5.12.50810.13095\lib\net35\RhinoCommon.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Robot_Adapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Robot_Toolkit\Build\Robot_Adapter.dll</HintPath>
-    </Reference>
     <Reference Include="Script, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Script.dll</HintPath>
@@ -225,9 +221,9 @@ Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries
 Copy /Y "$(TargetDir)Alligator.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
 Copy /Y "$(TargetDir)BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
 Copy /Y "$(TargetDir)Rhinoceros_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
-Copy /Y "$(TargetDir)Robot_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
 
-Copy /Y ..\..\BHoM_Engine\Build\*.dll "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\"</PostBuildEvent>
+Copy /Y ..\..\BHoM_Engine\Build\*.dll "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\"
+Copy /Y ..\..\Robot_Toolkit\Build\Robot_Adapter.dll "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
