@@ -50,8 +50,10 @@ namespace BH.UI.Alligator
             get
             {
                 if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
-                if (Geometry != null) { return Geometry.IGetBounds().ToRhino(); }
-                else return Rhino.Geometry.BoundingBox.Empty;
+                if (Geometry == null) { return Rhino.Geometry.BoundingBox.Empty; }
+                BH.oM.Geometry.BoundingBox bhBox = Geometry.IGetBounds();
+                if (bhBox == null) { return Rhino.Geometry.BoundingBox.Empty; }
+                return bhBox.ToRhino();
             }
         }
 
