@@ -11,19 +11,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+
 namespace Design_Alligator.Structural.Steel
 {
-    public class SteelSectionSizerComponent : GH_Component
+    public class SteelSectionSizerComponent : Grasshopper_Engine.Components.BHoMBaseComponent<BHoM.Base.BHoMObject>
     {
 
         private List<DesignElement> m_desElems;
         private List<SteelUtilisation> m_utils;
         private List<double> m_critVals;
+        private List<double> m_tonnageDifference;
         public SteelSectionSizerComponent() : base("Steel Section Sizer", "SteelSizer", "Check a set of design element for a set of section properties until a good match is found", "Structure", "Design")
         {
             m_desElems = new List<DesignElement>();
             m_utils = new List<SteelUtilisation>();
             m_critVals = new List<double>();
+            m_tonnageDifference = new List<double>();
+            AppendEnumOptions("Sizing mode", typeof(SizerMode));
         }
 
         public override Guid ComponentGuid
@@ -75,6 +80,8 @@ namespace Design_Alligator.Structural.Steel
 
                 SteelSectionSizer secSizer = new SteelSectionSizer(elems, loadcases, server, key, minUtil, maxUtil, secProps);
                 secSizer.ParallelChecking = parallel;
+                secSizer.Mode = (SizerMode)m_SelectedOption[0];
+
 
                 m_critVals.Clear();
                 m_desElems.Clear();
@@ -85,11 +92,26 @@ namespace Design_Alligator.Structural.Steel
                 if (m_critVals.Max() > maxUtil)
                     AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "At least one element was not able to find a suitable section and has a utilisation higher than the limit");
 
+
+                for (int i = 0; i < m_desElems.Count; i++)
+                {
+                    m_tonnageDifference.Add(ElemWeight(m_desElems[i]) - ElemWeight(elems[i]));
+                }
+
+                List<double> tonnageBefore = elems.Select(x => x.SectionProperty.GrossArea * x.SectionProperty.Material.Density * x.Length).ToList();
+                
+
             }
 
             DA.SetDataList(0, m_desElems);
             DA.SetDataList(1, m_utils);
             DA.SetDataList(2, m_critVals);
+            DA.SetDataList(3, m_tonnageDifference);
+        }
+
+        private double ElemWeight(DesignElement elem)
+        {
+            return elem.Length * elem.SectionProperty.GrossArea * elem.SectionProperty.Material.Density;
         }
     }
 }
