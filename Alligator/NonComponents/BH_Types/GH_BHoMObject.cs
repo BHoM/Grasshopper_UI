@@ -157,8 +157,7 @@ namespace BH.UI.Alligator
         public void DrawViewportWires(GH_PreviewWireArgs args)
         {
             if (Value == null) { return; }
-            if (Render.IRenderBHoMObject(Value, args)) { return; };
-            Render.IRenderBHoMGeometry(Geometry, args);
+            Render.IRenderBHoMObject(Value, args);
         }
 
 

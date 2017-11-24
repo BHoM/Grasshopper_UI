@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BH.Engine.Base;
 
 namespace BH.UI.Alligator
 {
@@ -65,6 +66,16 @@ namespace BH.UI.Alligator
             RHG.Point3d location = pt.ToRhino();
             RenderBHoMGeometry(pt, args.Pipeline, bhColour);
             args.Pipeline.Draw2dText(receiver.ReceiverID.ToString(), Color.Navy, location, false, 10);
+            return true;
+        }
+
+        /***************************************************/
+        /**** Private Methods  -  Default case          ****/
+        /***************************************************/
+
+        private static bool RenderBHoMObject(BH.oM.Base.BHoMObject obj, GH_PreviewWireArgs args, Color bhColour)
+        {
+            IRenderBHoMGeometry(obj.IGetGeometry(), args);
             return true;
         }
 
