@@ -88,6 +88,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Components\Constructors\CreateBHoMEnum.cs" />
+    <Compile Include="Components\Parameters\EnumParameter.cs" />
     <Compile Include="Components\Parameters\TypeParameter.cs" />
     <Compile Include="Components\Scripting\BH_CSNET_Script.cs" />
     <Compile Include="Components\Scripting\BH_VBNET_Script.cs" />
@@ -107,6 +109,7 @@
     <Compile Include="Components\Constructors\CreateCustomObject.cs" />
     <Compile Include="Components\Methods\ExplodeObject.cs" />
     <Compile Include="Components\Methods\GetPropertyNames.cs" />
+    <Compile Include="NonComponents\BH_Types\GH_Enum.cs" />
     <Compile Include="NonComponents\Render\RenderBHoMObject.cs" />
     <Compile Include="NonComponents\BH_Types\GH_Type.cs" />
     <Compile Include="NonComponents\BH_Types\GH_IBHoMGeometry.cs" />
@@ -120,6 +123,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Templates\CreateEnumTemplate.cs" />
     <Compile Include="Templates\MethodCallTemplate.cs" />
     <Compile Include="Templates\CreateObjectTemplate.cs" />
   </ItemGroup>

@@ -423,6 +423,8 @@ namespace BH.UI.Alligator.Templates
                 p = new Param_Number { NickName = name };
             else if (type == typeof(bool))
                 p = new Param_Boolean { NickName = name };
+            else if (typeof(Enum).IsAssignableFrom(type))
+                p = new EnumParameter { NickName = name };
             else
                 p = new Param_GenericObject { NickName = name };
 
