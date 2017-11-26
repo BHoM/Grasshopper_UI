@@ -19,6 +19,8 @@ namespace BH.UI.Alligator.Base
         public override Guid ComponentGuid { get { return new Guid("63DA0CAC-87BC-48AC-9C49-1D1B2F06BE83"); } }
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return null; } }
 
+        public override GH_Exposure Exposure { get { return GH_Exposure.secondary; } }
+
 
         /*************************************/
 
