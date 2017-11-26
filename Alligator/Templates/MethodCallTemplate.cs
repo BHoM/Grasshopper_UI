@@ -323,7 +323,7 @@ namespace BH.UI.Alligator.Templates
             {
                 ParameterInfo input = inputs[i];
                 Type type = input.ParameterType;
-                bool isList = (type != typeof(string) && (enumerableType.IsAssignableFrom(type)));
+                bool isList = type != typeof(string) && (enumerableType.IsAssignableFrom(type)) && !typeof(IDictionary).IsAssignableFrom(type);
 
                 if (isList)
                     type = type.GenericTypeArguments.First();
@@ -374,7 +374,7 @@ namespace BH.UI.Alligator.Templates
                 if (type.IsByRef)
                     type = type.GetElementType();
 
-                bool isList = (type != typeof(string) && (typeof(IEnumerable).IsAssignableFrom(type)));
+                bool isList = (type != typeof(string) && (typeof(IEnumerable).IsAssignableFrom(type))) && !typeof(IDictionary).IsAssignableFrom(type);
 
                 if (isList)
                     type = type.GenericTypeArguments.First();
