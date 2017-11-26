@@ -127,35 +127,21 @@ namespace BH.UI.Alligator
         {
             if (source == null) { return false; }
 
-            else if (typeof(IBHoMGeometry).IsAssignableFrom(source.GetType()))
+            else if (source is IBHoMGeometry)
                 this.Value = (IBHoMGeometry)source;
-            else if (typeof(Rhino.Geometry.GeometryBase).IsAssignableFrom(source.GetType()))
+            else if (source is Rhino.Geometry.GeometryBase)
                 this.Value = ((Rhino.Geometry.GeometryBase)source).IToBHoM();
-
-            else if (typeof(GH_Point).IsAssignableFrom(source.GetType()))
-                Value = (((GH_Point)source).Value).ToBHoM();
-            else if (typeof(GH_Vector).IsAssignableFrom(source.GetType()))
-                Value = (((GH_Vector)source).Value).ToBHoM();
-            else if (typeof(GH_Plane).IsAssignableFrom(source.GetType()))
-                Value = (((GH_Plane)source).Value).ToBHoM();
-
-            else if (typeof(GH_Arc).IsAssignableFrom(source.GetType()))
-                Value = (((GH_Arc)source).Value).ToBHoM();
-            else if (typeof(GH_Circle).IsAssignableFrom(source.GetType()))
-                Value = (((GH_Circle)source).Value).ToBHoM();
-            else if (typeof(GH_Curve).IsAssignableFrom(source.GetType()))
-                Value = (((GH_Curve)source).Value).ToBHoM();
-            else if (typeof(GH_Line).IsAssignableFrom(source.GetType()))
-                Value = (((GH_Line)source).Value).ToBHoM();
-
-            else if (typeof(GH_Box).IsAssignableFrom(source.GetType()))
+            else if (source is GH_Vector)                   //TODO: Check if there are other exceptions that do not convert to GeometryBase
+                Value = ((GH_Vector)source).Value.ToBHoM();
+            else if (source is GH_Box)
                 Value = (((GH_Box)source).Value).ToBHoM();
-            else if (typeof(GH_Surface).IsAssignableFrom(source.GetType()))
-                Value = (((GH_Surface)source).Value).ToBHoM();
-            else if (typeof(GH_Brep).IsAssignableFrom(source.GetType()))
-                Value = (((GH_Brep)source).Value).ToBHoM();
-            else if (typeof(GH_Mesh).IsAssignableFrom(source.GetType()))
-                Value = (((GH_Mesh)source).Value).ToBHoM();
+            else if (source is GH_Plane)
+                Value = (((GH_Plane)source).Value).ToBHoM();
+            else if (source is GH_Circle)
+                Value = (((GH_Circle)source).Value).ToBHoM();
+            else if (source is IGH_GeometricGoo)
+                Value = GH_Convert.ToGeometryBase(source).IToBHoM();
+
             return true;
         }
 
