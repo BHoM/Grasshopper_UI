@@ -89,6 +89,9 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Components\Constructors\CreateBHoMEnum.cs" />
+    <Compile Include="Components\Constructors\CreateDictionary.cs" />
+    <Compile Include="Components\Methods\ExplodeDictionary.cs" />
+    <Compile Include="Components\Parameters\DictionaryParameter.cs" />
     <Compile Include="Components\Parameters\EnumParameter.cs" />
     <Compile Include="Components\Parameters\TypeParameter.cs" />
     <Compile Include="Components\Scripting\BH_CSNET_Script.cs" />
@@ -98,6 +101,11 @@
     <Compile Include="Components\Constructors\CreateBHoM.cs" />
     <Compile Include="Components\Methods\ToJson.cs" />
     <Compile Include="Components\Scripting\VsScriptEditor.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_BHomGeometryHint.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_TypeHint.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_EnumHint.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_DictionaryHint.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_BHomObjectHint.cs" />
     <Compile Include="NonComponents\BH_Hints\BH_LineHint.cs" />
     <Compile Include="NonComponents\BH_Hints\BH_MeshHint.cs" />
     <Compile Include="NonComponents\BH_Hints\BH_NurbCurveHint.cs" />
@@ -109,6 +117,7 @@
     <Compile Include="Components\Constructors\CreateCustomObject.cs" />
     <Compile Include="Components\Methods\ExplodeObject.cs" />
     <Compile Include="Components\Methods\GetPropertyNames.cs" />
+    <Compile Include="NonComponents\BH_Types\GH_Dictionary.cs" />
     <Compile Include="NonComponents\BH_Types\GH_Enum.cs" />
     <Compile Include="NonComponents\Render\RenderBHoMObject.cs" />
     <Compile Include="NonComponents\BH_Types\GH_Type.cs" />
@@ -123,6 +132,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Templates\CreateCustomTemplate.cs" />
     <Compile Include="Templates\CreateEnumTemplate.cs" />
     <Compile Include="Templates\MethodCallTemplate.cs" />
     <Compile Include="Templates\CreateObjectTemplate.cs" />
