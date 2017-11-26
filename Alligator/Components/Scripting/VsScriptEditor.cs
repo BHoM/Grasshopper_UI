@@ -12,7 +12,7 @@ namespace BH.UI.Alligator.Base
     public class VsScriptEditor : GH_Component
     {
         public VsScriptEditor() : base("VS Editor", "VsEditor", "Uses a text file as the code of a scripting component.", "Alligator", "Base") { }
-        public override GH_Exposure Exposure { get { return GH_Exposure.tertiary ; } }
+        public override GH_Exposure Exposure { get { return GH_Exposure.quarternary ; } }
         public override Guid ComponentGuid { get { return new Guid("{5aa64ae8-f5f0-462f-bdea-073bcad31964}"); } }
         protected override System.Drawing.Bitmap Icon { get { return null; } }
         public override void CreateAttributes()

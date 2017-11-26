@@ -19,20 +19,8 @@ namespace BH.UI.Alligator.Base
             get { return null; }
         }
 
-        public override Guid ComponentGuid
-        {
-            get
-            {
-                return new Guid("3564A67C-3444-4A9B-AE6B-591F1CA9A53A");
-            }
-        }
-        public override GH_Exposure Exposure
-        {
-            get
-            {
-                return GH_Exposure.secondary;
-            }
-        }
+        public override Guid ComponentGuid { get { return new Guid("3564A67C-3444-4A9B-AE6B-591F1CA9A53A"); } }
+        public override GH_Exposure Exposure { get { return GH_Exposure.tertiary; } }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
