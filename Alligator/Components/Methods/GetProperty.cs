@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using BH.oM.Base;
 using BH.UI.Alligator;
+using BH.oM.Geometry;
+using BH.Adapter.Rhinoceros;
+using System.Collections;
 
 namespace BH.UI.Alligator.Base
 {
@@ -38,7 +41,22 @@ namespace BH.UI.Alligator.Base
             DA.GetData(0, ref obj);
             DA.GetData(1, ref key);
 
-            DA.SetData(0, BH.Engine.Reflection.Query.GetPropertyValue(obj, key));
+            object result = BH.Engine.Reflection.Query.GetPropertyValue(obj, key);
+
+            if (result is IEnumerable && !(result is string) && !(result is IDictionary))
+            {
+                if (typeof(IBHoMGeometry).IsAssignableFrom(((IEnumerable)result).GetType().GenericTypeArguments.First()))
+                    DA.SetDataList(0, ((IEnumerable)result).Cast<IBHoMGeometry>().Select(x => x.IToRhino()));
+                else
+                    DA.SetDataList(0, result as IEnumerable);
+            }
+            else
+            {
+                if (result is IBHoMGeometry)
+                    DA.SetData(0, ((IBHoMGeometry)result).IToRhino());
+                else
+                    DA.SetData(0, result);
+            }
         }
     }
 }
