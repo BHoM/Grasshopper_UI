@@ -334,11 +334,14 @@ namespace BH.UI.Alligator.Templates
             {
                 ParameterInfo input = inputs[i];
                 Type type = input.ParameterType;
-                bool isList = type != typeof(string) && (enumerableType.IsAssignableFrom(type)) && !typeof(IDictionary).IsAssignableFrom(type);
+                bool isDictionary = typeof(IDictionary).IsAssignableFrom(type);
+                bool isList = type != typeof(string) && (enumerableType.IsAssignableFrom(type)) && !isDictionary;
 
+                // Get the object type if in a list
                 if (isList)
                     type = type.GenericTypeArguments.First();
 
+                // Register the input parameter
                 if (input.HasDefaultValue)
                 {
                     RegisterInputParameter(type, input.Name, input.DefaultValue);
@@ -347,8 +350,17 @@ namespace BH.UI.Alligator.Templates
                 else
                     RegisterInputParameter(type, input.Name);
 
+                // Define the access type
                 if (isList)
                     Params.Input[i].Access = GH_ParamAccess.list;
+
+                // Update the input description
+                if (isList)
+                    Params.Input[i].Description = string.Format("{0} is a list of {1}", input.Name, type.FullName);
+                else if (isDictionary)
+                    Params.Input[i].Description = string.Format("{0} is a dictionary of {1} keys and {2} values", input.Name, type.FullName, input.ParameterType.GenericTypeArguments[1]);
+                else
+                    Params.Input[i].Description = string.Format("{0} is a {1}", input.Name, type.FullName);
             }
 
             // Create the output

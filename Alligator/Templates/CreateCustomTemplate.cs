@@ -58,7 +58,6 @@ namespace BH.UI.Alligator.Base
             {
                 IGH_Param iGH_Param = this.Params.Input[i];
                 iGH_Param.Name = iGH_Param.NickName;
-                //iGH_Param.Description = string.Format("Object Property {0}", iGH_Param.NickName);
                 Param_ScriptVariable param_ScriptVariable = iGH_Param as Param_ScriptVariable;
                 if (param_ScriptVariable != null)
                 {
