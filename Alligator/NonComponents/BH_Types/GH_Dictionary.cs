@@ -13,63 +13,36 @@ using System.Collections;
 
 namespace BH.UI.Alligator
 {
-    public class GH_Dictionary : GH_Goo<IDictionary>
+    public class GH_Dictionary : GH_TemplateType<IDictionary>
     {
-        public GH_Dictionary()
+        public GH_Dictionary() : base() { }
+
+        /***************************************************/
+
+        public GH_Dictionary(IDictionary val) : base(val) { }
+
+        /***************************************************/
+
+        public override string TypeName
         {
-            this.Value = null;
-        }
-        public GH_Dictionary(IDictionary value)
-        {
-            this.Value = value;
+            get { return ("Dictionary"); }
         }
 
-        public override bool IsValid
+        /***************************************************/
+
+        public override string TypeDescription
         {
-            get
-            {
-                if (Value == null) { return false; }
-                return Value != null;
-            }
+            get { return ("Defines an Dictionary"); }
         }
+
+        /***************************************************/
 
         public override IGH_Goo Duplicate()
         {
             return new GH_Dictionary { Value = Value };
         }
 
-        public override string ToString()
-        {
-            if (Value == null)
-                return "Undefined Dictionary";
-
-            return Value.ToString();
-        }
-        public override string TypeName
-        {
-            get { return ("Dictionary"); }
-        }
-        public override string TypeDescription
-        {
-            get { return ("Defines an Dictionary"); }
-        }
-
-
-        public override bool CastFrom(object source)
-        {
-            if (source == null) { return false; }
-            else if (source.GetType() == typeof(GH_Goo<IDictionary>))
-                this.Value = (IDictionary)source;
-            else
-                this.Value = (IDictionary)source;
-            return true;
-        }
-        public override bool CastTo<Q>(ref Q target)
-        {
-            object ptr = this.Value;
-            target = (Q)ptr;
-            return true;
-        }
+        
 
         
     }

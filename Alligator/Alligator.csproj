@@ -117,6 +117,7 @@
     <Compile Include="Components\Constructors\CreateCustomObject.cs" />
     <Compile Include="Components\Methods\ExplodeObject.cs" />
     <Compile Include="Components\Methods\GetPropertyNames.cs" />
+    <Compile Include="NonComponents\BH_Types\GH_TemplateType.cs" />
     <Compile Include="NonComponents\BH_Types\GH_Dictionary.cs" />
     <Compile Include="NonComponents\BH_Types\GH_Enum.cs" />
     <Compile Include="NonComponents\Render\RenderBHoMObject.cs" />

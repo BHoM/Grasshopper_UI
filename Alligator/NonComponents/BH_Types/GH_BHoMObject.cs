@@ -14,8 +14,16 @@ using Rhino.DocObjects;
 
 namespace BH.UI.Alligator
 {
-    public class GH_BHoMObject : GH_Goo<IObject>, IGH_PreviewData, IGH_BakeAwareData
+    public class GH_BHoMObject : GH_TemplateType<BHoMObject>, IGH_PreviewData, IGH_BakeAwareData
     {
+        public GH_BHoMObject() : base() { }
+
+        /***************************************************/
+
+        public GH_BHoMObject(BHoMObject val) : base(val) { }
+
+        /***************************************************/
+
         /***************************************************/
         /**** Properties Override                       ****/
         /***************************************************/
@@ -30,17 +38,6 @@ namespace BH.UI.Alligator
         public override string TypeDescription
         {
             get { return ("Contains a generic BHoMObject"); }
-        }
-
-        /***************************************************/
-
-        public override bool IsValid
-        {
-            get
-            {
-                if (Value == null) { return false; }
-                return true;
-            }
         }
 
         /***************************************************/
@@ -66,38 +63,12 @@ namespace BH.UI.Alligator
 
 
         /***************************************************/
-        /**** Constructors                              ****/
-        /***************************************************/
-
-        public GH_BHoMObject()
-        {
-            this.Value = null;
-        }
-
-        /***************************************************/
-
-        public GH_BHoMObject(IObject bh)
-        {
-            this.Value = bh;
-        }
-
-
-        /***************************************************/
         /**** Public Methods Override                   ****/
         /***************************************************/
 
         public override IGH_Goo Duplicate()
         {
-            return new GH_BHoMObject();
-        }
-
-        /***************************************************/
-
-        public override string ToString()
-        {
-            if (Value == null)
-                return "null BHoMObject";
-            return Value.ToString();
+            return new GH_BHoMObject { Value = Value };
         }
 
         /***************************************************/
@@ -113,43 +84,14 @@ namespace BH.UI.Alligator
 
 
         /***************************************************/
-        /**** Automatic casting methods                 ****/
-        /***************************************************/
-
-        public override bool CastFrom(object source)
-        {
-            if (source == null) { return false; }
-            if (source.GetType() == typeof(GH_Goo<IObject>))
-            {
-                this.Value = (IObject)source;
-                return true;
-            }
-            else
-            {
-                this.Value = (BHoMObject)source;
-                return true;
-            }
-        }
-
-        /***************************************************/
-
-        public override bool CastTo<Q>(ref Q target)
-        {
-            object ptr = this.Value;
-            target = (Q)ptr;
-            return true;
-        }
-
-
-        /***************************************************/
         /**** IGH_PreviewData methods                   ****/
         /***************************************************/
 
         public void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
             if (Geometry == null) { return; }
-            if (typeof(BH.oM.Geometry.Mesh).IsAssignableFrom(Value.GetType()))
-                Render.RenderBHoMGeometry((BH.oM.Geometry.Mesh)Value, args);
+            /*if (typeof(BH.oM.Geometry.Mesh).IsAssignableFrom(Value.GetType()))
+                Render.RenderBHoMGeometry((Mesh)Value, args);*/
         }
 
         /***************************************************/
