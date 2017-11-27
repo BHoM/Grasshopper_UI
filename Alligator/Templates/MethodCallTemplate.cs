@@ -141,8 +141,8 @@ namespace BH.UI.Alligator.Templates
                     if (Params.Output[0] is Param_Geometry)
                         DA.SetDataList(0, ((IEnumerable)result).Cast<IBHoMGeometry>().Select(x => x.IToRhino()));
                     else
-                        DA.SetDataList(0, result);
-              }
+                        DA.SetDataList(0, result as IEnumerable);
+                }
             }
         }
 
