@@ -139,6 +139,8 @@ namespace BH.UI.Alligator
                 Value = (((GH_Plane)source).Value).ToBHoM();
             else if (source is GH_Circle)
                 Value = (((GH_Circle)source).Value).ToBHoM();
+            else if (source is GH_Curve)
+                Value = (((GH_Curve)source).Value).ToBHoM();
             else if (source is IGH_GeometricGoo)
                 Value = GH_Convert.ToGeometryBase(source).IToBHoM();
 
