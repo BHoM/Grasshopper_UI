@@ -118,14 +118,36 @@ namespace BH.UI.Alligator.Templates
                 return;
 
             List<object> inputs = new List<object>();
-            for (int i = 0; i < m_DaGets.Count; i++)
-                inputs.Add(m_DaGets[i].Invoke(null, new object[] { DA, i }));
+            try
+            {
+                for (int i = 0; i < m_DaGets.Count; i++)
+                    inputs.Add(m_DaGets[i].Invoke(null, new object[] { DA, i }));
+            }
+            catch(Exception e)
+            {
+                if (e.InnerException != null)
+                    throw new Exception(e.InnerException.Message);
+                else
+                    throw new Exception(e.Message);
+            }
 
             dynamic result;
-            if (m_Method.IsConstructor)
-                result = ((ConstructorInfo)m_Method).Invoke(inputs.ToArray());
-            else
-                result = m_Method.Invoke(null, inputs.ToArray());
+            try
+            {
+                if (m_Method.IsConstructor)
+                    result = ((ConstructorInfo)m_Method).Invoke(inputs.ToArray());
+                else
+                    result = m_Method.Invoke(null, inputs.ToArray());
+            }
+            catch (Exception e)
+            {
+                string message = "This component failed to run properly. Are you sure you have the correct type of inputs ? Check their description for more details. Here is the error provided by the method: ";
+                if (e.InnerException != null)
+                    message += e.InnerException.Message;
+                else
+                    message += e.Message;
+                throw new Exception(message);
+            }
 
             if (Params.Output.Count > 0)
             {

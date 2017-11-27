@@ -149,9 +149,17 @@ namespace BH.UI.Alligator
 
         public override bool CastTo<Q>(ref Q target)
         {
-            object ptr = this.Value;
-            target = (Q)ptr;
-            return true;
+            try
+            {
+                object ptr = this.Value;
+                target = (Q)ptr;
+                return true;
+            }
+            catch (Exception)
+            {
+                string message = string.Format("Impossible to convert {0} into {1}. Check the description of each input for more details on the type of object that need to be provided", Value.GetType().FullName, typeof(Q).FullName);
+                throw new Exception(message);
+            }
         }
 
 

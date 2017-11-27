@@ -12,47 +12,36 @@ using BH.Adapter.Rhinoceros;
 
 namespace BH.UI.Alligator
 {
-    public class GH_Type : GH_Goo<Type>
+    public class GH_Type : GH_TemplateType<Type>
     {
-        public GH_Type()
+        public GH_Type() : base() { }
+
+        /***************************************************/
+
+        public GH_Type(Type val) : base(val) { }
+
+        /***************************************************/
+
+        public override string TypeName
         {
-            this.Value = null;
-        }
-        public GH_Type(Type type)
-        {
-            this.Value = type;
+            get { return ("Type"); }
         }
 
-        public override bool IsValid
+        /***************************************************/
+
+        public override string TypeDescription
         {
-            get
-            {
-                if (Value == null) { return false; }
-                return Value != null;
-            }
+            get { return ("Defines an object Type"); }
         }
+
+        /***************************************************/
 
         public override IGH_Goo Duplicate()
         {
             return new GH_Type { Value = Value };
         }
 
-        public override string ToString()
-        {
-            if (Value == null)
-                return "Null Type";
-
-            return Value.ToString();
-        }
-        public override string TypeName
-        {
-            get { return ("Type"); }
-        }
-        public override string TypeDescription
-        {
-            get { return ("Defines an object Type"); }
-        }
-
+        /***************************************************/
 
         public override bool CastFrom(object source)
         {
@@ -67,13 +56,6 @@ namespace BH.UI.Alligator
                 this.Value = (Type)source;
             return true;
         }
-        public override bool CastTo<Q>(ref Q target)
-        {
-            object ptr = this.Value;
-            target = (Q)ptr;
-            return true;
-        }
 
-        
     }
 }

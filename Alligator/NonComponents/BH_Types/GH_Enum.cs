@@ -12,64 +12,34 @@ using BH.Adapter.Rhinoceros;
 
 namespace BH.UI.Alligator
 {
-    public class GH_Enum : GH_Goo<Enum>
+    public class GH_Enum : GH_TemplateType<Enum>
     {
-        public GH_Enum()
+        public GH_Enum() : base() { }
+
+        /***************************************************/
+
+        public GH_Enum(Enum val) : base(val) { }
+
+        /***************************************************/
+
+        public override string TypeName
         {
-            this.Value = null;
-        }
-        public GH_Enum(Enum value)
-        {
-            this.Value = value;
+            get { return ("Enum"); }
         }
 
-        public override bool IsValid
+        /***************************************************/
+
+        public override string TypeDescription
         {
-            get
-            {
-                if (Value == null) { return false; }
-                return Value != null;
-            }
+            get { return ("Defines an enum"); }
         }
+
+        /***************************************************/
 
         public override IGH_Goo Duplicate()
         {
             return new GH_Enum { Value = Value };
         }
 
-        public override string ToString()
-        {
-            if (Value == null)
-                return "Undefined Enum";
-
-            return Value.ToString();
-        }
-        public override string TypeName
-        {
-            get { return ("Enum"); }
-        }
-        public override string TypeDescription
-        {
-            get { return ("Defines an enum"); }
-        }
-
-
-        public override bool CastFrom(object source)
-        {
-            if (source == null) { return false; }
-            else if (source.GetType() == typeof(GH_Goo<Enum>))
-                this.Value = (Enum)source;
-            else
-                this.Value = (Enum)source;
-            return true;
-        }
-        public override bool CastTo<Q>(ref Q target)
-        {
-            object ptr = this.Value;
-            target = (Q)ptr;
-            return true;
-        }
-
-        
     }
 }
