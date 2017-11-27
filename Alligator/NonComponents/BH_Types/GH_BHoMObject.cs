@@ -167,7 +167,7 @@ namespace BH.UI.Alligator
 
         public bool BakeGeometry(RhinoDoc doc, ObjectAttributes att, out Guid obj_guid)
         {
-            obj_guid = doc.Objects.Add(Geometry.IToRhino(), att);
+            obj_guid = doc.Objects.Add(Geometry.IToRhino() as Rhino.Geometry.GeometryBase, att); // TODO: Check what happend when geometry is not GeometryBase
             return true;
         }
 
