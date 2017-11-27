@@ -18,7 +18,12 @@ namespace BH.UI.Alligator.GeometryHints
         public string TypeName { get { return "Geometry"; } }
         public bool Cast(object data, out object target)
         {
-            target = data;
+            GH_IBHoMGeometry geom = new GH_IBHoMGeometry() { Value = null };
+            geom.CastFrom(data);
+            if (geom.Value == null)
+                target = data;
+            else
+                target = geom.Value;
             return true;
         }
     }

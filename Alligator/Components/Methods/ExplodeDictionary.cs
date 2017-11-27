@@ -11,6 +11,10 @@ using Grasshopper.Kernel.Types;
 using System.Runtime.CompilerServices;
 using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Parameters.Hints;
+using BH.oM.Geometry;
+using BH.Adapter.Rhinoceros;
+using Grasshopper.Kernel.Data;
+using Grasshopper;
 
 namespace BH.UI.Alligator.Base
 {
@@ -33,7 +37,7 @@ namespace BH.UI.Alligator.Base
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Keys", "Keys", "list of keys from the dictionary", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Values", "Values", "list of values from the dictionary", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Values", "Values", "list of values from the dictionary", GH_ParamAccess.tree);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -41,8 +45,32 @@ namespace BH.UI.Alligator.Base
             IDictionary dic = null;
             DA.GetData<IDictionary>(0, ref dic);
 
+            DataTree<object> tree = new DataTree<object>();
+            int index = 0;
+            foreach (var value in dic.Values)
+            {
+                object converted = ConvertGeometry(value);
+                if (converted is IEnumerable && !(converted is string) && !(converted is IDictionary))
+                    tree.AddRange(((IEnumerable)converted).Cast<object>(), new GH_Path(index++));
+                else
+                tree.Add(ConvertGeometry(value), new GH_Path(index++));
+            }
+                
+
             DA.SetDataList(0, dic.Keys);
-            DA.SetDataList(1, dic.Values);
+            DA.SetDataTree(1, tree);
+        }
+
+        private object ConvertGeometry(object container)
+        {
+            if (container is string || container is IDictionary)
+                return container;
+            if (container is IBHoMGeometry)
+                return ((IBHoMGeometry)container).IToRhino();
+            else if (container is IEnumerable)
+                return ((IEnumerable)container).Cast<object>().Select(x => (x is IBHoMGeometry) ? ((IBHoMGeometry)x).IToRhino() : x).ToList();
+            else
+                return container;
         }
     }
 }

@@ -9,6 +9,8 @@ using BH.oM.Base;
 using BH.Engine.Reflection;
 using BH.oM.Geometry;
 using BH.UI.Alligator;
+using Grasshopper.Kernel.Parameters;
+using BH.Adapter.Rhinoceros;
 
 namespace BH.UI.Alligator.Base
 {
@@ -51,10 +53,21 @@ namespace BH.UI.Alligator.Base
                 for (int i = 0; i < keys.Count; i++)
                 {
                     var val = m_Outputs[keys[i]];
-                    if (typeof(IList).IsAssignableFrom(val.GetType()))
-                        DA.SetDataList(i, ((IList)val).Cast<object>());
+                    var type = val.GetType();
+                    if (typeof(IEnumerable).IsAssignableFrom(val.GetType()) && type != typeof(string) && !typeof(IDictionary).IsAssignableFrom(type))
+                    {
+                        if (Params.Output[i] is Param_Geometry)
+                            DA.SetDataList(i, ((IEnumerable)val).Cast<IBHoMGeometry>().Select(x => x.IToRhino()).ToList());
+                        else
+                            DA.SetDataList(i, ((IEnumerable)val).Cast<object>().ToList());
+                    }
                     else
-                        DA.SetData(i, val);
+                    {
+                        if (val is IBHoMGeometry)
+                            DA.SetData(i, ((IBHoMGeometry)val).IToRhino());
+                        else
+                            DA.SetData(i, val);
+                    }
                 }
             }
             else
@@ -87,47 +100,40 @@ namespace BH.UI.Alligator.Base
         }
         private void UpdateOutputs()
         {
+            Type bhomObjectType = typeof(BHoMObject);
+            Type bhomGeometryType = typeof(IBHoMGeometry);
+            Type enumerableType = typeof(IEnumerable);
+
             List<string> keys = m_Outputs.Keys.ToList();
 
             int nbNew = keys.Count();
             int nbOld = Params.Output.Count();
 
             for (int i = 0; i < Math.Min(nbNew, nbOld); i++)
-            {
                 Params.Output[i].NickName = keys[i];
-            }
 
             for (int i = nbOld - 1; i > nbNew - 1; i--)
                 Params.UnregisterOutputParameter(Params.Output[i]);
 
             for (int i = nbOld; i < nbNew; i++)
             {
-                if (typeof(IBHoMGeometry).IsAssignableFrom(m_Outputs[keys[i]].GetType()) ||
-                    typeof(List<IBHoMGeometry>).IsAssignableFrom(m_Outputs[keys[i]].GetType()))
-                {
-                    BHoMGeometryParameter newParam = new BHoMGeometryParameter();
-                    newParam.NickName = keys[i];
-                    Params.RegisterOutputParam(newParam);
-                }
-                else if (typeof(IObject).IsAssignableFrom(m_Outputs[keys[i]].GetType()) ||
-                         typeof(List<IObject>).IsAssignableFrom(m_Outputs[keys[i]].GetType()))
-                {
-                    BHoMObjectParameter newParam = new BHoMObjectParameter();
-                    newParam.NickName = keys[i];
-                    Params.RegisterOutputParam(newParam);
-                }
+                var output = m_Outputs[keys[i]];
+                Type type = output.GetType();
+                bool isList = type != typeof(string) && (enumerableType.IsAssignableFrom(type)) && !typeof(IDictionary).IsAssignableFrom(type);
+
+                if (isList)
+                    type = type.GenericTypeArguments.First();
+
+                if (bhomGeometryType.IsAssignableFrom(type))
+                    Params.RegisterOutputParam(new Param_Geometry { NickName = keys[i] });
+                else if (bhomObjectType.IsAssignableFrom(type))
+                    Params.RegisterOutputParam(new BHoMObjectParameter { NickName = keys[i] });
                 else
-                {
-                    Grasshopper.Kernel.Parameters.Param_GenericObject newParam = new Grasshopper.Kernel.Parameters.Param_GenericObject();
-                    newParam.NickName = keys[i];
-                    Params.RegisterOutputParam(newParam);
-                }
+                    Params.RegisterOutputParam(new Param_GenericObject { NickName = keys[i] });
             }
             this.OnAttributesChanged();
             if (nbNew != nbOld)
-            {
                 ExpireSolution(true);
-            }
         }
     }
 }

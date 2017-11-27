@@ -11,6 +11,7 @@ using System.Reflection;
 using BH.oM.Geometry;
 using BH.oM.DataStructure;
 using Grasshopper.GUI;
+using BH.Adapter.Rhinoceros;
 
 // Instructions to implement this template
 // ***************************************
@@ -129,9 +130,19 @@ namespace BH.UI.Alligator.Templates
             if (Params.Output.Count > 0)
             {
                 if (Params.Output[0].Access == GH_ParamAccess.item)
-                    DA.SetData(0, result);
+                {
+                    if (result is IBHoMGeometry)
+                        DA.SetData(0, ((IBHoMGeometry)result).IToRhino());
+                    else
+                        DA.SetData(0, result);
+                }
                 else
-                    DA.SetDataList(0, result);
+                {
+                    if (Params.Output[0] is Param_Geometry)
+                        DA.SetDataList(0, ((IEnumerable)result).Cast<IBHoMGeometry>().Select(x => x.IToRhino()));
+                    else
+                        DA.SetDataList(0, result);
+              }
             }
         }
 
@@ -400,7 +411,10 @@ namespace BH.UI.Alligator.Templates
 
         protected void RegisterOutputParameter(Type type)
         {
-            Params.RegisterOutputParam(GetGH_Param(type, ""));
+            if (typeof(IBHoMGeometry).IsAssignableFrom(type))
+                Params.RegisterOutputParam(new Param_Geometry { NickName = "" });
+            else
+                Params.RegisterOutputParam(GetGH_Param(type, ""));
         }
 
         /*************************************/
