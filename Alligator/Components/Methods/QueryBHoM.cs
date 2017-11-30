@@ -29,7 +29,7 @@ namespace BH.UI.Alligator.Base
             Type enumerableType = typeof(IEnumerable);
             Tree<MethodBase> root = new Tree<MethodBase> { Name = "Select query" };
 
-            foreach (MethodBase method in BH.Engine.Reflection.Query.GetBHoMMethodList().Where(x => x.DeclaringType.Name == "Query"))
+            foreach (MethodBase method in BH.Engine.Reflection.Query.GetBHoMMethodList().Where(x => x.DeclaringType.Name == "Query" || x.DeclaringType.Name == "Verify")) //TODO: Should be "Query" only
             {
                 AddMethodToTree(root, method);
             }
