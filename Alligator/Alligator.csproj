@@ -90,7 +90,9 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Components\Constructors\CreateBHoMEnum.cs" />
     <Compile Include="Components\Constructors\CreateDictionary.cs" />
+    <Compile Include="Components\Methods\ComputeBHoM.cs" />
     <Compile Include="Components\Methods\ExplodeDictionary.cs" />
+    <Compile Include="Components\Methods\ConvertBHoM.cs" />
     <Compile Include="Components\Parameters\DictionaryParameter.cs" />
     <Compile Include="Components\Parameters\EnumParameter.cs" />
     <Compile Include="Components\Parameters\TypeParameter.cs" />

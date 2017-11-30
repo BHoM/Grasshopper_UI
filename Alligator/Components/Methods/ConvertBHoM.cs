@@ -11,12 +11,12 @@ using System.Collections;
 
 namespace BH.UI.Alligator.Base
 {
-    public class ModifyBHoM : MethodCallTemplate
+    public class ConvertBHoM : MethodCallTemplate
     {
-        public ModifyBHoM() : base("Modify BHoM Object", "ModifyBHoM", "Modify a BHoMObject", "Alligator", "Base")
+        public ConvertBHoM() : base("Convert BHoM Object", "ConvertBHoM", "Convert a BHoMObject", "Alligator", "Base")
         {
         }
-        public override Guid ComponentGuid { get { return new Guid("C275B1A2-BB2D-4F3B-8D5C-18C78456A831"); } }
+        public override Guid ComponentGuid { get { return new Guid("D517E0BF-E979-4441-896E-1D2EC833FE2E"); } }
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return null; } }
 
         public override GH_Exposure Exposure { get { return GH_Exposure.secondary; } }
@@ -27,9 +27,9 @@ namespace BH.UI.Alligator.Base
         protected override Tree<MethodBase> GetRelevantMethods()
         {
             Type enumerableType = typeof(IEnumerable);
-            Tree<MethodBase> root = new Tree<MethodBase> { Name = "Select modifier" };
+            Tree<MethodBase> root = new Tree<MethodBase> { Name = "Select converter" };
 
-            foreach (MethodBase method in BH.Engine.Reflection.Query.GetBHoMMethodList().Where(x => x.DeclaringType.Name == "Transform" || x.DeclaringType.Name == "Modify")) //TODO: Should be "Modify" here
+            foreach (MethodBase method in BH.Engine.Reflection.Query.GetBHoMMethodList().Where(x => x.DeclaringType.Name == "Convert")) 
             {
                 AddMethodToTree(root, method);
             }
