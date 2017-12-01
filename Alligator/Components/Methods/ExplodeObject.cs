@@ -46,7 +46,10 @@ namespace BH.UI.Alligator.Base
                 return;
 
             Dictionary<string, object> outputs = bhObj.GetPropertyDictionary();
-            m_OutputTypes = bhObj.GetType().GetProperties().Where(x => x.CanRead && x.CanWrite).ToList();
+            if (bhObj is CustomObject)
+                m_OutputTypes = outputs.Select(x => new Tuple<string, Type>(x.Key, (x.Value == null) ? typeof(object) : x.Value.GetType())).ToList();
+            else
+                m_OutputTypes = bhObj.GetType().GetProperties().Where(x => x.CanRead && x.CanWrite).Select(x => new Tuple<string, Type>(x.Name, x.PropertyType)).ToList();
 
             List<string> keys = outputs.Keys.ToList();
             if (keys.Count == Params.Output.Count)
@@ -120,7 +123,7 @@ namespace BH.UI.Alligator.Base
             Type bhomGeometryType = typeof(IBHoMGeometry);
             Type enumerableType = typeof(IEnumerable);
 
-            List<string> keys = m_OutputTypes.Select(x => x.Name).ToList();
+            List<string> keys = m_OutputTypes.Select(x => x.Item1).ToList();
 
             int nbNew = keys.Count();
             int nbOld = Params.Output.Count();
@@ -133,7 +136,7 @@ namespace BH.UI.Alligator.Base
 
             for (int i = nbOld; i < nbNew; i++)
             {
-                Type type = m_OutputTypes[i].PropertyType;
+                Type type = m_OutputTypes[i].Item2;
                 bool isList = type != typeof(string) && (enumerableType.IsAssignableFrom(type)) && !typeof(IDictionary).IsAssignableFrom(type);
 
                 if (isList)
@@ -154,6 +157,6 @@ namespace BH.UI.Alligator.Base
 
 
 
-        private List<PropertyInfo> m_OutputTypes = new List<PropertyInfo>();
+        private List<Tuple<string, Type>> m_OutputTypes = new List<Tuple<string, Type>>();
     }
 }
