@@ -11,6 +11,7 @@ using BH.oM.Geometry;
 using BH.UI.Alligator;
 using Grasshopper.Kernel.Parameters;
 using BH.Adapter.Rhinoceros;
+using System.Reflection;
 
 namespace BH.UI.Alligator.Base
 {
@@ -19,7 +20,6 @@ namespace BH.UI.Alligator.Base
         public ExplodeJson() : base("ExplodeObject", "ExplodeObj", "Explode a BHoMObject into child objects", "Alligator", "Base") { }
         public override Guid ComponentGuid { get { return new Guid("f2080175-a812-4dfb-86de-ae7dc8245668"); } }
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return null; } }
-        private Dictionary<string, object> m_Outputs = new Dictionary<string, object>();
         public bool additional { get; set; }
 
         public override GH_Exposure Exposure { get { return GH_Exposure.tertiary; } }
@@ -45,14 +45,30 @@ namespace BH.UI.Alligator.Base
             if (!DA.GetData(0, ref bhObj) || bhObj == null)
                 return;
 
-            m_Outputs = bhObj.GetPropertyDictionary();
+            Dictionary<string, object> outputs = bhObj.GetPropertyDictionary();
+            m_OutputTypes = bhObj.GetType().GetProperties().Where(x => x.CanRead && x.CanWrite).ToList();
 
-            List<string> keys = m_Outputs.Keys.ToList();
+            List<string> keys = outputs.Keys.ToList();
             if (keys.Count == Params.Output.Count)
             {
-                for (int i = 0; i < keys.Count; i++)
+                foreach (string key in keys)
                 {
-                    var val = m_Outputs[keys[i]];
+                    int i = -1;
+                    for (int j = 0; j < Params.Output.Count; j++)
+                    {
+                        if (Params.Output[j].NickName == key)
+                            i = j;
+                    }
+                    if (i < 0)
+                        continue;
+
+                    var val = outputs[key];
+                    if (val == null)
+                    {
+                        DA.SetData(i, null);
+                        continue;
+                    }
+                        
                     var type = val.GetType();
                     if (typeof(IEnumerable).IsAssignableFrom(val.GetType()) && type != typeof(string) && !typeof(IDictionary).IsAssignableFrom(type))
                     {
@@ -104,7 +120,7 @@ namespace BH.UI.Alligator.Base
             Type bhomGeometryType = typeof(IBHoMGeometry);
             Type enumerableType = typeof(IEnumerable);
 
-            List<string> keys = m_Outputs.Keys.ToList();
+            List<string> keys = m_OutputTypes.Select(x => x.Name).ToList();
 
             int nbNew = keys.Count();
             int nbOld = Params.Output.Count();
@@ -117,8 +133,7 @@ namespace BH.UI.Alligator.Base
 
             for (int i = nbOld; i < nbNew; i++)
             {
-                var output = m_Outputs[keys[i]];
-                Type type = output.GetType();
+                Type type = m_OutputTypes[i].PropertyType;
                 bool isList = type != typeof(string) && (enumerableType.IsAssignableFrom(type)) && !typeof(IDictionary).IsAssignableFrom(type);
 
                 if (isList)
@@ -135,5 +150,10 @@ namespace BH.UI.Alligator.Base
             if (nbNew != nbOld)
                 ExpireSolution(true);
         }
+
+
+
+
+        private List<PropertyInfo> m_OutputTypes = new List<PropertyInfo>();
     }
 }
