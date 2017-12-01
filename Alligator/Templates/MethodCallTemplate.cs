@@ -334,6 +334,9 @@ namespace BH.UI.Alligator.Templates
                 return;
 
             m_Method = m_MethodLinks[item];
+            if (m_Method == null)
+                return;
+
             this.NickName = m_Method.IsConstructor ? m_Method.DeclaringType.Name : m_Method.Name;
 
             List<ParameterInfo> inputs = m_Method.GetParameters().ToList();
