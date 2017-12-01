@@ -37,5 +37,15 @@ namespace BH.UI.Alligator.Base
 
             return root;
         }
+
+        /*************************************/
+
+        protected override void AddMethodToTree(Tree<MethodBase> tree, MethodBase method) //2. Helper function to build your catalogue of methods
+        {
+            IEnumerable<string> path = method.DeclaringType.Namespace.Split('.').Skip(2);
+            AddMethodToTree(tree, path, method);
+        }
+
+        /*************************************/
     }
 }
