@@ -4,6 +4,7 @@ using System.Linq;
 using BH.UI.Alligator.Templates;
 using Grasshopper.Kernel;
 using BH.oM.Chrome.Parts;
+using BH.oM.Chrome.Dimensions;
 
 namespace BH.UI.Alligator.Chrome
 {

@@ -12,6 +12,7 @@ using BH.oM.Geometry;
 using BH.oM.DataStructure;
 using Grasshopper.GUI;
 using BH.Adapter.Rhinoceros;
+using Grasshopper.Kernel.Types;
 
 // Instructions to implement this template
 // ***************************************
@@ -489,18 +490,41 @@ namespace BH.UI.Alligator.Templates
 
         public static T GetData<T>(IGH_DataAccess DA, int index)
         {
-            T obj = default(T);
-            DA.GetData<T>(index, ref obj);
-            return obj;
+            IGH_Goo goo = null;
+            DA.GetData(index, ref goo);
+            return ConvertGoo<T>(goo);
         }
 
         /*************************************/
 
         public static List<T> GetDataList<T>(IGH_DataAccess DA, int index)
         {
-            List<T> obj = new List<T>();
-            DA.GetDataList<T>(index, obj);
-            return obj;
+            List<IGH_Goo> goo = new List<IGH_Goo>();
+            DA.GetDataList<IGH_Goo>(index, goo);
+            return goo.Select(x => ConvertGoo<T>(x)).ToList();
+        }
+
+        /*************************************/
+
+        public static T ConvertGoo<T>(IGH_Goo goo)
+        {
+            if (goo == null)
+                return default(T);
+
+            // Get the data out of the Goo
+            object data = goo.ScriptVariable();
+            while (data is IGH_Goo)
+                data = ((IGH_Goo)data).ScriptVariable();
+
+            // Convert the data to an acceptable format
+            if (data is T)
+                return (T)data;
+            else
+            {
+                if (data.GetType().Namespace.StartsWith("Rhino.Geometry"))
+                    data = Adapter.Rhinoceros.Convert.ToBHoM(data as dynamic);
+                return (T)(data as dynamic);
+            }
         }
 
 
