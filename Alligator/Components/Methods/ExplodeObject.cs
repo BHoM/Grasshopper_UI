@@ -12,14 +12,15 @@ using BH.UI.Alligator;
 using Grasshopper.Kernel.Parameters;
 using BH.Adapter.Rhinoceros;
 using System.Reflection;
+using Grasshopper.Kernel.Types;
 
 namespace BH.UI.Alligator.Base
 {
     public class ExplodeJson : GH_Component, IGH_VariableParameterComponent
     {
-        public ExplodeJson() : base("ExplodeObject", "ExplodeObj", "Explode a BHoMObject into child objects", "Alligator", "Base") { }
+        public ExplodeJson() : base("Explode", "Explode", "Explode an object or dictionary into child objects", "Alligator", "Base") { }
         public override Guid ComponentGuid { get { return new Guid("f2080175-a812-4dfb-86de-ae7dc8245668"); } }
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return null; } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.Explode; } }
         public bool additional { get; set; }
 
         public override GH_Exposure Exposure { get { return GH_Exposure.tertiary; } }
@@ -32,7 +33,7 @@ namespace BH.UI.Alligator.Base
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddParameter(new BHoMObjectParameter(),"BHoMObject", "BHoM", "BHoMObject", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Object", "Object", "Object", GH_ParamAccess.item);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -41,15 +42,25 @@ namespace BH.UI.Alligator.Base
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BHoMObject bhObj = new BHoMObject();
-            if (!DA.GetData(0, ref bhObj) || bhObj == null)
+            object obj = null;
+            if (!DA.GetData(0, ref obj) || obj == null)
                 return;
 
-            Dictionary<string, object> outputs = bhObj.GetPropertyDictionary();
-            if (bhObj is CustomObject)
+            while (obj is IGH_Goo)
+                obj = ((IGH_Goo)obj).ScriptVariable();
+
+            Dictionary<string, object> outputs = new Dictionary<string, object>();
+            if (obj is IDictionary)
+                outputs = obj as Dictionary<string, object>;
+            else
+                outputs = ((BHoMObject)obj).GetPropertyDictionary();
+
+            if (obj is IDictionary)
+                m_OutputTypes = outputs.Select(x => new Tuple<string, Type>(x.Key, x.Value.GetType())).ToList();
+            else if (obj is CustomObject)
                 m_OutputTypes = outputs.Select(x => new Tuple<string, Type>(x.Key, (x.Value == null) ? typeof(object) : x.Value.GetType())).ToList();
             else
-                m_OutputTypes = bhObj.GetType().GetProperties().Where(x => x.CanRead && x.CanWrite).Select(x => new Tuple<string, Type>(x.Name, x.PropertyType)).ToList();
+                m_OutputTypes = obj.GetType().GetProperties().Where(x => x.CanRead && x.CanWrite).Select(x => new Tuple<string, Type>(x.Name, x.PropertyType)).ToList();
 
             List<string> keys = outputs.Keys.ToList();
             if (keys.Count == Params.Output.Count)
@@ -115,8 +126,10 @@ namespace BH.UI.Alligator.Base
 
         protected override void AfterSolveInstance()
         {
-            UpdateOutputs();
+            if (Params.Output.Count() == 0)
+                UpdateOutputs();
         }
+
         private void UpdateOutputs()
         {
             Type bhomObjectType = typeof(BHoMObject);
@@ -153,9 +166,6 @@ namespace BH.UI.Alligator.Base
             if (nbNew != nbOld)
                 ExpireSolution(true);
         }
-
-
-
 
         private List<Tuple<string, Type>> m_OutputTypes = new List<Tuple<string, Type>>();
     }

@@ -13,7 +13,7 @@ namespace BH.UI.Alligator.Base
 {
     public class SetProperty : GH_Component
     {
-        public SetProperty() : base("SetProperty", "SetProperty", "Returns copy of object with a set property", "Alligator", "Base") { }
+        public SetProperty() : base("Set Property", "SetProperty", "Returns copy of object with a set property", "Alligator", "Base") { }
 
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24

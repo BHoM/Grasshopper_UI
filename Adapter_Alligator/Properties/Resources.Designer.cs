@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BH.UI.Alligator.Mongo.Properties {
+namespace BH.UI.Alligator.Adapter.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace BH.UI.Alligator.Mongo.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BH.UI.Alligator.Mongo.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BH.UI.Alligator.Adapter.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,9 +63,9 @@ namespace BH.UI.Alligator.Mongo.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BHoM_Mongo_CreateServer {
+        internal static System.Drawing.Bitmap Adapter {
             get {
-                object obj = ResourceManager.GetObject("BHoM_Mongo_CreateServer", resourceCulture);
+                object obj = ResourceManager.GetObject("Adapter", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace BH.UI.Alligator.Mongo.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BHoM_Mongo_DeleteDatabases {
+        internal static System.Drawing.Bitmap Delete {
             get {
-                object obj = ResourceManager.GetObject("BHoM_Mongo_DeleteDatabases", resourceCulture);
+                object obj = ResourceManager.GetObject("Delete", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace BH.UI.Alligator.Mongo.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BHoM_Mongo_DeleteObjects {
+        internal static System.Drawing.Bitmap Execute {
             get {
-                object obj = ResourceManager.GetObject("BHoM_Mongo_DeleteObjects", resourceCulture);
+                object obj = ResourceManager.GetObject("Execute", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace BH.UI.Alligator.Mongo.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BHoM_Mongo_From {
+        internal static System.Drawing.Bitmap Pull {
             get {
-                object obj = ResourceManager.GetObject("BHoM_Mongo_From", resourceCulture);
+                object obj = ResourceManager.GetObject("Pull", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace BH.UI.Alligator.Mongo.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BHoM_Mongo_FromJson {
+        internal static System.Drawing.Bitmap Push {
             get {
-                object obj = ResourceManager.GetObject("BHoM_Mongo_FromJson", resourceCulture);
+                object obj = ResourceManager.GetObject("Push", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +113,9 @@ namespace BH.UI.Alligator.Mongo.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BHoM_Mongo_GetDatabases {
+        internal static System.Drawing.Bitmap QueryAdapter {
             get {
-                object obj = ResourceManager.GetObject("BHoM_Mongo_GetDatabases", resourceCulture);
+                object obj = ResourceManager.GetObject("QueryAdapter", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,39 +123,9 @@ namespace BH.UI.Alligator.Mongo.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BHoM_Mongo_Link {
+        internal static System.Drawing.Bitmap UpdateProperty {
             get {
-                object obj = ResourceManager.GetObject("BHoM_Mongo_Link", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap BHoM_Mongo_To {
-            get {
-                object obj = ResourceManager.GetObject("BHoM_Mongo_To", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap BHoM_Mongo_ToJson {
-            get {
-                object obj = ResourceManager.GetObject("BHoM_Mongo_ToJson", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap MoveCollection {
-            get {
-                object obj = ResourceManager.GetObject("MoveCollection", resourceCulture);
+                object obj = ResourceManager.GetObject("UpdateProperty", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

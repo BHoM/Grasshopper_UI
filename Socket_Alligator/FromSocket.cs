@@ -10,7 +10,7 @@ namespace Alligator.Socket
 {
     public class FromSocket : GH_Component
     {
-        public FromSocket() : base("FromSocket", "FromSocket", "Send string to a socket", "Alligator", "Socket")
+        public FromSocket() : base("From Socket", "FromSocket", "Send string to a socket", "Alligator", "Socket")
         {
             m_Socket = new BH.Adapter.Socket.SocketServer();
             m_Socket.DataObservers += MessageReceived;

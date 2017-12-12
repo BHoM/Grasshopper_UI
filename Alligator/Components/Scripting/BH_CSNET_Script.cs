@@ -11,6 +11,7 @@ namespace BH.UI.Alligator.Base
     public class BH_CSNET_Script : Component_CSNET_Script
     {
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.BS_Script; } }
+        protected override System.Drawing.Bitmap Icon { get { return Properties.Resources.BS_Script; } }
         public override Guid ComponentGuid { get { return new Guid("5703ec61-7e58-4fff-84e0-9e4043a02e74"); } }
         public override GH_Exposure Exposure { get { return GH_Exposure.quarternary; } }
 

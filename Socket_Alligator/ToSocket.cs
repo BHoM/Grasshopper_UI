@@ -9,7 +9,7 @@ namespace Alligator.Socket
 {
     public class ToSocket : GH_Component
     {
-        public ToSocket() : base("ToSocket", "ToSocket", "Send string to a socket", "Alligator", "Socket")
+        public ToSocket() : base("To Socket", "ToSocket", "Send string to a socket", "Alligator", "Socket")
         {
         }
 

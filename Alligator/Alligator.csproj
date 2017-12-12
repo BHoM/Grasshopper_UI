@@ -118,7 +118,6 @@
     <Compile Include="Components\Parameters\BHoMObjectParameter.cs" />
     <Compile Include="Components\Constructors\CreateCustomObject.cs" />
     <Compile Include="Components\Methods\ExplodeObject.cs" />
-    <Compile Include="Components\Methods\GetPropertyNames.cs" />
     <Compile Include="NonComponents\BH_Types\GH_TemplateType.cs" />
     <Compile Include="NonComponents\BH_Types\GH_Dictionary.cs" />
     <Compile Include="NonComponents\BH_Types\GH_Enum.cs" />
@@ -218,6 +217,19 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Properties\Resources\Compute.png" />
+    <Content Include="Properties\Resources\Convert.png" />
+    <Content Include="Properties\Resources\CreateBHoM.png" />
+    <Content Include="Properties\Resources\CustomObject.png" />
+    <Content Include="Properties\Resources\Dictionary.png" />
+    <Content Include="Properties\Resources\Enum.png" />
+    <Content Include="Properties\Resources\Explode.png" />
+    <Content Include="Properties\Resources\Modify.png" />
+    <Content Include="Properties\Resources\Query.png" />
+    <Content Include="Properties\Resources\ToJson.png" />
+    <Content Include="Properties\Resources\VS_Script.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
