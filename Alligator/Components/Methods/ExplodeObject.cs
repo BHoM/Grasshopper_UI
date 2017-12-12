@@ -51,7 +51,7 @@ namespace BH.UI.Alligator.Base
 
             Dictionary<string, object> outputs = new Dictionary<string, object>();
             if (obj is IDictionary)
-                outputs = obj as Dictionary<string, object>;
+                outputs = StringifyKeys(obj as dynamic); 
             else
                 outputs = ((BHoMObject)obj).GetPropertyDictionary();
 
@@ -165,6 +165,11 @@ namespace BH.UI.Alligator.Base
             this.OnAttributesChanged();
             if (nbNew != nbOld)
                 ExpireSolution(true);
+        }
+
+        private Dictionary<string, object> StringifyKeys<TKey, TVal>(Dictionary<TKey, TVal> dic)
+        {
+            return dic.ToDictionary(x => x.Key.ToString(), x => x.Value as object);
         }
 
         private List<Tuple<string, Type>> m_OutputTypes = new List<Tuple<string, Type>>();

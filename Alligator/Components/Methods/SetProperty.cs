@@ -45,6 +45,12 @@ namespace BH.UI.Alligator.Base
             DA.GetData(1, ref key);
             DA.GetData(2, ref value);
 
+            while (value is IGH_Goo)
+                value = ((IGH_Goo)value).ScriptVariable();
+
+            if (value.GetType().Namespace.StartsWith("Rhino.Geometry"))
+                value = Adapter.Rhinoceros.Convert.ToBHoM(value as dynamic);
+
             BHoMObject newObject = obj.GetShallowClone();
             newObject.SetPropertyValue(key, value);
 
