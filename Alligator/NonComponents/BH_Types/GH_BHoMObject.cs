@@ -14,13 +14,13 @@ using Rhino.DocObjects;
 
 namespace BH.UI.Alligator
 {
-    public class GH_BHoMObject : GH_TemplateType<BHoMObject>, IGH_PreviewData, IGH_BakeAwareData
+    public class GH_BHoMObject : GH_TemplateType<object>, IGH_PreviewData, IGH_BakeAwareData
     {
         public GH_BHoMObject() : base() { }
 
         /***************************************************/
 
-        public GH_BHoMObject(BHoMObject val) : base(val) { }
+        public GH_BHoMObject(object val) : base(val) { }
 
         /***************************************************/
 
@@ -98,8 +98,8 @@ namespace BH.UI.Alligator
 
         public void DrawViewportWires(GH_PreviewWireArgs args)
         {
-            if (Value == null) { return; }
-            Render.IRenderBHoMObject(Value, args);
+            if (Value is BHoMObject) 
+                Render.IRenderBHoMObject(Value as BHoMObject, args);
         }
 
 
@@ -121,8 +121,12 @@ namespace BH.UI.Alligator
         {
             get
             {
-                if (Value == null) { return null; }
-                return ((BHoMObject)Value).IGetGeometry();
+                if (Value is BHoMObject)
+                    return ((BHoMObject)Value).IGetGeometry();
+                else if (Value is IBHoMGeometry)
+                    return Value as IBHoMGeometry;
+                else
+                    return null;
             }
         }
     }

@@ -86,8 +86,10 @@ namespace BH.UI.Alligator
             if (source == null) { return false; }
             else if (source.GetType() == typeof(GH_Goo<T>))
                 this.Value = ((GH_Goo<T>)source).Value;
-            else
+            else if (source is T)
                 this.Value = (T)source;
+            else
+                this.Value = default(T);
             return true;
         }
 
