@@ -16,7 +16,7 @@ namespace BH.UI.Alligator.Adapter
     public class UpdateProperty : GH_Component
     {
         public UpdateProperty() : base("UpdateProperty", "UpdateProperty", "Update a property of objects from the external software", "Alligator", "Adapter") { }
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return null; } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.UpdateProperty; } }
         public override Guid ComponentGuid { get { return new Guid("E050834D-F825-4299-BEA9-A3E067691925"); } }
 
         public override GH_Exposure Exposure { get { return GH_Exposure.primary; } }

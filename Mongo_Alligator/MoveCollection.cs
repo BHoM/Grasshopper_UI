@@ -9,9 +9,11 @@ namespace Mongo_Alligator
 {
     public class MoveCollection : GH_Component
     {
-        public MoveCollection() : base("MoveCollection", "MoveCollection", "Moves all the content from one collection to another. Overwrites the target collection", "Alligator", "Mongo") { }
+        public MoveCollection() : base("Move Collection", "MoveCollection", "Moves all the content from one collection to another. Overwrites the target collection", "Alligator", "Mongo") { }
         public override Guid ComponentGuid { get { return new Guid("929F2358-8CCA-4368-8E7D-97EAD50BB730"); } }
-        public override GH_Exposure Exposure { get { return GH_Exposure.secondary; } }
+        public override GH_Exposure Exposure { get { return GH_Exposure.primary; } }
+
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return BH.UI.Alligator.Mongo.Properties.Resources.MoveCollection; } }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {

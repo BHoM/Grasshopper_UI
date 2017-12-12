@@ -19,7 +19,7 @@ namespace BH.UI.Alligator.Base
     {
         public CreateCustomObject() : base("Create Custom Object", "CustomObj", "Creates a custom BHoMObject from custom inputs", "Alligator", "Base") { }
         public override Guid ComponentGuid { get { return new Guid("dbd3fe50-423a-4ea4-8bc7-7ad94d1d67e9"); } }
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return null; } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.CustomObject; } }
 
         public override GH_Exposure Exposure { get { return GH_Exposure.primary; } }
 

@@ -75,6 +75,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CRUD\Pull.cs" />
     <Compile Include="CreateQuery.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Alligator\Alligator.csproj">
@@ -85,6 +90,21 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Properties\Resources\Adapter.png" />
+    <Content Include="Properties\Resources\Delete.png" />
+    <Content Include="Properties\Resources\Execute.png" />
+    <Content Include="Properties\Resources\Pull.png" />
+    <Content Include="Properties\Resources\Push.png" />
+    <Content Include="Properties\Resources\QueryAdapter.png" />
+    <Content Include="Properties\Resources\UpdateProperty.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

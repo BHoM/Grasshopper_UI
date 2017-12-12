@@ -7,7 +7,7 @@ namespace BH.UI.Alligator.Mongo
 {
     public class MongoServer : GH_Component
     {
-        public MongoServer() : base("MongoServer", "MongoServer", "Starts a Mongo server on you machine.", "Alligator", "Mongo") { }
+        public MongoServer() : base("Mongo Server", "MongoServer", "Starts a Mongo server on you machine.", "Alligator", "Mongo") { }
 
         public override Guid ComponentGuid { get { return new Guid("AFBA2519-A2B9-451E-BDE0-821AB7B2E301"); } }
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.BHoM_Mongo_CreateServer; } }

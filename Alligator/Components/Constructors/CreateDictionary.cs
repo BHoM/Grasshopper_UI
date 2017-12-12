@@ -16,10 +16,10 @@ namespace BH.UI.Alligator.Base
 {
     public class CreateDictionary : CreateCustomTemplate
     {
-        public CreateDictionary() : base("CreateDictionary", "Dictionary", "Create a dictionary from a list of keys and values", "Alligator", "Base") { }
+        public CreateDictionary() : base("Create Dictionary", "Dictionary", "Create a dictionary from a list of keys and values", "Alligator", "Base") { }
 
         /// <summary> Icon (24x24 pixels)</summary>
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return null; } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.Dictionary; } }
 
         public override Guid ComponentGuid { get { return new Guid("6758EEE1-6A49-4D2B-A7FD-974383D3622E"); } }
         public override GH_Exposure Exposure { get { return GH_Exposure.primary; } }
