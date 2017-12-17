@@ -365,7 +365,12 @@ namespace BH.UI.Alligator.Templates
 
                 // Get the object type if in a list
                 if (isList)
-                    type = type.GenericTypeArguments.First();
+                {
+                    if (type.GenericTypeArguments.Length > 0)
+                        type = type.GenericTypeArguments.First();
+                    else
+                        type = typeof(object);
+                }
 
                 // Register the input parameter
                 if (input.HasDefaultValue)
@@ -426,7 +431,13 @@ namespace BH.UI.Alligator.Templates
                 bool isList = (type != typeof(string) && (typeof(IEnumerable).IsAssignableFrom(type))) && !typeof(IDictionary).IsAssignableFrom(type);
 
                 if (isList)
-                    type = type.GenericTypeArguments.First();
+                {
+                    if (type.GenericTypeArguments.Length > 0)
+                        type = type.GenericTypeArguments.First();
+                    else
+                        type = typeof(object);
+                }
+                    
 
                 MethodInfo method = isList ? getListMethod : getMethod;
                 m_DaGets.Add(method.MakeGenericMethod(type));
