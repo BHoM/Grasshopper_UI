@@ -17,9 +17,57 @@ using Grasshopper.Kernel.Data;
 
 namespace Alligator.Structural.Elements
 {
-    public class CreateGrid : BHoMBaseComponent<BHE.Grid>
+    public class CreateGrid : GH_Component
     {
         public CreateGrid() : base("Create Grid", "CreateGrid", "Create a BH Grid object", "Structure", "Elements") { }
+
+        public override GH_Exposure Exposure
+        {
+            get
+            {
+                return GH_Exposure.secondary;
+            }
+        }
+
+        protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
+        {
+            pManager.AddGenericParameter("Line", "Line", "Line", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Name", "Name", "Name", GH_ParamAccess.item);
+            pManager.AddGenericParameter("CustomData", "CustomData", "CustomData", GH_ParamAccess.item);
+
+        }
+
+        protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
+        {
+            pManager.AddGenericParameter("Grid", "Grid", "BHoM Grid", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Plane", "Plane", "Plane", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Line", "Line", "Line", GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            BHE.Grid grid = new BHE.Grid();
+
+            Line line = Line.Unset;
+
+            if (DA.GetData(0, ref line))
+            {
+                BHG.Point stpoint = new BHG.Point(line.FromX, line.FromY, line.FromZ);
+                BHG.Point edpoint = new BHG.Point(line.ToX, line.ToY, line.ToZ);
+                grid.Line = new BHG.Line(stpoint, edpoint);
+            }
+
+            string name = "";
+
+            if (DA.GetData(1, ref name))
+            {
+                grid.Name = name;
+            }
+
+            DA.SetData(0, grid);
+            DA.SetData(1, grid.Plane);
+            DA.SetData(2, grid.Line);
+        }
 
         public override Guid ComponentGuid
         {
