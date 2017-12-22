@@ -93,6 +93,16 @@ namespace BH.UI.Alligator.Adapter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap FromJson {
+            get {
+                object obj = ResourceManager.GetObject("FromJson", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Pull {
             get {
                 object obj = ResourceManager.GetObject("Pull", resourceCulture);
@@ -116,6 +126,16 @@ namespace BH.UI.Alligator.Adapter.Properties {
         internal static System.Drawing.Bitmap QueryAdapter {
             get {
                 object obj = ResourceManager.GetObject("QueryAdapter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ToJson {
+            get {
+                object obj = ResourceManager.GetObject("ToJson", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -25,7 +25,7 @@ namespace BH.UI.Alligator.Adapter
         }
         public override Guid ComponentGuid { get { return new Guid("A2D956AE-98A8-486D-A2AB-371B45F8B3AE"); } }
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.Adapter; } }
-        public override GH_Exposure Exposure { get { return GH_Exposure.tertiary; } }
+        public override GH_Exposure Exposure { get { return GH_Exposure.secondary; } }
 
 
         /*************************************/
