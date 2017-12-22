@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using BH.oM.Base;
-using BH.UI.Alligator;
+using BH.UI.Alligator.Base;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Alligator.Adapter
 {
     public class ToJson : GH_Component
     {
-        public ToJson() : base("ToJson", "ToJson", "Convert the object to a Json string", "Alligator", "Base") { }
+        public ToJson() : base("To Json", "ToJson", "Convert the object to a Json string", "Alligator", "Adapter") { }
 
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24

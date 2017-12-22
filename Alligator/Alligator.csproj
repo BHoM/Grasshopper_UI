@@ -42,16 +42,8 @@
     <Reference Include="BHoM">
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
     </Reference>
-    <Reference Include="BHoM_Adapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\BHoM_Adapter\Build\BHoM_Adapter.dll</HintPath>
-    </Reference>
     <Reference Include="BHoM_Engine">
       <HintPath>..\..\BHoM_Engine\Build\BHoM_Engine.dll</HintPath>
-    </Reference>
-    <Reference Include="DataStructure_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\BHoM_Engine\Build\DataStructure_Engine.dll</HintPath>
     </Reference>
     <Reference Include="Geometry_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -100,7 +92,6 @@
     <Compile Include="Components\Methods\ModifyBHoM.cs" />
     <Compile Include="Components\Methods\QueryBHoM.cs" />
     <Compile Include="Components\Constructors\CreateBHoM.cs" />
-    <Compile Include="Components\Methods\ToJson.cs" />
     <Compile Include="Components\Scripting\VsScriptEditor.cs" />
     <Compile Include="NonComponents\BH_Hints\BH_BHomGeometryHint.cs" />
     <Compile Include="NonComponents\BH_Hints\BH_TypeHint.cs" />
