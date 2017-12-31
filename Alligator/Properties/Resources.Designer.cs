@@ -323,6 +323,16 @@ namespace BH.UI.Alligator.Base.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap FromJson {
+            get {
+                object obj = ResourceManager.GetObject("FromJson", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap gator {
             get {
                 object obj = ResourceManager.GetObject("gator", resourceCulture);

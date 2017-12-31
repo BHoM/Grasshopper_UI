@@ -9,7 +9,7 @@ namespace BH.UI.Alligator.Adapter
 {
     public class Execute : GH_Component
     {
-        public Execute() : base("Execute", "Execute", "Execute command in the external software", "Alligator", "Adapter") { }
+        public Execute() : base("Execute", "Execute", "Execute command in the external software", "Alligator", " Adapter") { }
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.Execute; } }
         public override Guid ComponentGuid { get { return new Guid("1C89AF97-379F-4432-B243-9C699EB454C2"); } }
 

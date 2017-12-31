@@ -7,7 +7,7 @@ namespace BH.UI.Alligator.Base
 {
     public class CreateBHoMEnum : CreateEnumTemplate
     {
-        public CreateBHoMEnum() : base("Create BHoM Enum", "BHoMEnum", "Creates a specific type of BHoM Enum", "Alligator", "Base")
+        public CreateBHoMEnum() : base("Create BHoM Enum", "BHoMEnum", "Creates a specific type of BHoM Enum", "Alligator", " oM")
         {
         }
         public override Guid ComponentGuid { get { return new Guid("68B29FAE-057B-417A-96BC-32224974CCBE"); } }

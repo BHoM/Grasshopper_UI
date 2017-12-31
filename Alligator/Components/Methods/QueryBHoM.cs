@@ -10,7 +10,7 @@ namespace BH.UI.Alligator.Base
 {
     public class QueryBHoM : MethodCallTemplate
     {
-        public QueryBHoM() : base("Query BHoM Object", "QueryBHoM", "Query information about a BHoMObject", "Alligator", "Base")
+        public QueryBHoM() : base("Query BHoM Object", "QueryBHoM", "Query information about a BHoMObject", "Alligator", " Engine")
         {
         }
         public override Guid ComponentGuid { get { return new Guid("63DA0CAC-87BC-48AC-9C49-1D1B2F06BE83"); } }

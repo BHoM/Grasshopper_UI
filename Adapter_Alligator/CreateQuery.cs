@@ -8,7 +8,7 @@ namespace BH.UI.Alligator.Adapter
 {
     public class CreateQuery : CreateObjectTemplate
     {
-        public CreateQuery() : base("Create Query", "Query", "Creates a specific class of query", "Alligator", "Adapter")
+        public CreateQuery() : base("Create Query", "Query", "Creates a specific class of query", "Alligator", " Adapter")
         {
             m_MenuMaxDepth = 0;
         }

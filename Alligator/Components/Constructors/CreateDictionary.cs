@@ -8,7 +8,7 @@ namespace BH.UI.Alligator.Base
 {
     public class CreateDictionary : CreateCustomTemplate
     {
-        public CreateDictionary() : base("Create Dictionary", "Dictionary", "Create a dictionary from a list of keys and values", "Alligator", "Base") { }
+        public CreateDictionary() : base("Create Dictionary", "Dictionary", "Create a dictionary from a list of keys and values", "Alligator", " oM") { }
 
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.Dictionary; } }

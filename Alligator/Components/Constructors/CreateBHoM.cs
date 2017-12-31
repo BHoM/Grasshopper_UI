@@ -11,7 +11,7 @@ namespace BH.UI.Alligator.Base
 {
     public class CreateBHoM : CreateObjectTemplate
     {
-        public CreateBHoM() : base("Create BHoM Object", "CreateBHoM", "Creates a specific class of BHoMObject", "Alligator", "Base")
+        public CreateBHoM() : base("Create BHoM Object", "CreateBHoM", "Creates a specific class of BHoMObject", "Alligator", " oM")
         {
             string folder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Grasshopper\Libraries\Alligator\";
             foreach (string file in Directory.GetFiles(folder))

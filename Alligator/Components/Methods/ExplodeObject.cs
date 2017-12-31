@@ -15,7 +15,7 @@ namespace BH.UI.Alligator.Base
 {
     public class ExplodeJson : GH_Component, IGH_VariableParameterComponent
     {
-        public ExplodeJson() : base("Explode", "Explode", "Explode an object or dictionary into child objects", "Alligator", "Base") { }
+        public ExplodeJson() : base("Explode", "Explode", "Explode an object or dictionary into child objects", "Alligator", " Engine") { }
         public override Guid ComponentGuid { get { return new Guid("f2080175-a812-4dfb-86de-ae7dc8245668"); } }
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.Explode; } }
         public bool additional { get; set; }

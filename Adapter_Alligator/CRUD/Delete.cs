@@ -9,7 +9,7 @@ namespace BH.UI.Alligator.Adapter
 {
     public class Delete : GH_Component
     {
-        public Delete() : base("Delete", "Delete", "Delete objects in the external software", "Alligator", "Adapter") { }
+        public Delete() : base("Delete", "Delete", "Delete objects in the external software", "Alligator", " Adapter") { }
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.Delete; } }
         public override Guid ComponentGuid { get { return new Guid("8E2635F4-0C33-4608-910E-CDD676C03519"); } }
 

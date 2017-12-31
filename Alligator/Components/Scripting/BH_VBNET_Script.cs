@@ -13,12 +13,12 @@ namespace BH.UI.Alligator.Base
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.VBH_Script; } }
         protected override System.Drawing.Bitmap Icon { get { return Properties.Resources.VBH_Script; } }
         public override Guid ComponentGuid { get { return new Guid("7fe983b6-5121-4c29-8157-6203923fbafb"); } }
-        public override GH_Exposure Exposure { get { return GH_Exposure.quarternary; } }
+        public override GH_Exposure Exposure { get { return GH_Exposure.primary; } }
 
         public BH_VBNET_Script() : base()
         {
             Name = "VBH Script"; NickName = "VBH"; Description = "A VB.Net scriptable component with BHoM custom features";
-            Category = "Alligator"; SubCategory = "Base";
+            Category = "Alligator"; SubCategory = "Scripting";
         }
 
         protected override string CreateSourceForEdit(ScriptSource code)

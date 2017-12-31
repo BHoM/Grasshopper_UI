@@ -3,11 +3,11 @@ using Grasshopper.Kernel;
 using BH.oM.Base;
 using BH.UI.Alligator.Base;
 
-namespace BH.UI.Alligator.Adapter
+namespace BH.UI.Alligator.Base
 {
     public class ToJson : GH_Component
     {
-        public ToJson() : base("To Json", "ToJson", "Convert the object to a Json string", "Alligator", "Adapter") { }
+        public ToJson() : base("To Json", "ToJson", "Convert the object to a Json string", "Alligator", " Engine") { }
 
         /// <summary> Icon (24x24 pixels)</summary>
         protected override System.Drawing.Bitmap Internal_Icon_24x24
@@ -16,7 +16,7 @@ namespace BH.UI.Alligator.Adapter
         }
 
         public override Guid ComponentGuid { get { return new Guid("3564A67C-3444-4A9B-AE6B-591F1CA9A53A"); } }
-        public override GH_Exposure Exposure { get { return GH_Exposure.tertiary; } }
+        public override GH_Exposure Exposure { get { return GH_Exposure.quarternary; } }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {

@@ -10,7 +10,7 @@ namespace BH.UI.Alligator.Base
 {
     public class ConvertBHoM : MethodCallTemplate
     {
-        public ConvertBHoM() : base("Convert BHoM Object", "ConvertBHoM", "Convert a BHoMObject", "Alligator", "Base")
+        public ConvertBHoM() : base("Convert BHoM Object", "ConvertBHoM", "Convert a BHoMObject", "Alligator", " Engine")
         {
         }
         public override Guid ComponentGuid { get { return new Guid("D517E0BF-E979-4441-896E-1D2EC833FE2E"); } }
