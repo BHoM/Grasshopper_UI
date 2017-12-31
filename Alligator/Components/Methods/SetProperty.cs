@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
 using BH.oM.Base;
-using BH.UI.Alligator;
 using BH.Engine.Reflection;
 
 namespace BH.UI.Alligator.Base
@@ -49,7 +44,7 @@ namespace BH.UI.Alligator.Base
                 value = ((IGH_Goo)value).ScriptVariable();
 
             if (value.GetType().Namespace.StartsWith("Rhino.Geometry"))
-                value = Adapter.Rhinoceros.Convert.ToBHoM(value as dynamic);
+                value = Engine.Rhinoceros.Convert.ToBHoM(value as dynamic);
 
             BHoMObject newObject = obj.GetShallowClone();
             newObject.SetPropertyValue(key, value);

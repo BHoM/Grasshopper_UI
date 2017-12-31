@@ -4,14 +4,11 @@ using System.Linq;
 using Grasshopper.Kernel;
 using System.Collections;
 using System.Windows.Forms;
-using BH.UI.Alligator.Base;
 using BH.oM.Base;
 using BH.Engine.Reflection;
 using BH.oM.Geometry;
-using BH.UI.Alligator;
 using Grasshopper.Kernel.Parameters;
-using BH.Adapter.Rhinoceros;
-using System.Reflection;
+using BH.Engine.Rhinoceros;
 using Grasshopper.Kernel.Types;
 
 namespace BH.UI.Alligator.Base
@@ -53,7 +50,7 @@ namespace BH.UI.Alligator.Base
             if (obj is IDictionary)
                 outputs = StringifyKeys(obj as dynamic); 
             else
-                outputs = ((BHoMObject)obj).GetPropertyDictionary();
+                outputs = ((BHoMObject)obj).PropertyDictionary();
 
             if (obj is IDictionary)
                 m_OutputTypes = outputs.Select(x => new Tuple<string, Type>(x.Key, x.Value.GetType())).ToList();

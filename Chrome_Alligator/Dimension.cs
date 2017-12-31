@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using BH.UI.Alligator.Templates;
 using Grasshopper.Kernel;
-using BH.oM.Chrome.Parts;
 using BH.oM.Chrome.Dimensions;
 
 namespace BH.UI.Alligator.Chrome
@@ -24,7 +23,7 @@ namespace BH.UI.Alligator.Chrome
         protected override IEnumerable<Type> GetRelevantTypes()
         {
             Type viewType = typeof(IDimension);
-            return BH.Engine.Reflection.Query.GetBHoMTypeList().Where(x => viewType.IsAssignableFrom(x)).OrderBy(x => x.Name);
+            return BH.Engine.Reflection.Query.BHoMTypeList().Where(x => viewType.IsAssignableFrom(x)).OrderBy(x => x.Name);
         }
     }
 }

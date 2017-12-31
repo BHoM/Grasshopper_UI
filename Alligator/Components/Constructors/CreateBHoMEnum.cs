@@ -1,11 +1,7 @@
 ﻿using System;
 using Grasshopper.Kernel;
 using System.Collections.Generic;
-using System.Linq;
-using BH.oM.Base;
 using BH.UI.Alligator.Templates;
-using System.IO;
-using System.Reflection;
 
 namespace BH.UI.Alligator.Base
 {
@@ -24,7 +20,7 @@ namespace BH.UI.Alligator.Base
 
         protected override IEnumerable<Type> GetRelevantEnums()
         {
-            return BH.Engine.Reflection.Query.GetBHoMEnumList();
+            return BH.Engine.Reflection.Query.BHoMEnumList();
         }
   
     }

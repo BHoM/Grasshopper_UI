@@ -1,14 +1,11 @@
-﻿using BH.Adapter.Rhinoceros;
+﻿using BH.Engine.Rhinoceros;
 using BHG = BH.oM.Geometry;
 using RHG = Rhino.Geometry;
 using Grasshopper.Kernel;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BH.Engine.Base;
+
 
 namespace BH.UI.Alligator
 {
@@ -38,7 +35,7 @@ namespace BH.UI.Alligator
 
         public static bool RenderBHoMObject(BH.oM.Structural.Elements.Node node, GH_PreviewWireArgs args, Color bhColour)
         {
-            BHG.Point pt = node.Point;
+            BHG.Point pt = node.Position;
             RHG.Point3d location = pt.ToRhino().ToScreen(args);
             RenderBHoMGeometry(pt, args.Pipeline, bhColour);
             args.Pipeline.Draw2dText(node.Name, Color.Navy, location, false, 10);
@@ -75,7 +72,7 @@ namespace BH.UI.Alligator
 
         private static bool RenderBHoMObject(BH.oM.Base.BHoMObject obj, GH_PreviewWireArgs args, Color bhColour)
         {
-            IRenderBHoMGeometry(obj.IGetGeometry(), args);
+            IRenderBHoMGeometry(obj.IGeometry(), args);
             return true;
         }
 

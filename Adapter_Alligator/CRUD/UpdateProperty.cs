@@ -1,14 +1,8 @@
 ﻿using Grasshopper.Kernel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections;
 using BH.UI.Alligator.Base;
 using BH.oM.Base;
-using BH.UI.Alligator;
-using BH.Adapter.Queries;
+using BH.oM.Queries;
 using BH.Adapter;
 
 namespace BH.UI.Alligator.Adapter
@@ -40,7 +34,7 @@ namespace BH.UI.Alligator.Adapter
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             BHoMAdapter adapter = null; DA.GetData(0, ref adapter);
-            BH.Adapter.Queries.FilterQuery query = null; DA.GetData(1, ref query);
+            FilterQuery query = null; DA.GetData(1, ref query);
             string property = ""; DA.GetData(2, ref property);
             object value = null; DA.GetData(3, ref value);
             CustomObject config = new CustomObject(); DA.GetData(4, ref config);

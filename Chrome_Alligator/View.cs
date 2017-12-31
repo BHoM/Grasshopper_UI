@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BH.oM.Chrome.Views;
 using BH.UI.Alligator.Templates;
 using Grasshopper.Kernel;
-using BH.UI.Alligator.Base;
-using BH.oM.Base;
 
 namespace BH.UI.Alligator.Chrome
 {
@@ -24,7 +21,7 @@ namespace BH.UI.Alligator.Chrome
         protected override IEnumerable<Type> GetRelevantTypes()
         {
             Type viewType = typeof(View);
-            return BH.Engine.Reflection.Query.GetBHoMTypeList().Where(x => viewType.IsAssignableFrom(x)).OrderBy(x => x.Name);
+            return BH.Engine.Reflection.Query.BHoMTypeList().Where(x => viewType.IsAssignableFrom(x)).OrderBy(x => x.Name);
         }
     }
 }

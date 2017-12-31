@@ -1,14 +1,7 @@
 ﻿using System;
-using Grasshopper.Kernel;
-using BH.UI.Alligator.Base;
 using System.Collections.Generic;
 using System.Linq;
-using Grasshopper.Kernel.Parameters;
-using System.Collections;
-using System.Windows.Forms;
-using BH.oM.Base;
 using System.Reflection;
-using BH.oM.Geometry;
 using BH.oM.DataStructure;
 
 // Instructions to implement this template
@@ -30,7 +23,7 @@ namespace BH.UI.Alligator.Templates
         protected override Tree<MethodBase> GetRelevantMethods()
         {
             Tree<MethodBase> root = new Tree<MethodBase> { Name = "Select constructor" };
-            List<MethodInfo> createObjectMethods = BH.Engine.Reflection.Query.GetBHoMMethodList().Where(x => x.DeclaringType.Name == "Create").ToList();
+            List<MethodInfo> createObjectMethods = BH.Engine.Reflection.Query.BHoMMethodList().Where(x => x.DeclaringType.Name == "Create").ToList();
 
             foreach (Type type in GetRelevantTypes().OrderBy(x => x.Name))
             {
@@ -68,14 +61,14 @@ namespace BH.UI.Alligator.Templates
                         {
                             string name = (!method.IsConstructor && method.Name != type.Name) ? method.Name : "";
                             name = GetMethodString(name, parameters);
-                            tree.Children.Add(name, new Tree<MethodBase>(method, name));
+                            tree.Children.Add(name, new Tree<MethodBase> { Value = method, Name = name });
                         }
                     }
                 }
                 else if (methods.Length > 0)
                 {
                     MethodBase method = methods.OrderBy(x => x.GetParameters().Count()).Last();
-                    tree.Children.Add(type.Name, new Tree<MethodBase>(method, type.Name));
+                    tree.Children.Add(type.Name, new Tree<MethodBase> { Value = method, Name = type.Name });
                 }
             }
 

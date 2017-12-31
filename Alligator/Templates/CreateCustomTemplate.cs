@@ -1,16 +1,12 @@
 ﻿using System;
 using Grasshopper.Kernel;
-using BH.UI.Alligator.Base;
 using System.Collections.Generic;
-using BH.UI.Alligator;
-using System.Linq;
 using Grasshopper.Kernel.Types;
 using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Parameters.Hints;
 using System.Runtime.CompilerServices;
 using Grasshopper.Kernel.Data;
 using Grasshopper;
-using System.Collections;
 using BH.UI.Alligator.GeometryHints;
 
 namespace BH.UI.Alligator.Base

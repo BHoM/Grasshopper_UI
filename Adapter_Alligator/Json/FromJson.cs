@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using BH.oM.Base;
-using BH.UI.Alligator;
 using BH.UI.Alligator.Base;
 
 namespace BH.UI.Alligator.Adapter
@@ -38,7 +32,7 @@ namespace BH.UI.Alligator.Adapter
             string json = "";
             DA.GetData(0, ref json);
 
-            DA.SetData(0, BH.Adapter.Convert.FromJson(json));
+            DA.SetData(0, Engine.Serialiser.Convert.FromJson(json));
         }
     }
 }

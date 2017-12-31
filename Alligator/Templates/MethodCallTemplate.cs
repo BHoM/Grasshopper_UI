@@ -11,7 +11,7 @@ using System.Reflection;
 using BH.oM.Geometry;
 using BH.oM.DataStructure;
 using Grasshopper.GUI;
-using BH.Adapter.Rhinoceros;
+using BH.Engine.Rhinoceros;
 using Grasshopper.Kernel.Types;
 
 // Instructions to implement this template
@@ -69,7 +69,7 @@ namespace BH.UI.Alligator.Templates
                 name = GetMethodString(name, method.GetParameters());
 
                 if (isIMethod || !children.ContainsKey(name))
-                    children[name] = new Tree<MethodBase>(method, name);
+                    children[name] = new Tree<MethodBase> { Value = method, Name = name };
             }
             else
             {
@@ -321,7 +321,7 @@ namespace BH.UI.Alligator.Templates
                 path = path + '.';
 
             if (tree.Children.Count == 0)
-                return new Tree<MethodBase>[] { new Tree<MethodBase> (tree.Value, path+tree.Name) };
+                return new Tree<MethodBase>[] { new Tree<MethodBase> { Value = tree.Value, Name = path + tree.Name } };
             else
                 return tree.Children.Values.SelectMany(x => GetMethodList(x, path+tree.Name));
         }
@@ -533,7 +533,7 @@ namespace BH.UI.Alligator.Templates
             else
             {
                 if (data.GetType().Namespace.StartsWith("Rhino.Geometry"))
-                    data = Adapter.Rhinoceros.Convert.ToBHoM(data as dynamic);
+                    data = Engine.Rhinoceros.Convert.ToBHoM(data as dynamic);
                 return (T)(data as dynamic);
             }
         }

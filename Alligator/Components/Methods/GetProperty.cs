@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using BH.oM.Base;
-using BH.UI.Alligator;
 using BH.oM.Geometry;
-using BH.Adapter.Rhinoceros;
+using BH.Engine.Rhinoceros;
 using System.Collections;
 
 namespace BH.UI.Alligator.Base
@@ -41,7 +37,7 @@ namespace BH.UI.Alligator.Base
             DA.GetData(0, ref obj);
             DA.GetData(1, ref key);
 
-            object result = BH.Engine.Reflection.Query.GetPropertyValue(obj, key);
+            object result = BH.Engine.Reflection.Query.PropertyValue(obj, key);
 
             if (result is IEnumerable && !(result is string) && !(result is IDictionary))
             {
