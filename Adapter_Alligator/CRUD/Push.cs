@@ -9,7 +9,7 @@ namespace BH.UI.Alligator.Adapter
 {
     public class Push : GH_Component
     {
-        public Push() : base("Push", "Push", "Push objects to the external software", "Alligator", "Adapter") { }
+        public Push() : base("Push", "Push", "Push objects to the external software", "Alligator", " Adapter") { }
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.Push; } }
         public override Guid ComponentGuid { get { return new Guid("040CEC18-C6E1-443B-B816-72B100304536"); } }
 

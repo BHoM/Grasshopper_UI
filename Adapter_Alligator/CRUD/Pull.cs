@@ -10,7 +10,7 @@ namespace BH.UI.Alligator.Adapter
 {
     public class Pull : GH_Component
     {
-        public Pull() : base("Pull", "Pull", "Pull objects from the external software", "Alligator", "Adapter") { }
+        public Pull() : base("Pull", "Pull", "Pull objects from the external software", "Alligator", " Adapter") { }
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.Pull; } }
         public override Guid ComponentGuid { get { return new Guid("BA3D716D-3044-4795-AC81-0FECC80781E3"); } }
 

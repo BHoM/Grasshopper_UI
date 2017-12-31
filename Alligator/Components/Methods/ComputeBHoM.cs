@@ -11,7 +11,7 @@ namespace BH.UI.Alligator.Base
 {
     public class ComputeBHoM : MethodCallTemplate
     {
-        public ComputeBHoM() : base("Compute / Analyse", "ComputeBHoM", "Run a computationally intensive calculation", "Alligator", "Base")
+        public ComputeBHoM() : base("Compute / Analyse", "ComputeBHoM", "Run a computationally intensive calculation", "Alligator", " Engine")
         {
         }
         public override Guid ComponentGuid { get { return new Guid("9A94F1C4-AF5B-48E6-B0DD-F56145DEEDDA"); } }

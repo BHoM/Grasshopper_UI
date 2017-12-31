@@ -11,7 +11,7 @@ namespace BH.UI.Alligator.Adapter
 {
     public class CreateAdapter : CreateObjectTemplate
     {
-        public CreateAdapter() : base("Create Adapter", "Adapter", "Creates a specific class of Adapter", "Alligator", "Adapter")
+        public CreateAdapter() : base("Create Adapter", "Adapter", "Creates a specific class of Adapter", "Alligator", " Adapter")
         {
             string folder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Grasshopper\Libraries\Alligator\";
             foreach (string file in Directory.GetFiles(folder))
