@@ -1,16 +1,9 @@
 ﻿using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
-using BH.oM.Base;
 using BH.oM.Geometry;
 using BH.Engine.Geometry;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Drawing;
-using BH.Engine.Base;
-using Grasshopper.Kernel.Parameters;
-using BH.Adapter.Rhinoceros;
-using BH.UI.Alligator.Base;
+using BH.Engine.Rhinoceros;
 using Rhino;
 using Rhino.DocObjects;
 
@@ -52,7 +45,7 @@ namespace BH.UI.Alligator
             get
             {
                 if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
-                return Value.IGetBounds().ToRhino();
+                return Value.IBounds().ToRhino();
             }
         }
 
@@ -87,7 +80,7 @@ namespace BH.UI.Alligator
 
         public override IGH_GeometricGoo DuplicateGeometry()
         {
-            return new GH_IBHoMGeometry { Value = Value.IGetClone() };
+            return new GH_IBHoMGeometry { Value = Value.IClone() };
         }
 
         /***************************************************/
@@ -115,7 +108,7 @@ namespace BH.UI.Alligator
         public override Rhino.Geometry.BoundingBox GetBoundingBox(Rhino.Geometry.Transform xform)
         {
             if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
-            return Value.IGetBounds().ToRhino();
+            return Value.IBounds().ToRhino();
         }
 
 

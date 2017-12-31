@@ -4,11 +4,8 @@ using BH.oM.Base;
 using BH.oM.Geometry;
 using BH.Engine.Geometry;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Drawing;
 using BH.Engine.Base;
-using BH.Adapter.Rhinoceros;
+using BH.Engine.Rhinoceros;
 using Rhino;
 using Rhino.DocObjects;
 
@@ -48,7 +45,7 @@ namespace BH.UI.Alligator
             {
                 if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
                 if (Geometry == null) { return Rhino.Geometry.BoundingBox.Empty; }
-                BH.oM.Geometry.BoundingBox bhBox = Geometry.IGetBounds();
+                BH.oM.Geometry.BoundingBox bhBox = Geometry.IBounds();
                 if (bhBox == null) { return Rhino.Geometry.BoundingBox.Empty; }
                 return bhBox.ToRhino();
             }
@@ -77,7 +74,7 @@ namespace BH.UI.Alligator
         {
             if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
             if (Geometry == null) { return Rhino.Geometry.BoundingBox.Empty; }
-            BH.oM.Geometry.BoundingBox bhBox = Geometry.IGetBounds();
+            BH.oM.Geometry.BoundingBox bhBox = Geometry.IBounds();
             if (bhBox == null) { return Rhino.Geometry.BoundingBox.Empty; }
             return bhBox.ToRhino();
         }
@@ -122,7 +119,7 @@ namespace BH.UI.Alligator
             get
             {
                 if (Value is BHoMObject)
-                    return ((BHoMObject)Value).IGetGeometry();
+                    return ((BHoMObject)Value).IGeometry();
                 else if (Value is IBHoMGeometry)
                     return Value as IBHoMGeometry;
                 else

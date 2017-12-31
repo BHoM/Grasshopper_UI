@@ -1,10 +1,7 @@
 ﻿using System;
 using Grasshopper.Kernel;
-using System.Collections.Generic;
 using System.Linq;
-using BH.oM.Base;
 using BH.UI.Alligator.Templates;
-using System.IO;
 using System.Reflection;
 using BH.oM.DataStructure;
 using System.Collections;
@@ -29,7 +26,7 @@ namespace BH.UI.Alligator.Base
             Type enumerableType = typeof(IEnumerable);
             Tree<MethodBase> root = new Tree<MethodBase> { Name = "Select query" };
 
-            foreach (MethodBase method in BH.Engine.Reflection.Query.GetBHoMMethodList().Where(x => x.DeclaringType.Name == "Query" || x.DeclaringType.Name == "Verify")) //TODO: Should be "Query" only
+            foreach (MethodBase method in BH.Engine.Reflection.Query.BHoMMethodList().Where(x => x.DeclaringType.Name == "Query" || x.DeclaringType.Name == "Verify")) //TODO: Should be "Query" only
             {
                 AddMethodToTree(root, method);
             }

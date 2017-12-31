@@ -1,13 +1,10 @@
-﻿using BH.Adapter.Rhinoceros;
+﻿using BH.Engine.Rhinoceros;
 using BHG = BH.oM.Geometry;
 using RHG = Rhino.Geometry;
 using Grasshopper.Kernel;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BH.UI.Alligator
 {

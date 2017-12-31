@@ -1,19 +1,12 @@
 ﻿using System;
 using Grasshopper.Kernel;
-using BH.UI.Alligator.Base;
 using System.Collections.Generic;
 using System.Linq;
-using Grasshopper.Kernel.Parameters;
-using System.Collections;
 using System.Windows.Forms;
-using BH.oM.Base;
-using System.Reflection;
-using BH.oM.Geometry;
 using BH.oM.DataStructure;
 using Grasshopper.Kernel.Special;
 using Grasshopper.GUI;
 using Grasshopper.Kernel.Data;
-using Grasshopper.Kernel.Types;
 
 // Instructions to implement this template
 // ***************************************
@@ -199,7 +192,7 @@ namespace BH.UI.Alligator.Templates
         protected virtual Tree<Type> GetEnumTree()
         {
             Tree<Type> root = new Tree<Type> { Name = "Select enum" };
-            List<Type> createObjectMethods = BH.Engine.Reflection.Query.GetBHoMEnumList();
+            List<Type> createObjectMethods = BH.Engine.Reflection.Query.BHoMEnumList();
 
             foreach (Type type in GetRelevantEnums().OrderBy(x => x.Name))
             {
@@ -212,7 +205,7 @@ namespace BH.UI.Alligator.Templates
                     tree = tree.Children[part];
                 }
 
-                tree.Children.Add(type.Name, new Tree<Type>(type, type.Name));
+                tree.Children.Add(type.Name, new Tree<Type> { Value = type, Name = type.Name });
             }
 
             return root;
@@ -233,7 +226,7 @@ namespace BH.UI.Alligator.Templates
                 path = path + '.';
 
             if (tree.Children.Count == 0)
-                return new Tree<Type>[] { new Tree<Type>(tree.Value, path + tree.Name) };
+                return new Tree<Type>[] { new Tree<Type> { Value = tree.Value, Name = path + tree.Name } };
             else
                 return tree.Children.Values.SelectMany(x => GetTypeList(x, path + tree.Name));
         }

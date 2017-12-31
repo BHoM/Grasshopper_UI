@@ -2,11 +2,7 @@
 using Grasshopper.Kernel;
 using System.Collections.Generic;
 using System.Linq;
-using BH.oM.Base;
 using BH.UI.Alligator.Templates;
-using BH.Adapter;
-using System.IO;
-using System.Reflection;
 
 namespace BH.UI.Alligator.Adapter
 {
@@ -25,8 +21,8 @@ namespace BH.UI.Alligator.Adapter
 
         protected override IEnumerable<Type> GetRelevantTypes()
         {
-            Type queryType = typeof(BH.Adapter.Queries.IQuery);
-            return BH.Engine.Reflection.Query.GetAdapterTypeList().Where(x => queryType.IsAssignableFrom(x)).OrderBy(x => x.Name);
+            Type queryType = typeof(BH.oM.Queries.IQuery);
+            return BH.Engine.Reflection.Query.AdapterTypeList().Where(x => queryType.IsAssignableFrom(x)).OrderBy(x => x.Name);
         }
 
     }

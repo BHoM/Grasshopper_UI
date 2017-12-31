@@ -1,14 +1,8 @@
 ﻿using Grasshopper.Kernel;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections;
 using BH.UI.Alligator.Base;
 using BH.oM.Base;
-using BH.UI.Alligator;
-using BH.Adapter.Queries;
 using BH.Adapter;
 
 namespace BH.UI.Alligator.Adapter
