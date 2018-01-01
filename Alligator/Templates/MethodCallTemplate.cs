@@ -23,7 +23,7 @@ using Grasshopper.Kernel.Types;
 
 namespace BH.UI.Alligator.Templates
 {
-    public abstract class MethodCallTemplate : GH_Component, IGH_VariableParameterComponent
+    public abstract class MethodCallTemplate : GH_Component, IGH_VariableParameterComponent, IGH_InitCodeAware
     {
         /*************************************/
         /**** 1 . Methods to Implement    ****/
@@ -203,7 +203,17 @@ namespace BH.UI.Alligator.Templates
                 paramTypes.Add(Type.GetType(paramType));
             }
 
-            Type type = Type.GetType(typeString);
+            RestoreMethod(Type.GetType(typeString), methodName, paramTypes);
+            if (m_Method != null)
+                ComputerDaGets(m_Method.GetParameters().ToList());
+
+            return base.Read(reader);
+        }
+
+        /*************************************/
+
+        public void RestoreMethod(Type type, string methodName, List<Type> paramTypes)
+        {
             m_Method = null;
 
             List<MethodBase> methods;
@@ -228,14 +238,10 @@ namespace BH.UI.Alligator.Templates
                         {
                             m_Method = method;
                             break;
-                        }        
+                        }
                     }
                 }
             }
-
-            ComputerDaGets(m_Method.GetParameters().ToList());
-
-            return base.Read(reader);
         }
 
 
@@ -279,8 +285,9 @@ namespace BH.UI.Alligator.Templates
 
             // Add the new ones
             text = text.ToLower();
+            string[] parts = text.Split(' ');
             m_SearchResultItems.Add(Menu_AppendSeparator(m_Menu));
-            foreach (Tree<MethodBase> tree in m_MethodList.Where(x => x.Name.ToLower().Contains(text)).Take(12).OrderBy(x => x.Name))
+            foreach (Tree<MethodBase> tree in m_MethodList.Where(x => parts.All(y => x.Name.ToLower().Contains(y))).Take(12).OrderBy(x => x.Name))
             {
                 ToolStripMenuItem methodItem = Menu_AppendItem(m_Menu, tree.Name, Item_Click);
                 m_SearchResultItems.Add(methodItem);
@@ -536,6 +543,30 @@ namespace BH.UI.Alligator.Templates
                     data = Engine.Rhinoceros.Convert.ToBHoM(data as dynamic);
                 return (T)(data as dynamic);
             }
+        }
+
+
+        /*************************************/
+        /**** Initialisation via String   ****/
+        /*************************************/
+
+        public void SetInitCode(string code)
+        {
+            CustomObject methodInfo = Engine.Serialiser.Convert.FromJson(code) as CustomObject;
+            Type type = Type.GetType(methodInfo.CustomData["TypeName"] as string);
+            string methodName = methodInfo.CustomData["MethodName"] as string;
+            List<Type> paramTypes = (methodInfo.CustomData["Parameters"] as List<object>).Select(x => Type.GetType(x as string)).ToList();
+
+            RestoreMethod(type, methodName, paramTypes);
+            if (m_Method == null)
+                return;
+
+            this.NickName = m_Method.IsConstructor ? m_Method.DeclaringType.Name : m_Method.Name;
+
+            List<ParameterInfo> inputs = m_Method.GetParameters().ToList();
+            Type output = m_Method.IsConstructor ? m_Method.DeclaringType : ((MethodInfo)m_Method).ReturnType;
+            ComputerDaGets(inputs);
+            UpdateInputs(inputs, output);
         }
 
 
