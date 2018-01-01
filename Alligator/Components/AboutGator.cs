@@ -11,6 +11,7 @@ namespace BH.UI.Alligator.Base
                 "About Alligator",
                 "Alligator", " About")
         {
+            Menus.SearchMenu.Activate();
         }
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)

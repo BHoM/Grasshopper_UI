@@ -117,6 +117,10 @@
     <Compile Include="NonComponents\BH_Types\GH_TemplateType.cs" />
     <Compile Include="NonComponents\BH_Types\GH_Dictionary.cs" />
     <Compile Include="NonComponents\BH_Types\GH_Enum.cs" />
+    <Compile Include="NonComponents\Menus\BH_PopupSearchDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NonComponents\Menus\SearchMenu.cs" />
     <Compile Include="NonComponents\Render\RenderBHoMObject.cs" />
     <Compile Include="NonComponents\BH_Types\GH_Type.cs" />
     <Compile Include="NonComponents\BH_Types\GH_IBHoMGeometry.cs" />
