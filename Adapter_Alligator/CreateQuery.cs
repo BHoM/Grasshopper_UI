@@ -22,7 +22,7 @@ namespace BH.UI.Alligator.Adapter
         protected override IEnumerable<Type> GetRelevantTypes()
         {
             Type queryType = typeof(BH.oM.Queries.IQuery);
-            return BH.Engine.Reflection.Query.AdapterTypeList().Where(x => queryType.IsAssignableFrom(x)).OrderBy(x => x.Name);
+            return BH.Engine.Reflection.Query.BHoMTypeList().Where(x => queryType.IsAssignableFrom(x)).OrderBy(x => x.Name);
         }
 
     }
