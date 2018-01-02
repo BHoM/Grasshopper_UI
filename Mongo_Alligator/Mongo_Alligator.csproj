@@ -133,6 +133,7 @@
 Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
 
 Copy /Y "$(TargetDir)\Mongo_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Mongo_Adapter.dll"
+Copy /Y "$(TargetDir)\Mongo_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Mongo_Engine.dll"
 
 Copy /Y "$(TargetDir)\MongoDB.Bson.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\MongoDB.Bson.dll"
 Copy /Y "$(TargetDir)\MongoDB.Driver.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\MongoDB.Driver.dll"
