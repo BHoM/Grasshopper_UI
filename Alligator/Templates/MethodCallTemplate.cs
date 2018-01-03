@@ -142,7 +142,7 @@ namespace BH.UI.Alligator.Templates
             }
             catch (Exception e)
             {
-                string message = "This component failed to run properly. Are you sure you have the correct type of inputs ? Check their description for more details. Here is the error provided by the method: ";
+                string message = "This component failed to run properly. Are you sure you have the correct type of inputs?\n Check their description for more details. Here is the error provided by the method:\n ";
                 if (e.InnerException != null)
                     message += e.InnerException.Message;
                 else
