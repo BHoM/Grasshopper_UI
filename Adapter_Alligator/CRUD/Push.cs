@@ -38,10 +38,11 @@ namespace BH.UI.Alligator.Adapter
             string tag = ""; DA.GetData(2, ref tag);
             CustomObject config = new CustomObject(); DA.GetData(3, ref config);
             bool active = false; DA.GetData(4, ref active);
+            bool success = false;
 
-            if (!active) return;
+            if (active)
+                success = adapter.Push(objects, tag, config.CustomData);
 
-            bool success = adapter.Push(objects, tag, config.CustomData);
             DA.SetData(0, success);
         }
     }
