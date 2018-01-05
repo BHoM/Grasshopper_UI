@@ -44,11 +44,8 @@ namespace Alligator.Socket
             List<object> data = new List<object>(); DA.GetDataList<object>(2, data);
             bool active = false; DA.GetData<bool>(3, ref active);
 
-            if (!active)
-            {
-                m_Link = null;
-                return;
-            }
+            if (!active) return;
+
             if (m_Link == null || m_Port != port || m_ServerName != address)
             {
                 m_Port = port;
