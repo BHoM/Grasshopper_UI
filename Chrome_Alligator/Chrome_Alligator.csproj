@@ -42,6 +42,9 @@
     <Reference Include="Chrome_Adapter">
       <HintPath>..\..\Chrome_Toolkit\Build\Chrome_Adapter.dll</HintPath>
     </Reference>
+    <Reference Include="Chrome_Engine">
+      <HintPath>..\..\Chrome_Toolkit\Build\Chrome_Engine.dll</HintPath>
+    </Reference>
     <Reference Include="Chrome_oM">
       <HintPath>..\..\Chrome_Toolkit\Build\Chrome_oM.dll</HintPath>
     </Reference>
@@ -109,6 +112,7 @@ if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligat
 
 Copy /Y "$(TargetDir)\Chrome_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Chrome_Adapter.dll"
 Copy /Y "$(TargetDir)\Chrome_oM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Chrome_oM.dll"
+Copy /Y "$(TargetDir)\Chrome_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Chrome_Engine.dll"
 Copy /Y "$(TargetDir)\Socket_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Socket_Engine.dll"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets" Condition="Exists('..\packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets')" />
