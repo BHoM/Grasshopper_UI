@@ -20,7 +20,7 @@ namespace BH.UI.Alligator.Templates
     public abstract class CreateEnumTemplate : GH_ValueList
     {
         /*************************************/
-        /**** 1 . Parts to Implement      ****/
+        /**** Parts to Implement          ****/
         /*************************************/
 
         protected abstract IEnumerable<Type> GetRelevantEnums();    // 1. Define the list of relevant enum types that can be created
@@ -244,5 +244,6 @@ namespace BH.UI.Alligator.Templates
         ToolStripDropDown m_Menu;
         IEnumerable<Tree<Type>> m_TypeList = new List<Tree<Type>>();
 
+        /*************************************/
     }
 }

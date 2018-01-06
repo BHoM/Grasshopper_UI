@@ -10,10 +10,22 @@ namespace BH.UI.Alligator.Base
 {
     public class BH_CSNET_Script : Component_CSNET_Script
     {
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.BS_Script; } }
-        protected override System.Drawing.Bitmap Icon { get { return Properties.Resources.BS_Script; } }
-        public override Guid ComponentGuid { get { return new Guid("5703ec61-7e58-4fff-84e0-9e4043a02e74"); } }
-        public override GH_Exposure Exposure { get { return GH_Exposure.primary; } }
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
+
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.BS_Script; 
+
+        protected override System.Drawing.Bitmap Icon { get; } = Properties.Resources.BS_Script; 
+
+        public override Guid ComponentGuid { get; } = new Guid("5703ec61-7e58-4fff-84e0-9e4043a02e74"); 
+
+        public override GH_Exposure Exposure { get; } = GH_Exposure.primary; 
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
 
         public BH_CSNET_Script() : base()
         {
@@ -21,10 +33,17 @@ namespace BH.UI.Alligator.Base
             Category = "Alligator"; SubCategory = "Scripting";
         }
 
+
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
+
         protected override string CreateSourceForEdit(ScriptSource code)
         {
             return base.CreateSourceForEdit(code);
         }
+
+        /*******************************************/
 
         protected override string CreateSourceForCompile(ScriptSource script)
         {
@@ -33,6 +52,9 @@ namespace BH.UI.Alligator.Base
             script.References.Add("C:\\Users\\" + username + "\\AppData\\Roaming\\Grasshopper\\Libraries\\Alligator\\BHoM.dll");
             return base.CreateSourceForCompile(script);
         }
+
+        /*******************************************/
+
         protected override List<IGH_TypeHint> AvailableTypeHints
         {
             get
@@ -48,5 +70,7 @@ namespace BH.UI.Alligator.Base
                 return hints;
             }
         }
+
+        /*******************************************/
     }
 }

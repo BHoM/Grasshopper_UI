@@ -9,11 +9,27 @@ namespace BH.UI.Alligator.Adapter
 {
     public class Delete : GH_Component
     {
-        public Delete() : base("Delete", "Delete", "Delete objects in the external software", "Alligator", " Adapter") { }
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.Delete; } }
-        public override Guid ComponentGuid { get { return new Guid("8E2635F4-0C33-4608-910E-CDD676C03519"); } }
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
 
-        public override GH_Exposure Exposure { get { return GH_Exposure.primary; } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.Delete; 
+
+        public override Guid ComponentGuid { get; } = new Guid("8E2635F4-0C33-4608-910E-CDD676C03519"); 
+
+        public override GH_Exposure Exposure { get; } = GH_Exposure.primary; 
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
+        public Delete() : base("Delete", "Delete", "Delete objects in the external software", "Alligator", " Adapter") { }
+
+
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -24,10 +40,14 @@ namespace BH.UI.Alligator.Adapter
             pManager[2].Optional = true;
         }
 
+        /*******************************************/
+
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddNumberParameter("#deleted", "#deleted", "Number of objects deleted", GH_ParamAccess.item);
         }
+
+        /*******************************************/
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -41,5 +61,7 @@ namespace BH.UI.Alligator.Adapter
             int nb = adapter.Delete(query, config.CustomData);
             DA.SetData(0, nb);
         }
+
+        /*******************************************/
     }
 }

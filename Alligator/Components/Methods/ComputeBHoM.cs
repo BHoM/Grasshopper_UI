@@ -11,16 +11,29 @@ namespace BH.UI.Alligator.Base
 {
     public class ComputeBHoM : MethodCallTemplate
     {
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
+
+        public override Guid ComponentGuid { get; } = new Guid("9A94F1C4-AF5B-48E6-B0DD-F56145DEEDDA"); 
+
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.Compute; 
+
+        public override GH_Exposure Exposure { get; } = GH_Exposure.secondary;
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
         public ComputeBHoM() : base("Compute / Analyse", "ComputeBHoM", "Run a computationally intensive calculation", "Alligator", " Engine")
         {
         }
-        public override Guid ComponentGuid { get { return new Guid("9A94F1C4-AF5B-48E6-B0DD-F56145DEEDDA"); } }
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.Compute; } }
-
-        public override GH_Exposure Exposure { get { return GH_Exposure.secondary; } }
 
 
-        /*************************************/
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         protected override Tree<MethodBase> GetRelevantMethods()
         {

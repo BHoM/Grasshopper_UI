@@ -9,11 +9,27 @@ namespace BH.UI.Alligator.Adapter
 {
     public class Execute : GH_Component
     {
-        public Execute() : base("Execute", "Execute", "Execute command in the external software", "Alligator", " Adapter") { }
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.Execute; } }
-        public override Guid ComponentGuid { get { return new Guid("1C89AF97-379F-4432-B243-9C699EB454C2"); } }
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
 
-        public override GH_Exposure Exposure { get { return GH_Exposure.primary; } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.Execute; 
+
+        public override Guid ComponentGuid { get; } = new Guid("1C89AF97-379F-4432-B243-9C699EB454C2"); 
+
+        public override GH_Exposure Exposure { get; } = GH_Exposure.primary; 
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
+        public Execute() : base("Execute", "Execute", "Execute command in the external software", "Alligator", " Adapter") { }
+
+
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -25,10 +41,14 @@ namespace BH.UI.Alligator.Adapter
             pManager[3].Optional = true;
         }
 
+        /*******************************************/
+
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddBooleanParameter("Success", "Success", "Success", GH_ParamAccess.item);
         }
+
+        /*******************************************/
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -43,5 +63,7 @@ namespace BH.UI.Alligator.Adapter
             bool success = adapter.Execute(command, parameters, config.CustomData);
             DA.SetData(0, success);
         }
+
+        /*******************************************/
     }
 }

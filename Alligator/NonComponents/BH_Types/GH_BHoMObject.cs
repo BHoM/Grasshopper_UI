@@ -13,55 +13,43 @@ namespace BH.UI.Alligator
 {
     public class GH_BHoMObject : GH_TemplateType<object>, IGH_PreviewData, IGH_BakeAwareData
     {
-        public GH_BHoMObject() : base() { }
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
 
-        /***************************************************/
+        public override string TypeName { get; } = "BHoMObject";
 
-        public GH_BHoMObject(object val) : base(val) { }
+        public override string TypeDescription { get; } = "Contains a generic BHoMObject"; 
 
-        /***************************************************/
-
-        /***************************************************/
-        /**** Properties Override                       ****/
-        /***************************************************/
-
-        public override string TypeName
-        {
-            get { return ("BHoMObject"); }
-        }
-
-        /***************************************************/
-
-        public override string TypeDescription
-        {
-            get { return ("Contains a generic BHoMObject"); }
-        }
-
-        /***************************************************/
+        public Rhino.Geometry.BoundingBox ClippingBox { get { return Boundingbox; } }
 
         public Rhino.Geometry.BoundingBox Boundingbox
         {
             get
             {
                 if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
-                if (Geometry == null) { return Rhino.Geometry.BoundingBox.Empty; }
-                BH.oM.Geometry.BoundingBox bhBox = Geometry.IBounds();
+                if (Geometry() == null) { return Rhino.Geometry.BoundingBox.Empty; }
+                BH.oM.Geometry.BoundingBox bhBox = Geometry().IBounds();
                 if (bhBox == null) { return Rhino.Geometry.BoundingBox.Empty; }
                 return bhBox.ToRhino();
             }
         }
 
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
+        public GH_BHoMObject() : base() { }
+
         /***************************************************/
 
-        public Rhino.Geometry.BoundingBox ClippingBox
-        {
-            get { return Boundingbox; }
-        }
+        public GH_BHoMObject(object val) : base(val) { }
 
 
-        /***************************************************/
-        /**** Public Methods Override                   ****/
-        /***************************************************/
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         public override IGH_Goo Duplicate()
         {
@@ -73,8 +61,8 @@ namespace BH.UI.Alligator
         public Rhino.Geometry.BoundingBox GetBoundingBox(Rhino.Geometry.Transform xform)
         {
             if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
-            if (Geometry == null) { return Rhino.Geometry.BoundingBox.Empty; }
-            BH.oM.Geometry.BoundingBox bhBox = Geometry.IBounds();
+            if (Geometry() == null) { return Rhino.Geometry.BoundingBox.Empty; }
+            BH.oM.Geometry.BoundingBox bhBox = Geometry().IBounds();
             if (bhBox == null) { return Rhino.Geometry.BoundingBox.Empty; }
             return bhBox.ToRhino();
         }
@@ -86,7 +74,7 @@ namespace BH.UI.Alligator
 
         public void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
-            if (Geometry == null) { return; }
+            if (Geometry() == null) { return; }
             /*if (typeof(BH.oM.Geometry.Mesh).IsAssignableFrom(Value.GetType()))
                 Render.RenderBHoMGeometry((Mesh)Value, args);*/
         }
@@ -106,25 +94,25 @@ namespace BH.UI.Alligator
 
         public bool BakeGeometry(RhinoDoc doc, ObjectAttributes att, out Guid obj_guid)
         {
-            obj_guid = doc.Objects.Add(Geometry.IToRhino() as Rhino.Geometry.GeometryBase, att); // TODO: Check what happend when geometry is not GeometryBase
+            obj_guid = doc.Objects.Add(Geometry().IToRhino() as Rhino.Geometry.GeometryBase, att); // TODO: Check what happend when geometry is not GeometryBase
             return true;
         }
 
+
         /***************************************************/
-        /**** Private Properties                        ****/
+        /**** Private Method                            ****/
         /***************************************************/
 
-        private IBHoMGeometry Geometry
+        private IBHoMGeometry Geometry()
         {
-            get
-            {
-                if (Value is BHoMObject)
-                    return ((BHoMObject)Value).IGeometry();
-                else if (Value is IBHoMGeometry)
-                    return Value as IBHoMGeometry;
-                else
-                    return null;
-            }
+            if (Value is BHoMObject)
+                return ((BHoMObject)Value).IGeometry();
+            else if (Value is IBHoMGeometry)
+                return Value as IBHoMGeometry;
+            else
+                return null;
         }
+
+        /***************************************************/
     }
 }

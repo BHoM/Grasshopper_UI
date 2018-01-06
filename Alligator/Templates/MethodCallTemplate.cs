@@ -582,5 +582,6 @@ namespace BH.UI.Alligator.Templates
         ToolStripDropDown m_Menu;
         IEnumerable<Tree<MethodBase>> m_MethodList = new List<Tree<MethodBase>>();
 
+        /*************************************/
     }
 }

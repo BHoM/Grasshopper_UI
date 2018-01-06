@@ -8,16 +8,30 @@ namespace BH.UI.Alligator.Adapter
 {
     public class CreateQuery : CreateObjectTemplate
     {
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
+
+        public override Guid ComponentGuid { get; } = new Guid("E1BC4C14-9F5B-4879-B8EB-CCAC49178CFE"); 
+
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.QueryAdapter; 
+
+        public override GH_Exposure Exposure { get; } = GH_Exposure.secondary; 
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
         public CreateQuery() : base("Create Query", "Query", "Creates a specific class of query", "Alligator", " Adapter")
         {
             m_MenuMaxDepth = 0;
         }
-        public override Guid ComponentGuid { get { return new Guid("E1BC4C14-9F5B-4879-B8EB-CCAC49178CFE"); } }
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.QueryAdapter; } }
-        public override GH_Exposure Exposure { get { return GH_Exposure.secondary; } }
 
 
-        /*************************************/
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         protected override IEnumerable<Type> GetRelevantTypes()
         {
@@ -25,5 +39,6 @@ namespace BH.UI.Alligator.Adapter
             return BH.Engine.Reflection.Query.BHoMTypeList().Where(x => queryType.IsAssignableFrom(x)).OrderBy(x => x.Name);
         }
 
+        /*******************************************/
     }
 }

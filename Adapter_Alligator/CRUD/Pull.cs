@@ -10,11 +10,27 @@ namespace BH.UI.Alligator.Adapter
 {
     public class Pull : GH_Component
     {
-        public Pull() : base("Pull", "Pull", "Pull objects from the external software", "Alligator", " Adapter") { }
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.Pull; } }
-        public override Guid ComponentGuid { get { return new Guid("BA3D716D-3044-4795-AC81-0FECC80781E3"); } }
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
 
-        public override GH_Exposure Exposure { get { return GH_Exposure.primary; } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.Pull; 
+
+        public override Guid ComponentGuid { get; } = new Guid("BA3D716D-3044-4795-AC81-0FECC80781E3"); 
+
+        public override GH_Exposure Exposure { get; } = GH_Exposure.primary; 
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
+        public Pull() : base("Pull", "Pull", "Pull objects from the external software", "Alligator", " Adapter") { }
+
+
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -25,10 +41,14 @@ namespace BH.UI.Alligator.Adapter
             Params.Input[2].Optional = true;
         }
 
+        /*******************************************/
+
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Objects", "Objects", "Objects obtained from the query", GH_ParamAccess.list);
         }
+
+        /*******************************************/
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -42,5 +62,7 @@ namespace BH.UI.Alligator.Adapter
             IEnumerable<object> objects = adapter.Pull(query, config.CustomData);
             DA.SetDataList(0, objects);
         }
+
+        /*******************************************/
     }
 }

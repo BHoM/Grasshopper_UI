@@ -6,25 +6,29 @@ namespace Alligator.Socket
 {
     public class FromSocket : GH_Component
     {
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
+
+        public override Guid ComponentGuid { get; } = new Guid("9C6E7D1E-48E4-4A67-BEAF-4AC2A49A0016"); 
+
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Socket_Alligator.Properties.Resources.BHoM_FromSocket; 
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
         public FromSocket() : base("From Socket", "FromSocket", "Send string to a socket", "Alligator", "Socket")
         {
             m_Socket = new BH.Adapter.Socket.SocketServer();
             m_Socket.DataObservers += MessageReceived;
         }
 
-        public override Guid ComponentGuid
-        {
-            get
-            {
-                return new Guid("9C6E7D1E-48E4-4A67-BEAF-4AC2A49A0016");
-            }
-        }
 
-        /// <summary> Icon (24x24 pixels)</summary>
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return Socket_Alligator.Properties.Resources.BHoM_FromSocket; }
-        }
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -32,10 +36,14 @@ namespace Alligator.Socket
             pManager.AddBooleanParameter("active", "active", "check if the component currently allows data transfer", GH_ParamAccess.item, false);
         }
 
+        /*******************************************/
+
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("data", "data", "data received", GH_ParamAccess.list);
         }
+
+        /*******************************************/
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -55,13 +63,26 @@ namespace Alligator.Socket
             DA.SetDataList(0, m_Message);
         }
 
-        private BH.Adapter.Socket.SocketServer m_Socket;
-        private List<object> m_Message = new List<object>();
+
+        /*******************************************/
+        /**** Private Methods                   ****/
+        /*******************************************/
 
         private void MessageReceived(List<object> message)
         {
             m_Message = message;
             ExpireSolution(true);
         }
+
+
+        /*******************************************/
+        /**** Private Fields                    ****/
+        /*******************************************/
+
+        private BH.Adapter.Socket.SocketServer m_Socket;
+        private List<object> m_Message = new List<object>();
+
+
+        /*******************************************/
     }
 }

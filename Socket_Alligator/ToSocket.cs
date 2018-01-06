@@ -6,23 +6,27 @@ namespace Alligator.Socket
 {
     public class ToSocket : GH_Component
     {
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
+
+        public override Guid ComponentGuid { get; } = new Guid("0EEFD0B8-CD8E-44FF-9144-2DF685A93EE7"); 
+
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Socket_Alligator.Properties.Resources.BHoM_ToSocket; 
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
         public ToSocket() : base("To Socket", "ToSocket", "Send string to a socket", "Alligator", "Socket")
         {
         }
 
-        public override Guid ComponentGuid
-        {
-            get
-            {
-                return new Guid("0EEFD0B8-CD8E-44FF-9144-2DF685A93EE7");
-            }
-        }
 
-        /// <summary> Icon (24x24 pixels)</summary>
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return Socket_Alligator.Properties.Resources.BHoM_ToSocket; }
-        }
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -32,10 +36,14 @@ namespace Alligator.Socket
             pManager.AddBooleanParameter("active", "active", "check if the component currently allows data transfer", GH_ParamAccess.item, false);
         }
 
+        /*******************************************/
+
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddBooleanParameter("success", "success", "data transfer succesful", GH_ParamAccess.item);
         }
+
+        /*******************************************/
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -57,8 +65,16 @@ namespace Alligator.Socket
             DA.SetData(0, success);
         }
 
+
+        /*******************************************/
+        /**** Private Fields                    ****/
+        /*******************************************/
+
         private int m_Port;
         private string m_ServerName;
         private BH.Adapter.Socket.SocketLink m_Link = null;
+
+
+        /*******************************************/
     }
 }

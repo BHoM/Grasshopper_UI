@@ -10,16 +10,29 @@ namespace BH.UI.Alligator.Base
 {
     public class ConvertBHoM : MethodCallTemplate
     {
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
+
+        public override Guid ComponentGuid { get; } = new Guid("D517E0BF-E979-4441-896E-1D2EC833FE2E");
+
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.Convert; 
+
+        public override GH_Exposure Exposure { get; } = GH_Exposure.secondary; 
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
         public ConvertBHoM() : base("Convert BHoM Object", "ConvertBHoM", "Convert a BHoMObject", "Alligator", " Engine")
         {
         }
-        public override Guid ComponentGuid { get { return new Guid("D517E0BF-E979-4441-896E-1D2EC833FE2E"); } }
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.Convert; } }
-
-        public override GH_Exposure Exposure { get { return GH_Exposure.secondary; } }
 
 
-        /*************************************/
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         protected override Tree<MethodBase> GetRelevantMethods()
         {
@@ -31,8 +44,9 @@ namespace BH.UI.Alligator.Base
                 AddMethodToTree(root, method);
             }
                 
-
             return root;
         }
+
+        /*******************************************/
     }
 }

@@ -11,49 +11,24 @@ namespace BH.UI.Alligator
 {
     public class GH_IBHoMGeometry : GH_GeometricGoo<IBHoMGeometry>, IGH_PreviewData, IGH_BakeAwareData
     {
-        /***************************************************/
-        /**** Properties Override                       ****/
-        /***************************************************/
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
 
-        public override string TypeName
-        {
-            get { return ("IBHoMGeometry"); }
-        }
+        public override string TypeName { get; } = "IBHoMGeometry";
 
-        /***************************************************/
+        public override string TypeDescription { get; } = "Contains a generic IBHoMGeometry";
 
-        public override string TypeDescription
-        {
-            get { return ("Contains a generic IBHoMGeometry"); }
-        }
+        public override bool IsValid { get { return Value != null;  } }
 
-        /***************************************************/
-
-        public override bool IsValid
-        {
-            get
-            {
-                if (Value == null) { return false; }
-                return true;
-            }
-        }
-
-        /***************************************************/
+        public Rhino.Geometry.BoundingBox ClippingBox { get { return Boundingbox; } }
 
         public override Rhino.Geometry.BoundingBox Boundingbox
         {
             get
             {
-                if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
-                return Value.IBounds().ToRhino();
+                return (Value == null) ? Rhino.Geometry.BoundingBox.Empty : Value.IBounds().ToRhino();
             }
-        }
-
-        /***************************************************/
-
-        public Rhino.Geometry.BoundingBox ClippingBox
-        {
-            get { return Boundingbox; }
         }
 
 
@@ -74,9 +49,9 @@ namespace BH.UI.Alligator
         }
 
 
-        /***************************************************/
-        /**** Public Methods Override                   ****/
-        /***************************************************/
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         public override IGH_GeometricGoo DuplicateGeometry()
         {
@@ -206,5 +181,7 @@ namespace BH.UI.Alligator
             obj_guid = doc.Objects.Add(Value.IToRhino() as Rhino.Geometry.GeometryBase, att); // TODO: Check what happend when geometry is not GeometryBase
             return true;
         }
+
+        /***************************************************/
     }
 }

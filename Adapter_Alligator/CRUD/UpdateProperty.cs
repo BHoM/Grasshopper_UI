@@ -9,11 +9,27 @@ namespace BH.UI.Alligator.Adapter
 {
     public class UpdateProperty : GH_Component
     {
-        public UpdateProperty() : base("UpdateProperty", "UpdateProperty", "Update a property of objects from the external software", "Alligator", " Adapter") { }
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.UpdateProperty; } }
-        public override Guid ComponentGuid { get { return new Guid("E050834D-F825-4299-BEA9-A3E067691925"); } }
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
 
-        public override GH_Exposure Exposure { get { return GH_Exposure.primary; } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.UpdateProperty; 
+
+        public override Guid ComponentGuid { get; } = new Guid("E050834D-F825-4299-BEA9-A3E067691925"); 
+
+        public override GH_Exposure Exposure { get; } = GH_Exposure.primary; 
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
+        public UpdateProperty() : base("UpdateProperty", "UpdateProperty", "Update a property of objects from the external software", "Alligator", " Adapter") { }
+
+
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -26,10 +42,14 @@ namespace BH.UI.Alligator.Adapter
             pManager[4].Optional = true;
         }
 
+        /*******************************************/
+
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddNumberParameter("#updated", "#updated", "Number of objects updated", GH_ParamAccess.item);
         }
+
+        /*******************************************/
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -45,5 +65,7 @@ namespace BH.UI.Alligator.Adapter
             int nb = adapter.UpdateProperty(query, property, value, config.CustomData);
             DA.SetData(0, nb);
         }
+
+        /*******************************************/
     }
 }

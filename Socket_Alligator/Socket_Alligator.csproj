@@ -76,10 +76,10 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="Resources\BHoM_FromSocket.png" />
+    <None Include="Properties\Resources\BHoM_FromSocket.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BHoM_ToSocket.png" />
+    <None Include="Properties\Resources\BHoM_ToSocket.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Alligator\Alligator.csproj">

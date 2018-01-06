@@ -8,15 +8,27 @@ namespace BH.UI.Alligator.Base
 {
     public class SetProperty : GH_Component
     {
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
+
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.BHoM_SetProperty; 
+
+        public override Guid ComponentGuid { get; } = new Guid("E3C42F6C-15AC-4FBA-8BCC-F3E773B1C1D8"); 
+
+        public override GH_Exposure Exposure { get; } = GH_Exposure.tertiary; 
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
         public SetProperty() : base("Set Property", "SetProperty", "Returns copy of object with a set property", "Alligator", " Engine") { }
 
-        /// <summary> Icon (24x24 pixels)</summary>
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return Properties.Resources.BHoM_SetProperty; }
-        }
-        public override Guid ComponentGuid { get { return new Guid("E3C42F6C-15AC-4FBA-8BCC-F3E773B1C1D8"); } }
-        public override GH_Exposure Exposure { get { return GH_Exposure.tertiary; } }
+
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -25,10 +37,14 @@ namespace BH.UI.Alligator.Base
             pManager.AddGenericParameter("value", "value", "Property value", GH_ParamAccess.item);
         }
 
+        /*******************************************/
+
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddParameter(new BHoMObjectParameter(), "BHoM object", "object", "BHoM object to convert", GH_ParamAccess.item);
         }
+
+        /*******************************************/
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -51,5 +67,7 @@ namespace BH.UI.Alligator.Base
 
             DA.SetData(0, newObject);
         }
+
+        /*******************************************/
     }
 }

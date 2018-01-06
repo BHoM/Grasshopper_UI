@@ -181,5 +181,7 @@ namespace BH.UI.Alligator
             int B = ghColor.B;           // Difference to BuroHappold Green
             return Color.FromArgb(100, R < 255 && R > 0 ? R : 0, G < 255 && G > 0 ? G : 255, B);
         }
+
+        /***************************************************/
     }
 }

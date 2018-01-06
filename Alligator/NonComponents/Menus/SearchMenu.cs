@@ -7,10 +7,19 @@ namespace BH.UI.Alligator.Menus
 {
     public static class SearchMenu
     {
+        /*******************************************/
+        /**** Public Methods                    ****/
+        /*******************************************/
+
         public static void Activate()
         {
             Grasshopper.Instances.CanvasCreated += Instances_CanvasCreated;
         }
+
+
+        /*******************************************/
+        /**** Event Methods                     ****/
+        /*******************************************/
 
         public static void Instances_CanvasCreated(GH_Canvas canvas)
         {
@@ -24,6 +33,8 @@ namespace BH.UI.Alligator.Menus
             canvas.KeyDown += ActiveCanvas_KeyDown;
         }
 
+        /*******************************************/
+
         public static void ActiveCanvas_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             bool modCtrl = (System.Windows.Forms.Control.ModifierKeys & System.Windows.Forms.Keys.Control) == System.Windows.Forms.Keys.Control;
@@ -36,5 +47,7 @@ namespace BH.UI.Alligator.Menus
                 new BH_PopupSearchDialog { BasePoint = position, Canvas = canvas }.Show(canvas.FindForm());
             }
         }
+
+        /*******************************************/
     }
 }
