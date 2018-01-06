@@ -10,16 +10,29 @@ namespace BH.UI.Alligator.Base
 {
     public class QueryBHoM : MethodCallTemplate
     {
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
+
+        public override Guid ComponentGuid { get; } = new Guid("63DA0CAC-87BC-48AC-9C49-1D1B2F06BE83"); 
+
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.Query; 
+
+        public override GH_Exposure Exposure { get; } = GH_Exposure.secondary; 
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
         public QueryBHoM() : base("Query BHoM Object", "QueryBHoM", "Query information about a BHoMObject", "Alligator", " Engine")
         {
         }
-        public override Guid ComponentGuid { get { return new Guid("63DA0CAC-87BC-48AC-9C49-1D1B2F06BE83"); } }
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.Query; } }
-
-        public override GH_Exposure Exposure { get { return GH_Exposure.secondary; } }
 
 
-        /*************************************/
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         protected override Tree<MethodBase> GetRelevantMethods()
         {
@@ -31,8 +44,9 @@ namespace BH.UI.Alligator.Base
                 AddMethodToTree(root, method);
             }
                 
-
             return root;
         }
+
+        /*******************************************/
     }
 }

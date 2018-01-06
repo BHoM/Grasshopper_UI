@@ -5,24 +5,16 @@ namespace BH.UI.Alligator
 {
     public abstract class GH_TemplateType<T> : GH_Goo<T> 
     {
-        /***************************************************/
-        /**** Properties Override                       ****/
-        /***************************************************/
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
 
-        public override bool IsValid
-        {
-            get
-            {
-                if (Value == null) { return false; }
-                return true;
-            }
-        }
+        public override bool IsValid { get { return Value != null; } }
 
 
-
-        /***************************************************/
-        /**** Constructors                              ****/
-        /***************************************************/
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
 
         public GH_TemplateType()
         {
@@ -37,9 +29,9 @@ namespace BH.UI.Alligator
         }
 
 
-        /***************************************************/
-        /**** Public Methods Override                   ****/
-        /***************************************************/
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         public override string ToString()
         {
@@ -48,10 +40,7 @@ namespace BH.UI.Alligator
             return Value.ToString();
         }
 
-
-        /***************************************************/
-        /**** Automatic casting methods                 ****/
-        /***************************************************/
+        /*******************************************/
 
         public override bool CastTo<Q>(ref Q target)
         {
@@ -82,5 +71,6 @@ namespace BH.UI.Alligator
             return true;
         }
 
+        /*******************************************/
     }
 }

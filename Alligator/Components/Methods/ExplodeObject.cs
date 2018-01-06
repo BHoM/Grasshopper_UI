@@ -15,27 +15,62 @@ namespace BH.UI.Alligator.Base
 {
     public class ExplodeJson : GH_Component, IGH_VariableParameterComponent
     {
-        public ExplodeJson() : base("Explode", "Explode", "Explode an object or dictionary into child objects", "Alligator", " Engine") { }
-        public override Guid ComponentGuid { get { return new Guid("f2080175-a812-4dfb-86de-ae7dc8245668"); } }
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.Explode; } }
-        public bool additional { get; set; }
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
 
-        public override GH_Exposure Exposure { get { return GH_Exposure.tertiary; } }
+        public override Guid ComponentGuid { get; } = new Guid("f2080175-a812-4dfb-86de-ae7dc8245668"); 
+
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.Explode; 
+        
+
+        public override GH_Exposure Exposure { get; } = GH_Exposure.tertiary; 
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
+        public ExplodeJson() : base("Explode", "Explode", "Explode an object or dictionary into child objects", "Alligator", " Engine") { }
+
+
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         public bool CanInsertParameter(GH_ParameterSide side, int index) { return false; }
+
+        /*******************************************/
+
         public bool CanRemoveParameter(GH_ParameterSide side, int index) { return false; }
-        public IGH_Param CreateParameter(GH_ParameterSide side, int index) { return new Grasshopper.Kernel.Parameters.Param_GenericObject(); }
+
+        /*******************************************/
+
+        public IGH_Param CreateParameter(GH_ParameterSide side, int index) { return new Param_GenericObject(); }
+
+        /*******************************************/
+
         public bool DestroyParameter(GH_ParameterSide side, int index) { return true; }
+
+
+        /*******************************************/
+
         public void VariableParameterMaintenance() { }
+
+        /*******************************************/
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Object", "Object", "Object", GH_ParamAccess.item);
         }
 
+        /*******************************************/
+
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
         }
+
+        /*******************************************/
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -103,29 +138,43 @@ namespace BH.UI.Alligator.Base
             }
         }
 
+        /*******************************************/
+
         protected override void AppendAdditionalComponentMenuItems(ToolStripDropDown menu)
         {
             base.AppendAdditionalComponentMenuItems(menu);
             Menu_AppendItem(menu, "Update Outputs", Menu_DoClick);
             Menu_AppendItem(menu, "Append additional data", Menu_SetTrue);
         }
+
+
+        /*******************************************/
+        /**** Private Methods                   ****/
+        /*******************************************/
+
         private void Menu_SetTrue(object sender, EventArgs e)
         {
-            if (additional) { additional = false; }
-            else { additional = false; }
+            if (m_Additional) { m_Additional = false; }
+            else { m_Additional = false; }
             UpdateOutputs();
         }
+
+        /*******************************************/
 
         private void Menu_DoClick(object sender, EventArgs e)
         {
             UpdateOutputs();
         }
 
+        /*******************************************/
+
         protected override void AfterSolveInstance()
         {
             if (Params.Output.Count() == 0)
                 UpdateOutputs();
         }
+
+        /*******************************************/
 
         private void UpdateOutputs()
         {
@@ -164,11 +213,21 @@ namespace BH.UI.Alligator.Base
                 ExpireSolution(true);
         }
 
+        /*******************************************/
+
         private Dictionary<string, object> StringifyKeys<TKey, TVal>(Dictionary<TKey, TVal> dic)
         {
             return dic.ToDictionary(x => x.Key.ToString(), x => x.Value as object);
         }
 
+
+        /*******************************************/
+        /**** Private Fields                    ****/
+        /*******************************************/
+
+        private bool m_Additional = false;
         private List<Tuple<string, Type>> m_OutputTypes = new List<Tuple<string, Type>>();
+
+        /*******************************************/
     }
 }

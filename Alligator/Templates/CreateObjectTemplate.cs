@@ -15,10 +15,27 @@ namespace BH.UI.Alligator.Templates
 {
     public abstract class CreateObjectTemplate : MethodCallTemplate
     {
+        /*************************************/
+        /**** Parts to Implement          ****/
+        /*************************************/
+
+        protected abstract IEnumerable<Type> GetRelevantTypes();    // 1. Define the list of relevant types of objects that can be created
+
+        /*************************************/
+
+        protected int m_MenuMaxDepth = 10;  // 2. Change this value to modify the maximum depth of the menu
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
         protected CreateObjectTemplate(string name, string nickname, string description, string category, string subCategory) : base(name, nickname, description, category, subCategory) { }
 
 
-        /*************************************/
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         protected override Tree<MethodBase> GetRelevantMethods()
         {
@@ -76,13 +93,5 @@ namespace BH.UI.Alligator.Templates
         }
 
         /*************************************/
-
-        protected abstract IEnumerable<Type> GetRelevantTypes();    // 1. Define the list of relevant types of objects that can be created
-
-
-        /*************************************/
-
-        protected int m_MenuMaxDepth = 10;  // 2. Change this value to modify the maximum depth of the menu
-
     }
 }

@@ -11,20 +11,47 @@ namespace BH.UI.Alligator.Base
 {
     public class VsScriptEditor : GH_Component
     {
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
+
+        public override GH_Exposure Exposure { get; } = GH_Exposure.primary; 
+
+        public override Guid ComponentGuid { get; } = new Guid("{5aa64ae8-f5f0-462f-bdea-073bcad31964}"); 
+
+        protected override Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.VS_Script; 
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
         public VsScriptEditor() : base("VS Editor", "VsEditor", "Uses a text file as the code of a scripting component.", "Alligator", "Scripting") { }
-        public override GH_Exposure Exposure { get { return GH_Exposure.primary ; } }
-        public override Guid ComponentGuid { get { return new Guid("{5aa64ae8-f5f0-462f-bdea-073bcad31964}"); } }
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.VS_Script; } }
+
+
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
+
         public override void CreateAttributes()
         {
             base.CreateAttributes();
             base.m_attributes = new Attributes_Custom(this);
         }
+
+        /*******************************************/
+
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("File", "F", "Path to the code file. Use the File Path parameter with the Syncronize option enabled.", GH_ParamAccess.item);
         }
+
+        /*******************************************/
+
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager) { }
+
+
+        /*******************************************/
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -91,15 +118,32 @@ namespace BH.UI.Alligator.Base
                 this.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, e.Message);
             }
         }
+
+        /*******************************************/
     }
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     public class Attributes_Custom : Grasshopper.Kernel.Attributes.GH_ComponentAttributes
     {
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
         public Attributes_Custom(GH_Component owner) : base(owner) { }
+
+
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         protected override void Layout()
         {
             base.Layout();
         }
+
+        /*******************************************/
 
         protected override void Render(GH_Canvas canvas, Graphics graphics, GH_CanvasChannel channel)
         {
@@ -126,5 +170,7 @@ namespace BH.UI.Alligator.Base
                 graphics.DrawString("place\r\ncomponent\r\nhere", font, Brushes.Black, rectangle, format);
             }
         }
+
+        /*******************************************/
     }
 }

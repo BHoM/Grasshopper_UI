@@ -8,16 +8,41 @@ namespace BH.UI.Alligator.Base
 {
     public class CreateDictionary : CreateCustomTemplate
     {
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
+
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.Dictionary; 
+
+        public override Guid ComponentGuid { get; } = new Guid("6758EEE1-6A49-4D2B-A7FD-974383D3622E"); 
+
+        public override GH_Exposure Exposure { get; } = GH_Exposure.primary; 
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
         public CreateDictionary() : base("Create Dictionary", "Dictionary", "Create a dictionary from a list of keys and values", "Alligator", " oM") { }
 
-        /// <summary> Icon (24x24 pixels)</summary>
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.Dictionary; } }
 
-        public override Guid ComponentGuid { get { return new Guid("6758EEE1-6A49-4D2B-A7FD-974383D3622E"); } }
-        public override GH_Exposure Exposure { get { return GH_Exposure.primary; } }
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
-        public override bool CanInsertParameter(GH_ParameterSide side, int index) { return false; }
-        public override bool CanRemoveParameter(GH_ParameterSide side, int index) { return false; }
+        public override bool CanInsertParameter(GH_ParameterSide side, int index)
+        {
+            return false;
+        }
+
+        /*******************************************/
+
+        public override bool CanRemoveParameter(GH_ParameterSide side, int index)
+        {
+            return false;
+        }
+
+        /*******************************************/
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -27,10 +52,14 @@ namespace BH.UI.Alligator.Base
             base.RegisterInputParams(pManager);
         }
 
+        /*******************************************/
+
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddParameter(new DictionaryParameter(), "", "", "Dictionary", GH_ParamAccess.item);
         }
+
+        /*******************************************/
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -50,5 +79,7 @@ namespace BH.UI.Alligator.Base
                 DA.SetData(0, dic);
             }
         }
+
+        /*******************************************/
     }
 }

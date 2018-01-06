@@ -6,23 +6,42 @@ namespace BH.UI.Alligator.Base
 {
     public class AboutGator : GH_Component
     {
-        public AboutGator()
-            : base("Alligator", "Gator",
-                "About Alligator",
-                "Alligator", " About")
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
+
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.BHoM_Alligator_Icon; 
+
+        public override Guid ComponentGuid { get; } = new Guid("{2f4c7d17-d7ce-48d3-a098-19300720eccb}");
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
+        public AboutGator() : base("Alligator", "Gator", "About Alligator", "Alligator", " About")
         {
             Menus.SearchMenu.Activate();
         }
+
+
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddBooleanParameter("Execute", "E", "Execute?", GH_ParamAccess.item);
         }
 
+        /*******************************************/
+
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.Register_StringParam("String", "S", "String output", GH_ParamAccess.list);
         }
+
+        /*******************************************/
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -30,7 +49,6 @@ namespace BH.UI.Alligator.Base
 
             if (!DA.GetData(0, ref Execute)) return;
             if (!Execute) return;
-
 
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             String versionStamp = ConvertVersionToDateBasedVersionStamp(version);
@@ -45,36 +63,11 @@ namespace BH.UI.Alligator.Base
         }
 
 
-        /// <summary>
-        /// Provides an Icon for every component that will be visible in the User Interface.
-        /// Icons need to be 24x24 pixels.
-        /// </summary>
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return Properties.Resources.BHoM_Alligator_Icon; }
-        }
+        /*******************************************/
+        /**** Private Methods                   ****/
+        /*******************************************/
 
-
-        /// <summary>
-        /// Each component must have a unique Guid to identify it. 
-        /// It is vital this Guid doesn't change otherwise old ghx files 
-        /// that use the old ID will partially fail during loading.
-        /// </summary>
-        public override Guid ComponentGuid
-        {
-            get { return new Guid("{2f4c7d17-d7ce-48d3-a098-19300720eccb}"); }
-        }
-
-
-
-
-        /// <summary>
-        /// Create version Stamp based on current build version and concatinated build date and time
-        /// TODO: move functionality to common utility namespace in the BHoM?
-        /// </summary>
-        /// <param name="version"></param>
-        /// <returns></returns>
-        static public string ConvertVersionToDateBasedVersionStamp(Version version)
+        private static string ConvertVersionToDateBasedVersionStamp(Version version)
         {
 
             DateTime date = new DateTime(2000, 01, 01).AddDays(version.Build).AddSeconds(version.Revision * 2);
@@ -90,18 +83,15 @@ namespace BH.UI.Alligator.Base
 
         }
 
-        /// <summary>
-        /// Function to ensure all integers up to '99', on conversion to string, appear as two digits with leading zero
-        /// </summary>
-        /// <param name="num"></param>
-        /// <returns></returns>
-        static string AddPreceedingZeroToUnitNumber(int num)
+        /*******************************************/
+
+        private static string AddPreceedingZeroToUnitNumber(int num)
         {
             if (num < 10) return "0" + num.ToString();
 
             return num.ToString();
-
         }
 
+        /*******************************************/
     }
 }

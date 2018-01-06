@@ -13,19 +13,58 @@ namespace BH.UI.Alligator.Base
 {
     public abstract class CreateCustomTemplate : GH_Component, IGH_VariableParameterComponent
     {
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
+
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = null;
+
+        protected virtual List<IGH_TypeHint> AvailableTypeHints { get; } = new List<IGH_TypeHint>
+        {
+            new GH_NullHint(),
+            new GH_HintSeparator(),
+            new BH_BHoMObjectHint(),
+            new BH_BHoMGeometryHint(),
+            new BH_DictionaryHint(),
+            new BH_EnumHint(),
+            new BH_TypeHint(),
+            new GH_HintSeparator(),
+            new GH_BooleanHint_CS(),
+            new GH_IntegerHint_CS(),
+            new GH_DoubleHint_CS(),
+            new GH_StringHint_CS(),
+            new GH_HintSeparator(),
+            new GH_DateTimeHint(),
+            new GH_ColorHint(),
+            new GH_GuidHint()
+        };
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
         protected CreateCustomTemplate(string name, string nickname, string description, string category, string subCategory) : base(name, nickname, description, category, subCategory) { }
 
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return null; } }
 
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         public virtual bool CanInsertParameter(GH_ParameterSide side, int index)
         {
             return (side == GH_ParameterSide.Input);
         }
+
+        /*******************************************/
+
         public virtual bool CanRemoveParameter(GH_ParameterSide side, int index)
         {
             return (side == GH_ParameterSide.Input);
         }
+
+        /*******************************************/
+
         public virtual IGH_Param CreateParameter(GH_ParameterSide side, int index)
         {
             switch (side)
@@ -44,10 +83,16 @@ namespace BH.UI.Alligator.Base
                     return null;
             }
         }
+
+        /*******************************************/
+
         public virtual bool DestroyParameter(GH_ParameterSide side, int index)
         {
             return true;
         }
+
+        /*******************************************/
+
         public virtual void VariableParameterMaintenance()
         {
             for (int i = 0; i < Params.Input.Count; i++)
@@ -63,39 +108,21 @@ namespace BH.UI.Alligator.Base
             }
         }
 
+        /*******************************************/
+
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             VariableParameterMaintenance();
         }
 
+        /*******************************************/
+
         protected override void RegisterOutputParams(GH_OutputParamManager pManager) {}
 
 
-        protected virtual List<IGH_TypeHint> AvailableTypeHints
-        {
-            get
-            {
-                return new List<IGH_TypeHint>
-                {
-                    new GH_NullHint(),
-                    new GH_HintSeparator(),
-                    new BH_BHoMObjectHint(),
-                    new BH_BHoMGeometryHint(),
-                    new BH_DictionaryHint(),
-                    new BH_EnumHint(),
-                    new BH_TypeHint(),
-                    new GH_HintSeparator(),
-                    new GH_BooleanHint_CS(),
-                    new GH_IntegerHint_CS(),
-                    new GH_DoubleHint_CS(),
-                    new GH_StringHint_CS(),
-                    new GH_HintSeparator(),
-                    new GH_DateTimeHint(),
-                    new GH_ColorHint(),
-                    new GH_GuidHint()
-                };
-            }
-        }
+        /*******************************************/
+        /**** Protected Methods                 ****/
+        /*******************************************/
 
         protected object GetItemFromParameter(IGH_DataAccess DA, int index)
         {
@@ -103,6 +130,8 @@ namespace BH.UI.Alligator.Base
             DA.GetData<IGH_Goo>(index, ref data);
             return this.TypeCast(data, index);
         }
+
+        /*******************************************/
 
         protected List<object> GetListFromParameter(IGH_DataAccess DA, int index)
         {
@@ -120,6 +149,8 @@ namespace BH.UI.Alligator.Base
                 return list2;
             }
         }
+
+        /*******************************************/
 
         protected DataTree<object> GetTreeFromParameter(IGH_DataAccess DA, int index)
         {
@@ -148,6 +179,8 @@ namespace BH.UI.Alligator.Base
             }
         }
 
+        /*******************************************/
+
         protected object TypeCast(IGH_Goo data, int index)
         {
             if (Params.Input[index] is Param_ScriptVariable)
@@ -165,6 +198,8 @@ namespace BH.UI.Alligator.Base
             }
         }
 
+        /*******************************************/
+
         protected object TypeCast(IGH_Goo data, IGH_TypeHint hint)
         {
             if (data == null)
@@ -180,5 +215,7 @@ namespace BH.UI.Alligator.Base
             hint.Cast(RuntimeHelpers.GetObjectValue(objectValue), out result);
             return result;
         }
+
+        /*******************************************/
     }
 }

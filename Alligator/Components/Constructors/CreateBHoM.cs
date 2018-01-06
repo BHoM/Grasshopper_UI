@@ -11,6 +11,21 @@ namespace BH.UI.Alligator.Base
 {
     public class CreateBHoM : CreateObjectTemplate
     {
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
+
+        public override Guid ComponentGuid { get; } = new Guid("0E1C95EB-1546-47D4-89BB-776F7920622D"); 
+
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.CreateBHoM; 
+
+        public override GH_Exposure Exposure { get; } = GH_Exposure.primary; 
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
         public CreateBHoM() : base("Create BHoM Object", "CreateBHoM", "Creates a specific class of BHoMObject", "Alligator", " oM")
         {
             string folder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Grasshopper\Libraries\Alligator\";
@@ -20,13 +35,11 @@ namespace BH.UI.Alligator.Base
                     Assembly.LoadFrom(file);
             }
         }
-        public override Guid ComponentGuid { get { return new Guid("0E1C95EB-1546-47D4-89BB-776F7920622D"); } }
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.CreateBHoM; } }
-
-        public override GH_Exposure Exposure { get { return GH_Exposure.primary; } }
 
 
-        /*************************************/
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         protected override IEnumerable<Type> GetRelevantTypes()
         {
@@ -34,6 +47,7 @@ namespace BH.UI.Alligator.Base
             Type customType = typeof(CustomObject);
             return BH.Engine.Reflection.Query.BHoMTypeList().Where(x => x.IsSubclassOf(bhomType) && !x.ContainsGenericParameters && x != customType).OrderBy(x => x.Name);
         }
-  
+
+        /*******************************************/
     }
 }

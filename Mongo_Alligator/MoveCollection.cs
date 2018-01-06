@@ -6,11 +6,23 @@ namespace Mongo_Alligator
 {
     public class MoveCollection : GH_Component
     {
-        public MoveCollection() : base("Move Collection", "MoveCollection", "Moves all the content from one collection to another. Overwrites the target collection", "Alligator", "Mongo") { }
-        public override Guid ComponentGuid { get { return new Guid("929F2358-8CCA-4368-8E7D-97EAD50BB730"); } }
-        public override GH_Exposure Exposure { get { return GH_Exposure.primary; } }
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
 
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return BH.UI.Alligator.Mongo.Properties.Resources.MoveCollection; } }
+        public override Guid ComponentGuid { get; } = new Guid("929F2358-8CCA-4368-8E7D-97EAD50BB730"); 
+
+        public override GH_Exposure Exposure { get; } = GH_Exposure.primary; 
+
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = BH.UI.Alligator.Mongo.Properties.Resources.MoveCollection;
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
+        public MoveCollection() : base("Move Collection", "MoveCollection", "Moves all the content from one collection to another. Overwrites the target collection", "Alligator", "Mongo") { }
+        
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -21,10 +33,17 @@ namespace Mongo_Alligator
 
         }
 
+
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
+
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddBooleanParameter("Success", "Success", "Success", GH_ParamAccess.item);
         }
+
+        /*******************************************/
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -42,5 +61,7 @@ namespace Mongo_Alligator
             }
             DA.SetData(0, success);
         }
+
+        /*******************************************/
     }
 }

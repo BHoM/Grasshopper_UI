@@ -5,32 +5,35 @@ namespace BH.UI.Alligator
 {
     public class GH_Enum : GH_TemplateType<Enum>
     {
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
+
+        public override string TypeName { get; } = "Enum";
+
+        public override string TypeDescription { get; } = "Defines an enum";
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
         public GH_Enum() : base() { }
 
         /***************************************************/
 
         public GH_Enum(Enum val) : base(val) { }
 
-        /***************************************************/
 
-        public override string TypeName
-        {
-            get { return ("Enum"); }
-        }
-
-        /***************************************************/
-
-        public override string TypeDescription
-        {
-            get { return ("Defines an enum"); }
-        }
-
-        /***************************************************/
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         public override IGH_Goo Duplicate()
         {
             return new GH_Enum { Value = Value };
         }
 
+        /*******************************************/
     }
 }

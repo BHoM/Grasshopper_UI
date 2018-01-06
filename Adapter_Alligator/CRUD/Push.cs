@@ -9,11 +9,27 @@ namespace BH.UI.Alligator.Adapter
 {
     public class Push : GH_Component
     {
-        public Push() : base("Push", "Push", "Push objects to the external software", "Alligator", " Adapter") { }
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.Push; } }
-        public override Guid ComponentGuid { get { return new Guid("040CEC18-C6E1-443B-B816-72B100304536"); } }
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
 
-        public override GH_Exposure Exposure { get { return GH_Exposure.primary; } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.Push; 
+
+        public override Guid ComponentGuid { get; } = new Guid("040CEC18-C6E1-443B-B816-72B100304536"); 
+
+        public override GH_Exposure Exposure { get; } = GH_Exposure.primary; 
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
+        public Push() : base("Push", "Push", "Push objects to the external software", "Alligator", " Adapter") { }
+
+
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -26,10 +42,14 @@ namespace BH.UI.Alligator.Adapter
             Params.Input[3].Optional = true;
         }
 
+        /*******************************************/
+
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddBooleanParameter("Success", "Success", "Success", GH_ParamAccess.item);
         }
+
+        /*******************************************/
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -45,5 +65,7 @@ namespace BH.UI.Alligator.Adapter
 
             DA.SetData(0, success);
         }
+
+        /*******************************************/
     }
 }

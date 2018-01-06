@@ -5,27 +5,29 @@ namespace BH.UI.Alligator
 {
     public class GH_Type : GH_TemplateType<Type>
     {
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
+
+        public override string TypeName { get; } = "Type";
+
+        public override string TypeDescription { get; } = "Defines an object Type";
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
         public GH_Type() : base() { }
 
         /***************************************************/
 
         public GH_Type(Type val) : base(val) { }
 
-        /***************************************************/
 
-        public override string TypeName
-        {
-            get { return ("Type"); }
-        }
-
-        /***************************************************/
-
-        public override string TypeDescription
-        {
-            get { return ("Defines an object Type"); }
-        }
-
-        /***************************************************/
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         public override IGH_Goo Duplicate()
         {
@@ -48,5 +50,6 @@ namespace BH.UI.Alligator
             return true;
         }
 
+        /***************************************************/
     }
 }

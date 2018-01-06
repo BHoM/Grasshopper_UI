@@ -91,5 +91,7 @@ namespace BH.UI.Alligator
             Rhino.Geometry.Intersect.Intersection.LinePlane(pointRay, nearPlane, out t);
             return pointRay.PointAt(t - 0.01);
         }
+
+        /***************************************************/
     }
 }
