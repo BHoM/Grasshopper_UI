@@ -81,13 +81,16 @@
   <ItemGroup>
     <None Include="Resources\BHoM_ToSocket.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Alligator\Alligator.csproj">
+      <Project>{2e3b219e-7bd2-4f75-bfaf-9b7735827ed4}</Project>
+      <Name>Alligator</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
-
-Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
-
-copy /Y "$(TargetDir)\Socket_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Socket_Engine.dll"</PostBuildEvent>
+    <PostBuildEvent>Copy /Y "$(TargetDir)$(ProjectName).dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
+Copy /Y "$(TargetDir)$(ProjectName).dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets" Condition="Exists('..\packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

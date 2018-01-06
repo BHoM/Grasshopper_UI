@@ -129,16 +129,8 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
-Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
-
-Copy /Y "$(TargetDir)\Mongo_Adapter.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Mongo_Adapter.dll"
-Copy /Y "$(TargetDir)\Mongo_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Mongo_Engine.dll"
-
-Copy /Y "$(TargetDir)\MongoDB.Bson.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\MongoDB.Bson.dll"
-Copy /Y "$(TargetDir)\MongoDB.Driver.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\MongoDB.Driver.dll"
-Copy /Y "$(TargetDir)\MongoDB.Driver.Core.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\MongoDB.Driver.Core.dll"
-Copy /Y "$(TargetDir)\System.Runtime.InteropServices.RuntimeInformation.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\System.Runtime.InteropServices.RuntimeInformation.dll"</PostBuildEvent>
+    <PostBuildEvent>Copy /Y "$(TargetDir)$(ProjectName).dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
+Copy /Y "$(TargetDir)$(ProjectName).dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets" Condition="Exists('..\packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

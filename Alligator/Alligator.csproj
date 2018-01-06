@@ -81,6 +81,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="UI_PostBuild">
+      <HintPath>..\..\BHoM_UI\Build\UI_PostBuild.exe</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
@@ -241,18 +244,14 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
+    <PostBuildEvent>call "$(TargetDir)UI_PostBuild.exe" "C:\Users\adecler\Documents\Development" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
 
-if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator" mkdir "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
-if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib" mkdir "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib"
-if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\packages" mkdir "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\packages"
+Copy /Y "$(TargetDir)$(ProjectName).dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
+Copy /Y "$(TargetDir)$(ProjectName).dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
 
-Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
-Copy /Y "$(TargetDir)Alligator.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
-Copy /Y "$(TargetDir)BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
-Copy /Y "$(TargetDir)Rhinoceros_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
 
-Copy /Y ..\..\BHoM_Engine\Build\*.dll "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\"</PostBuildEvent>
+
+</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
