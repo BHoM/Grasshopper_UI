@@ -245,6 +245,9 @@
   -->
   <PropertyGroup>
     <PostBuildEvent>call "$(SolutionDir)"..\"BHoM_UI\Build\UI_PostBuild.exe" ..\..\  "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
+if exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Grasshopper.dll" del "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\Grasshopper.dll"
+if exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\GH_IO.dll" del "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\GH_IO.dll"
+if exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\GH_Util.dll" del "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\GH_Util.dll"
 
 Copy /Y "$(TargetDir)$(ProjectName).dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
 Copy /Y "$(TargetDir)$(ProjectName).dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"</PostBuildEvent>
