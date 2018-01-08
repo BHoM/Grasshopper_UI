@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -236,18 +237,25 @@ namespace BH.UI.Alligator.Menus
             _inserted = false;
             m_hits = new List<GH_Hit>();
             m_message = null;
-
-
+            
             m_MethodList = new Dictionary<string, MethodInfo>();
             foreach (MethodInfo method in BH.Engine.Reflection.Query.BHoMMethodList())
             {
-                string key = GetMethodString(method);
+                try
+                {
+                    string key = GetMethodString(method);
 
-                if (m_MethodList.ContainsKey(key))
-                    Console.WriteLine(key);
+                    if (m_MethodList.ContainsKey(key))
+                        Console.WriteLine(key);
 
-                m_MethodList[key] = method;
+                    m_MethodList[key] = method;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Ouch");
+                }
             }
+            
 
             InitializeComponent();
         }
@@ -424,7 +432,7 @@ namespace BH.UI.Alligator.Menus
             {
                 { "TypeName", SelectedHit.method.DeclaringType.AssemblyQualifiedName },
                 { "MethodName", SelectedHit.method.Name },
-                { "Parameters", SelectedHit.method.GetParameters().Select(x => x.ParameterType.AssemblyQualifiedName).ToList() }
+                { "Parameters", SelectedHit.method.GetParameters().Select(x => x.ParameterType.AssemblyQualifiedName).ToList<object>() }
             };
             Canvas.InstantiateNewObject(SelectedHit.proxy.Guid, methodInfo.ToJson(), canvasPoint, true);
             FadeOut();
