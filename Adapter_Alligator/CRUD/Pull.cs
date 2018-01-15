@@ -59,10 +59,26 @@ namespace BH.UI.Alligator.Adapter
 
             if (!active) return;
 
+            Guid id = adapter.BHoM_Guid;
+            if (id != m_AdapterId)
+            {
+                m_AdapterId = id;
+                adapter.DataUpdated += Adapter_DataUpdated;
+            }
+
             IEnumerable<object> objects = adapter.Pull(query, config.CustomData);
             DA.SetDataList(0, objects);
         }
 
         /*******************************************/
+
+        private void Adapter_DataUpdated(object sender, EventArgs e)
+        {
+            ExpireSolution(true);
+        }
+
+        /*******************************************/
+
+        private Guid m_AdapterId;
     }
 }
