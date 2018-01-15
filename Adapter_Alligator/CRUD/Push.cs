@@ -61,8 +61,11 @@ namespace BH.UI.Alligator.Adapter
             bool success = false;
 
             if (active)
+            {
                 success = adapter.Push(objects, tag, config.CustomData);
-
+                System.Threading.Thread.Sleep(200);
+            }
+                
             DA.SetData(0, success);
         }
 
