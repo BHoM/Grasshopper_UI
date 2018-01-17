@@ -62,7 +62,7 @@ namespace BH.UI.Alligator.Base
             if (value.GetType().Namespace.StartsWith("Rhino.Geometry"))
                 value = Engine.Rhinoceros.Convert.ToBHoM(value as dynamic);
 
-            BHoMObject newObject = obj.GetShallowClone();
+            IObject newObject = obj.GetShallowClone();
             newObject.SetPropertyValue(key, value);
 
             DA.SetData(0, newObject);
