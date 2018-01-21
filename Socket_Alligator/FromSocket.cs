@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
+using BH.Adapter.Socket.Tcp;
 
 namespace Alligator.Socket
 {
@@ -21,8 +22,6 @@ namespace Alligator.Socket
 
         public FromSocket() : base("From Socket", "FromSocket", "Send string to a socket", "Alligator", "Socket")
         {
-            m_Socket = new BH.Adapter.Socket.SocketServer();
-            m_Socket.DataObservers += MessageReceived;
         }
 
 
@@ -32,7 +31,9 @@ namespace Alligator.Socket
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddIntegerParameter("port", "port", "port used by the socket. Value between 3000 and 9000", GH_ParamAccess.item);
+            pManager.AddTextParameter("IP address", "address", "IP address of the socket to send data to. Local 127.0.0.1 as default", GH_ParamAccess.item, "127.0.0.1");
+            pManager.AddIntegerParameter("port", "port", "port used by the socket. Value between 3000 and 9000", GH_ParamAccess.item, 8888);
+            pManager.AddTextParameter("tag", "tag", "tag attached to the data", GH_ParamAccess.item, "");
             pManager.AddBooleanParameter("active", "active", "check if the component currently allows data transfer", GH_ParamAccess.item, false);
         }
 
@@ -47,18 +48,21 @@ namespace Alligator.Socket
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            int port = 8888; DA.GetData<int>(0, ref port);
-            bool active = false; DA.GetData<bool>(1, ref active);
+            string address = ""; DA.GetData<string>(0, ref address);
+            int port = 8888; DA.GetData<int>(1, ref port);
+            string tag = ""; DA.GetData(2, ref tag);
+            bool active = false; DA.GetData<bool>(3, ref active);
 
-            if (!active)
+            if (!active) return;
+
+            if (m_Link == null || m_Port != port || m_Address != address)
             {
-                if (m_Socket.IsActive())
-                    m_Socket.Stop();
-                return;
+                m_Port = port;
+                m_Address = address;
+                m_Link = new BH.Adapter.Socket.SocketLink_Tcp(port, address);
+                m_Link.DataObservers += MessageReceived;
             }
-
-            if (!m_Socket.IsActive())
-                m_Socket.Start(port);
+            m_Tag = tag;
 
             DA.SetDataList(0, m_Message);
         }
@@ -68,10 +72,13 @@ namespace Alligator.Socket
         /**** Private Methods                   ****/
         /*******************************************/
 
-        private void MessageReceived(List<object> message)
+        private void MessageReceived(DataPackage package)
         {
-            m_Message = message;
-            ExpireSolution(true);
+            if (package.Tag == m_Tag)
+            {
+                m_Message = package.Data;
+                ExpireSolution(true);
+            }
         }
 
 
@@ -79,7 +86,10 @@ namespace Alligator.Socket
         /**** Private Fields                    ****/
         /*******************************************/
 
-        private BH.Adapter.Socket.SocketServer m_Socket;
+        private int m_Port;
+        private string m_Address;
+        private string m_Tag;
+        private BH.Adapter.Socket.SocketLink_Tcp m_Link = null;
         private List<object> m_Message = new List<object>();
 
 
