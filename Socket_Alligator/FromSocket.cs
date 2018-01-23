@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 using BH.Adapter.Socket.Tcp;
+using System.Diagnostics;
 
 namespace Alligator.Socket
 {
@@ -48,6 +49,7 @@ namespace Alligator.Socket
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            Debug.WriteLine("FromSocket entering Solve Instance at " + (DateTime.Now.Ticks / (TimeSpan.TicksPerSecond / 10)).ToString());
             string address = ""; DA.GetData<string>(0, ref address);
             int port = 8888; DA.GetData<int>(1, ref port);
             string tag = ""; DA.GetData(2, ref tag);
@@ -65,6 +67,7 @@ namespace Alligator.Socket
             m_Tag = tag;
 
             DA.SetDataList(0, m_Message);
+            Debug.WriteLine("FromSocket exiting Solve Instance at " + (DateTime.Now.Ticks / (TimeSpan.TicksPerSecond / 10)).ToString());
         }
 
 
@@ -74,6 +77,7 @@ namespace Alligator.Socket
 
         private void MessageReceived(DataPackage package)
         {
+            Debug.WriteLine("FromSocket received package at " + (DateTime.Now.Ticks / (TimeSpan.TicksPerSecond / 10)).ToString());
             if (package.Tag == m_Tag)
             {
                 m_Message = package.Data;

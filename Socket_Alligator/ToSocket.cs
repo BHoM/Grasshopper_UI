@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
+using System.Diagnostics;
 
 namespace Alligator.Socket
 {
@@ -48,6 +49,7 @@ namespace Alligator.Socket
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            Debug.WriteLine("ToSocket entering Solve Instance at " + (DateTime.Now.Ticks / (TimeSpan.TicksPerSecond / 10)).ToString());
             string address = ""; DA.GetData<string>(0, ref address);
             int port = 8888; DA.GetData<int>(1, ref port);
             string tag = ""; DA.GetData(2, ref tag);
@@ -63,6 +65,7 @@ namespace Alligator.Socket
                 m_Link = new BH.Adapter.Socket.SocketLink_Tcp(port, address);
             }
 
+            Debug.WriteLine("ToSocket Sending the data at " + (DateTime.Now.Ticks / (TimeSpan.TicksPerSecond / 10)).ToString());
             bool success = m_Link.SendData(data, tag);
             DA.SetData(0, success);
         }
