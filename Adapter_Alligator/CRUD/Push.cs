@@ -1,6 +1,7 @@
 ﻿using Grasshopper.Kernel;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BH.UI.Alligator.Base;
 using BH.oM.Base;
 using BH.Adapter;
@@ -47,6 +48,7 @@ namespace BH.UI.Alligator.Adapter
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddBooleanParameter("Success", "Success", "Success", GH_ParamAccess.item);
+            pManager.AddParameter(new BHoMObjectParameter(), "Objects", "Objects", "Pushed objects", GH_ParamAccess.list);
         }
 
         /*******************************************/
@@ -54,7 +56,7 @@ namespace BH.UI.Alligator.Adapter
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             BHoMAdapter adapter = null; DA.GetData(0, ref adapter);
-            List<BHoMObject> objects = new List<BHoMObject>(); DA.GetDataList(1, objects);
+            List<IObject> objects = new List<IObject>(); DA.GetDataList(1, objects);
             string tag = ""; DA.GetData(2, ref tag);
             CustomObject config = new CustomObject(); DA.GetData(3, ref config);
             bool active = false; DA.GetData(4, ref active);
@@ -62,8 +64,10 @@ namespace BH.UI.Alligator.Adapter
 
             if (active)
             {
-                success = adapter.Push(objects, tag, config.CustomData);
+                List<IObject> returnObjects = adapter.Push(objects, tag, config.CustomData).ToList();
+                success = returnObjects.Count == objects.Count;
                 System.Threading.Thread.Sleep(200);
+                DA.SetDataList(1, returnObjects);
             }
                 
             DA.SetData(0, success);
