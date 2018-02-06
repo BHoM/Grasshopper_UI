@@ -64,7 +64,7 @@ namespace BH.UI.Alligator.Adapter
 
             if (active)
             {
-                List<IObject> returnObjects = adapter.Push(objects, tag, config.CustomData).ToList();
+                List<IObject> returnObjects = adapter.Push(objects, tag, config.CustomData);
                 success = returnObjects.Count == objects.Count;
                 System.Threading.Thread.Sleep(200);
                 DA.SetDataList(1, returnObjects);
