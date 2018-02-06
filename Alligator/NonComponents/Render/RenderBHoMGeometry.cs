@@ -151,6 +151,14 @@ namespace BH.UI.Alligator
             args.Pipeline.DrawMeshShaded(rMesh, args.Material);
         }
 
+        /***************************************************/
+
+        public static void RenderBHoMGeometry(BHG.Mesh mesh, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        {
+            RHG.Mesh rMesh = mesh.ToRhino();
+            pipeline.DrawMeshWires(rMesh, bhColour);
+            pipeline.DrawMeshShaded(rMesh, new Rhino.Display.DisplayMaterial(bhColour));
+        }
 
         /***************************************************/
         /**** Public Methods  - Miscellanea             ****/
