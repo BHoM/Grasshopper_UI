@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BHoM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
+    </Reference>
     <Reference Include="GH_IO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97, processorArchitecture=MSIL">
       <HintPath>..\packages\Grasshopper.0.9.76\lib\net35\GH_IO.dll</HintPath>
       <Private>True</Private>
@@ -46,6 +50,9 @@
     </Reference>
     <Reference Include="Socket_Adapter">
       <HintPath>..\..\Socket_Toolkit\Build\Socket_Adapter.dll</HintPath>
+    </Reference>
+    <Reference Include="Socket_oM">
+      <HintPath>..\..\Socket_Toolkit\Build\Socket_oM.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

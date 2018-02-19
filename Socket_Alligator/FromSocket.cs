@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Grasshopper.Kernel;
-using BH.Adapter.Socket.Tcp;
+using BH.oM.Socket;
 
 namespace Alligator.Socket
 {
