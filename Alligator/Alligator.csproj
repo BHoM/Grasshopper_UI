@@ -234,6 +234,7 @@
     <Content Include="Properties\Resources\Modify.png" />
     <Content Include="Properties\Resources\Query.png" />
     <Content Include="Properties\Resources\ToJson.png" />
+    <Content Include="Properties\Resources\Type.png" />
     <Content Include="Properties\Resources\VS_Script.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
