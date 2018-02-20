@@ -534,6 +534,9 @@ namespace BH.UI.Alligator.Templates
             while (data is IGH_Goo)
                 data = ((IGH_Goo)data).ScriptVariable();
 
+            if (data == null)
+                return default(T);
+
             // Convert the data to an acceptable format
             if (data is T)
                 return (T)data;
