@@ -28,6 +28,12 @@ namespace BH.UI.Alligator.Base
 
         public CreateBHoMType() : base("Create BHoM Type", "BHoMType", "Creates a specific type definition", "Alligator", " oM")
         {
+            if (m_TypeTree == null)
+            {
+                m_TypeTree = new Tree<Type> { Name = "select a type" };
+                foreach (Type type in BH.Engine.Reflection.Query.BHoMTypeList())
+                    AddTypeToTree(m_TypeTree, type.FullName.Split('.').Skip(2), type);
+            }
         }
 
 
@@ -88,11 +94,8 @@ namespace BH.UI.Alligator.Base
         {
             base.AppendAdditionalComponentMenuItems(menu);
 
-            Tree<Type> types = new Tree<Type> { Name = "select a type" };
-            foreach (Type type in BH.Engine.Reflection.Query.BHoMTypeList())
-                AddTypeToTree(types, type.FullName.Split('.').Skip(2), type);
-            AppendTreeToMenu(types, menu);
-            AppendSearchMenu(types, menu);
+            AppendTreeToMenu(m_TypeTree, menu);
+            AppendSearchMenu(m_TypeTree, menu);
         }
 
         /*******************************************/
@@ -212,6 +215,8 @@ namespace BH.UI.Alligator.Base
         ToolStripTextBox m_SearchBox;
         ToolStripDropDown m_Menu;
         IEnumerable<Tree<Type>> m_TypeList = new List<Tree<Type>>();
+
+        static Tree<Type> m_TypeTree = null;
 
         /*******************************************/
     }
