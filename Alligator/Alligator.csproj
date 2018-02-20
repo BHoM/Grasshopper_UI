@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Components\Constructors\CreateBHoMType.cs" />
     <Compile Include="Components\Constructors\CreateBHoMEnum.cs" />
     <Compile Include="Components\Constructors\CreateDictionary.cs" />
     <Compile Include="Components\Methods\ComputeBHoM.cs" />
