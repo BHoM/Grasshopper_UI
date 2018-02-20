@@ -205,7 +205,8 @@ namespace BH.UI.Alligator.Templates
                     tree = tree.Children[part];
                 }
 
-                tree.Children.Add(type.Name, new Tree<Type> { Value = type, Name = type.Name });
+                if (!tree.Children.ContainsKey(type.Name))
+                    tree.Children.Add(type.Name, new Tree<Type> { Value = type, Name = type.Name });
             }
 
             return root;
