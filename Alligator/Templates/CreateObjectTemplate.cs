@@ -68,7 +68,8 @@ namespace BH.UI.Alligator.Templates
                 // Add the methods to the tree
                 if (methods.Length > 2)
                 {
-                    tree.Children.Add(type.Name, new Tree<MethodBase> { Name = type.Name });
+                    if (!tree.Children.ContainsKey(type.Name))
+                        tree.Children.Add(type.Name, new Tree<MethodBase> { Name = type.Name });
                     tree = tree.Children[type.Name];
 
                     foreach (MethodBase method in methods)
@@ -78,14 +79,16 @@ namespace BH.UI.Alligator.Templates
                         {
                             string name = (!method.IsConstructor && method.Name != type.Name) ? method.Name : "";
                             name = GetMethodString(name, parameters);
-                            tree.Children.Add(name, new Tree<MethodBase> { Value = method, Name = name });
+                            if (!tree.Children.ContainsKey(name))
+                                tree.Children.Add(name, new Tree<MethodBase> { Value = method, Name = name });
                         }
                     }
                 }
                 else if (methods.Length > 0)
                 {
                     MethodBase method = methods.OrderBy(x => x.GetParameters().Count()).Last();
-                    tree.Children.Add(type.Name, new Tree<MethodBase> { Value = method, Name = type.Name });
+                    if (!tree.Children.ContainsKey(type.Name))
+                        tree.Children.Add(type.Name, new Tree<MethodBase> { Value = method, Name = type.Name });
                 }
             }
 
