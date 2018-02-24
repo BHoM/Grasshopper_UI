@@ -34,7 +34,7 @@ namespace BH.UI.Alligator.Base
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddParameter(new BHoMObjectParameter(), "BHoM object", "object", "BHoM object to convert", GH_ParamAccess.item);
+            pManager.AddParameter(new IObjectParameter(), "object", "object", "Object to get property from", GH_ParamAccess.item);
             pManager.AddTextParameter("key", "key", "Property name", GH_ParamAccess.item);
         }
 
@@ -49,7 +49,7 @@ namespace BH.UI.Alligator.Base
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BHoMObject obj = new BHoMObject();
+            IObject obj = null;
             string key = "";
 
             DA.GetData(0, ref obj);

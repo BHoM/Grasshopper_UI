@@ -36,7 +36,7 @@ namespace BH.UI.Alligator.Base
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddParameter(new BHoMObjectParameter(), "BHoM object", "object", "BHoM object to convert", GH_ParamAccess.item);
+            pManager.AddParameter(new IObjectParameter(), "object", "object", "object recovered", GH_ParamAccess.item);
         }
 
         /*******************************************/

@@ -30,7 +30,7 @@ namespace BH.UI.Alligator.Base
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddParameter(new BHoMObjectParameter(), "BHoM object", "object", "BHoM object to convert", GH_ParamAccess.item);
+            pManager.AddParameter(new IObjectParameter(), "object", "object", "object to convert", GH_ParamAccess.item);
         }
 
         /*******************************************/
@@ -44,7 +44,7 @@ namespace BH.UI.Alligator.Base
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BHoMObject obj = new BHoMObject();
+            IObject obj = null;
             DA.GetData(0, ref obj);
 
             DA.SetData(0, Engine.Serialiser.Convert.ToJson(obj));

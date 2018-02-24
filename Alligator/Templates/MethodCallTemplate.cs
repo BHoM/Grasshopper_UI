@@ -495,6 +495,8 @@ namespace BH.UI.Alligator.Templates
                 p = new Param_Boolean { NickName = name };
             else if (typeof(Enum).IsAssignableFrom(type))
                 p = new EnumParameter { NickName = name };
+            else if (typeof(IObject).IsAssignableFrom(type))
+                p = new IObjectParameter { NickName = name };
             else
                 p = new Param_GenericObject { NickName = name };
 

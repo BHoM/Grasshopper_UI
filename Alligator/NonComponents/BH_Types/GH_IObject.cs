@@ -11,15 +11,15 @@ using Rhino.DocObjects;
 
 namespace BH.UI.Alligator
 {
-    public class GH_BHoMObject : GH_IObject
+    public class GH_IObject : GH_TemplateType<object>, IGH_PreviewData, IGH_BakeAwareData
     {
         /*******************************************/
         /**** Properties                        ****/
         /*******************************************/
 
-        public override string TypeName { get; } = "BHoMObject";
+        public override string TypeName { get; } = "IObject";
 
-        public override string TypeDescription { get; } = "Contains a generic BHoMObject"; 
+        public override string TypeDescription { get; } = "Contains a generic IObject"; 
 
         public Rhino.Geometry.BoundingBox ClippingBox { get { return Boundingbox; } }
 
@@ -40,11 +40,11 @@ namespace BH.UI.Alligator
         /**** Constructors                      ****/
         /*******************************************/
 
-        public GH_BHoMObject() : base() { }
+        public GH_IObject() : base() { }
 
         /***************************************************/
 
-        public GH_BHoMObject(object val) : base(val) { }
+        public GH_IObject(object val) : base(val) { }
 
 
         /*******************************************/
@@ -53,7 +53,7 @@ namespace BH.UI.Alligator
 
         public override IGH_Goo Duplicate()
         {
-            return new GH_BHoMObject { Value = Value };
+            return new GH_IObject { Value = Value };
         }
 
         /***************************************************/
@@ -85,6 +85,8 @@ namespace BH.UI.Alligator
         {
             if (Value is BHoMObject) 
                 Render.IRenderBHoMObject(Value as BHoMObject, args);
+            else if (Value is IBHoMGeometry)
+                Render.IRenderBHoMGeometry(Value as IBHoMGeometry, args);
         }
 
 

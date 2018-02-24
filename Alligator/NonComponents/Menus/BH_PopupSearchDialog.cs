@@ -252,7 +252,7 @@ namespace BH.UI.Alligator.Menus
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Ouch");
+                    Console.WriteLine("Ouch : " + e.ToString());
                 }
             }
             

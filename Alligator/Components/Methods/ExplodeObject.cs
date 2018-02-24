@@ -84,8 +84,9 @@ namespace BH.UI.Alligator.Base
             Dictionary<string, object> outputs = new Dictionary<string, object>();
             if (obj is IDictionary)
                 outputs = StringifyKeys(obj as dynamic); 
-            else
+            else if (obj is BHoMObject)
                 outputs = ((BHoMObject)obj).PropertyDictionary();
+
 
             if (obj is IDictionary)
                 m_OutputTypes = outputs.Select(x => new Tuple<string, Type>(x.Key, x.Value.GetType())).ToList();

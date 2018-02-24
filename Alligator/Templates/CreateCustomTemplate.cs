@@ -23,6 +23,7 @@ namespace BH.UI.Alligator.Base
         {
             new GH_NullHint(),
             new GH_HintSeparator(),
+            new BH_IObjectHint(),
             new BH_BHoMObjectHint(),
             new BH_BHoMGeometryHint(),
             new BH_DictionaryHint(),

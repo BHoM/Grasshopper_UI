@@ -94,6 +94,7 @@
     <Compile Include="Components\Methods\ConvertBHoM.cs" />
     <Compile Include="Components\Methods\FromJson.cs" />
     <Compile Include="Components\Methods\ToJson.cs" />
+    <Compile Include="Components\Parameters\IObjectParameter.cs" />
     <Compile Include="Components\Parameters\DictionaryParameter.cs" />
     <Compile Include="Components\Parameters\EnumParameter.cs" />
     <Compile Include="Components\Parameters\TypeParameter.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Components\Constructors\CreateBHoM.cs" />
     <Compile Include="Components\Scripting\VsScriptEditor.cs" />
     <Compile Include="NonComponents\BH_Hints\BH_BHomGeometryHint.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_IObjectHint.cs" />
     <Compile Include="NonComponents\BH_Hints\BH_TypeHint.cs" />
     <Compile Include="NonComponents\BH_Hints\BH_EnumHint.cs" />
     <Compile Include="NonComponents\BH_Hints\BH_DictionaryHint.cs" />
@@ -118,6 +120,7 @@
     <Compile Include="Components\Parameters\BHoMObjectParameter.cs" />
     <Compile Include="Components\Constructors\CreateCustomObject.cs" />
     <Compile Include="Components\Methods\ExplodeObject.cs" />
+    <Compile Include="NonComponents\BH_Types\GH_IObject.cs" />
     <Compile Include="NonComponents\BH_Types\GH_TemplateType.cs" />
     <Compile Include="NonComponents\BH_Types\GH_Dictionary.cs" />
     <Compile Include="NonComponents\BH_Types\GH_Enum.cs" />

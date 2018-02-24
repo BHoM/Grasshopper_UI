@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BH.UI.Alligator.Base
 {
-    public class BHoMObjectParameter : GH_PersistentParam<GH_BHoMObject>, IGH_PreviewObject
+    public class IObjectParameter : GH_PersistentParam<GH_IObject>, IGH_PreviewObject
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -14,9 +14,9 @@ namespace BH.UI.Alligator.Base
 
         public override GH_Exposure Exposure { get; } = GH_Exposure.tertiary;
 
-        public override Guid ComponentGuid { get; } = new Guid("d3a2b455-74d5-4b26-bdf2-bf672d1dd927"); 
+        public override Guid ComponentGuid { get; } = new Guid("B2D0BA7B-2802-491A-92C6-C55C96178598");
 
-        public override string TypeName { get; } = "BHoM Object";
+        public override string TypeName { get; } = "IObject";
 
         public bool Hidden { get; set; } = false;
 
@@ -29,8 +29,8 @@ namespace BH.UI.Alligator.Base
         /**** Constructors                      ****/
         /*******************************************/
 
-        public BHoMObjectParameter()
-            : base(new GH_InstanceDescription("BHoM object", "BHoM", "Represents a collection of generic BHoM objects", "Params", "Primitive"))
+        public IObjectParameter()
+            : base(new GH_InstanceDescription("BH IObject", "IObject", "Represents a collection of generic BH IObjects", "Params", "Primitive"))
         {
         }
 
@@ -53,14 +53,14 @@ namespace BH.UI.Alligator.Base
 
         /*******************************************/
 
-        protected override GH_GetterResult Prompt_Singular(ref GH_BHoMObject value)
+        protected override GH_GetterResult Prompt_Singular(ref GH_IObject value)
         {
             return GH_GetterResult.cancel;
         }
 
         /*******************************************/
 
-        protected override GH_GetterResult Prompt_Plural(ref List<GH_BHoMObject> values)
+        protected override GH_GetterResult Prompt_Plural(ref List<GH_IObject> values)
         {
             return GH_GetterResult.cancel;
         }
