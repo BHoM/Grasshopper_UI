@@ -481,7 +481,7 @@ namespace BH.UI.Alligator.Templates
 
             if (typeof(IBHoMGeometry).IsAssignableFrom(type))
                 p = new BHoMGeometryParameter { NickName = name };
-            else if (typeof(IObject).IsAssignableFrom(type))
+            else if (typeof(IBHoMObject).IsAssignableFrom(type))
                 p = new BHoMObjectParameter { NickName = name };
             else if (type == typeof(Type))
                 p = new TypeParameter { NickName = name };

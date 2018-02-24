@@ -54,7 +54,7 @@ namespace Alligator.Socket
             string address = ""; DA.GetData<string>(0, ref address);
             int port = 8888; DA.GetData<int>(1, ref port);
             string tag = ""; DA.GetData(2, ref tag);
-            List<IObject> data = new List<IObject>(); DA.GetDataList(3, data);
+            List<IBHoMObject> data = new List<IBHoMObject>(); DA.GetDataList(3, data);
             bool active = false; DA.GetData<bool>(4, ref active);
 
             if (!active) return;

@@ -15,7 +15,7 @@ namespace BH.UI.Alligator
         /**** Public Methods  - Interfaces              ****/
         /***************************************************/
 
-        public static bool IRenderBHoMObject(this BH.oM.Base.IObject bhObject, GH_PreviewWireArgs args)
+        public static bool IRenderBHoMObject(this BH.oM.Base.IBHoMObject bhObject, GH_PreviewWireArgs args)
         {
             if (bhObject == null) { return false; }
             args.Pipeline.ZBiasMode = 0;

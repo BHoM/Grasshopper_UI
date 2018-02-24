@@ -56,7 +56,7 @@ namespace BH.UI.Alligator.Adapter
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             BHoMAdapter adapter = null; DA.GetData(0, ref adapter);
-            List<IObject> objects = new List<IObject>(); DA.GetDataList(1, objects);
+            List<IBHoMObject> objects = new List<IBHoMObject>(); DA.GetDataList(1, objects);
             string tag = ""; DA.GetData(2, ref tag);
             CustomObject config = new CustomObject(); DA.GetData(3, ref config);
             bool active = false; DA.GetData(4, ref active);
@@ -64,7 +64,7 @@ namespace BH.UI.Alligator.Adapter
 
             if (active)
             {
-                List<IObject> returnObjects = adapter.Push(objects, tag, config.CustomData);
+                List<IBHoMObject> returnObjects = adapter.Push(objects, tag, config.CustomData);
                 success = returnObjects.Count == objects.Count;
                 System.Threading.Thread.Sleep(200);
                 DA.SetDataList(1, returnObjects);
