@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using BH.UI.Alligator.Base;
 using BH.oM.Base;
-using BH.oM.Queries;
+using BH.oM.DataManipulation.Queries;
 using BH.Adapter;
 
 namespace BH.UI.Alligator.Adapter

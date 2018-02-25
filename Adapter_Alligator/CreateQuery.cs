@@ -35,7 +35,7 @@ namespace BH.UI.Alligator.Adapter
 
         protected override IEnumerable<Type> GetRelevantTypes()
         {
-            Type queryType = typeof(BH.oM.Queries.IQuery);
+            Type queryType = typeof(BH.oM.DataManipulation.Queries.IQuery);
             return BH.Engine.Reflection.Query.BHoMTypeList().Where(x => queryType.IsAssignableFrom(x)).OrderBy(x => x.Name);
         }
 
