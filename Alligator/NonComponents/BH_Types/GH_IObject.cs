@@ -85,8 +85,8 @@ namespace BH.UI.Alligator
         {
             if (Value is BHoMObject) 
                 Render.IRenderBHoMObject(Value as BHoMObject, args);
-            else if (Value is IBHoMGeometry)
-                Render.IRenderBHoMGeometry(Value as IBHoMGeometry, args);
+            else if (Value is IGeometry)
+                Render.IRenderBHoMGeometry(Value as IGeometry, args);
         }
 
 
@@ -105,12 +105,12 @@ namespace BH.UI.Alligator
         /**** Private Method                            ****/
         /***************************************************/
 
-        private IBHoMGeometry Geometry()
+        private IGeometry Geometry()
         {
             if (Value is BHoMObject)
                 return ((BHoMObject)Value).IGeometry();
-            else if (Value is IBHoMGeometry)
-                return Value as IBHoMGeometry;
+            else if (Value is IGeometry)
+                return Value as IGeometry;
             else
                 return null;
         }

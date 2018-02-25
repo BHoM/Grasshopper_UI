@@ -9,15 +9,15 @@ using Rhino.DocObjects;
 
 namespace BH.UI.Alligator
 {
-    public class GH_IBHoMGeometry : GH_GeometricGoo<IBHoMGeometry>, IGH_PreviewData, IGH_BakeAwareData
+    public class GH_IBHoMGeometry : GH_GeometricGoo<IGeometry>, IGH_PreviewData, IGH_BakeAwareData
     {
         /*******************************************/
         /**** Properties                        ****/
         /*******************************************/
 
-        public override string TypeName { get; } = "IBHoMGeometry";
+        public override string TypeName { get; } = "IGeometry";
 
-        public override string TypeDescription { get; } = "Contains a generic IBHoMGeometry";
+        public override string TypeDescription { get; } = "Contains a generic BHoM Geometry";
 
         public override bool IsValid { get { return Value != null;  } }
 
@@ -43,7 +43,7 @@ namespace BH.UI.Alligator
 
         /***************************************************/
 
-        public GH_IBHoMGeometry(IBHoMGeometry bh)
+        public GH_IBHoMGeometry(IGeometry bh)
         {
             this.Value = bh;
         }
@@ -63,7 +63,7 @@ namespace BH.UI.Alligator
         public override string ToString()
         {
             string type = Value.GetType().ToString();
-            if (Value == null) { return "null IBHoMGeometry"; }
+            if (Value == null) { return "null IGeometry"; }
             else if (typeof(BH.oM.Geometry.Point).IsAssignableFrom(Value.GetType()))
             {
                 BH.oM.Geometry.Point pt = (BH.oM.Geometry.Point)Value;
@@ -95,8 +95,8 @@ namespace BH.UI.Alligator
         {
             if (source == null) { return false; }
 
-            else if (source is IBHoMGeometry)
-                this.Value = (IBHoMGeometry)source;
+            else if (source is IGeometry)
+                this.Value = (IGeometry)source;
             else if (source is Rhino.Geometry.GeometryBase)
                 this.Value = ((Rhino.Geometry.GeometryBase)source).IToBHoM();
             else if (source is GH_Vector)                   //TODO: Check if there are other exceptions that do not convert to GeometryBase

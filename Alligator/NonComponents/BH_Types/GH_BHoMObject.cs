@@ -103,12 +103,12 @@ namespace BH.UI.Alligator
         /**** Private Method                            ****/
         /***************************************************/
 
-        private IBHoMGeometry Geometry()
+        private IGeometry Geometry()
         {
             if (Value is BHoMObject)
                 return ((BHoMObject)Value).IGeometry();
-            else if (Value is IBHoMGeometry)
-                return Value as IBHoMGeometry;
+            else if (Value is IGeometry)
+                return Value as IGeometry;
             else
                 return null;
         }

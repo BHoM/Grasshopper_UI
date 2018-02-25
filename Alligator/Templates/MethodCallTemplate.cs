@@ -154,15 +154,15 @@ namespace BH.UI.Alligator.Templates
             {
                 if (Params.Output[0].Access == GH_ParamAccess.item)
                 {
-                    if (result is IBHoMGeometry)
-                        DA.SetData(0, ((IBHoMGeometry)result).IToRhino());
+                    if (result is IGeometry)
+                        DA.SetData(0, ((IGeometry)result).IToRhino());
                     else
                         DA.SetData(0, result);
                 }
                 else
                 {
                     if (Params.Output[0] is Param_Geometry)
-                        DA.SetDataList(0, ((IEnumerable)result).Cast<IBHoMGeometry>().Select(x => x.IToRhino()));
+                        DA.SetDataList(0, ((IEnumerable)result).Cast<IGeometry>().Select(x => x.IToRhino()));
                     else
                         DA.SetDataList(0, result as IEnumerable);
                 }
@@ -467,7 +467,7 @@ namespace BH.UI.Alligator.Templates
 
         protected void RegisterOutputParameter(Type type)
         {
-            if (typeof(IBHoMGeometry).IsAssignableFrom(type))
+            if (typeof(IGeometry).IsAssignableFrom(type))
                 Params.RegisterOutputParam(new Param_Geometry { NickName = "" });
             else
                 Params.RegisterOutputParam(GetGH_Param(type, ""));
@@ -479,7 +479,7 @@ namespace BH.UI.Alligator.Templates
         {
             dynamic p;
 
-            if (typeof(IBHoMGeometry).IsAssignableFrom(type))
+            if (typeof(IGeometry).IsAssignableFrom(type))
                 p = new BHoMGeometryParameter { NickName = name };
             else if (typeof(IBHoMObject).IsAssignableFrom(type))
                 p = new BHoMObjectParameter { NickName = name };

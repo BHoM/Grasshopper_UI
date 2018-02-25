@@ -14,7 +14,7 @@ namespace BH.UI.Alligator
         /**** Public Methods  - Interfaces              ****/
         /***************************************************/
 
-        public static void IRenderBHoMGeometry(this BHG.IBHoMGeometry geometry, GH_PreviewWireArgs args)
+        public static void IRenderBHoMGeometry(this BHG.IGeometry geometry, GH_PreviewWireArgs args)
         {
             if (geometry == null) { return; }
             args.Pipeline.ZBiasMode = 0;
@@ -28,7 +28,7 @@ namespace BH.UI.Alligator
 
         /***************************************************/
 
-        public static void IRenderBHoMGeometry(this BHG.IBHoMGeometry geometry, IGH_PreviewArgs args)
+        public static void IRenderBHoMGeometry(this BHG.IGeometry geometry, IGH_PreviewArgs args)
         {
             if (geometry == null) { return; }
             args.Display.ZBiasMode = 0;
@@ -167,7 +167,7 @@ namespace BH.UI.Alligator
         public static void RenderBHoMGeometry(BHG.CompositeGeometry composite, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
         {
             if (composite.Elements.Count == 0) { return; }
-            foreach (BHG.IBHoMGeometry geom in composite.Elements)
+            foreach (BHG.IGeometry geom in composite.Elements)
             {
                 try
                 {

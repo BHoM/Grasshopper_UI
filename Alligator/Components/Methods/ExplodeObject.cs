@@ -120,14 +120,14 @@ namespace BH.UI.Alligator.Base
                     if (typeof(IEnumerable).IsAssignableFrom(val.GetType()) && type != typeof(string) && !typeof(IDictionary).IsAssignableFrom(type))
                     {
                         if (Params.Output[i] is Param_Geometry)
-                            DA.SetDataList(i, ((IEnumerable)val).Cast<IBHoMGeometry>().Select(x => x.IToRhino()).ToList());
+                            DA.SetDataList(i, ((IEnumerable)val).Cast<IGeometry>().Select(x => x.IToRhino()).ToList());
                         else
                             DA.SetDataList(i, ((IEnumerable)val).Cast<object>().ToList());
                     }
                     else
                     {
-                        if (val is IBHoMGeometry)
-                            DA.SetData(i, ((IBHoMGeometry)val).IToRhino());
+                        if (val is IGeometry)
+                            DA.SetData(i, ((IGeometry)val).IToRhino());
                         else
                             DA.SetData(i, val);
                     }
@@ -180,7 +180,7 @@ namespace BH.UI.Alligator.Base
         private void UpdateOutputs()
         {
             Type bhomObjectType = typeof(BHoMObject);
-            Type bhomGeometryType = typeof(IBHoMGeometry);
+            Type bhomGeometryType = typeof(IGeometry);
             Type enumerableType = typeof(IEnumerable);
 
             List<string> keys = m_OutputTypes.Select(x => x.Item1).ToList();

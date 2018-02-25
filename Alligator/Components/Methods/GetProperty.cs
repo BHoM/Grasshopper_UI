@@ -59,15 +59,15 @@ namespace BH.UI.Alligator.Base
 
             if (result is IEnumerable && !(result is string) && !(result is IDictionary))
             {
-                if (typeof(IBHoMGeometry).IsAssignableFrom(((IEnumerable)result).GetType().GenericTypeArguments.First()))
-                    DA.SetDataList(0, ((IEnumerable)result).Cast<IBHoMGeometry>().Select(x => x.IToRhino()));
+                if (typeof(IGeometry).IsAssignableFrom(((IEnumerable)result).GetType().GenericTypeArguments.First()))
+                    DA.SetDataList(0, ((IEnumerable)result).Cast<IGeometry>().Select(x => x.IToRhino()));
                 else
                     DA.SetDataList(0, result as IEnumerable);
             }
             else
             {
-                if (result is IBHoMGeometry)
-                    DA.SetData(0, ((IBHoMGeometry)result).IToRhino());
+                if (result is IGeometry)
+                    DA.SetData(0, ((IGeometry)result).IToRhino());
                 else
                     DA.SetData(0, result);
             }
