@@ -1,65 +1,98 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using System.Threading;
-using GHE = Grasshopper_Engine;
+using BH.oM.Socket;
 
 namespace Alligator.Socket
 {
     public class FromSocket : GH_Component
     {
-        public FromSocket() : base("FromSocket", "FromSocket", "Send string to a socket", "Alligator", "Socket")
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
+
+        public override Guid ComponentGuid { get; } = new Guid("9C6E7D1E-48E4-4A67-BEAF-4AC2A49A0016"); 
+
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Socket_Alligator.Properties.Resources.BHoM_FromSocket; 
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
+        public FromSocket() : base("From Socket", "FromSocket", "Send string to a socket", "Alligator", "Socket")
         {
-            m_Socket = new Socket_Engine.SocketServer();
-            m_Socket.MessageReceived += MessageReceived;
         }
 
-        public override Guid ComponentGuid
-        {
-            get
-            {
-                return new Guid("9C6E7D1E-48E4-4A67-BEAF-4AC2A49A0016");
-            }
-        }
 
-        /// <summary> Icon (24x24 pixels)</summary>
-        protected override System.Drawing.Bitmap Internal_Icon_24x24
-        {
-            get { return Socket_Alligator.Properties.Resources.BHoM_FromSocket; }
-        }
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddIntegerParameter("port", "port", "port used by the socket. Value between 3000 and 9000", GH_ParamAccess.item);
+            pManager.AddTextParameter("IP address", "address", "IP address of the socket to send data to. Local 127.0.0.1 as default", GH_ParamAccess.item, "127.0.0.1");
+            pManager.AddIntegerParameter("port", "port", "port used by the socket. Value between 3000 and 9000", GH_ParamAccess.item, 8888);
+            pManager.AddTextParameter("tag", "tag", "tag attached to the data", GH_ParamAccess.item, "");
             pManager.AddBooleanParameter("active", "active", "check if the component currently allows data transfer", GH_ParamAccess.item, false);
         }
 
+        /*******************************************/
+
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("data", "data", "data received", GH_ParamAccess.item);
+            pManager.AddGenericParameter("data", "data", "data received", GH_ParamAccess.list);
         }
+
+        /*******************************************/
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            int port = 8888; DA.GetData<int>(0, ref port);
-            bool active = false; DA.GetData<bool>(1, ref active);
+            string address = ""; DA.GetData<string>(0, ref address);
+            int port = 8888; DA.GetData<int>(1, ref port);
+            string tag = ""; DA.GetData(2, ref tag);
+            bool active = false; DA.GetData<bool>(3, ref active);
 
             if (!active) return;
 
-            m_Socket.Listen(port);
-            DA.SetData(0, m_Message);
+            if (m_Link == null || m_Port != port || m_Address != address)
+            {
+                m_Port = port;
+                m_Address = address;
+                m_Link = new BH.Adapter.Socket.SocketLink_Tcp(port, address);
+                m_Link.DataObservers += MessageReceived;
+            }
+            m_Tag = tag;
+
+            DA.SetDataList(0, m_Message);
         }
 
-        private Socket_Engine.SocketServer m_Socket;
-        private String m_Message = "";
 
-        private void MessageReceived(string message)
+        /*******************************************/
+        /**** Private Methods                   ****/
+        /*******************************************/
+
+        private void MessageReceived(DataPackage package)
         {
-            m_Message = message;
-            ExpireSolution(true);
+            if (package.Tag == m_Tag)
+            {
+                m_Message = package.Data;
+                ExpireSolution(true);
+            }
         }
+
+
+        /*******************************************/
+        /**** Private Fields                    ****/
+        /*******************************************/
+
+        private int m_Port;
+        private string m_Address;
+        private string m_Tag;
+        private BH.Adapter.Socket.SocketLink_Tcp m_Link = null;
+        private List<object> m_Message = new List<object>();
+
+
+        /*******************************************/
     }
 }

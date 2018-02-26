@@ -1,24 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using GHE = Grasshopper_Engine;
-using MA = Mongo_Adapter;
+using MA = BH.Adapter.Mongo;
 
 namespace Mongo_Alligator
 {
     public class MoveCollection : GH_Component
     {
-        public MoveCollection() : base("MoveCollection", "MoveCollection", "Moves all the content from one collection to another. Overwrites the target collection", "Alligator", "Mongo") { }
-        public override Guid ComponentGuid
-        {
-            get
-            {
-                return new Guid("929F2358-8CCA-4368-8E7D-97EAD50BB730");
-            }
-        }
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
+
+        public override Guid ComponentGuid { get; } = new Guid("929F2358-8CCA-4368-8E7D-97EAD50BB730"); 
+
+        public override GH_Exposure Exposure { get; } = GH_Exposure.primary; 
+
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = BH.UI.Alligator.Mongo.Properties.Resources.MoveCollection;
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
+        public MoveCollection() : base("Move Collection", "MoveCollection", "Moves all the content from one collection to another. Overwrites the target collection", "Alligator", "Mongo") { }
+        
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -29,32 +33,35 @@ namespace Mongo_Alligator
 
         }
 
+
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
+
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddBooleanParameter("Success", "Success", "Success", GH_ParamAccess.item);
         }
 
+        /*******************************************/
+
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            MA.MongoLink source = GHE.DataUtils.GetData<MA.MongoLink>(DA, 0);
-            MA.MongoLink target = GHE.DataUtils.GetData<MA.MongoLink>(DA, 1);
-            bool overwrite = GHE.DataUtils.GetData<bool>(DA, 2);
+            MA.MongoAdapter source = new BH.Adapter.Mongo.MongoAdapter();
+            MA.MongoAdapter target = new BH.Adapter.Mongo.MongoAdapter();
+            bool overwrite = false, active = false, success = false;
+            DA.GetData(0, ref source);
+            DA.GetData(1, ref target);
+            DA.GetData(2, ref overwrite);
+            DA.GetData(3, ref overwrite);
 
-            bool success = false;
-            if (GHE.DataUtils.Run(DA, 3))
+            if (active)
             {
                 success = source.MoveCollection(target, overwrite);
             }
-
             DA.SetData(0, success);
         }
 
-        public override GH_Exposure Exposure
-        {
-            get
-            {
-                return GH_Exposure.secondary;
-            }
-        }
+        /*******************************************/
     }
 }
