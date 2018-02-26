@@ -84,16 +84,16 @@ namespace BH.UI.Alligator.Base
             Dictionary<string, object> outputs = new Dictionary<string, object>();
             if (obj is IDictionary)
                 outputs = StringifyKeys(obj as dynamic); 
-            else if (obj is BHoMObject)
-                outputs = ((BHoMObject)obj).PropertyDictionary();
+            else if (obj is IObject)
+                outputs = (obj).PropertyDictionary();
 
 
-            if (obj is IDictionary)
-                m_OutputTypes = outputs.Select(x => new Tuple<string, Type>(x.Key, x.Value.GetType())).ToList();
-            else if (obj is CustomObject)
-                m_OutputTypes = outputs.Select(x => new Tuple<string, Type>(x.Key, (x.Value == null) ? typeof(object) : x.Value.GetType())).ToList();
-            else
-                m_OutputTypes = obj.GetType().GetProperties().Where(x => x.CanRead && x.CanWrite).Select(x => new Tuple<string, Type>(x.Name, x.PropertyType)).ToList();
+            //if (obj is IDictionary)
+            //    m_OutputTypes = outputs.Select(x => new Tuple<string, Type>(x.Key, x.Value.GetType())).ToList();
+            //else if (obj is CustomObject)
+            m_OutputTypes = outputs.Select(x => new Tuple<string, Type>(x.Key, (x.Value == null) ? typeof(object) : x.Value.GetType())).ToList();
+            //else
+            //    m_OutputTypes = obj.GetType().GetProperties().Where(x => x.CanRead && x.CanWrite).Select(x => new Tuple<string, Type>(x.Name, x.PropertyType)).ToList();
 
             List<string> keys = outputs.Keys.ToList();
             if (keys.Count == Params.Output.Count)
