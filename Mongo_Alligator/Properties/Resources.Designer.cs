@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Mongo_Alligator.Properties {
+namespace BH.UI.Alligator.Mongo.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Mongo_Alligator.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Mongo_Alligator.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BH.UI.Alligator.Mongo.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -146,6 +146,16 @@ namespace Mongo_Alligator.Properties {
         internal static System.Drawing.Bitmap BHoM_Mongo_ToJson {
             get {
                 object obj = ResourceManager.GetObject("BHoM_Mongo_ToJson", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MoveCollection {
+            get {
+                object obj = ResourceManager.GetObject("MoveCollection", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

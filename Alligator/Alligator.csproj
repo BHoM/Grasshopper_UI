@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug64</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -8,12 +8,14 @@
     <ProjectGuid>{2E3B219E-7BD2-4F75-BFAF-9B7735827ED4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Alligator</RootNamespace>
+    <RootNamespace>BH.UI.Alligator.Base</RootNamespace>
     <AssemblyName>Alligator</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug64|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -37,392 +39,206 @@
     <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BHoM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="BHoM">
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
     </Reference>
-    <Reference Include="GH_IO">
-      <HintPath>..\External Libraries\GH_IO.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="BHoM_Engine">
+      <HintPath>..\..\BHoM_Engine\Build\BHoM_Engine.dll</HintPath>
     </Reference>
-    <Reference Include="Grasshopper">
-      <HintPath>..\External Libraries\Grasshopper.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Geometry_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BHoM_Engine\Build\Geometry_Engine.dll</HintPath>
     </Reference>
-    <Reference Include="Grasshopper_Engine">
-      <HintPath>..\Build\Grasshopper_Engine.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="GH_IO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grasshopper.0.9.76\lib\net35\GH_IO.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Grasshopper, Version=1.0.0.20, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grasshopper.0.9.76\lib\net35\Grasshopper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Reflection_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BHoM_Engine\Build\Reflection_Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhinoceros_Engine">
+      <HintPath>..\..\Rhinoceros_Toolkit\Build\Rhinoceros_Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="RhinoCommon, Version=5.1.30000.16, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoCommon.5.12.50810.13095\lib\net35\RhinoCommon.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Script, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Script.dll</HintPath>
+    </Reference>
+    <Reference Include="Serialiser_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BHoM_Engine\Build\Serialiser_Engine.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="RhinoCommon">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Rhinoceros 5 (64-bit)\System\RhinoCommon.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="UI_PostBuild">
+      <HintPath>..\..\BHoM_UI\Build\UI_PostBuild.exe</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\BHoMParam.cs" />
-    <Compile Include="Base\CustomData.cs" />
-    <Compile Include="Base\GetPropertyNames.cs" />
-    <Compile Include="Base\ListExpandAndCollapse.cs" />
-    <Compile Include="Environmental\Elements\CreateSpace.cs" />
-    <Compile Include="Environmental\Elements\CreateWall.cs" />
-    <Compile Include="Environmental\Elements\CreatePanel.cs" />
-    <Compile Include="Geometry\ExtrudeBar.cs" />
-    <Compile Include="Geometry\FromGHGeometry.cs" />
-    <Compile Include="Geometry\GetGeometry.cs" />
-    <Compile Include="Geometry\ToGHGeometry.cs" />
-    <Compile Include="Material\LoadMaterialFromDB.cs" />
-    <Compile Include="SQL\FromSQL.cs" />
-    <Compile Include="SQL\SQLLink.cs" />
-    <Compile Include="Structural\Application\FileIO.cs" />
-    <Compile Include="Structural\Commands\ClearResults.cs" />
-    <Compile Include="Structural\Commands\CloseFile.cs" />
-    <Compile Include="Structural\Commands\RunAnalysis.cs" />
-    <Compile Include="Structural\Commands\SaveFile.cs" />
-    <Compile Include="Structural\Elements\CreateGroup.cs" />
-    <Compile Include="Base\ObjectFilter.cs" />
-    <Compile Include="Base\ViewCustomData.cs" />
-    <Compile Include="Components\AboutGatorComponent.cs" />
-    <Compile Include="AlligatorInfo.cs" />
-    <Compile Include="Base\FromJSON.cs" />
-    <Compile Include="Base\GetProperty.cs" />
-    <Compile Include="Base\SetProperty.cs" />
-    <Compile Include="Base\ToJSON.cs" />
-    <Compile Include="Geometry\Curve\Polyline.cs" />
-    <Compile Include="Geometry\Curve\Line.cs" />
-    <Compile Include="Geometry\Group.cs" />
-    <Compile Include="Geometry\Vector\Point.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Components\Constructors\CreateBHoMType.cs" />
+    <Compile Include="Components\Constructors\CreateBHoMEnum.cs" />
+    <Compile Include="Components\Constructors\CreateDictionary.cs" />
+    <Compile Include="Components\Methods\ComputeBHoM.cs" />
+    <Compile Include="Components\Methods\ConvertBHoM.cs" />
+    <Compile Include="Components\Methods\FromJson.cs" />
+    <Compile Include="Components\Methods\ToJson.cs" />
+    <Compile Include="Components\Parameters\IObjectParameter.cs" />
+    <Compile Include="Components\Parameters\DictionaryParameter.cs" />
+    <Compile Include="Components\Parameters\EnumParameter.cs" />
+    <Compile Include="Components\Parameters\TypeParameter.cs" />
+    <Compile Include="Components\Scripting\BH_CSNET_Script.cs" />
+    <Compile Include="Components\Scripting\BH_VBNET_Script.cs" />
+    <Compile Include="Components\Methods\ModifyBHoM.cs" />
+    <Compile Include="Components\Methods\QueryBHoM.cs" />
+    <Compile Include="Components\Constructors\CreateBHoM.cs" />
+    <Compile Include="Components\Scripting\VsScriptEditor.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_BHomGeometryHint.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_IObjectHint.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_TypeHint.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_EnumHint.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_DictionaryHint.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_BHomObjectHint.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_LineHint.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_MeshHint.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_NurbCurveHint.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_PointHint.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_PolylineHint.cs" />
+    <Compile Include="NonComponents\BH_Hints\BH_VectorHint.cs" />
+    <Compile Include="Components\Parameters\BHoMGeometryParameter.cs" />
+    <Compile Include="Components\Parameters\BHoMObjectParameter.cs" />
+    <Compile Include="Components\Constructors\CreateCustomObject.cs" />
+    <Compile Include="Components\Methods\ExplodeObject.cs" />
+    <Compile Include="NonComponents\BH_Types\GH_IObject.cs" />
+    <Compile Include="NonComponents\BH_Types\GH_TemplateType.cs" />
+    <Compile Include="NonComponents\BH_Types\GH_Dictionary.cs" />
+    <Compile Include="NonComponents\BH_Types\GH_Enum.cs" />
+    <Compile Include="NonComponents\Menus\BH_PopupSearchDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NonComponents\Menus\SearchMenu.cs" />
+    <Compile Include="NonComponents\Render\RenderBHoMObject.cs" />
+    <Compile Include="NonComponents\BH_Types\GH_Type.cs" />
+    <Compile Include="NonComponents\BH_Types\GH_IBHoMGeometry.cs" />
+    <Compile Include="NonComponents\BH_Types\GH_BHoMObject.cs" />
+    <Compile Include="NonComponents\Render\RenderBHoMGeometry.cs" />
+    <Compile Include="Components\AboutGator.cs" />
+    <Compile Include="Components\Methods\GetProperty.cs" />
+    <Compile Include="Components\Methods\SetProperty.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Structural\Elements\CreateBar.cs" />
-    <Compile Include="Structural\Elements\CreateFEMesh.cs" />
-    <Compile Include="Structural\Elements\CreateRigidLink.cs" />
-    <Compile Include="Structural\Elements\Design\CreateDesignElement.cs" />
-    <Compile Include="Structural\Elements\Design\CreateFromConnectedBars.cs" />
-    <Compile Include="Structural\Elements\Design\GenerateSpans.cs" />
-    <Compile Include="Structural\Elements\Design\SetEffectiveLength.cs" />
-    <Compile Include="Structural\Elements\Design\SetSectionPropertyToDesignElem.cs" />
-    <Compile Include="Structural\Elements\ExportBar.cs" />
-    <Compile Include="Structural\Elements\ExportBarDesignElement.cs" />
-    <Compile Include="Structural\Elements\ExportFEMesh.cs" />
-    <Compile Include="Structural\Elements\ExportGroup.cs" />
-    <Compile Include="Structural\Elements\ExportRigidLink.cs" />
-    <Compile Include="Structural\Elements\Grid.cs" />
-    <Compile Include="Structural\Elements\ImportDesignElement.cs" />
-    <Compile Include="Structural\Elements\Level.cs" />
-    <Compile Include="Structural\Elements\Opening.cs" />
-    <Compile Include="Structural\Loads\CustomLoadGrouping\AplyGroupToLoadObject.cs" />
-    <Compile Include="Structural\Loads\CustomLoadGrouping\CheckLoadRegionContainment.cs" />
-    <Compile Include="Structural\Loads\CreateBarLoad.cs" />
-    <Compile Include="Structural\Loads\CreateGravityLoad.cs" />
-    <Compile Include="Structural\Loads\CreateLoadCombination.cs" />
-    <Compile Include="Structural\Loads\CreateNodalLoad.cs" />
-    <Compile Include="Structural\Loads\CustomLoadGrouping\GroupByPropertyName.cs" />
-    <Compile Include="Structural\Loads\ImportLoad.cs" />
-    <Compile Include="Structural\Loads\ImportLoadcases.cs" />
-    <Compile Include="Structural\Loads\UniformAreaLoad.cs" />
-    <Compile Include="Structural\ModelTracker\GenerateBarTrackers.cs" />
-    <Compile Include="Structural\ModelTracker\StoreModelTrackingData.cs" />
-    <Compile Include="Structural\Properties\BarAttributesContainer.cs" />
-    <Compile Include="Structural\Properties\BarOffset.cs" />
-    <Compile Include="Structural\Properties\Constraints\CreateBarRelease.cs" />
-    <Compile Include="Structural\Properties\Constraints\CreateLinkConstraint.cs" />
-    <Compile Include="Structural\Properties\CreateBarAttributes.cs" />
-    <Compile Include="Structural\Properties\Constraints\BarConstraint.cs" />
-    <Compile Include="Structural\Properties\Constraints\DoF.cs" />
-    <Compile Include="Structural\Loads\Load.cs" />
-    <Compile Include="Structural\Loads\Loadcase.cs" />
-    <Compile Include="Material\Material.cs" />
-    <Compile Include="Structural\Properties\Section Properties\CompositeSection.cs" />
-    <Compile Include="Structural\Properties\Section Properties\ConcreteSection.cs" />
-    <Compile Include="Structural\Properties\Section Properties\CreateBoxSection.cs" />
-    <Compile Include="Structural\Properties\Section Properties\CreateCableSectionFromDiameter.cs" />
-    <Compile Include="Structural\Properties\Section Properties\CreateExplicitSection.cs" />
-    <Compile Include="Structural\Properties\Section Properties\GH_InputParamManager.cs" />
-    <Compile Include="Structural\Properties\Section Properties\LoadingPanelProperty.cs" />
-    <Compile Include="Structural\Properties\Section Properties\LoadSteelSectionFromDB.cs" />
-    <Compile Include="Structural\Properties\Section Properties\PanelProperty.cs" />
-    <Compile Include="Structural\Properties\Section Properties\CreateCustomSectionProperty.cs" />
-    <Compile Include="Structural\Properties\Section Properties\SectionProperty.cs" />
-    <Compile Include="Structural\Elements\ImportBar.cs" />
-    <Compile Include="Structural\Elements\Node.cs" />
-    <Compile Include="Structural\Properties\Constraints\NodeConstraint.cs" />
-    <Compile Include="Structural\Elements\Panel.cs" />
-    <Compile Include="Structural\Properties\Section Properties\SteelSection.cs" />
-    <Compile Include="Structural\Results\BarResults.cs" />
-    <Compile Include="Structural\Results\BarUtilisation.cs" />
-    <Compile Include="Structural\Results\NodeResults.cs" />
-    <Compile Include="Structural\Results\PanelResults.cs" />
-    <Compile Include="Structural\Results\PushResultsToDataBase.cs" />
-    <Compile Include="Structural\Results\ResultServer.cs" />
-    <Compile Include="Structural\Results\SlabReinforcementResults.cs" />
+    <Compile Include="Templates\CreateCustomTemplate.cs" />
+    <Compile Include="Templates\CreateEnumTemplate.cs" />
+    <Compile Include="Templates\MethodCallTemplate.cs" />
+    <Compile Include="Templates\CreateObjectTemplate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\bar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_Alligator_Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_App_Clean.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_App_Close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_App_Run.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_App_Save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_BHoM_Object.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_Create_CustomData.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_Filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_FromJSON.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_GetProperty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_GetPropertyNames.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_Material.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_Read _CustomData.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_Run_Analasis.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_SetProperty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BHoM_ToJSON.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\BS_Script.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\DOF.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\gator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\node.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\skeleton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources\VBH_Script.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-    <None Include="packages.config" />
-    <None Include="Resources\Icons\Alligator\gator.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Alligator\skeleton.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Alligator\DOF.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Global\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Loads\BHoM_BarForce.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_Constraint.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Grid.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Grid_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Grid_Import.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Level.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Level_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Level_Import.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Loads\BHoM_LoadCase.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Results\BHoM_LoadResults.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_Material.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_Material_List.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Loads\BHoM_NodeForce.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Opening.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Opening_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Opening_Import.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Panel.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Panel_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Panel_Import.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_PanelProperty.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_RigidLink.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_RigidLink_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_Section_List.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_SectionProperty.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Results\BHoM_StoreResults.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Bar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_Bar_Attributes.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Bar_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Loads\BHoM_Bar_Force_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Loads\BHoM_Bar_Force_Import.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Loads\BHoM_Bar_Gravity.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Bar_Import.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Loads\BHoM_Bar_Prestress.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Node_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Node_Import.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Node.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Results\BHoM_GetNodeReaction.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Results\BHoM_GetPanelForce.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Results\BHoM_GetBarForce.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Results\BHoM_GetNodeDisplacement.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Group.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Group_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Results\BHoM_GetPanelStress.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Alligator\BHoM_ToJSON.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Alligator\BHoM_FromJSON.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Loads\BHoM_LoadCase_Combination.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Loads\BHoM_LoadCase_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Mesh.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Elements\BHoM_Mesh_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Apps\BHoM_GSA_App.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Apps\BHoM_Revit_App.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Apps\BHoM_ROBO_App.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Alligator\BHoM_GetProperty.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Alligator\BHoM_SetProperty.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Alligator\BHoM_Filter.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Alligator\BHoM_Create_CustomData.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Alligator\BHoM_Read _CustomData.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_Custom_Box_Section.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_Custom_Cable_Section.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Geometry\BHoM_Element_Geometry.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Geometry\BHoM_Extrude_Bar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Alligator\BHoM_GetPropertyNames.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_Layer_Reinforcement.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_Panel_Loading.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_Perimiter_Reinforcement.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_Tie_Reinforcement.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icons\Structure\Properties\BHoM_ConcreteSection.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BHoM_Loadcase_Import.png" />
-    <None Include="Resources\BHoM_Run_Analasis.png" />
-    <None Include="Resources\BHoM_AreaLoad.png" />
-    <None Include="Resources\BHoM_Bar_Constraints.png" />
-    <None Include="Resources\BHoM_DesignBar_Export.png" />
-    <None Include="Resources\BHoM_DesignBar_Import.png" />
-    <None Include="Resources\BHoM_BarOffsets.png" />
-    <None Include="Resources\BHoM_Extrude_Bar.png" />
-    <None Include="Resources\BHoM_Geometry_Group.png" />
-    <None Include="Resources\BHoM_Line.png" />
-    <None Include="Resources\BHoM_Point.png" />
-    <None Include="Resources\BHoM_PolyLine.png" />
-    <None Include="Resources\BHoM_App_Run.png" />
-    <None Include="Resources\BHoM_App_Save.png" />
-    <None Include="Resources\BHoM_App_Clean.png" />
-    <None Include="Resources\BHoM_App_Close.png" />
-    <None Include="Resources\BHoM_GetBarForce.png" />
-    <None Include="Resources\BHoM_GetNodeDisplacement.png" />
-    <None Include="Resources\BHoM_GetNodeReaction.png" />
-    <None Include="Resources\BHoM_GetPanelForce.png" />
-    <None Include="Resources\BHoM_GetPanelStress.png" />
-    <None Include="Resources\BHoM_Get_Bar_Coordinates.png" />
-    <None Include="Resources\BHoM_Get_BarUtilisation.png" />
-    <None Include="Resources\BHoM_Get_Node_Coordinates.png" />
-    <None Include="Resources\BHoM_Get_Slabreinforcement.png" />
-    <None Include="Resources\BHoM_Composite_Section.png" />
-    <None Include="Resources\BHoM_Geo_GHToBH.png" />
-    <None Include="Resources\BHoM_Geo_BHToGH.png" />
-    <None Include="Resources\BHoM_Alligator_Icon.png" />
-    <None Include="Resources\BHoM_SQL_GetObject.png" />
-    <None Include="Resources\BHoM_SQL_Link.png" />
-    <Content Include="Resources\Icons\Alligator\BHoM_BHoM_Object.png" />
+    <Content Include="Properties\Resources\Compute.png" />
+    <Content Include="Properties\Resources\Convert.png" />
+    <Content Include="Properties\Resources\CreateBHoM.png" />
+    <Content Include="Properties\Resources\CustomObject.png" />
+    <Content Include="Properties\Resources\Dictionary.png" />
+    <Content Include="Properties\Resources\Enum.png" />
+    <Content Include="Properties\Resources\Explode.png" />
+    <Content Include="Properties\Resources\FromJson.png" />
+    <Content Include="Properties\Resources\Modify.png" />
+    <Content Include="Properties\Resources\Query.png" />
+    <Content Include="Properties\Resources\ToJson.png" />
+    <Content Include="Properties\Resources\Type.png" />
+    <Content Include="Properties\Resources\VS_Script.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -433,17 +249,14 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
+    <PostBuildEvent>call "$(TargetDir)UI_PostBuild.exe" ..\..\ "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
 
-Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
+Copy /Y "$(TargetDir)$(ProjectName).dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
+Copy /Y "$(TargetDir)$(ProjectName).dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
 
-copy /Y "$(TargetDir)\RobotToolKit.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\RobotToolKit.dll"
 
-copy /Y "$(TargetDir)\Databases_Engine.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Databases_Engine.dll"
 
-copy /Y "$(TargetDir)\BHoM.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM.dll"
-
-copy /Y "$(TargetDir)\Newtonsoft.Json.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Newtonsoft.Json.dll"</PostBuildEvent>
+</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
@@ -460,4 +273,13 @@ copy /Y "$(TargetDir)\Newtonsoft.Json.dll" "C:\Users\$(Username)\AppData\Roaming
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
+  <Import Project="..\packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets" Condition="Exists('..\packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets'))" />
+    <Error Condition="!Exists('..\packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets'))" />
+  </Target>
+  <Import Project="..\packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets" Condition="Exists('..\packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets')" />
 </Project>
