@@ -38,7 +38,17 @@ namespace BH.UI.Alligator.Templates
 
         protected virtual void AddMethodToTree(Tree<MethodBase> tree, MethodBase method) //2. Helper function to build your catalogue of methods
         {
-            ParameterInfo[] parameters = method.GetParameters();
+            ParameterInfo[] parameters;
+
+            try
+            {
+                parameters = method.GetParameters();
+            }
+            catch (Exception)
+            {
+                return;
+            }
+
             string typeName = "Global";
             if (parameters.Length > 0)
             {
