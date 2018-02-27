@@ -74,7 +74,15 @@ namespace BH.UI.Alligator.Templates
 
                     foreach (MethodBase method in methods)
                     {
-                        ParameterInfo[] parameters = method.GetParameters();
+                        ParameterInfo[] parameters;
+                        try
+                        {
+                            parameters = method.GetParameters();
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
                         if (parameters.Length > 0)
                         {
                             string name = (!method.IsConstructor && method.Name != type.Name) ? method.Name : "";
@@ -86,7 +94,16 @@ namespace BH.UI.Alligator.Templates
                 }
                 else if (methods.Length > 0)
                 {
-                    MethodBase method = methods.OrderBy(x => x.GetParameters().Count()).Last();
+                    MethodBase method;
+                    try
+                    {
+                        method = methods.OrderBy(x => x.GetParameters().Count()).Last();
+                    }
+                    catch (Exception)
+                    {
+                        continue;
+                    }
+
                     if (!tree.Children.ContainsKey(type.Name))
                         tree.Children.Add(type.Name, new Tree<MethodBase> { Value = method, Name = type.Name });
                 }
