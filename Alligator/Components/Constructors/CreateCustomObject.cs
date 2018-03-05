@@ -7,6 +7,8 @@ using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Parameters.Hints;
 using System.Runtime.CompilerServices;
 using BH.oM.Base;
+using RG = Rhino.Geometry;
+using System.Collections;
 
 namespace BH.UI.Alligator.Base
 {
@@ -95,13 +97,13 @@ namespace BH.UI.Alligator.Base
                     switch (this.Params.Input[i].Access)
                     {
                         case GH_ParamAccess.item:
-                            m_CustomObj.CustomData.Add(Params.Input[i].NickName, RuntimeHelpers.GetObjectValue(this.GetItemFromParameter(DA, i)));
+                            m_CustomObj.CustomData.Add(Params.Input[i].NickName, ToBHoM(RuntimeHelpers.GetObjectValue(this.GetItemFromParameter(DA, i))));
                             break;
                         case GH_ParamAccess.list:
-                            m_CustomObj.CustomData.Add(Params.Input[i].NickName, RuntimeHelpers.GetObjectValue(this.GetListFromParameter(DA, i)));
+                            m_CustomObj.CustomData.Add(Params.Input[i].NickName, ToBHoM(RuntimeHelpers.GetObjectValue(this.GetListFromParameter(DA, i))));
                             break;
                         case GH_ParamAccess.tree:
-                            m_CustomObj.CustomData.Add(Params.Input[i].NickName, RuntimeHelpers.GetObjectValue(this.GetTreeFromParameter(DA, i)));
+                            m_CustomObj.CustomData.Add(Params.Input[i].NickName, ToBHoM(RuntimeHelpers.GetObjectValue(this.GetTreeFromParameter(DA, i))));
                             break;
                     }
                 }
@@ -109,6 +111,30 @@ namespace BH.UI.Alligator.Base
             }
 
             DA.SetData(0, m_CustomObj);
+        }
+
+
+        /*******************************************/
+
+        private object ToBHoM(object obj)
+        {
+            if (obj is IList)
+            {
+                return ((IList)obj).Cast<object>().Select(x => ToBHoM(x));
+            }
+            else if (obj.GetType().Namespace.StartsWith("Rhino"))
+            {
+                try
+                {
+                    return BH.Engine.Rhinoceros.Convert.ToBHoM(obj as dynamic);
+                }
+                catch (Exception e)
+                {
+                    return obj;
+                }
+            }
+            else
+                return obj;
         }
 
 
