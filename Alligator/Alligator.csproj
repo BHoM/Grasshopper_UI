@@ -45,6 +45,10 @@
     <Reference Include="BHoM_Engine">
       <HintPath>..\..\BHoM_Engine\Build\BHoM_Engine.dll</HintPath>
     </Reference>
+    <Reference Include="DataStructure_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BHoM_Engine\Build\DataStructure_Engine.dll</HintPath>
+    </Reference>
     <Reference Include="Geometry_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_Engine\Build\Geometry_Engine.dll</HintPath>
@@ -144,7 +148,6 @@
     <Compile Include="Templates\CreateCustomTemplate.cs" />
     <Compile Include="Templates\CreateEnumTemplate.cs" />
     <Compile Include="Templates\MethodCallTemplate.cs" />
-    <Compile Include="Templates\CreateObjectTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

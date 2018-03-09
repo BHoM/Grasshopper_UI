@@ -9,7 +9,7 @@ using System.Reflection;
 
 namespace BH.UI.Alligator.Adapter
 {
-    public class CreateAdapter : CreateObjectTemplate
+    public class CreateAdapter : MethodCallTemplate
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -26,27 +26,17 @@ namespace BH.UI.Alligator.Adapter
         /**** Constructors                      ****/
         /*******************************************/
 
-        public CreateAdapter() : base("Create Adapter", "Adapter", "Creates a specific class of Adapter", "Alligator", " Adapter")
-        {
-            string folder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Grasshopper\Libraries\Alligator\";
-            foreach (string file in Directory.GetFiles(folder))
-            {
-                if (file.EndsWith("_Adapter.dll"))
-                    Assembly.LoadFrom(file);
-            }
-
-            m_MenuMaxDepth = 0;
-        }
+        public CreateAdapter() : base("Create Adapter", "Adapter", "Creates a specific class of Adapter", "Alligator", " Adapter") { }
 
 
         /*******************************************/
         /**** Override Methods                  ****/
         /*******************************************/
 
-        protected override IEnumerable<Type> GetRelevantTypes()
+        protected override IEnumerable<MethodBase> GetRelevantMethods()
         {
             Type adapterType = typeof(BHoMAdapter);
-            return BH.Engine.Reflection.Query.AdapterTypeList().Where(x => x.IsSubclassOf(adapterType)).OrderBy(x => x.Name);
+            return BH.Engine.Reflection.Query.AdapterTypeList().Where(x => x.IsSubclassOf(adapterType)).OrderBy(x => x.Name).SelectMany(x => x.GetConstructors());
         }
 
         /*******************************************/
