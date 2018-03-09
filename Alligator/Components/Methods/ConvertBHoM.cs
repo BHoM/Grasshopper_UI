@@ -18,34 +18,17 @@ namespace BH.UI.Alligator.Base
 
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.Convert; 
 
-        public override GH_Exposure Exposure { get; } = GH_Exposure.secondary; 
+        public override GH_Exposure Exposure { get; } = GH_Exposure.secondary;
+
+        public override string MethodGroup { get; set; } = "Convert";
 
 
         /*******************************************/
         /**** Constructors                      ****/
         /*******************************************/
 
-        public ConvertBHoM() : base("Convert BHoM Object", "ConvertBHoM", "Convert a BHoMObject", "Alligator", " Engine")
-        {
-        }
+        public ConvertBHoM() : base("Convert BHoM Object", "ConvertBHoM", "Convert a BHoMObject", "Alligator", " Engine") {}
 
-
-        /*******************************************/
-        /**** Override Methods                  ****/
-        /*******************************************/
-
-        protected override Tree<MethodBase> GetRelevantMethods()
-        {
-            Type enumerableType = typeof(IEnumerable);
-            Tree<MethodBase> root = new Tree<MethodBase> { Name = "Select converter" };
-
-            foreach (MethodBase method in BH.Engine.Reflection.Query.BHoMMethodList().Where(x => x.DeclaringType.Name == "Convert")) 
-            {
-                AddMethodToTree(root, method);
-            }
-                
-            return root;
-        }
 
         /*******************************************/
     }

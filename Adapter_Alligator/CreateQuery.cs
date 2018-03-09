@@ -3,10 +3,11 @@ using Grasshopper.Kernel;
 using System.Collections.Generic;
 using System.Linq;
 using BH.UI.Alligator.Templates;
+using System.Reflection;
 
 namespace BH.UI.Alligator.Adapter
 {
-    public class CreateQuery : CreateObjectTemplate
+    public class CreateQuery : MethodCallTemplate
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -23,20 +24,17 @@ namespace BH.UI.Alligator.Adapter
         /**** Constructors                      ****/
         /*******************************************/
 
-        public CreateQuery() : base("Create Query", "Query", "Creates a specific class of query", "Alligator", " Adapter")
-        {
-            m_MenuMaxDepth = 0;
-        }
+        public CreateQuery() : base("Create Query", "Query", "Creates a specific class of query", "Alligator", " Adapter") {}
 
 
         /*******************************************/
         /**** Override Methods                  ****/
         /*******************************************/
 
-        protected override IEnumerable<Type> GetRelevantTypes()
+        protected override IEnumerable<MethodBase> GetRelevantMethods()
         {
             Type queryType = typeof(BH.oM.DataManipulation.Queries.IQuery);
-            return BH.Engine.Reflection.Query.BHoMTypeList().Where(x => queryType.IsAssignableFrom(x)).OrderBy(x => x.Name);
+            return BH.Engine.Reflection.Query.BHoMMethodList().Where(x => queryType.IsAssignableFrom(x.ReturnType)).OrderBy(x => x.Name);
         }
 
         /*******************************************/

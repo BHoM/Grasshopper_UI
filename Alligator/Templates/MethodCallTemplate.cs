@@ -13,11 +13,14 @@ using BH.oM.DataStructure;
 using Grasshopper.GUI;
 using BH.Engine.Rhinoceros;
 using Grasshopper.Kernel.Types;
+using BH.Engine.Reflection.Convert;
+using BH.Engine.DataStructure;
+using System.IO;
 
 // Instructions to implement this template
 // ***************************************
 //
-//  1. Override the GetRelevantMethods() method that provide the list of methods this component can call
+//  1. Define the MethodGroup property corresponding to the set of method to cover
 //  2. If you need help building your catalogue of methods, you can use AddMethodToTree() 
 //
 
@@ -26,88 +29,58 @@ namespace BH.UI.Alligator.Templates
     public abstract class MethodCallTemplate : GH_Component, IGH_VariableParameterComponent, IGH_InitCodeAware
     {
         /*************************************/
-        /**** 1 . Methods to Implement    ****/
+        /**** 1. Helper Properties        ****/
         /*************************************/
 
-        protected abstract Tree<MethodBase> GetRelevantMethods();    // 1. Define the list of relevant methods that can be created
+        public virtual string MethodGroup { get; set; } = "";
 
 
         /*************************************/
         /**** 2 . Helper Methods          ****/
         /*************************************/
 
-        protected virtual void AddMethodToTree(Tree<MethodBase> tree, MethodBase method) //2. Helper function to build your catalogue of methods
+        protected virtual IEnumerable<MethodBase> GetRelevantMethods()
         {
-            ParameterInfo[] parameters;
-
-            try
-            {
-                parameters = method.GetParameters();
-            }
-            catch (Exception)
-            {
-                return;
-            }
-
-            string typeName = "Global";
-            if (parameters.Length > 0)
-            {
-                Type type = parameters[0].ParameterType;
-                if (type.IsGenericType)
-                    type = type.GenericTypeArguments.First();
-                typeName = type.Name;
-            }
-
-            IEnumerable<string> path = method.DeclaringType.Namespace.Split('.').Skip(2).Concat(new string[] { typeName });
-            AddMethodToTree(tree, path, method);
-        }
-
-        /*************************************/
-
-        protected virtual void AddMethodToTree(Tree<MethodBase> tree, IEnumerable<string> path, MethodBase method)
-        {
-            Dictionary<string, Tree<MethodBase>> children = tree.Children;
-
-            if (path.Count() == 0)
-            {
-                string name = method.Name;
-                bool isIMethod = (name.Length > 1 && Char.IsUpper(name[1]));
-
-                if (isIMethod)
-                    name = name.Substring(1);
-
-                name = GetMethodString(name, method.GetParameters());
-
-                if (isIMethod || !children.ContainsKey(name))
-                    children[name] = new Tree<MethodBase> { Value = method, Name = name };
-            }
+            if (MethodGroup != "")
+                return Engine.Reflection.Query.BHoMMethodList().Where(x => x.DeclaringType.Name == MethodGroup);
             else
-            {
-                string name = path.First();
-                if (!children.ContainsKey(name))
-                    children.Add(name, new Tree<MethodBase> { Name = name });
-                AddMethodToTree(children[name], path.Skip(1), method);
-            }
+                return Engine.Reflection.Query.BHoMMethodList();
         }
 
+
+        /*************************************/
+        /**** Constructors                ****/
         /*************************************/
 
-        protected virtual string GetMethodString(string methodName, ParameterInfo[] parameters)   // 2. Helper function to build a string representing your method
+        protected MethodCallTemplate(string name, string nickname, string description, string category, string subCategory) : base(name, nickname, description, category, subCategory)
         {
-            string name = methodName + "(";
-            if (parameters.Length > 0)
-                name += parameters.Select(x => x.Name).Aggregate((x, y) => x + ", " + y);
-            name += ")";
+            
+            if (!m_AssemblyLoaded)
+            {
+                m_AssemblyLoaded = true;
+                string folder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Grasshopper\Libraries\Alligator\";
+                foreach (string file in Directory.GetFiles(folder))
+                {
+                    if (file.EndsWith("oM.dll") || file.EndsWith("Engine.dll") || file.EndsWith("Adapter.dll"))
+                        Assembly.LoadFrom(file);
+                }
+            }
 
-            return name;
+            List<string> ignore = new List<string> { "BH", "oM", "Engine" };
+            if (MethodGroup != "")
+                ignore.Add(MethodGroup);
+
+            IEnumerable<MethodBase> methods = GetRelevantMethods();
+            IEnumerable<string> paths = methods.Select(x => x.ToText(true));
+
+            m_MethodTree = Create.Tree(methods, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y))), "Select " + MethodGroup + " methods").ShortenBranches();
+            m_MethodList = paths.Zip(methods, (k, v) => new Tuple<string, MethodBase>(k, v)).ToList();
         }
 
 
         /*************************************/
-        /**** Parameters Handling         ****/
+        /**** GH Properties               ****/
         /*************************************/
-
-        protected MethodCallTemplate(string name, string nickname, string description, string category, string subCategory) : base(name, nickname, description, category, subCategory) { }
 
         public bool CanInsertParameter(GH_ParameterSide side, int index) { return false; }
         public bool CanRemoveParameter(GH_ParameterSide side, int index) { return false; }
@@ -265,18 +238,16 @@ namespace BH.UI.Alligator.Templates
 
             if (m_Method == null)
             {
-                Tree<MethodBase> methods = GetRelevantMethods();
-                AppendMethodTreeToMenu(methods, menu);
-                AppendSearchMenu(methods, menu);
+                AppendMethodTreeToMenu(m_MethodTree, menu);
+                AppendSearchMenu(menu);
             } 
         }
 
         /*************************************/
 
-        protected void AppendSearchMenu(Tree<MethodBase> methods, ToolStripDropDown menu)
+        protected void AppendSearchMenu(ToolStripDropDown menu)
         {
             m_Menu = menu;
-            m_MethodList = GetMethodList(methods);
 
             Menu_AppendSeparator(menu);
             ToolStripMenuItem label = Menu_AppendItem(menu, "Search");
@@ -297,11 +268,11 @@ namespace BH.UI.Alligator.Templates
             text = text.ToLower();
             string[] parts = text.Split(' ');
             m_SearchResultItems.Add(Menu_AppendSeparator(m_Menu));
-            foreach (Tree<MethodBase> tree in m_MethodList.Where(x => parts.All(y => x.Name.ToLower().Contains(y))).Take(12).OrderBy(x => x.Name))
+            foreach (Tuple<string, MethodBase> tree in m_MethodList.Where(x => parts.All(y => x.Item1.ToLower().Contains(y))).Take(12).OrderBy(x => x.Item1))
             {
-                ToolStripMenuItem methodItem = Menu_AppendItem(m_Menu, tree.Name, Item_Click);
+                ToolStripMenuItem methodItem = Menu_AppendItem(m_Menu, tree.Item1, Item_Click);
                 m_SearchResultItems.Add(methodItem);
-                m_MethodLinks[methodItem] = tree.Value;
+                m_MethodLinks[methodItem] = tree.Item2;
             }
         }
 
@@ -321,26 +292,6 @@ namespace BH.UI.Alligator.Templates
                 ToolStripMenuItem methodItem = Menu_AppendItem(menu, tree.Name, Item_Click);
                 m_MethodLinks[methodItem] = tree.Value;
             }
-        }
-
-        /*************************************/
-
-        protected IEnumerable<Tree<MethodBase>> GetMethodList(Tree<MethodBase> tree)
-        {
-            return tree.Children.Values.SelectMany(x => GetMethodList(x, ""));
-        }
-
-        /*************************************/
-
-        protected IEnumerable<Tree<MethodBase>> GetMethodList(Tree<MethodBase> tree, string path)
-        {
-            if (path.Length > 0 && !tree.Name.StartsWith("("))
-                path = path + '.';
-
-            if (tree.Children.Count == 0)
-                return new Tree<MethodBase>[] { new Tree<MethodBase> { Value = tree.Value, Name = path + tree.Name } };
-            else
-                return tree.Children.Values.SelectMany(x => GetMethodList(x, path+tree.Name));
         }
 
         /*************************************/
@@ -588,14 +539,23 @@ namespace BH.UI.Alligator.Templates
         /*************************************/
         /**** Protected Fields            ****/
         /*************************************/
+        
+        // Method containers calculated once at construction (both for menu tree and search box)
+        protected Tree<MethodBase> m_MethodTree = new Tree<MethodBase>();
+        protected List<Tuple<string, MethodBase>> m_MethodList = new List<Tuple<string, MethodBase>>();
 
-        protected List<MethodInfo> m_DaGets = new List<MethodInfo>();
+        // Method chosen by the user and corresponding input handlers
         protected MethodBase m_Method = null;
+        protected List<MethodInfo> m_DaGets = new List<MethodInfo>();
+        
+        // Menu management fields
         protected Dictionary<ToolStripMenuItem, MethodBase> m_MethodLinks = new Dictionary<ToolStripMenuItem, MethodBase>();
         protected List<ToolStripItem> m_SearchResultItems = new List<ToolStripItem>();
         ToolStripTextBox m_SearchBox;
         ToolStripDropDown m_Menu;
-        IEnumerable<Tree<MethodBase>> m_MethodList = new List<Tree<MethodBase>>();
+
+        private static bool m_AssemblyLoaded = false;
+
 
         /*************************************/
     }

@@ -6,6 +6,9 @@ using BH.UI.Alligator.Templates;
 using System.Reflection;
 using BH.oM.DataStructure;
 using System.Collections;
+using BH.Engine.Reflection;
+using BH.Engine.Reflection.Convert;
+using BH.Engine.DataStructure;
 
 namespace BH.UI.Alligator.Base
 {
@@ -21,42 +24,15 @@ namespace BH.UI.Alligator.Base
 
         public override GH_Exposure Exposure { get; } = GH_Exposure.secondary;
 
+        public override string MethodGroup { get; set; } = "Compute";
+
 
         /*******************************************/
         /**** Constructors                      ****/
         /*******************************************/
 
-        public ComputeBHoM() : base("Compute / Analyse", "ComputeBHoM", "Run a computationally intensive calculation", "Alligator", " Engine")
-        {
-        }
-
+        public ComputeBHoM() : base("Compute / Analyse", "ComputeBHoM", "Run a computationally intensive calculation", "Alligator", " Engine") {}
 
         /*******************************************/
-        /**** Override Methods                  ****/
-        /*******************************************/
-
-        protected override Tree<MethodBase> GetRelevantMethods()
-        {
-            Type enumerableType = typeof(IEnumerable);
-            Tree<MethodBase> root = new Tree<MethodBase> { Name = "Select Computation" };
-
-            foreach (MethodBase method in BH.Engine.Reflection.Query.BHoMMethodList().Where(x => x.DeclaringType.Name == "Compute")) 
-            {
-                AddMethodToTree(root, method);
-            }
-                
-
-            return root;
-        }
-
-        /*************************************/
-
-        protected override void AddMethodToTree(Tree<MethodBase> tree, MethodBase method) //2. Helper function to build your catalogue of methods
-        {
-            IEnumerable<string> path = method.DeclaringType.Namespace.Split('.').Skip(2);
-            AddMethodToTree(tree, path, method);
-        }
-
-        /*************************************/
     }
 }
