@@ -21,9 +21,9 @@ namespace BH.UI.Alligator
 
         public override string TypeDescription { get; } = "Contains a generic BHoMObject"; 
 
-        public Rhino.Geometry.BoundingBox ClippingBox { get { return Boundingbox; } }
+        public override Rhino.Geometry.BoundingBox ClippingBox { get { return Boundingbox; } }
 
-        public Rhino.Geometry.BoundingBox Boundingbox
+        public override Rhino.Geometry.BoundingBox Boundingbox
         {
             get
             {
@@ -58,7 +58,7 @@ namespace BH.UI.Alligator
 
         /***************************************************/
 
-        public Rhino.Geometry.BoundingBox GetBoundingBox(Rhino.Geometry.Transform xform)
+        public override Rhino.Geometry.BoundingBox GetBoundingBox(Rhino.Geometry.Transform xform)
         {
             if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
             if (Geometry() == null) { return Rhino.Geometry.BoundingBox.Empty; }
@@ -72,7 +72,7 @@ namespace BH.UI.Alligator
         /**** IGH_PreviewData methods                   ****/
         /***************************************************/
 
-        public void DrawViewportMeshes(GH_PreviewMeshArgs args)
+        public override void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
             if (Geometry() == null) { return; }
             /*if (typeof(BH.oM.Geometry.Mesh).IsAssignableFrom(Value.GetType()))
@@ -81,7 +81,7 @@ namespace BH.UI.Alligator
 
         /***************************************************/
 
-        public void DrawViewportWires(GH_PreviewWireArgs args)
+        public override void DrawViewportWires(GH_PreviewWireArgs args)
         {
             if (Value is BHoMObject) 
                 Render.IRenderBHoMObject(Value as BHoMObject, args);
@@ -92,7 +92,7 @@ namespace BH.UI.Alligator
         /**** IGH_BakeAwareData methods                 ****/
         /***************************************************/
 
-        public bool BakeGeometry(RhinoDoc doc, ObjectAttributes att, out Guid obj_guid)
+        public override bool BakeGeometry(RhinoDoc doc, ObjectAttributes att, out Guid obj_guid)
         {
             obj_guid = doc.Objects.Add(Geometry().IToRhino() as Rhino.Geometry.GeometryBase, att); // TODO: Check what happend when geometry is not GeometryBase
             return true;

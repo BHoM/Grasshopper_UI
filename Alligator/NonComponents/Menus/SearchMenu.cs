@@ -26,7 +26,7 @@ namespace BH.UI.Alligator.Menus
             string folder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Grasshopper\Libraries\Alligator\";
             foreach (string file in Directory.GetFiles(folder))
             {
-                if (file.EndsWith("oM.dll") || file.EndsWith("Engine.dll"))
+                if (file.EndsWith("oM.dll") || file.EndsWith("Engine.dll") || file.EndsWith("Adapter.dll"))
                     Assembly.LoadFrom(file);
             }
 
