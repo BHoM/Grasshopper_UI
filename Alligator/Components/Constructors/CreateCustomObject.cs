@@ -128,7 +128,7 @@ namespace BH.UI.Alligator.Base
                 {
                     return BH.Engine.Rhinoceros.Convert.ToBHoM(obj as dynamic);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     return obj;
                 }
