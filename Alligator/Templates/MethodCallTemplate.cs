@@ -73,8 +73,39 @@ namespace BH.UI.Alligator.Templates
             IEnumerable<MethodBase> methods = GetRelevantMethods();
             IEnumerable<string> paths = methods.Select(x => x.ToText(true));
 
-            m_MethodTree = Create.Tree(methods, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y))), "Select " + MethodGroup + " methods").ShortenBranches();
+            m_MethodTree = GroupMethodsByName(Create.Tree(methods, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y))), "Select " + MethodGroup + " methods").ShortenBranches());
             m_MethodList = paths.Zip(methods, (k, v) => new Tuple<string, MethodBase>(k, v)).ToList();
+        }
+
+        /*************************************/
+
+        protected Tree<MethodBase> GroupMethodsByName(Tree<MethodBase> tree)
+        {
+
+            if (tree.Children.Count > 0)
+            {
+                if (tree.Children.Values.First().Value != null)
+                {
+                    var groups = tree.Children.Where(x => x.Key.IndexOf('(') > 0).GroupBy(x => x.Key.Substring(0, x.Key.IndexOf('(')));
+
+                    Dictionary<string, Tree<MethodBase>> children = new Dictionary<string, Tree<MethodBase>>();
+                    foreach (var group in groups)
+                    {
+                        if (group.Count() == 1)
+                            children.Add(group.Key, new Tree<MethodBase> { Name = group.Key, Value = group.First().Value.Value });
+                        else
+                            children.Add(group.Key, new Tree<MethodBase> { Name = group.Key, Children = group.ToDictionary(x => x.Key, x => x.Value) });
+                    }
+                    tree.Children = children;
+                }
+                else
+                {
+                    foreach (var child in tree.Children.Values)
+                        GroupMethodsByName(child);
+                }
+            }
+
+            return tree;
         }
 
 

@@ -1,4 +1,5 @@
-﻿using BH.Engine.Serialiser;
+﻿using BH.Engine.Reflection.Convert;
+using BH.Engine.Serialiser;
 using BH.oM.Base;
 using Grasshopper.GUI;
 using Grasshopper.GUI.Canvas;
@@ -243,12 +244,15 @@ namespace BH.UI.Alligator.Menus
             {
                 try
                 {
-                    string key = GetMethodString(method);
+                    if (m_ProxyDict.ContainsKey(method.DeclaringType.Name))
+                    {
+                        string key = method.DeclaringType.Name + '.' + method.ToText(true);
 
-                    if (m_MethodList.ContainsKey(key))
-                        Console.WriteLine(key);
+                        if (m_MethodList.ContainsKey(key))
+                            Console.WriteLine(key);
 
-                    m_MethodList[key] = method;
+                        m_MethodList[key] = method;
+                    }
                 }
                 catch (Exception e)
                 {
@@ -474,7 +478,7 @@ namespace BH.UI.Alligator.Menus
 
             string text = key.ToLower();
             string[] parts = text.Split(' ');
-            IEnumerable<KeyValuePair<string, MethodInfo>> hits = m_MethodList.Where(x => parts.All(y => x.Key.ToLower().Contains(y))).Take(12).OrderBy(x => x.Key);
+            IEnumerable<KeyValuePair<string, MethodInfo>> hits = m_MethodList.Where(x => parts.All(y => x.Key.Substring(0, x.Key.IndexOf('(')+1).ToLower().Contains(y))).Take(12).OrderBy(x => x.Key);
             if (hits == null)
             {
                 return;
@@ -495,13 +499,20 @@ namespace BH.UI.Alligator.Menus
                     string category = method.DeclaringType.Name;
                     if (m_ProxyDict.ContainsKey(category))
                     {
-                        string name = enumerator.Current.Key;
-                        SizeF siz = GH_FontServer.MeasureString(name, Font);
-                        Rectangle nRegion = new Rectangle(0, y_offset, (int)Math.Ceiling(siz.Width+50), 26);
-                        GH_Hit new_hit = new GH_Hit(m_ProxyDict[category], name, method, nRegion);
-                        m_hits.Add(new_hit);
-                        y_offset -= 26;
-                        maxWidth = Math.Max(maxWidth, nRegion.Width);
+                        try
+                        {
+                            string name = enumerator.Current.Key.Substring(enumerator.Current.Key.IndexOf('.') + 1);
+                            SizeF siz = GH_FontServer.MeasureString(name, Font);
+                            Rectangle nRegion = new Rectangle(0, y_offset, (int)Math.Ceiling(siz.Width + 50), 26);
+                            GH_Hit new_hit = new GH_Hit(m_ProxyDict[category], name, method, nRegion);
+                            m_hits.Add(new_hit);
+                            y_offset -= 26;
+                            maxWidth = Math.Max(maxWidth, nRegion.Width);
+                        }
+                        catch(Exception e)
+                        {
+                            Console.WriteLine(e);
+                        }
                     }
                 }
                 Width = maxWidth + 5;
@@ -514,26 +525,6 @@ namespace BH.UI.Alligator.Menus
                 }
             }
             SelectedIndex = SelectedIndex;
-        }
-
-        private string GetMethodString(MethodInfo method)   // 2. Helper function to build a string representing your method
-        {
-            ParameterInfo[] parameters = method.GetParameters();
-
-            string name = "";
-            if (method.DeclaringType.Name == "Create" && method.ReturnType.FullName != null)  //TODO: Need a better way to filter the methods in the first place otherwise 
-                name = method.ReturnType.Namespace.Replace("BH.oM.", "") + '.' + method.Name + "(";                  //      having display names differnt than search names is confusing
-            else if (parameters.Length > 0 && parameters[0].ParameterType.FullName != null)
-                name = parameters[0].ParameterType.FullName.Replace("BH.oM.", "") + '.' + method.Name + "(";
-            else
-                name = method.DeclaringType.FullName.Replace("BH.Engine.", "") + '.' + method.Name + "(";
-
-
-            if (parameters.Length > 0)
-                name += parameters.Select(x => x.Name).Aggregate((x, y) => x + ", " + y);
-            name += ")";
-
-            return name;
         }
 
 

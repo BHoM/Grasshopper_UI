@@ -6,6 +6,8 @@ using BH.oM.DataStructure;
 using System.Linq;
 using System.Windows.Forms;
 using Grasshopper.GUI;
+using BH.Engine.DataStructure;
+using BH.Engine.Reflection.Convert;
 
 namespace BH.UI.Alligator.Base
 {
@@ -30,9 +32,11 @@ namespace BH.UI.Alligator.Base
         {
             if (m_TypeTree == null)
             {
+                List<string> ignore = new List<string> { "BH", "oM", "Engine" };
                 m_TypeTree = new Tree<Type> { Name = "select a type" };
                 foreach (Type type in BH.Engine.Reflection.Query.BHoMTypeList())
-                    AddTypeToTree(m_TypeTree, type.FullName.Split('.').Skip(2), type);
+                    AddTypeToTree(m_TypeTree, type.ToText(true).Split('.').Where(y => !ignore.Contains(y)), type);
+                m_TypeTree.ShortenBranches();
             }
         }
 
