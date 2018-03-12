@@ -54,7 +54,7 @@ namespace BH.UI.Alligator.Templates
 
         protected MethodCallTemplate(string name, string nickname, string description, string category, string subCategory) : base(name, nickname, description, category, subCategory)
         {
-            
+            // Make sure the assemblies are loaded
             if (!m_AssemblyLoaded)
             {
                 m_AssemblyLoaded = true;
@@ -66,15 +66,27 @@ namespace BH.UI.Alligator.Templates
                 }
             }
 
-            List<string> ignore = new List<string> { "BH", "oM", "Engine" };
-            if (MethodGroup != "")
-                ignore.Add(MethodGroup);
+            //Create the method tree and method list
+            if (m_MethodTreeStore.ContainsKey(nickname) && m_MethodListStore.ContainsKey(nickname))
+            {
+                m_MethodTree = m_MethodTreeStore[nickname];
+                m_MethodList = m_MethodListStore[nickname];
+            }
+            else
+            {
+                List<string> ignore = new List<string> { "BH", "oM", "Engine" };
+                if (MethodGroup != "")
+                    ignore.Add(MethodGroup);
 
-            IEnumerable<MethodBase> methods = GetRelevantMethods();
-            IEnumerable<string> paths = methods.Select(x => x.ToText(true));
+                IEnumerable<MethodBase> methods = GetRelevantMethods();
+                IEnumerable<string> paths = methods.Select(x => x.ToText(true));
 
-            m_MethodTree = GroupMethodsByName(Create.Tree(methods, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y))), "Select " + MethodGroup + " methods").ShortenBranches());
-            m_MethodList = paths.Zip(methods, (k, v) => new Tuple<string, MethodBase>(k, v)).ToList();
+                m_MethodTree = GroupMethodsByName(Create.Tree(methods, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y))), "Select " + MethodGroup + " methods").ShortenBranches());
+                m_MethodList = paths.Zip(methods, (k, v) => new Tuple<string, MethodBase>(k, v)).ToList();
+
+                m_MethodTreeStore[nickname] = m_MethodTree;
+                m_MethodListStore[nickname] = m_MethodList;
+            }
         }
 
         /*************************************/
@@ -585,7 +597,14 @@ namespace BH.UI.Alligator.Templates
         ToolStripTextBox m_SearchBox;
         ToolStripDropDown m_Menu;
 
+
+        /*************************************/
+        /**** Static Fields               ****/
+        /*************************************/
+
         private static bool m_AssemblyLoaded = false;
+        private static Dictionary<string, Tree<MethodBase>> m_MethodTreeStore = new Dictionary<string, Tree<MethodBase>>();
+        private static Dictionary<string, List<Tuple<string, MethodBase>>> m_MethodListStore = new Dictionary<string, List<Tuple<string, MethodBase>>>();
 
 
         /*************************************/
