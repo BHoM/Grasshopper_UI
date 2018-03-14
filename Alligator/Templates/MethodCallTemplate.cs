@@ -16,6 +16,9 @@ using Grasshopper.Kernel.Types;
 using BH.Engine.Reflection.Convert;
 using BH.Engine.DataStructure;
 using System.IO;
+using BH.UI.Alligator.Base.NonComponents.Ports;
+using Grasshopper;
+using Grasshopper.Kernel.Data;
 
 // Instructions to implement this template
 // ***************************************
@@ -179,23 +182,7 @@ namespace BH.UI.Alligator.Templates
                 throw new Exception(message);
             }
 
-            if (Params.Output.Count > 0)
-            {
-                if (Params.Output[0].Access == GH_ParamAccess.item)
-                {
-                    if (result is IGeometry)
-                        DA.SetData(0, ((IGeometry)result).IToRhino());
-                    else
-                        DA.SetData(0, result);
-                }
-                else
-                {
-                    if (Params.Output[0] is Param_Geometry)
-                        DA.SetDataList(0, ((IEnumerable)result).Cast<IGeometry>().Select(x => x.IToRhino()));
-                    else
-                        DA.SetDataList(0, result as IEnumerable);
-                }
-            }
+            m_DaSet.Invoke(null, new object[] { DA, result });
         }
 
 
@@ -225,6 +212,7 @@ namespace BH.UI.Alligator.Templates
             string methodName = ""; reader.TryGetString("MethodName", ref methodName);
             int nbParams = 0; reader.TryGetInt32("NbParams", ref nbParams);
 
+            // Get the input types
             List<Type> paramTypes = new List<Type>();
             for(int i = 0; i < nbParams; i++)
             {
@@ -234,7 +222,10 @@ namespace BH.UI.Alligator.Templates
 
             RestoreMethod(Type.GetType(typeString), methodName, paramTypes);
             if (m_Method != null)
-                ComputerDaGets(m_Method.GetParameters().ToList());
+            {
+                Type outputType = (m_Method is MethodInfo) ? ((MethodInfo)m_Method).ReturnType : m_Method.DeclaringType;
+                ComputeDaGets(m_Method.GetParameters().ToList(), outputType);
+            }
 
             return base.Read(reader);
         }
@@ -352,11 +343,17 @@ namespace BH.UI.Alligator.Templates
             if (m_Method == null)
                 return;
 
+            if (m_Method.ContainsGenericParameters && m_Method is MethodInfo)
+            {
+                Type[] generics = m_Method.GetGenericArguments().Select(x => PortDataType.GetTypeFromGenericParameters(x)).ToArray();
+                m_Method = ((MethodInfo)m_Method).MakeGenericMethod(generics);
+            }
+
             this.NickName = m_Method.IsConstructor ? m_Method.DeclaringType.Name : m_Method.Name;
 
             List<ParameterInfo> inputs = m_Method.GetParameters().ToList();
             Type output = m_Method.IsConstructor ? m_Method.DeclaringType : ((MethodInfo)m_Method).ReturnType;
-            ComputerDaGets(inputs);
+            ComputeDaGets(inputs, output);
             UpdateInputs(inputs, output);
         }
 
@@ -374,35 +371,26 @@ namespace BH.UI.Alligator.Templates
             {
                 ParameterInfo input = inputs[i];
                 Type type = input.ParameterType;
-                bool isDictionary = typeof(IDictionary).IsAssignableFrom(type);
-                bool isList = type != typeof(string) && (enumerableType.IsAssignableFrom(type)) && !isDictionary;
-
-                // Get the object type if in a list
-                if (isList)
-                {
-                    if (type.GenericTypeArguments.Length > 0)
-                        type = type.GenericTypeArguments.First();
-                    else
-                        type = typeof(object);
-                }
+                PortDataType portInfo = new PortDataType(type);
 
                 // Register the input parameter
                 if (input.HasDefaultValue)
                 {
-                    RegisterInputParameter(type, input.Name, input.DefaultValue);
+                    RegisterInputParameter(portInfo.DataType, input.Name, input.DefaultValue);
                     Params.Input[i].Optional = true;
                 }
                 else
-                    RegisterInputParameter(type, input.Name);
+                    RegisterInputParameter(portInfo.DataType, input.Name);
 
                 // Define the access type
-                if (isList)
-                    Params.Input[i].Access = GH_ParamAccess.list;
+                Params.Input[i].Access = portInfo.AccessMode;
 
                 // Update the input description
-                if (isList)
+                if (portInfo.AccessMode == GH_ParamAccess.list)
                     Params.Input[i].Description = string.Format("{0} is a list of {1}", input.Name, type.FullName);
-                else if (isDictionary)
+                else if (portInfo.AccessMode == GH_ParamAccess.tree)
+                    Params.Input[i].Description = string.Format("{0} is a tree of {1}", input.Name, type.FullName);
+                else if (typeof(IDictionary).IsAssignableFrom(portInfo.DataType))
                     Params.Input[i].Description = string.Format("{0} is a dictionary of {1} keys and {2} values", input.Name, type.FullName, input.ParameterType.GenericTypeArguments[1]);
                 else
                     Params.Input[i].Description = string.Format("{0} is a {1}", input.Name, type.FullName);
@@ -411,13 +399,9 @@ namespace BH.UI.Alligator.Templates
             // Create the output
             if (output != null)
             {
-                if ((output != typeof(string) && (enumerableType.IsAssignableFrom(output))))
-                {
-                    RegisterOutputParameter(output.GenericTypeArguments.First());
-                    Params.Output[0].Access = GH_ParamAccess.list;
-                }
-                else
-                    RegisterOutputParameter(output);
+                PortDataType portInfo = new PortDataType(output);
+                RegisterOutputParameter(portInfo.DataType);
+                Params.Output[0].Access = portInfo.AccessMode;
             }
 
             // Refresh the component
@@ -427,35 +411,34 @@ namespace BH.UI.Alligator.Templates
 
         /*************************************/
 
-        protected void ComputerDaGets(List<ParameterInfo> inputs)
+        protected void ComputeDaGets(List<ParameterInfo> inputs, Type outType)
         {
-            int nbNew = inputs.Count();
-
+            // Compute the input accessors
             MethodInfo getMethod = typeof(MethodCallTemplate).GetMethod("GetData");
             MethodInfo getListMethod = typeof(MethodCallTemplate).GetMethod("GetDataList");
+            MethodInfo getTreeMethod = typeof(MethodCallTemplate).GetMethod("GetDataTree");
 
             m_DaGets = new List<MethodInfo>();
-            for (int i = 0; i < nbNew; i++)
+            for (int i = 0; i < inputs.Count(); i++)
             {
                 Type type = inputs[i].ParameterType;
-
                 if (type.IsByRef)
                     type = type.GetElementType();
 
-                bool isList = (type != typeof(string) && (typeof(IEnumerable).IsAssignableFrom(type))) && !typeof(IDictionary).IsAssignableFrom(type);
-
-                if (isList)
-                {
-                    if (type.GenericTypeArguments.Length > 0)
-                        type = type.GenericTypeArguments.First();
-                    else
-                        type = typeof(object);
-                }
-                    
-
-                MethodInfo method = isList ? getListMethod : getMethod;
-                m_DaGets.Add(method.MakeGenericMethod(type));
+                PortDataType portInfo = new PortDataType(type);
+                MethodInfo method = portInfo.AccessMode == GH_ParamAccess.item ? getMethod : portInfo.AccessMode == GH_ParamAccess.list ? getListMethod : getTreeMethod;
+                m_DaGets.Add(method.MakeGenericMethod(portInfo.DataType));
             }
+
+            // Compute the output accessor
+            if (outType.IsByRef)
+                outType = outType.GetElementType();
+
+            PortDataType outInfo = new PortDataType(outType);
+            MethodInfo outMethod = outInfo.AccessMode == GH_ParamAccess.item ? typeof(MethodCallTemplate).GetMethod("SetData") :
+                                outInfo.AccessMode == GH_ParamAccess.list ? typeof(MethodCallTemplate).GetMethod("SetDataList") :
+                                typeof(MethodCallTemplate).GetMethod("SetDataTree");
+            m_DaSet = outMethod.MakeGenericMethod(outInfo.DataType);
         }
 
         /*************************************/
@@ -533,6 +516,45 @@ namespace BH.UI.Alligator.Templates
 
         /*************************************/
 
+        public static List<List<T>> GetDataTree<T>(IGH_DataAccess DA, int index)
+        {
+            GH_Structure<IGH_Goo> goo = new GH_Structure<IGH_Goo>();
+            DA.GetDataTree<IGH_Goo>(index, out goo);
+            return goo.Branches.Select(x => x.Select(y => ConvertGoo<T>(y)).ToList()).ToList();
+        }
+
+        /*************************************/
+
+        public static bool SetData<T>(IGH_DataAccess DA, T data)
+        {
+            if (typeof(IGeometry).IsAssignableFrom(typeof(T)))
+                return DA.SetData(0, ((IGeometry)data).IToRhino());
+            else
+                return DA.SetData(0, data);
+        }
+
+        /*************************************/
+
+        public static bool SetDataList<T>(IGH_DataAccess DA, IEnumerable<T> data)
+        {
+            if (typeof(IGeometry).IsAssignableFrom(typeof(T)))
+                return DA.SetDataList(0, data.Select(x => (((IGeometry)x).IToRhino())));
+            else
+                return DA.SetDataList(0, data);
+        }
+
+        /*************************************/
+
+        public static bool SetDataTree<T>(IGH_DataAccess DA, IEnumerable<IEnumerable<T>> data)
+        {
+            if (typeof(IGeometry).IsAssignableFrom(typeof(T)))
+                return DA.SetDataTree(0, BuildDataTree(data.Select(v => v.Select(x => (((IGeometry)x).IToRhino()))).ToList()));
+            else
+                return DA.SetDataTree(0, BuildDataTree(data.ToList()));
+        }
+
+        /*************************************/
+
         public static T ConvertGoo<T>(IGH_Goo goo)
         {
             if (goo == null)
@@ -557,6 +579,20 @@ namespace BH.UI.Alligator.Templates
             }
         }
 
+        /*************************************/
+
+        public static DataTree<T> BuildDataTree<T>(List<IEnumerable<T>> data)
+        {
+            DataTree<T> tree = new DataTree<T>();
+            
+            for (int i = 0; i < data.Count(); i++)
+            {
+                tree.AddRange(data[i], new GH_Path(i));
+            }
+
+            return tree;
+        }
+
 
         /*************************************/
         /**** Initialisation via String   ****/
@@ -577,7 +613,7 @@ namespace BH.UI.Alligator.Templates
 
             List<ParameterInfo> inputs = m_Method.GetParameters().ToList();
             Type output = m_Method.IsConstructor ? m_Method.DeclaringType : ((MethodInfo)m_Method).ReturnType;
-            ComputerDaGets(inputs);
+            ComputeDaGets(inputs, output);
             UpdateInputs(inputs, output);
         }
 
@@ -593,6 +629,7 @@ namespace BH.UI.Alligator.Templates
         // Method chosen by the user and corresponding input handlers
         protected MethodBase m_Method = null;
         protected List<MethodInfo> m_DaGets = new List<MethodInfo>();
+        protected MethodInfo m_DaSet = null;
         
         // Menu management fields
         protected Dictionary<ToolStripMenuItem, MethodBase> m_MethodLinks = new Dictionary<ToolStripMenuItem, MethodBase>();
