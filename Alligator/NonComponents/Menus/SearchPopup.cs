@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace BH.UI.Alligator.Menus
 {
-    public static class SearchMenu
+    public static class SearchPopup
     {
         /*******************************************/
         /**** Public Methods                    ****/

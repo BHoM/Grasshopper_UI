@@ -143,6 +143,26 @@ namespace BH.UI.Alligator.Base.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BHoM_Data {
+            get {
+                object obj = ResourceManager.GetObject("BHoM_Data", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BHoM_Enum {
+            get {
+                object obj = ResourceManager.GetObject("BHoM_Enum", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BHoM_Filter {
             get {
                 object obj = ResourceManager.GetObject("BHoM_Filter", resourceCulture);
@@ -296,16 +316,6 @@ namespace BH.UI.Alligator.Base.Properties {
         internal static System.Drawing.Bitmap DOF {
             get {
                 object obj = ResourceManager.GetObject("DOF", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Enum {
-            get {
-                object obj = ResourceManager.GetObject("Enum", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

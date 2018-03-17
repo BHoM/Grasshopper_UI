@@ -10,7 +10,6 @@ using BH.oM.Base;
 using System.Reflection;
 using BH.oM.Geometry;
 using BH.oM.DataStructure;
-using Grasshopper.GUI;
 using BH.Engine.Rhinoceros;
 using Grasshopper.Kernel.Types;
 using BH.Engine.Reflection.Convert;
@@ -19,6 +18,7 @@ using System.IO;
 using BH.UI.Alligator.Base.NonComponents.Ports;
 using Grasshopper;
 using Grasshopper.Kernel.Data;
+using BH.UI.Alligator.Base.NonComponents.Menus;
 
 // Instructions to implement this template
 // ***************************************
@@ -64,10 +64,7 @@ namespace BH.UI.Alligator.Templates
                 string folder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Grasshopper\Libraries\Alligator\";
                 foreach (string file in Directory.GetFiles(folder))
                 {
-                    try
-                    {
-                        Assembly.LoadFrom(file);
-                    }
+                    try { Assembly.LoadFrom(file); }
                     catch { }
                 }
             }
@@ -296,71 +293,17 @@ namespace BH.UI.Alligator.Templates
 
             if (m_Method == null)
             {
-                AppendMethodTreeToMenu(m_MethodTree, menu);
-                AppendSearchMenu(menu);
+                SelectorMenu<MethodBase> selector = new SelectorMenu<MethodBase>(menu, Item_Click);
+                selector.AppendTree(m_MethodTree);
+                selector.AppendSearchBox(m_MethodList);
             } 
         }
 
         /*************************************/
 
-        protected void AppendSearchMenu(ToolStripDropDown menu)
+        private void Item_Click(object sender, MethodBase method)
         {
-            m_Menu = menu;
-
-            Menu_AppendSeparator(menu);
-            ToolStripMenuItem label = Menu_AppendItem(menu, "Search");
-            label.Font = new System.Drawing.Font(label.Font, System.Drawing.FontStyle.Bold);
-            m_SearchBox = Menu_AppendTextItem(menu, "", null, Search_TextChanged, false);
-        }
-
-        /*************************************/
-
-        private void Search_TextChanged(GH_MenuTextBox sender, string text)
-        {
-            // Clear the old items
-            foreach (ToolStripItem item in m_SearchResultItems)
-                item.Dispose();
-            m_SearchResultItems.Clear();
-
-            // Add the new ones
-            text = text.ToLower();
-            string[] parts = text.Split(' ');
-            m_SearchResultItems.Add(Menu_AppendSeparator(m_Menu));
-            foreach (Tuple<string, MethodBase> tree in m_MethodList.Where(x => parts.All(y => x.Item1.ToLower().Contains(y))).Take(12).OrderBy(x => x.Item1))
-            {
-                ToolStripMenuItem methodItem = Menu_AppendItem(m_Menu, tree.Item1, Item_Click);
-                m_SearchResultItems.Add(methodItem);
-                m_MethodLinks[methodItem] = tree.Item2;
-            }
-        }
-
-        /*************************************/
-
-        protected void AppendMethodTreeToMenu(Tree<MethodBase> tree, ToolStripDropDown menu)
-        {
-            if (tree.Children.Count > 0)
-            {
-                ToolStripMenuItem treeMenu = Menu_AppendItem(menu, tree.Name);
-                foreach (Tree<MethodBase> childTree in tree.Children.Values.OrderBy(x => x.Name))
-                    AppendMethodTreeToMenu(childTree, treeMenu.DropDown);
-            }
-            else
-            {
-                MethodBase method = tree.Value;
-                ToolStripMenuItem methodItem = Menu_AppendItem(menu, tree.Name, Item_Click);
-                m_MethodLinks[methodItem] = tree.Value;
-            }
-        }
-
-        /*************************************/
-
-        protected void Item_Click(object sender, EventArgs e)
-        {
-            ToolStripMenuItem item = (ToolStripMenuItem)sender;
-            if (!m_MethodLinks.ContainsKey(item))
-                return;
-
-            m_Method = m_MethodLinks[item];
+            m_Method = method;
             if (m_Method == null)
                 return;
 
@@ -377,7 +320,7 @@ namespace BH.UI.Alligator.Templates
             SetPorts(inputs, output);
         }
 
-
+        
         /*************************************/
         /**** Dynamic Update              ****/
         /*************************************/
@@ -389,6 +332,7 @@ namespace BH.UI.Alligator.Templates
             Refresh();
         }
 
+        /*************************************/
 
         protected void UpdateInputs(List<ParameterInfo> inputs, Type output)
         {
@@ -670,12 +614,6 @@ namespace BH.UI.Alligator.Templates
         protected MethodBase m_Method = null;
         protected List<MethodInfo> m_DaGets = new List<MethodInfo>();
         protected MethodInfo m_DaSet = null;
-        
-        // Menu management fields
-        protected Dictionary<ToolStripMenuItem, MethodBase> m_MethodLinks = new Dictionary<ToolStripMenuItem, MethodBase>();
-        protected List<ToolStripItem> m_SearchResultItems = new List<ToolStripItem>();
-        ToolStripTextBox m_SearchBox;
-        ToolStripDropDown m_Menu;
 
 
         /*************************************/
