@@ -220,14 +220,26 @@ namespace BH.UI.Alligator.Templates
                 paramTypes.Add(Type.GetType(paramType));
             }
 
-            RestoreMethod(Type.GetType(typeString), methodName, paramTypes);
+            //Read from the base
+            if (!base.Read(reader))
+                return false;
+
+            // Restore the method
+            try
+            {
+                Type type = Type.GetType(typeString);
+                RestoreMethod(type, methodName, paramTypes);
+            }
+            catch { }
+ 
+            // Restore the ports
             if (m_Method != null)
             {
                 Type outputType = (m_Method is MethodInfo) ? ((MethodInfo)m_Method).ReturnType : m_Method.DeclaringType;
                 ComputeDaGets(m_Method.GetParameters().ToList(), outputType);
             }
-
-            return base.Read(reader);
+            
+            return true;
         }
 
         /*************************************/
@@ -242,17 +254,26 @@ namespace BH.UI.Alligator.Templates
             else
                 methods = type.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly).ToList<MethodBase>();
 
-            foreach (MethodBase method in methods)
+            for (int k = 0; k < methods.Count; k++)
             {
+                MethodBase method = methods[k];
+
                 if (method.Name == methodName)
                 {
                     ParameterInfo[] parameters = method.GetParameters();
                     if (parameters.Length == paramTypes.Count)
                     {
+                        if (method.ContainsGenericParameters && method is MethodInfo)
+                        {
+                            Type[] generics = method.GetGenericArguments().Select(x => PortDataType.GetTypeFromGenericParameters(x)).ToArray();
+                            method = ((MethodInfo)method).MakeGenericMethod(generics);
+                            parameters = method.GetParameters();
+                        }
+
                         bool matching = true;
                         for (int i = 0; i < paramTypes.Count; i++)
                         {
-                            matching &= (parameters[i].ParameterType == paramTypes[i]);
+                            matching &= (paramTypes[i] == null || parameters[i].ParameterType == paramTypes[i]);
                         }
                         if (matching)
                         {
@@ -353,14 +374,21 @@ namespace BH.UI.Alligator.Templates
 
             List<ParameterInfo> inputs = m_Method.GetParameters().ToList();
             Type output = m_Method.IsConstructor ? m_Method.DeclaringType : ((MethodInfo)m_Method).ReturnType;
-            ComputeDaGets(inputs, output);
-            UpdateInputs(inputs, output);
+            SetPorts(inputs, output);
         }
 
 
         /*************************************/
         /**** Dynamic Update              ****/
         /*************************************/
+
+        protected void SetPorts(List<ParameterInfo> inputs, Type output)
+        {
+            UpdateInputs(inputs, output);
+            ComputeDaGets(inputs, output);
+            Refresh();
+        }
+
 
         protected void UpdateInputs(List<ParameterInfo> inputs, Type output)
         {
@@ -387,13 +415,13 @@ namespace BH.UI.Alligator.Templates
 
                 // Update the input description
                 if (portInfo.AccessMode == GH_ParamAccess.list)
-                    Params.Input[i].Description = string.Format("{0} is a list of {1}", input.Name, type.FullName);
+                    Params.Input[i].Description = string.Format("{0} is a list of {1}", input.Name, type.ToText());
                 else if (portInfo.AccessMode == GH_ParamAccess.tree)
-                    Params.Input[i].Description = string.Format("{0} is a tree of {1}", input.Name, type.FullName);
+                    Params.Input[i].Description = string.Format("{0} is a tree of {1}", input.Name, type.ToText());
                 else if (typeof(IDictionary).IsAssignableFrom(portInfo.DataType))
-                    Params.Input[i].Description = string.Format("{0} is a dictionary of {1} keys and {2} values", input.Name, type.FullName, input.ParameterType.GenericTypeArguments[1]);
+                    Params.Input[i].Description = string.Format("{0} is a dictionary of {1} keys and {2} values", input.Name, type.ToText(), input.ParameterType.GenericTypeArguments[1].ToText());
                 else
-                    Params.Input[i].Description = string.Format("{0} is a {1}", input.Name, type.FullName);
+                    Params.Input[i].Description = string.Format("{0} is a {1}", input.Name, type.ToText());
             }
 
             // Create the output
@@ -403,7 +431,12 @@ namespace BH.UI.Alligator.Templates
                 RegisterOutputParameter(portInfo.DataType);
                 Params.Output[0].Access = portInfo.AccessMode;
             }
+        }
 
+        /*************************************/
+
+        protected void Refresh()
+        { 
             // Refresh the component
             this.OnAttributesChanged();
             ExpireSolution(true);
@@ -426,8 +459,16 @@ namespace BH.UI.Alligator.Templates
                     type = type.GetElementType();
 
                 PortDataType portInfo = new PortDataType(type);
-                MethodInfo method = portInfo.AccessMode == GH_ParamAccess.item ? getMethod : portInfo.AccessMode == GH_ParamAccess.list ? getListMethod : getTreeMethod;
-                m_DaGets.Add(method.MakeGenericMethod(portInfo.DataType));
+                if (portInfo.AccessMode != GH_ParamAccess.tree)
+                {
+                    MethodInfo method = portInfo.AccessMode == GH_ParamAccess.item ? getMethod : getListMethod;
+                    m_DaGets.Add(method.MakeGenericMethod(portInfo.DataType));
+                }
+                else
+                {
+                    MethodInfo method = getTreeMethod;
+                    m_DaGets.Add(method.MakeGenericMethod(portInfo.DataType, Params.Input[i].Type));
+                }
             }
 
             // Compute the output accessor
@@ -516,10 +557,10 @@ namespace BH.UI.Alligator.Templates
 
         /*************************************/
 
-        public static List<List<T>> GetDataTree<T>(IGH_DataAccess DA, int index)
+        public static List<List<T>> GetDataTree<T, PT>(IGH_DataAccess DA, int index) where PT : IGH_Goo
         {
-            GH_Structure<IGH_Goo> goo = new GH_Structure<IGH_Goo>();
-            DA.GetDataTree<IGH_Goo>(index, out goo);
+            GH_Structure<PT> goo = new GH_Structure<PT>();
+            DA.GetDataTree(index, out goo);
             return goo.Branches.Select(x => x.Select(y => ConvertGoo<T>(y)).ToList()).ToList();
         }
 
@@ -603,7 +644,7 @@ namespace BH.UI.Alligator.Templates
             CustomObject methodInfo = Engine.Serialiser.Convert.FromJson(code) as CustomObject;
             Type type = Type.GetType(methodInfo.CustomData["TypeName"] as string);
             string methodName = methodInfo.CustomData["MethodName"] as string;
-            List<Type> paramTypes = (methodInfo.CustomData["Parameters"] as List<object>).Select(x => Type.GetType(x as string)).ToList();
+            List<Type> paramTypes = (methodInfo.CustomData["Parameters"] as List<object>).Select(x => ((string)x == null) ? null : Type.GetType(x as string)).ToList();
 
             RestoreMethod(type, methodName, paramTypes);
             if (m_Method == null)
@@ -613,8 +654,7 @@ namespace BH.UI.Alligator.Templates
 
             List<ParameterInfo> inputs = m_Method.GetParameters().ToList();
             Type output = m_Method.IsConstructor ? m_Method.DeclaringType : ((MethodInfo)m_Method).ReturnType;
-            ComputeDaGets(inputs, output);
-            UpdateInputs(inputs, output);
+            SetPorts(inputs, output);
         }
 
 

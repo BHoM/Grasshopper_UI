@@ -84,7 +84,7 @@ namespace BH.UI.Alligator.Base
                 m_Type = Type.GetType(typeString);
 
             if (m_Type != null)
-                Message = m_Type.Name;
+                Message = m_Type.ToText();
 
             return base.Read(reader);
         }
@@ -204,7 +204,7 @@ namespace BH.UI.Alligator.Base
             if (m_Type == null)
                 return;
 
-            Message = m_Type.Name;
+            Message = m_Type.ToText();
             ExpireSolution(true);
         }
 
