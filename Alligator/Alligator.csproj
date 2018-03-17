@@ -61,6 +61,9 @@
       <HintPath>..\packages\Grasshopper.0.9.76\lib\net35\Grasshopper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Library_Engine">
+      <HintPath>..\..\BHoM_Engine\Build\Library_Engine.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Reflection_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -91,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Components\Constructors\CreateBHoMData.cs" />
     <Compile Include="Components\Constructors\CreateBHoMType.cs" />
     <Compile Include="Components\Constructors\CreateBHoMEnum.cs" />
     <Compile Include="Components\Constructors\CreateDictionary.cs" />
@@ -131,7 +135,8 @@
     <Compile Include="NonComponents\Menus\BH_PopupSearchDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NonComponents\Menus\SearchMenu.cs" />
+    <Compile Include="NonComponents\Menus\SelectorMenu.cs" />
+    <Compile Include="NonComponents\Menus\SearchPopup.cs" />
     <Compile Include="NonComponents\Ports\PortDataType.cs" />
     <Compile Include="NonComponents\Render\RenderBHoMObject.cs" />
     <Compile Include="NonComponents\BH_Types\GH_Type.cs" />
@@ -147,7 +152,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Templates\CreateCustomTemplate.cs" />
-    <Compile Include="Templates\CreateEnumTemplate.cs" />
     <Compile Include="Templates\MethodCallTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -234,6 +238,7 @@
     <Content Include="Properties\Resources\Convert.png" />
     <Content Include="Properties\Resources\CreateBHoM.png" />
     <Content Include="Properties\Resources\CustomObject.png" />
+    <Content Include="Properties\Resources\Data.png" />
     <Content Include="Properties\Resources\Dictionary.png" />
     <Content Include="Properties\Resources\Enum.png" />
     <Content Include="Properties\Resources\Explode.png" />

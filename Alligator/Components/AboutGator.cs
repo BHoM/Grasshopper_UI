@@ -21,7 +21,7 @@ namespace BH.UI.Alligator.Base
 
         public AboutGator() : base("Alligator", "Gator", "About Alligator", "Alligator", " About")
         {
-            Menus.SearchMenu.Activate();
+            Menus.SearchPopup.Activate();
         }
 
 
