@@ -70,6 +70,7 @@
     <Compile Include="CreateAdapter.cs" />
     <Compile Include="CRUD\Delete.cs" />
     <Compile Include="CRUD\Execute.cs" />
+    <Compile Include="CRUD\Move.cs" />
     <Compile Include="CRUD\Push.cs" />
     <Compile Include="CRUD\UpdateProperty.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,6 +103,7 @@
     <Content Include="Properties\Resources\Delete.png" />
     <Content Include="Properties\Resources\Execute.png" />
     <Content Include="Properties\Resources\FromJson.png" />
+    <Content Include="Properties\Resources\Move.png" />
     <Content Include="Properties\Resources\Pull.png" />
     <Content Include="Properties\Resources\Push.png" />
     <Content Include="Properties\Resources\QueryAdapter.png" />
