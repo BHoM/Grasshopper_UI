@@ -38,6 +38,7 @@ namespace BH.UI.Alligator.Adapter
             pManager.AddGenericParameter("Query", "Query", "BHoM Query", GH_ParamAccess.item);
             pManager.AddParameter(new BHoMObjectParameter(), "Config", "Config", "Delete config", GH_ParamAccess.item);
             pManager.AddBooleanParameter("Active", "Active", "Execute the pull", GH_ParamAccess.item);
+            Params.Input[1].Optional = true;
             Params.Input[2].Optional = true;
         }
 
@@ -58,6 +59,9 @@ namespace BH.UI.Alligator.Adapter
             bool active = false; DA.GetData(3, ref active);
 
             if (!active) return;
+
+            if (query == null)
+                query = new FilterQuery();
 
             Guid id = adapter.BHoM_Guid;
             if (id != m_AdapterId)
