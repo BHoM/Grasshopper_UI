@@ -37,6 +37,7 @@ namespace BH.UI.Alligator.Adapter
             pManager.AddGenericParameter("Filter", "Filter", "Filter Query", GH_ParamAccess.item);
             pManager.AddParameter(new BHoMObjectParameter(), "Config", "Config", "Delete config", GH_ParamAccess.item);
             pManager.AddBooleanParameter("Active", "Active", "Execute the delete", GH_ParamAccess.item, false);
+            pManager[1].Optional = true;
             pManager[2].Optional = true;
         }
 
@@ -57,6 +58,9 @@ namespace BH.UI.Alligator.Adapter
             bool active = false; DA.GetData(3, ref active);
 
             if (!active) return;
+
+            if (query == null)
+                query = new FilterQuery();
 
             int nb = adapter.Delete(query, config.CustomData);
             DA.SetData(0, nb);
