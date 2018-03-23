@@ -51,6 +51,32 @@ namespace BH.UI.Alligator.Base
 
 
         /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
+
+        public override bool Write(GH_IO.Serialization.GH_IWriter writer)
+        {
+            if (m_Type != null)
+            {
+                writer.SetString("TypeName", m_Type.AssemblyQualifiedName);
+            }
+            return base.Write(writer);
+        }
+
+        /*************************************/
+
+        public override bool Read(GH_IO.Serialization.GH_IReader reader)
+        {
+            string typeString = ""; reader.TryGetString("TypeName", ref typeString);
+
+            if (typeString.Length > 0)
+                m_Type = Type.GetType(typeString);
+
+            return base.Read(reader);
+        }
+
+
+        /*******************************************/
         /**** Protected Methods                 ****/
         /*******************************************/
 
