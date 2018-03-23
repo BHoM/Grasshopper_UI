@@ -49,6 +49,33 @@ namespace BH.UI.Alligator.Base
 
 
         /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
+
+        public override bool Write(GH_IO.Serialization.GH_IWriter writer)
+        {
+            if (m_FileName != null)
+            {
+                writer.SetString("FileName", m_FileName);
+            }
+            return base.Write(writer);
+        }
+
+        /*************************************/
+
+        public override bool Read(GH_IO.Serialization.GH_IReader reader)
+        {
+            bool ok = base.Read(reader);
+
+            string fileName = "";  reader.TryGetString("FileName", ref fileName);
+            if (fileName.Length > 0)
+                Item_Click(null, fileName);
+
+            return ok;
+        }
+
+
+        /*******************************************/
         /**** Protected Methods                 ****/
         /*******************************************/
 
