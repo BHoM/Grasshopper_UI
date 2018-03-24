@@ -9,6 +9,7 @@ using BH.oM.DataStructure;
 using System.Linq;
 using BH.Engine.Reflection.Convert;
 using BH.Engine.DataStructure;
+using Grasshopper.Kernel.Data;
 
 namespace BH.UI.Alligator.Base
 {
@@ -52,6 +53,21 @@ namespace BH.UI.Alligator.Base
 
         /*******************************************/
         /**** Override Methods                  ****/
+        /*******************************************/
+
+        protected override void CollectVolatileData_Custom()
+        {
+            this.m_data.Clear();
+            List<GH_ValueListItem>.Enumerator enumerator = this.SelectedItems.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                GH_ValueListItem item = enumerator.Current;
+                int index = 0;
+                item.Value.CastTo<int>(out index);
+                this.m_data.Append(new GH_Enum(Enum.GetValues(m_Type).GetValue(index) as Enum), new GH_Path(0));
+            }
+        }
+
         /*******************************************/
 
         public override bool Write(GH_IO.Serialization.GH_IWriter writer)
