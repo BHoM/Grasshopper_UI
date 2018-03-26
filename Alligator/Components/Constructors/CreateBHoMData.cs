@@ -69,7 +69,7 @@ namespace BH.UI.Alligator.Base
 
             string fileName = "";  reader.TryGetString("FileName", ref fileName);
             if (fileName.Length > 0)
-                Item_Click(null, fileName);
+                File_Selected(null, fileName);
 
             return ok;
         }
@@ -85,15 +85,20 @@ namespace BH.UI.Alligator.Base
 
             if (m_FileName == null)
             {
-                SelectorMenu<string> selector = new SelectorMenu<string>(menu, Item_Click);
+                SelectorMenu<string> selector = new SelectorMenu<string>(menu, File_Selected);
                 selector.AppendTree(m_FileTree);
                 selector.AppendSearchBox(m_FileList);
+            }
+            else
+            {
+                SelectorMenu<int> selector = new SelectorMenu<int>(menu, Item_Selected);
+                selector.AppendSearchBox(m_ItemList);
             }
         }
 
         /*******************************************/
 
-        protected void Item_Click(object sender, string fileName)
+        protected void File_Selected(object sender, string fileName)
         {
             m_FileName = fileName;
             if (fileName == null)
@@ -103,6 +108,7 @@ namespace BH.UI.Alligator.Base
             this.Name = this.NickName;
 
             List<IBHoMObject> objects = Engine.Library.Query.Library(fileName);
+            m_ItemList = objects.Select((x, i) => new Tuple<string, int>(x.Name, i)).ToList();
 
             ListItems.Clear();
             var prop = typeof(GH_ValueListItem).GetField("m_value", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
@@ -116,6 +122,14 @@ namespace BH.UI.Alligator.Base
             this.ExpireSolution(true);
         }
 
+        /*******************************************/
+
+        protected void Item_Selected(object sender, int index)
+        {
+            this.SelectItem(index);
+            this.ExpireSolution(true);
+        }
+
 
         /*******************************************/
         /**** Protected Fields                  ****/
@@ -124,6 +138,7 @@ namespace BH.UI.Alligator.Base
         string m_FileName = null;
         protected static Tree<string> m_FileTree = null;
         protected static List<Tuple<string, string>> m_FileList = null;
+        protected static List<Tuple<string, int>> m_ItemList = null;
 
         /*******************************************/
     }
