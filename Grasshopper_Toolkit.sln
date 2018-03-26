@@ -5,13 +5,7 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alligator", "Alligator\Alligator.csproj", "{2E3B219E-7BD2-4F75-BFAF-9B7735827ED4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mongo_Alligator", "Mongo_Alligator\Mongo_Alligator.csproj", "{E2311055-2431-440E-A199-7336878BB80A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GHManipulator_Alligator", "GHManipulator_Alligator\GHManipulator_Alligator.csproj", "{215BD43E-2500-4A6C-B56A-38ABF9C6E7A0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Socket_Alligator", "Socket_Alligator\Socket_Alligator.csproj", "{68EE6227-0BB3-4F63-B727-F7ECB6129B47}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adapter_Alligator", "Adapter_Alligator\Adapter_Alligator.csproj", "{3EE040A0-2BBC-4A60-BA82-5023DE6F159D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,30 +20,12 @@ Global
 		{2E3B219E-7BD2-4F75-BFAF-9B7735827ED4}.Debug64|Any CPU.Build.0 = Debug64|Any CPU
 		{2E3B219E-7BD2-4F75-BFAF-9B7735827ED4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E3B219E-7BD2-4F75-BFAF-9B7735827ED4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E2311055-2431-440E-A199-7336878BB80A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2311055-2431-440E-A199-7336878BB80A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E2311055-2431-440E-A199-7336878BB80A}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2311055-2431-440E-A199-7336878BB80A}.Debug64|Any CPU.Build.0 = Debug|Any CPU
-		{E2311055-2431-440E-A199-7336878BB80A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E2311055-2431-440E-A199-7336878BB80A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{215BD43E-2500-4A6C-B56A-38ABF9C6E7A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{215BD43E-2500-4A6C-B56A-38ABF9C6E7A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{215BD43E-2500-4A6C-B56A-38ABF9C6E7A0}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
 		{215BD43E-2500-4A6C-B56A-38ABF9C6E7A0}.Debug64|Any CPU.Build.0 = Debug|Any CPU
 		{215BD43E-2500-4A6C-B56A-38ABF9C6E7A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{215BD43E-2500-4A6C-B56A-38ABF9C6E7A0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{68EE6227-0BB3-4F63-B727-F7ECB6129B47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68EE6227-0BB3-4F63-B727-F7ECB6129B47}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68EE6227-0BB3-4F63-B727-F7ECB6129B47}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
-		{68EE6227-0BB3-4F63-B727-F7ECB6129B47}.Debug64|Any CPU.Build.0 = Debug|Any CPU
-		{68EE6227-0BB3-4F63-B727-F7ECB6129B47}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68EE6227-0BB3-4F63-B727-F7ECB6129B47}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3EE040A0-2BBC-4A60-BA82-5023DE6F159D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3EE040A0-2BBC-4A60-BA82-5023DE6F159D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3EE040A0-2BBC-4A60-BA82-5023DE6F159D}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
-		{3EE040A0-2BBC-4A60-BA82-5023DE6F159D}.Debug64|Any CPU.Build.0 = Debug|Any CPU
-		{3EE040A0-2BBC-4A60-BA82-5023DE6F159D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3EE040A0-2BBC-4A60-BA82-5023DE6F159D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
