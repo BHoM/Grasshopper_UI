@@ -63,6 +63,16 @@ namespace BH.UI.Alligator.Base.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Adapter {
+            get {
+                object obj = ResourceManager.GetObject("Adapter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap bar {
             get {
                 object obj = ResourceManager.GetObject("bar", resourceCulture);
@@ -303,6 +313,16 @@ namespace BH.UI.Alligator.Base.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Delete {
+            get {
+                object obj = ResourceManager.GetObject("Delete", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Dictionary {
             get {
                 object obj = ResourceManager.GetObject("Dictionary", resourceCulture);
@@ -316,6 +336,16 @@ namespace BH.UI.Alligator.Base.Properties {
         internal static System.Drawing.Bitmap DOF {
             get {
                 object obj = ResourceManager.GetObject("DOF", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Execute {
+            get {
+                object obj = ResourceManager.GetObject("Execute", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -363,6 +393,16 @@ namespace BH.UI.Alligator.Base.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Move {
+            get {
+                object obj = ResourceManager.GetObject("Move", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap node {
             get {
                 object obj = ResourceManager.GetObject("node", resourceCulture);
@@ -373,9 +413,39 @@ namespace BH.UI.Alligator.Base.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Pull {
+            get {
+                object obj = ResourceManager.GetObject("Pull", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Push {
+            get {
+                object obj = ResourceManager.GetObject("Push", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Query {
             get {
                 object obj = ResourceManager.GetObject("Query", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap QueryAdapter {
+            get {
+                object obj = ResourceManager.GetObject("QueryAdapter", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -406,6 +476,16 @@ namespace BH.UI.Alligator.Base.Properties {
         internal static System.Drawing.Bitmap Type {
             get {
                 object obj = ResourceManager.GetObject("Type", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap UpdateProperty {
+            get {
+                object obj = ResourceManager.GetObject("UpdateProperty", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -42,6 +42,10 @@
     <Reference Include="BHoM">
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
     </Reference>
+    <Reference Include="BHoM_Adapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BHoM_Adapter\Build\BHoM_Adapter.dll</HintPath>
+    </Reference>
     <Reference Include="BHoM_Engine">
       <HintPath>..\..\BHoM_Engine\Build\BHoM_Engine.dll</HintPath>
     </Reference>
@@ -94,24 +98,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Components\Constructors\CreateBHoMData.cs" />
-    <Compile Include="Components\Constructors\CreateBHoMType.cs" />
-    <Compile Include="Components\Constructors\CreateBHoMEnum.cs" />
-    <Compile Include="Components\Constructors\CreateDictionary.cs" />
-    <Compile Include="Components\Methods\ComputeBHoM.cs" />
-    <Compile Include="Components\Methods\ConvertBHoM.cs" />
-    <Compile Include="Components\Methods\FromJson.cs" />
-    <Compile Include="Components\Methods\ToJson.cs" />
+    <Compile Include="Components\Adapter\CreateAdapter.cs" />
+    <Compile Include="Components\Adapter\CreateQuery.cs" />
+    <Compile Include="Components\Adapter\Delete.cs" />
+    <Compile Include="Components\Adapter\Execute.cs" />
+    <Compile Include="Components\Adapter\Move.cs" />
+    <Compile Include="Components\Adapter\Pull.cs" />
+    <Compile Include="Components\Adapter\Push.cs" />
+    <Compile Include="Components\Adapter\UpdateProperty.cs" />
+    <Compile Include="Components\oM\CreateBHoMData.cs" />
+    <Compile Include="Components\oM\CreateBHoMType.cs" />
+    <Compile Include="Components\oM\CreateBHoMEnum.cs" />
+    <Compile Include="Components\oM\CreateDictionary.cs" />
+    <Compile Include="Components\Engine\ComputeBHoM.cs" />
+    <Compile Include="Components\Engine\ConvertBHoM.cs" />
+    <Compile Include="Components\Engine\FromJson.cs" />
+    <Compile Include="Components\Engine\ToJson.cs" />
     <Compile Include="Components\Parameters\IObjectParameter.cs" />
     <Compile Include="Components\Parameters\DictionaryParameter.cs" />
     <Compile Include="Components\Parameters\EnumParameter.cs" />
     <Compile Include="Components\Parameters\TypeParameter.cs" />
-    <Compile Include="Components\Scripting\BH_CSNET_Script.cs" />
-    <Compile Include="Components\Scripting\BH_VBNET_Script.cs" />
-    <Compile Include="Components\Methods\ModifyBHoM.cs" />
-    <Compile Include="Components\Methods\QueryBHoM.cs" />
-    <Compile Include="Components\Constructors\CreateBHoM.cs" />
-    <Compile Include="Components\Scripting\VsScriptEditor.cs" />
+    <Compile Include="Components\UI\BH_CSNET_Script.cs" />
+    <Compile Include="Components\UI\BH_VBNET_Script.cs" />
+    <Compile Include="Components\Engine\ModifyBHoM.cs" />
+    <Compile Include="Components\Engine\QueryBHoM.cs" />
+    <Compile Include="Components\oM\CreateBHoM.cs" />
+    <Compile Include="Components\UI\VsScriptEditor.cs" />
     <Compile Include="NonComponents\BH_Hints\BH_BHomGeometryHint.cs" />
     <Compile Include="NonComponents\BH_Hints\BH_IObjectHint.cs" />
     <Compile Include="NonComponents\BH_Hints\BH_TypeHint.cs" />
@@ -126,8 +138,8 @@
     <Compile Include="NonComponents\BH_Hints\BH_VectorHint.cs" />
     <Compile Include="Components\Parameters\BHoMGeometryParameter.cs" />
     <Compile Include="Components\Parameters\BHoMObjectParameter.cs" />
-    <Compile Include="Components\Constructors\CreateCustomObject.cs" />
-    <Compile Include="Components\Methods\ExplodeObject.cs" />
+    <Compile Include="Components\oM\CreateCustomObject.cs" />
+    <Compile Include="Components\Engine\ExplodeObject.cs" />
     <Compile Include="NonComponents\BH_Types\GH_IObject.cs" />
     <Compile Include="NonComponents\BH_Types\GH_TemplateType.cs" />
     <Compile Include="NonComponents\BH_Types\GH_Dictionary.cs" />
@@ -144,8 +156,8 @@
     <Compile Include="NonComponents\BH_Types\GH_BHoMObject.cs" />
     <Compile Include="NonComponents\Render\RenderBHoMGeometry.cs" />
     <Compile Include="Components\AboutGator.cs" />
-    <Compile Include="Components\Methods\GetProperty.cs" />
-    <Compile Include="Components\Methods\SetProperty.cs" />
+    <Compile Include="Components\Engine\GetProperty.cs" />
+    <Compile Include="Components\Engine\SetProperty.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -234,19 +246,27 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Properties\Resources\Adapter.png" />
     <Content Include="Properties\Resources\Compute.png" />
     <Content Include="Properties\Resources\Convert.png" />
     <Content Include="Properties\Resources\CreateBHoM.png" />
     <Content Include="Properties\Resources\CustomObject.png" />
     <Content Include="Properties\Resources\Data.png" />
+    <Content Include="Properties\Resources\Delete.png" />
     <Content Include="Properties\Resources\Dictionary.png" />
     <Content Include="Properties\Resources\Enum.png" />
+    <Content Include="Properties\Resources\Execute.png" />
     <Content Include="Properties\Resources\Explode.png" />
     <Content Include="Properties\Resources\FromJson.png" />
     <Content Include="Properties\Resources\Modify.png" />
+    <Content Include="Properties\Resources\Move.png" />
+    <Content Include="Properties\Resources\Pull.png" />
+    <Content Include="Properties\Resources\Push.png" />
     <Content Include="Properties\Resources\Query.png" />
+    <Content Include="Properties\Resources\QueryAdapter.png" />
     <Content Include="Properties\Resources\ToJson.png" />
     <Content Include="Properties\Resources\Type.png" />
+    <Content Include="Properties\Resources\UpdateProperty.png" />
     <Content Include="Properties\Resources\VS_Script.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

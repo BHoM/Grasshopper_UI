@@ -24,11 +24,7 @@ namespace BH.UI.Alligator.Menus
         public static void Instances_CanvasCreated(GH_Canvas canvas)
         {
             string folder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Grasshopper\Libraries\Alligator\";
-            foreach (string file in Directory.GetFiles(folder))
-            {
-                if (file.EndsWith("oM.dll") || file.EndsWith("Engine.dll") || file.EndsWith("Adapter.dll"))
-                    Assembly.LoadFrom(file);
-            }
+            BH.Engine.Reflection.Compute.LoadAllAssemblies(folder);
 
             canvas.KeyDown += ActiveCanvas_KeyDown;
         }

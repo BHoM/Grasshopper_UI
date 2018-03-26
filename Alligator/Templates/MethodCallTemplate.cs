@@ -62,11 +62,7 @@ namespace BH.UI.Alligator.Templates
             {
                 m_AssemblyLoaded = true;
                 string folder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Grasshopper\Libraries\Alligator\";
-                foreach (string file in Directory.GetFiles(folder))
-                {
-                    try { Assembly.LoadFrom(file); }
-                    catch { }
-                }
+                BH.Engine.Reflection.Compute.LoadAllAssemblies(folder);
             }
 
             //Create the method tree and method list
