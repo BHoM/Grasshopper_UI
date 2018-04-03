@@ -509,7 +509,13 @@ namespace BH.UI.Alligator.Templates
         public static bool SetData<T>(IGH_DataAccess DA, T data)
         {
             if (typeof(IGeometry).IsAssignableFrom(typeof(T)))
-                return DA.SetData(0, ((IGeometry)data).IToRhino());
+            {
+                object result = ((IGeometry)data).IToRhino();
+                if (result is IEnumerable)
+                    return DA.SetDataList(0, result as IEnumerable);
+                else
+                    return DA.SetData(0, result);
+            }
             else
                 return DA.SetData(0, data);
         }
