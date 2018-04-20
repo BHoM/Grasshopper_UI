@@ -44,7 +44,7 @@ namespace BH.UI.Alligator
 
         /***************************************************/
 
-        public GH_BHoMObject(object val) : base(val) { }
+        public GH_BHoMObject(IObject val) : base(val) { }
 
 
         /*******************************************/
