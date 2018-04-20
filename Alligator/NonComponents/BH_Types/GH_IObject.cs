@@ -11,7 +11,7 @@ using Rhino.DocObjects;
 
 namespace BH.UI.Alligator
 {
-    public class GH_IObject : GH_TemplateType<object>, IGH_PreviewData, IGH_BakeAwareData
+    public class GH_IObject : GH_TemplateType<IObject>, IGH_PreviewData, IGH_BakeAwareData
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -44,7 +44,7 @@ namespace BH.UI.Alligator
 
         /***************************************************/
 
-        public GH_IObject(object val) : base(val) { }
+        public GH_IObject(IObject val) : base(val) { }
 
 
         /*******************************************/
@@ -65,6 +65,19 @@ namespace BH.UI.Alligator
             BH.oM.Geometry.BoundingBox bhBox = Geometry().IBounds();
             if (bhBox == null) { return Rhino.Geometry.BoundingBox.Empty; }
             return bhBox.ToRhino();
+        }
+
+        /***************************************************/
+
+        public override bool CastFrom(object source)
+        {
+            while (source is IGH_Goo)
+                source = ((IGH_Goo)source).ScriptVariable();
+
+            if (source.GetType().Namespace.StartsWith("Rhino.Geometry"))
+                source = Engine.Rhinoceros.Convert.ToBHoM(source as dynamic);
+
+            return base.CastFrom(source);
         }
 
 

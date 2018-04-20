@@ -5,6 +5,9 @@ using BH.UI.Alligator.Base;
 using BH.oM.Base;
 using BH.oM.DataManipulation.Queries;
 using BH.Adapter;
+using System.Linq;
+using BH.oM.Geometry;
+using BH.Engine.Rhinoceros;
 
 namespace BH.UI.Alligator.Adapter
 {
@@ -71,6 +74,7 @@ namespace BH.UI.Alligator.Adapter
             }
 
             IEnumerable<object> objects = adapter.Pull(query, config.CustomData);
+            objects = objects.Select(x => (x is IGeometry) ? ((IGeometry)x).IToRhino() : x);
             DA.SetDataList(0, objects);
         }
 
