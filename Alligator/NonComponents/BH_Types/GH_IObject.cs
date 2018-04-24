@@ -11,7 +11,7 @@ using Rhino.DocObjects;
 
 namespace BH.UI.Alligator
 {
-    public class GH_IObject : GH_TemplateType<IObject>, IGH_PreviewData, IGH_BakeAwareData
+    public class GH_IObject : GH_TemplateType<object>, IGH_PreviewData, IGH_BakeAwareData
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -44,7 +44,7 @@ namespace BH.UI.Alligator
 
         /***************************************************/
 
-        public GH_IObject(IObject val) : base(val) { }
+        public GH_IObject(object val) : base(val) { }
 
 
         /*******************************************/
