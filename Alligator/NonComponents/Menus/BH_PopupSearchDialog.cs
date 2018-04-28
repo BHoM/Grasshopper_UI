@@ -14,6 +14,8 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+using BH.Engine.Reflection;
+
 
 namespace BH.UI.Alligator.Menus
 {
@@ -386,7 +388,7 @@ namespace BH.UI.Alligator.Menus
                 else
                 {
                     txtSearch.LostFocus -= new System.EventHandler(txtSearch_LostFocus);
-                    GH_Tooltip.AssignTooltipFields(hit.proxy.Desc.Name, hit.proxy.Desc.Description, null, hit.proxy.Icon, null);
+                    GH_Tooltip.AssignTooltipFields(hit.proxy.Desc.Name, hit.method.Description(), null, hit.proxy.Icon, null);
                     GH_Tooltip.Tag = hit;
                     GH_Tooltip.Show(txtSearch);
                     txtSearch.LostFocus += new System.EventHandler(txtSearch_LostFocus);
