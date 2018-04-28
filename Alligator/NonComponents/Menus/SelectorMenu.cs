@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BH.Engine.Reflection;
 
 namespace BH.UI.Alligator.Base.NonComponents.Menus
 {
@@ -68,6 +69,7 @@ namespace BH.UI.Alligator.Base.NonComponents.Menus
                 T method = tree.Value;
                 ToolStripMenuItem methodItem = AppendMenuItem(menu, tree.Name, Item_Click);
                 m_ItemLinks[methodItem] = tree.Value;
+                methodItem.ToolTipText = method.IDescription();
             }
         }
 
@@ -147,6 +149,7 @@ namespace BH.UI.Alligator.Base.NonComponents.Menus
             foreach (Tuple<string, T> tree in m_ItemList.Where(x => parts.All(y => x.Item1.ToLower().Contains(y))).Take(12).OrderBy(x => x.Item1))
             {
                 ToolStripMenuItem methodItem = AppendMenuItem(m_Menu, tree.Item1, Item_Click);
+                methodItem.ToolTipText = tree.Item2.IDescription();
                 m_SearchResultItems.Add(methodItem);
                 m_ItemLinks[methodItem] = tree.Item2;
             }

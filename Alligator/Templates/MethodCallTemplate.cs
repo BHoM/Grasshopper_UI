@@ -19,6 +19,8 @@ using BH.UI.Alligator.Base.NonComponents.Ports;
 using Grasshopper;
 using Grasshopper.Kernel.Data;
 using BH.UI.Alligator.Base.NonComponents.Menus;
+using BH.Engine.Reflection;
+
 
 // Instructions to implement this template
 // ***************************************
@@ -80,7 +82,7 @@ namespace BH.UI.Alligator.Templates
                 IEnumerable<MethodBase> methods = GetRelevantMethods();
                 IEnumerable<string> paths = methods.Select(x => x.ToText(true));
 
-                m_MethodTree = GroupMethodsByName(Create.Tree(methods, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y))), "Select " + MethodGroup + " methods").ShortenBranches());
+                m_MethodTree = GroupMethodsByName(Engine.DataStructure.Create.Tree(methods, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y))), "Select " + MethodGroup + " methods").ShortenBranches());
                 m_MethodList = paths.Zip(methods, (k, v) => new Tuple<string, MethodBase>(k, v)).ToList();
 
                 m_MethodTreeStore[nickname] = m_MethodTree;
@@ -332,9 +334,17 @@ namespace BH.UI.Alligator.Templates
 
         protected void UpdateInputs(List<ParameterInfo> inputs, Type output)
         {
-            Type enumerableType = typeof(IEnumerable);
+            // First take care of the component's description. TODO: should be elsewhere in the long run
+            if (m_Method != null)
+            {
+                string description = m_Method.Description();
+                if (description != "")
+                    Description = description;
+            }
 
             // Create the inputs
+            Type enumerableType = typeof(IEnumerable);
+
             for (int i = 0; i < inputs.Count(); i++)
             {
                 ParameterInfo input = inputs[i];
@@ -353,15 +363,19 @@ namespace BH.UI.Alligator.Templates
                 // Define the access type
                 Params.Input[i].Access = portInfo.AccessMode;
 
+                // use the in-code description if any
+                string description = input.Description();
+                Params.Input[i].Description = (description.Length > 0) ? description + "\n" : "";
+
                 // Update the input description
                 if (portInfo.AccessMode == GH_ParamAccess.list)
-                    Params.Input[i].Description = string.Format("{0} is a list of {1}", input.Name, type.ToText());
+                    Params.Input[i].Description += string.Format("{0} is a list of {1}", input.Name, type.ToText());
                 else if (portInfo.AccessMode == GH_ParamAccess.tree)
-                    Params.Input[i].Description = string.Format("{0} is a tree of {1}", input.Name, type.ToText());
+                    Params.Input[i].Description += string.Format("{0} is a tree of {1}", input.Name, type.ToText());
                 else if (typeof(IDictionary).IsAssignableFrom(portInfo.DataType))
-                    Params.Input[i].Description = string.Format("{0} is a dictionary of {1} keys and {2} values", input.Name, type.ToText(), input.ParameterType.GenericTypeArguments[1].ToText());
+                    Params.Input[i].Description += string.Format("{0} is a dictionary of {1} keys and {2} values", input.Name, type.ToText(), input.ParameterType.GenericTypeArguments[1].ToText());
                 else
-                    Params.Input[i].Description = string.Format("{0} is a {1}", input.Name, type.ToText());
+                    Params.Input[i].Description += string.Format("{0} is a {1}", input.Name, type.ToText());
             }
 
             // Create the output
