@@ -384,6 +384,7 @@ namespace BH.UI.Alligator.Templates
                 PortDataType portInfo = new PortDataType(output);
                 RegisterOutputParameter(portInfo.DataType);
                 Params.Output[0].Access = portInfo.AccessMode;
+                Params.Output[0].Description = m_Method.OutputDescription();
             }
         }
 
