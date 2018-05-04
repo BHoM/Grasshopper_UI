@@ -149,6 +149,7 @@
     </Compile>
     <Compile Include="NonComponents\Menus\SelectorMenu.cs" />
     <Compile Include="NonComponents\Menus\SearchPopup.cs" />
+    <Compile Include="NonComponents\Others\Logging.cs" />
     <Compile Include="NonComponents\Ports\PortDataType.cs" />
     <Compile Include="NonComponents\Render\RenderBHoMObject.cs" />
     <Compile Include="NonComponents\BH_Types\GH_Type.cs" />

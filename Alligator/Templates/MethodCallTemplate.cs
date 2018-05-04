@@ -146,6 +146,8 @@ namespace BH.UI.Alligator.Templates
             if (m_Method == null)
                 return;
 
+            Engine.Reflection.Compute.ClearCurrentEvents();
+
             List<object> inputs = new List<object>();
             try
             {
@@ -159,8 +161,6 @@ namespace BH.UI.Alligator.Templates
                 else
                     throw new Exception(e.Message);
             }
-
-            Engine.Reflection.Compute.ClearCurrentEvents();
 
             dynamic result;
             try
@@ -180,21 +180,9 @@ namespace BH.UI.Alligator.Templates
                 throw new Exception(message);
             }
 
-            List<Event> events = Engine.Reflection.Query.CurrentEvents();
-            if (events.Count > 0)
-            {
-                foreach (Event e in events)
-                {
-                    if (e.Type == EventType.Error)
-                        AddRuntimeMessage(GH_RuntimeMessageLevel.Error, e.Message);
-                    else if (e.Type == EventType.Warning)
-                        AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, e.Message);
-                    else if (e.Type == EventType.Note)
-                        AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, e.Message);
-                }
-            }
-            
             m_DaSet.Invoke(null, new object[] { DA, result });
+
+            Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
         }
 
 
