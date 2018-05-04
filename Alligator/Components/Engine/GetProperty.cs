@@ -49,6 +49,8 @@ namespace BH.UI.Alligator.Base
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            Engine.Reflection.Compute.ClearCurrentEvents();
+
             IObject obj = null;
             string key = "";
 
@@ -71,6 +73,8 @@ namespace BH.UI.Alligator.Base
                 else
                     DA.SetData(0, result);
             }
+
+            Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
         }
 
         /*******************************************/

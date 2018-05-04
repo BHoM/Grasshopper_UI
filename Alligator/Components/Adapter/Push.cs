@@ -55,6 +55,8 @@ namespace BH.UI.Alligator.Adapter
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            Engine.Reflection.Compute.ClearCurrentEvents();
+
             BHoMAdapter adapter = null; DA.GetData(0, ref adapter);
             List<IObject> objects = new List<IObject>(); DA.GetDataList(1, objects);
             string tag = ""; DA.GetData(2, ref tag);
@@ -71,6 +73,8 @@ namespace BH.UI.Alligator.Adapter
             }
                 
             DA.SetData(0, success);
+
+            Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
         }
 
         /*******************************************/

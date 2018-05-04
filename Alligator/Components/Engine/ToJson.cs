@@ -44,10 +44,14 @@ namespace BH.UI.Alligator.Base
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            Engine.Reflection.Compute.ClearCurrentEvents();
+
             IObject obj = null;
             DA.GetData(0, ref obj);
 
             DA.SetData(0, Engine.Serialiser.Convert.ToJson(obj));
+
+            Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
         }
 
         /*******************************************/
