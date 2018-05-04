@@ -48,6 +48,8 @@ namespace BH.UI.Alligator.Base
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            Compute.ClearCurrentEvents();
+
             BHoMObject obj = new BHoMObject();
             string key = "";
             object value = default(object);
@@ -66,6 +68,8 @@ namespace BH.UI.Alligator.Base
             newObject.SetPropertyValue(key, value);
 
             DA.SetData(0, newObject);
+
+            Logging.ShowEvents(this, Query.CurrentEvents());
         }
 
         /*******************************************/

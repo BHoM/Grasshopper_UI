@@ -84,6 +84,8 @@ namespace BH.UI.Alligator.Base
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            Engine.Reflection.Compute.ClearCurrentEvents();
+
             m_CustomObj = new oM.Base.CustomObject();
 
             for (int i = 0; i < Params.Input.Count; i++)
@@ -111,6 +113,8 @@ namespace BH.UI.Alligator.Base
             }
 
             DA.SetData(0, m_CustomObj);
+
+            Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
         }
 
 
