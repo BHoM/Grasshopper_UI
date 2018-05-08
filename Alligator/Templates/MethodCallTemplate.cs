@@ -21,6 +21,7 @@ using Grasshopper.Kernel.Data;
 using BH.UI.Alligator.Base.NonComponents.Menus;
 using BH.Engine.Reflection;
 using BH.oM.Reflection.Debuging;
+using BH.oM.Reflection.Testing;
 
 
 // Instructions to implement this template
@@ -143,6 +144,9 @@ namespace BH.UI.Alligator.Templates
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            if (m_LoadingError.Length > 0)
+                throw new Exception("This component failed to load properly. Check that the corresponding method still exists. \nError: " + m_LoadingError);
+
             if (m_Method == null)
                 return;
 
@@ -208,35 +212,39 @@ namespace BH.UI.Alligator.Templates
 
         public override bool Read(GH_IO.Serialization.GH_IReader reader)
         {
-            string typeString = ""; reader.TryGetString("TypeName", ref typeString);
-            string methodName = ""; reader.TryGetString("MethodName", ref methodName);
-            int nbParams = 0; reader.TryGetInt32("NbParams", ref nbParams);
-
-            // Get the input types
-            List<Type> paramTypes = new List<Type>();
-            for(int i = 0; i < nbParams; i++)
-            {
-                string paramType = ""; reader.TryGetString("ParamType", i, ref paramType);
-                paramTypes.Add(Type.GetType(paramType));
-            }
-
-            //Read from the base
-            if (!base.Read(reader))
-                return false;
-
-            // Restore the method
             try
             {
+                string typeString = ""; reader.TryGetString("TypeName", ref typeString);
+                string methodName = ""; reader.TryGetString("MethodName", ref methodName);
+                int nbParams = 0; reader.TryGetInt32("NbParams", ref nbParams);
+
+                // Get the input types
+                List<Type> paramTypes = new List<Type>();
+                for (int i = 0; i < nbParams; i++)
+                {
+                    string paramType = ""; reader.TryGetString("ParamType", i, ref paramType);
+                    paramTypes.Add(Type.GetType(paramType));
+                }
+
+                //Read from the base
+                if (!base.Read(reader))
+                    return false;
+
+                // Restore the method
                 Type type = Type.GetType(typeString);
                 RestoreMethod(type, methodName, paramTypes);
+
+                // Restore the ports
+                if (m_Method != null)
+                {
+                    Type outputType = (m_Method is MethodInfo) ? ((MethodInfo)m_Method).ReturnType : m_Method.DeclaringType;
+                    ComputeDaGets(m_Method.GetParameters().ToList(), outputType);
+                }
             }
-            catch { }
- 
-            // Restore the ports
-            if (m_Method != null)
+            catch (Exception e)
             {
-                Type outputType = (m_Method is MethodInfo) ? ((MethodInfo)m_Method).ReturnType : m_Method.DeclaringType;
-                ComputeDaGets(m_Method.GetParameters().ToList(), outputType);
+                m_LoadingError = e.ToString();
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "This component failed to load properly. Check that the corresponding method still exists. \nInternal Error: " + m_LoadingError);
             }
             
             return true;
@@ -283,6 +291,40 @@ namespace BH.UI.Alligator.Templates
                     }
                 }
             }
+        }
+
+        /*************************************/
+
+        public MethodBase GetMethod()
+        {
+            return m_Method;
+        }
+
+        /*************************************/
+
+        public TestData GetAllCurrentData(IGH_DataAccess DA)
+        {
+            if (m_Method == null)
+                return null;
+
+            List<object> inputs = new List<object>();
+            object result = null;
+
+            try
+            {
+                // Get the inputs
+                for (int i = 0; i < m_DaGets.Count; i++)
+                    inputs.Add(m_DaGets[i].Invoke(null, new object[] { DA, i }));
+
+                // Get the output
+                if (m_Method.IsConstructor)
+                    result = ((ConstructorInfo)m_Method).Invoke(inputs.ToArray());
+                else
+                    result = m_Method.Invoke(null, inputs.ToArray());
+            }
+            catch { }
+
+            return new TestData { Inputs = inputs, Output = result };
         }
 
 
@@ -636,6 +678,7 @@ namespace BH.UI.Alligator.Templates
         protected MethodBase m_Method = null;
         protected List<MethodInfo> m_DaGets = new List<MethodInfo>();
         protected MethodInfo m_DaSet = null;
+        protected string m_LoadingError = "";
 
 
         /*************************************/

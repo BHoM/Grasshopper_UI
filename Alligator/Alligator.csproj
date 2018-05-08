@@ -123,6 +123,7 @@
     <Compile Include="Components\Engine\ModifyBHoM.cs" />
     <Compile Include="Components\Engine\QueryBHoM.cs" />
     <Compile Include="Components\oM\CreateBHoM.cs" />
+    <Compile Include="Components\UI\CreateUnitTests.cs" />
     <Compile Include="Components\UI\VsScriptEditor.cs" />
     <Compile Include="NonComponents\BH_Hints\BH_BHomGeometryHint.cs" />
     <Compile Include="NonComponents\BH_Hints\BH_IObjectHint.cs" />
@@ -149,6 +150,7 @@
     </Compile>
     <Compile Include="NonComponents\Menus\SelectorMenu.cs" />
     <Compile Include="NonComponents\Menus\SearchPopup.cs" />
+    <Compile Include="NonComponents\Others\BH_StructureIterator.cs" />
     <Compile Include="NonComponents\Others\Logging.cs" />
     <Compile Include="NonComponents\Ports\PortDataType.cs" />
     <Compile Include="NonComponents\Render\RenderBHoMObject.cs" />
