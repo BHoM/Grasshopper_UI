@@ -66,10 +66,14 @@ namespace BH.UI.Alligator.Base
         public override bool Read(GH_IO.Serialization.GH_IReader reader)
         {
             bool ok = base.Read(reader);
+            int index = ListItems.IndexOf(SelectedItems[0]);
 
             string fileName = "";  reader.TryGetString("FileName", ref fileName);
             if (fileName.Length > 0)
                 File_Selected(null, fileName);
+
+            if (index < ListItems.Count)
+                SelectItem(index);
 
             return ok;
         }
