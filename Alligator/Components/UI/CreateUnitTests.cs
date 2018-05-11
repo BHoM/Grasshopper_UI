@@ -54,13 +54,18 @@ namespace BH.UI.Alligator.Base
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            GH_Document doc = OnPingDocument();
-            List<UnitTest> result = new List<UnitTest>();
+            bool active = false; DA.GetData(0, ref active);
 
-            foreach (var component in CollectComponents(doc))
-                result.Add( new UnitTest { Method = component.GetMethod(), Data = CollectData(component) });
+            if (active)
+            {
+                GH_Document doc = OnPingDocument();
+                List<UnitTest> result = new List<UnitTest>();
 
-            DA.SetDataList(0, result);
+                foreach (var component in CollectComponents(doc))
+                    result.Add(new UnitTest { Method = component.GetMethod(), Data = CollectData(component) });
+
+                DA.SetDataList(0, result);
+            }
         }
 
 
