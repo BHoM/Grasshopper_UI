@@ -5,6 +5,7 @@ using BH.oM.Base;
 using BH.oM.Geometry;
 using BH.Engine.Rhinoceros;
 using System.Collections;
+using Grasshopper.Kernel.Types;
 
 namespace BH.UI.Alligator.Base
 {
@@ -34,7 +35,7 @@ namespace BH.UI.Alligator.Base
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddParameter(new IObjectParameter(), "object", "object", "Object to get property from", GH_ParamAccess.item);
+            pManager.AddGenericParameter("object", "object", "Object to get property from", GH_ParamAccess.item);
             pManager.AddTextParameter("key", "key", "Property name", GH_ParamAccess.item);
         }
 
@@ -51,11 +52,14 @@ namespace BH.UI.Alligator.Base
         {
             Engine.Reflection.Compute.ClearCurrentEvents();
 
-            IObject obj = null;
+            object obj = null;
             string key = "";
 
             DA.GetData(0, ref obj);
             DA.GetData(1, ref key);
+
+            while (obj is IGH_Goo)
+                obj = ((IGH_Goo)obj).ScriptVariable();
 
             object result = BH.Engine.Reflection.Query.PropertyValue(obj, key);
 
