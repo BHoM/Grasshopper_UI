@@ -10,6 +10,7 @@ using BH.oM.Geometry;
 using Grasshopper.Kernel.Parameters;
 using BH.Engine.Rhinoceros;
 using Grasshopper.Kernel.Types;
+using BH.Adapter;
 
 namespace BH.UI.Alligator.Base
 {
@@ -86,7 +87,7 @@ namespace BH.UI.Alligator.Base
             Dictionary<string, object> outputs = new Dictionary<string, object>();
             if (obj is IDictionary)
                 outputs = StringifyKeys(obj as dynamic); 
-            else if (obj is IObject)
+            else if (obj is IObject || obj is BHoMAdapter)
                 outputs = (obj).PropertyDictionary();
 
 
