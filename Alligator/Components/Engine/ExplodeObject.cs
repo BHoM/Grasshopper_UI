@@ -121,19 +121,9 @@ namespace BH.UI.Alligator.Base
                         
                     var type = val.GetType();
                     if (typeof(IEnumerable).IsAssignableFrom(val.GetType()) && type != typeof(string) && !typeof(IDictionary).IsAssignableFrom(type))
-                    {
-                        /*if (Params.Output[i] is Param_Geometry)
-                            DA.SetDataList(i, ((IEnumerable)val).Cast<IGeometry>().Select(x => x.IToRhino()).ToList());
-                        else*/
-                            DA.SetDataList(i, ((IEnumerable)val).Cast<object>().ToList());
-                    }
+                        DA.SetDataList(i, ((IEnumerable)val).Cast<object>().ToList());
                     else
-                    {
-                        /*if (Params.Output[i] is Param_Geometry)
-                            DA.SetData(i, ((IGeometry)val).IToRhino());
-                        else*/
-                            DA.SetData(i, val);
-                    }
+                        DA.SetData(i, val);
                 }
             }
             else

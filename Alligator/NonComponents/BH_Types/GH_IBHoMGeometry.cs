@@ -80,20 +80,44 @@ namespace BH.UI.Alligator
 
         public override string ToString()
         {
-            string type = m_Value.GetType().ToString();
-            if (m_Value == null) { return "null IGeometry"; }
-            else if (typeof(BH.oM.Geometry.Point).IsAssignableFrom(m_Value.GetType()))
+            // Return object name if 
+            object value = Value;
+            Type type = value.GetType();
+            if (value is IGeometry)
+                return type.ToString();
+
+            switch (type.Name)
             {
-                BH.oM.Geometry.Point pt = (BH.oM.Geometry.Point)m_Value;
-                return (m_Value.GetType().ToString() + " {" + pt.X + ", " + pt.Y + ", " + pt.Z + "}");
+                case "Arc":
+                    return GH_Format.FormatArc((Rhino.Geometry.Arc)value);
+                case "Box":
+                    return GH_Format.FormatBox((Rhino.Geometry.Box)value);
+                case "BoundingBox":
+                    return GH_Format.FormatBox(new Rhino.Geometry.Box((Rhino.Geometry.BoundingBox)value));
+                case "Brep":
+                    return GH_Format.FormatBrep((Rhino.Geometry.Brep)value);
+                case "Circle":
+                    return GH_Format.FormatCircle((Rhino.Geometry.Circle)value);
+                case "ArcCurve":
+                case "Ellipse":
+                case "LineCurve":
+                case "NurbsCurve":
+                case "PolyCurve":
+                case "PolylineCurve":
+                    return GH_Format.FormatCurve((Rhino.Geometry.Curve)value);
+                case "Line":
+                    return GH_Format.FormatLine((Rhino.Geometry.Line)value);
+                case "Mesh":
+                    return GH_Format.FormatMesh((Rhino.Geometry.Mesh)value);
+                case "Plane":
+                    return GH_Format.FormatPlane((Rhino.Geometry.Plane)value);
+                case "Point3d":
+                    return GH_Format.FormatPoint((Rhino.Geometry.Point3d)value);
+                case "Vector3d":
+                    return GH_Format.FormatVector((Rhino.Geometry.Vector3d)value);
+                default:
+                    return type.ToString();
             }
-            else if (typeof(BH.oM.Geometry.Vector).IsAssignableFrom(m_Value.GetType()))
-            {
-                BH.oM.Geometry.Vector vec = (BH.oM.Geometry.Vector)m_Value;
-                return (m_Value.GetType().ToString() + " {" + vec.X + ", " + vec.Y + ", " + vec.Z + "}");
-            }
-            else
-                return m_Value.ToString();
         }
 
         /***************************************************/
@@ -124,17 +148,7 @@ namespace BH.UI.Alligator
                 m_Value = (IGeometry)source;
             else if (source is Rhino.Geometry.GeometryBase)
                 m_Value = ((Rhino.Geometry.GeometryBase)source).IToBHoM();
-            else if (source is GH_Vector)                   //TODO: Check if there are other exceptions that do not convert to GeometryBase
-                m_Value = ((GH_Vector)source).Value.ToBHoM();
-            else if (source is GH_Box)
-                m_Value = (((GH_Box)source).Value).ToBHoM();
-            else if (source is GH_Plane)
-                m_Value = (((GH_Plane)source).Value).ToBHoM();
-            else if (source is GH_Circle)
-                m_Value = (((GH_Circle)source).Value).ToBHoM();
-            else if (source is GH_Curve)
-                m_Value = (((GH_Curve)source).Value).ToBHoM();
-            else if (source is IGH_GeometricGoo)
+            else 
                 m_Value = GH_Convert.ToGeometryBase(source).IToBHoM();
 
             return true;
@@ -146,8 +160,11 @@ namespace BH.UI.Alligator
         {
             try
             {
-                object ptr = Value;
-                target = (Q)ptr;
+                if (target is IGH_GeometricGoo)
+                    target = (Q)GH_Convert.ToGeometricGoo(Value);
+                else
+                    target = (Q)Value;
+                
                 return true;
             }
             catch (Exception)

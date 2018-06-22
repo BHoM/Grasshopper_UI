@@ -502,12 +502,7 @@ namespace BH.UI.Alligator.Templates
         {
             if (typeof(IGeometry).IsAssignableFrom(type))
             {
-                IGH_Param param;
-                /*if (Engine.Rhinoceros.Query.IsRhinoEquivalent(type))
-                    param = new Param_Geometry { NickName = "" };
-                else*/
-                    param = new BHoMGeometryParameter { NickName = "" };
-                Params.RegisterOutputParam(param);
+                Params.RegisterOutputParam(new BHoMGeometryParameter { NickName = "" });
             }
             else
                 Params.RegisterOutputParam(GetGH_Param(type, ""));
