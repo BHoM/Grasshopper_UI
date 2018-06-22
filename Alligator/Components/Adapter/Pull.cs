@@ -76,7 +76,7 @@ namespace BH.UI.Alligator.Adapter
             }
 
             IEnumerable<object> objects = adapter.Pull(query, config.CustomData);
-            objects = objects.Select(x => (x is IGeometry) ? ((IGeometry)x).IToRhino() : x);
+            objects = objects.Select(x => Query.IsRhinoEquivalent(x.GetType()) ? ((IGeometry)x).IToRhino() : x);
             DA.SetDataList(0, objects);
 
             Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());

@@ -66,13 +66,13 @@ namespace BH.UI.Alligator.Base
             if (result is IEnumerable && !(result is string) && !(result is IDictionary))
             {
                 if (typeof(IGeometry).IsAssignableFrom(((IEnumerable)result).GetType().GenericTypeArguments.First()))
-                    DA.SetDataList(0, ((IEnumerable)result).Cast<IGeometry>().Select(x => x.IToRhino()));
+                    DA.SetDataList(0, ((IEnumerable)result).Cast<IGeometry>().Select(x => Query.IsRhinoEquivalent(x.GetType()) ? x.IToRhino() : x));
                 else
                     DA.SetDataList(0, result as IEnumerable);
             }
             else
             {
-                if (result is IGeometry)
+                if (Query.IsRhinoEquivalent(result.GetType()))
                     DA.SetData(0, ((IGeometry)result).IToRhino());
                 else
                     DA.SetData(0, result);

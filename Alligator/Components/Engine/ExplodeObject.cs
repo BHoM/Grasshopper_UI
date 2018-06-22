@@ -122,16 +122,16 @@ namespace BH.UI.Alligator.Base
                     var type = val.GetType();
                     if (typeof(IEnumerable).IsAssignableFrom(val.GetType()) && type != typeof(string) && !typeof(IDictionary).IsAssignableFrom(type))
                     {
-                        if (Params.Output[i] is Param_Geometry)
+                        /*if (Params.Output[i] is Param_Geometry)
                             DA.SetDataList(i, ((IEnumerable)val).Cast<IGeometry>().Select(x => x.IToRhino()).ToList());
-                        else
+                        else*/
                             DA.SetDataList(i, ((IEnumerable)val).Cast<object>().ToList());
                     }
                     else
                     {
-                        if (val is IGeometry)
+                        /*if (Params.Output[i] is Param_Geometry)
                             DA.SetData(i, ((IGeometry)val).IToRhino());
-                        else
+                        else*/
                             DA.SetData(i, val);
                     }
                 }
@@ -212,7 +212,10 @@ namespace BH.UI.Alligator.Base
                     type = type.GenericTypeArguments.First();
 
                 if (bhomGeometryType.IsAssignableFrom(type))
-                    Params.RegisterOutputParam(new Param_Geometry { NickName = keys[i] });
+                {
+                    Params.RegisterOutputParam(new BHoMGeometryParameter { NickName = keys[i] });
+                    
+                }
                 else if (bhomObjectType.IsAssignableFrom(type))
                     Params.RegisterOutputParam(new BHoMObjectParameter { NickName = keys[i] });
                 else
