@@ -166,7 +166,7 @@ namespace BH.UI.Alligator.Templates
                     throw new Exception(e.Message);
             }
 
-            dynamic result;
+            dynamic result = null;
             try
             {
                 if (m_Method.IsConstructor)
@@ -181,7 +181,7 @@ namespace BH.UI.Alligator.Templates
                     message += e.InnerException.Message;
                 else
                     message += e.Message;
-                throw new Exception(message);
+                BH.Engine.Reflection.Compute.RecordError(message);
             }
 
             m_DaSet.Invoke(null, new object[] { DA, result });
@@ -501,7 +501,14 @@ namespace BH.UI.Alligator.Templates
         protected void RegisterOutputParameter(Type type)
         {
             if (typeof(IGeometry).IsAssignableFrom(type))
-                Params.RegisterOutputParam(new Param_Geometry { NickName = "" });
+            {
+                IGH_Param param;
+                /*if (Engine.Rhinoceros.Query.IsRhinoEquivalent(type))
+                    param = new Param_Geometry { NickName = "" };
+                else*/
+                    param = new BHoMGeometryParameter { NickName = "" };
+                Params.RegisterOutputParam(param);
+            }
             else
                 Params.RegisterOutputParam(GetGH_Param(type, ""));
         }
@@ -572,7 +579,7 @@ namespace BH.UI.Alligator.Templates
         {
             if (typeof(IGeometry).IsAssignableFrom(typeof(T)))
             {
-                object result = ((IGeometry)data).IToRhino();
+                object result = ToRhino(data);
                 if (result is IEnumerable)
                     return DA.SetDataList(0, result as IEnumerable);
                 else
@@ -587,7 +594,7 @@ namespace BH.UI.Alligator.Templates
         public static bool SetDataList<T>(IGH_DataAccess DA, IEnumerable<T> data)
         {
             if (typeof(IGeometry).IsAssignableFrom(typeof(T)))
-                return DA.SetDataList(0, data.Select(x => (((IGeometry)x).IToRhino())));
+                return DA.SetDataList(0, data.Select(x => ToRhino(data)));
             else
                 return DA.SetDataList(0, data);
         }
@@ -597,9 +604,16 @@ namespace BH.UI.Alligator.Templates
         public static bool SetDataTree<T>(IGH_DataAccess DA, IEnumerable<IEnumerable<T>> data)
         {
             if (typeof(IGeometry).IsAssignableFrom(typeof(T)))
-                return DA.SetDataTree(0, BuildDataTree(data.Select(v => v.Select(x => (((IGeometry)x).IToRhino()))).ToList()));
+                return DA.SetDataTree(0, BuildDataTree(data.Select(v => v.Select(x => (ToRhino(x)))).ToList()));
             else
                 return DA.SetDataTree(0, BuildDataTree(data.ToList()));
+        }
+
+        /*************************************/
+
+        private static object ToRhino(object x)
+        {
+            return Engine.Rhinoceros.Query.IsRhinoEquivalent(x.GetType()) ? ((IGeometry)x).IToRhino() : x;
         }
 
         /*************************************/
