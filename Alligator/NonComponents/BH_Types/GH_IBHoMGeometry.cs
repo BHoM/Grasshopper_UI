@@ -148,7 +148,13 @@ namespace BH.UI.Alligator
                 m_Value = (IGeometry)source;
             else if (source is Rhino.Geometry.GeometryBase)
                 m_Value = ((Rhino.Geometry.GeometryBase)source).IToBHoM();
-            else 
+            else if (source is IGH_Goo)
+                m_Value = Engine.Rhinoceros.Convert.ToBHoM(((IGH_Goo)source).ScriptVariable() as dynamic);
+            else if (source is Rhino.Geometry.Vector3d)
+                m_Value = ((Rhino.Geometry.Vector3d)source).ToBHoM();
+            else if (source is Rhino.Geometry.Plane)
+                m_Value = ((Rhino.Geometry.Plane)source).ToBHoM();
+            else
                 m_Value = GH_Convert.ToGeometryBase(source).IToBHoM();
 
             return true;
