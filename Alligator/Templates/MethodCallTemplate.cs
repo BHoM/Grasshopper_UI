@@ -608,7 +608,15 @@ namespace BH.UI.Alligator.Templates
 
         private static object ToRhino(object x)
         {
-            return Engine.Rhinoceros.Query.IsRhinoEquivalent(x.GetType()) ? ((IGeometry)x).IToRhino() : x;
+            try
+            {
+                return Engine.Rhinoceros.Query.IsRhinoEquivalent(x.GetType()) ? ((IGeometry)x).IToRhino() : x;
+            }
+            catch (Exception e)
+            {
+                BH.Engine.Reflection.Compute.RecordError("Object of type " + x.GetType().ToString() + " failed to convert to a Rhino geometry\nError: " + e.Message);
+                return null;
+            }
         }
 
         /*************************************/
