@@ -156,6 +156,8 @@ namespace BH.UI.Alligator
                 m_Value = ((Rhino.Geometry.Plane)source).ToBHoM();
             else if (source is Rhino.Geometry.BoundingBox)
                 m_Value = ((Rhino.Geometry.BoundingBox)source).ToBHoM();
+            else if (source is Rhino.Geometry.Box)
+                m_Value = ((Rhino.Geometry.Box)source).ToBHoM();
             else
                 m_Value = GH_Convert.ToGeometryBase(source).IToBHoM();
 
