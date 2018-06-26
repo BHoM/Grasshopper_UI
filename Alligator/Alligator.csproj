@@ -125,6 +125,7 @@
     <Compile Include="Components\oM\CreateBHoM.cs" />
     <Compile Include="Components\UI\CreateTestResult.cs" />
     <Compile Include="Components\UI\CreateUnitTests.cs" />
+    <Compile Include="Components\UI\Script.cs" />
     <Compile Include="Components\UI\VsScriptEditor.cs" />
     <Compile Include="NonComponents\BH_Hints\BH_BHomGeometryHint.cs" />
     <Compile Include="NonComponents\BH_Hints\BH_IObjectHint.cs" />
