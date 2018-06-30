@@ -41,6 +41,10 @@ namespace BH.UI.Alligator.Templates
 
         public virtual string MethodGroup { get; set; } = "";
 
+        public virtual bool GroupByName { get; set; } = true;
+
+        public virtual bool ShortenBranches { get; set; } = false;
+
 
         /*************************************/
         /**** 2 . Helper Methods          ****/
@@ -84,7 +88,11 @@ namespace BH.UI.Alligator.Templates
                 IEnumerable<MethodBase> methods = GetRelevantMethods();
                 IEnumerable<string> paths = methods.Select(x => x.ToText(true));
 
-                m_MethodTree = GroupMethodsByName(Engine.DataStructure.Create.Tree(methods, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y))), "Select " + MethodGroup + " methods").ShortenBranches());
+                m_MethodTree = Engine.DataStructure.Create.Tree(methods, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y))), "Select " + MethodGroup + " methods");
+                if (GroupByName)
+                    m_MethodTree = GroupMethodsByName(m_MethodTree);
+                if (ShortenBranches)
+                    m_MethodTree = m_MethodTree.ShortenBranches();
                 m_MethodList = paths.Zip(methods, (k, v) => new Tuple<string, MethodBase>(k, v)).ToList();
 
                 m_MethodTreeStore[nickname] = m_MethodTree;
@@ -610,7 +618,12 @@ namespace BH.UI.Alligator.Templates
         {
             try
             {
-                return Engine.Rhinoceros.Query.IsRhinoEquivalent(x.GetType()) ? ((IGeometry)x).IToRhino() : x;
+                if (x == null)
+                    return null;
+                else if (Engine.Rhinoceros.Query.IsRhinoEquivalent(x.GetType()))
+                    return ((IGeometry)x).IToRhino();
+                else
+                    return x;
             }
             catch (Exception e)
             {
