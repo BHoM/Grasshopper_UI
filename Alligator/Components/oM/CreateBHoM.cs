@@ -23,6 +23,8 @@ namespace BH.UI.Alligator.Base
 
         public override string MethodGroup { get; set; } = "Create";
 
+        public override bool GroupByName { get; set; } = false;
+
 
         /*******************************************/
         /**** Constructors                      ****/
