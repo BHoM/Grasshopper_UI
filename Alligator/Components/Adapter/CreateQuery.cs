@@ -17,7 +17,9 @@ namespace BH.UI.Alligator.Adapter
 
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Base.Properties.Resources.QueryAdapter; 
 
-        public override GH_Exposure Exposure { get; } = GH_Exposure.secondary; 
+        public override GH_Exposure Exposure { get; } = GH_Exposure.secondary;
+
+        public override bool ShortenBranches { get; set; } = true;
 
 
         /*******************************************/
