@@ -71,7 +71,7 @@ namespace BH.UI.Alligator
 
         public static void RenderBHoMGeometry(BHG.Arc arc, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
         {
-            pipeline.DrawArc(arc.ToRhino().Arc, bhColour, 2);
+            pipeline.DrawArc(arc.ToRhino(), bhColour, 2);
         }
 
         /***************************************************/
@@ -92,7 +92,7 @@ namespace BH.UI.Alligator
 
         public static void RenderBHoMGeometry(BHG.Line line, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
         {
-            pipeline.DrawLine(line.ToRhino().Line, bhColour, 2);
+            pipeline.DrawLine(line.ToRhino(), bhColour, 2);
         }
         /***************************************************/
 
