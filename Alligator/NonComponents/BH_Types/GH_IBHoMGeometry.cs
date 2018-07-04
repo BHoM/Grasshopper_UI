@@ -19,7 +19,7 @@ namespace BH.UI.Alligator
 
         public override string TypeDescription { get; } = "Contains a generic BHoM Geometry";
 
-        public override bool IsValid { get { return m_Value != null;  } }
+        public override bool IsValid { get { return m_Value != null; } }
 
         public Rhino.Geometry.BoundingBox ClippingBox { get { return Boundingbox; } }
 
@@ -168,45 +168,45 @@ namespace BH.UI.Alligator
 
         public override bool CastTo<Q>(ref Q target)
         {
+            object value = Value;
             try
             {
-                object value = Value;
                 if (value == null)
                     target = default(Q);
                 if (target is GH_Vector)
                 {
                     GH_Vector vector = null;
-                    GH_Convert.ToGHVector(target, GH_Conversion.Both, ref vector);
+                    GH_Convert.ToGHVector(value, GH_Conversion.Both, ref vector);
                     target = (Q)(object)vector;
                 }
                 else if (target is GH_Curve)
                 {
                     GH_Curve curve = null;
-                    GH_Convert.ToGHCurve(target, GH_Conversion.Both, ref curve);
+                    GH_Convert.ToGHCurve(value, GH_Conversion.Both, ref curve);
                     target = (Q)(object)curve;
                 }
                 else if (target is GH_Surface)
                 {
                     GH_Surface surface = null;
-                    GH_Convert.ToGHSurface(target, GH_Conversion.Both, ref surface);
+                    GH_Convert.ToGHSurface(value, GH_Conversion.Both, ref surface);
                     target = (Q)(object)surface;
                 }
                 else if (target is GH_Brep)
                 {
                     GH_Brep bRep = null;
-                    GH_Convert.ToGHBrep(target, GH_Conversion.Both, ref bRep);
+                    GH_Convert.ToGHBrep(value, GH_Conversion.Both, ref bRep);
                     target = (Q)(object)bRep;
                 }
                 else if (target is IGH_GeometricGoo)
-                    target = (Q)GH_Convert.ToGeometricGoo(Value);
+                    target = (Q)GH_Convert.ToGeometricGoo(value);
                 else
-                    target = (Q)Value;
-                
+                    target = (Q)value;
+
                 return true;
             }
             catch (Exception)
             {
-                string message = string.Format("Impossible to convert {0} into {1}. Check the description of each input for more details on the type of object that need to be provided", Value.GetType().FullName, typeof(Q).FullName);
+                string message = string.Format("Impossible to convert {0} into {1}. Check the description of each input for more details on the type of object that need to be provided", value.GetType().FullName, typeof(Q).FullName);
                 throw new Exception(message);
             }
         }
