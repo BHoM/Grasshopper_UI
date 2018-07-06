@@ -8,10 +8,13 @@ using BH.Engine.Base;
 using BH.Engine.Rhinoceros;
 using Rhino;
 using Rhino.DocObjects;
+using GH_IO;
+using GH_IO.Serialization;
+using BH.Engine.Serialiser;
 
 namespace BH.UI.Alligator
 {
-    public class GH_BHoMObject : GH_IObject
+    public class GH_BHoMObject : GH_IObject, GH_ISerializable
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -65,6 +68,28 @@ namespace BH.UI.Alligator
             BH.oM.Geometry.BoundingBox bhBox = Geometry().IBounds();
             if (bhBox == null) { return Rhino.Geometry.BoundingBox.Empty; }
             return bhBox.ToRhino();
+        }
+
+        /***************************************************/
+
+        public override bool Read(GH_IReader reader)
+        {
+            string json = "";
+            reader.TryGetString("Json", ref json);
+
+            if (json != null && json.Length > 0)
+                Value = BH.Engine.Serialiser.Convert.FromJson(json);
+
+            return true;
+        }
+
+        /***************************************************/
+
+        public override bool Write(GH_IWriter writer)
+        {
+            if (Value != null)
+                writer.SetString("Json", Value.ToJson());
+            return true;
         }
 
 

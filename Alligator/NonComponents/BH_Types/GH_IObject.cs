@@ -8,10 +8,13 @@ using BH.Engine.Base;
 using BH.Engine.Rhinoceros;
 using Rhino;
 using Rhino.DocObjects;
+using GH_IO;
+using GH_IO.Serialization;
+using BH.Engine.Serialiser;
 
 namespace BH.UI.Alligator
 {
-    public class GH_IObject : GH_TemplateType<object>, IGH_PreviewData, IGH_BakeAwareData
+    public class GH_IObject : GH_TemplateType<object>, IGH_PreviewData, IGH_BakeAwareData, GH_ISerializable
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -79,6 +82,29 @@ namespace BH.UI.Alligator
 
             return base.CastFrom(source);
         }
+
+        /***************************************************/
+
+        public override bool Read(GH_IReader reader)
+        {
+            string json = "";
+            reader.TryGetString("Json", ref json);
+
+            if (json != null && json.Length > 0)
+                Value = BH.Engine.Serialiser.Convert.FromJson(json);
+
+            return true;
+        }
+
+        /***************************************************/
+
+        public override bool Write(GH_IWriter writer)
+        {
+            if (Value != null)
+                writer.SetString("Json", Value.ToJson());
+            return true;
+        }
+
 
 
         /***************************************************/
