@@ -607,9 +607,9 @@ namespace BH.UI.Alligator.Templates
         public static bool SetDataTree<T>(IGH_DataAccess DA, IEnumerable<IEnumerable<T>> data)
         {
             if (typeof(IGeometry).IsAssignableFrom(typeof(T)))
-                return DA.SetDataTree(0, BuildDataTree(data.Select(v => v.Select(x => (ToRhino(x)))).ToList()));
+                return DA.SetDataTree(0, BuildDataTree(data.Select(v => v.Select(x => (ToRhino(x)))).ToList(), DA.Iteration));
             else
-                return DA.SetDataTree(0, BuildDataTree(data.ToList()));
+                return DA.SetDataTree(0, BuildDataTree(data.ToList(), DA.Iteration));
         }
 
         /*************************************/
@@ -660,13 +660,13 @@ namespace BH.UI.Alligator.Templates
 
         /*************************************/
 
-        public static DataTree<T> BuildDataTree<T>(List<IEnumerable<T>> data)
+        public static DataTree<T> BuildDataTree<T>(List<IEnumerable<T>> data, int iteration)
         {
             DataTree<T> tree = new DataTree<T>();
             
             for (int i = 0; i < data.Count(); i++)
             {
-                tree.AddRange(data[i], new GH_Path(i));
+                tree.AddRange(data[i], new GH_Path(iteration, i));
             }
 
             return tree;
