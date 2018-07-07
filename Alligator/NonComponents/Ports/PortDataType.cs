@@ -39,10 +39,15 @@ namespace BH.UI.Alligator.Base.NonComponents.Ports
             else if (type != typeof(string) && (typeof(IEnumerable).IsAssignableFrom(type)))
             {
                 AccessMode = GH_ParamAccess.list;
+                Type subType = null;
                 if (type.GenericTypeArguments.Length > 0)
-                {
-                    type = type.GenericTypeArguments.First();
-                    PortDataType subDataType = new PortDataType(type);
+                    subType = type.GenericTypeArguments.First();
+                else if (type.HasElementType)
+                    subType = type.GetElementType();
+
+                if (subType != null)
+                { 
+                    PortDataType subDataType = new PortDataType(subType);
                     if (subDataType.AccessMode != GH_ParamAccess.item)
                         AccessMode = GH_ParamAccess.tree;
                     DataType = subDataType.DataType;  
