@@ -663,8 +663,11 @@ namespace BH.UI.Alligator.Templates
         public static DataTree<T> BuildDataTree<T>(List<IEnumerable<T>> data, int iteration)
         {
             DataTree<T> tree = new DataTree<T>();
-            
-            for (int i = 0; i < data.Count(); i++)
+
+            if (data.Count == 0)
+                tree.EnsurePath(new GH_Path(iteration));
+
+            for (int i = 0; i < data.Count; i++)
             {
                 tree.AddRange(data[i], new GH_Path(iteration, i));
             }
