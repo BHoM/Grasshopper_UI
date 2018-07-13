@@ -201,25 +201,25 @@ namespace BH.UI.Alligator
                 if (target is GH_Vector)
                 {
                     GH_Vector vector = null;
-                    GH_Convert.ToGHVector(target, GH_Conversion.Both, ref vector);
+                    GH_Convert.ToGHVector(value, GH_Conversion.Both, ref vector);
                     target = (Q)(object)vector;
                 }
                 else if (target is GH_Curve)
                 {
                     GH_Curve curve = null;
-                    GH_Convert.ToGHCurve(target, GH_Conversion.Both, ref curve);
+                    GH_Convert.ToGHCurve(value, GH_Conversion.Both, ref curve);
                     target = (Q)(object)curve;
                 }
                 else if (target is GH_Surface)
                 {
                     GH_Surface surface = null;
-                    GH_Convert.ToGHSurface(target, GH_Conversion.Both, ref surface);
+                    GH_Convert.ToGHSurface(value, GH_Conversion.Both, ref surface);
                     target = (Q)(object)surface;
                 }
                 else if (target is GH_Brep)
                 {
                     GH_Brep bRep = null;
-                    GH_Convert.ToGHBrep(target, GH_Conversion.Both, ref bRep);
+                    GH_Convert.ToGHBrep(value, GH_Conversion.Both, ref bRep);
                     target = (Q)(object)bRep;
                 }
                 else if (target is IGH_GeometricGoo)
