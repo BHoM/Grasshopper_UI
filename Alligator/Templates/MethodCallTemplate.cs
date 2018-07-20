@@ -184,15 +184,31 @@ namespace BH.UI.Alligator.Templates
             }
             catch (Exception e)
             {
-                string message = "This component failed to run properly. Are you sure you have the correct type of inputs?\n Check their description for more details. Here is the error provided by the method:\n ";
+                string message = "This component failed to run properly. Are you sure you have the correct type of inputs?\n" +
+                                 "Check their description for more details. Here is the error provided by the method:\n";
+                if (e.InnerException != null)
+                    message += e.InnerException.Message;
+                else
+                    message += e.Message;
+                BH.Engine.Reflection.Compute.RecordError(message);
+
+                Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
+                return;
+            }
+
+            try
+            {
+                m_DaSet.Invoke(null, new object[] { DA, result });
+            }
+            catch (Exception e)
+            {
+                string message = "This component failed to run properly. Output data is calculated but cannot be set.\n";
                 if (e.InnerException != null)
                     message += e.InnerException.Message;
                 else
                     message += e.Message;
                 BH.Engine.Reflection.Compute.RecordError(message);
             }
-
-            m_DaSet.Invoke(null, new object[] { DA, result });
 
             Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
         }
