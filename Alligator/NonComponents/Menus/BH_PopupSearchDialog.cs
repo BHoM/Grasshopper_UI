@@ -242,7 +242,7 @@ namespace BH.UI.Alligator.Menus
             m_message = null;
             
             m_MethodList = new Dictionary<string, MethodInfo>();
-            foreach (MethodInfo method in BH.Engine.Reflection.Query.BHoMMethodList())
+            foreach (MethodInfo method in BH.Engine.Reflection.Query.BHoMMethodList().Where(x => !x.IsNotImplemented() && !x.IsDeprecated()))
             {
                 try
                 {

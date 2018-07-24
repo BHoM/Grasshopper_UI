@@ -52,10 +52,13 @@ namespace BH.UI.Alligator.Templates
 
         protected virtual IEnumerable<MethodBase> GetRelevantMethods()
         {
+            IEnumerable<MethodBase> methods;
             if (MethodGroup != "")
-                return Engine.Reflection.Query.BHoMMethodList().Where(x => x.DeclaringType.Name == MethodGroup);
+                methods = Engine.Reflection.Query.BHoMMethodList().Where(x => x.DeclaringType.Name == MethodGroup);
             else
-                return Engine.Reflection.Query.BHoMMethodList();
+                methods = Engine.Reflection.Query.BHoMMethodList();
+
+            return methods.Where(x => !x.IsNotImplemented() && !x.IsDeprecated());
         }
 
 
@@ -144,6 +147,8 @@ namespace BH.UI.Alligator.Templates
 
         protected override void RegisterInputParams(GH_InputParamManager pManager) { }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager) { }
+
+        public override bool Obsolete { get { return m_IsDeprecated; } }
 
 
         /*************************************/
@@ -257,6 +262,10 @@ namespace BH.UI.Alligator.Templates
                 // Restore the method
                 Type type = Type.GetType(typeString);
                 RestoreMethod(type, methodName, paramTypes);
+
+                m_IsDeprecated = m_Method.IsDeprecated();
+                m_IsNotImplemented = m_Method.IsNotImplemented();
+                m_IsReleased = m_Method.IsReleased();
 
                 // Restore the ports
                 if (m_Method != null)
@@ -382,16 +391,29 @@ namespace BH.UI.Alligator.Templates
                 m_Method = ((MethodInfo)m_Method).MakeGenericMethod(generics);
             }
 
-            this.NickName = m_Method.IsConstructor ? m_Method.DeclaringType.Name : m_Method.Name;
-
-            List<ParameterInfo> inputs = m_Method.GetParameters().ToList();
-            Type output = m_Method.IsConstructor ? m_Method.DeclaringType : ((MethodInfo)m_Method).ReturnType;
-            SetPorts(inputs, output);
+            ApplyMethod(m_Method);
         }
 
         
         /*************************************/
         /**** Dynamic Update              ****/
+        /*************************************/
+
+        protected void ApplyMethod(MethodBase method)
+        {
+            if (method == null)
+                return;
+
+            this.NickName = method.IsConstructor ? method.DeclaringType.Name : method.Name;
+            m_IsDeprecated = method.IsDeprecated();
+            m_IsNotImplemented = method.IsNotImplemented();
+            m_IsReleased = method.IsReleased();
+
+            List<ParameterInfo> inputs = method.GetParameters().ToList();
+            Type output = method.IsConstructor ? method.DeclaringType : ((MethodInfo)method).ReturnType;
+            SetPorts(inputs, output);
+        }
+
         /*************************************/
 
         protected void SetPorts(List<ParameterInfo> inputs, Type output)
@@ -704,14 +726,7 @@ namespace BH.UI.Alligator.Templates
             List<Type> paramTypes = (methodInfo.CustomData["Parameters"] as List<object>).Select(x => ((string)x == null) ? null : Type.GetType(x as string)).ToList();
 
             RestoreMethod(type, methodName, paramTypes);
-            if (m_Method == null)
-                return;
-
-            this.NickName = m_Method.IsConstructor ? m_Method.DeclaringType.Name : m_Method.Name;
-
-            List<ParameterInfo> inputs = m_Method.GetParameters().ToList();
-            Type output = m_Method.IsConstructor ? m_Method.DeclaringType : ((MethodInfo)m_Method).ReturnType;
-            SetPorts(inputs, output);
+            ApplyMethod(m_Method);
         }
 
 
@@ -728,6 +743,10 @@ namespace BH.UI.Alligator.Templates
         protected List<MethodInfo> m_DaGets = new List<MethodInfo>();
         protected MethodInfo m_DaSet = null;
         protected string m_LoadingError = "";
+
+        protected bool m_IsDeprecated = false;
+        protected bool m_IsNotImplemented = false;
+        protected bool m_IsReleased = false;
 
 
         /*************************************/
