@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BH.UI.Alligator.Templates;
 using System.Reflection;
+using BH.Engine.Reflection;
 
 namespace BH.UI.Alligator.Adapter
 {
@@ -36,7 +37,7 @@ namespace BH.UI.Alligator.Adapter
         protected override IEnumerable<MethodBase> GetRelevantMethods()
         {
             Type queryType = typeof(BH.oM.DataManipulation.Queries.IQuery);
-            return BH.Engine.Reflection.Query.BHoMMethodList().Where(x => queryType.IsAssignableFrom(x.ReturnType)).OrderBy(x => x.Name);
+            return BH.Engine.Reflection.Query.BHoMMethodList().Where(x => queryType.IsAssignableFrom(x.ReturnType) && !x.IsNotImplemented() && !x.IsDeprecated()).OrderBy(x => x.Name);
         }
 
         /*******************************************/
