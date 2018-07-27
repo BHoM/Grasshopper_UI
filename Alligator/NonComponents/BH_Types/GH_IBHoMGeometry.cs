@@ -85,6 +85,9 @@ namespace BH.UI.Alligator
         {
             // Return object name if 
             object value = Value;
+            if (value == null)
+                return "Null";
+
             Type type = value.GetType();
             if (value is IGeometry)
                 return type.ToString();
@@ -118,6 +121,10 @@ namespace BH.UI.Alligator
                     return GH_Format.FormatPoint((Rhino.Geometry.Point3d)value);
                 case "Vector3d":
                     return GH_Format.FormatVector((Rhino.Geometry.Vector3d)value);
+                case "MeshFace":
+                    return GH_Format.FormatMeshFace(new GH_MeshFace((Rhino.Geometry.MeshFace)value));
+                case "Transform":
+                    return (new GH_Transform((Rhino.Geometry.Transform)value)).ToString();
                 default:
                     return type.ToString();
             }
@@ -183,6 +190,16 @@ namespace BH.UI.Alligator
                 m_Value = ((Rhino.Geometry.BoundingBox)source).ToBHoM();
             else if (source is Rhino.Geometry.Box)
                 m_Value = ((Rhino.Geometry.Box)source).ToBHoM();
+            else if (source is Rhino.Geometry.MeshFace)
+                m_Value = ((Rhino.Geometry.MeshFace)source).ToBHoM();
+            else if (source is Rhino.Geometry.Transform)
+                m_Value = ((Rhino.Geometry.Transform)source).ToBHoM();
+            else if (source is Rhino.Geometry.Matrix)
+            {
+                GH_Transform transform = new GH_Transform();
+                transform.CastFrom(source);
+                m_Value = transform.Value.ToBHoM();
+            }
             else
                 m_Value = GH_Convert.ToGeometryBase(source).IToBHoM();
 
@@ -221,6 +238,22 @@ namespace BH.UI.Alligator
                     GH_Brep bRep = null;
                     GH_Convert.ToGHBrep(value, GH_Conversion.Both, ref bRep);
                     target = (Q)(object)bRep;
+                }
+                else if (target is GH_MeshFace)
+                {
+                    GH_MeshFace face = null;
+                    GH_Convert.ToGHMeshFace(value, GH_Conversion.Both, ref face);
+                    target = (Q)(object)face;
+                }
+                else if (target is GH_Transform)
+                {
+                    GH_Transform transform = new GH_Transform(value as dynamic);
+                    target = (Q)(object)transform;
+                }
+                else if (target is GH_Matrix)
+                {
+                    GH_Matrix transform = new GH_Matrix(value as dynamic);
+                    target = (Q)(object)transform;
                 }
                 else if (target is IGH_GeometricGoo)
                     target = (Q)GH_Convert.ToGeometricGoo(Value);
