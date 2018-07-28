@@ -276,15 +276,27 @@ namespace BH.UI.Alligator
 
         public override IGH_GeometricGoo Transform(Rhino.Geometry.Transform xform)
         {
-            if (m_Value == null) { return null; }
-            return this;
+            if (m_Value == null)
+                return null;
+            else
+                return new GH_IBHoMGeometry { Value = m_Value.ITransform(xform.ToBHoM()) };
         }
 
         /***************************************************/
 
         public override IGH_GeometricGoo Morph(Rhino.Geometry.SpaceMorph xmorph)
         {
-            if (m_Value == null) { return null; }
+            object value = Value;
+            if (value == null)
+                return null;
+            else if (value is Rhino.Geometry.Point3d)
+                return new GH_IBHoMGeometry { Value = xmorph.MorphPoint((Rhino.Geometry.Point3d)value) };
+            else
+            {
+                Rhino.Geometry.GeometryBase geometry = ((Rhino.Geometry.GeometryBase)value).Duplicate();
+                return new GH_IBHoMGeometry { Value = xmorph.Morph(geometry) };
+            }
+
             return this;
         }
 
