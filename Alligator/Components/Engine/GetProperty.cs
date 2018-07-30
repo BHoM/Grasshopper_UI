@@ -61,21 +61,28 @@ namespace BH.UI.Alligator.Base
             while (obj is IGH_Goo)
                 obj = ((IGH_Goo)obj).ScriptVariable();
 
-            object result = BH.Engine.Reflection.Query.PropertyValue(obj, key);
+            try
+            {
+                object result = BH.Engine.Reflection.Query.PropertyValue(obj, key);
 
-            if (result is IEnumerable && !(result is string) && !(result is IDictionary))
-            {
-                if (typeof(IGeometry).IsAssignableFrom(((IEnumerable)result).GetType().GenericTypeArguments.First()))
-                    DA.SetDataList(0, ((IEnumerable)result).Cast<IGeometry>().Select(x => Query.IsRhinoEquivalent(x.GetType()) ? x.IToRhino() : x));
+                if (result is IEnumerable && !(result is string) && !(result is IDictionary))
+                {
+                    if (typeof(IGeometry).IsAssignableFrom(((IEnumerable)result).GetType().GenericTypeArguments.First()))
+                        DA.SetDataList(0, ((IEnumerable)result).Cast<IGeometry>().Select(x => Query.IsRhinoEquivalent(x.GetType()) ? x.IToRhino() : x));
+                    else
+                        DA.SetDataList(0, result as IEnumerable);
+                }
                 else
-                    DA.SetDataList(0, result as IEnumerable);
+                {
+                    if (Query.IsRhinoEquivalent(result.GetType()))
+                        DA.SetData(0, ((IGeometry)result).IToRhino());
+                    else
+                        DA.SetData(0, result);
+                }
             }
-            else
+            catch(Exception e)
             {
-                if (Query.IsRhinoEquivalent(result.GetType()))
-                    DA.SetData(0, ((IGeometry)result).IToRhino());
-                else
-                    DA.SetData(0, result);
+                BH.Engine.Reflection.Compute.RecordError(e.ToString());
             }
 
             Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
