@@ -9,6 +9,12 @@ using System.Runtime.CompilerServices;
 using BH.oM.Base;
 using RG = Rhino.Geometry;
 using System.Collections;
+using BH.oM.DataStructure;
+using BH.Engine.Reflection.Convert;
+using System.Windows.Forms;
+using BH.UI.Alligator.Base.NonComponents.Menus;
+using System.Reflection;
+using BH.UI.Alligator.Base.NonComponents.Ports;
 
 namespace BH.UI.Alligator.Base
 {
@@ -29,7 +35,29 @@ namespace BH.UI.Alligator.Base
         /**** Constructors                      ****/
         /*******************************************/
 
-        public CreateCustomObject() : base("Create Custom Object", "CustomObj", "Creates a custom BHoMObject from custom inputs", "Alligator", " oM") { }
+        public CreateCustomObject() : base("Create Custom Object", "CustomObj", "Creates a custom BHoMObject from custom inputs", "Alligator", " oM")
+        {
+            // Make sure the assemblies are loaded
+            if (!m_AssemblyLoaded)
+            {
+                m_AssemblyLoaded = true;
+                string folder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Grasshopper\Libraries\Alligator\";
+                BH.Engine.Reflection.Compute.LoadAllAssemblies(folder);
+            }
+
+            //Create the method tree and method list
+            if (m_TypeTree == null && m_TypeList == null)
+            {
+                List<string> ignore = new List<string> { "BH", "oM", "Engine" };
+
+                IEnumerable<Type> types = Engine.Reflection.Query.BHoMTypeList();
+                IEnumerable<string> paths = types.Select(x => x.ToText(true));
+
+                m_TypeTree = Engine.DataStructure.Create.Tree(types, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y))), "Select enforced Type");
+                m_TypeList = paths.Zip(types, (k, v) => new Tuple<string, Type>(k, v)).ToList();
+            }
+
+        }
 
 
         /*******************************************/
@@ -86,45 +114,122 @@ namespace BH.UI.Alligator.Base
         {
             Engine.Reflection.Compute.ClearCurrentEvents();
 
-            m_CustomObj = new oM.Base.CustomObject();
+            IObject obj = new CustomObject();
+            if (m_ForcedType != null)
+                obj = Activator.CreateInstance(m_ForcedType) as IObject;
+            if (obj == null)
+                obj = new CustomObject();
 
             for (int i = 0; i < Params.Input.Count; i++)
             {
-                if (Params.Input[i].NickName == "Name")
-                    m_CustomObj.Name = GetItemFromParameter(DA, i) as string;
-                else if (Params.Input[i].NickName == "Tags")
-                    m_CustomObj.Tags = new HashSet<string>(((List<object>)GetListFromParameter(DA, i)).Cast<string>());
-                else
-                {
-                    switch (this.Params.Input[i].Access)
-                    {
-                        case GH_ParamAccess.item:
-                            m_CustomObj.CustomData.Add(Params.Input[i].NickName, ToBHoM(RuntimeHelpers.GetObjectValue(this.GetItemFromParameter(DA, i))));
-                            break;
-                        case GH_ParamAccess.list:
-                            m_CustomObj.CustomData.Add(Params.Input[i].NickName, ToBHoM(RuntimeHelpers.GetObjectValue(this.GetListFromParameter(DA, i))));
-                            break;
-                        case GH_ParamAccess.tree:
-                            m_CustomObj.CustomData.Add(Params.Input[i].NickName, ToBHoM(RuntimeHelpers.GetObjectValue(this.GetTreeFromParameter(DA, i))));
-                            break;
-                    }
-                }
-                
+                if (Params.Input[i].SourceCount > 0)
+                    Engine.Reflection.Modify.SetPropertyValue(obj, Params.Input[i].NickName, GetInputData(DA, i));
             }
-
-            DA.SetData(0, m_CustomObj);
+                
+            DA.SetData(0, obj);
 
             Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
         }
 
+        /*************************************/
 
+        public override bool Write(GH_IO.Serialization.GH_IWriter writer)
+        {
+            if (m_ForcedType != null)
+            {
+                writer.SetString("ForcedType", m_ForcedType.AssemblyQualifiedName);
+            }
+            return base.Write(writer);
+        }
+
+        /*************************************/
+
+        public override bool Read(GH_IO.Serialization.GH_IReader reader)
+        {
+            try
+            {
+                //Read from the base
+                if (!base.Read(reader))
+                    return false;
+
+                // Get the forced type if any
+                string typeString = "";
+                if (reader.TryGetString("ForcedType", ref typeString))
+                    m_ForcedType = Type.GetType(typeString);
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "This component failed to load properly. \nInternal Error: " + e.ToString());
+                return false;
+            }
+        }
+
+
+        /*************************************/
+        /**** Creating Menu               ****/
+        /*************************************/
+
+        protected override void AppendAdditionalComponentMenuItems(ToolStripDropDown menu)
+        {
+            base.AppendAdditionalComponentMenuItems(menu);
+
+            if (m_ForcedType == null)
+            {
+                SelectorMenu<Type> selector = new SelectorMenu<Type>(menu, Item_Click);
+                selector.AppendTree(m_TypeTree);
+                selector.AppendSearchBox(m_TypeList);
+            }
+        }
+
+        /*************************************/
+
+        private void Item_Click(object sender, Type type)
+        {
+            m_ForcedType = type;
+            if (m_ForcedType == null)
+                return;
+
+            ApplyType(type);
+        }
+
+
+        /*************************************/
+        /**** Dynamic Update              ****/
+        /*************************************/
+
+        protected void ApplyType(Type type)
+        {
+            if (type == null)
+                return;
+
+            this.NickName = type.Name;
+
+            for (int i = 0; i < Params.Input.Count; i++)
+                DestroyParameter(GH_ParameterSide.Input, i);
+
+            foreach (PropertyInfo prop in type.GetProperties().Where(x => x.Name != "CustomData"))
+            {
+                PortDataType portInfo = new PortDataType(prop.PropertyType);
+                Params.RegisterInputParam(new Param_ScriptVariable { NickName = prop.Name, Optional = true, Access = portInfo.AccessMode });
+            }
+                
+
+            this.OnAttributesChanged();
+            ExpireSolution(true);
+        }
+
+
+        /*******************************************/
+        /**** Private Methods                   ****/
         /*******************************************/
 
         private object ToBHoM(object obj)
         {
             if (obj is IList)
             {
-                return ((IList)obj).Cast<object>().Select(x => ToBHoM(x));
+                return ((IList)obj).Cast<object>().Select(x => ToBHoM(x)).ToList();
             }
             else if (obj.GetType().Namespace.StartsWith("Rhino"))
             {
@@ -141,12 +246,32 @@ namespace BH.UI.Alligator.Base
                 return obj;
         }
 
+        /*************************************/
+
+        private object GetInputData(IGH_DataAccess DA, int index)
+        {
+            switch (this.Params.Input[index].Access)
+            {
+                case GH_ParamAccess.item:
+                    return ToBHoM(RuntimeHelpers.GetObjectValue(GetItemFromParameter(DA, index)));
+                case GH_ParamAccess.list:
+                    return ToBHoM(RuntimeHelpers.GetObjectValue(GetListFromParameter(DA, index)));
+                case GH_ParamAccess.tree:
+                    return ToBHoM(RuntimeHelpers.GetObjectValue(GetTreeFromParameter(DA, index)));
+                default:
+                    return null;
+            }
+        }
+
 
         /*******************************************/
         /**** Private Fields                    ****/
         /*******************************************/
 
-        private CustomObject m_CustomObj = new CustomObject();
+        private static bool m_AssemblyLoaded = false;
+        private static Tree<Type> m_TypeTree = null;
+        private static List<Tuple<string, Type>> m_TypeList = null;
+        private Type m_ForcedType = null;
 
 
         /*******************************************/
