@@ -206,8 +206,9 @@ namespace BH.UI.Alligator.Base
 
             this.NickName = type.Name;
 
-            for (int i = 0; i < Params.Input.Count; i++)
-                DestroyParameter(GH_ParameterSide.Input, i);
+            for (int i = Params.Input.Count - 1; i >= 0; i--)
+                Params.UnregisterInputParameter(Params.Input[i]);
+                
 
             foreach (PropertyInfo prop in type.GetProperties().Where(x => x.Name != "CustomData"))
             {
