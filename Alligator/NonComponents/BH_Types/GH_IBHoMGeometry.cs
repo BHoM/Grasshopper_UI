@@ -104,8 +104,9 @@ namespace BH.UI.Alligator
                     return GH_Format.FormatBrep((Rhino.Geometry.Brep)value);
                 case "Circle":
                     return GH_Format.FormatCircle((Rhino.Geometry.Circle)value);
-                case "ArcCurve":
                 case "Ellipse":
+                    return GH_Format.FormatCurve(((Rhino.Geometry.Ellipse)value).ToNurbsCurve());
+                case "ArcCurve":
                 case "LineCurve":
                 case "NurbsCurve":
                 case "PolyCurve":
