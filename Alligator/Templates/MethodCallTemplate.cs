@@ -631,7 +631,7 @@ namespace BH.UI.Alligator.Templates
 
         public static bool SetDataList<T>(IGH_DataAccess DA, IEnumerable<T> data)
         {
-            if (typeof(IGeometry).IsAssignableFrom(typeof(T)))
+            if (data != null && typeof(IGeometry).IsAssignableFrom(typeof(T)))
                 return DA.SetDataList(0, data.Select(x => ToRhino(x)));
             else
                 return DA.SetDataList(0, data);
