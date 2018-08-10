@@ -201,6 +201,10 @@ namespace BH.UI.Alligator
                 transform.CastFrom(source);
                 m_Value = transform.Value.ToBHoM();
             }
+            else if (source is Rhino.Geometry.Ellipse)
+            {
+                m_Value = ((Rhino.Geometry.Ellipse)source).ToBHoM();
+            }
             else
                 m_Value = GH_Convert.ToGeometryBase(source).IToBHoM();
 
@@ -266,7 +270,8 @@ namespace BH.UI.Alligator
             catch (Exception)
             {
                 string message = string.Format("Impossible to convert {0} into {1}. Check the description of each input for more details on the type of object that need to be provided", Value.GetType().FullName, typeof(Q).FullName);
-                throw new Exception(message);
+                Engine.Reflection.Compute.RecordError(message);
+                return false;
             }
         }
 
