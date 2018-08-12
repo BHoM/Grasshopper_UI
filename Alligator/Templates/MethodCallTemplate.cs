@@ -471,10 +471,15 @@ namespace BH.UI.Alligator.Templates
             // Create the output
             if (output != null)
             {
+                Type nameType = output;
+                while (nameType.GetGenericArguments().Count() > 0)
+                    nameType = nameType.GetGenericArguments().First();
                 PortDataType portInfo = new PortDataType(output);
-                RegisterOutputParameter(portInfo.DataType);
+                RegisterOutputParameter(portInfo.DataType); 
                 Params.Output[0].Access = portInfo.AccessMode;
                 Params.Output[0].Description = m_Method.OutputDescription();
+                Params.Output[0].NickName = nameType.Name.Substring(0, 1);
+                Params.Output[0].Name = nameType.Name.Substring(0, 1);
             }
         }
 

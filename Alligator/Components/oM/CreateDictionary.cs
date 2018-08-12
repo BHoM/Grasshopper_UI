@@ -56,7 +56,7 @@ namespace BH.UI.Alligator.Base
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddParameter(new DictionaryParameter(), "", "", "Dictionary", GH_ParamAccess.item);
+            pManager.AddParameter(new DictionaryParameter(), "D", "D", "Dictionary", GH_ParamAccess.item);
         }
 
         /*******************************************/
