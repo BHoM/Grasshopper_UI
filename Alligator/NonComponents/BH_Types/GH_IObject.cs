@@ -30,11 +30,18 @@ namespace BH.UI.Alligator
         {
             get
             {
-                if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
-                if (Geometry() == null) { return Rhino.Geometry.BoundingBox.Empty; }
-                BH.oM.Geometry.BoundingBox bhBox = Geometry().IBounds();
-                if (bhBox == null) { return Rhino.Geometry.BoundingBox.Empty; }
-                return bhBox.ToRhino();
+                try
+                {
+                    if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
+                    if (Geometry() == null) { return Rhino.Geometry.BoundingBox.Empty; }
+                    BH.oM.Geometry.BoundingBox bhBox = Geometry().IBounds();
+                    if (bhBox == null) { return Rhino.Geometry.BoundingBox.Empty; }
+                    return bhBox.ToRhino();
+                }
+                catch
+                {
+                    return Rhino.Geometry.BoundingBox.Empty;
+                }   
             }
         }
 
@@ -63,11 +70,19 @@ namespace BH.UI.Alligator
 
         public virtual Rhino.Geometry.BoundingBox GetBoundingBox(Rhino.Geometry.Transform xform)
         {
-            if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
-            if (Geometry() == null) { return Rhino.Geometry.BoundingBox.Empty; }
-            BH.oM.Geometry.BoundingBox bhBox = Geometry().IBounds();
-            if (bhBox == null) { return Rhino.Geometry.BoundingBox.Empty; }
-            return bhBox.ToRhino();
+            try
+            {
+                if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
+                if (Geometry() == null) { return Rhino.Geometry.BoundingBox.Empty; }
+                BH.oM.Geometry.BoundingBox bhBox = Geometry().IBounds();
+                if (bhBox == null) { return Rhino.Geometry.BoundingBox.Empty; }
+                return bhBox.ToRhino();
+            }
+            catch
+            {
+                return Rhino.Geometry.BoundingBox.Empty;
+            }
+            
         }
 
         /***************************************************/
