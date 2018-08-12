@@ -188,7 +188,21 @@ namespace BH.UI.Alligator.Base
             int nbOld = Params.Output.Count();
 
             for (int i = 0; i < Math.Min(nbNew, nbOld); i++)
-                Params.Output[i].NickName = keys[i];
+            {
+                Type type = m_OutputTypes[i].Item2;
+                bool isList = type != typeof(string) && (enumerableType.IsAssignableFrom(type)) && !typeof(IDictionary).IsAssignableFrom(type);
+
+                if (isList)
+                    type = type.GenericTypeArguments.First();
+
+                if (bhomGeometryType.IsAssignableFrom(type))
+                    Params.Output[i] = new BHoMGeometryParameter { NickName = keys[i] };
+                else if (bhomObjectType.IsAssignableFrom(type))
+                    Params.Output[i] = new BHoMObjectParameter { NickName = keys[i] };
+                else
+                    Params.Output[i] = new Param_GenericObject { NickName = keys[i] };
+            }
+                
 
             for (int i = nbOld - 1; i > nbNew - 1; i--)
                 Params.UnregisterOutputParameter(Params.Output[i]);
