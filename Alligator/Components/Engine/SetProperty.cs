@@ -61,11 +61,16 @@ namespace BH.UI.Alligator.Base
             DA.GetData(0, ref obj);
             DA.GetData(1, ref key);
 
-            Type type = obj.GetType().GetProperty(key).PropertyType;
+            Type type = typeof(object);
+            PropertyInfo prop = obj.GetType().GetProperty(key);
+            if (prop != null)
+                type = obj.GetType().GetProperty(key).PropertyType;
 
             if (Params.Input[2].Access == GH_ParamAccess.list) // TODO: We need to take care of the case for list of list (not currently available as an option in the ScriptParam menu)
             {
-                Type subType = type.GetGenericArguments().First();
+                Type subType = typeof(object);
+                if (type.GetGenericArguments().Count() > 0)
+                    subType = type.GetGenericArguments().First();
                 MethodInfo generic = DA.GetType().GetMethods().Where(x => x.Name == "GetDataList" && x.GetParameters().First().ParameterType == typeof(int)).First().MakeGenericMethod(subType);
                 object[] arguments = new object[] { 2, Activator.CreateInstance(typeof(List<>).MakeGenericType(subType)) };
                 generic.Invoke(DA, arguments);
