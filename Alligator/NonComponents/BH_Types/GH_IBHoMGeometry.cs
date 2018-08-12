@@ -30,7 +30,14 @@ namespace BH.UI.Alligator
         {
             get
             {
-                return (Value == null) ? Rhino.Geometry.BoundingBox.Empty : m_Value.IBounds().ToRhino();
+                try
+                {
+                    return (Value == null) ? Rhino.Geometry.BoundingBox.Empty : m_Value.IBounds().ToRhino();
+                }
+                catch
+                {
+                    return Rhino.Geometry.BoundingBox.Empty;
+                }
             }
         }
 
@@ -135,8 +142,15 @@ namespace BH.UI.Alligator
 
         public override Rhino.Geometry.BoundingBox GetBoundingBox(Rhino.Geometry.Transform xform)
         {
-            if (m_Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
-            return m_Value.IBounds().ToRhino();
+            try
+            {
+                if (m_Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
+                return m_Value.IBounds().ToRhino();
+            }
+            catch
+            {
+                return Rhino.Geometry.BoundingBox.Empty;
+            }
         }
 
         /***************************************************/
