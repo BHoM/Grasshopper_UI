@@ -33,7 +33,7 @@ namespace BH.UI.Alligator
         /**** Public Methods  - Structural              ****/
         /***************************************************/
 
-        public static bool RenderBHoMObject(BH.oM.Structural.Elements.Node node, GH_PreviewWireArgs args, Color bhColour)
+        public static bool RenderBHoMObject(BH.oM.Structure.Elements.Node node, GH_PreviewWireArgs args, Color bhColour)
         {
             BHG.Point pt = node.Position;
             RHG.Point3d location = pt.ToRhino().ToScreen(args);

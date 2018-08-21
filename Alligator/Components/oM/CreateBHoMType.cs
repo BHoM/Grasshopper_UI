@@ -82,6 +82,12 @@ namespace BH.UI.Alligator.Base
         {
             string typeString = ""; reader.TryGetString("TypeName", ref typeString);
 
+            //Fix for namespace change in structure
+            if (typeString.Contains("oM.Structural"))
+            {
+                typeString = typeString.Replace("oM.Structural", "oM.Structure");
+            }
+
             if (typeString.Length > 0)
                 m_Type = Type.GetType(typeString);
 

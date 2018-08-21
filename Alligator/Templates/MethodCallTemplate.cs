@@ -246,9 +246,19 @@ namespace BH.UI.Alligator.Templates
 
                 // Get the input types
                 List<Type> paramTypes = new List<Type>();
+
+                m_IsDeprecated = false;
                 for (int i = 0; i < nbParams; i++)
                 {
                     string paramType = ""; reader.TryGetString("ParamType", i, ref paramType);
+
+                    //Fix for namespace change in structure
+                    if (paramType.Contains("oM.Structural"))
+                    {
+                        paramType = paramType.Replace("oM.Structural", "oM.Structure");
+                        m_IsDeprecated = true;
+                    }
+
                     paramTypes.Add(Type.GetType(paramType));
                 }
 
@@ -260,7 +270,7 @@ namespace BH.UI.Alligator.Templates
                 Type type = Type.GetType(typeString);
                 RestoreMethod(type, methodName, paramTypes);
 
-                m_IsDeprecated = m_Method.IsDeprecated();
+                m_IsDeprecated |= m_Method.IsDeprecated();
                 m_IsNotImplemented = m_Method.IsNotImplemented();
                 m_IsReleased = m_Method.IsReleased();
 
