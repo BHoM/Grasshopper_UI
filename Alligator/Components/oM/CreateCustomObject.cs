@@ -155,7 +155,16 @@ namespace BH.UI.Alligator.Base
                 // Get the forced type if any
                 string typeString = "";
                 if (reader.TryGetString("ForcedType", ref typeString))
+                {
+                    //Fix for namespace change in structure
+                    if (typeString.Contains("oM.Structural"))
+                    {
+                        typeString = typeString.Replace("oM.Structural", "oM.Structure");
+                        //m_IsDeprecated = true;
+                    }
+
                     m_ForcedType = Type.GetType(typeString);
+                }
 
                 return true;
             }

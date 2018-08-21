@@ -23,7 +23,9 @@ namespace BH.UI.Alligator.Base
 
         protected override System.Drawing.Bitmap Icon { get; } = Properties.Resources.BHoM_Enum; 
 
-        public override GH_Exposure Exposure { get; } = GH_Exposure.primary; 
+        public override GH_Exposure Exposure { get; } = GH_Exposure.primary;
+
+        public override bool Obsolete { get { return m_IsDeprecated; } }
 
 
         /*******************************************/
@@ -85,6 +87,13 @@ namespace BH.UI.Alligator.Base
         {
             string typeString = ""; reader.TryGetString("TypeName", ref typeString);
 
+            //Fix for namespace change in structure
+            if (typeString.Contains("oM.Structural"))
+            {
+                typeString = typeString.Replace("oM.Structural", "oM.Structure");
+                m_IsDeprecated = true;
+            }
+
             if (typeString.Length > 0)
                 m_Type = Type.GetType(typeString);
 
@@ -135,6 +144,7 @@ namespace BH.UI.Alligator.Base
         /*******************************************/
 
         Type m_Type = null;
+        private bool m_IsDeprecated = false;
         protected static Tree<Type> m_TypeTree = null;
         protected static List<Tuple<string, Type>> m_TypeList = null;
 
