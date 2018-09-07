@@ -56,7 +56,7 @@ namespace BH.UI.Alligator.Adapter
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Engine.Reflection.Compute.ClearCurrentEvents();
+            BH.Engine.Reflection.Compute.ClearCurrentEvents();
 
             BHoMAdapter adapter = null; DA.GetData(0, ref adapter);
             IQuery query = null; DA.GetData(1, ref query);
@@ -79,7 +79,7 @@ namespace BH.UI.Alligator.Adapter
             objects = objects.Select(x => Query.IsRhinoEquivalent(x.GetType()) ? ((IGeometry)x).IToRhino() : x);
             DA.SetDataList(0, objects);
 
-            Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
+            Logging.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
         }
 
         /*******************************************/

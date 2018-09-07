@@ -75,7 +75,7 @@ namespace BH.UI.Alligator.Base
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Engine.Reflection.Compute.ClearCurrentEvents();
+            BH.Engine.Reflection.Compute.ClearCurrentEvents();
 
             object obj = null;
             if (!DA.GetData(0, ref obj) || obj == null)
@@ -131,7 +131,7 @@ namespace BH.UI.Alligator.Base
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "The outputs need to be updated first. Please right-click on component and select update.");
             }
 
-            Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
+            Logging.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
         }
 
         /*******************************************/
@@ -166,12 +166,12 @@ namespace BH.UI.Alligator.Base
 
         protected override void AfterSolveInstance()
         {
-            Engine.Reflection.Compute.ClearCurrentEvents();
+            BH.Engine.Reflection.Compute.ClearCurrentEvents();
 
             if (Params.Output.Count() == 0)
                 UpdateOutputs();
 
-            Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
+            Logging.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
         }
 
         /*******************************************/

@@ -12,9 +12,9 @@ using GH_IO;
 using GH_IO.Serialization;
 using BH.Engine.Serialiser;
 
-namespace BH.UI.Alligator
+namespace BH.Engine.Alligator.Objects
 {
-    public class GH_IObject : GH_TemplateType<object>, IGH_PreviewData, IGH_BakeAwareData, GH_ISerializable
+    public class GH_IObject : GH_BHoMGoo<IObject>, IGH_PreviewData, GH_ISerializable
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -22,28 +22,13 @@ namespace BH.UI.Alligator
 
         public override string TypeName { get; } = "IObject";
 
-        public override string TypeDescription { get; } = "Contains a generic IObject"; 
+        public override string TypeDescription { get; } = "Contains a generic BHoM IObject";
 
-        public virtual Rhino.Geometry.BoundingBox ClippingBox { get { return Boundingbox; } }
+        public override bool IsValid { get { return Value != null; } }
 
-        public virtual Rhino.Geometry.BoundingBox Boundingbox
-        {
-            get
-            {
-                try
-                {
-                    if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
-                    if (Geometry() == null) { return Rhino.Geometry.BoundingBox.Empty; }
-                    BH.oM.Geometry.BoundingBox bhBox = Geometry().IBounds();
-                    if (bhBox == null) { return Rhino.Geometry.BoundingBox.Empty; }
-                    return bhBox.ToRhino();
-                }
-                catch
-                {
-                    return Rhino.Geometry.BoundingBox.Empty;
-                }   
-            }
-        }
+        public virtual Rhino.Geometry.BoundingBox ClippingBox { get { return Bounds(); } }
+
+        public virtual Rhino.Geometry.BoundingBox Boundingbox { get { return Bounds(); } }
 
 
         /*******************************************/
@@ -54,7 +39,7 @@ namespace BH.UI.Alligator
 
         /***************************************************/
 
-        public GH_IObject(object val) : base(val) { }
+        public GH_IObject(IObject val) : base(val) { }
 
 
         /*******************************************/
@@ -70,19 +55,9 @@ namespace BH.UI.Alligator
 
         public virtual Rhino.Geometry.BoundingBox GetBoundingBox(Rhino.Geometry.Transform xform)
         {
-            try
-            {
-                if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
-                if (Geometry() == null) { return Rhino.Geometry.BoundingBox.Empty; }
-                BH.oM.Geometry.BoundingBox bhBox = Geometry().IBounds();
-                if (bhBox == null) { return Rhino.Geometry.BoundingBox.Empty; }
-                return bhBox.ToRhino();
-            }
-            catch
-            {
-                return Rhino.Geometry.BoundingBox.Empty;
-            }
-            
+            Rhino.Geometry.BoundingBox box = Bounds();
+            box.Transform(xform);
+            return box;
         }
 
         /***************************************************/
@@ -100,13 +75,24 @@ namespace BH.UI.Alligator
 
         /***************************************************/
 
+        public override string ToString()
+        {
+            IObject val = Value;
+            if (val == null)
+                return "null";
+            else
+                return val.ToString();
+        }
+
+        /***************************************************/
+
         public override bool Read(GH_IReader reader)
         {
             string json = "";
             reader.TryGetString("Json", ref json);
 
             if (json != null && json.Length > 0)
-                Value = BH.Engine.Serialiser.Convert.FromJson(json);
+                Value = (IObject)BH.Engine.Serialiser.Convert.FromJson(json);
 
             return true;
         }
@@ -120,10 +106,6 @@ namespace BH.UI.Alligator
             return true;
         }
 
-
-
-        /***************************************************/
-        /**** IGH_PreviewData methods                   ****/
         /***************************************************/
 
         public virtual void DrawViewportMeshes(GH_PreviewMeshArgs args)
@@ -137,21 +119,10 @@ namespace BH.UI.Alligator
 
         public virtual void DrawViewportWires(GH_PreviewWireArgs args)
         {
-            if (Value is BHoMObject) 
+            /*if (Value is BHoMObject) 
                 Render.IRenderBHoMObject(Value as BHoMObject, args);
             else if (Value is IGeometry)
-                Render.IRenderBHoMGeometry(Value as IGeometry, args);
-        }
-
-
-        /***************************************************/
-        /**** IGH_BakeAwareData methods                 ****/
-        /***************************************************/
-
-        public virtual bool BakeGeometry(RhinoDoc doc, ObjectAttributes att, out Guid obj_guid)
-        {
-            obj_guid = doc.Objects.Add(Geometry().IToRhino() as Rhino.Geometry.GeometryBase, att); // TODO: Check what happend when geometry is not GeometryBase
-            return true;
+                Render.IRenderBHoMGeometry(Value as IGeometry, args);*/
         }
 
 
@@ -168,6 +139,32 @@ namespace BH.UI.Alligator
             else
                 return null;
         }
+
+        /***************************************************/
+
+        private Rhino.Geometry.BoundingBox Bounds()
+        {
+            try
+            {
+                if (Value == null)
+                    return Rhino.Geometry.BoundingBox.Empty;
+
+                IGeometry geometry = Geometry();
+                if (geometry == null)
+                    return Rhino.Geometry.BoundingBox.Empty;
+
+                BH.oM.Geometry.BoundingBox bhBox = geometry.IBounds();
+                if (bhBox == null)
+                    return Rhino.Geometry.BoundingBox.Empty;
+
+                return bhBox.ToRhino();
+            }
+            catch
+            {
+                return Rhino.Geometry.BoundingBox.Empty;
+            }
+        }
+
 
         /***************************************************/
     }

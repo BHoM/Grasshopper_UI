@@ -54,9 +54,9 @@ namespace BH.UI.Alligator.Templates
         {
             IEnumerable<MethodBase> methods;
             if (MethodGroup != "")
-                methods = Engine.Reflection.Query.BHoMMethodList().Where(x => x.DeclaringType.Name == MethodGroup);
+                methods = BH.Engine.Reflection.Query.BHoMMethodList().Where(x => x.DeclaringType.Name == MethodGroup);
             else
-                methods = Engine.Reflection.Query.BHoMMethodList();
+                methods = BH.Engine.Reflection.Query.BHoMMethodList();
 
             return methods.Where(x => !x.IsNotImplemented() && !x.IsDeprecated());
         }
@@ -91,7 +91,7 @@ namespace BH.UI.Alligator.Templates
                 IEnumerable<MethodBase> methods = GetRelevantMethods();
                 IEnumerable<string> paths = methods.Select(x => x.ToText(true));
 
-                m_MethodTree = Engine.DataStructure.Create.Tree(methods, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y))), "Select " + MethodGroup + " methods");
+                m_MethodTree = BH.Engine.DataStructure.Create.Tree(methods, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y))), "Select " + MethodGroup + " methods");
                 if (GroupByName)
                     m_MethodTree = GroupMethodsByName(m_MethodTree);
                 if (ShortenBranches)
@@ -163,7 +163,7 @@ namespace BH.UI.Alligator.Templates
             if (m_Method == null)
                 return;
 
-            Engine.Reflection.Compute.ClearCurrentEvents();
+            BH.Engine.Reflection.Compute.ClearCurrentEvents();
 
             List<object> inputs = new List<object>();
             try
@@ -212,7 +212,7 @@ namespace BH.UI.Alligator.Templates
                 BH.Engine.Reflection.Compute.RecordError(message);
             }
 
-            Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
+            Logging.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
         }
 
 
@@ -670,7 +670,7 @@ namespace BH.UI.Alligator.Templates
             {
                 if (x == null)
                     return null;
-                else if (Engine.Rhinoceros.Query.IsRhinoEquivalent(x.GetType()))
+                else if (BH.Engine.Rhinoceros.Query.IsRhinoEquivalent(x.GetType()))
                     return ((IGeometry)x).IToRhino();
                 else
                     return x;
@@ -703,7 +703,7 @@ namespace BH.UI.Alligator.Templates
             else
             {
                 if (data.GetType().Namespace.StartsWith("Rhino.Geometry"))
-                    data = Engine.Rhinoceros.Convert.ToBHoM(data as dynamic);
+                    data = BH.Engine.Rhinoceros.Convert.ToBHoM(data as dynamic);
                 return (T)(data as dynamic);
             }
         }
@@ -732,7 +732,7 @@ namespace BH.UI.Alligator.Templates
 
         public void SetInitCode(string code)
         {
-            CustomObject methodInfo = Engine.Serialiser.Convert.FromJson(code) as CustomObject;
+            CustomObject methodInfo = BH.Engine.Serialiser.Convert.FromJson(code) as CustomObject;
             Type type = Type.GetType(methodInfo.CustomData["TypeName"] as string);
             string methodName = methodInfo.CustomData["MethodName"] as string;
             List<Type> paramTypes = (methodInfo.CustomData["Parameters"] as List<object>).Select(x => ((string)x == null) ? null : Type.GetType(x as string)).ToList();

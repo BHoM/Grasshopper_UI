@@ -52,7 +52,7 @@ namespace BH.UI.Alligator.Adapter
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Engine.Reflection.Compute.ClearCurrentEvents();
+            BH.Engine.Reflection.Compute.ClearCurrentEvents();
 
             BHoMAdapter adapter = null; DA.GetData(0, ref adapter);
             FilterQuery query = null; DA.GetData(1, ref query);
@@ -67,7 +67,7 @@ namespace BH.UI.Alligator.Adapter
             int nb = adapter.Delete(query, config.CustomData);
             DA.SetData(0, nb);
 
-            Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
+            Logging.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
         }
 
         /*******************************************/

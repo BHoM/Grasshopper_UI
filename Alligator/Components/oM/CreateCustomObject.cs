@@ -50,10 +50,10 @@ namespace BH.UI.Alligator.Base
             {
                 List<string> ignore = new List<string> { "BH", "oM", "Engine" };
 
-                IEnumerable<Type> types = Engine.Reflection.Query.BHoMTypeList();
+                IEnumerable<Type> types = BH.Engine.Reflection.Query.BHoMTypeList();
                 IEnumerable<string> paths = types.Select(x => x.ToText(true));
 
-                m_TypeTree = Engine.DataStructure.Create.Tree(types, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y))), "Select enforced Type");
+                m_TypeTree = BH.Engine.DataStructure.Create.Tree(types, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y))), "Select enforced Type");
                 m_TypeList = paths.Zip(types, (k, v) => new Tuple<string, Type>(k, v)).ToList();
             }
 
@@ -112,7 +112,7 @@ namespace BH.UI.Alligator.Base
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Engine.Reflection.Compute.ClearCurrentEvents();
+            BH.Engine.Reflection.Compute.ClearCurrentEvents();
 
             IObject obj = new CustomObject();
             if (m_ForcedType != null)
@@ -123,12 +123,12 @@ namespace BH.UI.Alligator.Base
             for (int i = 0; i < Params.Input.Count; i++)
             {
                 if (Params.Input[i].SourceCount > 0)
-                    Engine.Reflection.Modify.SetPropertyValue(obj, Params.Input[i].NickName, GetInputData(DA, i));
+                    BH.Engine.Reflection.Modify.SetPropertyValue(obj, Params.Input[i].NickName, GetInputData(DA, i));
             }
                 
             DA.SetData(0, obj);
 
-            Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
+            Logging.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
         }
 
         /*************************************/

@@ -33,38 +33,38 @@ namespace BH.UI.Alligator
         /**** Public Methods  - Structural              ****/
         /***************************************************/
 
-        public static bool RenderBHoMObject(BH.oM.Structure.Elements.Node node, GH_PreviewWireArgs args, Color bhColour)
-        {
-            BHG.Point pt = node.Position;
-            RHG.Point3d location = pt.ToRhino().ToScreen(args);
-            RenderBHoMGeometry(pt, args.Pipeline, bhColour);
-            args.Pipeline.Draw2dText(node.Name, Color.Navy, location, false, 10);
-            return true;
-        }
+        //public static bool RenderBHoMObject(BH.oM.Structure.Elements.Node node, GH_PreviewWireArgs args, Color bhColour)
+        //{
+        //    BHG.Point pt = node.Position;
+        //    RHG.Point3d location = pt.ToRhino().ToScreen(args);
+        //    RenderBHoMGeometry(pt, args.Pipeline, bhColour);
+        //    args.Pipeline.Draw2dText(node.Name, Color.Navy, location, false, 10);
+        //    return true;
+        //}
 
         /***************************************************/
         /**** Public Methods  - Acoustic                ****/
         /***************************************************/
 
-        public static bool RenderBHoMObject(BH.oM.Acoustic.Speaker speaker, GH_PreviewWireArgs args, Color bhColour)
-        {
-            BHG.Point pt = speaker.Location;
-            RHG.Point3d location = pt.ToRhino().ToScreen(args);
-            RenderBHoMGeometry(pt, args.Pipeline, bhColour);
-            args.Pipeline.Draw2dText(speaker.SpeakerID.ToString(), Color.Navy, location, false, 10);
-            return true;
-        }
+        //public static bool RenderBHoMObject(BH.oM.Acoustic.Speaker speaker, GH_PreviewWireArgs args, Color bhColour)
+        //{
+        //    BHG.Point pt = speaker.Location;
+        //    RHG.Point3d location = pt.ToRhino().ToScreen(args);
+        //    RenderBHoMGeometry(pt, args.Pipeline, bhColour);
+        //    args.Pipeline.Draw2dText(speaker.SpeakerID.ToString(), Color.Navy, location, false, 10);
+        //    return true;
+        //}
 
         /***************************************************/
 
-        public static bool RenderBHoMObject(BH.oM.Acoustic.Receiver receiver, GH_PreviewWireArgs args, Color bhColour)
-        {
-            BHG.Point pt = receiver.Location;
-            RHG.Point3d location = pt.ToRhino();
-            RenderBHoMGeometry(pt, args.Pipeline, bhColour);
-            args.Pipeline.Draw2dText(receiver.ReceiverID.ToString(), Color.Navy, location, false, 10);
-            return true;
-        }
+        //public static bool RenderBHoMObject(BH.oM.Acoustic.Receiver receiver, GH_PreviewWireArgs args, Color bhColour)
+        //{
+        //    BHG.Point pt = receiver.Location;
+        //    RHG.Point3d location = pt.ToRhino();
+        //    RenderBHoMGeometry(pt, args.Pipeline, bhColour);
+        //    args.Pipeline.Draw2dText(receiver.ReceiverID.ToString(), Color.Navy, location, false, 10);
+        //    return true;
+        //}
 
         /***************************************************/
         /**** Private Methods  -  Default case          ****/
@@ -81,16 +81,16 @@ namespace BH.UI.Alligator
         /**** Private Methods  -                        ****/
         /***************************************************/
 
-        private static RHG.Point3d ToScreen(this RHG.Point3d point, GH_PreviewWireArgs args)
-        {
-            RHG.Point2d clientPoint = args.Viewport.WorldToClient(point);
-            RHG.Line pointRay = args.Viewport.ClientToWorld(clientPoint);
-            RHG.Plane nearPlane;
-            args.Viewport.GetFrustumNearPlane(out nearPlane);
-            double t;
-            Rhino.Geometry.Intersect.Intersection.LinePlane(pointRay, nearPlane, out t);
-            return pointRay.PointAt(t - 0.01);
-        }
+        //private static RHG.Point3d ToScreen(this RHG.Point3d point, GH_PreviewWireArgs args)
+        //{
+        //    RHG.Point2d clientPoint = args.Viewport.WorldToClient(point);
+        //    RHG.Line pointRay = args.Viewport.ClientToWorld(clientPoint);
+        //    RHG.Plane nearPlane;
+        //    args.Viewport.GetFrustumNearPlane(out nearPlane);
+        //    double t;
+        //    Rhino.Geometry.Intersect.Intersection.LinePlane(pointRay, nearPlane, out t);
+        //    return pointRay.PointAt(t - 0.01);
+        //}
 
         /***************************************************/
     }

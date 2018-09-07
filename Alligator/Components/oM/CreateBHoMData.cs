@@ -40,7 +40,7 @@ namespace BH.UI.Alligator.Base
 
             if (m_FileTree == null || m_FileList == null)
             {
-                IEnumerable<string> names = Engine.Library.Query.LibraryNames();
+                IEnumerable<string> names = BH.Engine.Library.Query.LibraryNames();
 
                 m_FileTree = Create.Tree(names, names.Select(x => x.Split('\\')), "select a dataset").ShortenBranches();
                 m_FileList = names.Select(x => new Tuple<string, string>(x, x)).ToList();
@@ -111,7 +111,7 @@ namespace BH.UI.Alligator.Base
             this.NickName = fileName.Split('\\').Last();
             this.Name = this.NickName;
 
-            List<IBHoMObject> objects = Engine.Library.Query.Library(fileName);
+            List<IBHoMObject> objects = BH.Engine.Library.Query.Library(fileName);
             m_ItemList = objects.Select((x, i) => new Tuple<string, int>(x.Name, i)).ToList();
 
             ListItems.Clear();

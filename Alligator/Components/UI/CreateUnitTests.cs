@@ -174,7 +174,7 @@ namespace BH.UI.Alligator.Base
                     source = ((IGH_Goo)source).ScriptVariable();
 
                 if (source.GetType().Namespace.StartsWith("Rhino.Geometry"))
-                    source = Engine.Rhinoceros.Convert.ToBHoM(source as dynamic);
+                    source = BH.Engine.Rhinoceros.Convert.ToBHoM(source as dynamic);
 
                 results.Add(source);
             }
