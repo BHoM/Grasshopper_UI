@@ -83,7 +83,7 @@ namespace BH.UI.Alligator.Base
                 value = ((IGH_Goo)value).ScriptVariable();
 
             if (value.GetType().Namespace.StartsWith("Rhino.Geometry"))
-                value = Engine.Rhinoceros.Convert.ToBHoM(value as dynamic);
+                value = BH.Engine.Rhinoceros.Convert.ToBHoM(value as dynamic);
 
             if (value.GetType() != type)
             {

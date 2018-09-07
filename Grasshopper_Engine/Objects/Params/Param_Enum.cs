@@ -1,0 +1,53 @@
+﻿using Grasshopper.Kernel;
+using System;
+using System.Collections.Generic;
+
+namespace BH.Engine.Alligator.Objects
+{
+    public class Param_Enum : GH_PersistentParam<GH_Enum>
+    {
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
+
+        protected override System.Drawing.Bitmap Icon { get; } = null;
+
+        public override GH_Exposure Exposure { get; } = GH_Exposure.tertiary;
+
+        public override Guid ComponentGuid { get; } = new Guid("92B4C1A0-941C-4C88-BE74-1E638C8200C3");
+
+        public override string TypeName { get; } = "Enum";
+
+        public bool Hidden { get; set; } = false;
+
+        public bool IsPreviewCapable { get; } = false;
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
+        public Param_Enum() : base(new GH_InstanceDescription("Enum", "Enum", "Represents an enum", "Params", "Primitive"))
+        {
+        }
+
+
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
+
+        protected override GH_GetterResult Prompt_Singular(ref GH_Enum value)
+        {
+            return GH_GetterResult.cancel;
+        }
+
+        /*******************************************/
+
+        protected override GH_GetterResult Prompt_Plural(ref List<GH_Enum> values)
+        {
+            return GH_GetterResult.cancel;
+        }
+
+        /*******************************************/
+    }
+}

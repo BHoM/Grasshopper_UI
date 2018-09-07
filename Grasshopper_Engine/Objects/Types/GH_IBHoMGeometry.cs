@@ -10,7 +10,7 @@ using GH_IO.Serialization;
 using BH.Engine.Serialiser;
 using GH_IO;
 
-namespace BH.UI.Alligator
+namespace BH.Engine.Alligator.Objects
 {
     public class GH_IBHoMGeometry : GH_GeometricGoo<object>, IGH_PreviewData, IGH_BakeAwareData, GH_ISerializable
     {
@@ -24,22 +24,9 @@ namespace BH.UI.Alligator
 
         public override bool IsValid { get { return m_Value != null;  } }
 
-        public Rhino.Geometry.BoundingBox ClippingBox { get { return Boundingbox; } }
+        public Rhino.Geometry.BoundingBox ClippingBox { get { return Bounds(); } }
 
-        public override Rhino.Geometry.BoundingBox Boundingbox
-        {
-            get
-            {
-                try
-                {
-                    return (Value == null) ? Rhino.Geometry.BoundingBox.Empty : m_Value.IBounds().ToRhino();
-                }
-                catch
-                {
-                    return Rhino.Geometry.BoundingBox.Empty;
-                }
-            }
-        }
+        public override Rhino.Geometry.BoundingBox Boundingbox { get { return Bounds(); } }
 
         public override object Value
         {
@@ -52,7 +39,6 @@ namespace BH.UI.Alligator
                 else
                     return m_Value;
             }
-
             set
             {
                 CastFrom(value);
@@ -316,8 +302,6 @@ namespace BH.UI.Alligator
                 Rhino.Geometry.GeometryBase geometry = ((Rhino.Geometry.GeometryBase)value).Duplicate();
                 return new GH_IBHoMGeometry { Value = xmorph.Morph(geometry) };
             }
-
-            return this;
         }
 
 
@@ -327,17 +311,17 @@ namespace BH.UI.Alligator
 
         public void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
-            if (m_Value == null) { return; }
+            /*if (m_Value == null) { return; }
             if (typeof(BH.oM.Geometry.Mesh).IsAssignableFrom(m_Value.GetType()))
-                Render.RenderBHoMGeometry((BH.oM.Geometry.Mesh)m_Value, args);
+                Render.RenderBHoMGeometry((BH.oM.Geometry.Mesh)m_Value, args);*/
         }
 
         /***************************************************/
 
         public void DrawViewportWires(GH_PreviewWireArgs args)
         {
-            if (m_Value == null) { return; }
-            Render.IRenderBHoMGeometry(m_Value as dynamic, args);
+            /*if (m_Value == null) { return; }
+            Render.IRenderBHoMGeometry(m_Value as dynamic, args);*/
         }
 
 
@@ -347,8 +331,43 @@ namespace BH.UI.Alligator
 
         public bool BakeGeometry(RhinoDoc doc, ObjectAttributes att, out Guid obj_guid)
         {
-            obj_guid = doc.Objects.Add(m_Value.IToRhino() as Rhino.Geometry.GeometryBase, att); // TODO: Check what happend when geometry is not GeometryBase
-            return true;
+            if (m_Value != null)
+            {
+                Rhino.Geometry.GeometryBase geometry = m_Value.IToRhino() as Rhino.Geometry.GeometryBase;
+                if (geometry != null)
+                {
+                    obj_guid = doc.Objects.Add(geometry, att);
+                    return true;
+                }
+                    
+            }
+
+            obj_guid = Guid.Empty;
+            return false;
+        }
+
+
+        /***************************************************/
+        /**** Private Method                            ****/
+        /***************************************************/
+
+        private Rhino.Geometry.BoundingBox Bounds()
+        {
+            try
+            {
+                if (m_Value == null)
+                    return Rhino.Geometry.BoundingBox.Empty;
+
+                BH.oM.Geometry.BoundingBox bhBox = m_Value.IBounds();
+                if (bhBox == null)
+                    return Rhino.Geometry.BoundingBox.Empty;
+
+                return bhBox.ToRhino();
+            }
+            catch
+            {
+                return Rhino.Geometry.BoundingBox.Empty;
+            }
         }
 
         /***************************************************/

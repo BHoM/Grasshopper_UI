@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alligator", "Alligator\Alli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GHManipulator_Alligator", "GHManipulator_Alligator\GHManipulator_Alligator.csproj", "{215BD43E-2500-4A6C-B56A-38ABF9C6E7A0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grasshopper_Engine", "Grasshopper_Engine\Grasshopper_Engine.csproj", "{DDE47285-E709-4752-9AFD-6FA03B449364}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,12 @@ Global
 		{215BD43E-2500-4A6C-B56A-38ABF9C6E7A0}.Debug64|Any CPU.Build.0 = Debug|Any CPU
 		{215BD43E-2500-4A6C-B56A-38ABF9C6E7A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{215BD43E-2500-4A6C-B56A-38ABF9C6E7A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDE47285-E709-4752-9AFD-6FA03B449364}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDE47285-E709-4752-9AFD-6FA03B449364}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDE47285-E709-4752-9AFD-6FA03B449364}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDE47285-E709-4752-9AFD-6FA03B449364}.Debug64|Any CPU.Build.0 = Debug|Any CPU
+		{DDE47285-E709-4752-9AFD-6FA03B449364}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDE47285-E709-4752-9AFD-6FA03B449364}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

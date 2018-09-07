@@ -33,7 +33,7 @@ namespace BH.UI.Alligator.Base
         {
             if (m_TypeTree == null || m_TypeList == null)
             {
-                IEnumerable<Type> types = Engine.Reflection.Query.BHoMTypeList();
+                IEnumerable<Type> types = BH.Engine.Reflection.Query.BHoMTypeList();
                 IEnumerable<string> paths = types.Select(x => x.ToText(true));
 
                 List<string> ignore = new List<string> { "BH", "oM", "Engine" };

@@ -49,6 +49,9 @@
     <Reference Include="BHoM_Engine">
       <HintPath>..\..\BHoM_Engine\Build\BHoM_Engine.dll</HintPath>
     </Reference>
+    <Reference Include="BHoM_UI">
+      <HintPath>..\..\BHoM_UI\Build\BHoM_UI.dll</HintPath>
+    </Reference>
     <Reference Include="DataStructure_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_Engine\Build\DataStructure_Engine.dll</HintPath>
@@ -92,11 +95,25 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="UI_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BHoM_UI\Build\UI_Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="UI_oM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BHoM_UI\Build\UI_oM.dll</HintPath>
+    </Reference>
     <Reference Include="UI_PostBuild">
       <HintPath>..\..\BHoM_UI\Build\UI_PostBuild.exe</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="New\Components\Adapter\Execute.cs" />
+    <Compile Include="New\Components\Adapter\UpdateProperty.cs" />
+    <Compile Include="New\Components\Adapter\Delete.cs" />
+    <Compile Include="New\Components\Adapter\Pull.cs" />
+    <Compile Include="New\Components\Adapter\Move.cs" />
+    <Compile Include="New\Components\Adapter\Push.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Components\Adapter\CreateAdapter.cs" />
     <Compile Include="Components\Adapter\CreateQuery.cs" />
@@ -127,6 +144,11 @@
     <Compile Include="Components\UI\CreateUnitTests.cs" />
     <Compile Include="Components\UI\Script.cs" />
     <Compile Include="Components\UI\VsScriptEditor.cs" />
+    <Compile Include="New\Components\Engine\SetProperty.cs" />
+    <Compile Include="New\Components\Engine\GetProperty.cs" />
+    <Compile Include="New\Components\Engine\FromJson.cs" />
+    <Compile Include="New\Components\Engine\ToJson.cs" />
+    <Compile Include="New\Templates\DataAccessor_GH.cs" />
     <Compile Include="NonComponents\BH_Hints\BH_BHomGeometryHint.cs" />
     <Compile Include="NonComponents\BH_Hints\BH_IObjectHint.cs" />
     <Compile Include="NonComponents\BH_Hints\BH_TypeHint.cs" />
@@ -170,6 +192,7 @@
     </Compile>
     <Compile Include="Templates\CreateCustomTemplate.cs" />
     <Compile Include="Templates\MethodCallTemplate.cs" />
+    <Compile Include="New\Templates\MethodCallComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -273,6 +296,16 @@
     <Content Include="Properties\Resources\Type.png" />
     <Content Include="Properties\Resources\UpdateProperty.png" />
     <Content Include="Properties\Resources\VS_Script.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="New\Components\oM\" />
+    <Folder Include="New\Components\UI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
+      <Project>{dde47285-e709-4752-9afd-6fa03b449364}</Project>
+      <Name>Grasshopper_Engine</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
