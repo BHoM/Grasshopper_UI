@@ -8,13 +8,13 @@ using BH.UI.Components;
 
 namespace BH.UI.Alligator.Components
 {
-    public class DeleteComponent : CallerComponent
+    public class ComputeComponent : CallerComponent
     {
         /*******************************************/
         /**** Properties                        ****/
         /*******************************************/
 
-        protected override Caller Caller { get; } = new DeleteCaller();
+        protected override Caller Caller { get; } = new ComputeCaller();
 
 
         /*******************************************/
