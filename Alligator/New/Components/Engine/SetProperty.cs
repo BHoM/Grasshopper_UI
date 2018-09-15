@@ -8,13 +8,13 @@ using BH.UI.Components;
 
 namespace BH.UI.Alligator.Components
 {
-    public class SetPropertyComponent : MethodCallComponent
+    public class SetPropertyComponent : CallerComponent
     {
         /*******************************************/
         /**** Properties                        ****/
         /*******************************************/
 
-        protected override MethodCaller MethodCaller { get; } = new SetPropertyCaller();
+        protected override Caller Caller { get; } = new SetPropertyCaller();
 
 
         /*******************************************/

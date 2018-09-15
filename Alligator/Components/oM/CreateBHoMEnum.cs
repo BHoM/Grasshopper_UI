@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using BH.UI.Alligator.Base.NonComponents.Menus;
 using BH.oM.DataStructure;
 using System.Linq;
-using BH.Engine.Reflection.Convert;
+using BH.Engine.Reflection;
 using BH.Engine.DataStructure;
 using Grasshopper.Kernel.Data;
 
@@ -47,7 +47,7 @@ namespace BH.UI.Alligator.Base
                 IEnumerable<string> paths = types.Select(x => x.ToText(true));
 
                 List<string> ignore = new List<string> { "BH", "oM", "Engine" };
-                m_TypeTree = Create.Tree(types, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y))), "select a type").ShortenBranches();
+                m_TypeTree = Engine.DataStructure.Create.Tree(types, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y))), "select a type").ShortenBranches();
                 m_TypeList = paths.Zip(types, (k, v) => new Tuple<string, Type>(k, v)).ToList();
             }
         }

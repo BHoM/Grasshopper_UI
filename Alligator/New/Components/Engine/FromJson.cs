@@ -8,13 +8,13 @@ using BH.UI.Components;
 
 namespace BH.UI.Alligator.Components
 {
-    public class FromJsonComponent : MethodCallComponent
+    public class FromJsonComponent : CallerComponent
     {
         /*******************************************/
         /**** Properties                        ****/
         /*******************************************/
 
-        protected override MethodCaller MethodCaller { get; } = new FromJsonCaller();
+        protected override Caller Caller { get; } = new FromJsonCaller();
 
 
         /*******************************************/
