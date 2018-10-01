@@ -65,7 +65,11 @@ namespace BH.UI.Alligator.Templates
 
         public override bool SetDataItem<T>(int index, T data)
         {
-            if (typeof(IGeometry).IsAssignableFrom(data.GetType()))
+            if (data == null)
+            {
+                return GH_Accessor.SetData(index, data);
+            }
+            else if (typeof(IGeometry).IsAssignableFrom(data.GetType()))
             {
                 object result = BH.Engine.Grasshopper.Convert.ToRhino(data);
                 if (result is IEnumerable)

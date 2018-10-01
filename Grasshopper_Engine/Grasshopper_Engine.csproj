@@ -88,6 +88,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Convert\ToGoo.cs" />
     <Compile Include="Convert\FromGoo.cs" />
     <Compile Include="Convert\ToGH_Param.cs" />
     <Compile Include="Convert\ToRhino.cs" />

@@ -14,7 +14,7 @@ namespace BH.UI.Alligator.Components
         /**** Properties                        ****/
         /*******************************************/
 
-        protected override Caller Caller { get; } = new UpdatePropertyCaller();
+        public override Caller Caller { get; } = new UpdatePropertyCaller();
 
 
         /*******************************************/

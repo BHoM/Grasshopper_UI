@@ -147,6 +147,8 @@
     <Compile Include="Components\UI\CreateUnitTests.cs" />
     <Compile Include="Components\UI\Script.cs" />
     <Compile Include="Components\UI\VsScriptEditor.cs" />
+    <Compile Include="New\Components\Engine\Explode.cs" />
+    <Compile Include="New\Components\Engine\GetInfo.cs" />
     <Compile Include="New\Components\Engine\Query.cs" />
     <Compile Include="New\Components\Engine\Modify.cs" />
     <Compile Include="New\Components\Engine\Convert.cs" />
@@ -156,8 +158,13 @@
     <Compile Include="New\Components\Engine\FromJson.cs" />
     <Compile Include="New\Components\Engine\ToJson.cs" />
     <Compile Include="New\Components\oM\CreateCustom.cs" />
+    <Compile Include="New\Components\oM\CreateDictionary.cs" />
+    <Compile Include="New\Components\oM\CreateData.cs" />
+    <Compile Include="New\Components\oM\CreateEnum.cs" />
     <Compile Include="New\Components\oM\CreateType.cs" />
     <Compile Include="New\Components\oM\CreateObject.cs" />
+    <Compile Include="New\Global\GlobalSearch.cs" />
+    <Compile Include="New\Templates\CallerValueList.cs" />
     <Compile Include="New\Templates\DataAccessor_GH.cs" />
     <Compile Include="NonComponents\BH_Hints\BH_BHomGeometryHint.cs" />
     <Compile Include="NonComponents\BH_Hints\BH_IObjectHint.cs" />
