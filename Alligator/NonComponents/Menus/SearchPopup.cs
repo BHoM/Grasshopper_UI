@@ -34,8 +34,9 @@ namespace BH.UI.Alligator.Menus
         public static void ActiveCanvas_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             bool modCtrl = (System.Windows.Forms.Control.ModifierKeys & System.Windows.Forms.Keys.Control) == System.Windows.Forms.Keys.Control;
+            bool modShift = (System.Windows.Forms.Control.ModifierKeys & System.Windows.Forms.Keys.Shift) == System.Windows.Forms.Keys.Shift;
 
-            if (e.KeyCode == System.Windows.Forms.Keys.B && modCtrl)
+            if (e.KeyCode == System.Windows.Forms.Keys.B && modCtrl && !modShift)
             {
                 GH_Canvas canvas = Grasshopper.Instances.ActiveCanvas;
                 System.Drawing.Point position = System.Windows.Forms.Cursor.Position;

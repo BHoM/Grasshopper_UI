@@ -18,7 +18,7 @@ namespace BH.UI.Alligator.Components
         /**** Properties                        ****/
         /*******************************************/
 
-        protected override Caller Caller { get; } = new CreateCustomCaller();
+        public override Caller Caller { get; } = new CreateCustomCaller();
 
 
         /*******************************************/

@@ -10,22 +10,24 @@ using System.Collections.Generic;
 using System.Linq;
 using BH.UI.Templates;
 using System.Windows.Forms;
+using BH.UI.Basilisk.Global;
+using System.Reflection;
 
 namespace BH.UI.Alligator.Templates
 {
-    public abstract class CallerComponent : GH_Component
+    public abstract class CallerComponent : GH_Component, IGH_InitCodeAware
     {
         /*******************************************/
         /**** Properties                        ****/
         /*******************************************/
 
-        protected abstract Caller Caller { get; }
+        public abstract Caller Caller { get; }
 
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Caller.Icon_24x24; } }
 
         public override Guid ComponentGuid { get { return Caller.Id; } }
 
-        public override GH_Exposure Exposure { get { return (GH_Exposure)(2 ^ Caller.GroupIndex); } }
+        public override GH_Exposure Exposure { get { return (GH_Exposure)Math.Pow(2, Caller.GroupIndex); } }
 
 
         /*******************************************/
@@ -47,7 +49,33 @@ namespace BH.UI.Alligator.Templates
             m_Accessor = new DataAccessor_GH();
             Caller.SetDataAccessor(m_Accessor);
 
-            Caller.ItemSelected += DynamicCaller_ItemSelected;
+            Caller.ItemSelected += (sender, e) => RefreshComponent();
+        }
+
+        /*******************************************/
+
+        static CallerComponent()
+        {
+            GlobalSearchMenu.Activate();
+        }
+
+
+        /*******************************************/
+        /**** Public Methods                    ****/
+        /*******************************************/
+
+        public void RefreshComponent()
+        {
+            Name = Caller.Name;
+            NickName = Caller.Name;
+            Description = Caller.Description;
+
+            IGH_Attributes backup = m_attributes;
+            PostConstructor();
+            this.m_attributes = backup;
+
+            this.OnAttributesChanged();
+            ExpireSolution(true);
         }
 
 
@@ -141,22 +169,16 @@ namespace BH.UI.Alligator.Templates
         }
 
 
-        /*******************************************/
-        /**** Private Methods                   ****/
-        /*******************************************/
+        /*************************************/
+        /**** Initialisation via String   ****/
+        /*************************************/
 
-        private void DynamicCaller_ItemSelected(object sender, object e)
+        public void SetInitCode(string code)
         {
-            Name = Caller.Name;
-            NickName = Caller.Name;
-            Description = Caller.Description;
-
-            IGH_Attributes backup = m_attributes;
-            PostConstructor();
-            this.m_attributes = backup;
-
-            this.OnAttributesChanged();
-            ExpireSolution(true);
+            MethodInfo method = BH.Engine.Serialiser.Convert.FromJson(code) as MethodInfo;
+            if (method != null)
+                Caller.SetItem(method);
+            RefreshComponent();
         }
 
 
