@@ -12,10 +12,15 @@ using BH.UI.Templates;
 using System.Windows.Forms;
 using BH.UI.Basilisk.Global;
 using System.Reflection;
+using BH.oM.Reflection;
+using Grasshopper.Kernel.Parameters;
+using BH.UI.Alligator.Objects;
+using BH.Engine.Reflection;
+using BH.oM.Geometry;
 
 namespace BH.UI.Alligator.Templates
 {
-    public abstract class CallerComponent : GH_Component, IGH_InitCodeAware
+    public abstract class CallerComponent : GH_Component, IGH_InitCodeAware, IGH_VariableParameterComponent
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -93,13 +98,18 @@ namespace BH.UI.Alligator.Templates
             int nbOld = Params.Input.Count;
 
             for (int i = 0; i < Math.Min(nbNew, nbOld); i++)
-                Params.Input[i] = inputs[i].ToGH_Param();
-
+            {
+                IList<IGH_Param> sources = Params.Input[i].Sources;
+                Params.Input[i] = ToGH_Param(inputs[i]);
+                foreach (IGH_Param source in sources)
+                    Params.Input[i].AddSource(source);
+            }
+                
             for (int i = nbOld - 1; i >= nbNew; i--)
                 Params.UnregisterInputParameter(Params.Input[i]);
 
             for (int i = nbOld; i < nbNew; i++)
-                Params.RegisterInputParam(inputs[i].ToGH_Param());
+                Params.RegisterInputParam(ToGH_Param(inputs[i]));
         }
 
         /*******************************************/
@@ -114,13 +124,13 @@ namespace BH.UI.Alligator.Templates
             int nbOld = Params.Output.Count;
 
             for (int i = 0; i < Math.Min(nbNew, nbOld); i++)
-                Params.Output[i] = outputs[i].ToGH_Param();
+                Params.Output[i] = ToGH_Param(outputs[i]);
 
             for (int i = nbOld - 1; i >= nbNew; i--)
                 Params.UnregisterOutputParameter(Params.Output[i]);
 
             for (int i = nbOld; i < nbNew; i++)
-                Params.RegisterOutputParam(outputs[i].ToGH_Param());
+                Params.RegisterOutputParam(ToGH_Param(outputs[i]));
         }
 
         /*******************************************/
@@ -156,7 +166,7 @@ namespace BH.UI.Alligator.Templates
 
         public override bool Read(GH_IO.Serialization.GH_IReader reader)
         {
-            if (!base.Read(reader))
+            if (!base.Read(reader) || !Params.Read(reader))
                 return false;
 
             if (Caller.Selector != null)
@@ -167,6 +177,14 @@ namespace BH.UI.Alligator.Templates
             else
                 return false;
         }
+
+        /*************************************/
+
+        public bool CanInsertParameter(GH_ParameterSide side, int index) { return false; }
+        public bool CanRemoveParameter(GH_ParameterSide side, int index) { return false; }
+        public IGH_Param CreateParameter(GH_ParameterSide side, int index) { return new Grasshopper.Kernel.Parameters.Param_GenericObject(); }
+        public bool DestroyParameter(GH_ParameterSide side, int index) { return true; }
+        public void VariableParameterMaintenance() { }
 
 
         /*************************************/
@@ -179,6 +197,77 @@ namespace BH.UI.Alligator.Templates
             if (method != null)
                 Caller.SetItem(method);
             RefreshComponent();
+        }
+
+
+        /*******************************************/
+        /**** Private Methods                   ****/
+        /*******************************************/
+
+        private static IGH_Param ToGH_Param(ParamInfo info)
+        {
+            UnderlyingType subType = info.DataType.UnderlyingType();
+            IGH_Param param;
+
+            switch (subType.Type.FullName)
+            {
+                case "System.Boolean":
+                    param = new Param_Boolean();
+                    break;
+                case "System.Drawing.Color":
+                    param = new Param_Colour();
+                    break;
+                case "System.DateTime":
+                    param = new Param_Time();
+                    break;
+                case "System.Double":
+                    param = new Param_Number();
+                    break;
+                case "System.Guid":
+                    param = new Param_Guid();
+                    break;
+                case "System.Int16":
+                case "System.Int32":
+                case "System.Int64":
+                    param = new Param_Integer();
+                    break;
+                case "System.String":
+                    param = new Param_String();
+                    break;
+                case "System.Type":
+                    param = new Param_Type();
+                    break;
+                default:
+                    {
+                        Type type = subType.Type;
+                        if (typeof(IGeometry).IsAssignableFrom(type))
+                            param = new Param_BHoMGeometry();
+                        else if (typeof(IBHoMObject).IsAssignableFrom(type))
+                            param = new Param_BHoMObject();
+                        else if (typeof(IObject).IsAssignableFrom(type))
+                            param = new Param_IObject();
+                        else if (typeof(Enum).IsAssignableFrom(type))
+                            param = new Param_Enum();
+                        else
+                            param = new Param_GenericObject();
+                    }
+                    break;
+            }
+
+            param.Access = (GH_ParamAccess)subType.Depth;
+            param.Description = info.Description;
+            param.Name = info.Name;
+            param.NickName = info.Name;
+            param.Optional = info.HasDefaultValue;
+
+            try
+            {
+                if (info.HasDefaultValue)
+                    ((dynamic)param).SetPersistentData(info.DefaultValue);
+            }
+            catch { }
+
+            return param;
         }
 
 

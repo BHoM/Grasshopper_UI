@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BH.Engine.Alligator.Objects
+namespace BH.UI.Alligator.Objects
 {
     public class Param_Enum : GH_PersistentParam<GH_Enum>
     {
@@ -14,7 +14,7 @@ namespace BH.Engine.Alligator.Objects
 
         public override GH_Exposure Exposure { get; } = GH_Exposure.tertiary;
 
-        public override Guid ComponentGuid { get; } = new Guid("92B4C1A0-941C-4C88-BE74-1E638C8200C3");
+        public override Guid ComponentGuid { get; } = new Guid("C62F4BD6-9B7F-4A81-94DD-CA16B2D8D3EC");
 
         public override string TypeName { get; } = "Enum";
 
