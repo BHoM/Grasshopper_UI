@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BH.Engine.Alligator.Objects
+namespace BH.UI.Alligator.Objects
 {
     public class Param_BHoMObject : GH_PersistentParam<GH_BHoMObject>, IGH_PreviewObject
     {
@@ -14,7 +14,7 @@ namespace BH.Engine.Alligator.Objects
 
         public override GH_Exposure Exposure { get; } = GH_Exposure.tertiary;
 
-        public override Guid ComponentGuid { get; } = new Guid("8676E92F-B6CF-48AF-9733-9A030B7768BF");
+        public override Guid ComponentGuid { get; } = new Guid("1DEF3710-FD5B-4617-BCF6-B6293C5C6530");
 
         public override string TypeName { get; } = "BHoM Object";
 

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BH.Engine.Alligator.Objects
+namespace BH.UI.Alligator.Objects
 {
     public class Param_Dictionary : GH_PersistentParam<GH_Dictionary>
     {
@@ -14,7 +14,7 @@ namespace BH.Engine.Alligator.Objects
 
         public override GH_Exposure Exposure { get; } = GH_Exposure.tertiary;
 
-        public override Guid ComponentGuid { get; } = new Guid("0F6CA969-BB8A-4B5C-9225-104AFE549DE2"); 
+        public override Guid ComponentGuid { get; } = new Guid("82AA94FD-F2D9-4DBD-9425-F4C9EA8A1C37");
 
         public override string TypeName { get; } = "Dictionary";
 

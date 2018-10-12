@@ -90,20 +90,13 @@
   <ItemGroup>
     <Compile Include="Convert\ToGoo.cs" />
     <Compile Include="Convert\FromGoo.cs" />
-    <Compile Include="Convert\ToGH_Param.cs" />
     <Compile Include="Convert\ToRhino.cs" />
     <Compile Include="Create\DataTree.cs" />
-    <Compile Include="Objects\Params\Param_BHoMGeometry.cs" />
-    <Compile Include="Objects\Params\Param_BHoMObject.cs" />
-    <Compile Include="Objects\Params\Param_Dictionary.cs" />
-    <Compile Include="Objects\Params\Param_Enum.cs" />
-    <Compile Include="Objects\Params\Param_IObject.cs" />
     <Compile Include="Objects\Types\GH_BHoMObject.cs" />
     <Compile Include="Objects\Types\GH_Dictionary.cs" />
     <Compile Include="Objects\Types\GH_Enum.cs" />
     <Compile Include="Objects\Types\GH_IBHoMGeometry.cs" />
     <Compile Include="Objects\Types\GH_IObject.cs" />
-    <Compile Include="Objects\Params\Param_Type.cs" />
     <Compile Include="Objects\Types\GH_BHoMGoo.cs" />
     <Compile Include="Objects\Types\GH_Type.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

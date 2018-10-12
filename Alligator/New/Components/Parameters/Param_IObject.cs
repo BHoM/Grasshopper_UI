@@ -2,25 +2,25 @@
 using System;
 using System.Collections.Generic;
 
-namespace BH.Engine.Alligator.Objects
+namespace BH.UI.Alligator.Objects
 {
-    public class Param_BHoMGeometry : GH_PersistentParam<GH_IBHoMGeometry>, IGH_PreviewObject
+    public class Param_IObject : GH_PersistentParam<GH_IObject>, IGH_PreviewObject
     {
         /*******************************************/
         /**** Properties                        ****/
         /*******************************************/
 
-        protected override System.Drawing.Bitmap Icon { get; } = null;
+        protected override System.Drawing.Bitmap Icon { get; } =  null;
 
         public override GH_Exposure Exposure { get; } = GH_Exposure.tertiary;
 
-        public override Guid ComponentGuid { get; } = new Guid("a96cbe64-8352-47b1-9d24-153927d14795"); 
+        public override Guid ComponentGuid { get; } = new Guid("FFE324E7-1FC0-4818-9FCB-43A0202CC974");
 
-        public override string TypeName { get; } = "BHoM Geometry";
+        public override string TypeName { get; } = "IObject";
 
         public bool Hidden { get; set; } = false;
 
-        public bool IsPreviewCapable { get; } = true; 
+        public bool IsPreviewCapable { get; } = true;
 
         public Rhino.Geometry.BoundingBox ClippingBox { get { return Preview_ComputeClippingBox(); } }
 
@@ -29,8 +29,8 @@ namespace BH.Engine.Alligator.Objects
         /**** Constructors                      ****/
         /*******************************************/
 
-        public Param_BHoMGeometry()
-            : base(new GH_InstanceDescription("BHoM geometry", "BHoMGeo", "Represents a collection of generic BHoM geometries", "Params", "Geometry"))
+        public Param_IObject()
+            : base(new GH_InstanceDescription("BH IObject", "IObject", "Represents a collection of generic BH IObjects", "Params", "Primitive"))
         {
         }
 
@@ -53,14 +53,14 @@ namespace BH.Engine.Alligator.Objects
 
         /*******************************************/
 
-        protected override GH_GetterResult Prompt_Singular(ref GH_IBHoMGeometry value)
+        protected override GH_GetterResult Prompt_Singular(ref GH_IObject value)
         {
             return GH_GetterResult.cancel;
         }
 
         /*******************************************/
 
-        protected override GH_GetterResult Prompt_Plural(ref List<GH_IBHoMGeometry> values)
+        protected override GH_GetterResult Prompt_Plural(ref List<GH_IObject> values)
         {
             return GH_GetterResult.cancel;
         }
