@@ -64,10 +64,8 @@ namespace BH.UI.Basilisk.Global
             if (node != null)
             {
                 GH_Canvas canvas = Grasshopper.Instances.ActiveCanvas;
-                System.Drawing.Point position = System.Windows.Forms.Cursor.Position;
-
                 MethodBase method = request.SelectedItem as MethodBase;
-                canvas.InstantiateNewObject(node.ComponentGuid, method.ToJson(), position, true);
+                canvas.InstantiateNewObject(node.ComponentGuid, method.ToJson(), canvas.CursorCanvasPosition, true);
             }
 
         }
