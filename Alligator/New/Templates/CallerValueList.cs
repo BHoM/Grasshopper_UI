@@ -86,6 +86,10 @@ namespace BH.UI.Alligator.Templates
             if (Caller.Selector != null)
                 writer.SetString("Component", Caller.Selector.Write());
 
+            int index = ListItems.IndexOf(FirstSelectedItem);
+            if (index >= 0)
+                writer.SetInt32("Selection", index);
+
             return base.Write(writer);
         }
 
@@ -99,7 +103,16 @@ namespace BH.UI.Alligator.Templates
             if (Caller.Selector != null)
             {
                 string callerString = ""; reader.TryGetString("Component", ref callerString);
-                return Caller.Selector.Read(callerString);
+                if (Caller.Selector.Read(callerString))
+                {
+                    int selection = -1;
+                    reader.TryGetInt32("Selection", ref selection);
+                    if (selection >= 0 && selection < ListItems.Count)
+                        this.SelectItem(selection);
+                    return true;
+                }
+                else
+                    return false;
             }
             else
                 return false;

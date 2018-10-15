@@ -172,19 +172,44 @@ namespace BH.UI.Alligator.Templates
             if (Caller.Selector != null)
             {
                 string callerString = ""; reader.TryGetString("Component", ref callerString);
-                return Caller.Selector.Read(callerString);
+                Caller.Selector.Read(callerString);
+                return true;
             }
-            else
-                return false;
+
+            return true;
         }
 
         /*************************************/
 
-        public bool CanInsertParameter(GH_ParameterSide side, int index) { return false; }
-        public bool CanRemoveParameter(GH_ParameterSide side, int index) { return false; }
-        public IGH_Param CreateParameter(GH_ParameterSide side, int index) { return new Grasshopper.Kernel.Parameters.Param_GenericObject(); }
-        public bool DestroyParameter(GH_ParameterSide side, int index) { return true; }
-        public void VariableParameterMaintenance() { }
+        public virtual bool CanInsertParameter(GH_ParameterSide side, int index)
+        {
+            return false;
+        }
+
+        /*************************************/
+
+        public virtual bool CanRemoveParameter(GH_ParameterSide side, int index)
+        {
+            return false;
+        }
+
+        /*************************************/
+
+        public virtual IGH_Param CreateParameter(GH_ParameterSide side, int index)
+        {
+            return new Grasshopper.Kernel.Parameters.Param_GenericObject();
+        }
+
+        /*************************************/
+
+        public virtual bool DestroyParameter(GH_ParameterSide side, int index)
+        {
+            return true;
+        }
+
+        /*************************************/
+
+        public virtual void VariableParameterMaintenance() { }
 
 
         /*************************************/
@@ -276,7 +301,6 @@ namespace BH.UI.Alligator.Templates
         /*******************************************/
 
         private DataAccessor_GH m_Accessor = null;
-
 
         /*******************************************/
     }

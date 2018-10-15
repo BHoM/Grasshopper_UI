@@ -33,6 +33,21 @@ namespace BH.UI.Alligator.Components
         /**** Override Methods                  ****/
         /*******************************************/
 
+        protected override void BeforeSolveInstance()
+        {
+            base.BeforeSolveInstance();
+
+            if (Params.Input.Count == 1 && Caller.OutputParams.Count != Params.Output.Count)
+            {
+                Params.Input[0].CollectData();
+                List<object> data = Params.Input[0].VolatileData.AllData(true).Select(x => x.ScriptVariable()).ToList();
+                ExplodeCaller caller = Caller as ExplodeCaller;
+                caller.CollectOutputTypes(data);
+            }
+        }
+
+        /*******************************************/
+
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             if (Params.Input.Count == 0)
@@ -60,7 +75,6 @@ namespace BH.UI.Alligator.Components
             this.OnAttributesChanged();
             ExpireSolution(true);
         }
-
 
         /*******************************************/
     }
