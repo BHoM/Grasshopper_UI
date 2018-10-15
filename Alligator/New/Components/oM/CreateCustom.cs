@@ -25,21 +25,21 @@ namespace BH.UI.Alligator.Components
         /**** Override Methods                  ****/
         /*******************************************/
 
-        public bool CanInsertParameter(GH_ParameterSide side, int index)
+        public override bool CanInsertParameter(GH_ParameterSide side, int index)
         {
             return side == GH_ParameterSide.Input;
         }
 
         /*******************************************/
 
-        public bool CanRemoveParameter(GH_ParameterSide side, int index)
+        public override bool CanRemoveParameter(GH_ParameterSide side, int index)
         {
             return side == GH_ParameterSide.Input;
         }
 
         /*******************************************/
 
-        public IGH_Param CreateParameter(GH_ParameterSide side, int index)
+        public override IGH_Param CreateParameter(GH_ParameterSide side, int index)
         {
             return new Param_ScriptVariable
             {
@@ -49,14 +49,7 @@ namespace BH.UI.Alligator.Components
 
         /*******************************************/
 
-        public bool DestroyParameter(GH_ParameterSide side, int index)
-        {
-            return true;
-        }
-
-        /*******************************************/
-
-        public void VariableParameterMaintenance()
+        public override void VariableParameterMaintenance()
         {
             CreateCustomCaller caller = Caller as CreateCustomCaller;
             caller.SetInputs(Params.Input.Select(x => x.NickName).ToList());
