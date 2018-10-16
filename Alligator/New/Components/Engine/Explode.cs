@@ -7,6 +7,7 @@ using BH.UI.Templates;
 using BH.UI.Components;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace BH.UI.Alligator.Components
 {
@@ -54,6 +55,15 @@ namespace BH.UI.Alligator.Components
                 base.RegisterInputParams(pManager);
         }
 
+        /*******************************************/
+
+        protected override void AppendAdditionalComponentMenuItems(ToolStripDropDown menu)
+        {
+            ToolStripLabel refreshLabel = new ToolStripLabel { Text = "Update Outputs" };
+            refreshLabel.Click += RefreshLabel_Click;
+            menu.Items.Add(refreshLabel);
+            base.AppendAdditionalComponentMenuItems(menu);
+        }
 
         /*******************************************/
         /**** Private Methods                   ****/
@@ -74,6 +84,13 @@ namespace BH.UI.Alligator.Components
 
             this.OnAttributesChanged();
             ExpireSolution(true);
+        }
+
+        /*******************************************/
+
+        private void RefreshLabel_Click(object sender, EventArgs e)
+        {
+            Params_ParameterSourcesChanged(sender, null);
         }
 
         /*******************************************/

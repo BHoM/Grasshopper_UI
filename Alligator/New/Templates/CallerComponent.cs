@@ -99,10 +99,9 @@ namespace BH.UI.Alligator.Templates
 
             for (int i = 0; i < Math.Min(nbNew, nbOld); i++)
             {
-                IList<IGH_Param> sources = Params.Input[i].Sources;
-                Params.Input[i] = ToGH_Param(inputs[i]);
-                foreach (IGH_Param source in sources)
-                    Params.Input[i].AddSource(source);
+                IGH_Param newParam = ToGH_Param(inputs[i]);
+                if (newParam.GetType() != Params.Input[i].GetType())
+                    Params.Input[i] = newParam;
             }
                 
             for (int i = nbOld - 1; i >= nbNew; i--)
@@ -124,7 +123,12 @@ namespace BH.UI.Alligator.Templates
             int nbOld = Params.Output.Count;
 
             for (int i = 0; i < Math.Min(nbNew, nbOld); i++)
-                Params.Output[i] = ToGH_Param(outputs[i]);
+            {
+                IGH_Param newParam = ToGH_Param(outputs[i]);
+                if (newParam.GetType() != Params.Output[i].GetType())
+                    Params.Output[i] = newParam;
+            }
+                
 
             for (int i = nbOld - 1; i >= nbNew; i--)
                 Params.UnregisterOutputParameter(Params.Output[i]);
@@ -147,18 +151,14 @@ namespace BH.UI.Alligator.Templates
         protected override void AppendAdditionalComponentMenuItems(ToolStripDropDown menu)
         {
             base.AppendAdditionalComponentMenuItems(menu);
-
-            if (Caller.Selector != null)
-                Caller.Selector.AddToMenu(menu);
+            Caller.AddToMenu(menu);
         }
 
         /*******************************************/
 
         public override bool Write(GH_IO.Serialization.GH_IWriter writer)
         {
-            if (Caller.Selector != null)
-                writer.SetString("Component", Caller.Selector.Write());
-
+            writer.SetString("Component", Caller.Write());
             return base.Write(writer);
         }
 
@@ -169,12 +169,8 @@ namespace BH.UI.Alligator.Templates
             if (!base.Read(reader) || !Params.Read(reader))
                 return false;
 
-            if (Caller.Selector != null)
-            {
-                string callerString = ""; reader.TryGetString("Component", ref callerString);
-                Caller.Selector.Read(callerString);
-                return true;
-            }
+            string callerString = ""; reader.TryGetString("Component", ref callerString);
+            Caller.Read(callerString);
 
             return true;
         }

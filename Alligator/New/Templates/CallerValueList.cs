@@ -74,17 +74,14 @@ namespace BH.UI.Alligator.Templates
         public override void AppendAdditionalMenuItems(ToolStripDropDown menu)
         {
             GH_DocumentObject.Menu_AppendSeparator(menu);
-
-            if (Caller.Selector != null)
-                Caller.Selector.AddToMenu(menu);
+            Caller.AddToMenu(menu);
         }
 
         /*******************************************/
 
         public override bool Write(GH_IO.Serialization.GH_IWriter writer)
         {
-            if (Caller.Selector != null)
-                writer.SetString("Component", Caller.Selector.Write());
+            writer.SetString("Component", Caller.Write());
 
             int index = ListItems.IndexOf(FirstSelectedItem);
             if (index >= 0)
@@ -100,19 +97,14 @@ namespace BH.UI.Alligator.Templates
             if (!base.Read(reader))
                 return false;
 
-            if (Caller.Selector != null)
+            string callerString = ""; reader.TryGetString("Component", ref callerString);
+            if (Caller.Read(callerString))
             {
-                string callerString = ""; reader.TryGetString("Component", ref callerString);
-                if (Caller.Selector.Read(callerString))
-                {
-                    int selection = -1;
-                    reader.TryGetInt32("Selection", ref selection);
-                    if (selection >= 0 && selection < ListItems.Count)
-                        this.SelectItem(selection);
-                    return true;
-                }
-                else
-                    return false;
+                int selection = -1;
+                reader.TryGetInt32("Selection", ref selection);
+                if (selection >= 0 && selection < ListItems.Count)
+                    this.SelectItem(selection);
+                return true;
             }
             else
                 return false;
