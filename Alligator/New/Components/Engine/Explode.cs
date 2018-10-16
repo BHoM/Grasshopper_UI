@@ -78,12 +78,11 @@ namespace BH.UI.Alligator.Components
             caller.CollectOutputTypes(data);
 
             // Forces the component to update
-            IGH_Attributes backup = m_attributes;
-            PostConstructor();
-            this.m_attributes = backup;
+            RegisterInputParams(null);
+            RegisterOutputParams(null);
 
             this.OnAttributesChanged();
-            ExpireSolution(true);
+            //ExpireSolution(true);
         }
 
         /*******************************************/
