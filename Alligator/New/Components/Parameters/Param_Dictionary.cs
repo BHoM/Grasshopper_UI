@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BH.UI.Alligator.Objects
 {
-    public class Param_Dictionary : GH_PersistentParam<GH_Dictionary>
+    public class Param_Dictionary : GH_PersistentParam<Engine.Alligator.Objects.GH_Dictionary>
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -37,14 +37,14 @@ namespace BH.UI.Alligator.Objects
         /**** Override Methods                  ****/
         /*******************************************/
 
-        protected override GH_GetterResult Prompt_Singular(ref GH_Dictionary value)
+        protected override GH_GetterResult Prompt_Singular(ref Engine.Alligator.Objects.GH_Dictionary value)
         {
             return GH_GetterResult.cancel;
         }
 
         /*******************************************/
 
-        protected override GH_GetterResult Prompt_Plural(ref List<GH_Dictionary> values)
+        protected override GH_GetterResult Prompt_Plural(ref List<Engine.Alligator.Objects.GH_Dictionary> values)
         {
             return GH_GetterResult.cancel;
         }

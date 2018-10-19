@@ -1,9 +1,12 @@
-﻿using Grasshopper.Kernel.Types;
+﻿using BH.Engine.Serialiser;
+using GH_IO;
+using GH_IO.Serialization;
+using Grasshopper.Kernel.Types;
 using System;
 
 namespace BH.Engine.Alligator.Objects
 {
-    public class GH_Enum : GH_BHoMGoo<Enum>
+    public class GH_Enum : GH_BHoMGoo<Enum>, GH_ISerializable
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -45,6 +48,28 @@ namespace BH.Engine.Alligator.Objects
                 return "null";
             else
                 return val.ToString();
+        }
+
+        /***************************************************/
+
+        public override bool Read(GH_IReader reader)
+        {
+            string json = "";
+            reader.TryGetString("Json", ref json);
+
+            if (json != null && json.Length > 0)
+                Value = (Enum)BH.Engine.Serialiser.Convert.FromJson(json);
+
+            return true;
+        }
+
+        /***************************************************/
+
+        public override bool Write(GH_IWriter writer)
+        {
+            if (Value != null)
+                writer.SetString("Json", Value.ToJson());
+            return true;
         }
 
         /*******************************************/

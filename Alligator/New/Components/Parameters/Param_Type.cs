@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BH.UI.Alligator.Objects
 {
-    public class Param_Type : GH_PersistentParam<GH_Type>
+    public class Param_Type : GH_PersistentParam<Engine.Alligator.Objects.GH_Type>
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -28,7 +28,7 @@ namespace BH.UI.Alligator.Objects
         /*******************************************/
 
         public Param_Type()
-            : base(new GH_InstanceDescription("Object Type", "Type", "Represents the type of an object", "Params", "Primitive"))
+            : base(new GH_InstanceDescription("Object Type 2", "Type", "Represents the type of an object", "Params", "Primitive"))
         {
         }
 
@@ -37,14 +37,14 @@ namespace BH.UI.Alligator.Objects
         /**** Override Methods                  ****/
         /*******************************************/
 
-        protected override GH_GetterResult Prompt_Singular(ref GH_Type value)
+        protected override GH_GetterResult Prompt_Singular(ref Engine.Alligator.Objects.GH_Type value)
         {
             return GH_GetterResult.cancel;
         }
 
         /*******************************************/
 
-        protected override GH_GetterResult Prompt_Plural(ref List<GH_Type> values)
+        protected override GH_GetterResult Prompt_Plural(ref List<Engine.Alligator.Objects.GH_Type> values)
         {
             return GH_GetterResult.cancel;
         }
