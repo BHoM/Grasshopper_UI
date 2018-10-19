@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BH.UI.Alligator.Objects
 {
-    public class Param_Enum : GH_PersistentParam<GH_Enum>
+    public class Param_Enum : GH_PersistentParam<Engine.Alligator.Objects.GH_Enum>
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -36,14 +36,14 @@ namespace BH.UI.Alligator.Objects
         /**** Override Methods                  ****/
         /*******************************************/
 
-        protected override GH_GetterResult Prompt_Singular(ref GH_Enum value)
+        protected override GH_GetterResult Prompt_Singular(ref Engine.Alligator.Objects.GH_Enum value)
         {
             return GH_GetterResult.cancel;
         }
 
         /*******************************************/
 
-        protected override GH_GetterResult Prompt_Plural(ref List<GH_Enum> values)
+        protected override GH_GetterResult Prompt_Plural(ref List<Engine.Alligator.Objects.GH_Enum> values)
         {
             return GH_GetterResult.cancel;
         }

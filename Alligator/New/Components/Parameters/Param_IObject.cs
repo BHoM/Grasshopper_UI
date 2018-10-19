@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BH.UI.Alligator.Objects
 {
-    public class Param_IObject : GH_PersistentParam<GH_IObject>, IGH_PreviewObject
+    public class Param_IObject : GH_PersistentParam<Engine.Alligator.Objects.GH_IObject>, IGH_PreviewObject
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -53,14 +53,14 @@ namespace BH.UI.Alligator.Objects
 
         /*******************************************/
 
-        protected override GH_GetterResult Prompt_Singular(ref GH_IObject value)
+        protected override GH_GetterResult Prompt_Singular(ref Engine.Alligator.Objects.GH_IObject value)
         {
             return GH_GetterResult.cancel;
         }
 
         /*******************************************/
 
-        protected override GH_GetterResult Prompt_Plural(ref List<GH_IObject> values)
+        protected override GH_GetterResult Prompt_Plural(ref List<Engine.Alligator.Objects.GH_IObject> values)
         {
             return GH_GetterResult.cancel;
         }

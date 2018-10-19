@@ -1,9 +1,12 @@
-﻿using Grasshopper.Kernel.Types;
+﻿using BH.Engine.Serialiser;
+using GH_IO;
+using GH_IO.Serialization;
+using Grasshopper.Kernel.Types;
 using System;
 
 namespace BH.Engine.Alligator.Objects
 {
-    public class GH_Type : GH_BHoMGoo<Type>
+    public class GH_Type : GH_BHoMGoo<Type>, GH_ISerializable
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -61,6 +64,28 @@ namespace BH.Engine.Alligator.Objects
                 return "Undefined type";
             else
                 return val.FullName;
+        }
+
+        /***************************************************/
+
+        public override bool Read(GH_IReader reader)
+        {
+            string json = "";
+            reader.TryGetString("Json", ref json);
+
+            if (json != null && json.Length > 0)
+                Value = (Type)BH.Engine.Serialiser.Convert.FromJson(json);
+
+            return true;
+        }
+
+        /***************************************************/
+
+        public override bool Write(GH_IWriter writer)
+        {
+            if (Value != null)
+                writer.SetString("Json", Value.ToJson());
+            return true;
         }
 
         /***************************************************/

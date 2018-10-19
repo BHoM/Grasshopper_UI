@@ -48,7 +48,7 @@ namespace BH.Engine.Alligator.Objects
 
         public override IGH_Goo Duplicate()
         {
-            return new GH_IObject { Value = Value };
+            return new GH_BHoMObject { Value = Value };
         }
 
         /***************************************************/
@@ -132,10 +132,8 @@ namespace BH.Engine.Alligator.Objects
 
         private IGeometry Geometry()
         {
-            if (Value is BHoMObject)
-                return ((BHoMObject)Value).IGeometry();
-            else if (Value is IGeometry)
-                return Value as IGeometry;
+            if (Value != null)
+                return Value.IGeometry();
             else
                 return null;
         }
