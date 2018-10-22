@@ -44,7 +44,7 @@ namespace BH.UI.Alligator.Templates
             SubCategory = Caller.Category;
             ListItems.Clear();
 
-            m_Accessor = new DataAccessor_GH();
+            m_Accessor = new DataAccessor_GH(null);
             Caller.SetDataAccessor(m_Accessor);
 
             Caller.ItemSelected += DynamicCaller_ItemSelected;
