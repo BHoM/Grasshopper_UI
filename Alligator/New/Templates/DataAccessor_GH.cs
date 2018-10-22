@@ -20,6 +20,18 @@ namespace BH.UI.Alligator.Templates
 
         public IGH_DataAccess GH_Accessor { get; set; } = null;
 
+        public GH_Component Component { get; set; } = null;
+
+
+        /*************************************/
+        /**** Properties                  ****/
+        /*************************************/
+
+        public DataAccessor_GH(GH_Component component)
+        {
+            Component = component;
+        }
+
 
         /*************************************/
         /**** Input Getter Methods        ****/
@@ -51,12 +63,15 @@ namespace BH.UI.Alligator.Templates
 
         public override List<List<T>> GetDataTree<T>(int index)
         {
-            if (GH_Accessor == null)
+            if (GH_Accessor == null || Component == null)
                 return new List<List<T>>();
 
-            GH_Structure<IGH_Goo> goo = new GH_Structure<IGH_Goo>();
-            GH_Accessor.GetDataTree(index, out goo);
-            return goo.Branches.Select(x => x.Select(y => BH.Engine.Grasshopper.Convert.FromGoo<T>(y)).ToList()).ToList();
+            IGH_Param param = Component.Params.Input[index];
+            return param.VolatileData.StructureProxy.Select(x => x.Cast<IGH_Goo>().Select(y => BH.Engine.Grasshopper.Convert.FromGoo<T>(y)).ToList()).ToList();
+
+            // This shows that using the GetDataTree method from GH is actually giving the exact same result with the exact same problem of collecting the entire data instead of a subtree
+            /*IGH_Structure goo = Activator.CreateInstance(typeof(GH_Structure<>).GetGenericTypeDefinition().MakeGenericType(new Type[] { param.Type })) as IGH_Structure;
+            return ConvertDataTree(goo as dynamic, index, new List<List<T>>());*/
         }
 
         /*************************************/
@@ -99,6 +114,18 @@ namespace BH.UI.Alligator.Templates
                 return GH_Accessor.SetDataTree(index, BH.Engine.Grasshopper.Create.DataTree(((IEnumerable<IEnumerable<T>>)data).Select(v => v.Select(x => (BH.Engine.Grasshopper.Convert.ToRhino(x)))).ToList(), GH_Accessor.Iteration));
             else
                 return GH_Accessor.SetDataTree(index, BH.Engine.Grasshopper.Create.DataTree(((IEnumerable<IEnumerable<T>>)data).ToList(), GH_Accessor.Iteration));
+        }
+
+
+        /*************************************/
+        /**** Private Methods             ****/
+        /*************************************/
+
+        private List<List<T>> ConvertDataTree<T, TG>(GH_Structure<TG> structure, int index, List<List<T>> result) where TG : IGH_Goo
+        {
+            GH_Accessor.GetDataTree(index, out structure);
+            result = structure.Branches.Select(x => x.Select(y => BH.Engine.Grasshopper.Convert.FromGoo<T>(y)).ToList()).ToList();
+            return result;
         }
 
         /*************************************/

@@ -51,7 +51,7 @@ namespace BH.UI.Alligator.Templates
             Category = "Alligator";
             SubCategory = Caller.Category;
 
-            m_Accessor = new DataAccessor_GH();
+            m_Accessor = new DataAccessor_GH(this);
             Caller.SetDataAccessor(m_Accessor);
 
             Caller.ItemSelected += (sender, e) => RefreshComponent();
@@ -227,7 +227,7 @@ namespace BH.UI.Alligator.Templates
         /**** Private Methods                   ****/
         /*******************************************/
 
-        private static IGH_Param ToGH_Param(ParamInfo info)
+        private IGH_Param ToGH_Param(ParamInfo info)
         {
             UnderlyingType subType = info.DataType.UnderlyingType();
             IGH_Param param;
@@ -272,7 +272,11 @@ namespace BH.UI.Alligator.Templates
                         else if (typeof(Enum).IsAssignableFrom(type))
                             param = new Param_Enum();
                         else
-                            param = new Param_GenericObject();
+                        {
+                            param = new Param_ScriptVariable();
+                            param.AttributesChanged += Param_AttributesChanged;
+                        }
+                            
                     }
                     break;
             }
@@ -291,6 +295,13 @@ namespace BH.UI.Alligator.Templates
             catch { }
 
             return param;
+        }
+
+        /*******************************************/
+
+        private void Param_AttributesChanged(IGH_DocumentObject sender, GH_AttributesChangedEventArgs e)
+        {
+            Caller.SetDataAccessor(m_Accessor);
         }
 
 
