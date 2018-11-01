@@ -8,4 +8,4 @@ The Grasshopper toolkit contains a lot of projects, some of them having addition
 See our growing [Wiki](https://github.com/BuroHappoldEngineering/BHoM_Documentation/wiki) for how to get involved
 
 ## License ##
-Alligator is licensed under the Apache License. Alligator also uses a number of third party libraries, some with different licenses.
+Alligator is licensed under the GNU Lesser General Public License (LGPL). Alligator also uses a number of third party libraries, some with different licenses.
