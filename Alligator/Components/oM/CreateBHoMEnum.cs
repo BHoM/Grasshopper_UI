@@ -25,7 +25,7 @@ namespace BH.UI.Alligator.Base
 
         public override GH_Exposure Exposure { get; } = GH_Exposure.primary;
 
-        public override bool Obsolete { get { return m_IsDeprecated; } }
+        public override bool Obsolete { get; } = true;
 
 
         /*******************************************/

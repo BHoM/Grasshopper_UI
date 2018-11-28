@@ -26,6 +26,8 @@ namespace BH.UI.Alligator.Base
 
         public override string MethodGroup { get; set; } = "Compute";
 
+        public override bool Obsolete { get; } = true;
+
 
         /*******************************************/
         /**** Constructors                      ****/

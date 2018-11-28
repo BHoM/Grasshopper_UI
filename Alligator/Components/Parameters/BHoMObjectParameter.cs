@@ -24,6 +24,8 @@ namespace BH.UI.Alligator.Base
 
         public Rhino.Geometry.BoundingBox ClippingBox { get { return Preview_ComputeClippingBox(); } }
 
+        public override bool Obsolete { get; } = true;
+
 
         /*******************************************/
         /**** Constructors                      ****/

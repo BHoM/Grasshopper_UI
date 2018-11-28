@@ -19,6 +19,8 @@ namespace BH.UI.Alligator.Adapter
 
         public override GH_Exposure Exposure { get; } = GH_Exposure.primary; 
 
+        public override bool Obsolete { get; } = true;
+
 
         /*******************************************/
         /**** Constructors                      ****/

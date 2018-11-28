@@ -25,6 +25,8 @@ namespace BH.UI.Alligator.Base
 
         public override bool GroupByName { get; set; } = false;
 
+        public override bool Obsolete { get; } = true;
+
 
         /*******************************************/
         /**** Constructors                      ****/

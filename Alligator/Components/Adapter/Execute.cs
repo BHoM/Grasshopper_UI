@@ -17,7 +17,9 @@ namespace BH.UI.Alligator.Adapter
 
         public override Guid ComponentGuid { get; } = new Guid("1C89AF97-379F-4432-B243-9C699EB454C2"); 
 
-        public override GH_Exposure Exposure { get; } = GH_Exposure.primary; 
+        public override GH_Exposure Exposure { get; } = GH_Exposure.primary;
+
+        public override bool Obsolete { get; } = true;
 
 
         /*******************************************/

@@ -22,6 +22,8 @@ namespace BH.UI.Alligator.Base
 
         public bool IsPreviewCapable { get; } = false;
 
+        public override bool Obsolete { get; } = true;
+
 
         /*******************************************/
         /**** Constructors                      ****/

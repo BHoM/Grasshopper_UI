@@ -14,6 +14,8 @@ namespace BH.UI.Alligator.Base
 
         public override Guid ComponentGuid { get; } = new Guid("{2f4c7d17-d7ce-48d3-a098-19300720eccb}");
 
+        public override bool Obsolete { get; } = true;
+
 
         /*******************************************/
         /**** Constructors                      ****/
