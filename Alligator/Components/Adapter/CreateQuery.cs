@@ -22,6 +22,8 @@ namespace BH.UI.Alligator.Adapter
 
         public override bool ShortenBranches { get; set; } = true;
 
+        public override bool Obsolete { get; } = true;
+
 
         /*******************************************/
         /**** Constructors                      ****/

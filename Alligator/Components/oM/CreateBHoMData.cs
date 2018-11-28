@@ -22,7 +22,9 @@ namespace BH.UI.Alligator.Base
 
         protected override System.Drawing.Bitmap Icon { get; } = Properties.Resources.BHoM_Data;
 
-        public override GH_Exposure Exposure { get; } = GH_Exposure.primary; 
+        public override GH_Exposure Exposure { get; } = GH_Exposure.primary;
+
+        public override bool Obsolete { get; } = true;
 
 
         /*******************************************/
