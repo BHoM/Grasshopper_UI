@@ -14,7 +14,7 @@ using BH.Engine.Serialiser;
 
 namespace BH.Engine.Alligator.Objects
 {
-    public class GH_IObject : GH_BHoMGoo<IObject>, IGH_PreviewData, GH_ISerializable
+    public class GH_IObject : GH_BHoMGoo<object>, IGH_PreviewData, GH_ISerializable
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -77,7 +77,7 @@ namespace BH.Engine.Alligator.Objects
 
         public override string ToString()
         {
-            IObject val = Value;
+            object val = Value;
             if (val == null)
                 return "null";
             else
