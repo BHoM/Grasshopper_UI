@@ -3,6 +3,7 @@ using BH.oM.Base;
 using BH.UI.Alligator.Components;
 using BH.UI.Alligator.Templates;
 using BH.UI.Global;
+using BH.UI.Templates;
 using Grasshopper.GUI.Canvas;
 using System;
 using System.Collections.Generic;
@@ -40,32 +41,18 @@ namespace BH.UI.Basilisk.Global
 
         private static void GlobalSearch_ItemSelected(object sender, oM.UI.ComponentRequest request)
         {
-            CallerComponent node = null;
-
-            switch (request.CallerType.Name)
-            {
-                case "ComputeCaller":
-                    node = new ComputeComponent();
-                    break;
-                case "ConvertCaller":
-                    node = new ConvertComponent();
-                    break;
-                case "CreateObjectCaller":
-                    node = new CreateObjectComponent();
-                    break;
-                case "ModifyCaller":
-                    node = new ModifyComponent();
-                    break;
-                case "QueryCaller":
-                    node = new QueryComponent();
-                    break;
-            }
+            Caller node = null;
+            if (request != null && request.CallerType != null)
+                node = Activator.CreateInstance(request.CallerType) as Caller;
 
             if (node != null)
             {
+                string initCode = "";
+                if (request.SelectedItem != null)
+                    initCode = request.SelectedItem.ToJson();
+
                 GH_Canvas canvas = Grasshopper.Instances.ActiveCanvas;
-                MethodBase method = request.SelectedItem as MethodBase;
-                canvas.InstantiateNewObject(node.ComponentGuid, method.ToJson(), canvas.CursorCanvasPosition, true);
+                canvas.InstantiateNewObject(node.Id, initCode, canvas.CursorCanvasPosition, true);
             }
 
         }

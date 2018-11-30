@@ -55,6 +55,7 @@ namespace BH.UI.Alligator.Templates
             Caller.SetDataAccessor(m_Accessor);
 
             Caller.ItemSelected += (sender, e) => RefreshComponent();
+            Caller.SolutionExpired += (sender, e) => ExpireSolution(true);
         }
 
         /*******************************************/
@@ -69,7 +70,7 @@ namespace BH.UI.Alligator.Templates
         /**** Public Methods                    ****/
         /*******************************************/
 
-        public void RefreshComponent()
+        public virtual void RefreshComponent()
         {
             Name = Caller.Name;
             NickName = Caller.Name;
@@ -216,9 +217,9 @@ namespace BH.UI.Alligator.Templates
 
         public void SetInitCode(string code)
         {
-            MethodInfo method = BH.Engine.Serialiser.Convert.FromJson(code) as MethodInfo;
-            if (method != null)
-                Caller.SetItem(method);
+            object item = BH.Engine.Serialiser.Convert.FromJson(code);
+            if (item != null)
+                Caller.SetItem(item);
             RefreshComponent();
         }
 
