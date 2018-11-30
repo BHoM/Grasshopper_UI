@@ -19,23 +19,14 @@ namespace BH.UI.Alligator.Components
 
 
         /*******************************************/
-        /**** Constructors                      ****/
-        /*******************************************/
-
-        public CreateTypeComponent() : base()
-        {
-            Caller.ItemSelected += DynamicCaller_ItemSelected;
-        }
-
-
-        /*******************************************/
         /**** Private Methods                   ****/
         /*******************************************/
 
-        private void DynamicCaller_ItemSelected(object sender, object e)
+        public override void RefreshComponent()
         {
-            Type type = e as Type;
+            base.RefreshComponent();
 
+            Type type = Caller.SelectedItem as Type;
             if (type != null)
                 Message = type.ToText();
         }
