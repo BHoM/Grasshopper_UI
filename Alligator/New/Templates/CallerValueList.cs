@@ -16,7 +16,7 @@ using Grasshopper.Kernel.Types;
 
 namespace BH.UI.Alligator.Templates
 {
-    public abstract class CallerValueList : GH_ValueList
+    public abstract class CallerValueList : GH_ValueList, IGH_InitCodeAware
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -47,7 +47,7 @@ namespace BH.UI.Alligator.Templates
             m_Accessor = new DataAccessor_GH(null);
             Caller.SetDataAccessor(m_Accessor);
 
-            Caller.ItemSelected += DynamicCaller_ItemSelected;
+            Caller.ItemSelected += (sender, e) => UpdateFromSelectedItem();
         }
 
 
@@ -110,12 +110,23 @@ namespace BH.UI.Alligator.Templates
                 return false;
         }
 
+        /*************************************/
+        /**** Initialisation via String   ****/
+        /*************************************/
+
+        public void SetInitCode(string code)
+        {
+            object item = BH.Engine.Serialiser.Convert.FromJson(code);
+            if (item != null)
+                Caller.SetItem(item);
+            UpdateFromSelectedItem();
+        }
 
         /*******************************************/
         /**** Private Methods                   ****/
         /*******************************************/
 
-        protected void DynamicCaller_ItemSelected(object sender, object e)
+        protected virtual void UpdateFromSelectedItem()
         {
             this.NickName = Caller.Name;
             this.Name = Caller.Name;
