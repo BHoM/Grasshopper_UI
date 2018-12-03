@@ -125,7 +125,8 @@ namespace BH.UI.Alligator.Templates
             for (int i = 0; i < Math.Min(nbNew, nbOld); i++)
             {
                 IGH_Param newParam = ToGH_Param(outputs[i]);
-                if (newParam.GetType() != Params.Output[i].GetType())
+                if (newParam.GetType() != Params.Output[i].GetType() ||
+                    newParam.Name != Params.Output[i].Name)
                 {
                     Params.Output[i].IsolateObject();
                     Params.Output[i] = newParam;
