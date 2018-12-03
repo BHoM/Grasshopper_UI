@@ -42,7 +42,7 @@ namespace BH.UI.Alligator.Templates
         public CallerComponent() : base()
         {
             NewInstanceGuid(System.Guid.Empty);
-            PostConstructor(); // For some reason, this is not executed by Grasshopper when we just call base()
+            PostConstructor();  // Explicitly calling PostConstructor() since it is not called in the parameterless constructor overload base()
             NewInstanceGuid();
 
             Name = Caller.Name;
