@@ -22,7 +22,7 @@ namespace BH.Engine.Alligator.Objects
 
         public override string TypeDescription { get; } = "Contains a generic BHoM Geometry";
 
-        public override bool IsValid { get { return m_Value != null;  } }
+        public override bool IsValid { get { return m_Value != null; } }
 
         public Rhino.Geometry.BoundingBox ClippingBox { get { return Bounds(); } }
 
@@ -264,7 +264,7 @@ namespace BH.Engine.Alligator.Objects
                     target = (Q)GH_Convert.ToGeometricGoo(Value);
                 else
                     target = (Q)Value;
-                
+
                 return true;
             }
             catch (Exception)
@@ -311,17 +311,25 @@ namespace BH.Engine.Alligator.Objects
 
         public void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
-            /*if (m_Value == null) { return; }
-            if (typeof(BH.oM.Geometry.Mesh).IsAssignableFrom(m_Value.GetType()))
-                Render.RenderBHoMGeometry((BH.oM.Geometry.Mesh)m_Value, args);*/
+            if (m_Value == null)
+            {
+                return;
+            }
+            if (m_Value is BH.oM.Geometry.Mesh)
+            {
+                Compute.Render((BH.oM.Geometry.Mesh)m_Value, args);
+            }
         }
 
         /***************************************************/
 
         public void DrawViewportWires(GH_PreviewWireArgs args)
         {
-            /*if (m_Value == null) { return; }
-            Render.IRenderBHoMGeometry(m_Value as dynamic, args);*/
+            if (m_Value == null)
+            {
+                return;
+            }
+            Compute.Render(m_Value as dynamic, args);
         }
 
 
@@ -339,7 +347,7 @@ namespace BH.Engine.Alligator.Objects
                     obj_guid = doc.Objects.Add(geometry, att);
                     return true;
                 }
-                    
+
             }
 
             obj_guid = Guid.Empty;
