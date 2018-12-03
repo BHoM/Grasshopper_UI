@@ -76,11 +76,10 @@ namespace BH.UI.Alligator.Templates
             NickName = Caller.Name;
             Description = Caller.Description;
 
-            IGH_Attributes backup = m_attributes;
-            PostConstructor();
-            this.m_attributes = backup;
+            this.RegisterInputParams(null); // Cannot use PostConstructor() here since it calls CreateAttributes() without attributes, resetting the stored ones
+            this.RegisterOutputParams(null); // We call its bits individually: input, output 
+            this.Params.OnParametersChanged(); // and ask to update the layout with OnParametersChanged()
 
-            this.OnAttributesChanged();
             ExpireSolution(true);
         }
 
