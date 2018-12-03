@@ -12,7 +12,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BH.UI.Basilisk.Global
+namespace BH.UI.Alligator.Global
 {
     public static class GlobalSearchMenu
     {
