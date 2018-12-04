@@ -110,19 +110,27 @@ namespace BH.Engine.Alligator.Objects
 
         public virtual void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
-            if (Geometry() == null) { return; }
-            /*if (typeof(BH.oM.Geometry.Mesh).IsAssignableFrom(Value.GetType()))
-                Render.RenderBHoMGeometry((Mesh)Value, args);*/
+            IGeometry geom = this.Geometry();
+            if (geom == null)
+            {
+                return;
+            }
+            if (geom is BH.oM.Geometry.Mesh)
+            {
+                Compute.Render((BH.oM.Geometry.Mesh)geom, args);
+            }
         }
 
         /***************************************************/
 
         public virtual void DrawViewportWires(GH_PreviewWireArgs args)
         {
-            /*if (Value is BHoMObject) 
-                Render.IRenderBHoMObject(Value as BHoMObject, args);
-            else if (Value is IGeometry)
-                Render.IRenderBHoMGeometry(Value as IGeometry, args);*/
+            IGeometry geom = this.Geometry();
+            if (geom == null)
+            {
+                return;
+            }
+            Compute.Render(geom as dynamic, args);
         }
 
 
