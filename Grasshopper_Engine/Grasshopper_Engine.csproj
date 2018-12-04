@@ -88,6 +88,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compute\DrawViewportWires.cs" />
     <Compile Include="Compute\Render.cs" />
     <Compile Include="Convert\ToGoo.cs" />
     <Compile Include="Convert\FromGoo.cs" />
@@ -101,10 +102,10 @@
     <Compile Include="Objects\Types\GH_BHoMGoo.cs" />
     <Compile Include="Objects\Types\GH_Type.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query\RenderColor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Modify\" />
-    <Folder Include="Query\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
