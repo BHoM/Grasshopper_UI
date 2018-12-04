@@ -10,7 +10,7 @@ namespace BH.UI.Alligator.Base
         /**** Properties                        ****/
         /*******************************************/
 
-        protected override System.Drawing.Bitmap Icon { get; } = Properties.Resources.BHoM_BHoM_Object;
+        protected override System.Drawing.Bitmap Icon { get; } = Properties.Resources.IBHoMGeometry_Param;
 
         public override GH_Exposure Exposure { get; } = GH_Exposure.tertiary;
 
