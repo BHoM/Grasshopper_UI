@@ -111,14 +111,7 @@ namespace BH.Engine.Alligator.Objects
         public virtual void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
             IGeometry geom = this.Geometry();
-            if (geom == null)
-            {
-                return;
-            }
-            if (geom is BH.oM.Geometry.Mesh)
-            {
-                Compute.Render((BH.oM.Geometry.Mesh)geom, args);
-            }
+            Engine.Alligator.Compute.DrawViewportMeshes(geom, args);
         }
 
         /***************************************************/
@@ -126,11 +119,7 @@ namespace BH.Engine.Alligator.Objects
         public virtual void DrawViewportWires(GH_PreviewWireArgs args)
         {
             IGeometry geom = this.Geometry();
-            if (geom == null)
-            {
-                return;
-            }
-            Compute.Render(geom as dynamic, args);
+            Engine.Alligator.Compute.DrawViewportWires(geom, args);
         }
 
 

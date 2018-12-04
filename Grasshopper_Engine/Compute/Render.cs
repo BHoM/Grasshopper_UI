@@ -15,11 +15,11 @@ namespace BH.Engine.Alligator
         /**** Public Methods  - Interfaces              ****/
         /***************************************************/
 
-        public static bool Render(this BH.oM.Base.IBHoMObject bhObject, GH_PreviewWireArgs args)
+        public static bool IRender(this BH.oM.Base.IBHoMObject bhObject, GH_PreviewWireArgs args)
         {
             if (bhObject == null) { return false; }
             args.Pipeline.ZBiasMode = 0;
-            Color bhColour = GetBHColor(args.Color);
+            Color bhColour = Query.RenderColour(args.Color);
             try
             {
                 return Render(bhObject as dynamic, args, bhColour);
@@ -30,11 +30,11 @@ namespace BH.Engine.Alligator
 
         /***************************************************/
 
-        public static void Render(this BHG.IGeometry geometry, GH_PreviewWireArgs args)
+        public static void IRender(this BHG.IGeometry geometry, GH_PreviewWireArgs args)
         {
             if (geometry == null) { return; }
             args.Pipeline.ZBiasMode = 0;
-            Color bhColour = GetBHColor(args.Color);
+            Color bhColour = Query.RenderColour(args.Color);
             try
             {
                 Render(geometry as dynamic, args.Pipeline, bhColour);
@@ -44,11 +44,11 @@ namespace BH.Engine.Alligator
 
         /***************************************************/
 
-        public static void Render(this BHG.IGeometry geometry, IGH_PreviewArgs args)
+        public static void IRender(this BHG.IGeometry geometry, IGH_PreviewArgs args)
         {
             if (geometry == null) { return; }
             args.Display.ZBiasMode = 0;
-            Color bhColour = GetBHColor(args.WireColour);
+            Color bhColour = Query.RenderColour(args.WireColour);
             try
             {
                 Render(geometry as dynamic, args.Display, bhColour);
@@ -63,7 +63,7 @@ namespace BH.Engine.Alligator
 
         public static bool Render(BH.oM.Base.BHoMObject obj, GH_PreviewWireArgs args, Color bhColour)
         {
-            Render(obj.IGeometry(), args);
+            IRender(obj.IGeometry(), args);
             return true;
         }
 
@@ -202,19 +202,6 @@ namespace BH.Engine.Alligator
                 }
                 catch (Exception) { }
             }
-        }
-
-
-        /***************************************************/
-        /**** Private Methods  -                        ****/
-        /***************************************************/
-
-        private static Color GetBHColor(Color ghColor)
-        {
-            int R = ghColor.R - 59;      // Difference to BuroHappold Green
-            int G = ghColor.G + 168;     // Difference to BuroHappold Green
-            int B = ghColor.B;           // Difference to BuroHappold Green
-            return Color.FromArgb(100, R < 255 && R > 0 ? R : 0, G < 255 && G > 0 ? G : 255, B);
         }
 
         /***************************************************/

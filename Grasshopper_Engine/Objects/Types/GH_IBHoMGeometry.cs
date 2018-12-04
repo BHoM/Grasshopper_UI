@@ -311,25 +311,14 @@ namespace BH.Engine.Alligator.Objects
 
         public void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
-            if (m_Value == null)
-            {
-                return;
-            }
-            if (m_Value is BH.oM.Geometry.Mesh)
-            {
-                Compute.Render((BH.oM.Geometry.Mesh)m_Value, args);
-            }
+            Engine.Alligator.Compute.DrawViewportMeshes(m_Value, args);
         }
 
         /***************************************************/
 
         public void DrawViewportWires(GH_PreviewWireArgs args)
         {
-            if (m_Value == null)
-            {
-                return;
-            }
-            Compute.Render(m_Value as dynamic, args);
+            Engine.Alligator.Compute.DrawViewportWires(m_Value, args);
         }
 
 
