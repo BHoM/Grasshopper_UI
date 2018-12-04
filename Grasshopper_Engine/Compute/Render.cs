@@ -91,6 +91,13 @@ namespace BH.Engine.Alligator
             pipeline.DrawConstructionPlane(new Rhino.DocObjects.ConstructionPlane() { Plane = (plane.ToRhino()), ThickLineColor = bhColour, ThinLineColor = Color.Black, GridLineCount = 10 });
         }
 
+        /***************************************************/
+
+        public static void Render(BHG.CoordinateSystem coordinateSystem, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        {
+            pipeline.DrawConstructionPlane(new Rhino.DocObjects.ConstructionPlane() { Plane = (coordinateSystem.ToRhino()), ThickLineColor = bhColour, ThinLineColor = Color.Black, GridLineCount = 10 });
+        }
+
 
         /***************************************************/
         /**** Public Methods  - Curves                  ****/
@@ -147,9 +154,16 @@ namespace BH.Engine.Alligator
         /**** Public Methods  - Surfaces                ****/
         /***************************************************/
 
-        public static void Render(BHG.BoundingBox bbBox, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void Render(BHG.Extrusion surface, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
         {
-            pipeline.DrawBox(bbBox.ToRhino(), bhColour, 2);
+            pipeline.DrawSurface(surface.ToRhino(), bhColour, 1);
+        }
+
+        /***************************************************/
+
+        public static void Render(BHG.Loft surface, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        {
+            pipeline.DrawSurface(surface.ToRhino(), bhColour, 1);
         }
 
         /***************************************************/
@@ -157,6 +171,13 @@ namespace BH.Engine.Alligator
         public static void Render(BHG.NurbSurface surface, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
         {
             pipeline.DrawSurface(surface.ToRhino(), bhColour, 1);
+        }
+
+        /***************************************************/
+
+        public static void Render(BHG.Pipe surface, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        {
+            pipeline.DrawBrepShaded(surface.ToRhino(), new Rhino.Display.DisplayMaterial(bhColour));
         }
 
         /***************************************************/
@@ -189,6 +210,13 @@ namespace BH.Engine.Alligator
 
         /***************************************************/
         /**** Public Methods  - Miscellanea             ****/
+        /***************************************************/
+
+        public static void Render(BHG.BoundingBox bbBox, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        {
+            pipeline.DrawBox(bbBox.ToRhino(), bhColour, 2);
+        }
+
         /***************************************************/
 
         public static void Render(BHG.CompositeGeometry composite, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
