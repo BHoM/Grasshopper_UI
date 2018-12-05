@@ -298,15 +298,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\Resources\Adapter.png" />
-    <None Include="Resources\Enum_Param.png" />
-    <None Include="Resources\Dictionary_Param.png" />
-    <None Include="Resources\BHoMObject_Param.png" />
-    <None Include="Resources\Type_Param.png" />
-    <None Include="Resources\IObject_Param.png" />
-    <None Include="Resources\IBHoMGeometry_Param.png" />
-    <None Include="Resources\BHoMGeometry_Param.png" />
-    <None Include="Resources\Dict_Param.png" />
-    <None Include="Properties\Resources\BHoMObject_Param.png" />
     <Content Include="Properties\Resources\Compute.png" />
     <Content Include="Properties\Resources\Convert.png" />
     <Content Include="Properties\Resources\CreateBHoM.png" />
