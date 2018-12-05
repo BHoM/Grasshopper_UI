@@ -319,6 +319,12 @@
     <Content Include="Properties\Resources\Type.png" />
     <Content Include="Properties\Resources\UpdateProperty.png" />
     <Content Include="Properties\Resources\VS_Script.png" />
+    <None Include="Resources\Enum_Param.png" />
+    <None Include="Resources\Dictionary_Param.png" />
+    <None Include="Resources\BHoMObject_Param.png" />
+    <None Include="Resources\Type_Param.png" />
+    <None Include="Resources\IObject_Param.png" />
+    <None Include="Resources\IBHoMGeometry_Param.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="New\Components\UI\" />

@@ -19,7 +19,7 @@ namespace BH.UI.Alligator.Base.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -263,6 +263,16 @@ namespace BH.UI.Alligator.Base.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BHoMObject_Param {
+            get {
+                object obj = ResourceManager.GetObject("BHoMObject_Param", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BS_Script {
             get {
                 object obj = ResourceManager.GetObject("BS_Script", resourceCulture);
@@ -333,9 +343,29 @@ namespace BH.UI.Alligator.Base.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Dictionary_Param {
+            get {
+                object obj = ResourceManager.GetObject("Dictionary_Param", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap DOF {
             get {
                 object obj = ResourceManager.GetObject("DOF", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Enum_Param {
+            get {
+                object obj = ResourceManager.GetObject("Enum_Param", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -376,6 +406,26 @@ namespace BH.UI.Alligator.Base.Properties {
         internal static System.Drawing.Bitmap gator {
             get {
                 object obj = ResourceManager.GetObject("gator", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap IBHoMGeometry_Param {
+            get {
+                object obj = ResourceManager.GetObject("IBHoMGeometry_Param", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap IObject_Param {
+            get {
+                object obj = ResourceManager.GetObject("IObject_Param", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -476,6 +526,16 @@ namespace BH.UI.Alligator.Base.Properties {
         internal static System.Drawing.Bitmap Type {
             get {
                 object obj = ResourceManager.GetObject("Type", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Type_Param {
+            get {
+                object obj = ResourceManager.GetObject("Type_Param", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

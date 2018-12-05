@@ -1,4 +1,5 @@
-﻿using Grasshopper.Kernel;
+﻿using BH.UI.Alligator.Base.Properties;
+using Grasshopper.Kernel;
 using System;
 using System.Collections.Generic;
 
@@ -10,7 +11,7 @@ namespace BH.UI.Alligator.Objects
         /**** Properties                        ****/
         /*******************************************/
 
-        protected override System.Drawing.Bitmap Icon { get; } = null;
+        protected override System.Drawing.Bitmap Icon { get; } = Resources.IBHoMGeometry_Param;
 
         public override GH_Exposure Exposure { get; } = GH_Exposure.tertiary;
 
