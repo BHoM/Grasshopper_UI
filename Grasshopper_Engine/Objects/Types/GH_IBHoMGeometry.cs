@@ -311,14 +311,14 @@ namespace BH.Engine.Alligator.Objects
 
         public void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
-            Engine.Alligator.Compute.DrawViewportMeshes(m_Value, args);
+            Engine.Alligator.Compute.IRenderMeshes(m_Value, args);
         }
 
         /***************************************************/
 
         public void DrawViewportWires(GH_PreviewWireArgs args)
         {
-            Engine.Alligator.Compute.DrawViewportWires(m_Value, args);
+            Engine.Alligator.Compute.IRenderWires(m_Value, args);
         }
 
 
