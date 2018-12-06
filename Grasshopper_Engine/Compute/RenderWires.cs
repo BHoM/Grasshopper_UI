@@ -15,56 +15,18 @@ namespace BH.Engine.Alligator
         /**** Public Methods  - Interfaces              ****/
         /***************************************************/
 
-        public static bool IRenderWires(this BH.oM.Base.IBHoMObject bhObject, GH_PreviewWireArgs args)
-        {
-            if (bhObject == null) { return false; }
-            args.Pipeline.ZBiasMode = 0;
-            Color bhColour = Query.RenderColour(args.Color);
-            try
-            {
-                return RenderWires(bhObject as dynamic, args, bhColour);
-            }
-            catch (Exception) { }
-            return false;
-        }
-
-        /***************************************************/
-
         public static void IRenderWires(this BHG.IGeometry geometry, GH_PreviewWireArgs args)
         {
-            if (geometry == null) { return; }
-            args.Pipeline.ZBiasMode = 0;
+            if (geometry == null)
+            {
+                return;
+            }
             Color bhColour = Query.RenderColour(args.Color);
             try
             {
                 RenderWires(geometry as dynamic, args.Pipeline, bhColour);
             }
             catch (Exception) { }
-        }
-
-        /***************************************************/
-
-        public static void IRenderWires(this BHG.IGeometry geometry, IGH_PreviewArgs args)
-        {
-            if (geometry == null) { return; }
-            args.Display.ZBiasMode = 0;
-            Color bhColour = Query.RenderColour(args.WireColour);
-            try
-            {
-                RenderWires(geometry as dynamic, args.Display, bhColour);
-            }
-            catch (Exception) { }
-        }
-
-
-        /***************************************************/
-        /**** Public Methods  - Objects                 ****/
-        /***************************************************/
-
-        public static bool RenderWires(BH.oM.Base.BHoMObject obj, GH_PreviewWireArgs args, Color bhColour)
-        {
-            IRenderWires(obj.IGeometry(), args);
-            return true;
         }
 
 
