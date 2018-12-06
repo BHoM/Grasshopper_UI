@@ -17,25 +17,16 @@ namespace BH.Engine.Alligator
         /**** Public Methods  - Interfaces              ****/
         /***************************************************/
 
-        public static bool IRenderMeshes(this BH.oM.Base.IBHoMObject bhObject, GH_PreviewMeshArgs args)
-        {
-            if (bhObject == null) { return false; }
-            args.Pipeline.ZBiasMode = 0;
-            DisplayMaterial bhMaterial = Query.RenderMaterial(args.Material);
-            try
-            {
-                RenderMeshes(bhObject as dynamic, args.Pipeline, bhMaterial);
-            }
-            catch (Exception) { }
-            return false;
-        }
-
-        /***************************************************/
-
         public static void IRenderMeshes(this BHG.IGeometry geometry, GH_PreviewMeshArgs args)
         {
-            if (geometry == null) { return; }
-            args.Pipeline.ZBiasMode = 0;
+            if (geometry == null)
+            {
+                return;
+            }
+            else if (!(geometry is BHG.ISurface) & !(geometry is BHG.Mesh))
+            {
+                return;
+            }
             Color bhColour = Query.RenderColour(args.Material.Diffuse);
             DisplayMaterial bhMaterial = Query.RenderMaterial(args.Material);
             try
@@ -43,16 +34,6 @@ namespace BH.Engine.Alligator
                 RenderMeshes(geometry as dynamic, args.Pipeline, bhMaterial);
             }
             catch (Exception) { }
-        }
-
-
-        /***************************************************/
-        /**** Public Methods  - Objects                 ****/
-        /***************************************************/
-
-        public static void RenderMeshes(BH.oM.Base.BHoMObject obj, GH_PreviewMeshArgs args)
-        {
-            IRenderMeshes(obj.IGeometry(), args);
         }
 
 
@@ -165,7 +146,8 @@ namespace BH.Engine.Alligator
 
         public static void RenderMeshes(BHG.Pipe surface, Rhino.Display.DisplayPipeline pipeline, DisplayMaterial material)
         {
-            pipeline.DrawBrepShaded(surface.ToRhino(), material);
+            RHG.Brep rSurface = surface.ToRhino();
+            pipeline.DrawBrepShaded(rSurface, material);
         }
 
         /***************************************************/
@@ -173,7 +155,7 @@ namespace BH.Engine.Alligator
         public static void RenderMeshes(BHG.PolySurface polySurface, Rhino.Display.DisplayPipeline pipeline, DisplayMaterial material)
         {
             List<BHG.ISurface> surfaces = polySurface.Surfaces;
-            for (int i=0; i< surfaces.Count; i++)
+            for (int i = 0; i < surfaces.Count; i++)
             {
                 pipeline.DrawBrepShaded(RHG.Brep.CreateFromSurface(surfaces[i].IToRhino()), material);
             }
