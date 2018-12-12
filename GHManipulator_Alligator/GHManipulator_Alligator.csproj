@@ -76,7 +76,9 @@ if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligat
 if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib" mkdir "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\lib"
 if not exist "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\packages" mkdir "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\packages"
 
-Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"</PostBuildEvent>
+Copy "$(TargetPath)" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
+
+Copy "$(TargetDir)*.dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets" Condition="Exists('..\packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
