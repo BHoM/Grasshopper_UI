@@ -1,4 +1,4 @@
-﻿using BH.oM.Reflection.Debuging;
+﻿using BH.oM.Reflection.Debugging;
 using Grasshopper.Kernel;
 using System;
 using System.Collections.Generic;
