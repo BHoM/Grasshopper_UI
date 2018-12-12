@@ -39,7 +39,10 @@ namespace BH.Engine.Alligator.Objects
 
         /***************************************************/
 
-        public GH_BHoMObject(BHoMObject val) : base(val) { }
+        public GH_BHoMObject(BHoMObject val) : base(val)
+        {
+            SetGeometry();
+        }
 
 
         /*******************************************/
@@ -70,7 +73,13 @@ namespace BH.Engine.Alligator.Objects
             if (source.GetType().Namespace.StartsWith("Rhino.Geometry"))
                 source = BH.Engine.Rhinoceros.Convert.ToBHoM(source as dynamic);
 
-            return base.CastFrom(source);
+            if (base.CastFrom(source))
+            {
+                SetGeometry();
+                return true;
+            }
+
+            return false;
         }
 
         /***************************************************/
@@ -110,16 +119,14 @@ namespace BH.Engine.Alligator.Objects
 
         public virtual void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
-            IGeometry geom = this.Geometry();
-            Engine.Alligator.Compute.IRenderMeshes(geom, args);
+            Engine.Alligator.Compute.IRenderMeshes(Geometry, args);
         }
 
         /***************************************************/
 
         public virtual void DrawViewportWires(GH_PreviewWireArgs args)
         {
-            IGeometry geom = this.Geometry();
-            Engine.Alligator.Compute.IRenderWires(geom, args);
+            Engine.Alligator.Compute.IRenderWires(Geometry, args);
         }
 
 
@@ -127,12 +134,26 @@ namespace BH.Engine.Alligator.Objects
         /**** Private Method                            ****/
         /***************************************************/
 
-        private IGeometry Geometry()
+        private bool SetGeometry()
         {
-            if (Value is BHoMObject)
-                return ((BHoMObject)Value).IGeometry();
+            if (Value == null)
+            {
+                return true;
+            }
+            else if (Value is BHoMObject)
+            {
+                Geometry = ((BHoMObject)Value).IGeometry();
+                return true;
+            }
+            else if (Value is IGeometry)
+            {
+                Geometry = Value as IGeometry;
+                return true;
+            }
             else
-                return null;
+            {
+                return false;
+            }
         }
 
         /***************************************************/
@@ -144,11 +165,10 @@ namespace BH.Engine.Alligator.Objects
                 if (Value == null)
                     return Rhino.Geometry.BoundingBox.Empty;
 
-                IGeometry geometry = Geometry();
-                if (geometry == null)
+                if (Geometry == null)
                     return Rhino.Geometry.BoundingBox.Empty;
 
-                BH.oM.Geometry.BoundingBox bhBox = geometry.IBounds();
+                BH.oM.Geometry.BoundingBox bhBox = Geometry.IBounds();
                 if (bhBox == null)
                     return Rhino.Geometry.BoundingBox.Empty;
 
@@ -160,6 +180,12 @@ namespace BH.Engine.Alligator.Objects
             }
         }
 
+
+        /***************************************************/
+        /**** Private Fields                            ****/
+        /***************************************************/
+
+        private IGeometry Geometry = null;
 
         /***************************************************/
     }
