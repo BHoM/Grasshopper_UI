@@ -119,14 +119,14 @@ namespace BH.Engine.Alligator.Objects
 
         public virtual void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
-            Engine.Alligator.Compute.IRenderMeshes(Geometry, args);
+            Engine.Alligator.Compute.IRenderMeshes(m_Geometry, args);
         }
 
         /***************************************************/
 
         public virtual void DrawViewportWires(GH_PreviewWireArgs args)
         {
-            Engine.Alligator.Compute.IRenderWires(Geometry, args);
+            Engine.Alligator.Compute.IRenderWires(m_Geometry, args);
         }
 
 
@@ -142,12 +142,12 @@ namespace BH.Engine.Alligator.Objects
             }
             else if (Value is BHoMObject)
             {
-                Geometry = ((BHoMObject)Value).IGeometry();
+                m_Geometry = ((BHoMObject)Value).IGeometry();
                 return true;
             }
             else if (Value is IGeometry)
             {
-                Geometry = Value as IGeometry;
+                m_Geometry = Value as IGeometry;
                 return true;
             }
             else
@@ -165,10 +165,10 @@ namespace BH.Engine.Alligator.Objects
                 if (Value == null)
                     return Rhino.Geometry.BoundingBox.Empty;
 
-                if (Geometry == null)
+                if (m_Geometry == null)
                     return Rhino.Geometry.BoundingBox.Empty;
 
-                BH.oM.Geometry.BoundingBox bhBox = Geometry.IBounds();
+                BH.oM.Geometry.BoundingBox bhBox = m_Geometry.IBounds();
                 if (bhBox == null)
                     return Rhino.Geometry.BoundingBox.Empty;
 
@@ -185,7 +185,7 @@ namespace BH.Engine.Alligator.Objects
         /**** Private Fields                            ****/
         /***************************************************/
 
-        private IGeometry Geometry = null;
+        private IGeometry m_Geometry = null;
 
         /***************************************************/
     }
