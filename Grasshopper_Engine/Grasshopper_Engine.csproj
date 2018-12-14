@@ -95,6 +95,7 @@
     <Compile Include="Compute\RenderWires.cs" />
     <Compile Include="Convert\ToGoo.cs" />
     <Compile Include="Convert\FromGoo.cs" />
+    <Compile Include="Convert\ToType.cs" />
     <Compile Include="Convert\ToRhino.cs" />
     <Compile Include="Create\DataTree.cs" />
     <Compile Include="Objects\Types\GH_BHoMObject.cs" />

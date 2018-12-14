@@ -10,6 +10,7 @@ using System.Linq;
 using BH.Engine.Reflection.Convert;
 using BH.Engine.DataStructure;
 using Grasshopper.Kernel.Data;
+using BH.Engine.Grasshopper;
 
 namespace BH.UI.Alligator.Base
 {
@@ -97,7 +98,7 @@ namespace BH.UI.Alligator.Base
             }
 
             if (typeString.Length > 0)
-                m_Type = Type.GetType(typeString);
+                m_Type = typeString.ToType();
 
             return base.Read(reader);
         }
