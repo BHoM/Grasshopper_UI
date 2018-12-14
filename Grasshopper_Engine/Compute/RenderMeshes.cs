@@ -62,7 +62,7 @@ namespace BH.Engine.Alligator
 
         /***************************************************/
 
-        public static void RenderMeshes(BHG.CoordinateSystem coordinateSystem, Rhino.Display.DisplayPipeline pipeline, DisplayMaterial material)
+        public static void RenderMeshes(BHG.CoordinateSystem.Cartesian coordinateSystem, Rhino.Display.DisplayPipeline pipeline, DisplayMaterial material)
         {
             return;
         }

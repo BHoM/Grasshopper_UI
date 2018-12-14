@@ -55,7 +55,7 @@ namespace BH.Engine.Alligator
 
         /***************************************************/
 
-        public static void RenderWires(BHG.CoordinateSystem coordinateSystem, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderWires(BHG.CoordinateSystem.Cartesian coordinateSystem, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
         {
             pipeline.DrawConstructionPlane(new Rhino.DocObjects.ConstructionPlane() { Plane = (coordinateSystem.ToRhino()), ThickLineColor = bhColour, ThinLineColor = Color.Black, GridLineCount = 10 });
         }
