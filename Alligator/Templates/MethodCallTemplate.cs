@@ -21,6 +21,7 @@ using Grasshopper.Kernel.Data;
 using BH.UI.Alligator.Base.NonComponents.Menus;
 using BH.oM.Testing;
 using BH.Engine.Reflection.Convert;
+using BH.Engine.Grasshopper;
 
 
 // Instructions to implement this template
@@ -260,7 +261,7 @@ namespace BH.UI.Alligator.Templates
                         m_IsDeprecated = true;
                     }
 
-                    paramTypes.Add(Type.GetType(paramType));
+                    paramTypes.Add(paramType.ToType());
                 }
 
                 //Read from the base
@@ -268,7 +269,7 @@ namespace BH.UI.Alligator.Templates
                     return false;
 
                 // Restore the method
-                Type type = Type.GetType(typeString);
+                Type type = typeString.ToType();
                 RestoreMethod(type, methodName, paramTypes);
 
                 m_IsDeprecated |= m_Method.IsDeprecated();
@@ -734,9 +735,9 @@ namespace BH.UI.Alligator.Templates
         public void SetInitCode(string code)
         {
             CustomObject methodInfo = BH.Engine.Serialiser.Convert.FromJson(code) as CustomObject;
-            Type type = Type.GetType(methodInfo.CustomData["TypeName"] as string);
+            Type type = Engine.Grasshopper.Convert.ToType(methodInfo.CustomData["TypeName"] as string);
             string methodName = methodInfo.CustomData["MethodName"] as string;
-            List<Type> paramTypes = (methodInfo.CustomData["Parameters"] as List<object>).Select(x => ((string)x == null) ? null : Type.GetType(x as string)).ToList();
+            List<Type> paramTypes = (methodInfo.CustomData["Parameters"] as List<object>).Select(x => ((string)x == null) ? null : Engine.Grasshopper.Convert.ToType(x as string)).ToList();
 
             RestoreMethod(type, methodName, paramTypes);
             ApplyMethod(m_Method);

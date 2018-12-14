@@ -16,6 +16,7 @@ using BH.UI.Alligator.Base.NonComponents.Menus;
 using System.Reflection;
 using BH.UI.Alligator.Base.NonComponents.Ports;
 using BH.Engine.Reflection.Convert;
+using BH.Engine.Grasshopper;
 
 namespace BH.UI.Alligator.Base
 {
@@ -168,7 +169,7 @@ namespace BH.UI.Alligator.Base
                         //m_IsDeprecated = true;
                     }
 
-                    m_ForcedType = Type.GetType(typeString);
+                    m_ForcedType = typeString.ToType();
                 }
 
                 return true;

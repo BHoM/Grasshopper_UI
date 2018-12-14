@@ -10,6 +10,7 @@ using BH.Engine.DataStructure;
 using BH.Engine.Reflection;
 using BH.UI.Alligator.Base.NonComponents.Menus;
 using BH.Engine.Reflection.Convert;
+using BH.Engine.Grasshopper;
 
 namespace BH.UI.Alligator.Base
 {
@@ -94,7 +95,7 @@ namespace BH.UI.Alligator.Base
             }
 
             if (typeString.Length > 0)
-                m_Type = Type.GetType(typeString);
+                m_Type = typeString.ToType();
 
             if (m_Type != null)
                 Message = m_Type.ToText();
