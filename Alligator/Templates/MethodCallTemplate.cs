@@ -44,6 +44,8 @@ namespace BH.UI.Alligator.Templates
 
         public virtual bool ShortenBranches { get; set; } = false;
 
+        public virtual object SelectedItem { get { return m_Method; } }
+
 
         /*************************************/
         /**** 2 . Helper Methods          ****/
