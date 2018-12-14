@@ -46,11 +46,11 @@ namespace BH.UI.Alligator.Base
 
             if (m_TypeTree == null || m_TypeList == null)
             {
-                IEnumerable<Type> types = BH.Engine.Reflection.Query.BHoMEnumList();
+                List<Type> types = BH.Engine.Reflection.Query.BHoMEnumList();
                 IEnumerable<string> paths = types.Select(x => x.ToText(true));
 
                 List<string> ignore = new List<string> { "BH", "oM", "Engine" };
-                m_TypeTree = Engine.DataStructure.Create.Tree(types, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y))), "select a type").ShortenBranches();
+                m_TypeTree = Engine.DataStructure.Create.Tree(types, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y)).ToList()).ToList(), "select a type").ShortenBranches();
                 m_TypeList = paths.Zip(types, (k, v) => new Tuple<string, Type>(k, v)).ToList();
             }
         }

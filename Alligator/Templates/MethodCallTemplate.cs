@@ -90,10 +90,10 @@ namespace BH.UI.Alligator.Templates
                 if (MethodGroup != "")
                     ignore.Add(MethodGroup);
 
-                IEnumerable<MethodBase> methods = GetRelevantMethods();
+                List<MethodBase> methods = GetRelevantMethods().ToList();
                 IEnumerable<string> paths = methods.Select(x => x.ToText(true));
 
-                m_MethodTree = BH.Engine.DataStructure.Create.Tree(methods, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y))), "Select " + MethodGroup + " methods");
+                m_MethodTree = BH.Engine.DataStructure.Create.Tree(methods, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y)).ToList()).ToList(), "Select " + MethodGroup + " methods");
                 if (GroupByName)
                     m_MethodTree = GroupMethodsByName(m_MethodTree);
                 if (ShortenBranches)

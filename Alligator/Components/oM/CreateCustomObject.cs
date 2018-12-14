@@ -56,10 +56,10 @@ namespace BH.UI.Alligator.Base
             {
                 List<string> ignore = new List<string> { "BH", "oM", "Engine" };
 
-                IEnumerable<Type> types = BH.Engine.Reflection.Query.BHoMTypeList();
+                List<Type> types = BH.Engine.Reflection.Query.BHoMTypeList();
                 IEnumerable<string> paths = types.Select(x => x.ToText(true));
 
-                m_TypeTree = BH.Engine.DataStructure.Create.Tree(types, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y))), "Select enforced Type");
+                m_TypeTree = BH.Engine.DataStructure.Create.Tree(types, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y)).ToList()).ToList(), "Select enforced Type");
                 m_TypeList = paths.Zip(types, (k, v) => new Tuple<string, Type>(k, v)).ToList();
             }
 
