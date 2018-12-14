@@ -33,6 +33,8 @@ namespace BH.UI.Alligator.Base
 
         public override bool Obsolete { get; } = true;
 
+        public object SelectedType { get { return m_ForcedType; } }
+
 
         /*******************************************/
         /**** Constructors                      ****/

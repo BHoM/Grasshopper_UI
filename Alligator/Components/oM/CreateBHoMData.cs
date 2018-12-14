@@ -26,6 +26,8 @@ namespace BH.UI.Alligator.Base
 
         public override bool Obsolete { get; } = true;
 
+        public object SelectedCategory { get { return m_FileName; } }
+
 
         /*******************************************/
         /**** Constructors                      ****/

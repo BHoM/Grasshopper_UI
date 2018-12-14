@@ -124,11 +124,16 @@ namespace BH.UI.Alligator.Templates
 
             for (int i = 0; i < Math.Min(nbNew, nbOld); i++)
             {
+                IGH_Param oldParam = Params.Output[i];
                 IGH_Param newParam = ToGH_Param(outputs[i]);
-                if (newParam.GetType() != Params.Output[i].GetType() ||
-                    newParam.Name != Params.Output[i].Name)
+                if (newParam.GetType() != oldParam.GetType() || newParam.NickName != oldParam.NickName)
                 {
-                    Params.Output[i].IsolateObject();
+                    foreach (IGH_Param source in oldParam.Sources)
+                        newParam.AddSource(source);
+                    foreach (IGH_Param target in oldParam.Recipients)
+                        target.AddSource(newParam);
+
+                    oldParam.IsolateObject();
                     Params.Output[i] = newParam;
                 }
             }

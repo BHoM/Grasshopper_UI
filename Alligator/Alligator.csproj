@@ -191,6 +191,7 @@
     <Compile Include="New\Components\Parameters\Param_Enum.cs" />
     <Compile Include="New\Components\Parameters\Param_IObject.cs" />
     <Compile Include="New\Components\Parameters\Param_Type.cs" />
+    <Compile Include="New\Components\UI\UpdateVersion.cs" />
     <Compile Include="New\Global\GlobalSearch.cs" />
     <Compile Include="New\Templates\CallerValueList.cs" />
     <Compile Include="New\Templates\DataAccessor_GH.cs" />
@@ -348,9 +349,7 @@
     <None Include="Resources\IObject_Param.png" />
     <None Include="Resources\IBHoMGeometry_Param.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="New\Components\UI\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
       <Project>{dde47285-e709-4752-9afd-6fa03b449364}</Project>

@@ -19,6 +19,8 @@ namespace BH.UI.Alligator.Components
 
         public override Caller Caller { get; } = new ExplodeCaller();
 
+        public bool AutoUpdateOutputs { get; set; } = true;
+
 
         /*******************************************/
         /**** Constructors                      ****/
@@ -71,6 +73,21 @@ namespace BH.UI.Alligator.Components
 
         private void Params_ParameterSourcesChanged(object sender, GH_ParamServerEventArgs e)
         {
+            if (AutoUpdateOutputs)
+                UpdateOutputs();
+        }
+
+        /*******************************************/
+
+        private void RefreshLabel_Click(object sender, EventArgs e)
+        {
+            UpdateOutputs();
+        }
+
+        /*******************************************/
+
+        private void UpdateOutputs()
+        {
             // Update the output params based on input data
             Params.Input[0].CollectData();
             List<object> data = Params.Input[0].VolatileData.AllData(true).Select(x => x.ScriptVariable()).ToList();
@@ -78,18 +95,8 @@ namespace BH.UI.Alligator.Components
             caller.CollectOutputTypes(data);
 
             // Forces the component to update
-            RegisterInputParams(null);
             RegisterOutputParams(null);
-
             this.OnAttributesChanged();
-            //ExpireSolution(true);
-        }
-
-        /*******************************************/
-
-        private void RefreshLabel_Click(object sender, EventArgs e)
-        {
-            Params_ParameterSourcesChanged(sender, null);
         }
 
         /*******************************************/

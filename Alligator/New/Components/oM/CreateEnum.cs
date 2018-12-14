@@ -19,7 +19,7 @@ namespace BH.UI.Alligator.Components
         /**** Properties                        ****/
         /*******************************************/
 
-        protected override MultiChoiceCaller Caller { get; } = new CreateEnumCaller();
+        public override MultiChoiceCaller Caller { get; } = new CreateEnumCaller();
 
         /*******************************************/
     }

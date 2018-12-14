@@ -22,7 +22,7 @@ namespace BH.UI.Alligator.Templates
         /**** Properties                        ****/
         /*******************************************/
 
-        protected abstract MultiChoiceCaller Caller { get; }
+        public abstract MultiChoiceCaller Caller { get; }
 
         protected override System.Drawing.Bitmap Icon { get { return Caller.Icon_24x24; } }
 
@@ -48,6 +48,24 @@ namespace BH.UI.Alligator.Templates
             Caller.SetDataAccessor(m_Accessor);
 
             Caller.ItemSelected += (sender, e) => UpdateFromSelectedItem();
+        }
+
+
+        /*******************************************/
+        /**** Public Methods                    ****/
+        /*******************************************/
+
+        public virtual void UpdateFromSelectedItem()
+        {
+            this.NickName = Caller.Name;
+            this.Name = Caller.Name;
+
+            ListItems.Clear();
+            List<string> names = Caller.GetChoiceNames();
+            for (int i = 0; i < names.Count; i++)
+                ListItems.Add(new GH_ValueListItem(names[i], i.ToString()));
+
+            this.ExpireSolution(true);
         }
 
 
@@ -120,23 +138,6 @@ namespace BH.UI.Alligator.Templates
             if (item != null)
                 Caller.SetItem(item);
             UpdateFromSelectedItem();
-        }
-
-        /*******************************************/
-        /**** Private Methods                   ****/
-        /*******************************************/
-
-        protected virtual void UpdateFromSelectedItem()
-        {
-            this.NickName = Caller.Name;
-            this.Name = Caller.Name;
-
-            ListItems.Clear();
-            List<string> names = Caller.GetChoiceNames();
-            for (int i = 0; i < names.Count; i++)
-                ListItems.Add(new GH_ValueListItem(names[i], i.ToString()));
-
-            this.ExpireSolution(true);
         }
 
 
