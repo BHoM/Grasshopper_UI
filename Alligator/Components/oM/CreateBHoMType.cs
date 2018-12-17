@@ -9,7 +9,6 @@ using Grasshopper.GUI;
 using BH.Engine.DataStructure;
 using BH.Engine.Reflection;
 using BH.UI.Alligator.Base.NonComponents.Menus;
-using BH.Engine.Reflection.Convert;
 using BH.Engine.Grasshopper;
 
 namespace BH.UI.Alligator.Base
