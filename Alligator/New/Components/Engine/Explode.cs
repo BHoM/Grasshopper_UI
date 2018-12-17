@@ -39,14 +39,7 @@ namespace BH.UI.Alligator.Components
         protected override void BeforeSolveInstance()
         {
             base.BeforeSolveInstance();
-
-            if (Params.Input.Count == 1 && Caller.OutputParams.Count != Params.Output.Count)
-            {
-                Params.Input[0].CollectData();
-                List<object> data = Params.Input[0].VolatileData.AllData(true).Select(x => x.ScriptVariable()).ToList();
-                ExplodeCaller caller = Caller as ExplodeCaller;
-                caller.CollectOutputTypes(data);
-            }
+            UpdateOutputs(false);
         }
 
         /*******************************************/
@@ -61,9 +54,7 @@ namespace BH.UI.Alligator.Components
 
         protected override void AppendAdditionalComponentMenuItems(ToolStripDropDown menu)
         {
-            ToolStripLabel refreshLabel = new ToolStripLabel { Text = "Update Outputs" };
-            refreshLabel.Click += RefreshLabel_Click;
-            menu.Items.Add(refreshLabel);
+            Menu_AppendItem(menu, "Update Outputs", RefreshLabel_Click);
             base.AppendAdditionalComponentMenuItems(menu);
         }
 
@@ -73,21 +64,28 @@ namespace BH.UI.Alligator.Components
 
         private void Params_ParameterSourcesChanged(object sender, GH_ParamServerEventArgs e)
         {
-            if (AutoUpdateOutputs)
-                UpdateOutputs();
+            UpdateOutputs(false);
         }
 
         /*******************************************/
 
         private void RefreshLabel_Click(object sender, EventArgs e)
         {
-            UpdateOutputs();
+            ExpireSolution(false);
+            UpdateOutputs(true);
         }
-
         /*******************************************/
 
-        private void UpdateOutputs()
+        private void UpdateOutputs(bool ignoreAutoUpdate)
         {
+            bool doJob = ignoreAutoUpdate | AutoUpdateOutputs;
+            if (!doJob)
+            {
+                Engine.Reflection.Compute.ClearCurrentEvents();
+                Engine.Reflection.Compute.RecordWarning("Source component expired, right click and <Update Outputs> to update");
+                Logging.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
+                return;
+            }
             // Update the output params based on input data
             Params.Input[0].CollectData();
             List<object> data = Params.Input[0].VolatileData.AllData(true).Select(x => x.ScriptVariable()).ToList();
@@ -95,7 +93,7 @@ namespace BH.UI.Alligator.Components
             caller.CollectOutputTypes(data);
 
             // Forces the component to update
-            RegisterOutputParams(null);
+            this.RegisterOutputParams(null);
             this.OnAttributesChanged();
         }
 
