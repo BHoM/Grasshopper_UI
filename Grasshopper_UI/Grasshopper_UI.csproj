@@ -319,6 +319,7 @@
   <ItemGroup>
     <Content Include="Properties\Resources\Adapter.png" />
     <None Include="Properties\Resources\BHoM_Grasshopper_Icon.png" />
+    <None Include="Properties\Resources\BHoMObject_Param.png" />
     <Content Include="Properties\Resources\Compute.png" />
     <Content Include="Properties\Resources\Convert.png" />
     <Content Include="Properties\Resources\CreateBHoM.png" />
@@ -326,10 +327,14 @@
     <Content Include="Properties\Resources\Data.png" />
     <Content Include="Properties\Resources\Delete.png" />
     <Content Include="Properties\Resources\Dictionary.png" />
+    <None Include="Properties\Resources\Dictionary_Param.png" />
     <Content Include="Properties\Resources\Enum.png" />
+    <None Include="Properties\Resources\Enum_Param.png" />
     <Content Include="Properties\Resources\Execute.png" />
     <Content Include="Properties\Resources\Explode.png" />
     <Content Include="Properties\Resources\FromJson.png" />
+    <None Include="Properties\Resources\IBHoMGeometry_Param.png" />
+    <None Include="Properties\Resources\IObject_Param.png" />
     <Content Include="Properties\Resources\Modify.png" />
     <Content Include="Properties\Resources\Move.png" />
     <Content Include="Properties\Resources\Pull.png" />
@@ -338,14 +343,9 @@
     <Content Include="Properties\Resources\QueryAdapter.png" />
     <Content Include="Properties\Resources\ToJson.png" />
     <Content Include="Properties\Resources\Type.png" />
+    <None Include="Properties\Resources\Type_Param.png" />
     <Content Include="Properties\Resources\UpdateProperty.png" />
     <Content Include="Properties\Resources\VS_Script.png" />
-    <None Include="Resources\Enum_Param.png" />
-    <None Include="Resources\Dictionary_Param.png" />
-    <None Include="Resources\BHoMObject_Param.png" />
-    <None Include="Resources\Type_Param.png" />
-    <None Include="Resources\IObject_Param.png" />
-    <None Include="Resources\IBHoMGeometry_Param.png" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
