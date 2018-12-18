@@ -34,7 +34,7 @@ namespace BH.UI.Grasshopper.Base
         /**** Constructors                      ****/
         /*******************************************/
 
-        public CreateTestResult() : base("Create Test Result", "TestResult", "Creates a test result from a preformed test", "Grasshopper", " UI") { }
+        public CreateTestResult() : base("Create Test Result", "TestResult", "Creates a test result from a preformed test", "BHoM", "Test") { }
 
 
 

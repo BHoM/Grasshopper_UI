@@ -21,7 +21,7 @@ namespace BH.UI.Grasshopper.Base
 
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.Compute; 
 
-        public override GH_Exposure Exposure { get; } = GH_Exposure.secondary;
+        public override GH_Exposure Exposure { get; } = GH_Exposure.hidden;
 
         public override string MethodGroup { get; set; } = "Compute";
 
