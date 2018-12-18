@@ -1,11 +1,11 @@
 ﻿using Grasshopper.Kernel;
 using System;
-using BH.UI.Alligator.Base;
+using BH.UI.Grasshopper.Base;
 using BH.oM.Base;
 using BH.oM.DataManipulation.Queries;
 using BH.Adapter;
 
-namespace BH.UI.Alligator.Adapter
+namespace BH.UI.Grasshopper.Adapter
 {
     public class Delete : GH_Component
     {
@@ -13,7 +13,7 @@ namespace BH.UI.Alligator.Adapter
         /**** Properties                        ****/
         /*******************************************/
 
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Base.Properties.Resources.Delete; 
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.Delete; 
 
         public override Guid ComponentGuid { get; } = new Guid("8E2635F4-0C33-4608-910E-CDD676C03519"); 
 
@@ -26,7 +26,7 @@ namespace BH.UI.Alligator.Adapter
         /**** Constructors                      ****/
         /*******************************************/
 
-        public Delete() : base("Delete", "Delete", "Delete objects in the external software", "Alligator", " Adapter") { }
+        public Delete() : base("Delete", "Delete", "Delete objects in the external software", "Grasshopper", " Adapter") { }
 
 
         /*******************************************/

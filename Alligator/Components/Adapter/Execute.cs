@@ -1,11 +1,11 @@
 ﻿using Grasshopper.Kernel;
 using System;
 using System.Collections.Generic;
-using BH.UI.Alligator.Base;
+using BH.UI.Grasshopper.Base;
 using BH.oM.Base;
 using BH.Adapter;
 
-namespace BH.UI.Alligator.Adapter
+namespace BH.UI.Grasshopper.Adapter
 {
     public class Execute : GH_Component
     {
@@ -13,7 +13,7 @@ namespace BH.UI.Alligator.Adapter
         /**** Properties                        ****/
         /*******************************************/
 
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Base.Properties.Resources.Execute; 
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.Execute; 
 
         public override Guid ComponentGuid { get; } = new Guid("1C89AF97-379F-4432-B243-9C699EB454C2"); 
 
@@ -26,7 +26,7 @@ namespace BH.UI.Alligator.Adapter
         /**** Constructors                      ****/
         /*******************************************/
 
-        public Execute() : base("Execute", "Execute", "Execute command in the external software", "Alligator", " Adapter") { }
+        public Execute() : base("Execute", "Execute", "Execute command in the external software", "Grasshopper", " Adapter") { }
 
 
         /*******************************************/

@@ -9,7 +9,7 @@ using Grasshopper.Kernel.Data;
 using Grasshopper.Kernel.Types;
 using System.Collections;
 
-namespace BH.UI.Alligator.Base.NonComponents.Others
+namespace BH.UI.Grasshopper.Base.NonComponents.Others
 {
     
 

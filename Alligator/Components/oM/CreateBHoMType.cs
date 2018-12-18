@@ -1,17 +1,17 @@
 ﻿using System;
 using Grasshopper.Kernel;
 using System.Collections.Generic;
-using BH.UI.Alligator.Templates;
+using BH.UI.Grasshopper.Templates;
 using BH.oM.DataStructure;
 using System.Linq;
 using System.Windows.Forms;
 using Grasshopper.GUI;
 using BH.Engine.DataStructure;
 using BH.Engine.Reflection;
-using BH.UI.Alligator.Base.NonComponents.Menus;
+using BH.UI.Grasshopper.Base.NonComponents.Menus;
 using BH.Engine.Grasshopper;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Grasshopper.Base
 {
     public class CreateBHoMType : GH_Component
     {
@@ -34,7 +34,7 @@ namespace BH.UI.Alligator.Base
         /**** Constructors                      ****/
         /*******************************************/
 
-        public CreateBHoMType() : base("Create BHoM Type", "BHoMType", "Creates a specific type definition", "Alligator", " oM")
+        public CreateBHoMType() : base("Create BHoM Type", "BHoMType", "Creates a specific type definition", "Grasshopper", " oM")
         {
             if (m_TypeTree == null || m_TypeList == null)
             {

@@ -6,11 +6,11 @@ using Grasshopper.Kernel;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Alligator")]
+[assembly: AssemblyTitle("Grasshopper")]
 [assembly: AssemblyDescription("BuroHappold Computational Engineering for Grasshopper")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("BuroHappold Engineering")]
-[assembly: AssemblyProduct("Alligator")]
+[assembly: AssemblyProduct("Grasshopper")]
 [assembly: AssemblyCopyright("Copyright © BuroHappold Engineering 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

@@ -3,16 +3,16 @@ using Grasshopper.Kernel;
 using System.Collections.Generic;
 using System.Linq;
 using BH.oM.Base;
-using BH.UI.Alligator.Templates;
+using BH.UI.Grasshopper.Templates;
 using System.IO;
 using System.Reflection;
 using Grasshopper.Kernel.Data;
 using Grasshopper.Kernel.Types;
-using BH.UI.Alligator.Base.NonComponents.Others;
+using BH.UI.Grasshopper.Base.NonComponents.Others;
 using BH.oM.Testing;
 using Grasshopper.Kernel.Special;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Grasshopper.Base
 {
     public class CreateUnitTests : GH_Component
     {
@@ -33,7 +33,7 @@ namespace BH.UI.Alligator.Base
         /**** Constructors                      ****/
         /*******************************************/
 
-        public CreateUnitTests() : base("Create Unit Tests", "CreateTest", "Creates unit tests from teh components on the canvas", "Alligator", " UI") {}
+        public CreateUnitTests() : base("Create Unit Tests", "CreateTest", "Creates unit tests from teh components on the canvas", "Grasshopper", " UI") {}
 
 
         /*******************************************/

@@ -10,7 +10,7 @@ using GH_IO.Serialization;
 using BH.Engine.Serialiser;
 using GH_IO;
 
-namespace BH.UI.Alligator
+namespace BH.UI.Grasshopper
 {
     public class GH_IBHoMGeometry : GH_GeometricGoo<object>, IGH_PreviewData, IGH_BakeAwareData, GH_ISerializable
     {

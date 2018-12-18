@@ -1,7 +1,7 @@
 ﻿using GH = Grasshopper;
 using System.Drawing;
 
-namespace BH.Engine.Alligator
+namespace BH.Engine.Grasshopper
 {
     public static partial class Query
     {

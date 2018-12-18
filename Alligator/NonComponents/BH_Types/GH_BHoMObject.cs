@@ -12,7 +12,7 @@ using GH_IO;
 using GH_IO.Serialization;
 using BH.Engine.Serialiser;
 
-namespace BH.UI.Alligator
+namespace BH.UI.Grasshopper
 {
     public class GH_BHoMObject : GH_IObject, GH_ISerializable
     {

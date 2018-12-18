@@ -12,12 +12,12 @@ using System.Collections;
 using BH.oM.DataStructure;
 using BH.Engine.Reflection;
 using System.Windows.Forms;
-using BH.UI.Alligator.Base.NonComponents.Menus;
+using BH.UI.Grasshopper.Base.NonComponents.Menus;
 using System.Reflection;
-using BH.UI.Alligator.Base.NonComponents.Ports;
+using BH.UI.Grasshopper.Base.NonComponents.Ports;
 using BH.Engine.Grasshopper;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Grasshopper.Base
 {
     public class CreateCustomObject : CreateCustomTemplate
     {
@@ -40,13 +40,13 @@ namespace BH.UI.Alligator.Base
         /**** Constructors                      ****/
         /*******************************************/
 
-        public CreateCustomObject() : base("Create Custom Object", "CustomObj", "Creates a custom BHoMObject from custom inputs", "Alligator", " oM")
+        public CreateCustomObject() : base("Create Custom Object", "CustomObj", "Creates a custom BHoMObject from custom inputs", "Grasshopper", " oM")
         {
             // Make sure the assemblies are loaded
             if (!m_AssemblyLoaded)
             {
                 m_AssemblyLoaded = true;
-                string folder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Grasshopper\Libraries\Alligator\";
+                string folder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Grasshopper\Libraries\Grasshopper\";
                 BH.Engine.Reflection.Compute.LoadAllAssemblies(folder);
             }
 

@@ -12,7 +12,7 @@ using GH_IO;
 using GH_IO.Serialization;
 using BH.Engine.Serialiser;
 
-namespace BH.Engine.Alligator.Objects
+namespace BH.Engine.Grasshopper.Objects
 {
     public class GH_BHoMObject : GH_BHoMGoo<object>, IGH_PreviewData, GH_ISerializable
     {
@@ -119,14 +119,14 @@ namespace BH.Engine.Alligator.Objects
 
         public virtual void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
-            Engine.Alligator.Compute.IRenderMeshes(m_Geometry, args);
+            Engine.Grasshopper.Compute.IRenderMeshes(m_Geometry, args);
         }
 
         /***************************************************/
 
         public virtual void DrawViewportWires(GH_PreviewWireArgs args)
         {
-            Engine.Alligator.Compute.IRenderWires(m_Geometry, args);
+            Engine.Grasshopper.Compute.IRenderWires(m_Geometry, args);
         }
 
 

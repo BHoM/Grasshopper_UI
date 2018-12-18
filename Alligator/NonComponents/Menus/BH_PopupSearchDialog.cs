@@ -14,9 +14,10 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+using GH = Grasshopper;
 
 
-namespace BH.UI.Alligator.Menus
+namespace BH.UI.Grasshopper.Menus
 {
    
     public class BH_PopupSearchDialog : Form
@@ -77,11 +78,11 @@ namespace BH.UI.Alligator.Menus
 
         private static Dictionary<string, IGH_ObjectProxy> m_ProxyDict = new Dictionary<string, IGH_ObjectProxy>
         {
-            { "Create", Grasshopper.Instances.ComponentServer.EmitObjectProxy(new Guid("0E1C95EB-1546-47D4-89BB-776F7920622D")) },
-            { "Convert", Grasshopper.Instances.ComponentServer.EmitObjectProxy(new Guid("D517E0BF-E979-4441-896E-1D2EC833FE2E")) },
-            { "Modify", Grasshopper.Instances.ComponentServer.EmitObjectProxy(new Guid("C275B1A2-BB2D-4F3B-8D5C-18C78456A831")) },
-            { "Compute", Grasshopper.Instances.ComponentServer.EmitObjectProxy(new Guid("9A94F1C4-AF5B-48E6-B0DD-F56145DEEDDA")) },
-            { "Query", Grasshopper.Instances.ComponentServer.EmitObjectProxy(new Guid("63DA0CAC-87BC-48AC-9C49-1D1B2F06BE83")) }
+            { "Create", GH.Instances.ComponentServer.EmitObjectProxy(new Guid("0E1C95EB-1546-47D4-89BB-776F7920622D")) },
+            { "Convert", GH.Instances.ComponentServer.EmitObjectProxy(new Guid("D517E0BF-E979-4441-896E-1D2EC833FE2E")) },
+            { "Modify", GH.Instances.ComponentServer.EmitObjectProxy(new Guid("C275B1A2-BB2D-4F3B-8D5C-18C78456A831")) },
+            { "Compute", GH.Instances.ComponentServer.EmitObjectProxy(new Guid("9A94F1C4-AF5B-48E6-B0DD-F56145DEEDDA")) },
+            { "Query", GH.Instances.ComponentServer.EmitObjectProxy(new Guid("63DA0CAC-87BC-48AC-9C49-1D1B2F06BE83")) }
         };
 
         internal virtual TextBox txtSearch
@@ -398,9 +399,9 @@ namespace BH.UI.Alligator.Menus
         private void FadeOut()
         {
             Hide();
-            if (Grasshopper.Instances.DocumentEditor != null)
+            if (GH.Instances.DocumentEditor != null)
             {
-                Grasshopper.Instances.DocumentEditor.BringToFront();
+                GH.Instances.DocumentEditor.BringToFront();
             }
             Close();
         }

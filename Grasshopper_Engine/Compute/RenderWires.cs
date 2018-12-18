@@ -7,7 +7,7 @@ using System.Drawing;
 using System.Linq;
 using BH.Engine.Base;
 
-namespace BH.Engine.Alligator
+namespace BH.Engine.Grasshopper
 {
     public static partial class Compute
     {

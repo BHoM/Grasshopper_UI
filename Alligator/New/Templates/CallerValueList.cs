@@ -5,7 +5,7 @@ using Grasshopper.Kernel;
 using BH.oM.Base;
 using BH.oM.UI;
 using BH.Engine.Grasshopper;
-using BH.Engine.Alligator.Objects;
+using BH.Engine.Grasshopper.Objects;
 using System.Collections.Generic;
 using System.Linq;
 using BH.UI.Templates;
@@ -14,7 +14,7 @@ using Grasshopper.Kernel.Special;
 using Grasshopper.Kernel.Data;
 using Grasshopper.Kernel.Types;
 
-namespace BH.UI.Alligator.Templates
+namespace BH.UI.Grasshopper.Templates
 {
     public abstract class CallerValueList : GH_ValueList, IGH_InitCodeAware
     {
@@ -40,7 +40,7 @@ namespace BH.UI.Alligator.Templates
             Name = Caller.Name;
             NickName = Caller.Name;
             Description = Caller.Description;
-            Category = "Alligator";
+            Category = "BHoM";
             SubCategory = Caller.Category;
             ListItems.Clear();
 

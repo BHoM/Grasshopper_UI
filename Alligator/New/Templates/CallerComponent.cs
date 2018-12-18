@@ -5,20 +5,20 @@ using Grasshopper.Kernel;
 using BH.oM.Base;
 using BH.oM.UI;
 using BH.Engine.Grasshopper;
-using BH.Engine.Alligator.Objects;
+using BH.Engine.Grasshopper.Objects;
 using System.Collections.Generic;
 using System.Linq;
 using BH.UI.Templates;
 using System.Windows.Forms;
-using BH.UI.Alligator.Global;
+using BH.UI.Grasshopper.Global;
 using System.Reflection;
 using BH.oM.Reflection;
 using Grasshopper.Kernel.Parameters;
-using BH.UI.Alligator.Objects;
+using BH.UI.Grasshopper.Objects;
 using BH.Engine.Reflection;
 using BH.oM.Geometry;
 
-namespace BH.UI.Alligator.Templates
+namespace BH.UI.Grasshopper.Templates
 {
     public abstract class CallerComponent : GH_Component, IGH_InitCodeAware, IGH_VariableParameterComponent
     {
@@ -48,7 +48,7 @@ namespace BH.UI.Alligator.Templates
             Name = Caller.Name;
             NickName = Caller.Name;
             Description = Caller.Description;
-            Category = "Alligator";
+            Category = "BHoM";
             SubCategory = Caller.Category;
 
             m_Accessor = new DataAccessor_GH(this);
@@ -201,7 +201,7 @@ namespace BH.UI.Alligator.Templates
 
         public virtual IGH_Param CreateParameter(GH_ParameterSide side, int index)
         {
-            return new Grasshopper.Kernel.Parameters.Param_GenericObject();
+            return new Param_GenericObject();
         }
 
         /*************************************/

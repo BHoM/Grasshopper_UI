@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Grasshopper.Base
 {
     public class DictionaryParameter : GH_PersistentParam<GH_Dictionary>
     {

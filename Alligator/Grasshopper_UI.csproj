@@ -248,9 +248,6 @@
     <None Include="Properties\Resources\bar.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\Resources\BHoM_Alligator_Icon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Properties\Resources\BHoM_App_Clean.png" />
   </ItemGroup>
   <ItemGroup>
@@ -321,6 +318,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\Resources\Adapter.png" />
+    <None Include="Properties\Resources\BHoM_Grasshopper_Icon.png" />
     <Content Include="Properties\Resources\Compute.png" />
     <Content Include="Properties\Resources\Convert.png" />
     <Content Include="Properties\Resources\CreateBHoM.png" />
@@ -365,14 +363,9 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>call "$(TargetDir)UI_PostBuild.exe" ..\..\ "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
+    <PostBuildEvent>call "$(TargetDir)UI_PostBuild.exe" ..\..\ "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM"
 
-Copy /Y "$(TargetDir)$(ProjectName).dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator\$(ProjectName).gha"
-Copy /Y "$(TargetDir)$(ProjectName).dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\Alligator"
-
-
-
-</PostBuildEvent>
+Copy /Y "$(TargetName).dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM\$(TargetName).gha"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>

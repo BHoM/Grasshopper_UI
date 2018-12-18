@@ -1,7 +1,7 @@
 ﻿using Grasshopper.Kernel;
 using System;
 using System.Collections.Generic;
-using BH.UI.Alligator.Base;
+using BH.UI.Grasshopper.Base;
 using BH.oM.Base;
 using BH.oM.DataManipulation.Queries;
 using BH.Adapter;
@@ -9,7 +9,7 @@ using System.Linq;
 using BH.oM.Geometry;
 using BH.Engine.Rhinoceros;
 
-namespace BH.UI.Alligator.Adapter
+namespace BH.UI.Grasshopper.Adapter
 {
     public class Pull : GH_Component
     {
@@ -17,7 +17,7 @@ namespace BH.UI.Alligator.Adapter
         /**** Properties                        ****/
         /*******************************************/
 
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Base.Properties.Resources.Pull; 
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.Pull; 
 
         public override Guid ComponentGuid { get; } = new Guid("BA3D716D-3044-4795-AC81-0FECC80781E3"); 
 
@@ -30,7 +30,7 @@ namespace BH.UI.Alligator.Adapter
         /**** Constructors                      ****/
         /*******************************************/
 
-        public Pull() : base("Pull", "Pull", "Pull objects from the external software", "Alligator", " Adapter") { }
+        public Pull() : base("Pull", "Pull", "Pull objects from the external software", "Grasshopper", " Adapter") { }
 
 
         /*******************************************/

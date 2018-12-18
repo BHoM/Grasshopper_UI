@@ -1,7 +1,7 @@
 ﻿using BH.Engine.Serialiser;
 using BH.oM.Base;
-using BH.UI.Alligator.Components;
-using BH.UI.Alligator.Templates;
+using BH.UI.Grasshopper.Components;
+using BH.UI.Grasshopper.Templates;
 using BH.UI.Global;
 using BH.UI.Templates;
 using Grasshopper.GUI.Canvas;
@@ -11,8 +11,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using GH = Grasshopper;
 
-namespace BH.UI.Alligator.Global
+namespace BH.UI.Grasshopper.Global
 {
     public static class GlobalSearchMenu
     {
@@ -22,7 +23,7 @@ namespace BH.UI.Alligator.Global
 
         public static void Activate()
         {
-            Grasshopper.Instances.CanvasCreated += Instances_CanvasCreated;
+            GH.Instances.CanvasCreated += Instances_CanvasCreated;
         }
 
 
@@ -51,7 +52,7 @@ namespace BH.UI.Alligator.Global
                 if (request.SelectedItem != null)
                     initCode = request.SelectedItem.ToJson();
 
-                GH_Canvas canvas = Grasshopper.Instances.ActiveCanvas;
+                GH_Canvas canvas = GH.Instances.ActiveCanvas;
                 canvas.InstantiateNewObject(node.Id, initCode, canvas.CursorCanvasPosition, true);
             }
 

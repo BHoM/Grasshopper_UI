@@ -2,11 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BH.UI.Alligator.Base;
+using BH.UI.Grasshopper.Base;
 using BH.oM.Base;
 using BH.Adapter;
 
-namespace BH.UI.Alligator.Adapter
+namespace BH.UI.Grasshopper.Adapter
 {
     public class Push : GH_Component
     {
@@ -14,7 +14,7 @@ namespace BH.UI.Alligator.Adapter
         /**** Properties                        ****/
         /*******************************************/
 
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Base.Properties.Resources.Push; 
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.Push; 
 
         public override Guid ComponentGuid { get; } = new Guid("040CEC18-C6E1-443B-B816-72B100304536"); 
 
@@ -27,7 +27,7 @@ namespace BH.UI.Alligator.Adapter
         /**** Constructors                      ****/
         /*******************************************/
 
-        public Push() : base("Push", "Push", "Push objects to the external software", "Alligator", " Adapter") { }
+        public Push() : base("Push", "Push", "Push objects to the external software", "Grasshopper", " Adapter") { }
 
 
         /*******************************************/

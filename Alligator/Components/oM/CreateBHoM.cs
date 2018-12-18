@@ -3,11 +3,11 @@ using Grasshopper.Kernel;
 using System.Collections.Generic;
 using System.Linq;
 using BH.oM.Base;
-using BH.UI.Alligator.Templates;
+using BH.UI.Grasshopper.Templates;
 using System.IO;
 using System.Reflection;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Grasshopper.Base
 {
     public class CreateBHoM : MethodCallTemplate
     {
@@ -32,7 +32,7 @@ namespace BH.UI.Alligator.Base
         /**** Constructors                      ****/
         /*******************************************/
 
-        public CreateBHoM() : base("Create BHoM Object", "CreateBHoM", "Creates a specific class of BHoMObject", "Alligator", " oM") {}
+        public CreateBHoM() : base("Create BHoM Object", "CreateBHoM", "Creates a specific class of BHoMObject", "Grasshopper", " oM") {}
 
 
         /*******************************************/

@@ -1,8 +1,8 @@
 ﻿using System;
 using Grasshopper.Kernel;
 using BH.oM.Base;
-using BH.UI.Alligator.Base;
-using BH.UI.Alligator.Templates;
+using BH.UI.Grasshopper.Base;
+using BH.UI.Grasshopper.Templates;
 using BH.UI.Templates;
 using BH.UI.Components;
 using System.Linq;
@@ -10,7 +10,7 @@ using BH.Engine.Grasshopper;
 using System.Collections.Generic;
 using Grasshopper.Kernel.Parameters;
 
-namespace BH.UI.Alligator.Components
+namespace BH.UI.Grasshopper.Components
 {
     public class CreateCustomComponent : CallerComponent, IGH_VariableParameterComponent
     {

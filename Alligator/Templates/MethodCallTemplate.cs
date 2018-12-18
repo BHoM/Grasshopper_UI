@@ -1,6 +1,6 @@
 ﻿using System;
 using Grasshopper.Kernel;
-using BH.UI.Alligator.Base;
+using BH.UI.Grasshopper.Base;
 using System.Collections.Generic;
 using System.Linq;
 using Grasshopper.Kernel.Parameters;
@@ -15,10 +15,10 @@ using Grasshopper.Kernel.Types;
 using BH.Engine.Reflection;
 using BH.Engine.DataStructure;
 using System.IO;
-using BH.UI.Alligator.Base.NonComponents.Ports;
+using BH.UI.Grasshopper.Base.NonComponents.Ports;
 using Grasshopper;
 using Grasshopper.Kernel.Data;
-using BH.UI.Alligator.Base.NonComponents.Menus;
+using BH.UI.Grasshopper.Base.NonComponents.Menus;
 using BH.oM.Testing;
 using BH.Engine.Grasshopper;
 
@@ -30,7 +30,7 @@ using BH.Engine.Grasshopper;
 //  2. If you need help building your catalogue of methods, you can use AddMethodToTree() 
 //
 
-namespace BH.UI.Alligator.Templates
+namespace BH.UI.Grasshopper.Templates
 {
     public abstract class MethodCallTemplate : GH_Component, IGH_VariableParameterComponent, IGH_InitCodeAware
     {
@@ -73,7 +73,7 @@ namespace BH.UI.Alligator.Templates
             if (!m_AssemblyLoaded)
             {
                 m_AssemblyLoaded = true;
-                string folder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Grasshopper\Libraries\Alligator\";
+                string folder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Grasshopper\Libraries\Grasshopper\";
                 BH.Engine.Reflection.Compute.LoadAllAssemblies(folder);
             }
 

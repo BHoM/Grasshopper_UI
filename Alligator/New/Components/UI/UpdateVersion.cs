@@ -3,22 +3,22 @@ using Grasshopper.Kernel;
 using System.Collections.Generic;
 using System.Linq;
 using BH.oM.Base;
-using BH.UI.Alligator.Templates;
+using BH.UI.Grasshopper.Templates;
 using System.IO;
 using System.Reflection;
 using Grasshopper.Kernel.Data;
 using Grasshopper.Kernel.Types;
-using BH.UI.Alligator.Base.NonComponents.Others;
+using BH.UI.Grasshopper.Base.NonComponents.Others;
 using BH.oM.Testing;
 using Grasshopper.Kernel.Special;
-using BH.UI.Alligator.Components;
+using BH.UI.Grasshopper.Components;
 using System.Drawing;
-using BH.UI.Alligator.Adapter;
+using BH.UI.Grasshopper.Adapter;
 using BH.UI.Components;
 using Grasshopper.Kernel.Parameters;
-using BH.UI.Alligator.Objects;
+using BH.UI.Grasshopper.Objects;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Grasshopper.Base
 {
     public class UpdateVersionComponent : GH_Component
     {
@@ -39,7 +39,7 @@ namespace BH.UI.Alligator.Base
         /**** Constructors                      ****/
         /*******************************************/
 
-        public UpdateVersionComponent() : base("Update GH File to New Version", "UpdateVersion", "Update Grasshopper file to the new version of the BHoM UI", "Alligator", "UI") {}
+        public UpdateVersionComponent() : base("Update GH File to New Version", "UpdateVersion", "Update Grasshopper file to the new version of the BHoM UI", "BHoM", "UI") {}
 
 
         /*******************************************/

@@ -7,7 +7,7 @@ using BH.Engine.Rhinoceros;
 using System.Collections;
 using Grasshopper.Kernel.Types;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Grasshopper.Base
 {
     public class GetProperty : GH_Component
     {
@@ -28,7 +28,7 @@ namespace BH.UI.Alligator.Base
         /**** Constructors                      ****/
         /*******************************************/
 
-        public GetProperty() : base("Get Property", "GetProperty", "Get property of a BHoM object from the property name", "Alligator", " Engine") { }
+        public GetProperty() : base("Get Property", "GetProperty", "Get property of a BHoM object from the property name", "Grasshopper", " Engine") { }
 
 
         /*******************************************/

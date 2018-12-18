@@ -1,11 +1,11 @@
-﻿using BH.UI.Alligator.Base.Properties;
+﻿using BH.UI.Grasshopper.Properties;
 using Grasshopper.Kernel;
 using System;
 using System.Collections.Generic;
 
-namespace BH.UI.Alligator.Objects
+namespace BH.UI.Grasshopper.Objects
 {
-    public class Param_BHoMObject : GH_PersistentParam<Engine.Alligator.Objects.GH_BHoMObject>, IGH_PreviewObject
+    public class Param_BHoMObject : GH_PersistentParam<Engine.Grasshopper.Objects.GH_BHoMObject>, IGH_PreviewObject
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -54,14 +54,14 @@ namespace BH.UI.Alligator.Objects
 
         /*******************************************/
 
-        protected override GH_GetterResult Prompt_Singular(ref Engine.Alligator.Objects.GH_BHoMObject value)
+        protected override GH_GetterResult Prompt_Singular(ref Engine.Grasshopper.Objects.GH_BHoMObject value)
         {
             return GH_GetterResult.cancel;
         }
 
         /*******************************************/
 
-        protected override GH_GetterResult Prompt_Plural(ref List<Engine.Alligator.Objects.GH_BHoMObject> values)
+        protected override GH_GetterResult Prompt_Plural(ref List<Engine.Grasshopper.Objects.GH_BHoMObject> values)
         {
             return GH_GetterResult.cancel;
         }

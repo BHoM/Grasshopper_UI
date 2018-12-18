@@ -1,12 +1,12 @@
 ﻿using System;
 using Grasshopper.Kernel;
 using System.Linq;
-using BH.UI.Alligator.Templates;
+using BH.UI.Grasshopper.Templates;
 using System.Reflection;
 using BH.oM.DataStructure;
 using System.Collections;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Grasshopper.Base
 {
     public class ConvertBHoM : MethodCallTemplate
     {
@@ -29,7 +29,7 @@ namespace BH.UI.Alligator.Base
         /**** Constructors                      ****/
         /*******************************************/
 
-        public ConvertBHoM() : base("Convert BHoM Object", "ConvertBHoM", "Convert a BHoMObject", "Alligator", " Engine") {}
+        public ConvertBHoM() : base("Convert BHoM Object", "ConvertBHoM", "Convert a BHoMObject", "Grasshopper", " Engine") {}
 
 
         /*******************************************/

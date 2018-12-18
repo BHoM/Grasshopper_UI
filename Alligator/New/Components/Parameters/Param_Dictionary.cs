@@ -1,11 +1,11 @@
-﻿using BH.UI.Alligator.Base.Properties;
+﻿using BH.UI.Grasshopper.Properties;
 using Grasshopper.Kernel;
 using System;
 using System.Collections.Generic;
 
-namespace BH.UI.Alligator.Objects
+namespace BH.UI.Grasshopper.Objects
 {
-    public class Param_Dictionary : GH_PersistentParam<Engine.Alligator.Objects.GH_Dictionary>
+    public class Param_Dictionary : GH_PersistentParam<Engine.Grasshopper.Objects.GH_Dictionary>
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -38,14 +38,14 @@ namespace BH.UI.Alligator.Objects
         /**** Override Methods                  ****/
         /*******************************************/
 
-        protected override GH_GetterResult Prompt_Singular(ref Engine.Alligator.Objects.GH_Dictionary value)
+        protected override GH_GetterResult Prompt_Singular(ref Engine.Grasshopper.Objects.GH_Dictionary value)
         {
             return GH_GetterResult.cancel;
         }
 
         /*******************************************/
 
-        protected override GH_GetterResult Prompt_Plural(ref List<Engine.Alligator.Objects.GH_Dictionary> values)
+        protected override GH_GetterResult Prompt_Plural(ref List<Engine.Grasshopper.Objects.GH_Dictionary> values)
         {
             return GH_GetterResult.cancel;
         }

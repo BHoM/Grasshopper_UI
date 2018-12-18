@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Grasshopper.Base
 {
     public class SetProperty : GH_Component
     {
@@ -29,7 +29,7 @@ namespace BH.UI.Alligator.Base
         /**** Constructors                      ****/
         /*******************************************/
 
-        public SetProperty() : base("Set Property", "SetProperty", "Returns copy of object with a set property", "Alligator", " Engine") { }
+        public SetProperty() : base("Set Property", "SetProperty", "Returns copy of object with a set property", "Grasshopper", " Engine") { }
 
 
         /*******************************************/
