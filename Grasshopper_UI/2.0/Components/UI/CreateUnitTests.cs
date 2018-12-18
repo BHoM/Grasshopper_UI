@@ -33,7 +33,7 @@ namespace BH.UI.Grasshopper.Base
         /**** Constructors                      ****/
         /*******************************************/
 
-        public CreateUnitTests() : base("Create Unit Tests", "CreateTest", "Creates unit tests from teh components on the canvas", "Grasshopper", " UI") {}
+        public CreateUnitTests() : base("Create Unit Tests", "CreateTest", "Creates unit tests from teh components on the canvas", "BHoM", "Test") {}
 
 
         /*******************************************/

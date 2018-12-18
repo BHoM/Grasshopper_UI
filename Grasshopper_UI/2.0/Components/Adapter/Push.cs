@@ -18,7 +18,7 @@ namespace BH.UI.Grasshopper.Adapter
 
         public override Guid ComponentGuid { get; } = new Guid("040CEC18-C6E1-443B-B816-72B100304536"); 
 
-        public override GH_Exposure Exposure { get; } = GH_Exposure.primary;
+        public override GH_Exposure Exposure { get; } = GH_Exposure.hidden;
 
         public override bool Obsolete { get; } = true;
 

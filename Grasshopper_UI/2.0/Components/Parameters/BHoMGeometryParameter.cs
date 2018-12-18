@@ -12,7 +12,7 @@ namespace BH.UI.Grasshopper.Base
 
         protected override System.Drawing.Bitmap Icon { get; } = Properties.Resources.BHoM_BHoM_Object;
 
-        public override GH_Exposure Exposure { get; } = GH_Exposure.tertiary;
+        public override GH_Exposure Exposure { get; } = GH_Exposure.hidden;
 
         public override Guid ComponentGuid { get; } = new Guid("a96cbe64-8352-47b1-9d24-153927d14795"); 
 

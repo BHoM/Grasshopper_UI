@@ -18,7 +18,7 @@ namespace BH.UI.Grasshopper.Adapter
 
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.QueryAdapter; 
 
-        public override GH_Exposure Exposure { get; } = GH_Exposure.secondary;
+        public override GH_Exposure Exposure { get; } = GH_Exposure.hidden;
 
         public override bool ShortenBranches { get; set; } = true;
 

@@ -16,6 +16,8 @@ namespace BH.UI.Grasshopper.Base
 
         public override bool Obsolete { get; } = true;
 
+        public override GH_Exposure Exposure { get; } = GH_Exposure.hidden;
+
 
         /*******************************************/
         /**** Constructors                      ****/

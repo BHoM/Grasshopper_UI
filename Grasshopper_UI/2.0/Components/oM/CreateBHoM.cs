@@ -19,7 +19,7 @@ namespace BH.UI.Grasshopper.Base
 
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.CreateBHoM; 
 
-        public override GH_Exposure Exposure { get; } = GH_Exposure.primary;
+        public override GH_Exposure Exposure { get; } = GH_Exposure.hidden;
 
         public override string MethodGroup { get; set; } = "Create";
 

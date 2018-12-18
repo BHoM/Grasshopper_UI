@@ -22,7 +22,7 @@ namespace BH.UI.Grasshopper.Base
 
         protected override System.Drawing.Bitmap Icon { get; } = Properties.Resources.BHoM_Data;
 
-        public override GH_Exposure Exposure { get; } = GH_Exposure.primary;
+        public override GH_Exposure Exposure { get; } = GH_Exposure.hidden;
 
         public override bool Obsolete { get; } = true;
 
