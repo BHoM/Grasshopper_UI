@@ -3,14 +3,14 @@ using Grasshopper.Kernel;
 using System.Collections.Generic;
 using Grasshopper.Kernel.Special;
 using BH.oM.DataStructure;
-using BH.UI.Alligator.Base.NonComponents.Menus;
+using BH.UI.Grasshopper.Base.NonComponents.Menus;
 using BH.Engine.DataStructure;
 using System.Linq;
 using System.Windows.Forms;
 using BH.Engine.Reflection;
 using BH.oM.Base;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Grasshopper.Base
 {
     public class CreateBHoMData : GH_ValueList
     {
@@ -38,7 +38,7 @@ namespace BH.UI.Alligator.Base
             Name = "Create BHoM Reference Data";
             NickName = "BHoMData";
             Description = "Creates a BhoM object from the reference datasets";
-            Category = "Alligator";
+            Category = "Grasshopper";
             SubCategory = " oM";
             ListItems.Clear();
 

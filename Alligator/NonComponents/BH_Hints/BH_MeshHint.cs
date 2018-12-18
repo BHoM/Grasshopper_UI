@@ -1,7 +1,7 @@
 ﻿using System;
 using Grasshopper.Kernel.Parameters;
 
-namespace BH.UI.Alligator.GeometryHints
+namespace BH.UI.Grasshopper.GeometryHints
 {
     public class BH_MeshHint : IGH_TypeHint
     {

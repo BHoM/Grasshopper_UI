@@ -7,7 +7,7 @@
 //using ScriptComponents;
 //using Grasshopper.GUI.Canvas;
 
-//namespace BH.UI.Alligator.Base
+//namespace BH.UI.Grasshopper.Base
 //{
 //    public class VsScriptEditor : GH_Component
 //    {
@@ -26,7 +26,7 @@
 //        /**** Constructors                      ****/
 //        /*******************************************/
 
-//        public VsScriptEditor() : base("VS Editor", "VsEditor", "Uses a text file as the code of a scripting component.", "Alligator", "Scripting") { }
+//        public VsScriptEditor() : base("VS Editor", "VsEditor", "Uses a text file as the code of a scripting component.", "Grasshopper", "Scripting") { }
 
 
 //        /*******************************************/

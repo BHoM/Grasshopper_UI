@@ -6,7 +6,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 
-namespace BH.UI.Alligator
+namespace BH.UI.Grasshopper
 {
     public static partial class Render
     {

@@ -2,7 +2,7 @@
 using System.Drawing;
 using Rhino.Display;
 
-namespace BH.Engine.Alligator
+namespace BH.Engine.Grasshopper
 {
     public static partial class Query
     {

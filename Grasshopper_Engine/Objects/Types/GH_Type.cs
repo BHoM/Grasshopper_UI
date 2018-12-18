@@ -4,7 +4,7 @@ using GH_IO.Serialization;
 using Grasshopper.Kernel.Types;
 using System;
 
-namespace BH.Engine.Alligator.Objects
+namespace BH.Engine.Grasshopper.Objects
 {
     public class GH_Type : GH_BHoMGoo<Type>, GH_ISerializable
     {

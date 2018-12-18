@@ -1,7 +1,7 @@
 ﻿using Grasshopper.Kernel.Types;
 using System;
 
-namespace BH.UI.Alligator
+namespace BH.UI.Grasshopper
 {
     public abstract class GH_TemplateType<T> : GH_Goo<T> 
     {

@@ -2,7 +2,7 @@
 using Grasshopper.Kernel;
 using BH.oM.Base;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Grasshopper.Base
 {
     public class ToJson : GH_Component
     {
@@ -23,7 +23,7 @@ namespace BH.UI.Alligator.Base
         /**** Constructors                      ****/
         /*******************************************/
 
-        public ToJson() : base("To Json", "ToJson", "Convert the object to a Json string", "Alligator", " Engine") { }
+        public ToJson() : base("To Json", "ToJson", "Convert the object to a Json string", "Grasshopper", " Engine") { }
 
 
         /*******************************************/

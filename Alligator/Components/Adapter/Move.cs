@@ -1,12 +1,12 @@
 ﻿using Grasshopper.Kernel;
 using System;
 using System.Collections.Generic;
-using BH.UI.Alligator.Base;
+using BH.UI.Grasshopper.Base;
 using BH.oM.Base;
 using BH.oM.DataManipulation.Queries;
 using BH.Adapter;
 
-namespace BH.UI.Alligator.Adapter
+namespace BH.UI.Grasshopper.Adapter
 {
     public class Move : GH_Component
     {
@@ -14,7 +14,7 @@ namespace BH.UI.Alligator.Adapter
         /**** Properties                        ****/
         /*******************************************/
 
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Base.Properties.Resources.Move;
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.Move;
 
         public override Guid ComponentGuid { get; } = new Guid("A964110F-C8F5-4946-BAE8-D829CF91D7CA");
 
@@ -27,7 +27,7 @@ namespace BH.UI.Alligator.Adapter
         /**** Constructors                      ****/
         /*******************************************/
 
-        public Move() : base("Move", "Move", "Move objects between two external softwares", "Alligator", " Adapter") { }
+        public Move() : base("Move", "Move", "Move objects between two external softwares", "Grasshopper", " Adapter") { }
 
 
         /*******************************************/

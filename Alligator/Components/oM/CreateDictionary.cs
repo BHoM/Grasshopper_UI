@@ -4,7 +4,7 @@ using System.Linq;
 using Grasshopper.Kernel;
 using System.Collections;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Grasshopper.Base
 {
     public class CreateDictionary : CreateCustomTemplate
     {
@@ -25,7 +25,7 @@ namespace BH.UI.Alligator.Base
         /**** Constructors                      ****/
         /*******************************************/
 
-        public CreateDictionary() : base("Create Dictionary", "Dictionary", "Create a dictionary from a list of keys and values", "Alligator", " oM") { }
+        public CreateDictionary() : base("Create Dictionary", "Dictionary", "Create a dictionary from a list of keys and values", "Grasshopper", " oM") { }
 
 
         /*******************************************/

@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BH.UI.Alligator.Templates
+namespace BH.UI.Grasshopper.Templates
 {
     public class DataAccessor_GH : DataAccessor
     {

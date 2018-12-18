@@ -2,14 +2,14 @@
 using Grasshopper.Kernel;
 using System.Collections.Generic;
 using System.Linq;
-using BH.UI.Alligator.Templates;
+using BH.UI.Grasshopper.Templates;
 using System.Reflection;
 using BH.oM.DataStructure;
 using System.Collections;
 using BH.Engine.Reflection;
 using BH.Engine.DataStructure;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Grasshopper.Base
 {
     public class ComputeBHoM : MethodCallTemplate
     {
@@ -32,7 +32,7 @@ namespace BH.UI.Alligator.Base
         /**** Constructors                      ****/
         /*******************************************/
 
-        public ComputeBHoM() : base("Compute / Analyse", "ComputeBHoM", "Run a computationally intensive calculation", "Alligator", " Engine") {}
+        public ComputeBHoM() : base("Compute / Analyse", "ComputeBHoM", "Run a computationally intensive calculation", "Grasshopper", " Engine") {}
 
         /*******************************************/
     }

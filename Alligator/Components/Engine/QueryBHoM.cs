@@ -1,12 +1,12 @@
 ﻿using System;
 using Grasshopper.Kernel;
 using System.Linq;
-using BH.UI.Alligator.Templates;
+using BH.UI.Grasshopper.Templates;
 using System.Reflection;
 using BH.oM.DataStructure;
 using System.Collections;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Grasshopper.Base
 {
     public class QueryBHoM : MethodCallTemplate
     {
@@ -29,7 +29,7 @@ namespace BH.UI.Alligator.Base
         /**** Constructors                      ****/
         /*******************************************/
 
-        public QueryBHoM() : base("Query BHoM Object", "QueryBHoM", "Query information about a BHoMObject", "Alligator", " Engine") {}
+        public QueryBHoM() : base("Query BHoM Object", "QueryBHoM", "Query information about a BHoMObject", "Grasshopper", " Engine") {}
 
 
         /*******************************************/

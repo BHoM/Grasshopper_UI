@@ -1,11 +1,11 @@
 ﻿using Grasshopper.Kernel;
 using System;
-using BH.UI.Alligator.Base;
+using BH.UI.Grasshopper.Base;
 using BH.oM.Base;
 using BH.oM.DataManipulation.Queries;
 using BH.Adapter;
 
-namespace BH.UI.Alligator.Adapter
+namespace BH.UI.Grasshopper.Adapter
 {
     public class UpdateProperty : GH_Component
     {
@@ -13,7 +13,7 @@ namespace BH.UI.Alligator.Adapter
         /**** Properties                        ****/
         /*******************************************/
 
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Base.Properties.Resources.UpdateProperty; 
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.UpdateProperty; 
 
         public override Guid ComponentGuid { get; } = new Guid("E050834D-F825-4299-BEA9-A3E067691925"); 
 
@@ -26,7 +26,7 @@ namespace BH.UI.Alligator.Adapter
         /**** Constructors                      ****/
         /*******************************************/
 
-        public UpdateProperty() : base("UpdateProperty", "UpdateProperty", "Update a property of objects from the external software", "Alligator", " Adapter") { }
+        public UpdateProperty() : base("UpdateProperty", "UpdateProperty", "Update a property of objects from the external software", "Grasshopper", " Adapter") { }
 
 
         /*******************************************/

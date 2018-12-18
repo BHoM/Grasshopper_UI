@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Grasshopper.Kernel;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Grasshopper.Base
 {
     public class AboutGator : GH_Component
     {
@@ -10,7 +10,7 @@ namespace BH.UI.Alligator.Base
         /**** Properties                        ****/
         /*******************************************/
 
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.BHoM_Alligator_Icon; 
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.BHoM_Grasshopper_Icon; 
 
         public override Guid ComponentGuid { get; } = new Guid("{2f4c7d17-d7ce-48d3-a098-19300720eccb}");
 
@@ -21,7 +21,7 @@ namespace BH.UI.Alligator.Base
         /**** Constructors                      ****/
         /*******************************************/
 
-        public AboutGator() : base("Alligator", "Gator", "About Alligator", "Alligator", " About")
+        public AboutGator() : base("Grasshopper", "Gator", "About Grasshopper", "Grasshopper", " About")
         {
             //Menus.SearchPopup.Activate();
         }
@@ -58,7 +58,7 @@ namespace BH.UI.Alligator.Base
             List<String> stringOut = new List<string>();
 
             stringOut.Add("Snap!");
-            stringOut.Add("Alligator - " + versionStamp);
+            stringOut.Add("Grasshopper - " + versionStamp);
 
             DA.SetDataList(0, stringOut);
   

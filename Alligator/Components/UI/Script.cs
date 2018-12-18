@@ -1,7 +1,7 @@
 ﻿//using Grasshopper.Kernel;
 //using System;
 //using System.Collections.Generic;
-//using BH.UI.Alligator.Base;
+//using BH.UI.Grasshopper.Base;
 //using BH.oM.Base;
 //using BH.oM.DataManipulation.Queries;
 //using BH.Adapter;
@@ -14,7 +14,7 @@
 //using Grasshopper.Kernel.Special;
 //using Grasshopper.Kernel.Parameters;
 
-//namespace BH.UI.Alligator.Adapter
+//namespace BH.UI.Grasshopper.Adapter
 //{
 //    public class Script : GH_Component
 //    {
@@ -33,7 +33,7 @@
 //        /**** Constructors                      ****/
 //        /*******************************************/
 
-//        public Script() : base("Script", "Script", "Run a script from a file", "Alligator", " UI") { }
+//        public Script() : base("Script", "Script", "Run a script from a file", "Grasshopper", " UI") { }
 
 
 //        /*******************************************/

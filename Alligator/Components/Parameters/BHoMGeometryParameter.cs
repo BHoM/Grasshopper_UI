@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Grasshopper.Base
 {
     public class BHoMGeometryParameter : GH_PersistentParam<GH_IBHoMGeometry>, IGH_PreviewObject
     {

@@ -7,7 +7,7 @@ using System.Drawing;
 using BH.Engine.Base;
 
 
-namespace BH.UI.Alligator
+namespace BH.UI.Grasshopper
 {
     public static partial class Render
     {

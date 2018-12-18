@@ -2,7 +2,7 @@
 using System.Collections;
 using BH.Engine.Reflection;
 
-namespace BH.Engine.Alligator.Objects
+namespace BH.Engine.Grasshopper.Objects
 {
     public class GH_Dictionary : GH_BHoMGoo<IDictionary>
     {

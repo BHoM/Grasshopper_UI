@@ -2,11 +2,11 @@
 using Grasshopper.Kernel;
 using System.Collections.Generic;
 using System.Linq;
-using BH.UI.Alligator.Templates;
+using BH.UI.Grasshopper.Templates;
 using System.Reflection;
 using BH.Engine.Reflection;
 
-namespace BH.UI.Alligator.Adapter
+namespace BH.UI.Grasshopper.Adapter
 {
     public class CreateQuery : MethodCallTemplate
     {
@@ -16,7 +16,7 @@ namespace BH.UI.Alligator.Adapter
 
         public override Guid ComponentGuid { get; } = new Guid("E1BC4C14-9F5B-4879-B8EB-CCAC49178CFE"); 
 
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Base.Properties.Resources.QueryAdapter; 
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.QueryAdapter; 
 
         public override GH_Exposure Exposure { get; } = GH_Exposure.secondary;
 
@@ -29,7 +29,7 @@ namespace BH.UI.Alligator.Adapter
         /**** Constructors                      ****/
         /*******************************************/
 
-        public CreateQuery() : base("Create Query", "Query", "Creates a specific class of query", "Alligator", " Adapter") {}
+        public CreateQuery() : base("Create Query", "Query", "Creates a specific class of query", "Grasshopper", " Adapter") {}
 
 
         /*******************************************/

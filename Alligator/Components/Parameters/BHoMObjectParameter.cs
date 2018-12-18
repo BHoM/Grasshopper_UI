@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Grasshopper.Base
 {
     public class BHoMObjectParameter : GH_PersistentParam<GH_BHoMObject>, IGH_PreviewObject
     {

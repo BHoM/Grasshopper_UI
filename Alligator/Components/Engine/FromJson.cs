@@ -1,7 +1,7 @@
 ﻿using System;
 using Grasshopper.Kernel;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Grasshopper.Base
 {
     public class FromJson : GH_Component
     {
@@ -22,7 +22,7 @@ namespace BH.UI.Alligator.Base
         /**** Constructors                      ****/
         /*******************************************/
 
-        public FromJson() : base("From Json", "FromJson", "Try to convert a Json string to a BHoM object", "Alligator", " Engine") { }
+        public FromJson() : base("From Json", "FromJson", "Try to convert a Json string to a BHoM object", "Grasshopper", " Engine") { }
 
 
         /*******************************************/

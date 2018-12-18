@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BH.UI.Alligator
+namespace BH.UI.Grasshopper
 {
     public static class Logging
     {

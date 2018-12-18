@@ -1,7 +1,7 @@
 ﻿using Grasshopper.Kernel.Types;
 using System;
 
-namespace BH.Engine.Alligator.Objects
+namespace BH.Engine.Grasshopper.Objects
 {
     public abstract class GH_BHoMGoo<T> : GH_Goo<T> 
     {

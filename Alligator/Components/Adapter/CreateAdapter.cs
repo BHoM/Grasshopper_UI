@@ -2,12 +2,12 @@
 using Grasshopper.Kernel;
 using System.Collections.Generic;
 using System.Linq;
-using BH.UI.Alligator.Templates;
+using BH.UI.Grasshopper.Templates;
 using BH.Adapter;
 using System.IO;
 using System.Reflection;
 
-namespace BH.UI.Alligator.Adapter
+namespace BH.UI.Grasshopper.Adapter
 {
     public class CreateAdapter : MethodCallTemplate
     {
@@ -17,7 +17,7 @@ namespace BH.UI.Alligator.Adapter
 
         public override Guid ComponentGuid { get; } = new Guid("A2D956AE-98A8-486D-A2AB-371B45F8B3AE"); 
 
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Base.Properties.Resources.Adapter; 
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get; } = Properties.Resources.Adapter; 
 
         public override GH_Exposure Exposure { get; } = GH_Exposure.secondary;
 
@@ -30,7 +30,7 @@ namespace BH.UI.Alligator.Adapter
         /**** Constructors                      ****/
         /*******************************************/
 
-        public CreateAdapter() : base("Create Adapter", "Adapter", "Creates a specific class of Adapter", "Alligator", " Adapter") { }
+        public CreateAdapter() : base("Create Adapter", "Adapter", "Creates a specific class of Adapter", "Grasshopper", " Adapter") { }
 
 
         /*******************************************/

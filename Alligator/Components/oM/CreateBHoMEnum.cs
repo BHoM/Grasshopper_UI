@@ -1,10 +1,10 @@
 ﻿using System;
 using Grasshopper.Kernel;
 using System.Collections.Generic;
-using BH.UI.Alligator.Templates;
+using BH.UI.Grasshopper.Templates;
 using Grasshopper.Kernel.Special;
 using System.Windows.Forms;
-using BH.UI.Alligator.Base.NonComponents.Menus;
+using BH.UI.Grasshopper.Base.NonComponents.Menus;
 using BH.oM.DataStructure;
 using System.Linq;
 using BH.Engine.Reflection;
@@ -12,7 +12,7 @@ using BH.Engine.DataStructure;
 using Grasshopper.Kernel.Data;
 using BH.Engine.Grasshopper;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Grasshopper.Base
 {
     public class CreateBHoMEnum : GH_ValueList
     {
@@ -40,7 +40,7 @@ namespace BH.UI.Alligator.Base
             Name = "Create BHoM Enum";
             NickName = "BHoMEnum";
             Description = "Creates a specific type of BHoM Enum";
-            Category = "Alligator";
+            Category = "Grasshopper";
             SubCategory = " oM";
             ListItems.Clear();
 

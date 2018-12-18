@@ -1,7 +1,7 @@
 ﻿using Grasshopper.Kernel.Types;
 using System.Collections;
 
-namespace BH.UI.Alligator
+namespace BH.UI.Grasshopper
 {
     public class GH_Dictionary : GH_TemplateType<IDictionary>
     {

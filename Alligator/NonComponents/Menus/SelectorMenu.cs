@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BH.Engine.Reflection;
 
-namespace BH.UI.Alligator.Base.NonComponents.Menus
+namespace BH.UI.Grasshopper.Base.NonComponents.Menus
 {
     public class SelectorMenu<T>
     {

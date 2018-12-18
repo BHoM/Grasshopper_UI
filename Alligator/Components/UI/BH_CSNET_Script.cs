@@ -4,9 +4,9 @@
 //using Grasshopper.Kernel;
 //using Grasshopper.Kernel.Parameters;
 //using Grasshopper.Kernel.Parameters.Hints;
-//using BH.UI.Alligator.GeometryHints;
+//using BH.UI.Grasshopper.GeometryHints;
 
-//namespace BH.UI.Alligator.Base
+//namespace BH.UI.Grasshopper.Base
 //{
 //    public class BH_CSNET_Script : Component_CSNET_Script
 //    {
@@ -30,7 +30,7 @@
 //        public BH_CSNET_Script() : base()
 //        {
 //            Name = "B# Script"; NickName = "B#"; Description = "A C#.Net scriptable component with BHoM custom features";
-//            Category = "Alligator"; SubCategory = "Scripting";
+//            Category = "Grasshopper"; SubCategory = "Scripting";
 //        }
 
 
@@ -49,7 +49,7 @@
 //        {
 //            script.References.Clear();
 //            string username = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split('\\')[1];
-//            script.References.Add("C:\\Users\\" + username + "\\AppData\\Roaming\\Grasshopper\\Libraries\\Alligator\\BHoM.dll");
+//            script.References.Add("C:\\Users\\" + username + "\\AppData\\Roaming\\Grasshopper\\Libraries\\Grasshopper\\BHoM.dll");
 //            return base.CreateSourceForCompile(script);
 //        }
 

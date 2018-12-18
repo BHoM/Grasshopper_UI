@@ -7,9 +7,9 @@ using Grasshopper.Kernel.Parameters.Hints;
 using System.Runtime.CompilerServices;
 using Grasshopper.Kernel.Data;
 using Grasshopper;
-using BH.UI.Alligator.GeometryHints;
+using BH.UI.Grasshopper.GeometryHints;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Grasshopper.Base
 {
     public abstract class CreateCustomTemplate : GH_Component, IGH_VariableParameterComponent
     {

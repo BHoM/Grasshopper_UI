@@ -3,7 +3,7 @@
 //using System.IO;
 //using System.Reflection;
 
-//namespace BH.UI.Alligator.Menus
+//namespace BH.UI.Grasshopper.Menus
 //{
 //    public static class SearchPopup
 //    {
@@ -23,7 +23,7 @@
 
 //        public static void Instances_CanvasCreated(GH_Canvas canvas)
 //        {
-//            string folder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Grasshopper\Libraries\Alligator\";
+//            string folder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Grasshopper\Libraries\Grasshopper\";
 //            BH.Engine.Reflection.Compute.LoadAllAssemblies(folder);
 
 //            canvas.KeyDown += ActiveCanvas_KeyDown;

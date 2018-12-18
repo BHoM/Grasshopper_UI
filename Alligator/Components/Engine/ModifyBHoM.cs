@@ -1,12 +1,12 @@
 ﻿using System;
 using Grasshopper.Kernel;
 using System.Linq;
-using BH.UI.Alligator.Templates;
+using BH.UI.Grasshopper.Templates;
 using System.Reflection;
 using BH.oM.DataStructure;
 using System.Collections;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Grasshopper.Base
 {
     public class ModifyBHoM : MethodCallTemplate
     {
@@ -29,7 +29,7 @@ namespace BH.UI.Alligator.Base
         /**** Constructors                      ****/
         /*******************************************/
 
-        public ModifyBHoM() : base("Modify BHoM Object", "ModifyBHoM", "Modify a BHoMObject", "Alligator", " Engine") {}
+        public ModifyBHoM() : base("Modify BHoM Object", "ModifyBHoM", "Modify a BHoMObject", "Grasshopper", " Engine") {}
 
 
         /*******************************************/

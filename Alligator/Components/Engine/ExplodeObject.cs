@@ -12,7 +12,7 @@ using BH.Engine.Rhinoceros;
 using Grasshopper.Kernel.Types;
 using BH.Adapter;
 
-namespace BH.UI.Alligator.Base
+namespace BH.UI.Grasshopper.Base
 {
     public class ExplodeJson : GH_Component, IGH_VariableParameterComponent
     {
@@ -34,7 +34,7 @@ namespace BH.UI.Alligator.Base
         /**** Constructors                      ****/
         /*******************************************/
 
-        public ExplodeJson() : base("Explode", "Explode", "Explode an object or dictionary into child objects", "Alligator", " Engine") { }
+        public ExplodeJson() : base("Explode", "Explode", "Explode an object or dictionary into child objects", "Grasshopper", " Engine") { }
 
 
         /*******************************************/
