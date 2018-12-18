@@ -29,7 +29,7 @@ namespace BH.UI.Grasshopper.Objects
         /*******************************************/
 
         public Param_Type()
-            : base(new GH_InstanceDescription("Object Type 2", "Type", "Represents the type of an object", "Params", "Primitive"))
+            : base(new GH_InstanceDescription("Object Type", "Type", "Represents the type of an object", "Params", "Primitive"))
         {
         }
 
