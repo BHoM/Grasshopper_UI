@@ -99,7 +99,7 @@ namespace BH.Engine.Grasshopper
         }
         /***************************************************/
 
-        public static void RenderMeshes(BHG.NurbCurve curve, Rhino.Display.DisplayPipeline pipeline, DisplayMaterial material)
+        public static void RenderMeshes(BHG.NurbsCurve curve, Rhino.Display.DisplayPipeline pipeline, DisplayMaterial material)
         {
             return;
         }
@@ -137,7 +137,7 @@ namespace BH.Engine.Grasshopper
 
         /***************************************************/
 
-        public static void RenderMeshes(BHG.NurbSurface surface, Rhino.Display.DisplayPipeline pipeline, DisplayMaterial material)
+        public static void RenderMeshes(BHG.NurbsSurface surface, Rhino.Display.DisplayPipeline pipeline, DisplayMaterial material)
         {
             pipeline.DrawBrepShaded(RHG.Brep.CreateFromSurface(surface.ToRhino()), material);
         }
