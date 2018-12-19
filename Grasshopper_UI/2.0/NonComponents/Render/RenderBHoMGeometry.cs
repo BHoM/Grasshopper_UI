@@ -96,7 +96,7 @@ namespace BH.UI.Grasshopper
         }
         /***************************************************/
 
-        public static void RenderBHoMGeometry(BHG.NurbCurve curve, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderBHoMGeometry(BHG.NurbsCurve curve, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
         {
             pipeline.DrawCurve(curve.ToRhino(), bhColour, 2);
         }
@@ -127,7 +127,7 @@ namespace BH.UI.Grasshopper
 
         /***************************************************/
 
-        public static void RenderBHoMGeometry(BHG.NurbSurface surface, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderBHoMGeometry(BHG.NurbsSurface surface, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
         {
             pipeline.DrawSurface(surface.ToRhino(), bhColour, 1);
         }

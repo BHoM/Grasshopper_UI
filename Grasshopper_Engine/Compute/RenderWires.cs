@@ -92,7 +92,7 @@ namespace BH.Engine.Grasshopper
         }
         /***************************************************/
 
-        public static void RenderWires(BHG.NurbCurve curve, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderWires(BHG.NurbsCurve curve, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
         {
             pipeline.DrawCurve(curve.ToRhino(), bhColour, 2);
         }
@@ -132,7 +132,7 @@ namespace BH.Engine.Grasshopper
 
         /***************************************************/
 
-        public static void RenderWires(BHG.NurbSurface surface, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderWires(BHG.NurbsSurface surface, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
         {
             RHG.Surface rSurface = surface.ToRhino();
             pipeline.DrawSurface(rSurface, bhColour, 2);
