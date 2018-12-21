@@ -47,6 +47,18 @@ namespace BH.UI.Grasshopper.Components
         /**** Override Methods                  ****/
         /*******************************************/
 
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            // Let this component be in charge of storing the inputs 
+            // (Deserialisation happens after RegisterInputParams so the caller has not had a chance to retreive its input list yet)
+            CreateCustomCaller caller = Caller as CreateCustomCaller;
+
+            if (caller != null)
+                caller.SetInputs(Params.Input.Select(x => x.NickName).ToList());
+        }
+
+        /*******************************************/
+
         public override bool CanInsertParameter(GH_ParameterSide side, int index)
         {
             return side == GH_ParameterSide.Input;
