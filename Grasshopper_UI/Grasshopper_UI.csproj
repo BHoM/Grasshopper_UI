@@ -363,9 +363,14 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>call "$(TargetDir)UI_PostBuild.exe" ..\..\ "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM"
+    <PostBuildEvent>rename "$(TargetName).dll" "$(TargetName).gha"
 
-Copy /Y "$(TargetName).dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM\$(TargetName).gha"</PostBuildEvent>
+call "$(TargetDir)UI_PostBuild.exe" ..\..\ "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM"
+Copy /Y "$(TargetName).gha" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM\$(TargetName).gha"
+
+
+call "$(TargetDir)UI_PostBuild.exe" ..\..\ "C:\Users\$(Username)\AppData\Roaming\BHoM\InstallFiles\Grasshopper"
+copy "$(TargetName).gha" "C:\Users\$(Username)\AppData\Roaming\BHoM\InstallFiles\Grasshopper\$(TargetName).gha" /Y</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
