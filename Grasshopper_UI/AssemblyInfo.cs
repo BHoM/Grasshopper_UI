@@ -31,7 +31,7 @@ using Grasshopper.Kernel;
 [assembly: AssemblyTitle("Grasshopper")]
 [assembly: AssemblyDescription("BuroHappold Computational Engineering for Grasshopper")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("BuroHappold Engineering")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Grasshopper")]
 [assembly: AssemblyCopyright("Copyright © https://github.com/BHoM")]
 [assembly: AssemblyTrademark("")]
