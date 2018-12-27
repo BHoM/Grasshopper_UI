@@ -29,7 +29,7 @@ using Grasshopper.Kernel;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Grasshopper")]
-[assembly: AssemblyDescription("BuroHappold Computational Engineering for Grasshopper")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Grasshopper")]
