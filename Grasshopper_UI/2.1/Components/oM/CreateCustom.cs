@@ -20,15 +20,11 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using System;
 using Grasshopper.Kernel;
-using BH.oM.Base;
-using BH.UI.Grasshopper.Base;
 using BH.UI.Grasshopper.Templates;
 using BH.UI.Templates;
 using BH.UI.Components;
 using System.Linq;
-using BH.Engine.Grasshopper;
 using System.Collections.Generic;
 using Grasshopper.Kernel.Parameters;
 
@@ -86,7 +82,18 @@ namespace BH.UI.Grasshopper.Components
         public override void VariableParameterMaintenance()
         {
             CreateCustomCaller caller = Caller as CreateCustomCaller;
-            caller.SetInputs(Params.Input.Select(x => x.NickName).ToList());
+
+            List<string> nicknames = new List<string>();
+            foreach(IGH_Param param in Params.Input)
+            {
+                if (param is Param_ScriptVariable paramScriptVariable)
+                {
+                    paramScriptVariable.ShowHints = true;
+                    paramScriptVariable.Hints = Engine.Grasshopper.Query.AvailableHints;
+                    nicknames.Add(paramScriptVariable.NickName);
+                }
+            }
+            caller.SetInputs(nicknames);
         }
 
         /*******************************************/
