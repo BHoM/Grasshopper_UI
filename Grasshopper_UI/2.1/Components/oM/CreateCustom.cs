@@ -27,6 +27,7 @@ using BH.UI.Components;
 using System.Linq;
 using System.Collections.Generic;
 using Grasshopper.Kernel.Parameters;
+using GH_IO.Serialization;
 
 namespace BH.UI.Grasshopper.Components
 {
@@ -47,9 +48,8 @@ namespace BH.UI.Grasshopper.Components
         {
             // Let this component be in charge of storing the inputs 
             // (Deserialisation happens after RegisterInputParams so the caller has not had a chance to retreive its input list yet)
-            CreateCustomCaller caller = Caller as CreateCustomCaller;
 
-            if (caller != null)
+            if (Caller is CreateCustomCaller caller)
                 caller.SetInputs(Params.Input.Select(x => x.NickName).ToList());
         }
 
@@ -94,6 +94,16 @@ namespace BH.UI.Grasshopper.Components
                 }
             }
             caller.SetInputs(nicknames);
+        }
+
+        /*******************************************/
+
+        public override bool Read(GH_IReader reader)
+        {
+            if (!base.Read(reader) || !Params.Read(reader))
+                return false;
+
+            return true;
         }
 
         /*******************************************/
