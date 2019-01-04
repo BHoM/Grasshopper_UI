@@ -78,6 +78,7 @@ namespace BH.UI.Grasshopper.Templates
 
             Caller.ItemSelected += (sender, e) => RefreshComponent();
             Caller.SolutionExpired += (sender, e) => ExpireSolution(true);
+            Params.ParameterChanged += (sender, e) => RefreshComponent();
         }
 
         /*******************************************/
@@ -125,7 +126,7 @@ namespace BH.UI.Grasshopper.Templates
                 if (newParam.GetType() != Params.Input[i].GetType())
                     Params.Input[i] = newParam;
             }
-                
+
             for (int i = nbOld - 1; i >= nbNew; i--)
                 Params.UnregisterInputParameter(Params.Input[i]);
 
@@ -159,7 +160,7 @@ namespace BH.UI.Grasshopper.Templates
                     Params.Output[i] = newParam;
                 }
             }
-                
+
             for (int i = nbOld - 1; i >= nbNew; i--)
                 Params.UnregisterOutputParameter(Params.Output[i]);
 
@@ -304,7 +305,7 @@ namespace BH.UI.Grasshopper.Templates
                             param = new Param_ScriptVariable();
                             param.AttributesChanged += Param_AttributesChanged;
                         }
-                            
+
                     }
                     break;
             }
