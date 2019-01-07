@@ -50,7 +50,10 @@ namespace BH.UI.Grasshopper.Components
             // (Deserialisation happens after RegisterInputParams so the caller has not had a chance to retreive its input list yet)
 
             if (Caller is CreateCustomCaller caller)
+            {
+                caller.ItemSelected += (sender, e) => base.RegisterInputParams(pManager);
                 caller.SetInputs(Params.Input.Select(x => x.NickName).ToList());
+            }
         }
 
         /*******************************************/
