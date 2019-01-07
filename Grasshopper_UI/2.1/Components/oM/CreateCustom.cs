@@ -85,6 +85,7 @@ namespace BH.UI.Grasshopper.Components
         public override void VariableParameterMaintenance()
         {
             CreateCustomCaller caller = Caller as CreateCustomCaller;
+            Params.Input.RemoveAll(p => p.Name == "CustomData");
 
             List<string> nicknames = new List<string>();
             foreach(IGH_Param param in Params.Input)
