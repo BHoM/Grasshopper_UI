@@ -206,9 +206,9 @@ namespace BH.UI.Grasshopper
 
         private static Color GetBHColor(Color ghColor)
         {
-            int R = ghColor.R - 59;      // Difference to BuroHappold Green
-            int G = ghColor.G + 168;     // Difference to BuroHappold Green
-            int B = ghColor.B;           // Difference to BuroHappold Green
+            int R = ghColor.R - 59;
+            int G = ghColor.G + 168;
+            int B = ghColor.B;
             return Color.FromArgb(100, R < 255 && R > 0 ? R : 0, G < 255 && G > 0 ? G : 255, B);
         }
 
