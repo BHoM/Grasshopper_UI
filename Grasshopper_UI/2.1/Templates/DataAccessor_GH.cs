@@ -22,6 +22,7 @@
 
 using BH.oM.Geometry;
 using BH.UI.Templates;
+using GH = Grasshopper;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Data;
 using Grasshopper.Kernel.Types;
@@ -31,6 +32,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Grasshopper.Kernel.Parameters;
 
 namespace BH.UI.Grasshopper.Templates
 {
@@ -66,7 +68,12 @@ namespace BH.UI.Grasshopper.Templates
 
             IGH_Goo goo = null;
             GH_Accessor.GetData(index, ref goo);
-            return BH.Engine.Grasshopper.Convert.FromGoo<T>(goo);
+
+            IGH_TypeHint hint = null;
+            if (Component.Params.Input[index] is Param_ScriptVariable scriptParam)
+                hint = scriptParam.TypeHint;
+
+            return BH.Engine.Grasshopper.Convert.FromGoo<T>(goo, hint);
         }
 
         /*************************************/
@@ -76,9 +83,13 @@ namespace BH.UI.Grasshopper.Templates
             if (GH_Accessor == null)
                 return new List<T>();
 
+            IGH_TypeHint hint = null;
+            if (Component.Params.Input[index] is Param_ScriptVariable scriptParam)
+                hint = scriptParam.TypeHint;
+
             List<IGH_Goo> goo = new List<IGH_Goo>();
             GH_Accessor.GetDataList<IGH_Goo>(index, goo);
-            return goo.Select(x => BH.Engine.Grasshopper.Convert.FromGoo<T>(x)).ToList();
+            return goo.Select(x => BH.Engine.Grasshopper.Convert.FromGoo<T>(x, hint)).ToList();
         }
 
         /*************************************/
@@ -88,8 +99,12 @@ namespace BH.UI.Grasshopper.Templates
             if (GH_Accessor == null || Component == null)
                 return new List<List<T>>();
 
+            IGH_TypeHint hint = null;
+            if (Component.Params.Input[index] is Param_ScriptVariable scriptParam)
+                hint = scriptParam.TypeHint;
+
             IGH_Param param = Component.Params.Input[index];
-            return param.VolatileData.StructureProxy.Select(x => x.Cast<IGH_Goo>().Select(y => BH.Engine.Grasshopper.Convert.FromGoo<T>(y)).ToList()).ToList();
+            return param.VolatileData.StructureProxy.Select(x => x.Cast<IGH_Goo>().Select(y => BH.Engine.Grasshopper.Convert.FromGoo<T>(y, hint)).ToList()).ToList();
 
             // This shows that using the GetDataTree method from GH is actually giving the exact same result with the exact same problem of collecting the entire data instead of a subtree
             /*IGH_Structure goo = Activator.CreateInstance(typeof(GH_Structure<>).GetGenericTypeDefinition().MakeGenericType(new Type[] { param.Type })) as IGH_Structure;
@@ -132,10 +147,17 @@ namespace BH.UI.Grasshopper.Templates
 
         public override bool SetDataTree<T>(int index, IEnumerable<IEnumerable<T>> data)
         {
-            if (typeof(IGeometry).IsAssignableFrom(typeof(T)))
-                return GH_Accessor.SetDataTree(index, BH.Engine.Grasshopper.Create.DataTree(((IEnumerable<IEnumerable<T>>)data).Select(v => v.Select(x => (BH.Engine.Grasshopper.Convert.ToRhino(x)))).ToList(), GH_Accessor.Iteration));
+            IGH_Param root;
+
+            if (Component.IsValidPrincipalParameterIndex & Component.PrincipalParameterIndex != -1)
+                root = Component.Params.Input[Component.PrincipalParameterIndex];
             else
-                return GH_Accessor.SetDataTree(index, BH.Engine.Grasshopper.Create.DataTree(((IEnumerable<IEnumerable<T>>)data).ToList(), GH_Accessor.Iteration));
+                root = Component.Params.Input.FindAll(p => p.Access == GH_ParamAccess.tree).FirstOrDefault() ?? Component.Params.Input.First();
+
+            if (typeof(IGeometry).IsAssignableFrom(typeof(T)))
+                return GH_Accessor.SetDataTree(index, BH.Engine.Grasshopper.Create.DataTree(((IEnumerable<IEnumerable<T>>)data).Select(v => v.Select(x => (BH.Engine.Grasshopper.Convert.ToRhino(x)))).ToList(), GH_Accessor.Iteration, root.VolatileData.Paths));
+            else
+                return GH_Accessor.SetDataTree(index, BH.Engine.Grasshopper.Create.DataTree(data.ToList(), GH_Accessor.Iteration, root.VolatileData.Paths));
         }
 
 
