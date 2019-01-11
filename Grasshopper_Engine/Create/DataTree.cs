@@ -52,5 +52,28 @@ namespace BH.Engine.Grasshopper
         }
 
         /*******************************************/
+
+        public static DataTree<T> DataTree<T>(List<IEnumerable<T>> data, int iteration, IList<GH_Path> paths)
+        {
+            DataTree<T> master = new DataTree<T>();
+            if (data.Count == 0)
+            {
+                master.EnsurePath(0);
+                return new DataTree<T>();
+            }
+            else
+            {
+                for (int i = 0; i < data.Count; i++)
+                {
+                    DataTree<T> local = new DataTree<T>(data[i], paths[i]);
+                    GH_Path path = paths[iteration].AppendElement(i);
+                    master.EnsurePath(path);
+                    master.AddRange(data[i], path);
+                }
+            }
+            return master;
+        }
+
+        /*******************************************/
     }
 }

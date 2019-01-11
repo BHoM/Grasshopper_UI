@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
  *
@@ -20,54 +20,54 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using Grasshopper.Kernel;
 using Grasshopper.Kernel.Parameters;
-using Grasshopper.Kernel.Types;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections;
 
 namespace BH.Engine.Grasshopper
 {
-    public static partial class Convert
+    public static partial class Query
     {
-        /*******************************************/
-        /**** Public Methods                    ****/
-        /*******************************************/
+        /***************************************************/
+        /**** Public Fields                             ****/
+        /***************************************************/
 
-        public static T FromGoo<T>(this IGH_Goo goo, IGH_TypeHint hint=null)
+        public static Type Type(this IGH_TypeHint hint)
         {
-            if (goo == null)
-                return default(T);
-
-            // Get the data out of the Goo
-            object data = goo.ScriptVariable();
-            while (data is IGH_Goo)
-                data = ((IGH_Goo)data).ScriptVariable();
-
-            if (data == null)
-                return default(T);
-
-            // Convert the data to an acceptable format
-            if (data is T)
+            switch (hint.TypeName)
             {
-                return (T)data;
-            }
-            else if (hint != null)
-            {
-                hint.Cast(RuntimeHelpers.GetObjectValue(data), out object result);
-                return (T)result;
-            }
-            else
-            {
-                if (data.GetType().Namespace.StartsWith("Rhino.Geometry"))
-                    data = BH.Engine.Rhinoceros.Convert.ToBHoM(data as dynamic);
-                return (T)(data as dynamic);
+                case "null":
+                    return typeof(object);
+                case "BH.oM.Base.BHoMObject":
+                    return typeof(BH.oM.Base.BHoMObject);
+                case "BH.oM.Geometry.IGeometry":
+                    return typeof(BH.oM.Geometry.IGeometry);
+                case "Dictionary":
+                    return typeof(IDictionary);
+                case "System.Enum":
+                    return typeof(System.Enum);
+                case "System.Type":
+                    return typeof(Type);
+                case "bool":
+                    return typeof(bool);
+                case "int":
+                    return typeof(int);
+                case "double":
+                    return typeof(double);
+                case "string":
+                    return typeof(string);
+                case "DateTime":
+                    return typeof(DateTime);
+                case "Color":
+                    return typeof(System.Drawing.Color);
+                case "Guid":
+                    return typeof(Guid);
+                default:
+                    return typeof(object);
             }
         }
 
-        /*************************************/
+        /***************************************************/
     }
 }

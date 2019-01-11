@@ -28,6 +28,8 @@ using System.Linq;
 using System.Collections.Generic;
 using Grasshopper.Kernel.Parameters;
 using GH_IO.Serialization;
+using System.Runtime.CompilerServices;
+using System;
 
 namespace BH.UI.Grasshopper.Components
 {
@@ -52,7 +54,27 @@ namespace BH.UI.Grasshopper.Components
             if (Caller is CreateCustomCaller caller)
             {
                 caller.ItemSelected += (sender, e) => base.RegisterInputParams(pManager);
-                caller.SetInputs(Params.Input.Select(x => x.NickName).ToList());
+                List<string> nicknames = new List<string>();
+                List<Type> types = new List<Type>();
+                foreach (IGH_Param param in Params.Input)
+                {
+                    string name = param.NickName;
+                    if (param is Param_ScriptVariable paramScript)
+                    {
+                        if (paramScript.TypeHint != null)
+                        {
+                            types.Add(Engine.Grasshopper.Query.Type(paramScript.TypeHint));
+                        }
+                        else
+                            types.Add(typeof(object));
+                    }
+                    else
+                    {
+                        types.Add(param.Type);
+                    }
+                    nicknames.Add(name);
+                }
+                caller.SetInputs(nicknames, types);
             }
         }
 
@@ -88,16 +110,21 @@ namespace BH.UI.Grasshopper.Components
             Params.Input.RemoveAll(p => p.Name == "CustomData");
 
             List<string> nicknames = new List<string>();
-            foreach(IGH_Param param in Params.Input)
+            List<Type> types = new List<Type>();
+            foreach (IGH_Param param in Params.Input)
             {
-                if (param is Param_ScriptVariable paramScriptVariable)
+                if (param is Param_ScriptVariable paramScript)
                 {
-                    paramScriptVariable.ShowHints = true;
-                    paramScriptVariable.Hints = Engine.Grasshopper.Query.AvailableHints;
-                    nicknames.Add(paramScriptVariable.NickName);
+                    paramScript.ShowHints = true;
+                    paramScript.Hints = Engine.Grasshopper.Query.AvailableHints;
+                    nicknames.Add(paramScript.NickName);
+                    if (paramScript.TypeHint != null)
+                        types.Add(Engine.Grasshopper.Query.Type(paramScript.TypeHint));
+                    else
+                        types.Add(typeof(object));
                 }
             }
-            caller.SetInputs(nicknames);
+            caller.SetInputs(nicknames, types);
         }
 
         /*******************************************/
