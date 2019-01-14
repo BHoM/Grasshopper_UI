@@ -49,33 +49,8 @@ namespace BH.UI.Grasshopper.Components
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             // Let this component be in charge of storing the inputs 
-            // (Deserialisation happens after RegisterInputParams so the caller has not had a chance to retreive its input list yet)
-
-            if (Caller is CreateCustomCaller caller)
-            {
-                caller.ItemSelected += (sender, e) => base.RegisterInputParams(pManager);
-                List<string> nicknames = new List<string>();
-                List<Type> types = new List<Type>();
-                foreach (IGH_Param param in Params.Input)
-                {
-                    string name = param.NickName;
-                    if (param is Param_ScriptVariable paramScript)
-                    {
-                        if (paramScript.TypeHint != null)
-                        {
-                            types.Add(Engine.Grasshopper.Query.Type(paramScript.TypeHint));
-                        }
-                        else
-                            types.Add(typeof(object));
-                    }
-                    else
-                    {
-                        types.Add(param.Type);
-                    }
-                    nicknames.Add(name);
-                }
-                caller.SetInputs(nicknames, types);
-            }
+            // (RegisterInputParams(pManager) happens before Read(reader), so the caller does not know the right input list yet)
+            SyncParamsFromGH();
         }
 
         /*******************************************/
@@ -96,45 +71,51 @@ namespace BH.UI.Grasshopper.Components
 
         public override IGH_Param CreateParameter(GH_ParameterSide side, int index)
         {
-            return new Param_ScriptVariable
+            Param_ScriptVariable param = new Param_ScriptVariable
             {
                 NickName = GH_ComponentParamServer.InventUniqueNickname("xyzuvw", this.Params.Input)
             };
+            return param;
         }
 
         /*******************************************/
 
         public override void VariableParameterMaintenance()
         {
-            CreateCustomCaller caller = Caller as CreateCustomCaller;
-            Params.Input.RemoveAll(p => p.Name == "CustomData");
-
-            List<string> nicknames = new List<string>();
-            List<Type> types = new List<Type>();
-            foreach (IGH_Param param in Params.Input)
-            {
-                if (param is Param_ScriptVariable paramScript)
-                {
-                    paramScript.ShowHints = true;
-                    paramScript.Hints = Engine.Grasshopper.Query.AvailableHints;
-                    nicknames.Add(paramScript.NickName);
-                    if (paramScript.TypeHint != null)
-                        types.Add(Engine.Grasshopper.Query.Type(paramScript.TypeHint));
-                    else
-                        types.Add(typeof(object));
-                }
-            }
-            caller.SetInputs(nicknames, types);
+            SyncParamsFromGH();
         }
 
         /*******************************************/
 
-        public override bool Read(GH_IReader reader)
+        private void SyncParamsFromGH()
         {
-            if (!base.Read(reader) || !Params.Read(reader))
-                return false;
+            if (Caller is CreateCustomCaller caller)
+            {
+                List<string> nicknames = new List<string>();
+                List<Type> types = new List<Type>();
+                foreach (IGH_Param param in Params.Input)
+                {
+                    string name = param.NickName;
+                    if (param is Param_ScriptVariable paramScript)
+                    {
+                        paramScript.ShowHints = true;
+                        paramScript.Hints = Engine.Grasshopper.Query.AvailableHints;
+                        if (paramScript.TypeHint != null)
+                        {
+                            types.Add(Engine.Grasshopper.Query.Type(paramScript.TypeHint));
+                        }
+                        else
+                            types.Add(typeof(object));
+                    }
+                    else
+                    {
+                        types.Add(param.Type);
+                    }
+                    nicknames.Add(name);
+                }
 
-            return true;
+                caller.SetInputs(nicknames, types);
+            }
         }
 
         /*******************************************/
