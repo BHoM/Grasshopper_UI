@@ -111,7 +111,7 @@ namespace BH.UI.Grasshopper.Templates
         /**** Override Methods                  ****/
         /*******************************************/
 
-        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        protected override void RegisterInputParams(GH_InputParamManager pManager = null)
         {
             if (Caller == null)
                 return;
