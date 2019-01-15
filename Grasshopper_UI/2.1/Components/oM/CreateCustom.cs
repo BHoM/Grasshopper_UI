@@ -41,6 +41,10 @@ namespace BH.UI.Grasshopper.Components
 
         public override Caller Caller { get; } = new CreateCustomCaller();
 
+        public CreateCustomComponent() : base()
+        {
+            Params.ParameterChanged += (sender, e) => RefreshComponent();
+        }
 
         /*******************************************/
         /**** Override Methods                  ****/
