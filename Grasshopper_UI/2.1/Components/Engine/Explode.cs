@@ -21,6 +21,7 @@
  */
 
 using System;
+using GH = Grasshopper;
 using Grasshopper.Kernel;
 using BH.oM.Base;
 using BH.UI.Grasshopper.Base;
@@ -50,7 +51,7 @@ namespace BH.UI.Grasshopper.Components
 
         public ExplodeComponent() : base()
         {
-            Params.ParameterSourcesChanged += Params_ParameterSourcesChanged;
+            Params.ParameterChanged += (sender, e) => UpdateOutputs(false);
         }
 
 
@@ -80,15 +81,9 @@ namespace BH.UI.Grasshopper.Components
             base.AppendAdditionalComponentMenuItems(menu);
         }
 
+
         /*******************************************/
         /**** Private Methods                   ****/
-        /*******************************************/
-
-        private void Params_ParameterSourcesChanged(object sender, GH_ParamServerEventArgs e)
-        {
-            UpdateOutputs(false);
-        }
-
         /*******************************************/
 
         private void RefreshLabel_Click(object sender, EventArgs e)
@@ -96,6 +91,7 @@ namespace BH.UI.Grasshopper.Components
             ExpireSolution(false);
             UpdateOutputs(true);
         }
+
         /*******************************************/
 
         private void UpdateOutputs(bool ignoreAutoUpdate)
