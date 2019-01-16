@@ -51,7 +51,7 @@ namespace BH.UI.Grasshopper.Components
 
         public ExplodeComponent() : base()
         {
-            Params.ParameterChanged += (sender, e) => UpdateOutputs(false);
+            Params.ParameterSourcesChanged += (sender, e) => UpdateOutputs(false);
         }
 
 
