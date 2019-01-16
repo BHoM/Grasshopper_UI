@@ -30,6 +30,7 @@ using Grasshopper.Kernel.Parameters;
 using GH_IO.Serialization;
 using System.Runtime.CompilerServices;
 using System;
+using Grasshopper.Kernel.Parameters.Hints;
 
 namespace BH.UI.Grasshopper.Components
 {
