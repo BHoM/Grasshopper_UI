@@ -43,15 +43,6 @@ namespace BH.UI.Grasshopper.Components
 
 
         /*******************************************/
-        /**** Constructors                      ****/
-        /*******************************************/
-
-        public CreateCustomComponent() : base()
-        {
-            Params.ParameterChanged += (sender, e) => RefreshComponent();
-        }
-
-        /*******************************************/
         /**** Override Methods                  ****/
         /*******************************************/
 
@@ -82,7 +73,8 @@ namespace BH.UI.Grasshopper.Components
         {
             Param_ScriptVariable param = new Param_ScriptVariable
             {
-                NickName = GH_ComponentParamServer.InventUniqueNickname("xyzuvw", this.Params.Input)
+                NickName = GH_ComponentParamServer.InventUniqueNickname("xyzuvw", this.Params.Input),
+                TypeHint = new GH_NullHint()
             };
             return param;
         }
