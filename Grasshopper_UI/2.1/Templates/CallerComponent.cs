@@ -104,7 +104,11 @@ namespace BH.UI.Grasshopper.Templates
             this.RegisterOutputParams(null); // We call its bits individually: input, output 
             this.Params.OnParametersChanged(); // and ask to update the layout with OnParametersChanged()
 
-            ExpireSolution(true);
+            GH_Document document = OnPingDocument(); // when a solution is running the document of the component is set to null
+            if (document != null && document.Owner != null) // this prevents expiring a solution while another solution is running
+            {
+                ExpireSolution(true);
+            }
         }
 
 
