@@ -57,7 +57,8 @@ namespace BH.Engine.Grasshopper
             }
             else if (hint != null)
             {
-                hint.Cast(RuntimeHelpers.GetObjectValue(data), out object result);
+                object result;
+                hint.Cast(RuntimeHelpers.GetObjectValue(data), out result);
                 return (T)result;
             }
             else
