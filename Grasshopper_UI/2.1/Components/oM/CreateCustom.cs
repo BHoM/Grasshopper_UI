@@ -44,6 +44,16 @@ namespace BH.UI.Grasshopper.Components
 
 
         /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
+        public CreateCustomComponent() : base()
+        {
+            Params.ParameterChanged += SyncParamsFromGH;
+        }
+
+
+        /*******************************************/
         /**** Override Methods                  ****/
         /*******************************************/
 
@@ -89,7 +99,7 @@ namespace BH.UI.Grasshopper.Components
 
         /*******************************************/
 
-        private void SyncParamsFromGH()
+        private void SyncParamsFromGH(object sender = null, EventArgs e = null)
         {
             if (Caller is CreateCustomCaller caller)
             {
@@ -102,12 +112,8 @@ namespace BH.UI.Grasshopper.Components
                     {
                         paramScript.ShowHints = true;
                         paramScript.Hints = Engine.Grasshopper.Query.AvailableHints;
-                        if (paramScript.TypeHint != null)
-                        {
-                            types.Add(Engine.Grasshopper.Query.Type(paramScript.TypeHint));
-                        }
-                        else
-                            types.Add(typeof(object));
+                        paramScript.AllowTreeAccess = true;
+                        types.Add(Engine.Grasshopper.Query.Type(paramScript.TypeHint, paramScript.Access));
                     }
                     else
                     {
@@ -115,7 +121,7 @@ namespace BH.UI.Grasshopper.Components
                     }
                     nicknames.Add(name);
                 }
-
+                caller.SetDataAccessor(Accessor);
                 caller.SetInputs(nicknames, types);
             }
         }
