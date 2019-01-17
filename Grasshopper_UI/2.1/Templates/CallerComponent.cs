@@ -105,7 +105,7 @@ namespace BH.UI.Grasshopper.Templates
             this.Params.OnParametersChanged(); // and ask to update the layout with OnParametersChanged()
 
             GH_Document document = OnPingDocument(); // when a solution is running the document of the component is set to null
-            if (document != null && document.Owner != null) // this prevents expiring a solution while another solution is running
+            if (document != null) // this prevents expiring a solution while another solution is running
             {
                 ExpireSolution(true);
             }
