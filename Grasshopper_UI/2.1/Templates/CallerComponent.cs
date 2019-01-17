@@ -50,6 +50,8 @@ namespace BH.UI.Grasshopper.Templates
 
         public abstract Caller Caller { get; }
 
+        public DataAccessor_GH Accessor = null;
+
         protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Caller.Icon_24x24; } }
 
         public override Guid ComponentGuid { get { return Caller.Id; } }
@@ -73,12 +75,11 @@ namespace BH.UI.Grasshopper.Templates
             Category = "BHoM";
             SubCategory = Caller.Category;
 
-            m_Accessor = new DataAccessor_GH(this);
-            Caller.SetDataAccessor(m_Accessor);
+            Accessor = new DataAccessor_GH(this);
+            Caller.SetDataAccessor(Accessor);
 
             Caller.ItemSelected += (sender, e) => RefreshComponent();
             Caller.SolutionExpired += (sender, e) => ExpireSolution(true);
-            Params.ParameterChanged += (sender, e) => RefreshComponent();
         }
 
         /*******************************************/
@@ -136,7 +137,7 @@ namespace BH.UI.Grasshopper.Templates
 
         /*******************************************/
 
-        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager = null)
         {
             if (Caller == null)
                 return;
@@ -172,7 +173,7 @@ namespace BH.UI.Grasshopper.Templates
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            m_Accessor.GH_Accessor = DA;
+            Accessor.GH_Accessor = DA;
             Caller.Run();
             Logging.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
         }
@@ -330,16 +331,7 @@ namespace BH.UI.Grasshopper.Templates
 
         private void Param_AttributesChanged(IGH_DocumentObject sender, GH_AttributesChangedEventArgs e)
         {
-            Caller.SetDataAccessor(m_Accessor);
+            Caller.SetDataAccessor(Accessor);
         }
-
-
-        /*******************************************/
-        /**** Private Fields                    ****/
-        /*******************************************/
-
-        private DataAccessor_GH m_Accessor = null;
-
-        /*******************************************/
     }
 }

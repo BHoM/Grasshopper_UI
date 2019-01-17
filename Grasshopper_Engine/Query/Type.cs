@@ -24,6 +24,7 @@ using Grasshopper.Kernel;
 using Grasshopper.Kernel.Parameters;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace BH.Engine.Grasshopper
 {
@@ -33,38 +34,53 @@ namespace BH.Engine.Grasshopper
         /**** Public Fields                             ****/
         /***************************************************/
 
-        public static Type Type(this IGH_TypeHint hint)
+        public static Type Type(this IGH_TypeHint hint, GH_ParamAccess access)
         {
             switch (hint.TypeName)
             {
                 case "null":
-                    return typeof(object);
+                    return Type<object>(access);
                 case "BH.oM.Base.BHoMObject":
-                    return typeof(BH.oM.Base.BHoMObject);
+                    return Type<BH.oM.Base.BHoMObject>(access);
                 case "BH.oM.Geometry.IGeometry":
-                    return typeof(BH.oM.Geometry.IGeometry);
+                    return Type<BH.oM.Geometry.IGeometry>(access);
                 case "Dictionary":
-                    return typeof(IDictionary);
+                    return Type<IDictionary>(access);
                 case "System.Enum":
-                    return typeof(System.Enum);
+                    return Type<System.Enum>(access);
                 case "System.Type":
-                    return typeof(Type);
+                    return Type<Type>(access);
                 case "bool":
-                    return typeof(bool);
+                    return Type<bool>(access);
                 case "int":
-                    return typeof(int);
+                    return Type<int>(access);
                 case "double":
-                    return typeof(double);
+                    return Type<double>(access);
                 case "string":
-                    return typeof(string);
+                    return Type<string>(access);
                 case "DateTime":
-                    return typeof(DateTime);
+                    return Type<DateTime>(access);
                 case "Color":
-                    return typeof(System.Drawing.Color);
+                    return Type<System.Drawing.Color>(access);
                 case "Guid":
-                    return typeof(Guid);
+                    return Type<Guid>(access);
                 default:
-                    return typeof(object);
+                    return Type<object>(access);
+            }
+        }
+
+        /***************************************************/
+
+        public static Type Type<T>(GH_ParamAccess access)
+        {
+            switch (access)
+            {
+                default:
+                    return typeof(T);
+                case GH_ParamAccess.list:
+                    return typeof(List<T>);
+                case GH_ParamAccess.tree:
+                    return typeof(List<List<T>>);
             }
         }
 
