@@ -70,7 +70,8 @@ namespace BH.UI.Grasshopper.Templates
             GH_Accessor.GetData(index, ref goo);
 
             IGH_TypeHint hint = null;
-            if (Component.Params.Input[index] is Param_ScriptVariable scriptParam)
+            Param_ScriptVariable scriptParam = Component.Params.Input[index] as Param_ScriptVariable;
+            if (scriptParam != null)
                 hint = scriptParam.TypeHint;
 
             return BH.Engine.Grasshopper.Convert.FromGoo<T>(goo, hint);
@@ -84,7 +85,8 @@ namespace BH.UI.Grasshopper.Templates
                 return new List<T>();
 
             IGH_TypeHint hint = null;
-            if (Component.Params.Input[index] is Param_ScriptVariable scriptParam)
+            Param_ScriptVariable scriptParam = Component.Params.Input[index] as Param_ScriptVariable;
+            if (scriptParam != null)
                 hint = scriptParam.TypeHint;
 
             List<IGH_Goo> goo = new List<IGH_Goo>();
@@ -100,7 +102,8 @@ namespace BH.UI.Grasshopper.Templates
                 return new List<List<T>>();
 
             IGH_TypeHint hint = null;
-            if (Component.Params.Input[index] is Param_ScriptVariable scriptParam)
+            Param_ScriptVariable scriptParam = Component.Params.Input[index] as Param_ScriptVariable;
+            if (scriptParam != null)
                 hint = scriptParam.TypeHint;
 
             IGH_Param param = Component.Params.Input[index];
