@@ -101,14 +101,16 @@ namespace BH.UI.Grasshopper.Components
 
         private void SyncParamsFromGH(object sender = null, EventArgs e = null)
         {
-            if (Caller is CreateCustomCaller caller)
+            CreateCustomCaller caller = Caller as CreateCustomCaller;
+            if (caller != null)
             {
                 List<string> nicknames = new List<string>();
                 List<Type> types = new List<Type>();
                 foreach (IGH_Param param in Params.Input)
                 {
                     string name = param.NickName;
-                    if (param is Param_ScriptVariable paramScript)
+                    Param_ScriptVariable paramScript = param as Param_ScriptVariable;
+                    if (paramScript != null)
                     {
                         paramScript.ShowHints = true;
                         paramScript.Hints = Engine.Grasshopper.Query.AvailableHints;
