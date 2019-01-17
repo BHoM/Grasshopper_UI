@@ -65,7 +65,7 @@ namespace BH.Engine.Grasshopper
             {
                 for (int i = 0; i < data.Count; i++)
                 {
-                    DataTree<T> local = new DataTree<T>(data[i], paths[i]);
+                    DataTree<T> local = new DataTree<T>(data[i], paths[iteration]);
                     GH_Path path = paths[iteration].AppendElement(i);
                     master.EnsurePath(path);
                     master.AddRange(data[i], path);
