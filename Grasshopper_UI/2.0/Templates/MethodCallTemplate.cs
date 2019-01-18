@@ -293,13 +293,13 @@ namespace BH.UI.Grasshopper.Templates
                 Type type = typeString.ToType();
                 RestoreMethod(type, methodName, paramTypes);
 
-                m_IsDeprecated |= m_Method.IsDeprecated();
-                m_IsNotImplemented = m_Method.IsNotImplemented();
-                m_IsReleased = m_Method.IsReleased();
 
                 // Restore the ports
                 if (m_Method != null)
                 {
+                    m_IsDeprecated |= m_Method.IsDeprecated();
+                    m_IsNotImplemented = m_Method.IsNotImplemented();
+                    m_IsReleased = m_Method.IsReleased();
                     Type outputType = (m_Method is MethodInfo) ? ((MethodInfo)m_Method).ReturnType : m_Method.DeclaringType;
                     ComputeDaGets(m_Method.GetParameters().ToList(), outputType);
                 }
