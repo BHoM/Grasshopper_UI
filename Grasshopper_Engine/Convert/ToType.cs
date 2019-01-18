@@ -59,7 +59,17 @@ namespace BH.Engine.Grasshopper
             if (parts.Length == 0)
                 return null;
             else
-                return BH.Engine.Reflection.Create.Type(parts[0]);
+            {
+                try
+                {
+                    type = BH.Engine.Reflection.Create.Type(parts[0]);
+                }
+                catch
+                {
+                    type = typeof(object);
+                }
+                return type;
+            }
         }
 
         /*******************************************/
