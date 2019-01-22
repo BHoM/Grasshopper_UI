@@ -338,7 +338,7 @@ namespace BH.UI.Grasshopper.Templates
 
                 if (m_Method == null)
                 {
-                    m_LoadingError = $"{methodName} not found. It is recommended to replace the component with a new one.";
+                    m_LoadingError = $"{methodType}.{methodName} not found.";
                 }
                 else // Restore the ports
                 {
