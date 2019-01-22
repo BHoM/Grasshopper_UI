@@ -66,7 +66,7 @@ namespace BH.Engine.Grasshopper
                 }
                 catch
                 {
-                    type = typeof(object);
+                    type = null;
                 }
                 return type;
             }

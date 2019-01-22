@@ -188,13 +188,18 @@ namespace BH.UI.Grasshopper.Templates
 
             BH.Engine.Reflection.Compute.ClearCurrentEvents();
 
+            foreach (string warn in m_LoadingWarnings)
+            {
+                Engine.Reflection.Compute.RecordWarning(warn);
+            }
+
             List<object> inputs = new List<object>();
             try
             {
                 for (int i = 0; i < m_DaGets.Count; i++)
                     inputs.Add(m_DaGets[i].Invoke(null, new object[] { DA, i }));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 if (e.InnerException != null)
                     throw new Exception(e.InnerException.Message);
@@ -245,15 +250,38 @@ namespace BH.UI.Grasshopper.Templates
 
         public override bool Write(GH_IO.Serialization.GH_IWriter writer)
         {
-            if ( m_Method != null)
+            bool isMethodNull = m_Method == null;
+
+            if (m_StoredTypeName != "" | m_StoredTypeName != null)
+            {
+                writer.SetString("TypeName", m_StoredTypeName);
+            }
+            else if (!isMethodNull)
+            {
+                writer.SetString("TypeName", m_Method.DeclaringType.AssemblyQualifiedName);
+            }
+
+            if (m_StoredMethodName != "" | m_StoredMethodName != null)
+            {
+                writer.SetString("MethodName", m_StoredMethodName);
+            }
+            else if (!isMethodNull)
+            {
+                writer.SetString("MethodName", m_Method.Name);
+            }
+
+            if (m_StoredParamTypes.Count != 0)
+            {
+                for (int i = 0; i < m_StoredParamTypes.Count; i++)
+                    writer.SetString("ParamType", i, m_StoredParamTypes[i]);
+            }
+            else if (!isMethodNull)
             {
                 ParameterInfo[] parameters = m_Method.GetParameters();
-                writer.SetString("TypeName", m_Method.DeclaringType.AssemblyQualifiedName);
-                writer.SetString("MethodName", m_Method.Name);
-                writer.SetInt32("NbParams", parameters.Count());
                 for (int i = 0; i < parameters.Count(); i++)
                     writer.SetString("ParamType", i, parameters[i].ParameterType.AssemblyQualifiedName);
             }
+
             return base.Write(writer);
         }
 
@@ -263,8 +291,12 @@ namespace BH.UI.Grasshopper.Templates
         {
             try
             {
-                string typeString = ""; reader.TryGetString("TypeName", ref typeString);
-                string methodName = ""; reader.TryGetString("MethodName", ref methodName);
+                reader.TryGetString("TypeName", ref m_StoredTypeName);
+                string typeString = m_StoredTypeName;
+
+                reader.TryGetString("MethodName", ref m_StoredMethodName);
+                string methodName = m_StoredMethodName;
+
                 int nbParams = 0; reader.TryGetInt32("NbParams", ref nbParams);
 
                 // Get the input types
@@ -274,6 +306,7 @@ namespace BH.UI.Grasshopper.Templates
                 for (int i = 0; i < nbParams; i++)
                 {
                     string paramType = ""; reader.TryGetString("ParamType", i, ref paramType);
+                    m_StoredParamTypes.Add(paramType);
 
                     //Fix for namespace change in structure
                     if (paramType.Contains("oM.Structural"))
@@ -282,7 +315,13 @@ namespace BH.UI.Grasshopper.Templates
                         m_IsDeprecated = true;
                     }
 
-                    paramTypes.Add(paramType.ToType());
+                    Type parameterType = paramType.ToType();
+
+                    if (parameterType == null)
+                    {
+                        m_LoadingWarnings.Add($"The type {paramType} cannot be found. Type is set to System.Object");
+                    }
+                    paramTypes.Add(parameterType);
                 }
 
                 //Read from the base
@@ -290,9 +329,8 @@ namespace BH.UI.Grasshopper.Templates
                     return false;
 
                 // Restore the method
-                Type type = typeString.ToType();
-                RestoreMethod(type, methodName, paramTypes);
-
+                Type methodType = typeString.ToType();
+                RestoreMethod(methodType, methodName, paramTypes);
 
                 // Restore the ports
                 if (m_Method != null)
@@ -309,7 +347,7 @@ namespace BH.UI.Grasshopper.Templates
                 m_LoadingError = e.ToString();
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "This component failed to load properly. Check that the corresponding method still exists. \nInternal Error: " + m_LoadingError);
             }
-            
+
             return true;
         }
 
@@ -404,7 +442,7 @@ namespace BH.UI.Grasshopper.Templates
                 SelectorMenu<MethodBase> selector = new SelectorMenu<MethodBase>(menu, Item_Click);
                 selector.AppendTree(m_MethodTree);
                 selector.AppendSearchBox(m_MethodList);
-            } 
+            }
         }
 
         /*************************************/
@@ -424,7 +462,7 @@ namespace BH.UI.Grasshopper.Templates
             ApplyMethod(m_Method);
         }
 
-        
+
         /*************************************/
         /**** Dynamic Update              ****/
         /*************************************/
@@ -508,7 +546,7 @@ namespace BH.UI.Grasshopper.Templates
                 while (nameType.GetGenericArguments().Count() > 0)
                     nameType = nameType.GetGenericArguments().First();
                 PortDataType portInfo = new PortDataType(output);
-                RegisterOutputParameter(portInfo.DataType); 
+                RegisterOutputParameter(portInfo.DataType);
                 Params.Output[0].Access = portInfo.AccessMode;
                 Params.Output[0].Description = m_Method.OutputDescription();
                 Params.Output[0].NickName = nameType.Name.Substring(0, 1);
@@ -519,7 +557,7 @@ namespace BH.UI.Grasshopper.Templates
         /*************************************/
 
         protected void Refresh()
-        { 
+        {
             // Refresh the component
             this.OnAttributesChanged();
             ExpireSolution(true);
@@ -768,7 +806,7 @@ namespace BH.UI.Grasshopper.Templates
         /*************************************/
         /**** Protected Fields            ****/
         /*************************************/
-        
+
         // Method containers calculated once at construction (both for menu tree and search box)
         protected Tree<MethodBase> m_MethodTree = new Tree<MethodBase>();
         protected List<Tuple<string, MethodBase>> m_MethodList = new List<Tuple<string, MethodBase>>();
@@ -778,10 +816,16 @@ namespace BH.UI.Grasshopper.Templates
         protected List<MethodInfo> m_DaGets = new List<MethodInfo>();
         protected MethodInfo m_DaSet = null;
         protected string m_LoadingError = "";
+        protected List<string> m_LoadingWarnings = new List<string>();
 
         protected bool m_IsDeprecated = false;
         protected bool m_IsNotImplemented = false;
         protected bool m_IsReleased = false;
+
+        // Method as deserialized
+        protected string m_StoredMethodName = "";
+        protected string m_StoredTypeName = "";
+        protected List<string> m_StoredParamTypes = new List<string>();
 
 
         /*************************************/
