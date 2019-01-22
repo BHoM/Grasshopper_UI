@@ -335,8 +335,12 @@ namespace BH.UI.Grasshopper.Templates
                 Type methodType = typeString.ToType();
                 RestoreMethod(methodType, methodName, paramTypes);
 
-                // Restore the ports
-                if (m_Method != null)
+
+                if (m_Method == null)
+                {
+                    m_LoadingError = $"{methodName} not found. It is recommended to replace the component with a new one.";
+                }
+                else // Restore the ports
                 {
                     m_IsDeprecated |= m_Method.IsDeprecated();
                     m_IsNotImplemented = m_Method.IsNotImplemented();
