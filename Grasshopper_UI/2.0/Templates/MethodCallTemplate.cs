@@ -321,7 +321,8 @@ namespace BH.UI.Grasshopper.Templates
 
                     if (parameterType == null)
                     {
-                        m_LoadingWarnings.Add($"Component failed to deserialize correctly. The type {paramType} cannot be found and is set to null");
+                        m_LoadingWarnings.Add($"Component failed to deserialize correctly. The type {paramType} cannot be found and is set to null.\n" +
+                                               "It is recommended to replace the component with a new one.");
                     }
                     paramTypes.Add(parameterType);
                 }
