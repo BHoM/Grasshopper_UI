@@ -252,7 +252,7 @@ namespace BH.UI.Grasshopper.Templates
         {
             bool isMethodNull = m_Method == null;
 
-            if (m_StoredTypeName != "" | m_StoredTypeName != null)
+            if ( m_StoredTypeName != null)
             {
                 writer.SetString("TypeName", m_StoredTypeName);
             }
@@ -261,7 +261,7 @@ namespace BH.UI.Grasshopper.Templates
                 writer.SetString("TypeName", m_Method.DeclaringType.AssemblyQualifiedName);
             }
 
-            if (m_StoredMethodName != "" | m_StoredMethodName != null)
+            if (m_StoredMethodName != null)
             {
                 writer.SetString("MethodName", m_StoredMethodName);
             }
