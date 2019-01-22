@@ -272,12 +272,14 @@ namespace BH.UI.Grasshopper.Templates
 
             if (m_StoredParamTypes.Count != 0)
             {
+                writer.SetInt32("NbParams", m_StoredParamTypes.Count);
                 for (int i = 0; i < m_StoredParamTypes.Count; i++)
                     writer.SetString("ParamType", i, m_StoredParamTypes[i]);
             }
             else if (!isMethodNull)
             {
                 ParameterInfo[] parameters = m_Method.GetParameters();
+                writer.SetInt32("NbParams", parameters.Length);
                 for (int i = 0; i < parameters.Count(); i++)
                     writer.SetString("ParamType", i, parameters[i].ParameterType.AssemblyQualifiedName);
             }
@@ -319,7 +321,7 @@ namespace BH.UI.Grasshopper.Templates
 
                     if (parameterType == null)
                     {
-                        m_LoadingWarnings.Add($"The type {paramType} cannot be found. Type is set to System.Object");
+                        m_LoadingWarnings.Add($"Component failed to deserialize correctly. The type {paramType} cannot be found and is set to null");
                     }
                     paramTypes.Add(parameterType);
                 }
