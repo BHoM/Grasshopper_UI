@@ -44,9 +44,9 @@ namespace BH.UI.Grasshopper.Components
         /**** Private Methods                   ****/
         /*******************************************/
 
-        public override void RefreshComponent()
+        public override void OnBHoMUpdates(object sender, object e)
         {
-            base.RefreshComponent();
+            base.OnBHoMUpdates();
 
             Type type = Caller.SelectedItem as Type;
             if (type != null)

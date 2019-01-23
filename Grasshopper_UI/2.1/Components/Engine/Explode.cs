@@ -42,8 +42,6 @@ namespace BH.UI.Grasshopper.Components
 
         public override Caller Caller { get; } = new ExplodeCaller();
 
-        public bool AutoUpdateOutputs { get; set; } = true;
-
 
         /*******************************************/
         /**** Constructors                      ****/
@@ -51,33 +49,68 @@ namespace BH.UI.Grasshopper.Components
 
         public ExplodeComponent() : base()
         {
-            Params.ParameterSourcesChanged += (sender, e) => UpdateOutputs(false);
+            this.Params.ParameterSourcesChanged += OnGrasshopperUpdates;
         }
 
 
         /*******************************************/
-        /**** Override Methods                  ****/
+        /**** Public Override Methods           ****/
         /*******************************************/
 
-        protected override void BeforeSolveInstance()
+        public override void OnBHoMUpdates(object sender = null, object e = null)
         {
+            // Forces the component to update
+            this.RegisterOutputParams();
+            this.Params.OnParametersChanged();
+            this.ExpireSolution(true);
+        }
+
+        /*******************************************/
+
+        public override void OnGrasshopperUpdates(object sender = null, object e = null)
+        {
+            // Update the output params based on input data
+            Params.Input[0].CollectData();
+            List<object> data = Params.Input[0].VolatileData.AllData(true).Select(x => x.ScriptVariable()).ToList();
+            ExplodeCaller caller = Caller as ExplodeCaller;
+            caller.CollectOutputTypes(data);
+        }
+
+
+        /*******************************************/
+        /**** Protected Override Methods        ****/
+        /*******************************************/
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            this.OnGrasshopperUpdates();
+
+            if (this.IsExpired())
+            {
+                Engine.Reflection.Compute.ClearCurrentEvents();
+                Engine.Reflection.Compute.RecordWarning("Output paramters do not match object properties. Please right click and <Update Outputs>");
+                Logging.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
+            }
+            else
+            {
+                base.SolveInstance(DA);
+            }
+        }
+
+        /*******************************************/
+
+        protected override void AfterSolveInstance()
+        {
+            if (Caller.OutputParams.Count != 0 & Params.Output.Count == 0)
+                this.OnBHoMUpdates();
             base.BeforeSolveInstance();
-            UpdateOutputs(false);
-        }
-
-        /*******************************************/
-
-        protected override void RegisterInputParams(GH_InputParamManager pManager)
-        {
-            if (Params.Input.Count == 0)
-                base.RegisterInputParams(pManager);
         }
 
         /*******************************************/
 
         protected override void AppendAdditionalComponentMenuItems(ToolStripDropDown menu)
         {
-            Menu_AppendItem(menu, "Update Outputs", RefreshLabel_Click);
+            Menu_AppendItem(menu, "Update Outputs", OnBHoMUpdates);
             base.AppendAdditionalComponentMenuItems(menu);
         }
 
@@ -86,33 +119,28 @@ namespace BH.UI.Grasshopper.Components
         /**** Private Methods                   ****/
         /*******************************************/
 
-        private void RefreshLabel_Click(object sender, EventArgs e)
+        private bool IsExpired()
         {
-            ExpireSolution(false);
-            UpdateOutputs(true);
-        }
-
-        /*******************************************/
-
-        private void UpdateOutputs(bool ignoreAutoUpdate)
-        {
-            bool doJob = ignoreAutoUpdate | AutoUpdateOutputs;
-            if (!doJob)
+            if (Caller.OutputParams.Count == 0 | Params.Output.Count == 0)
             {
-                Engine.Reflection.Compute.ClearCurrentEvents();
-                Engine.Reflection.Compute.RecordWarning("Source component expired, right click and <Update Outputs> to update");
-                Logging.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
-                return;
+                return true;
             }
-            // Update the output params based on input data
-            Params.Input[0].CollectData();
-            List<object> data = Params.Input[0].VolatileData.AllData(true).Select(x => x.ScriptVariable()).ToList();
-            ExplodeCaller caller = Caller as ExplodeCaller;
-            caller.CollectOutputTypes(data);
 
-            // Forces the component to update
-            this.RegisterOutputParams(null);
-            this.OnAttributesChanged();
+            if (Caller.OutputParams.Count != Params.Output.Count)
+            {
+                return true;
+            }
+
+            bool expired = false;
+            for (int i = 0; i < Caller.OutputParams.Count; i++)
+            {
+                expired |= Caller.OutputParams[i].Name != Params.Output[i].NickName;
+                if (expired)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         /*******************************************/

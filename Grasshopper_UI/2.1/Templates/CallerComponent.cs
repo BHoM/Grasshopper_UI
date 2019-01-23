@@ -78,7 +78,7 @@ namespace BH.UI.Grasshopper.Templates
             Accessor = new DataAccessor_GH(this);
             Caller.SetDataAccessor(Accessor);
 
-            Caller.ItemSelected += (sender, e) => RefreshComponent();
+            Caller.ItemSelected += OnItemSelected;
             Caller.SolutionExpired += (sender, e) => ExpireSolution(true);
         }
 
@@ -94,7 +94,7 @@ namespace BH.UI.Grasshopper.Templates
         /**** Public Methods                    ****/
         /*******************************************/
 
-        public virtual void RefreshComponent()
+        public virtual void OnItemSelected(object sender = null, object e = null)
         {
             Name = Caller.Name;
             NickName = Caller.Name;
@@ -104,12 +104,16 @@ namespace BH.UI.Grasshopper.Templates
             this.RegisterOutputParams(null); // We call its bits individually: input, output 
             this.Params.OnParametersChanged(); // and ask to update the layout with OnParametersChanged()
 
-            GH_Document document = OnPingDocument(); // when a solution is running the document of the component is set to null
-            if (document != null) // this prevents expiring a solution while another solution is running
-            {
-                ExpireSolution(true);
-            }
+            this.OnDisplayExpired(true);
         }
+
+        /*******************************************/
+
+        public virtual void OnBHoMUpdates(object sender = null, object e = null) { }
+
+        /*******************************************/
+
+        public virtual void OnGrasshopperUpdates(object sender, object e = null) { }
 
 
         /*******************************************/
@@ -253,7 +257,7 @@ namespace BH.UI.Grasshopper.Templates
             object item = BH.Engine.Serialiser.Convert.FromJson(code);
             if (item != null)
                 Caller.SetItem(item);
-            RefreshComponent();
+            this.OnItemSelected();
         }
 
 
