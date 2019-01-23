@@ -209,7 +209,7 @@ namespace BH.UI.Grasshopper.Base
             if (selectedItem != null)
             {
                 newComp.Caller.SetItem(selectedItem);
-                newComp.RefreshComponent();
+                newComp.OnBHoMUpdates();
             }
                 
             // Copy the links over
@@ -341,7 +341,6 @@ namespace BH.UI.Grasshopper.Base
         private static bool ReplaceObsolete(GH_Document doc, ExplodeJson component)
         {
             ExplodeComponent newComp = new ExplodeComponent();
-            newComp.AutoUpdateOutputs = false;
 
             foreach (IGH_Param param in component.Params.Output)
                 newComp.Params.RegisterOutputParam(GetNewParam(param as dynamic));
@@ -398,7 +397,7 @@ namespace BH.UI.Grasshopper.Base
             CreateCustomComponent newComp = new CreateCustomComponent();
             CreateCustomCaller caller = newComp.Caller as CreateCustomCaller;
             caller.SetInputs(component.Params.Input.Select(x => x.NickName).ToList());
-            newComp.RefreshComponent();
+            newComp.OnBHoMUpdates();
 
             return SwapComponent(doc, component, newComp, component.SelectedType);
         }
