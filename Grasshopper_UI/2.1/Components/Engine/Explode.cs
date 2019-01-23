@@ -59,6 +59,7 @@ namespace BH.UI.Grasshopper.Components
 
         public override void OnBHoMUpdates(object sender = null, object e = null)
         {
+            RecordUndoEvent("OnBHoMUpdates");
             // Forces the component to update
             this.RegisterOutputParams();
             this.Params.OnParametersChanged();
