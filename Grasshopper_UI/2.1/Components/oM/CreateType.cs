@@ -51,8 +51,9 @@ namespace BH.UI.Grasshopper.Components
             Type type = Caller.SelectedItem as Type;
             if (type != null)
                 Message = type.ToText();
-        }
 
+            ExpireSolution(true);
+        }
 
         /*******************************************/
     }
