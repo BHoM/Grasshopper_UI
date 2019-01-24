@@ -49,7 +49,7 @@ namespace BH.UI.Grasshopper.Components
 
         public ExplodeComponent() : base()
         {
-            this.Params.ParameterSourcesChanged += OnGrasshopperUpdates;
+            //this.Params.ParameterSourcesChanged += OnGrasshopperUpdates;
         }
 
 
