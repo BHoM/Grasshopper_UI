@@ -44,16 +44,6 @@ namespace BH.UI.Grasshopper.Components
 
 
         /*******************************************/
-        /**** Constructors                      ****/
-        /*******************************************/
-
-        public ExplodeComponent() : base()
-        {
-            //this.Params.ParameterSourcesChanged += OnGrasshopperUpdates;
-        }
-
-
-        /*******************************************/
         /**** Public Override Methods           ****/
         /*******************************************/
 
