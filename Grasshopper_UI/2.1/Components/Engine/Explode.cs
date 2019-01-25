@@ -47,7 +47,7 @@ namespace BH.UI.Grasshopper.Components
         /**** Public Override Methods           ****/
         /*******************************************/
 
-        public override void OnBHoMUpdates(object sender = null, object e = null)
+        public void OnBHoMUpdates(object sender = null, object e = null)
         {
             RecordUndoEvent("OnBHoMUpdates");
             // Forces the component to update
@@ -58,7 +58,7 @@ namespace BH.UI.Grasshopper.Components
 
         /*******************************************/
 
-        public override void OnGrasshopperUpdates(object sender = null, object e = null)
+        public void OnGrasshopperUpdates(object sender = null, object e = null)
         {
             // Update the output params based on input data
             Params.Input[0].CollectData();

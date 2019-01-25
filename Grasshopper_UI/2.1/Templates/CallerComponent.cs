@@ -114,14 +114,6 @@ namespace BH.UI.Grasshopper.Templates
             }
         }
 
-        /*******************************************/
-
-        public virtual void OnBHoMUpdates(object sender = null, object e = null) { }
-
-        /*******************************************/
-
-        public virtual void OnGrasshopperUpdates(object sender, object e = null) { }
-
 
         /*******************************************/
         /**** Override Methods                  ****/
