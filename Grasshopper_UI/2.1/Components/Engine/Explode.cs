@@ -76,16 +76,8 @@ namespace BH.UI.Grasshopper.Components
         {
             this.OnGrasshopperUpdates();
 
-            if (this.IsExpired())
-            {
-                Engine.Reflection.Compute.ClearCurrentEvents();
-                Engine.Reflection.Compute.RecordWarning("Output paramters do not match object properties. Please right click and <Update Outputs>");
-                Logging.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
-            }
-            else
-            {
+            if (!this.IsExpired())
                 base.SolveInstance(DA);
-            }
         }
 
         /*******************************************/
@@ -93,8 +85,24 @@ namespace BH.UI.Grasshopper.Components
         protected override void AfterSolveInstance()
         {
             if (Caller.OutputParams.Count != 0 & Params.Output.Count == 0)
+            {
                 this.OnBHoMUpdates();
-            base.BeforeSolveInstance();
+            }
+            else if (this.IsExpired())
+            {
+                if (Params.Output.All(p => p.Recipients.Count == 0))
+                {
+                    this.OnBHoMUpdates();
+                }
+                else
+                {
+                    Engine.Reflection.Compute.ClearCurrentEvents();
+                    Engine.Reflection.Compute.RecordWarning("Output paramters do not match object properties. Please right click and <Update Outputs>");
+                    Logging.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
+                }
+            }
+
+            base.AfterSolveInstance();
         }
 
         /*******************************************/
