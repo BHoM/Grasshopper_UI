@@ -104,14 +104,7 @@ namespace BH.UI.Grasshopper.Templates
             this.RegisterOutputParams(null); // We call its bits individually: input, output 
             this.Params.OnParametersChanged(); // and ask to update the layout with OnParametersChanged()
 
-            if (Caller.InputParams.Count == 0 | Caller.InputParams.All(p => p.HasDefaultValue))
-            {
-                this.ExpireSolution(true);
-            }
-            else
-            {
-                this.OnDisplayExpired(true);
-            }
+            this.ExpireSolution(true);
         }
 
 

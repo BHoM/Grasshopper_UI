@@ -84,7 +84,7 @@ namespace BH.UI.Grasshopper.Components
 
         protected override void AfterSolveInstance()
         {
-            if (Caller.OutputParams.Count != 0 & Params.Output.Count == 0)
+            if (Caller.OutputParams.Count != 0 && Params.Output.Count == 0)
             {
                 this.OnBHoMUpdates();
             }
@@ -120,7 +120,7 @@ namespace BH.UI.Grasshopper.Components
 
         private bool IsExpired()
         {
-            if (Caller.OutputParams.Count == 0 | Params.Output.Count == 0)
+            if (Caller.OutputParams.Count == 0 || Params.Output.Count == 0)
             {
                 return true;
             }
