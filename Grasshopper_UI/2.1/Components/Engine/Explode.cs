@@ -72,10 +72,14 @@ namespace BH.UI.Grasshopper.Components
         /**** Protected Override Methods        ****/
         /*******************************************/
 
+        protected override void BeforeSolveInstance()
+        {
+            base.BeforeSolveInstance();
+            this.OnGrasshopperUpdates();
+        }
+
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            this.OnGrasshopperUpdates();
-
             if (!this.IsExpired())
                 base.SolveInstance(DA);
         }
@@ -120,7 +124,12 @@ namespace BH.UI.Grasshopper.Components
 
         private bool IsExpired()
         {
-            if (Caller.OutputParams.Count == 0 || Params.Output.Count == 0)
+            if (Params.Input.Count == 1 && Params.Input[0].SourceCount == 0) // Nothing plugged in
+            {
+                return false;
+            }
+
+            if (Caller.OutputParams.Count == 0 || Params.Output.Count == 0) 
             {
                 return true;
             }
