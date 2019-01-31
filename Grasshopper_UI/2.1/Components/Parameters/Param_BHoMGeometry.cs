@@ -21,6 +21,7 @@
  */
 
 using BH.UI.Grasshopper.Properties;
+using GH_IO.Serialization;
 using Grasshopper.Kernel;
 using System;
 using System.Collections.Generic;
@@ -72,6 +73,16 @@ namespace BH.UI.Grasshopper.Objects
         public void DrawViewportWires(IGH_PreviewArgs args)
         {
             Preview_DrawWires(args);
+        }
+
+        /*******************************************/
+
+        public override bool Read(GH_IReader reader)
+        {
+            Engine.Reflection.Compute.ClearCurrentEvents();
+            bool success = base.Read(reader);
+            Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
+            return success;
         }
 
         /*******************************************/
