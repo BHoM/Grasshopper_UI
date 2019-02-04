@@ -24,13 +24,9 @@ using Grasshopper.Kernel;
 using BH.UI.Grasshopper.Templates;
 using BH.UI.Templates;
 using BH.UI.Components;
-using System.Linq;
-using System.Collections.Generic;
 using Grasshopper.Kernel.Parameters;
-using GH_IO.Serialization;
-using System.Runtime.CompilerServices;
-using System;
 using Grasshopper.Kernel.Parameters.Hints;
+using BH.Engine.Grasshopper;
 
 namespace BH.UI.Grasshopper.Components
 {
@@ -49,21 +45,52 @@ namespace BH.UI.Grasshopper.Components
 
         public CreateCustomComponent() : base()
         {
-            Params.ParameterChanged += SyncParamsFromGH;
+            this.Params.ParameterChanged += (sender, e) => OnGrasshopperUpdates(sender, e.Parameter);
+        }
+
+
+        /*******************************************/
+        /**** Public Methods                    ****/
+        /*******************************************/
+
+        public void OnGrasshopperUpdates(object sender, IGH_Param param)
+        {
+            if (sender == null)
+                return;
+
+            if (param == null)
+                return;
+
+            CreateCustomCaller caller = Caller as CreateCustomCaller;
+            if (caller == null)
+                return;
+
+            RecordUndoEvent("CreateCustom.OnGrasshopperUpdates");
+            // Updating Caller.InputParams based on the new Grasshopper parameter just received
+            switch (sender)
+            {
+                case "CreateParameter":
+                    caller.AddInput(param.NickName, param.Type());
+                    return;
+                case "DestroyParameter":
+                    caller.RemoveInput(param.NickName);
+                    return;
+                default:
+                    // Fired when TypeHint or Access change.
+                    // We update the caller with the new type and let SolveIntance set the new Accessor
+                    int index = Params.IndexOfInputParam(param.Name);
+                    if (index != -1)
+                    {
+                        caller.UpdateInput(index, param.NickName, param.Type(caller));
+                        ExpireSolution(true); // If only NickName has changed grasshopper does not recompute the solution, so we explicitly do it
+                    }
+                    return;
+            }
         }
 
 
         /*******************************************/
         /**** Override Methods                  ****/
-        /*******************************************/
-
-        protected override void RegisterInputParams(GH_InputParamManager pManager)
-        {
-            // Let this component be in charge of storing the inputs 
-            // (RegisterInputParams(pManager) happens before Read(reader), so the caller does not know the right input list yet)
-            SyncParamsFromGH();
-        }
-
         /*******************************************/
 
         public override bool CanInsertParameter(GH_ParameterSide side, int index)
@@ -87,44 +114,37 @@ namespace BH.UI.Grasshopper.Components
                 NickName = GH_ComponentParamServer.InventUniqueNickname("xyzuvw", this.Params.Input),
                 TypeHint = new GH_NullHint()
             };
+            this.OnGrasshopperUpdates("CreateParameter", param);
             return param;
+        }
+
+        /*******************************************/
+
+        public override bool DestroyParameter(GH_ParameterSide side, int index)
+        {
+            if (side == GH_ParameterSide.Output)
+                return true;
+
+            if (Params.Input.Count <= index)
+                return true;
+
+            this.OnGrasshopperUpdates("DestroyParameter", Params.Input[index]);
+            return true;
         }
 
         /*******************************************/
 
         public override void VariableParameterMaintenance()
         {
-            SyncParamsFromGH();
-        }
-
-        /*******************************************/
-
-        private void SyncParamsFromGH(object sender = null, EventArgs e = null)
-        {
-            CreateCustomCaller caller = Caller as CreateCustomCaller;
-            if (caller != null)
+            foreach (IGH_Param param in Params.Input)
             {
-                List<string> nicknames = new List<string>();
-                List<Type> types = new List<Type>();
-                foreach (IGH_Param param in Params.Input)
+                Param_ScriptVariable paramScript = param as Param_ScriptVariable;
+                if (paramScript != null)
                 {
-                    string name = param.NickName;
-                    Param_ScriptVariable paramScript = param as Param_ScriptVariable;
-                    if (paramScript != null)
-                    {
-                        paramScript.ShowHints = true;
-                        paramScript.Hints = Engine.Grasshopper.Query.AvailableHints;
-                        paramScript.AllowTreeAccess = true;
-                        types.Add(Engine.Grasshopper.Query.Type(paramScript.TypeHint, paramScript.Access));
-                    }
-                    else
-                    {
-                        types.Add(param.Type);
-                    }
-                    nicknames.Add(name);
+                    paramScript.ShowHints = true;
+                    paramScript.Hints = Engine.Grasshopper.Query.AvailableHints;
+                    paramScript.AllowTreeAccess = true;
                 }
-                caller.SetDataAccessor(Accessor);
-                caller.SetInputs(nicknames, types);
             }
         }
 
