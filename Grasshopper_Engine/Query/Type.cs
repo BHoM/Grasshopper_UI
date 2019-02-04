@@ -20,6 +20,8 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.UI.Components;
+using BH.UI.Templates;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Parameters;
 using System;
@@ -34,8 +36,28 @@ namespace BH.Engine.Grasshopper
         /**** Public Fields                             ****/
         /***************************************************/
 
+        public static Type Type(this IGH_Param param, Caller caller = null)
+        {
+            if (param == null)
+                return typeof(object);
+
+            if (param is Param_ScriptVariable)
+                return Type(((Param_ScriptVariable)param).TypeHint, param.Access);
+
+            else if (caller != null && caller is CreateCustomCaller)
+                return ((CreateCustomCaller)caller).GetParam(param.NickName).DataType;
+
+            else
+                return param.Type;
+        }
+
+        /***************************************************/
+
         public static Type Type(this IGH_TypeHint hint, GH_ParamAccess access)
         {
+            if (hint == null)
+                return typeof(object);
+
             switch (hint.TypeName)
             {
                 case "null":

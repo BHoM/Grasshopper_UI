@@ -37,7 +37,7 @@ namespace BH.Engine.Grasshopper
         /**** Public Methods                    ****/
         /*******************************************/
 
-        public static T FromGoo<T>(this IGH_Goo goo, IGH_TypeHint hint=null)
+        public static T FromGoo<T>(this IGH_Goo goo, IGH_TypeHint hint = null)
         {
             if (goo == null)
                 return default(T);
@@ -59,14 +59,12 @@ namespace BH.Engine.Grasshopper
             {
                 object result;
                 hint.Cast(RuntimeHelpers.GetObjectValue(data), out result);
-                return (T)result;
+                data = result;
             }
-            else
-            {
-                if (data.GetType().Namespace.StartsWith("Rhino.Geometry"))
-                    data = BH.Engine.Rhinoceros.Convert.ToBHoM(data as dynamic);
-                return (T)(data as dynamic);
-            }
+
+            if (data.GetType().Namespace.StartsWith("Rhino.Geometry"))
+                data = BH.Engine.Rhinoceros.Convert.ToBHoM(data as dynamic);
+            return (T)(data as dynamic);
         }
 
         /*************************************/
