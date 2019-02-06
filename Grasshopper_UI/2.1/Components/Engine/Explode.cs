@@ -20,14 +20,17 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using System;
+using GH = Grasshopper;
 using Grasshopper.Kernel;
+using BH.oM.Base;
+using BH.UI.Grasshopper.Base;
 using BH.UI.Grasshopper.Templates;
 using BH.UI.Templates;
 using BH.UI.Components;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using BH.Engine.Grasshopper;
 
 namespace BH.UI.Grasshopper.Components
 {
