@@ -140,7 +140,6 @@ namespace BH.UI.Grasshopper.Components
             for (int i = 0; i < Caller.OutputParams.Count; i++)
             {
                 expired |= Caller.OutputParams[i].Name != Params.Output[i].NickName;
-                expired |= !Caller.OutputParams[i].DataType.IsAssignableFrom(Params.Output[i].Type(Caller));
                 if (expired)
                 {
                     return true;
