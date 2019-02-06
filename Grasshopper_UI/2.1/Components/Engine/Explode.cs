@@ -41,7 +41,7 @@ namespace BH.UI.Grasshopper.Components
 
 
         /*******************************************/
-        /**** Public Methods                    ****/
+        /**** Public Override Methods           ****/
         /*******************************************/
 
         public void OnBHoMUpdates(object sender = null, object e = null)
@@ -126,7 +126,7 @@ namespace BH.UI.Grasshopper.Components
                 return false;
             }
 
-            if ((Caller.OutputParams.Count == 0 || Params.Output.Count == 0) && Params.Input[0].SourceCount == 0) 
+            if (Caller.OutputParams.Count == 0 || Params.Output.Count == 0) 
             {
                 return true;
             }
