@@ -45,7 +45,7 @@ namespace BH.UI.Grasshopper.Components
 
         public CreateCustomComponent() : base()
         {
-            this.Params.ParameterChanged += (sender, e) => OnGrasshopperUpdates(sender, e.Parameter);
+            this.Params.ParameterChanged += (sender, e) => OnGrasshopperUpdates("ParameterChanged", e.Parameter, e.ParameterIndex);
         }
 
 
@@ -53,7 +53,7 @@ namespace BH.UI.Grasshopper.Components
         /**** Public Methods                    ****/
         /*******************************************/
 
-        public void OnGrasshopperUpdates(object sender, IGH_Param param)
+        public void OnGrasshopperUpdates(object sender, IGH_Param param, int index)
         {
             if (sender == null)
                 return;
@@ -65,25 +65,23 @@ namespace BH.UI.Grasshopper.Components
             if (caller == null)
                 return;
 
-            RecordUndoEvent("CreateCustom.OnGrasshopperUpdates");
             // Updating Caller.InputParams based on the new Grasshopper parameter just received
             switch (sender)
             {
                 case "CreateParameter":
-                    caller.AddInput(param.NickName, param.Type());
+                    caller.AddInput(index, param.NickName, param.Type());
                     return;
                 case "DestroyParameter":
                     caller.RemoveInput(param.NickName);
                     return;
-                default:
+                case "ParameterChanged":
                     // Fired when TypeHint or Access change.
                     // We update the caller with the new type and let SolveIntance set the new Accessor
-                    int index = Params.IndexOfInputParam(param.Name);
-                    if (index != -1)
-                    {
-                        caller.UpdateInput(index, param.NickName, param.Type(caller));
-                        ExpireSolution(true); // If only NickName has changed grasshopper does not recompute the solution, so we explicitly do it
-                    }
+                    if (index == -1)
+                        return;
+
+                    caller.UpdateInput(index, param.NickName, param.Type(caller));
+                    ExpireSolution(false); // If only NickName has changed grasshopper does not recompute the solution, so we explicitly do it
                     return;
             }
         }
@@ -114,7 +112,7 @@ namespace BH.UI.Grasshopper.Components
                 NickName = GH_ComponentParamServer.InventUniqueNickname("xyzuvw", this.Params.Input),
                 TypeHint = new GH_NullHint()
             };
-            this.OnGrasshopperUpdates("CreateParameter", param);
+            this.OnGrasshopperUpdates("CreateParameter", param, index);
             return param;
         }
 
@@ -128,7 +126,7 @@ namespace BH.UI.Grasshopper.Components
             if (Params.Input.Count <= index)
                 return true;
 
-            this.OnGrasshopperUpdates("DestroyParameter", Params.Input[index]);
+            this.OnGrasshopperUpdates("DestroyParameter", Params.Input[index], index);
             return true;
         }
 
