@@ -20,6 +20,7 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using GH = Grasshopper;
 using Grasshopper.Kernel;
 using BH.UI.Grasshopper.Templates;
 using BH.UI.Templates;
@@ -27,6 +28,7 @@ using BH.UI.Components;
 using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Parameters.Hints;
 using BH.Engine.Grasshopper;
+using System.Linq;
 
 namespace BH.UI.Grasshopper.Components
 {
@@ -79,7 +81,8 @@ namespace BH.UI.Grasshopper.Components
                         return;
 
                     caller.UpdateInput(index, param.NickName, param.Type(caller)); // We update the InputParams with the new type
-                    ExpireSolution(this.Phase == GH_SolutionPhase.Computed); // We recompute only if there is no other scheduled solution running
+                    // We recompute only if there is no other scheduled solution running or the gh is not rendering any capsule or parameter
+                    ExpireSolution(this.Phase == GH_SolutionPhase.Computed && !param.Sources.Any(p => p.Attributes.GetTopLevel.DocObject is ExplodeComponent));
                     return;
             }
         }
