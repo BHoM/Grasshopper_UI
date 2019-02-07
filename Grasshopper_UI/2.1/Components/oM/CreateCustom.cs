@@ -74,14 +74,12 @@ namespace BH.UI.Grasshopper.Components
                 case "DestroyParameter":
                     caller.RemoveInput(param.NickName);
                     return;
-                case "ParameterChanged":
-                    // Fired when TypeHint or Access change.
-                    // We update the caller with the new type and let SolveIntance set the new Accessor
+                case "ParameterChanged": // Fired when TypeHint, Access or Nickname change.
                     if (index == -1)
                         return;
 
-                    caller.UpdateInput(index, param.NickName, param.Type(caller));
-                    ExpireSolution(false); // If only NickName has changed grasshopper does not recompute the solution, so we explicitly do it
+                    caller.UpdateInput(index, param.NickName, param.Type(caller)); // We update the InputParams with the new type
+                    ExpireSolution(this.Phase == GH_SolutionPhase.Computed); // We recompute only if there is no other scheduled solution running
                     return;
             }
         }
