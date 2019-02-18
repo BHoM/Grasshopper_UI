@@ -46,7 +46,7 @@ namespace BH.UI.Grasshopper.Components
 
         public CreateCustomComponent() : base()
         {
-            this.Params.ParameterChanged += (sender, e) => OnGrasshopperUpdates("ParameterChanged", e.Parameter, e.ParameterIndex);
+            this.Params.ParameterChanged += OnGrasshopperUpdates;
         }
 
 
@@ -54,12 +54,12 @@ namespace BH.UI.Grasshopper.Components
         /**** Public Methods                    ****/
         /*******************************************/
 
-        public void OnGrasshopperUpdates(object sender, IGH_Param param, int index)
+        public void OnGrasshopperUpdates(object sender, GH_ParamServerEventArgs e)
         {
             if (sender == null)
                 return;
 
-            if (param == null)
+            if (e == null || e.Parameter == null || e.ParameterIndex == -1)
                 return;
 
             CreateCustomCaller caller = Caller as CreateCustomCaller;
@@ -67,23 +67,10 @@ namespace BH.UI.Grasshopper.Components
                 return;
 
             // Updating Caller.InputParams based on the new Grasshopper parameter just received
-            switch (sender)
-            {
-                case "CreateParameter":
-                    caller.AddInput(index, param.NickName, param.Type());
-                    return;
-                case "DestroyParameter":
-                    caller.RemoveInput(param.NickName);
-                    return;
-                case "ParameterChanged": // Fired when TypeHint, Access or Nickname change.
-                    if (index == -1)
-                        return;
-
-                    caller.UpdateInput(index, param.NickName, param.Type(caller)); // We update the InputParams with the new type
-                    // We recompute only if there is no other scheduled solution running or the gh is not rendering any capsule or parameter
-                    ExpireSolution(this.Phase == GH_SolutionPhase.Computed && !param.Sources.Any(p => p.Attributes.GetTopLevel.DocObject is ExplodeComponent));
-                    return;
-            }
+            caller.UpdateInput(e.ParameterIndex, e.Parameter.NickName, e.Parameter.Type(caller)); // We update the InputParams with the new type or name
+            // We recompute only if there is no other scheduled solution running or the update does not come from an explode, which will cause a crash
+            ExpireSolution(this.Phase == GH_SolutionPhase.Computed && !e.Parameter.Sources.Any(p => p.Attributes.GetTopLevel.DocObject is ExplodeComponent));
+            return;
         }
 
 
@@ -112,7 +99,11 @@ namespace BH.UI.Grasshopper.Components
                 NickName = GH_ComponentParamServer.InventUniqueNickname("xyzuvw", this.Params.Input),
                 TypeHint = new GH_NullHint()
             };
-            this.OnGrasshopperUpdates("CreateParameter", param, index);
+
+            // Updating the caller with the parameter that Grasshopper just added
+            CreateCustomCaller caller = Caller as CreateCustomCaller;
+            if (caller != null && param != null)
+                caller.AddInput(index, param.NickName, param.Type());
             return param;
         }
 
@@ -126,7 +117,10 @@ namespace BH.UI.Grasshopper.Components
             if (Params.Input.Count <= index)
                 return true;
 
-            this.OnGrasshopperUpdates("DestroyParameter", Params.Input[index], index);
+            // Updating the caller with the parameter that Grasshopper just removed
+            CreateCustomCaller caller = Caller as CreateCustomCaller;
+            if (caller != null)
+                caller.RemoveInput(Params.Input[index].NickName);
             return true;
         }
 
