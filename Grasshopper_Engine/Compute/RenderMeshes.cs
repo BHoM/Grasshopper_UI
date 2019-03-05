@@ -174,6 +174,13 @@ namespace BH.Engine.Grasshopper
 
         /***************************************************/
 
+        public static void RenderMeshes(BHG.PlanarSurface surface, Rhino.Display.DisplayPipeline pipeline, DisplayMaterial material)
+        {
+            pipeline.DrawBrepShaded(surface.ToRhino(), material);
+        }
+
+        /***************************************************/
+
         public static void RenderMeshes(BHG.PolySurface polySurface, Rhino.Display.DisplayPipeline pipeline, DisplayMaterial material)
         {
             List<BHG.ISurface> surfaces = polySurface.Surfaces;
