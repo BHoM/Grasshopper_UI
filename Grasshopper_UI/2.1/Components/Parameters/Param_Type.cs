@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2019, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -21,14 +21,11 @@
  */
 
 using BH.UI.Grasshopper.Properties;
-using GH_IO.Serialization;
-using Grasshopper.Kernel;
 using System;
-using System.Collections.Generic;
 
 namespace BH.UI.Grasshopper.Objects
 {
-    public class Param_Type : GH_PersistentParam<Engine.Grasshopper.Objects.GH_Type>
+    public class Param_Type : BHoMParam<Engine.Grasshopper.Objects.GH_Type>
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -36,51 +33,17 @@ namespace BH.UI.Grasshopper.Objects
 
         protected override System.Drawing.Bitmap Icon { get; } = Resources.Type_Param;
 
-        public override GH_Exposure Exposure { get; } = GH_Exposure.tertiary;
-
         public override Guid ComponentGuid { get; } = new Guid("AA7DDCDC-2789-4A23-88AD-E1E4CD84FB37");
 
         public override string TypeName { get; } = "Type";
-
-        public bool Hidden { get; set; } = false;
-
-        public bool IsPreviewCapable { get; } = false;
 
 
         /*******************************************/
         /**** Constructors                      ****/
         /*******************************************/
 
-        public Param_Type()
-            : base(new GH_InstanceDescription("Object Type", "Type", "Represents the type of an object", "Params", "Primitive"))
+        public Param_Type() : base("Object Type", "Type", "Represents the type of an object", "Params", "Primitive")
         {
-        }
-
-
-        /*******************************************/
-        /**** Override Methods                  ****/
-        /*******************************************/
-
-        public override bool Read(GH_IReader reader)
-        {
-            Engine.Reflection.Compute.ClearCurrentEvents();
-            bool success = base.Read(reader);
-            Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
-            return success;
-        }
-
-        /*******************************************/
-
-        protected override GH_GetterResult Prompt_Singular(ref Engine.Grasshopper.Objects.GH_Type value)
-        {
-            return GH_GetterResult.cancel;
-        }
-
-        /*******************************************/
-
-        protected override GH_GetterResult Prompt_Plural(ref List<Engine.Grasshopper.Objects.GH_Type> values)
-        {
-            return GH_GetterResult.cancel;
         }
 
         /*******************************************/
