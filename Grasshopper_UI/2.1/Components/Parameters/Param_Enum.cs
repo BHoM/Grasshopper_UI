@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 201, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -21,14 +21,11 @@
  */
 
 using BH.UI.Grasshopper.Properties;
-using GH_IO.Serialization;
-using Grasshopper.Kernel;
 using System;
-using System.Collections.Generic;
 
 namespace BH.UI.Grasshopper.Objects
 {
-    public class Param_Enum : GH_PersistentParam<Engine.Grasshopper.Objects.GH_Enum>
+    public class Param_Enum : BHoMParam<Engine.Grasshopper.Objects.GH_Enum>
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -36,50 +33,17 @@ namespace BH.UI.Grasshopper.Objects
 
         protected override System.Drawing.Bitmap Icon { get; } = Resources.Enum_Param;
 
-        public override GH_Exposure Exposure { get; } = GH_Exposure.tertiary;
-
         public override Guid ComponentGuid { get; } = new Guid("C62F4BD6-9B7F-4A81-94DD-CA16B2D8D3EC");
 
         public override string TypeName { get; } = "Enum";
-
-        public bool Hidden { get; set; } = false;
-
-        public bool IsPreviewCapable { get; } = false;
 
 
         /*******************************************/
         /**** Constructors                      ****/
         /*******************************************/
 
-        public Param_Enum() : base(new GH_InstanceDescription("Enum", "Enum", "Represents an enum", "Params", "Primitive"))
+        public Param_Enum() : base("Enum", "Enum", "Represents an enum", "Params", "Primitive")
         {
-        }
-
-
-        /*******************************************/
-        /**** Override Methods                  ****/
-        /*******************************************/
-
-        public override bool Read(GH_IReader reader)
-        {
-            Engine.Reflection.Compute.ClearCurrentEvents();
-            bool success = base.Read(reader);
-            Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
-            return success;
-        }
-
-        /*******************************************/
-
-        protected override GH_GetterResult Prompt_Singular(ref Engine.Grasshopper.Objects.GH_Enum value)
-        {
-            return GH_GetterResult.cancel;
-        }
-
-        /*******************************************/
-
-        protected override GH_GetterResult Prompt_Plural(ref List<Engine.Grasshopper.Objects.GH_Enum> values)
-        {
-            return GH_GetterResult.cancel;
         }
 
         /*******************************************/
