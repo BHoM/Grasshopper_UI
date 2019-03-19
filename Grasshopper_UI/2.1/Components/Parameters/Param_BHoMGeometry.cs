@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2019, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -21,14 +21,11 @@
  */
 
 using BH.UI.Grasshopper.Properties;
-using GH_IO.Serialization;
-using Grasshopper.Kernel;
 using System;
-using System.Collections.Generic;
 
 namespace BH.UI.Grasshopper.Objects
 {
-    public class Param_BHoMGeometry : GH_PersistentParam<Engine.Grasshopper.Objects.GH_IBHoMGeometry>, IGH_PreviewObject
+    public class Param_BHoMGeometry : BHoMParam<Engine.Grasshopper.Objects.GH_IBHoMGeometry>
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -36,69 +33,19 @@ namespace BH.UI.Grasshopper.Objects
 
         protected override System.Drawing.Bitmap Icon { get; } = Resources.IBHoMGeometry_Param;
 
-        public override GH_Exposure Exposure { get; } = GH_Exposure.tertiary;
-
         public override Guid ComponentGuid { get; } = new Guid("EFD86C1F-D674-4905-A660-28C81A807080");
 
         public override string TypeName { get; } = "BHoM Geometry";
-
-        public bool Hidden { get; set; } = false;
-
-        public bool IsPreviewCapable { get; } = true; 
-
-        public Rhino.Geometry.BoundingBox ClippingBox { get { return Preview_ComputeClippingBox(); } }
 
 
         /*******************************************/
         /**** Constructors                      ****/
         /*******************************************/
 
-        public Param_BHoMGeometry()
-            : base(new GH_InstanceDescription("BHoM geometry", "BHoMGeo", "Represents a collection of generic BHoM geometries", "Params", "Geometry"))
+        public Param_BHoMGeometry(): base("BHoM geometry", "BHoMGeo", "Represents a collection of generic BHoM geometries", "Params", "Geometry")
         {
         }
-
-
-        /*******************************************/
-        /**** Override Methods                  ****/
-        /*******************************************/
-
-        public void DrawViewportMeshes(IGH_PreviewArgs args)
-        {
-            Preview_DrawMeshes(args);
-        }
-
-        /*******************************************/
-
-        public void DrawViewportWires(IGH_PreviewArgs args)
-        {
-            Preview_DrawWires(args);
-        }
-
-        /*******************************************/
-
-        public override bool Read(GH_IReader reader)
-        {
-            Engine.Reflection.Compute.ClearCurrentEvents();
-            bool success = base.Read(reader);
-            Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
-            return success;
-        }
-
-        /*******************************************/
-
-        protected override GH_GetterResult Prompt_Singular(ref Engine.Grasshopper.Objects.GH_IBHoMGeometry value)
-        {
-            return GH_GetterResult.cancel;
-        }
-
-        /*******************************************/
-
-        protected override GH_GetterResult Prompt_Plural(ref List<Engine.Grasshopper.Objects.GH_IBHoMGeometry> values)
-        {
-            return GH_GetterResult.cancel;
-        }
-
+        
         /*******************************************/
     }
 }
