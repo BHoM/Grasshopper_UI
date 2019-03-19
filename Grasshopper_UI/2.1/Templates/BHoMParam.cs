@@ -29,6 +29,7 @@ using Grasshopper.Kernel.Types;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Linq;
 
 namespace BH.UI.Grasshopper.Objects
 {
@@ -125,18 +126,14 @@ namespace BH.UI.Grasshopper.Objects
                 CallerComponent parent = this.Attributes.GetTopLevel.DocObject as CallerComponent;
                 if (parent.Caller != null && parent.Caller.SelectedItem is MethodInfo)
                 {
-                    MethodInfo method = parent.Caller.SelectedItem as MethodInfo;
                     Type type = null;
                     if (parent.Params.IsInputParam(this))
                     {
-                        ParameterInfo[] inputs = method.GetParameters();
-                        int k = parent.Params.Input.FindIndex(p => p.NickName == this.NickName);
-                        if (k < inputs.Length)
-                            type = inputs[k].ParameterType;
+                        type = parent.Caller.InputParams.Find(p => p.Name == this.NickName).DataType;
                     }
                     else if (parent.Params.IsOutputParam(this))
                     {
-                        type = method.ReturnType;
+                        type = parent.Caller.OutputParams.FirstOrDefault()?.DataType;
                     }
                     BH.Engine.Reflection.Compute.OpenHelpPage(type);
                 }
