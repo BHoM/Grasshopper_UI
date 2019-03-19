@@ -35,6 +35,7 @@ using System.Windows.Forms;
 using Grasshopper.Kernel.Special;
 using Grasshopper.Kernel.Data;
 using Grasshopper.Kernel.Types;
+using BH.Engine.Reflection;
 
 namespace BH.UI.Grasshopper.Templates
 {
@@ -149,6 +150,18 @@ namespace BH.UI.Grasshopper.Templates
             else
                 return false;
         }
+        
+        /*************************************/
+
+        protected override string HtmlHelp_Source()
+        {
+            if (Caller != null)
+            {
+                BH.Engine.Reflection.Compute.IOpenHelpPage(Caller.SelectedItem);
+            }
+            return base.HtmlHelp_Source();
+        }
+
 
         /*************************************/
         /**** Initialisation via String   ****/
