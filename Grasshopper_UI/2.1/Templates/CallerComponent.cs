@@ -209,6 +209,17 @@ namespace BH.UI.Grasshopper.Templates
 
         /*************************************/
 
+        protected override string HtmlHelp_Source()
+        {
+            if (Caller != null)
+            {
+                BH.Engine.Reflection.Compute.IOpenHelpPage(Caller.SelectedItem);
+            }
+            return base.HtmlHelp_Source();
+        }
+
+        /*************************************/
+
         public virtual bool CanInsertParameter(GH_ParameterSide side, int index)
         {
             return false;
