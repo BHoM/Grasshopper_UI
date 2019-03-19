@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2019, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -21,14 +21,11 @@
  */
 
 using BH.UI.Grasshopper.Properties;
-using GH_IO.Serialization;
-using Grasshopper.Kernel;
 using System;
-using System.Collections.Generic;
 
 namespace BH.UI.Grasshopper.Objects
 {
-    public class Param_Dictionary : GH_PersistentParam<Engine.Grasshopper.Objects.GH_Dictionary>
+    public class Param_Dictionary : BHoMParam<Engine.Grasshopper.Objects.GH_Dictionary>
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -36,51 +33,17 @@ namespace BH.UI.Grasshopper.Objects
 
         protected override System.Drawing.Bitmap Icon { get; } = Resources.Dictionary_Param;
 
-        public override GH_Exposure Exposure { get; } = GH_Exposure.tertiary;
-
         public override Guid ComponentGuid { get; } = new Guid("82AA94FD-F2D9-4DBD-9425-F4C9EA8A1C37");
 
         public override string TypeName { get; } = "Dictionary";
-
-        public bool Hidden { get; set; } = false;
-
-        public bool IsPreviewCapable { get; } = false;
 
 
         /*******************************************/
         /**** Constructors                      ****/
         /*******************************************/
 
-        public Param_Dictionary()
-            : base(new GH_InstanceDescription("Dictionary", "Dictionary", "Represents an Dictionary", "Params", "Primitive"))
+        public Param_Dictionary(): base("Dictionary", "Dictionary", "Represents an Dictionary", "Params", "Primitive")
         {
-        }
-
-
-        /*******************************************/
-        /**** Override Methods                  ****/
-        /*******************************************/
-
-        public override bool Read(GH_IReader reader)
-        {
-            Engine.Reflection.Compute.ClearCurrentEvents();
-            bool success = base.Read(reader);
-            Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
-            return success;
-        }
-
-        /*******************************************/
-
-        protected override GH_GetterResult Prompt_Singular(ref Engine.Grasshopper.Objects.GH_Dictionary value)
-        {
-            return GH_GetterResult.cancel;
-        }
-
-        /*******************************************/
-
-        protected override GH_GetterResult Prompt_Plural(ref List<Engine.Grasshopper.Objects.GH_Dictionary> values)
-        {
-            return GH_GetterResult.cancel;
         }
 
         /*******************************************/
