@@ -21,10 +21,14 @@
  */
 
 using BH.UI.Grasshopper.Properties;
+using BH.UI.Grasshopper.Templates;
+using BH.UI.Templates;
 using GH_IO.Serialization;
 using Grasshopper.Kernel;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace BH.UI.Grasshopper.Objects
 {
@@ -100,5 +104,42 @@ namespace BH.UI.Grasshopper.Objects
         }
 
         /*******************************************/
+
+        protected override string HtmlHelp_Source()
+        {
+            if (this.Attributes.IsTopLevel)
+            {
+                Engine.Grasshopper.Objects.GH_BHoMObject obj = this.m_data.get_FirstItem(true);
+                if (obj != null && obj.Value != null)
+                {
+                    BH.Engine.Reflection.Compute.OpenHelpPage(obj.Value.GetType());
+                }
+            }
+            else if (typeof(CallerComponent).IsAssignableFrom(this.Attributes.GetTopLevel.DocObject.GetType()))
+            {
+                CallerComponent parent = this.Attributes.GetTopLevel.DocObject as CallerComponent;
+                if (parent.Caller != null && parent.Caller.SelectedItem is MethodInfo)
+                {
+                    MethodInfo method = parent.Caller.SelectedItem as MethodInfo;
+                    Type type;
+                    if (parent.Params.IsInputParam(this))
+                    {
+                        ParameterInfo[] inputs = method.GetParameters();
+                        int k = parent.Params.Input.FindIndex(p => p.NickName == this.NickName);
+                        if (k < inputs.Length)
+                            type = inputs[k].ParameterType;
+                    }
+                    else if (parent.Params.IsOutputParam(this))
+                    {
+                        type = method.ReflectedType;
+                    }
+
+                    BH.Engine.Reflection.Compute.OpenHelpPage(method.ReturnType);
+                }
+            }
+            return base.HtmlHelp_Source();
+        }
     }
+
+    /*******************************************/
 }
