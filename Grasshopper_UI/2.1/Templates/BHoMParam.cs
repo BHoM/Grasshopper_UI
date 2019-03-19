@@ -30,7 +30,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 
-namespace BH.UI.Grasshopper.Objects
+namespace BH.UI.Grasshopper.Templates
 {
     public class BHoMParam<T> : GH_PersistentParam<T>, IGH_PreviewObject where T : class, IGH_Goo
     {
