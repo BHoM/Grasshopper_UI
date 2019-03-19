@@ -24,21 +24,14 @@ using System;
 using Grasshopper.Kernel;
 using System.Collections.Generic;
 using System.Linq;
-using BH.oM.Base;
 using BH.UI.Grasshopper.Templates;
 using System.IO;
-using System.Reflection;
-using Grasshopper.Kernel.Data;
-using Grasshopper.Kernel.Types;
-using BH.UI.Grasshopper.Base.NonComponents.Others;
-using BH.oM.Testing;
 using Grasshopper.Kernel.Special;
 using BH.UI.Grasshopper.Components;
 using System.Drawing;
 using BH.UI.Grasshopper.Adapter;
 using BH.UI.Components;
-using Grasshopper.Kernel.Parameters;
-using BH.UI.Grasshopper.Objects;
+using BH.UI.Grasshopper.Parameters;
 
 namespace BH.UI.Grasshopper.Base
 {

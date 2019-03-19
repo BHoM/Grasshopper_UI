@@ -21,22 +21,16 @@
  */
 
 using System;
-using Rhino;
-using Rhino.Commands;
 using Grasshopper.Kernel;
 using BH.oM.Base;
 using BH.oM.UI;
-using BH.Engine.Grasshopper;
-using BH.Engine.Grasshopper.Objects;
 using System.Collections.Generic;
-using System.Linq;
 using BH.UI.Templates;
 using System.Windows.Forms;
 using BH.UI.Grasshopper.Global;
-using System.Reflection;
 using BH.oM.Reflection;
 using Grasshopper.Kernel.Parameters;
-using BH.UI.Grasshopper.Objects;
+using BH.UI.Grasshopper.Parameters;
 using BH.Engine.Reflection;
 using BH.oM.Geometry;
 
