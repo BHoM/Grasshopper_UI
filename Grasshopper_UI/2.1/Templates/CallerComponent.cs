@@ -21,6 +21,7 @@
  */
 
 using System;
+using G = Grasshopper;
 using Grasshopper.Kernel;
 using BH.oM.Base;
 using BH.oM.UI;
@@ -101,6 +102,16 @@ namespace BH.UI.Grasshopper.Templates
             this.ExpireSolution(true);
         }
 
+        /*******************************************/
+
+        public virtual void OnSourceCodeClick(object sender = null, object e = null)
+        {
+            if (Caller != null)
+            {
+                BH.Engine.Reflection.Compute.IOpenHelpPage(Caller.SelectedItem);
+            }
+        }
+
 
         /*******************************************/
         /**** Override Methods                  ****/
@@ -177,6 +188,7 @@ namespace BH.UI.Grasshopper.Templates
         protected override void AppendAdditionalComponentMenuItems(ToolStripDropDown menu)
         {
             base.AppendAdditionalComponentMenuItems(menu);
+            Menu_AppendItem(menu, "Source code", OnSourceCodeClick, Properties.Resources.BHoM_Logo);
             Caller.AddToMenu(menu);
         }
 
@@ -199,17 +211,6 @@ namespace BH.UI.Grasshopper.Templates
             Caller.Read(callerString);
 
             return true;
-        }
-
-        /*************************************/
-
-        protected override string HtmlHelp_Source()
-        {
-            if (Caller != null)
-            {
-                BH.Engine.Reflection.Compute.IOpenHelpPage(Caller.SelectedItem);
-            }
-            return base.HtmlHelp_Source();
         }
 
         /*************************************/
