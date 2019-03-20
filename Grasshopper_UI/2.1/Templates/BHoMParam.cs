@@ -29,6 +29,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace BH.UI.Grasshopper.Templates
 {
@@ -61,6 +62,47 @@ namespace BH.UI.Grasshopper.Templates
             : base(name, nickname, description, category, subcategory)
         {
         }
+
+
+        /*******************************************/
+        /**** Public Methods                    ****/
+        /*******************************************/
+
+        public virtual void OnSourceCodeClick(object sender = null, object e = null)
+        {
+            if (this.Attributes.IsTopLevel)
+            {
+                T obj = this.m_data.get_FirstItem(true);
+
+                if (obj != null)
+                {
+                    //Using reflection as GH_Goo requires generic type constraints that can not be set on the level of the class
+                    object value = obj.PropertyValue("Value");
+                    if (value != null)
+                    {
+                        BH.Engine.Reflection.Compute.OpenHelpPage(value.GetType());
+                    }
+                }
+            }
+            else if (typeof(CallerComponent).IsAssignableFrom(this.Attributes.GetTopLevel.DocObject.GetType()))
+            {
+                CallerComponent parent = this.Attributes.GetTopLevel.DocObject as CallerComponent;
+                if (parent.Caller != null && parent.Caller.SelectedItem is MethodInfo)
+                {
+                    Type type = null;
+                    if (parent.Params.IsInputParam(this))
+                    {
+                        type = parent.Caller.InputParams.Find(p => p.Name == this.NickName).DataType;
+                    }
+                    else if (parent.Params.IsOutputParam(this))
+                    {
+                        type = parent.Caller.OutputParams.FirstOrDefault()?.DataType;
+                    }
+                    BH.Engine.Reflection.Compute.OpenHelpPage(type);
+                }
+            }
+        }
+
 
         /*******************************************/
         /**** Override Methods                  ****/
@@ -104,41 +146,14 @@ namespace BH.UI.Grasshopper.Templates
 
         /*******************************************/
 
-        protected override string HtmlHelp_Source()
+        public override void AppendAdditionalMenuItems(ToolStripDropDown menu)
         {
-            if (this.Attributes.IsTopLevel)
-            {
-                T obj = this.m_data.get_FirstItem(true);
-
-                if (obj != null)
-                {
-                    //Using reflection as GH_Goo requires generic type constraints that can not be set on the level of the class
-                    object value = obj.PropertyValue("Value");
-                    if (value != null)
-                    {
-                        BH.Engine.Reflection.Compute.OpenHelpPage(value.GetType());
-                    }
-                }
-            }
-            else if (typeof(CallerComponent).IsAssignableFrom(this.Attributes.GetTopLevel.DocObject.GetType()))
-            {
-                CallerComponent parent = this.Attributes.GetTopLevel.DocObject as CallerComponent;
-                if (parent.Caller != null && parent.Caller.SelectedItem is MethodInfo)
-                {
-                    Type type = null;
-                    if (parent.Params.IsInputParam(this))
-                    {
-                        type = parent.Caller.InputParams.Find(p => p.Name == this.NickName).DataType;
-                    }
-                    else if (parent.Params.IsOutputParam(this))
-                    {
-                        type = parent.Caller.OutputParams.FirstOrDefault()?.DataType;
-                    }
-                    BH.Engine.Reflection.Compute.OpenHelpPage(type);
-                }
-            }
-            return base.HtmlHelp_Source();
+            base.AppendAdditionalMenuItems(menu);
+            Menu_AppendSeparator(menu);
+            Menu_AppendItem(menu, "Source code", OnSourceCodeClick, Properties.Resources.BHoM_Logo);
         }
+
+        /*******************************************/
     }
 
     /*******************************************/
