@@ -21,7 +21,6 @@
  */
 
 using System;
-using G = Grasshopper;
 using Grasshopper.Kernel;
 using BH.oM.Base;
 using BH.oM.UI;
