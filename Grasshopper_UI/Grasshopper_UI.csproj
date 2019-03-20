@@ -321,6 +321,7 @@
     <Content Include="Properties\Resources\Adapter.png" />
     <None Include="Properties\Resources\BHoM_Grasshopper_Icon.png" />
     <None Include="Properties\Resources\BHoMObject_Param.png" />
+    <None Include="Properties\Resources\BHoM_Logo.png" />
     <Content Include="Properties\Resources\Compute.png" />
     <Content Include="Properties\Resources\Convert.png" />
     <Content Include="Properties\Resources\CreateBHoM.png" />
