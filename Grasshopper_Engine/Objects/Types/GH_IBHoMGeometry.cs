@@ -50,7 +50,7 @@ namespace BH.Engine.Grasshopper.Objects
 
         public override Rhino.Geometry.BoundingBox Boundingbox { get { return Bounds(); } }
 
-        public override object Value // This is a Rhino.Geometry object
+        public override object Value // This is a Rhino.Geometry object if possibile, a BH.oM.Geometry otherwise
         {
             get
             {
