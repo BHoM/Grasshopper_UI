@@ -34,20 +34,29 @@ namespace BH.Engine.Grasshopper
 
         public static DisplayMaterial RenderMaterial(DisplayMaterial material)
         {
+            if (m_RenderMaterial != null)
+            {
+                return m_RenderMaterial;
+            }
+
             Color pColour = GH.Instances.ActiveCanvas.Document.PreviewColour;
             Color ghColour = material.Diffuse;
             if (ghColour.R == pColour.R & // If the color sent by PreviewArgs is the default object PreviewColour
                 ghColour.G == pColour.G &
                 ghColour.B == pColour.B) // Excluding Alpha channel from comparison
             {
-                return new DisplayMaterial(Color.FromArgb(255, 255, 41, 105), 0.6);
+                m_RenderMaterial = new DisplayMaterial(Color.FromArgb(255, 255, 41, 105), 0.6);
+                return m_RenderMaterial;
             }
             else
             {
-                return material;
+                m_RenderMaterial = material;
+                return m_RenderMaterial;
             }
         }
 
         /***************************************************/
+
+        private static DisplayMaterial m_RenderMaterial;
     }
 }

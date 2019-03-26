@@ -33,19 +33,28 @@ namespace BH.Engine.Grasshopper
 
         public static Color RenderColour(Color ghColour)
         {
+            if (m_RenderColour != default(Color))
+            {
+                return m_RenderColour;
+            }
+
             Color pColour = GH.Instances.ActiveCanvas.Document.PreviewColour;
             if (ghColour.R == pColour.R & // If the color sent by PreviewArgs is the default object PreviewColour
                 ghColour.G == pColour.G &
                 ghColour.B == pColour.B) // Excluding Alpha channel from comparison
             {
-                return Color.FromArgb(80, 255, 41, 105);
+                m_RenderColour = Color.FromArgb(80, 255, 41, 105);
+                return m_RenderColour;
             }
             else
             {
-                return ghColour;
+                m_RenderColour = ghColour;
+                return m_RenderColour;
             }
         }
 
         /***************************************************/
+
+        private static Color m_RenderColour;
     }
 }
