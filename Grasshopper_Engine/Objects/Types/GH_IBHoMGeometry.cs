@@ -352,15 +352,10 @@ namespace BH.Engine.Grasshopper.Objects
 
         public bool BakeGeometry(RhinoDoc doc, ObjectAttributes att, out Guid obj_guid)
         {
-            if (m_Value != null)
+            if (m_RhinoValue != null)
             {
-                Rhino.Geometry.GeometryBase geometry = m_Value.IToRhino() as Rhino.Geometry.GeometryBase;
-                if (geometry != null)
-                {
-                    obj_guid = doc.Objects.Add(geometry, att);
-                    return true;
-                }
-
+                obj_guid = doc.Objects.Add(GH_Convert.ToGeometryBase(m_RhinoValue), att);
+                return true;
             }
 
             obj_guid = Guid.Empty;
