@@ -50,14 +50,14 @@ namespace BH.Engine.Grasshopper.Objects
 
         public override Rhino.Geometry.BoundingBox Boundingbox { get { return Bounds(); } }
 
-        public override object Value
+        public override object Value // This is a Rhino.Geometry object
         {
             get
             {
                 if (m_Value == null)
                     return null;
-                else if (BH.Engine.Rhinoceros.Query.IsRhinoEquivalent(m_Value.GetType()))
-                    return m_Value.IToRhino();
+                else if (m_RhinoValue != null)
+                    return m_RhinoValue;
                 else
                     return m_Value;
             }
@@ -82,6 +82,7 @@ namespace BH.Engine.Grasshopper.Objects
         public GH_IBHoMGeometry(object bh)
         {
             Value = bh;
+            SetRhinoValue();
         }
 
 
@@ -230,6 +231,7 @@ namespace BH.Engine.Grasshopper.Objects
             else
                 m_Value = GH_Convert.ToGeometryBase(source).IToBHoM();
 
+            SetRhinoValue();
             return true;
         }
 
@@ -333,14 +335,14 @@ namespace BH.Engine.Grasshopper.Objects
 
         public void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
-            Engine.Grasshopper.Compute.IRenderMeshes(m_Value, args);
+            Engine.Grasshopper.Compute.IRenderRhinoMeshes(Value, args);
         }
 
         /***************************************************/
 
         public void DrawViewportWires(GH_PreviewWireArgs args)
         {
-            Engine.Grasshopper.Compute.IRenderWires(m_Value, args);
+            Engine.Grasshopper.Compute.IRenderRhinoWires(Value, args);
         }
 
 
@@ -390,11 +392,21 @@ namespace BH.Engine.Grasshopper.Objects
         }
 
         /***************************************************/
+
+        private bool SetRhinoValue()
+        {
+            if (BH.Engine.Rhinoceros.Query.IsRhinoEquivalent(m_Value.GetType()))
+                m_RhinoValue = m_Value.IToRhino();
+            return true;
+        }
+
+        /***************************************************/
         /**** Private Fields                            ****/
         /***************************************************/
 
         private IGeometry m_Value = null;
 
+        private object m_RhinoValue = null;
 
         /***************************************************/
     }
