@@ -49,7 +49,6 @@ namespace BH.Engine.Grasshopper
             {
                 return;
             }
-            Color bhColour = Query.RenderColour(args.Material.Diffuse);
             DisplayMaterial bhMaterial = Query.RenderMaterial(args.Material);
             try
             {
