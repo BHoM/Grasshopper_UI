@@ -141,14 +141,14 @@ namespace BH.Engine.Grasshopper.Objects
 
         public virtual void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
-            Engine.Grasshopper.Compute.IRenderMeshes(m_Geometry, args);
+            Engine.Grasshopper.Compute.IRenderRhinoMeshes(m_RhinoGeometry, args);
         }
 
         /***************************************************/
 
         public virtual void DrawViewportWires(GH_PreviewWireArgs args)
         {
-            Engine.Grasshopper.Compute.IRenderWires(m_Geometry, args);
+            Engine.Grasshopper.Compute.IRenderRhinoWires(m_RhinoGeometry, args);
         }
 
 
@@ -165,11 +165,13 @@ namespace BH.Engine.Grasshopper.Objects
             else if (Value is BHoMObject)
             {
                 m_Geometry = ((BHoMObject)Value).IGeometry();
+                m_RhinoGeometry = m_Geometry.IToRhino();
                 return true;
             }
             else if (Value is IGeometry)
             {
                 m_Geometry = Value as IGeometry;
+                m_RhinoGeometry = m_Geometry.IToRhino();
                 return true;
             }
             else
@@ -208,6 +210,8 @@ namespace BH.Engine.Grasshopper.Objects
         /***************************************************/
 
         private IGeometry m_Geometry = null;
+
+        private object m_RhinoGeometry = null;
 
         /***************************************************/
     }
