@@ -390,7 +390,9 @@ namespace BH.Engine.Grasshopper.Objects
 
         private bool SetRhinoValue()
         {
-            if (BH.Engine.Rhinoceros.Query.IsRhinoEquivalent(m_Value.GetType()))
+            if (m_Value == null)
+                return true;
+            else if (BH.Engine.Rhinoceros.Query.IsRhinoEquivalent(m_Value.GetType()))
                 m_RhinoValue = m_Value.IToRhino();
             return true;
         }
