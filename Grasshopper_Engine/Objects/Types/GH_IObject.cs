@@ -61,7 +61,10 @@ namespace BH.Engine.Grasshopper.Objects
 
         /***************************************************/
 
-        public GH_IObject(IObject val) : base(val) { }
+        public GH_IObject(IObject val) : base(val)
+        {
+            SetGeometry();
+        }
 
 
         /*******************************************/
@@ -92,7 +95,13 @@ namespace BH.Engine.Grasshopper.Objects
             if (source.GetType().Namespace.StartsWith("Rhino.Geometry"))
                 source = BH.Engine.Rhinoceros.Convert.ToBHoM(source as dynamic);
 
-            return base.CastFrom(source);
+            if (base.CastFrom(source))
+            {
+                SetGeometry();
+                return true;
+            }
+
+            return false;
         }
 
         /***************************************************/
@@ -132,17 +141,14 @@ namespace BH.Engine.Grasshopper.Objects
 
         public virtual void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
-            IGeometry geom = this.Geometry();
-            Engine.Grasshopper.Compute.IRenderMeshes(geom, args);
+            Engine.Grasshopper.Compute.IRenderRhinoMeshes(m_RhinoGeometry, args);
         }
 
         /***************************************************/
 
         public virtual void DrawViewportWires(GH_PreviewWireArgs args)
         {
-            IGeometry geom = this.Geometry();
-            Engine.Grasshopper.Compute.IRenderWires(geom, args);
-
+            Engine.Grasshopper.Compute.IRenderRhinoWires(m_Geometry, args);
         }
 
 
@@ -150,14 +156,28 @@ namespace BH.Engine.Grasshopper.Objects
         /**** Private Method                            ****/
         /***************************************************/
 
-        private IGeometry Geometry()
+        private bool SetGeometry()
         {
-            if (Value is BHoMObject)
-                return ((BHoMObject)Value).IGeometry();
+            if (Value == null)
+            {
+                return true;
+            }
+            else if (Value is BHoMObject)
+            {
+                m_Geometry = ((BHoMObject)Value).IGeometry();
+                m_RhinoGeometry = m_Geometry.IToRhino();
+                return true;
+            }
             else if (Value is IGeometry)
-                return Value as IGeometry;
+            {
+                m_Geometry = Value as IGeometry;
+                m_RhinoGeometry = m_Geometry.IToRhino();
+                return true;
+            }
             else
-                return null;
+            {
+                return false;
+            }
         }
 
         /***************************************************/
@@ -169,11 +189,7 @@ namespace BH.Engine.Grasshopper.Objects
                 if (Value == null)
                     return Rhino.Geometry.BoundingBox.Empty;
 
-                IGeometry geometry = Geometry();
-                if (geometry == null)
-                    return Rhino.Geometry.BoundingBox.Empty;
-
-                BH.oM.Geometry.BoundingBox bhBox = geometry.IBounds();
+                BH.oM.Geometry.BoundingBox bhBox = m_Geometry.IBounds();
                 if (bhBox == null)
                     return Rhino.Geometry.BoundingBox.Empty;
 
@@ -185,6 +201,14 @@ namespace BH.Engine.Grasshopper.Objects
             }
         }
 
+
+        /***************************************************/
+        /**** Private Fields                            ****/
+        /***************************************************/
+
+        private IGeometry m_Geometry = null;
+
+        private object m_RhinoGeometry = null;
 
         /***************************************************/
     }
