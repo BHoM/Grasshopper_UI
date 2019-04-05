@@ -82,7 +82,6 @@ namespace BH.Engine.Grasshopper.Objects
         public GH_IBHoMGeometry(object bh)
         {
             Value = bh;
-            SetRhinoValue();
         }
 
 
