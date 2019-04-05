@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2019, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -33,28 +33,19 @@ namespace BH.Engine.Grasshopper
 
         public static Color RenderColour(Color ghColour)
         {
-            if (m_RenderColour != default(Color))
-            {
-                return m_RenderColour;
-            }
-
             Color pColour = GH.Instances.ActiveCanvas.Document.PreviewColour;
             if (ghColour.R == pColour.R & // If the color sent by PreviewArgs is the default object PreviewColour
                 ghColour.G == pColour.G &
                 ghColour.B == pColour.B) // Excluding Alpha channel from comparison
             {
-                m_RenderColour = Color.FromArgb(80, 255, 41, 105);
-                return m_RenderColour;
+                return Color.FromArgb(80, 255, 41, 105);
             }
             else
             {
-                m_RenderColour = ghColour;
-                return m_RenderColour;
+                return ghColour;
             }
         }
 
         /***************************************************/
-
-        private static Color m_RenderColour;
     }
 }
