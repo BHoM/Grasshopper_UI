@@ -335,7 +335,6 @@ namespace BH.Engine.Grasshopper.Objects
 
         public void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
-            Engine.Grasshopper.Compute.IRenderRhinoMeshes(Value, args);
             Engine.Grasshopper.Compute.IRenderRhinoMeshes(m_RhinoValue, args);
         }
 
@@ -343,7 +342,6 @@ namespace BH.Engine.Grasshopper.Objects
 
         public void DrawViewportWires(GH_PreviewWireArgs args)
         {
-            Engine.Grasshopper.Compute.IRenderRhinoWires(Value, args);
             Engine.Grasshopper.Compute.IRenderRhinoWires(m_RhinoValue, args);
         }
 
