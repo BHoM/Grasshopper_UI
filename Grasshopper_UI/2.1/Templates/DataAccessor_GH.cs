@@ -120,30 +120,14 @@ namespace BH.UI.Grasshopper.Templates
 
         public override bool SetDataItem<T>(int index, T data)
         {
-            if (data == null)
-            {
-                return GH_Accessor.SetData(index, data);
-            }
-            else if (typeof(IGeometry).IsAssignableFrom(data.GetType()))
-            {
-                object result = data;// BH.Engine.Grasshopper.Convert.ToRhino(data);
-                if (result is IEnumerable)
-                    return GH_Accessor.SetDataList(index, result as IEnumerable);
-                else
-                    return GH_Accessor.SetData(index, result);
-            }
-            else
-                return GH_Accessor.SetData(index, data);
+            return GH_Accessor.SetData(index, data);
         }
 
         /*************************************/
 
         public override bool SetDataList<T>(int index, IEnumerable<T> data)
         {
-            if (data != null && typeof(IGeometry).IsAssignableFrom(typeof(T)))
-                return GH_Accessor.SetDataList(index, ((IEnumerable<T>)data));//.Select(x => BH.Engine.Grasshopper.Convert.ToRhino(x)));
-            else
-                return GH_Accessor.SetDataList(index, (IEnumerable<T>)data);
+            return GH_Accessor.SetDataList(index, (IEnumerable<T>)data);
         }
 
         /*************************************/
@@ -157,10 +141,7 @@ namespace BH.UI.Grasshopper.Templates
             else
                 root = Component.Params.Input.FindAll(p => p.Access == GH_ParamAccess.tree).FirstOrDefault() ?? Component.Params.Input.First();
 
-            if (typeof(IGeometry).IsAssignableFrom(typeof(T)))
-                return GH_Accessor.SetDataTree(index, BH.Engine.Grasshopper.Create.DataTree(((IEnumerable<IEnumerable<T>>)data).Select(v => v.Select(x => x/*(BH.Engine.Grasshopper.Convert.ToRhino(x))*/)).ToList(), GH_Accessor.Iteration, root.VolatileData.Paths));
-            else
-                return GH_Accessor.SetDataTree(index, BH.Engine.Grasshopper.Create.DataTree(data.ToList(), GH_Accessor.Iteration, root.VolatileData.Paths));
+            return GH_Accessor.SetDataTree(index, BH.Engine.Grasshopper.Create.DataTree(data.ToList(), GH_Accessor.Iteration, root.VolatileData.Paths));
         }
 
 
