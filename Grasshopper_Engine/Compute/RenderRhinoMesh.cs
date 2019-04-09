@@ -25,6 +25,7 @@ using Rhino.Display;
 using Grasshopper.Kernel;
 using System;
 using BH.oM.Reflection.Attributes;
+using System.Collections.Generic;
 
 namespace BH.Engine.Grasshopper
 {
@@ -47,6 +48,16 @@ namespace BH.Engine.Grasshopper
                 RenderRhinoMeshes(geometry as dynamic, args.Pipeline, bhMaterial);
             }
             catch (Exception) { }
+        }
+
+        /***************************************************/
+
+        public static void IRenderRhinoMeshes(this List<object> geometry, Rhino.Display.DisplayPipeline pipeline, DisplayMaterial material)
+        {
+            foreach(object geo in geometry)
+            {
+                IRenderRhinoMeshes(geo as dynamic, pipeline, material);
+            }
         }
 
 
