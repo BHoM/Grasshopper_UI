@@ -52,6 +52,19 @@ namespace BH.Engine.Grasshopper.Objects
 
         public virtual Rhino.Geometry.BoundingBox Boundingbox { get { return Bounds(); } }
 
+        public override object Value
+        {
+            get
+            {
+                return base.Value;
+            }
+            set
+            {
+                base.Value = value;
+                SetGeometry();
+            }
+        }
+
 
         /*******************************************/
         /**** Constructors                      ****/
@@ -61,10 +74,7 @@ namespace BH.Engine.Grasshopper.Objects
 
         /***************************************************/
 
-        public GH_IObject(IObject val) : base(val)
-        {
-            SetGeometry();
-        }
+        public GH_IObject(IObject val) : base(val) { }
 
 
         /*******************************************/

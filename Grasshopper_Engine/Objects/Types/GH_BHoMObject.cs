@@ -52,6 +52,19 @@ namespace BH.Engine.Grasshopper.Objects
 
         public virtual Rhino.Geometry.BoundingBox Boundingbox { get { return Bounds(); } }
 
+        public override object Value
+        {
+            get
+            {
+                return base.Value;
+            }
+            set
+            {
+                base.Value = value;
+                SetGeometry();
+            }
+        }
+
 
         /*******************************************/
         /**** Constructors                      ****/
@@ -61,10 +74,7 @@ namespace BH.Engine.Grasshopper.Objects
 
         /***************************************************/
 
-        public GH_BHoMObject(BHoMObject val) : base(val)
-        {
-            SetGeometry();
-        }
+        public GH_BHoMObject(BHoMObject val) : base(val) { }
 
 
         /*******************************************/
@@ -95,13 +105,7 @@ namespace BH.Engine.Grasshopper.Objects
             if (source.GetType().Namespace.StartsWith("Rhino.Geometry"))
                 source = BH.Engine.Rhinoceros.Convert.ToBHoM(source as dynamic);
 
-            if (base.CastFrom(source))
-            {
-                SetGeometry();
-                return true;
-            }
-
-            return false;
+            return base.CastFrom(source);
         }
 
         /***************************************************/
