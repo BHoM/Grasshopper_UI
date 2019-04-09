@@ -26,6 +26,7 @@ using Grasshopper.Kernel;
 using System;
 using System.Drawing;
 using BH.oM.Reflection.Attributes;
+using System.Collections.Generic;
 
 namespace BH.Engine.Grasshopper
 {
@@ -49,13 +50,23 @@ namespace BH.Engine.Grasshopper
             catch (Exception) { }
         }
 
+        /***************************************************/
+
+        public static void RenderRhinoWires(this List<object> geometry, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        {
+            foreach(object geo in geometry)
+            {
+                RenderRhinoWires(geo as dynamic, pipeline, bhColour);
+            }
+        }
+
 
         /***************************************************/
         /**** Public Methods  - Fallback                ****/
         /***************************************************/
 
         [NotImplemented]
-        public static void RenderRhinoWires(this object fallback, Rhino.Display.DisplayPipeline pipeline, DisplayMaterial material)
+        public static void RenderRhinoWires(this object fallback, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
         {
             // fallback in case no method is found for the provided runtime type
             return;
