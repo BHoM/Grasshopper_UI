@@ -148,7 +148,7 @@ namespace BH.Engine.Grasshopper.Objects
 
         public virtual void DrawViewportWires(GH_PreviewWireArgs args)
         {
-            Engine.Grasshopper.Compute.IRenderRhinoWires(m_Geometry, args);
+            Engine.Grasshopper.Compute.IRenderRhinoWires(m_RhinoGeometry, args);
         }
 
 
