@@ -107,7 +107,6 @@ namespace BH.Engine.Grasshopper.Objects
 
             if (base.CastFrom(source))
             {
-                SetGeometry();
                 return true;
             }
 
