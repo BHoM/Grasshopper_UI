@@ -365,9 +365,14 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>call "$(TargetDir)UI_PostBuild.exe" ..\..\ "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM"
+    <PostBuildEvent>call "$(TargetDir)UI_PostBuild.exe" ..\..\ "$(AppData)\BHoM\Assemblies"
+Copy /Y "$(TargetName).dll" "$(AppData)\BHoM\Assemblies\$(TargetName).gha"
 
-Copy /Y "$(TargetName).dll" "C:\Users\$(Username)\AppData\Roaming\Grasshopper\Libraries\BHoM\$(TargetName).gha"</PostBuildEvent>
+IF EXIST $(AppData)\Grasshopper\Libraries\BHoM (
+RD /S /Q $(AppData)\Grasshopper\Libraries\BHoM
+)
+
+echo $(AppData)\BHoM\Assemblies\$(TargetName).gha &gt; $(AppData)\Grasshopper\Libraries\$(TargetName).ghlink</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
