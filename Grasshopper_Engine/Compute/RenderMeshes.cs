@@ -185,7 +185,7 @@ namespace BH.Engine.Grasshopper
             List<BHG.ISurface> surfaces = polySurface.Surfaces;
             for (int i = 0; i < surfaces.Count; i++)
             {
-                pipeline.DrawBrepShaded(RHG.Brep.CreateFromSurface(surfaces[i].IToRhino()), material);
+                pipeline.DrawBrepShaded(RHG.Brep.CreateFromSurface((RHG.Surface)surfaces[i].IToRhino()), material);
             }
         }
 

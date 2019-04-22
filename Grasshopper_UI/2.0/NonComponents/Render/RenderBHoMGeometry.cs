@@ -158,7 +158,7 @@ namespace BH.UI.Grasshopper
 
         public static void RenderBHoMGeometry(BHG.PolySurface polySurface, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
         {
-            polySurface.Surfaces.ForEach(srf => pipeline.DrawSurface(srf.IToRhino(), bhColour, 1));
+            polySurface.Surfaces.ForEach(srf => pipeline.DrawSurface((RHG.Surface)srf.IToRhino(), bhColour, 1));
         }
 
 

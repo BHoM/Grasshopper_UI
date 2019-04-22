@@ -178,7 +178,7 @@ namespace BH.Engine.Grasshopper
 
         public static void RenderWires(BHG.PolySurface polySurface, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
         {
-            polySurface.Surfaces.ForEach(srf => pipeline.DrawSurface(srf.IToRhino(), bhColour, 2));
+            polySurface.Surfaces.ForEach(srf => pipeline.DrawSurface((RHG.Surface)srf.IToRhino(), bhColour, 2));
         }
 
 
