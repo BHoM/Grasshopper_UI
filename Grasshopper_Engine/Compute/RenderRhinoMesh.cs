@@ -209,6 +209,37 @@ namespace BH.Engine.Grasshopper
 
 
         /***************************************************/
+        /**** Public Methods - Solids                   ****/
+        /***************************************************/
+
+        public static void RenderRhinoMeshes(RHG.Cone cone, Rhino.Display.DisplayPipeline pipeline, DisplayMaterial material)
+        {
+            pipeline.DrawBrepShaded(cone.ToBrep(true), material);
+        }
+
+        /***************************************************/
+
+        public static void RenderRhinoMeshes(RHG.Cylinder cylinder, Rhino.Display.DisplayPipeline pipeline, DisplayMaterial material)
+        {
+            pipeline.DrawBrepShaded(cylinder.ToBrep(cylinder.IsFinite, cylinder.IsFinite), material);
+        }
+
+        /***************************************************/
+
+        public static void RenderRhinoMeshes(RHG.Sphere sphere, Rhino.Display.DisplayPipeline pipeline, DisplayMaterial material)
+        {
+            pipeline.DrawBrepShaded(sphere.ToBrep(), material);
+        }
+
+        /***************************************************/
+
+        public static void RenderRhinoMeshes(RHG.Torus torus, Rhino.Display.DisplayPipeline pipeline, DisplayMaterial material)
+        {
+            pipeline.DrawBrepShaded(torus.ToRevSurface().ToBrep(), material);
+        }
+
+
+        /***************************************************/
         /**** Public Methods  - Mesh                    ****/
         /***************************************************/
 

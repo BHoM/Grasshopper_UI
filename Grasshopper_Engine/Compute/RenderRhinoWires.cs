@@ -204,6 +204,37 @@ namespace BH.Engine.Grasshopper
 
 
         /***************************************************/
+        /**** Public Methods - Solids                   ****/
+        /***************************************************/
+
+        public static void RenderRhinoWires(RHG.Cone cone, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        {
+            pipeline.DrawCone(cone, bhColour);
+        }
+
+        /***************************************************/
+
+        public static void RenderRhinoWires(RHG.Cylinder cylinder, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        {
+            pipeline.DrawCylinder(cylinder, bhColour);
+        }
+
+        /***************************************************/
+
+        public static void RenderRhinoWires(RHG.Sphere sphere, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        {
+            pipeline.DrawSphere(sphere, bhColour);
+        }
+
+        /***************************************************/
+
+        public static void RenderRhinoWires(RHG.Torus torus, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        {
+            pipeline.DrawTorus(torus, bhColour);
+        }
+
+
+        /***************************************************/
         /**** Public Methods  - Mesh                    ****/
         /***************************************************/
 
