@@ -372,7 +372,7 @@ IF EXIST $(AppData)\Grasshopper\Libraries\BHoM (
 RD /S /Q $(AppData)\Grasshopper\Libraries\BHoM
 )
 
-echo $(AppData)\BHoM\Assemblies\$(TargetName).gha &gt; $(AppData)\Grasshopper\Libraries\$(TargetName).ghlink</PostBuildEvent>
+echo $(AppData)\BHoM\Assemblies\$(TargetName).gha &gt; "$(AppData)\Grasshopper\Libraries\$(TargetName).ghlink"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
