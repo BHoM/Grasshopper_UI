@@ -33,6 +33,7 @@ using Grasshopper.Kernel.Parameters;
 using BH.UI.Grasshopper.Parameters;
 using BH.Engine.Reflection;
 using BH.oM.Geometry;
+using System.Reflection;
 
 namespace BH.UI.Grasshopper.Templates
 {
@@ -51,6 +52,8 @@ namespace BH.UI.Grasshopper.Templates
         public override Guid ComponentGuid { get { return Caller.Id; } }
 
         public override GH_Exposure Exposure { get { return (GH_Exposure)Math.Pow(2, Caller.GroupIndex); } }
+
+        public override bool Obsolete => this.IsObsolete();
 
 
         /*******************************************/
@@ -109,6 +112,16 @@ namespace BH.UI.Grasshopper.Templates
             {
                 BH.Engine.Reflection.Compute.IOpenHelpPage(Caller.SelectedItem);
             }
+        }
+
+        /*******************************************/
+
+        public virtual bool IsObsolete()
+        {
+            if (this.Caller.SelectedItem == null)
+                return false;
+
+            return this.Caller.SelectedItem.IIsDeprecated();
         }
 
 
