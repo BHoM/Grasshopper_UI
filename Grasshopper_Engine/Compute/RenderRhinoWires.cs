@@ -77,16 +77,9 @@ namespace BH.Engine.Grasshopper
         /**** Public Methods  - Vectors                 ****/
         /***************************************************/
 
-        public static void RenderRhinoWires(RHG.Point point, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(RHG.Point3d point, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
         {
-            return;
-        }
-
-        /***************************************************/
-
-        public static void RenderRhinoWires(RHG.Vector3d vector, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
-        {
-            //args.Pipeline.DrawLineArrow(vector.ToRhino(), args.Color, args.Thickness, args.Thickness);
+            pipeline.DrawPoint(point, bhColour);
         }
 
         /***************************************************/
