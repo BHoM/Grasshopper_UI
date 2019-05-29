@@ -62,11 +62,10 @@ namespace BH.Engine.Grasshopper
 
 
         /***************************************************/
-        /**** Public Methods  - Fallback                ****/
+        /**** Private Methods  - Fallback               ****/
         /***************************************************/
 
-        [NotImplemented]
-        public static void RenderRhinoWires(this object fallback, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        private static void RenderRhinoWires(this object fallback, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
         {
             // fallback in case no method is found for the provided runtime type
             return;
