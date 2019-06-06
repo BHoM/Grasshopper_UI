@@ -49,7 +49,7 @@ namespace BH.UI.Grasshopper.Templates
 
         public bool Hidden { get; set; } = false;
 
-        public bool IsPreviewCapable { get; } = true;
+        public virtual bool IsPreviewCapable { get; } = true;
 
         public Rhino.Geometry.BoundingBox ClippingBox { get { return Preview_ComputeClippingBox(); } }
 
