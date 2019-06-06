@@ -20,7 +20,6 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.UI.Grasshopper.Templates;
 using BH.Engine.Reflection;
 using GH_IO.Serialization;
 using Grasshopper.Kernel;
@@ -30,6 +29,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 using System.Windows.Forms;
+using GH = Grasshopper;
 
 namespace BH.UI.Grasshopper.Templates
 {

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2019, the respective contributors. All rights reserved.
  *
@@ -20,42 +20,24 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.Engine.Grasshopper;
-using BH.UI.Grasshopper.Properties;
-using BH.UI.Grasshopper.Templates;
-using System;
+using Grasshopper.Kernel.Types;
 
-namespace BH.UI.Grasshopper.Parameters
+namespace BH.Engine.Grasshopper
 {
-    public class Param_IObject : BHoMParam<Engine.Grasshopper.Objects.GH_IObject>
+    public static partial class Query
     {
-        /*******************************************/
-        /**** Properties                        ****/
-        /*******************************************/
+        /***************************************************/
+        /**** Public Methods                            ****/
+        /***************************************************/
 
-        protected override System.Drawing.Bitmap Icon { get; } =  Resources.IObject_Param;
-
-        public override Guid ComponentGuid { get; } = new Guid("FFE324E7-1FC0-4818-9FCB-43A0202CC974");
-
-        public override string TypeName { get; } = "IObject";
-
-        public override bool IsPreviewCapable
+        public static bool IsPreviewExcluded(this object value)
         {
-            get
-            {
-                return !m_data.get_FirstItem(true)?.Value.IsPreviewExcluded() == true;
-            }
+            if (value is BH.oM.Common.IResult)
+                return true;
+
+            return false;
         }
 
-
-        /*******************************************/
-        /**** Constructors                      ****/
-        /*******************************************/
-
-        public Param_IObject() : base("BH IObject", "IObject", "Represents a collection of generic BH IObjects", "Params", "Primitive")
-        {
-        }
-
-        /*******************************************/
+        /***************************************************/
     }
 }
