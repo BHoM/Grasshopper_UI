@@ -61,7 +61,7 @@ namespace BH.Engine.Grasshopper.Objects
             set
             {
                 base.Value = value;
-                SetGeometry();
+                try { SetGeometry(); } catch { }
             }
         }
 
