@@ -103,6 +103,16 @@ namespace BH.UI.Grasshopper.Templates
             }
         }
 
+        /*******************************************/
+
+        public virtual void OnPreviewCapableClick(object sender = null, object e = null)
+        {
+            if (m_ForcePreview == null)
+                m_ForcePreview = true;
+            else
+                m_ForcePreview ^= true;
+        }
+
 
         /*******************************************/
         /**** Override Methods                  ****/
@@ -151,10 +161,17 @@ namespace BH.UI.Grasshopper.Templates
             base.AppendAdditionalMenuItems(menu);
             Menu_AppendSeparator(menu);
             Menu_AppendItem(menu, "Source code", OnSourceCodeClick, Properties.Resources.BHoM_Logo);
+            Menu_AppendItem(menu, "Force preview", OnPreviewCapableClick, true, m_ForcePreview ?? false);
         }
 
-        /*******************************************/
-    }
 
-    /*******************************************/
+        /***************************************************/
+        /**** Private Fields                            ****/
+        /***************************************************/
+
+        protected bool? m_ForcePreview = null;
+
+        /***************************************************/
+
+    }
 }

@@ -43,7 +43,16 @@ namespace BH.UI.Grasshopper.Parameters
         {
             get
             {
-                return !m_data.get_FirstItem(true)?.Value.IsPreviewExcluded() == true;
+                if (m_ForcePreview != null)
+                    return m_ForcePreview == true;
+
+                if (VolatileDataCount > 100000 && m_ForcePreview == null)
+                {
+                    Engine.Reflection.Compute.RecordNote("Preview has been disabled to prevent a slowdown due to the high number of objects." +
+                        "Right click and check <Force preview> to renable the preview at your own risk.");
+                    return false;
+                }
+                return base.IsPreviewCapable;
             }
         }
 
