@@ -33,7 +33,7 @@ namespace BH.UI.Grasshopper.Parameters
         /**** Properties                        ****/
         /*******************************************/
 
-        protected override System.Drawing.Bitmap Icon { get; } =  Resources.IObject_Param;
+        protected override System.Drawing.Bitmap Icon { get; } = Resources.IObject_Param;
 
         public override Guid ComponentGuid { get; } = new Guid("FFE324E7-1FC0-4818-9FCB-43A0202CC974");
 
@@ -43,16 +43,16 @@ namespace BH.UI.Grasshopper.Parameters
         {
             get
             {
-                if (m_ForcePreview != null)
-                    return m_ForcePreview == true;
-
-                if (VolatileDataCount > 100000 && m_ForcePreview == null)
+                if (VolatileDataCount < m_MaxItemsPreview && !Hidden)
                 {
-                    Engine.Reflection.Compute.RecordNote("Preview has been disabled to prevent a slowdown due to the high number of objects." +
-                        "Right click and check <Force preview> to renable the preview at your own risk.");
-                    return false;
+                    this.ClearRuntimeMessages();
+                    return base.IsPreviewCapable;
                 }
-                return base.IsPreviewCapable;
+
+                Engine.Reflection.Compute.RecordNote("Preview has been disabled to prevent a slowdown due to the high number of objects." +
+                    "Right click and set the a new items limit to force the preview at your own risk.");
+                Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
+                return false;
             }
         }
 
