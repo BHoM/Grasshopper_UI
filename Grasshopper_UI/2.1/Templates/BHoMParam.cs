@@ -132,10 +132,19 @@ namespace BH.UI.Grasshopper.Templates
 
         /*******************************************/
 
+        public override bool Write(GH_IWriter writer)
+        {
+            writer.SetInt32("m_MaxItemsPreview", m_MaxItemsPreview);
+            return base.Write(writer);
+        }
+
+        /*******************************************/
+
         public override bool Read(GH_IReader reader)
         {
             Engine.Reflection.Compute.ClearCurrentEvents();
             bool success = base.Read(reader);
+            reader.TryGetInt32("m_MaxItemsPreview", ref m_MaxItemsPreview);
             Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
             return success;
         }
