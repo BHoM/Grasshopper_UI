@@ -30,6 +30,7 @@ using System.Reflection;
 using System.Linq;
 using System.Windows.Forms;
 using GH = Grasshopper;
+using Grasshopper.GUI;
 
 namespace BH.UI.Grasshopper.Templates
 {
@@ -105,12 +106,11 @@ namespace BH.UI.Grasshopper.Templates
 
         /*******************************************/
 
-        public virtual void OnPreviewCapableClick(object sender = null, object e = null)
+        public virtual void OnMaxItemsPreviewChange(GH_MenuTextBox sender, string text)
         {
-            if (m_ForcePreview == null)
-                m_ForcePreview = true;
-            else
-                m_ForcePreview ^= true;
+            int parsed;
+            if (text != null && int.TryParse(text, out parsed))
+                m_MaxItemsPreview = parsed != -1 ? parsed : int.MaxValue;
         }
 
 
@@ -161,7 +161,8 @@ namespace BH.UI.Grasshopper.Templates
             base.AppendAdditionalMenuItems(menu);
             Menu_AppendSeparator(menu);
             Menu_AppendItem(menu, "Source code", OnSourceCodeClick, Properties.Resources.BHoM_Logo);
-            Menu_AppendItem(menu, "Force preview", OnPreviewCapableClick, true, m_ForcePreview ?? false);
+            Menu_AppendItem(menu, "Max items to preview. Set it to -1 to force any preview.");
+            Menu_AppendTextItem(menu, m_MaxItemsPreview.ToString(), null, OnMaxItemsPreviewChange, false);
         }
 
 
@@ -169,7 +170,7 @@ namespace BH.UI.Grasshopper.Templates
         /**** Private Fields                            ****/
         /***************************************************/
 
-        protected bool? m_ForcePreview = null;
+        protected int m_MaxItemsPreview = 10000;
 
         /***************************************************/
 
