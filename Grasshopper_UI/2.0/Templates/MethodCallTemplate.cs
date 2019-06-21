@@ -31,11 +31,11 @@ using System.Windows.Forms;
 using BH.oM.Base;
 using System.Reflection;
 using BH.oM.Geometry;
-using BH.oM.DataStructure;
+using BH.oM.Data.Collections;
 using BH.Engine.Rhinoceros;
 using Grasshopper.Kernel.Types;
 using BH.Engine.Reflection;
-using BH.Engine.DataStructure;
+using BH.Engine.Data;
 using System.IO;
 using BH.UI.Grasshopper.Base.NonComponents.Ports;
 using Grasshopper;
@@ -114,7 +114,7 @@ namespace BH.UI.Grasshopper.Templates
                 List<MethodBase> methods = GetRelevantMethods().ToList();
                 IEnumerable<string> paths = methods.Select(x => x.ToText(true));
 
-                m_MethodTree = BH.Engine.DataStructure.Create.Tree(methods, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y)).ToList()).ToList(), "Select " + MethodGroup + " methods");
+                m_MethodTree = BH.Engine.Data.Create.Tree(methods, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y)).ToList()).ToList(), "Select " + MethodGroup + " methods");
                 if (GroupByName)
                     m_MethodTree = GroupMethodsByName(m_MethodTree);
                 if (ShortenBranches)

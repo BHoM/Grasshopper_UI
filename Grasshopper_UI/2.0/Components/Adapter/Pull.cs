@@ -25,7 +25,7 @@ using System;
 using System.Collections.Generic;
 using BH.UI.Grasshopper.Base;
 using BH.oM.Base;
-using BH.oM.DataManipulation.Queries;
+using BH.oM.Data.Requests;
 using BH.Adapter;
 using System.Linq;
 using BH.oM.Geometry;
@@ -83,14 +83,14 @@ namespace BH.UI.Grasshopper.Adapter
             BH.Engine.Reflection.Compute.ClearCurrentEvents();
 
             BHoMAdapter adapter = null; DA.GetData(0, ref adapter);
-            IQuery query = null; DA.GetData(1, ref query);
+            IRequest query = null; DA.GetData(1, ref query);
             CustomObject config = new CustomObject(); DA.GetData(2, ref config);
             bool active = false; DA.GetData(3, ref active);
 
             if (!active) return;
 
             if (query == null)
-                query = new FilterQuery();
+                query = new FilterRequest();
 
             Guid id = adapter.BHoM_Guid;
             if (id != m_AdapterId)

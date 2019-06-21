@@ -36,7 +36,7 @@ namespace BH.UI.Grasshopper.Components
         /**** Properties                        ****/
         /*******************************************/
 
-        public override Caller Caller { get; } = new CreateQueryCaller();
+        public override Caller Caller { get; } = new CreateRequestCaller();
 
 
         /*******************************************/

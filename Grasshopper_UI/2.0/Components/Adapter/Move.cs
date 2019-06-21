@@ -25,7 +25,7 @@ using System;
 using System.Collections.Generic;
 using BH.UI.Grasshopper.Base;
 using BH.oM.Base;
-using BH.oM.DataManipulation.Queries;
+using BH.oM.Data.Requests;
 using BH.Adapter;
 
 namespace BH.UI.Grasshopper.Adapter
@@ -82,14 +82,14 @@ namespace BH.UI.Grasshopper.Adapter
 
             BHoMAdapter from = null; DA.GetData(0, ref from);
             BHoMAdapter to = null; DA.GetData(1, ref to);
-            IQuery query = null; DA.GetData(2, ref query);
+            IRequest query = null; DA.GetData(2, ref query);
             CustomObject config = new CustomObject(); DA.GetData(3, ref config);
             bool active = false; DA.GetData(4, ref active);
 
             if (!active) return;
 
             if (query == null)
-                query = new FilterQuery();
+                query = new FilterRequest();
 
             bool success = from.PullTo(to, query, config.CustomData);
             DA.SetData(0, success);

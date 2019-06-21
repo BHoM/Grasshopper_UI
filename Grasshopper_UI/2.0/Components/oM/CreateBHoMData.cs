@@ -24,9 +24,9 @@ using System;
 using Grasshopper.Kernel;
 using System.Collections.Generic;
 using Grasshopper.Kernel.Special;
-using BH.oM.DataStructure;
+using BH.oM.Data.Collections;
 using BH.UI.Grasshopper.Base.NonComponents.Menus;
-using BH.Engine.DataStructure;
+using BH.Engine.Data;
 using System.Linq;
 using System.Windows.Forms;
 using BH.Engine.Reflection;
@@ -68,7 +68,7 @@ namespace BH.UI.Grasshopper.Base
             {
                 List<string> names = BH.Engine.Library.Query.LibraryNames();
 
-                m_FileTree = Engine.DataStructure.Create.Tree(names, names.Select(x => x.Split('\\').ToList()).ToList(), "select a dataset").ShortenBranches();
+                m_FileTree = Engine.Data.Create.Tree(names, names.Select(x => x.Split('\\').ToList()).ToList(), "select a dataset").ShortenBranches();
                 m_FileList = names.Select(x => new Tuple<string, string>(x, x)).ToList();
             }
         }
