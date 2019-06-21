@@ -60,7 +60,7 @@ namespace BH.UI.Grasshopper.Adapter
 
         protected override IEnumerable<MethodBase> GetRelevantMethods()
         {
-            Type queryType = typeof(BH.oM.DataManipulation.Queries.IQuery);
+            Type queryType = typeof(BH.oM.Data.Requests.IRequest);
             return BH.Engine.Reflection.Query.BHoMMethodList().Where(x => queryType.IsAssignableFrom(x.ReturnType) && !x.IsNotImplemented() && !x.IsDeprecated()).OrderBy(x => x.Name);
         }
 

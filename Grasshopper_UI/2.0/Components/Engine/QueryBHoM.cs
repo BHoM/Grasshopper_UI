@@ -25,7 +25,7 @@ using Grasshopper.Kernel;
 using System.Linq;
 using BH.UI.Grasshopper.Templates;
 using System.Reflection;
-using BH.oM.DataStructure;
+using BH.oM.Data.Collections;
 using System.Collections;
 
 namespace BH.UI.Grasshopper.Base

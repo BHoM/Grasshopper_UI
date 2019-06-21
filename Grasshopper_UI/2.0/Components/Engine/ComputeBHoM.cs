@@ -26,10 +26,10 @@ using System.Collections.Generic;
 using System.Linq;
 using BH.UI.Grasshopper.Templates;
 using System.Reflection;
-using BH.oM.DataStructure;
+using BH.oM.Data.Collections;
 using System.Collections;
 using BH.Engine.Reflection;
-using BH.Engine.DataStructure;
+using BH.Engine.Data;
 
 namespace BH.UI.Grasshopper.Base
 {

@@ -52,17 +52,13 @@
     <Reference Include="BHoM_UI">
       <HintPath>..\..\BHoM_UI\Build\BHoM_UI.dll</HintPath>
     </Reference>
-    <Reference Include="DataManipulation_oM">
+    <Reference Include="Data_Engine, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\BHoM\Build\DataManipulation_oM.dll</HintPath>
+      <HintPath>..\..\BHoM_Engine\Build\Data_Engine.dll</HintPath>
     </Reference>
-    <Reference Include="DataStructure_Engine">
+    <Reference Include="Data_oM, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\BHoM_Engine\Build\DataStructure_Engine.dll</HintPath>
-    </Reference>
-    <Reference Include="DataStructure_oM">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\BHoM\Build\DataStructure_oM.dll</HintPath>
+      <HintPath>..\..\BHoM\Build\Data_oM.dll</HintPath>
     </Reference>
     <Reference Include="Geometry_Engine">
       <SpecificVersion>False</SpecificVersion>

@@ -31,7 +31,7 @@ using System.Runtime.CompilerServices;
 using BH.oM.Base;
 using RG = Rhino.Geometry;
 using System.Collections;
-using BH.oM.DataStructure;
+using BH.oM.Data.Collections;
 using BH.Engine.Reflection;
 using System.Windows.Forms;
 using BH.UI.Grasshopper.Base.NonComponents.Menus;
@@ -80,7 +80,7 @@ namespace BH.UI.Grasshopper.Base
                 List<Type> types = BH.Engine.Reflection.Query.BHoMTypeList();
                 IEnumerable<string> paths = types.Select(x => x.ToText(true));
 
-                m_TypeTree = BH.Engine.DataStructure.Create.Tree(types, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y)).ToList()).ToList(), "Select enforced Type");
+                m_TypeTree = BH.Engine.Data.Create.Tree(types, paths.Select(x => x.Split('.').Where(y => !ignore.Contains(y)).ToList()).ToList(), "Select enforced Type");
                 m_TypeList = paths.Zip(types, (k, v) => new Tuple<string, Type>(k, v)).ToList();
             }
 
