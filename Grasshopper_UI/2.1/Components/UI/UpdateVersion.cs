@@ -270,7 +270,7 @@ namespace BH.UI.Grasshopper.Base
 
         private static bool ReplaceObsolete(GH_Document doc, CreateQuery component)
         {
-            return SwapComponent(doc, component, new CreateQueryComponent(), component.SelectedItem);
+            return SwapComponent(doc, component, new CreateRequestComponent(), component.SelectedItem);
         }
 
         /*******************************************/
