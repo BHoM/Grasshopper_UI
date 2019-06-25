@@ -69,7 +69,9 @@ namespace BH.UI.Grasshopper.Components
             // Updating Caller.InputParams based on the new Grasshopper parameter just received
             caller.UpdateInput(e.ParameterIndex, e.Parameter.NickName, e.Parameter.Type(caller)); // We update the InputParams with the new type or name
             // We recompute only if there is no other scheduled solution running or the update does not come from an explode, which will cause a crash
-            ExpireSolution(this.Phase == GH_SolutionPhase.Computed && !e.Parameter.Sources.Any(p => p.Attributes.GetTopLevel.DocObject is ExplodeComponent));
+            ExpireSolution(this.Phase == GH_SolutionPhase.Computed
+                && !e.Parameter.Sources.Any(p => p.Attributes.GetTopLevel.DocObject is ExplodeComponent)
+                && e.Server != this.Params);
             return;
         }
 
