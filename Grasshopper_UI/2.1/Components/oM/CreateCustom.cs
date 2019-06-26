@@ -59,19 +59,25 @@ namespace BH.UI.Grasshopper.Components
             if (sender == null)
                 return;
 
-            if (e == null || e.Parameter == null || e.ParameterIndex == -1)
+            if (e == null || e.Parameter == null || e.ParameterIndex == -1 || Caller?.InputParams.Count - 1 < e.ParameterIndex)
                 return;
 
             CreateCustomCaller caller = Caller as CreateCustomCaller;
             if (caller == null)
                 return;
 
-            // Updating Caller.InputParams based on the new Grasshopper parameter just received
-            caller.UpdateInput(e.ParameterIndex, e.Parameter.NickName, e.Parameter.Type(caller)); // We update the InputParams with the new type or name
             // We recompute only if there is no other scheduled solution running or the update does not come from an explode, which will cause a crash
-            ExpireSolution(this.Phase == GH_SolutionPhase.Computed
-                && !e.Parameter.Sources.Any(p => p.Attributes.GetTopLevel.DocObject is ExplodeComponent)
-                && e.Server != this.Params);
+            // we also avoid recomputing if we just reconnected the same wire
+            bool recompute = this.Phase == GH_SolutionPhase.Computed
+                             && !e.Parameter.Sources.Any(p => p.Attributes.GetTopLevel.DocObject is ExplodeComponent)
+                             && e.Parameter.NickName != caller.InputParams[e.ParameterIndex].Name;
+            
+            // Updating Caller.InputParams based on the new Grasshopper parameter just received
+            // We update the InputParams with the new type or name
+            caller.UpdateInput(e.ParameterIndex, e.Parameter.NickName, e.Parameter.Type(caller));
+
+            // and expire because of the changes made
+            ExpireSolution(recompute);
             return;
         }
 
