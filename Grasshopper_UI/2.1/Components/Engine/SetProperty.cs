@@ -20,13 +20,11 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using System;
 using Grasshopper.Kernel;
-using BH.oM.Base;
-using BH.UI.Grasshopper.Base;
 using BH.UI.Grasshopper.Templates;
 using BH.UI.Templates;
 using BH.UI.Components;
+using Grasshopper.Kernel.Parameters;
 
 namespace BH.UI.Grasshopper.Components
 {
@@ -38,6 +36,25 @@ namespace BH.UI.Grasshopper.Components
 
         public override Caller Caller { get; } = new SetPropertyCaller();
 
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
+        public SetPropertyComponent() : base()
+        {
+            this.Params.ParameterChanged += OnGrasshopperUpdates;
+            if (Params.Input.Count > 2)
+            {
+                Param_ScriptVariable paramScript = Params.Input[2] as Param_ScriptVariable;
+                if (paramScript != null)
+                {
+                    paramScript.ShowHints = true;
+                    paramScript.Hints = Engine.Grasshopper.Query.AvailableHints;
+                    paramScript.AllowTreeAccess = true;
+                }
+            }
+        }
 
         /*******************************************/
     }
