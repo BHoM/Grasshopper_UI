@@ -44,8 +44,8 @@ namespace BH.Engine.Grasshopper
             if (param is Param_ScriptVariable)
                 return Type(((Param_ScriptVariable)param).TypeHint, param.Access);
 
-            else if (caller != null && caller is CreateCustomCaller)
-                return ((CreateCustomCaller)caller).GetParam(param.NickName).DataType;
+            else if (caller != null)
+                return (caller.InputParams.Find(x => x.Name == param.NickName))?.DataType;
 
             else
                 return param.Type;
@@ -56,7 +56,7 @@ namespace BH.Engine.Grasshopper
         public static Type Type(this IGH_TypeHint hint, GH_ParamAccess access)
         {
             if (hint == null)
-                return typeof(object);
+                return Type<object>(access);
 
             switch (hint.TypeName)
             {
