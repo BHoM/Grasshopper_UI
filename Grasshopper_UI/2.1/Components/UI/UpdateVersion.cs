@@ -389,7 +389,7 @@ namespace BH.UI.Grasshopper.Base
         {
             CreateCustomComponent newComp = new CreateCustomComponent();
             CreateCustomCaller caller = newComp.Caller as CreateCustomCaller;
-            caller.SetInputs(component.Params.Input.Select(x => x.NickName).ToList());
+            caller.SetInputParams(component.Params.Input.Select(x => x.NickName).ToList());
             newComp.OnItemSelected();
 
             return SwapComponent(doc, component, newComp, component.SelectedType);
