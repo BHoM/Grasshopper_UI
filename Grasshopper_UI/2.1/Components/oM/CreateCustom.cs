@@ -27,7 +27,6 @@ using BH.UI.Components;
 using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Parameters.Hints;
 using BH.Engine.Grasshopper;
-using System.Linq;
 
 namespace BH.UI.Grasshopper.Components
 {
@@ -47,38 +46,6 @@ namespace BH.UI.Grasshopper.Components
         public CreateCustomComponent() : base()
         {
             this.Params.ParameterChanged += OnGrasshopperUpdates;
-        }
-
-
-        /*******************************************/
-        /**** Public Methods                    ****/
-        /*******************************************/
-
-        public void OnGrasshopperUpdates(object sender, GH_ParamServerEventArgs e)
-        {
-            if (sender == null)
-                return;
-
-            if (e == null || e.Parameter == null || e.ParameterIndex == -1 || Caller?.InputParams.Count - 1 < e.ParameterIndex)
-                return;
-
-            CreateCustomCaller caller = Caller as CreateCustomCaller;
-            if (caller == null)
-                return;
-
-            // We recompute only if there is no other scheduled solution running or the update does not come from an explode, which will cause a crash
-            // we also avoid recomputing if we just reconnected the same wire
-            bool recompute = this.Phase == GH_SolutionPhase.Computed
-                             && !e.Parameter.Sources.Any(p => p.Attributes.GetTopLevel.DocObject is ExplodeComponent)
-                             && e.Parameter.NickName != caller.InputParams[e.ParameterIndex].Name;
-            
-            // Updating Caller.InputParams based on the new Grasshopper parameter just received
-            // We update the InputParams with the new type or name
-            caller.UpdateInput(e.ParameterIndex, e.Parameter.NickName, e.Parameter.Type(caller));
-
-            // and expire because of the changes made
-            ExpireSolution(recompute);
-            return;
         }
 
 

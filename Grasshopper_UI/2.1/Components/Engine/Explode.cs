@@ -58,7 +58,7 @@ namespace BH.UI.Grasshopper.Components
 
         /*******************************************/
 
-        public void OnGrasshopperUpdates(object sender = null, object e = null)
+        public override void OnGrasshopperUpdates(object sender = null, GH_ParamServerEventArgs e = null)
         {
             // Update the output params based on input data
             Params.Input[0].CollectData();
