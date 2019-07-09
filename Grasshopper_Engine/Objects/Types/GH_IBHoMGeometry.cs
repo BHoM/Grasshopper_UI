@@ -204,7 +204,7 @@ namespace BH.Engine.Grasshopper.Objects
             else if (source is Rhino.Geometry.GeometryBase)
                 m_Value = ((Rhino.Geometry.GeometryBase)source).IToBHoM();
             else if (source is IGH_Goo)
-                return CastFrom(((IGH_Goo)source).ScriptVariable());
+                return CastFrom(Convert.IFromGoo<object>((IGH_Goo)source));
             else if (source is Rhino.Geometry.Vector3d)
                 m_Value = ((Rhino.Geometry.Vector3d)source).ToBHoM();
             else if (source is Rhino.Geometry.Plane)

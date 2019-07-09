@@ -99,8 +99,8 @@ namespace BH.Engine.Grasshopper.Objects
 
         public override bool CastFrom(object source)
         {
-            while (source is IGH_Goo)
-                source = ((IGH_Goo)source).ScriptVariable();
+            if (source is IGH_Goo)
+                return CastFrom(Convert.IFromGoo<object>((IGH_Goo)source));
 
             if (source.GetType().Namespace.StartsWith("Rhino.Geometry"))
                 source = BH.Engine.Rhinoceros.Convert.ToBHoM(source as dynamic);
