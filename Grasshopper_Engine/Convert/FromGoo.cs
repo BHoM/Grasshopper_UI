@@ -70,12 +70,12 @@ namespace BH.Engine.Grasshopper
 
         /*************************************/
 
-        public static T FromGoo<T>(this GH_Surface goo, IGH_TypeHint hint = null) where T : Surface
+        public static T FromGoo<T>(this GH_Surface goo, IGH_TypeHint hint = null)
         {
             Brep brep = goo.ScriptVariable() as Brep;
             if (brep.IsSurface)
-                return (T)(brep.Faces[0] as dynamic);
-            return null;
+                return (T)(brep.Faces[0].UnderlyingSurface() as dynamic);
+            return default(T);
         }
     }
 }
