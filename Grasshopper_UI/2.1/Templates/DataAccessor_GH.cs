@@ -74,7 +74,7 @@ namespace BH.UI.Grasshopper.Templates
             if (scriptParam != null)
                 hint = scriptParam.TypeHint;
 
-            return BH.Engine.Grasshopper.Convert.FromGoo<T>(goo, hint);
+            return BH.Engine.Grasshopper.Convert.IFromGoo<T>(goo, hint);
         }
 
         /*************************************/
@@ -91,7 +91,7 @@ namespace BH.UI.Grasshopper.Templates
 
             List<IGH_Goo> goo = new List<IGH_Goo>();
             GH_Accessor.GetDataList<IGH_Goo>(index, goo);
-            return goo.Select(x => BH.Engine.Grasshopper.Convert.FromGoo<T>(x, hint)).ToList();
+            return goo.Select(x => BH.Engine.Grasshopper.Convert.IFromGoo<T>(x, hint)).ToList();
         }
 
         /*************************************/
@@ -107,7 +107,7 @@ namespace BH.UI.Grasshopper.Templates
                 hint = scriptParam.TypeHint;
 
             IGH_Param param = Component.Params.Input[index];
-            return param.VolatileData.StructureProxy.Select(x => x.Cast<IGH_Goo>().Select(y => BH.Engine.Grasshopper.Convert.FromGoo<T>(y, hint)).ToList()).ToList();
+            return param.VolatileData.StructureProxy.Select(x => x.Cast<IGH_Goo>().Select(y => BH.Engine.Grasshopper.Convert.IFromGoo<T>(y, hint)).ToList()).ToList();
 
             // This shows that using the GetDataTree method from GH is actually giving the exact same result with the exact same problem of collecting the entire data instead of a subtree
             /*IGH_Structure goo = Activator.CreateInstance(typeof(GH_Structure<>).GetGenericTypeDefinition().MakeGenericType(new Type[] { param.Type })) as IGH_Structure;
@@ -152,7 +152,7 @@ namespace BH.UI.Grasshopper.Templates
         private List<List<T>> ConvertDataTree<T, TG>(GH_Structure<TG> structure, int index, List<List<T>> result) where TG : IGH_Goo
         {
             GH_Accessor.GetDataTree(index, out structure);
-            result = structure.Branches.Select(x => x.Select(y => BH.Engine.Grasshopper.Convert.FromGoo<T>(y)).ToList()).ToList();
+            result = structure.Branches.Select(x => x.Select(y => BH.Engine.Grasshopper.Convert.IFromGoo<T>(y)).ToList()).ToList();
             return result;
         }
 

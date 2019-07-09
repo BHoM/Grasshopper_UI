@@ -23,6 +23,7 @@
 using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Types;
 using System.Runtime.CompilerServices;
+using Rhino.Geometry;
 
 namespace BH.Engine.Grasshopper
 {
@@ -31,6 +32,11 @@ namespace BH.Engine.Grasshopper
         /*******************************************/
         /**** Public Methods                    ****/
         /*******************************************/
+
+        public static T IFromGoo<T>(this IGH_Goo goo, IGH_TypeHint hint = null)
+        {
+            return goo != null ? FromGoo<T>(goo as dynamic, hint) : null;
+        }
 
         public static T FromGoo<T>(this IGH_Goo goo, IGH_TypeHint hint = null)
         {
@@ -63,5 +69,13 @@ namespace BH.Engine.Grasshopper
         }
 
         /*************************************/
+
+        public static T FromGoo<T>(this GH_Surface goo, IGH_TypeHint hint = null) where T : Surface
+        {
+            Brep brep = goo.ScriptVariable() as Brep;
+            if (brep.IsSurface)
+                return (T)(brep.Faces[0] as dynamic);
+            return null;
+        }
     }
 }
