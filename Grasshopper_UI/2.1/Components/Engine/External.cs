@@ -26,13 +26,13 @@ using BH.UI.Components;
 
 namespace BH.UI.Grasshopper.Components
 {
-    public class ExternalComputeComponent : CallerComponent
+    public class ExternalComponent : CallerComponent
     {
         /*******************************************/
         /**** Properties                        ****/
         /*******************************************/
 
-        public override Caller Caller { get; } = new ExternalComputeCaller();
+        public override Caller Caller { get; } = new ExternalCaller();
 
 
         /*******************************************/
