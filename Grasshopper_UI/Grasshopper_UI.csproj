@@ -127,6 +127,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="2.1\Components\External\ExternalCompute.cs" />
     <Compile Include="2.1\Components\Adapter\CreateRequest.cs" />
     <Compile Include="2.1\Components\Adapter\CreateAdapter.cs" />
     <Compile Include="2.1\Components\Adapter\Execute.cs" />
