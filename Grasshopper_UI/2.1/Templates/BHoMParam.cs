@@ -31,6 +31,7 @@ using System.Linq;
 using System.Windows.Forms;
 using GH = Grasshopper;
 using Grasshopper.GUI;
+using Grasshopper.Kernel.Data;
 
 namespace BH.UI.Grasshopper.Templates
 {
@@ -120,9 +121,6 @@ namespace BH.UI.Grasshopper.Templates
             m_ForcePreview = !m_ForcePreview;
         }
 
-
-        /*******************************************/
-        /**** Override Methods                  ****/
         /*******************************************/
 
         public void DrawViewportMeshes(IGH_PreviewArgs args)
@@ -137,6 +135,9 @@ namespace BH.UI.Grasshopper.Templates
             Preview_DrawWires(args);
         }
 
+
+        /*******************************************/
+        /**** Override Methods                  ****/
         /*******************************************/
 
         public override bool Write(GH_IWriter writer)
@@ -156,6 +157,21 @@ namespace BH.UI.Grasshopper.Templates
             reader.TryGetBoolean("m_ForcePreview", ref m_ForcePreview);
             Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
             return success;
+        }
+
+        /*******************************************/
+
+        protected override void CollectVolatileData_FromSources()
+        {
+            GH_Structure<T> orig = new GH_Structure<T>();
+            if (Sources.Count > 0 && (Sources != null && Sources.Count > 0))
+                orig = this.Sources[0].VolatileData as GH_Structure<T>;
+
+            GH_Structure<T> TempCopy = orig;
+
+            this.m_data = TempCopy == null ? new GH_Structure<T>() : TempCopy.Duplicate();
+
+            //this.m_data = (m_Cache.Sources[0].VolatileData as GH_Structure<T>).Duplicate();
         }
 
         /*******************************************/
@@ -192,6 +208,8 @@ namespace BH.UI.Grasshopper.Templates
         protected int m_MaxItemsPreview = 10000;
 
         protected bool m_ForcePreview = false;
+
+        protected GH_Structure<T> m_DataCache = null;
 
         /***************************************************/
 

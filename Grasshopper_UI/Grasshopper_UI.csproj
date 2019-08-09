@@ -136,6 +136,7 @@
     <Compile Include="2.1\Components\Adapter\Pull.cs" />
     <Compile Include="2.1\Components\Adapter\Move.cs" />
     <Compile Include="2.1\Components\Adapter\Push.cs" />
+    <Compile Include="2.1\Components\Engine\Iterate.cs" />
     <Compile Include="2.1\Templates\BHoMParam.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="2.0\Components\Adapter\CreateAdapter.cs" />
