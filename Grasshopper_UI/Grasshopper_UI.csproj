@@ -362,7 +362,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>call "$(TargetDir)UI_PostBuild.exe" ..\..\ "$(AppData)\BHoM\Assemblies"
+    <PostBuildEvent>call "..\..\BHoM_UI\Build\UI_PostBuild.exe" ..\..\ "$(AppData)\BHoM\Assemblies"
 
 Copy /Y "$(TargetDir)$(TargetName).dll" "$(AppData)\BHoM\Assemblies\$(TargetName).gha"
 
