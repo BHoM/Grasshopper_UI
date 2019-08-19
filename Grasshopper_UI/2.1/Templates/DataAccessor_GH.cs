@@ -81,14 +81,17 @@ namespace BH.UI.Grasshopper.Templates
 
         public override List<T> GetDataList<T>(int index)
         {
-            return GetDataCollection<T>(index).ToList();
-        }
+            if (GH_Accessor == null)
+                return new List<T>();
 
-        /*************************************/
+            IGH_TypeHint hint = null;
+            Param_ScriptVariable scriptParam = Component.Params.Input[index] as Param_ScriptVariable;
+            if (scriptParam != null)
+                hint = scriptParam.TypeHint;
 
-        public override T[] GetDataArray<T>(int index)
-        {
-            return GetDataCollection<T>(index).ToArray();
+            List<IGH_Goo> goo = new List<IGH_Goo>();
+            GH_Accessor.GetDataList<IGH_Goo>(index, goo);
+            return goo.Select(x => BH.Engine.Grasshopper.Convert.FromGoo<T>(x, hint)).ToList();
         }
 
         /*************************************/
@@ -151,23 +154,6 @@ namespace BH.UI.Grasshopper.Templates
             GH_Accessor.GetDataTree(index, out structure);
             result = structure.Branches.Select(x => x.Select(y => BH.Engine.Grasshopper.Convert.IFromGoo<T>(y)).ToList()).ToList();
             return result;
-        }
-
-        /*************************************/
-
-        private IEnumerable<T> GetDataCollection<T>(int index)
-        {
-            if (GH_Accessor == null)
-                return new T[0];
-
-            IGH_TypeHint hint = null;
-            Param_ScriptVariable scriptParam = Component.Params.Input[index] as Param_ScriptVariable;
-            if (scriptParam != null)
-                hint = scriptParam.TypeHint;
-
-            List<IGH_Goo> goo = new List<IGH_Goo>();
-            GH_Accessor.GetDataList<IGH_Goo>(index, goo);
-            return goo.Select(x => BH.Engine.Grasshopper.Convert.FromGoo<T>(x, hint));
         }
 
         /*************************************/
