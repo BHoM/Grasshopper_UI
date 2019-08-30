@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
  *
@@ -20,32 +20,39 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.oM.Reflection.Debugging;
+using Grasshopper.Kernel;
 using System;
-using Grasshopper.Kernel.Parameters;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace BH.UI.Grasshopper.GeometryHints
+namespace BH.UI.Grasshopper
 {
-    public class BH_LineHint : IGH_TypeHint
+    public static class Logging
     {
-        /*******************************************/
-        /**** Properties                        ****/
-        /*******************************************/
+        /*************************************/
+        /**** Public Methods              ****/
+        /*************************************/
 
-        public Guid HintID { get; } = new Guid("e630327b-d9b4-41b8-8dc9-c74436e4bca9"); 
-
-        public string TypeName { get; } = typeof(BH.oM.Geometry.Line).ToString(); 
-
-
-        /*******************************************/
-        /**** Constructors                      ****/
-        /*******************************************/
-
-        public bool Cast(object data, out object target)
+        public static void ShowEvents(GH_ActiveObject component, List<Event> events)
         {
-            target = data;
-            return true;
+            if (events.Count > 0)
+            {
+                foreach (Event e in events)
+                {
+                    if (e.Type == EventType.Error)
+                        component.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, e.Message);
+                    else if (e.Type == EventType.Warning)
+                        component.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, e.Message);
+                    else if (e.Type == EventType.Note)
+                        component.AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, e.Message);
+                }
+            }
         }
 
-        /*******************************************/
+
+        /*************************************/
     }
 }

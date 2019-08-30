@@ -41,32 +41,40 @@
   <ItemGroup>
     <Reference Include="BHoM">
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="BHoM_Adapter">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_Adapter\Build\BHoM_Adapter.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="BHoM_Engine">
       <HintPath>..\..\BHoM_Engine\Build\BHoM_Engine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="BHoM_UI">
       <HintPath>..\..\BHoM_UI\Build\BHoM_UI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Data_Engine, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_Engine\Build\Data_Engine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Data_oM, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM\Build\Data_oM.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Geometry_Engine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_Engine\Build\Geometry_Engine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Geometry_oM">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM\Build\Geometry_oM.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="GH_IO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97, processorArchitecture=MSIL">
       <HintPath>..\packages\Grasshopper.0.9.76\lib\net35\GH_IO.dll</HintPath>
@@ -78,22 +86,27 @@
     </Reference>
     <Reference Include="Library_Engine">
       <HintPath>..\..\BHoM_Engine\Build\Library_Engine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Planning_oM">
       <HintPath>..\..\BHoM\Build\Planning_oM.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="PresentationFramework" />
     <Reference Include="Reflection_Engine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_Engine\Build\Reflection_Engine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Reflection_oM">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM\Build\Reflection_oM.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Rhinoceros_Engine">
       <HintPath>..\..\Rhinoceros_Toolkit\Build\Rhinoceros_Engine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="RhinoCommon, Version=5.1.30000.16, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
       <HintPath>..\packages\RhinoCommon.5.12.50810.13095\lib\net35\RhinoCommon.dll</HintPath>
@@ -102,10 +115,12 @@
     <Reference Include="Script, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Script.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Serialiser_Engine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_Engine\Build\Serialiser_Engine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -113,17 +128,21 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Testing_oM">
       <HintPath>..\..\BHoM\Build\Testing_oM.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UI_Engine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_UI\Build\UI_Engine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UI_oM">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_UI\Build\UI_oM.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UI_PostBuild">
       <HintPath>..\..\BHoM_UI\Build\UI_PostBuild.exe</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -136,37 +155,9 @@
     <Compile Include="2.1\Components\Adapter\Pull.cs" />
     <Compile Include="2.1\Components\Adapter\Move.cs" />
     <Compile Include="2.1\Components\Adapter\Push.cs" />
+    <Compile Include="2.1\NonComponents\Logging.cs" />
     <Compile Include="2.1\Templates\BHoMParam.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="2.0\Components\Adapter\CreateAdapter.cs" />
-    <Compile Include="2.0\Components\Adapter\CreateQuery.cs" />
-    <Compile Include="2.0\Components\Adapter\Delete.cs" />
-    <Compile Include="2.0\Components\Adapter\Execute.cs" />
-    <Compile Include="2.0\Components\Adapter\Move.cs" />
-    <Compile Include="2.0\Components\Adapter\Pull.cs" />
-    <Compile Include="2.0\Components\Adapter\Push.cs" />
-    <Compile Include="2.0\Components\Adapter\UpdateProperty.cs" />
-    <Compile Include="2.0\Components\oM\CreateBHoMData.cs" />
-    <Compile Include="2.0\Components\oM\CreateBHoMType.cs" />
-    <Compile Include="2.0\Components\oM\CreateBHoMEnum.cs" />
-    <Compile Include="2.0\Components\oM\CreateDictionary.cs" />
-    <Compile Include="2.0\Components\Engine\ComputeBHoM.cs" />
-    <Compile Include="2.0\Components\Engine\ConvertBHoM.cs" />
-    <Compile Include="2.0\Components\Engine\FromJson.cs" />
-    <Compile Include="2.0\Components\Engine\ToJson.cs" />
-    <Compile Include="2.0\Components\Parameters\IObjectParameter.cs" />
-    <Compile Include="2.0\Components\Parameters\DictionaryParameter.cs" />
-    <Compile Include="2.0\Components\Parameters\EnumParameter.cs" />
-    <Compile Include="2.0\Components\Parameters\TypeParameter.cs" />
-    <Compile Include="2.0\Components\UI\BH_CSNET_Script.cs" />
-    <Compile Include="2.0\Components\UI\BH_VBNET_Script.cs" />
-    <Compile Include="2.0\Components\Engine\ModifyBHoM.cs" />
-    <Compile Include="2.0\Components\Engine\QueryBHoM.cs" />
-    <Compile Include="2.0\Components\oM\CreateBHoM.cs" />
-    <Compile Include="2.0\Components\UI\CreateTestResult.cs" />
-    <Compile Include="2.0\Components\UI\CreateUnitTests.cs" />
-    <Compile Include="2.0\Components\UI\Script.cs" />
-    <Compile Include="2.0\Components\UI\VsScriptEditor.cs" />
     <Compile Include="2.1\Components\Engine\Explode.cs" />
     <Compile Include="2.1\Components\Engine\GetInfo.cs" />
     <Compile Include="2.1\Components\Engine\Query.cs" />
@@ -189,53 +180,14 @@
     <Compile Include="2.1\Components\Parameters\Param_Enum.cs" />
     <Compile Include="2.1\Components\Parameters\Param_IObject.cs" />
     <Compile Include="2.1\Components\Parameters\Param_Type.cs" />
-    <Compile Include="2.1\Components\UI\UpdateVersion.cs" />
     <Compile Include="2.1\Global\GlobalSearch.cs" />
     <Compile Include="2.1\Templates\CallerValueList.cs" />
     <Compile Include="2.1\Templates\DataAccessor_GH.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_BHomGeometryHint.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_IObjectHint.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_TypeHint.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_EnumHint.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_DictionaryHint.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_BHomObjectHint.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_LineHint.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_MeshHint.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_NurbCurveHint.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_PointHint.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_PolylineHint.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_VectorHint.cs" />
-    <Compile Include="2.0\Components\Parameters\BHoMGeometryParameter.cs" />
-    <Compile Include="2.0\Components\Parameters\BHoMObjectParameter.cs" />
-    <Compile Include="2.0\Components\oM\CreateCustomObject.cs" />
-    <Compile Include="2.0\Components\Engine\ExplodeObject.cs" />
-    <Compile Include="2.0\NonComponents\BH_Types\GH_IObject.cs" />
-    <Compile Include="2.0\NonComponents\BH_Types\GH_TemplateType.cs" />
-    <Compile Include="2.0\NonComponents\BH_Types\GH_Dictionary.cs" />
-    <Compile Include="2.0\NonComponents\BH_Types\GH_Enum.cs" />
-    <Compile Include="2.0\NonComponents\Menus\BH_PopupSearchDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="2.0\NonComponents\Menus\SelectorMenu.cs" />
-    <Compile Include="2.0\NonComponents\Menus\SearchPopup.cs" />
-    <Compile Include="2.0\NonComponents\Others\BH_StructureIterator.cs" />
-    <Compile Include="2.0\NonComponents\Others\Logging.cs" />
-    <Compile Include="2.0\NonComponents\Ports\PortDataType.cs" />
-    <Compile Include="2.0\NonComponents\Render\RenderBHoMObject.cs" />
-    <Compile Include="2.0\NonComponents\BH_Types\GH_Type.cs" />
-    <Compile Include="2.0\NonComponents\BH_Types\GH_IBHoMGeometry.cs" />
-    <Compile Include="2.0\NonComponents\BH_Types\GH_BHoMObject.cs" />
-    <Compile Include="2.0\NonComponents\Render\RenderBHoMGeometry.cs" />
-    <Compile Include="2.0\Components\AboutGator.cs" />
-    <Compile Include="2.0\Components\Engine\GetProperty.cs" />
-    <Compile Include="2.0\Components\Engine\SetProperty.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="2.0\Templates\CreateCustomTemplate.cs" />
-    <Compile Include="2.0\Templates\MethodCallTemplate.cs" />
     <Compile Include="2.1\Templates\CallerComponent.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -351,6 +303,7 @@
     <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
       <Project>{dde47285-e709-4752-9afd-6fa03b449364}</Project>
       <Name>Grasshopper_Engine</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -24,7 +24,6 @@ using System;
 using GH = Grasshopper;
 using Grasshopper.Kernel;
 using BH.oM.Base;
-using BH.UI.Grasshopper.Base;
 using BH.UI.Grasshopper.Templates;
 using BH.UI.Templates;
 using BH.UI.Components;
