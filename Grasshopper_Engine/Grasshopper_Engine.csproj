@@ -95,6 +95,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compute\Logging.cs" />
     <Compile Include="Compute\RenderMeshes.cs" />
     <Compile Include="Compute\RenderRhinoMesh.cs" />
     <Compile Include="Compute\RenderRhinoWires.cs" />

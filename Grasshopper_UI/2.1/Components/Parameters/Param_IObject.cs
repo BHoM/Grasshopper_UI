@@ -53,7 +53,8 @@ namespace BH.UI.Grasshopper.Parameters
                 }
                 Engine.Reflection.Compute.RecordNote("Preview has been disabled to prevent a slowdown due to the high number of objects." +
                     "Right click and set the a new items limit to force the preview at your own risk.");
-                Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
+
+                BH.Engine.Grasshopper.Compute.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
                 return false;
             }
         }

@@ -220,7 +220,7 @@ namespace BH.UI.Grasshopper.Templates
         {
             Accessor.GH_Accessor = DA;
             Caller.Run();
-            Logging.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
+            BH.Engine.Grasshopper.Compute.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
         }
 
         /*******************************************/

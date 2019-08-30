@@ -154,7 +154,7 @@ namespace BH.UI.Grasshopper.Templates
             bool success = base.Read(reader);
             reader.TryGetInt32("m_MaxItemsPreview", ref m_MaxItemsPreview);
             reader.TryGetBoolean("m_ForcePreview", ref m_ForcePreview);
-            Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
+            BH.Engine.Grasshopper.Compute.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
             return success;
         }
 

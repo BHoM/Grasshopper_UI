@@ -30,6 +30,7 @@ using BH.UI.Components;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using BH.Engine.Grasshopper;
 
 namespace BH.UI.Grasshopper.Components
 {
@@ -101,7 +102,7 @@ namespace BH.UI.Grasshopper.Components
                 {
                     Engine.Reflection.Compute.ClearCurrentEvents();
                     Engine.Reflection.Compute.RecordWarning("Output paramters do not match object properties. Please right click and <Update Outputs>");
-                    Logging.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
+                    BH.Engine.Grasshopper.Compute.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
                 }
             }
 
