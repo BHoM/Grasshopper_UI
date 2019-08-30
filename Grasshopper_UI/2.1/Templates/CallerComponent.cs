@@ -327,8 +327,10 @@ namespace BH.UI.Grasshopper.Templates
                     break;
                 case "System.Int16":
                 case "System.Int32":
-                case "System.Int64":
                     param = new Param_Integer();
+                    break;
+                case "System.Int64":
+                    param = new Param_Time();
                     break;
                 case "System.String":
                     param = new Param_String();
