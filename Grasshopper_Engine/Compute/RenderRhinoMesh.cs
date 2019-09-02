@@ -52,11 +52,11 @@ namespace BH.Engine.Grasshopper
 
         /***************************************************/
 
-        public static void RenderRhinoMeshes(this List<object> geometry, Rhino.Display.DisplayPipeline pipeline, DisplayMaterial material)
+        public static void IRenderRhinoMeshes(this List<object> geometry, Rhino.Display.DisplayPipeline pipeline, DisplayMaterial material)
         {
-            foreach(object geo in geometry)
+            foreach (object geo in geometry)
             {
-                RenderRhinoMeshes(geo as dynamic, pipeline, material);
+                IRenderRhinoMeshes(geo as dynamic, pipeline, material);
             }
         }
 
