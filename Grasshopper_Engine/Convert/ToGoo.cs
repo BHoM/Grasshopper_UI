@@ -60,7 +60,7 @@ namespace BH.Engine.Grasshopper
 
         public static IGH_Goo ToGoo(this IGeometry obj)
         {
-            return new GH_IBHoMGeometry(obj);
+            return new IGeometryGoo(obj);
         }
 
         /*************************************/
