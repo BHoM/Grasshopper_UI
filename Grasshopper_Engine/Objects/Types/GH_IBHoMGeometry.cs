@@ -34,7 +34,7 @@ using GH_IO;
 
 namespace BH.Engine.Grasshopper.Objects
 {
-    public class GH_IBHoMGeometry : GH_GeometricGoo<object>, IGH_PreviewData, IGH_BakeAwareData, GH_ISerializable
+    public class IGeometryGoo : GH_GeometricGoo<IGeometry>, IGH_PreviewData, IGH_BakeAwareData, GH_ISerializable
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -44,45 +44,42 @@ namespace BH.Engine.Grasshopper.Objects
 
         public override string TypeDescription { get; } = "Contains a generic BHoM Geometry";
 
-        public override bool IsValid { get { return m_Value != null; } }
+        public override bool IsValid { get { return Value != null; } }
 
         public Rhino.Geometry.BoundingBox ClippingBox { get { return Bounds(); } }
 
         public override Rhino.Geometry.BoundingBox Boundingbox { get { return Bounds(); } }
 
-        public override object Value // This is a Rhino.Geometry object if possibile, a BH.oM.Geometry otherwise
+        public override IGeometry Value
         {
             get
             {
-                if (m_Value == null)
-                    return null;
-                else if (m_RhinoValue != null)
-                    return m_RhinoValue;
-                else
-                    return m_Value;
+                return base.Value;
             }
             set
             {
-                CastFrom(value);
+                if (CastFrom(value)) ;
+                SetGeometry();
             }
         }
 
 
-        /***************************************************/
-        /**** Constructors                              ****/
-        /***************************************************/
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
 
-        public GH_IBHoMGeometry()
+        public IGeometryGoo()
         {
-            m_Value = null;
+            this.Value = null;
         }
 
         /***************************************************/
 
-        public GH_IBHoMGeometry(object bh)
+        public IGeometryGoo(IGeometry val)
         {
-            Value = bh;
+            this.Value = val;
         }
+
 
 
         /*******************************************/
@@ -91,7 +88,7 @@ namespace BH.Engine.Grasshopper.Objects
 
         public override IGH_GeometricGoo DuplicateGeometry()
         {
-            return new GH_IBHoMGeometry { Value = m_Value.IClone() };
+            return new IGeometryGoo { Value = Value.IClone() };
         }
 
         /***************************************************/
@@ -152,8 +149,8 @@ namespace BH.Engine.Grasshopper.Objects
         {
             try
             {
-                if (m_Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
-                return m_Value.IBounds().ToRhino();
+                if (Value == null) { return Rhino.Geometry.BoundingBox.Empty; }
+                return Value.IBounds().ToRhino();
             }
             catch
             {
@@ -165,7 +162,7 @@ namespace BH.Engine.Grasshopper.Objects
 
         public override object ScriptVariable()
         {
-            return m_Value;
+            return Value;
         }
 
         /***************************************************/
@@ -176,7 +173,7 @@ namespace BH.Engine.Grasshopper.Objects
             reader.TryGetString("Json", ref json);
 
             if (json != null && json.Length > 0)
-                m_Value = BH.Engine.Serialiser.Convert.FromJson(json) as IGeometry;
+                Value = BH.Engine.Serialiser.Convert.FromJson(json) as IGeometry;
 
             return true;
         }
@@ -186,7 +183,7 @@ namespace BH.Engine.Grasshopper.Objects
         public override bool Write(GH_IWriter writer)
         {
             if (Value != null)
-                writer.SetString("Json", m_Value.ToJson());
+                writer.SetString("Json", Value.ToJson());
             return true;
         }
 
@@ -200,37 +197,37 @@ namespace BH.Engine.Grasshopper.Objects
             if (source == null) { return false; }
 
             else if (source is IGeometry)
-                m_Value = (IGeometry)source;
+                Value = (IGeometry)source;
             else if (source is Rhino.Geometry.GeometryBase)
-                m_Value = ((Rhino.Geometry.GeometryBase)source).IToBHoM();
+                Value = ((Rhino.Geometry.GeometryBase)source).IToBHoM();
             else if (source is IGH_Goo)
-                return CastFrom(Convert.IFromGoo<object>((IGH_Goo)source));
+                return CastFrom(((IGH_Goo)source).ScriptVariable());
             else if (source is Rhino.Geometry.Vector3d)
-                m_Value = ((Rhino.Geometry.Vector3d)source).ToBHoM();
+                Value = ((Rhino.Geometry.Vector3d)source).ToBHoM();
             else if (source is Rhino.Geometry.Plane)
-                m_Value = ((Rhino.Geometry.Plane)source).ToBHoM();
+                Value = ((Rhino.Geometry.Plane)source).ToBHoM();
             else if (source is Rhino.Geometry.BoundingBox)
-                m_Value = ((Rhino.Geometry.BoundingBox)source).ToBHoM();
+                Value = ((Rhino.Geometry.BoundingBox)source).ToBHoM();
             else if (source is Rhino.Geometry.Box)
-                m_Value = ((Rhino.Geometry.Box)source).ToBHoM();
+                Value = ((Rhino.Geometry.Box)source).ToBHoM();
             else if (source is Rhino.Geometry.MeshFace)
-                m_Value = ((Rhino.Geometry.MeshFace)source).ToBHoM();
+                Value = ((Rhino.Geometry.MeshFace)source).ToBHoM();
             else if (source is Rhino.Geometry.Transform)
-                m_Value = ((Rhino.Geometry.Transform)source).ToBHoM();
+                Value = ((Rhino.Geometry.Transform)source).ToBHoM();
             else if (source is Rhino.Geometry.Matrix)
             {
                 GH_Transform transform = new GH_Transform();
                 transform.CastFrom(source);
-                m_Value = transform.Value.ToBHoM();
+                Value = transform.Value.ToBHoM();
             }
             else if (source is Rhino.Geometry.Ellipse)
             {
-                m_Value = ((Rhino.Geometry.Ellipse)source).ToBHoM();
+                Value = ((Rhino.Geometry.Ellipse)source).ToBHoM();
             }
             else
-                m_Value = GH_Convert.ToGeometryBase(source).IToBHoM();
+                Value = GH_Convert.ToGeometryBase(source).IToBHoM();
 
-            SetRhinoValue();
+            SetGeometry();
             return true;
         }
 
@@ -305,10 +302,10 @@ namespace BH.Engine.Grasshopper.Objects
 
         public override IGH_GeometricGoo Transform(Rhino.Geometry.Transform xform)
         {
-            if (m_Value == null)
+            if (Value == null)
                 return null;
             else
-                return new GH_IBHoMGeometry { Value = m_Value.ITransform(xform.ToBHoM()) };
+                return new IGeometryGoo { Value = Value.ITransform(xform.ToBHoM()) };
         }
 
         /***************************************************/
@@ -319,11 +316,12 @@ namespace BH.Engine.Grasshopper.Objects
             if (value == null)
                 return null;
             else if (value is Rhino.Geometry.Point3d)
-                return new GH_IBHoMGeometry { Value = xmorph.MorphPoint((Rhino.Geometry.Point3d)value) };
+                return new IGeometryGoo { Value = xmorph.MorphPoint((Rhino.Geometry.Point3d)value).ToBHoM() };
             else
             {
                 Rhino.Geometry.GeometryBase geometry = ((Rhino.Geometry.GeometryBase)value).Duplicate();
-                return new GH_IBHoMGeometry { Value = xmorph.Morph(geometry) };
+                xmorph.Morph(geometry);
+                return new IGeometryGoo { Value = geometry.IToBHoM() };
             }
         }
 
@@ -370,10 +368,10 @@ namespace BH.Engine.Grasshopper.Objects
         {
             try
             {
-                if (m_Value == null)
+                if (Value == null)
                     return Rhino.Geometry.BoundingBox.Empty;
 
-                BH.oM.Geometry.BoundingBox bhBox = m_Value.IBounds();
+                BH.oM.Geometry.BoundingBox bhBox = Value.IBounds();
                 if (bhBox == null)
                     return Rhino.Geometry.BoundingBox.Empty;
 
@@ -387,20 +385,18 @@ namespace BH.Engine.Grasshopper.Objects
 
         /***************************************************/
 
-        private bool SetRhinoValue()
+        private bool SetGeometry()
         {
-            if (m_Value == null)
+            if (Value == null)
                 return true;
-            else if (BH.Engine.Rhinoceros.Query.IsRhinoEquivalent(m_Value.GetType()))
-                m_RhinoValue = m_Value.IToRhino();
+            else if (BH.Engine.Rhinoceros.Query.IsRhinoEquivalent(Value.GetType()))
+                m_RhinoValue = Value.IToRhino();
             return true;
         }
 
         /***************************************************/
         /**** Private Fields                            ****/
         /***************************************************/
-
-        private IGeometry m_Value = null;
 
         private object m_RhinoValue = null;
 
