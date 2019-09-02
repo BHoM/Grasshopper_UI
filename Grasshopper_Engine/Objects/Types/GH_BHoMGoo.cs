@@ -20,12 +20,15 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.Engine.Rhinoceros;
+using BH.oM.Base;
+using BH.oM.Geometry;
 using Grasshopper.Kernel.Types;
 using System;
 
 namespace BH.Engine.Grasshopper.Objects
 {
-    public abstract class GH_BHoMGoo<T> : GH_Goo<T> 
+    public class GH_BHoMGoo<T> : GH_Goo<T>
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -33,6 +36,22 @@ namespace BH.Engine.Grasshopper.Objects
 
         public override bool IsValid { get { return Value != null; } }
 
+        public override string TypeName { get { return typeof(T).Name; } }
+
+        public override string TypeDescription { get { return typeof(T).FullName; } }
+
+        public override T Value
+        {
+            get
+            {
+                return base.Value;
+            }
+            set
+            {
+                base.Value = value;
+                SetGeometry();
+            }
+        }
 
         /*******************************************/
         /**** Constructors                      ****/
@@ -50,9 +69,15 @@ namespace BH.Engine.Grasshopper.Objects
             this.Value = val;
         }
 
-
         /*******************************************/
         /**** Override Methods                  ****/
+        /*******************************************/
+
+        public override IGH_Goo Duplicate()
+        {
+            return new GH_BHoMGoo<T> { Value = Value };
+        }
+
         /*******************************************/
 
         public override string ToString()
@@ -74,25 +99,53 @@ namespace BH.Engine.Grasshopper.Objects
             }
             catch (Exception)
             {
-                string message = string.Format("Impossible to convert {0} into {1}. Check the input description for more details on the type of object that need to be provided", Value.GetType().FullName, typeof(Q).FullName);
-                throw new Exception(message);
+                Reflection.Compute.ClearCurrentEvents();
+                Reflection.Compute.RecordError($"Cannot cast {Value.GetType()} to {typeof(Q)}");
+                return false;
             }
         }
 
-        /***************************************************/
+        /*******************************************/
 
         public override bool CastFrom(object source)
         {
-            if (source == null) { return false; }
-            else if (source.GetType() == typeof(GH_Goo<T>))
+            if (source == null)
+                return true;
+
+            if (source.GetType() == typeof(GH_Goo<T>))
+            {
                 this.Value = ((GH_Goo<T>)source).Value;
+            }
             else if (source is T)
+            {
                 this.Value = (T)source;
+            }
             else
+            {
+                Reflection.Compute.ClearCurrentEvents();
+                Reflection.Compute.RecordError($"Cannot cast {source.GetType()} to {typeof(T)}");
                 this.Value = default(T);
+            }
+
             return true;
         }
 
         /*******************************************/
+
+        protected virtual bool SetGeometry()
+        {
+            return false;
+        }
+
+
+        /***************************************************/
+        /**** Private Fields                            ****/
+        /***************************************************/
+
+        protected IGeometry m_Geometry = null;
+
+        protected object m_RhinoGeometry = null;
+
+        /***************************************************/
     }
 }

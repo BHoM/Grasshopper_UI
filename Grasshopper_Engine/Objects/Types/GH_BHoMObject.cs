@@ -36,57 +36,37 @@ using BH.Engine.Serialiser;
 
 namespace BH.Engine.Grasshopper.Objects
 {
-    public class GH_BHoMObject : GH_BHoMGoo<object>, IGH_PreviewData, GH_ISerializable
+    public class BHoMObjectGoo : GH_BHoMGoo<BHoMObject>, IGH_PreviewData, GH_ISerializable
     {
         /*******************************************/
         /**** Properties                        ****/
         /*******************************************/
 
-        public override string TypeName { get; } = "BHoMObject";
+        public Rhino.Geometry.BoundingBox ClippingBox { get { return Bounds(); } }
 
-        public override string TypeDescription { get; } = "Contains a BHoM IObject";
-
-        public override bool IsValid { get { return Value != null; } }
-
-        public virtual Rhino.Geometry.BoundingBox ClippingBox { get { return Bounds(); } }
-
-        public virtual Rhino.Geometry.BoundingBox Boundingbox { get { return Bounds(); } }
-
-        public override object Value
-        {
-            get
-            {
-                return base.Value;
-            }
-            set
-            {
-                base.Value = value;
-                try { SetGeometry(); } catch { }
-            }
-        }
+        public Rhino.Geometry.BoundingBox Boundingbox { get { return Bounds(); } }
 
 
         /*******************************************/
         /**** Constructors                      ****/
         /*******************************************/
 
-        public GH_BHoMObject() : base() { }
+        public BHoMObjectGoo()
+        {
+            this.Value = null;
+        }
 
         /***************************************************/
 
-        public GH_BHoMObject(BHoMObject val) : base(val) { }
+        public BHoMObjectGoo(BHoMObject val)
+        {
+            this.Value = val;
+        }
 
 
         /*******************************************/
         /**** Override Methods                  ****/
         /*******************************************/
-
-        public override IGH_Goo Duplicate()
-        {
-            return new GH_BHoMObject { Value = Value };
-        }
-
-        /***************************************************/
 
         public virtual Rhino.Geometry.BoundingBox GetBoundingBox(Rhino.Geometry.Transform xform)
         {
@@ -97,26 +77,9 @@ namespace BH.Engine.Grasshopper.Objects
 
         /***************************************************/
 
-        public override bool CastFrom(object source)
-        {
-            while (source is IGH_Goo)
-                return CastFrom(Convert.IFromGoo<object>((IGH_Goo)source));
-
-            if (source.GetType().Namespace.StartsWith("Rhino.Geometry"))
-                source = BH.Engine.Rhinoceros.Convert.ToBHoM(source as dynamic);
-
-            return base.CastFrom(source);
-        }
-
-        /***************************************************/
-
         public override string ToString()
         {
-            object val = Value;
-            if (val == null)
-                return "null";
-            else
-                return val.ToString();
+            return Value?.ToString();
         }
 
         /***************************************************/
@@ -160,62 +123,42 @@ namespace BH.Engine.Grasshopper.Objects
         /**** Private Method                            ****/
         /***************************************************/
 
-        private bool SetGeometry()
+        protected override bool SetGeometry()
         {
             if (Value == null)
-            {
                 return true;
-            }
-            else if (Value is BHoMObject)
-            {
-                m_Geometry = ((BHoMObject)Value).IGeometry();
-                m_RhinoGeometry = m_Geometry.IToRhino();
+
+            m_Geometry = Value.IGeometry();
+            if (m_Geometry == null)
                 return true;
-            }
-            else if (Value is IGeometry)
-            {
-                m_Geometry = Value as IGeometry;
-                m_RhinoGeometry = m_Geometry.IToRhino();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+
+            m_RhinoGeometry = m_Geometry.IToRhino();
+
+            return true;
         }
 
         /***************************************************/
 
         private Rhino.Geometry.BoundingBox Bounds()
         {
+            if (Value == null)
+                return Rhino.Geometry.BoundingBox.Empty;
+
+            if (m_Geometry == null)
+                return Rhino.Geometry.BoundingBox.Empty;
+
             try
             {
-                if (Value == null)
-                    return Rhino.Geometry.BoundingBox.Empty;
-
-                if (m_Geometry == null)
-                    return Rhino.Geometry.BoundingBox.Empty;
-
                 BH.oM.Geometry.BoundingBox bhBox = m_Geometry.IBounds();
                 if (bhBox == null)
                     return Rhino.Geometry.BoundingBox.Empty;
 
                 return bhBox.ToRhino();
             }
-            catch
-            {
-                return Rhino.Geometry.BoundingBox.Empty;
-            }
+            catch { }
+
+            return Rhino.Geometry.BoundingBox.Empty;
         }
-
-
-        /***************************************************/
-        /**** Private Fields                            ****/
-        /***************************************************/
-
-        private IGeometry m_Geometry = null;
-
-        private object m_RhinoGeometry = null;
 
         /***************************************************/
     }

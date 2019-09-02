@@ -32,9 +32,9 @@ namespace BH.UI.Grasshopper.Objects.Hints
         /**** Properties                        ****/
         /*******************************************/
 
-        public Guid HintID { get; } = new Guid("0977C35E-92DD-4933-8835-8B2C8A37C8CF"); 
+        public Guid HintID { get; } = new Guid("0977C35E-92DD-4933-8835-8B2C8A37C8CF");
 
-        public string TypeName { get; } = "BH.oM.Base.BHoMObject"; 
+        public string TypeName { get; } = "BH.oM.Base.BHoMObject";
 
 
         /*******************************************/
@@ -43,7 +43,7 @@ namespace BH.UI.Grasshopper.Objects.Hints
 
         public bool Cast(object data, out object target)
         {
-            GH_BHoMObject obj = new GH_BHoMObject() { Value = null };
+            BHoMObjectGoo obj = new BHoMObjectGoo() { Value = null };
             obj.CastFrom(data);
             if (obj.Value == null)
                 target = data;
