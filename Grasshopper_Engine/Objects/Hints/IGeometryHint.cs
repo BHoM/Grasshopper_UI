@@ -32,9 +32,9 @@ namespace BH.UI.Grasshopper.Objects.Hints
         /**** Properties                        ****/
         /*******************************************/
 
-        public Guid HintID { get; } = new Guid("CC64E37E-C6B8-44F4-9C85-05B19849F4D6"); 
+        public Guid HintID { get; } = new Guid("CC64E37E-C6B8-44F4-9C85-05B19849F4D6");
 
-        public string TypeName { get; } = "BH.oM.Geometry.IGeometry"; 
+        public string TypeName { get; } = "BH.oM.Geometry.IGeometry";
 
 
         /*******************************************/
@@ -43,7 +43,7 @@ namespace BH.UI.Grasshopper.Objects.Hints
 
         public bool Cast(object data, out object target)
         {
-            GH_IBHoMGeometry geom = new GH_IBHoMGeometry() { Value = null };
+            IGeometryGoo geom = new IGeometryGoo() { Value = null };
             geom.CastFrom(data);
             if (geom.Value == null)
                 target = data;
