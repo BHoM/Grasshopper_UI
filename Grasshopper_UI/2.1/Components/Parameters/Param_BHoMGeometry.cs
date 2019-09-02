@@ -26,7 +26,7 @@ using System;
 
 namespace BH.UI.Grasshopper.Parameters
 {
-    public class Param_BHoMGeometry : BHoMParam<Engine.Grasshopper.Objects.GH_IBHoMGeometry>
+    public class Param_BHoMGeometry : BHoMParam<Engine.Grasshopper.Objects.IGeometryGoo>
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -43,7 +43,7 @@ namespace BH.UI.Grasshopper.Parameters
         /**** Constructors                      ****/
         /*******************************************/
 
-        public Param_BHoMGeometry(): base("BHoM geometry", "BHoMGeo", "Represents a collection of generic BHoM geometries", "Params", "Geometry")
+        public Param_BHoMGeometry() : base("BHoM geometry", "BHoMGeo", "Represents a collection of generic BHoM geometries", "Params", "Geometry")
         {
         }
         
