@@ -58,7 +58,7 @@ namespace BH.Engine.Grasshopper.Objects
             }
             set
             {
-                if (CastFrom(value)) ;
+                //if (CastFrom(value)) ;
                 SetGeometry();
             }
         }
