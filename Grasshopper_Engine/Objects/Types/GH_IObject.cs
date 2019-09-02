@@ -36,57 +36,37 @@ using BH.Engine.Serialiser;
 
 namespace BH.Engine.Grasshopper.Objects
 {
-    public class GH_IObject : GH_BHoMGoo<object>, IGH_PreviewData, GH_ISerializable
+    public class IObjectGoo : GH_BHoMGoo<IObject>, IGH_PreviewData, GH_ISerializable
     {
         /*******************************************/
         /**** Properties                        ****/
         /*******************************************/
 
-        public override string TypeName { get; } = "IObject";
-
-        public override string TypeDescription { get; } = "Contains a generic BHoM IObject";
-
-        public override bool IsValid { get { return Value != null; } }
-
         public virtual Rhino.Geometry.BoundingBox ClippingBox { get { return Bounds(); } }
 
         public virtual Rhino.Geometry.BoundingBox Boundingbox { get { return Bounds(); } }
-
-        public override object Value
-        {
-            get
-            {
-                return base.Value;
-            }
-            set
-            {
-                base.Value = value;
-                try { SetGeometry(); } catch { }
-            }
-        }
 
 
         /*******************************************/
         /**** Constructors                      ****/
         /*******************************************/
 
-        public GH_IObject() : base() { }
+        public IObjectGoo()
+        {
+            this.Value = null;
+        }
 
         /***************************************************/
 
-        public GH_IObject(IObject val) : base(val) { }
+        public IObjectGoo(IObject val)
+        {
+            this.Value = val;
+        }
 
 
         /*******************************************/
         /**** Override Methods                  ****/
         /*******************************************/
-
-        public override IGH_Goo Duplicate()
-        {
-            return new GH_IObject { Value = Value };
-        }
-
-        /***************************************************/
 
         public virtual Rhino.Geometry.BoundingBox GetBoundingBox(Rhino.Geometry.Transform xform)
         {
@@ -99,8 +79,8 @@ namespace BH.Engine.Grasshopper.Objects
 
         public override bool CastFrom(object source)
         {
-            if (source is IGH_Goo)
-                return CastFrom(Convert.IFromGoo<object>((IGH_Goo)source));
+            while (source is IGH_Goo)
+                source = ((IGH_Goo)source).ScriptVariable();
 
             if (source.GetType().Namespace.StartsWith("Rhino.Geometry"))
                 source = BH.Engine.Rhinoceros.Convert.ToBHoM(source as dynamic);
@@ -160,9 +140,6 @@ namespace BH.Engine.Grasshopper.Objects
             Engine.Grasshopper.Compute.IRenderRhinoWires(m_RhinoGeometry, args);
         }
 
-
-        /***************************************************/
-        /**** Private Method                            ****/
         /***************************************************/
 
         private bool SetGeometry()
@@ -209,15 +186,6 @@ namespace BH.Engine.Grasshopper.Objects
                 return Rhino.Geometry.BoundingBox.Empty;
             }
         }
-
-
-        /***************************************************/
-        /**** Private Fields                            ****/
-        /***************************************************/
-
-        private IGeometry m_Geometry = null;
-
-        private object m_RhinoGeometry = null;
 
         /***************************************************/
     }
