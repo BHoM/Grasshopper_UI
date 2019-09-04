@@ -58,8 +58,8 @@ namespace BH.Engine.Grasshopper.Objects
             }
             set
             {
-                //if (CastFrom(value)) ;
-                SetGeometry();
+                base.Value = value;
+                SetRhinoValue();
             }
         }
 
@@ -227,7 +227,7 @@ namespace BH.Engine.Grasshopper.Objects
             else
                 Value = GH_Convert.ToGeometryBase(source).IToBHoM();
 
-            SetGeometry();
+            SetRhinoValue();
             return true;
         }
 
@@ -385,7 +385,7 @@ namespace BH.Engine.Grasshopper.Objects
 
         /***************************************************/
 
-        private bool SetGeometry()
+        private bool SetRhinoValue()
         {
             if (Value == null)
                 return true;
