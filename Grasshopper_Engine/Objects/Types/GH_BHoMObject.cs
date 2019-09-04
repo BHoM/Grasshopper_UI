@@ -36,7 +36,7 @@ using BH.Engine.Serialiser;
 
 namespace BH.Engine.Grasshopper.Objects
 {
-    public class BHoMObjectGoo : GH_BHoMGoo<BHoMObject>, IGH_PreviewData, GH_ISerializable
+    public class BHoMObjectGoo : GH_BHoMGoo<IBHoMObject>, IGH_PreviewData, GH_ISerializable
     {
         /*******************************************/
         /**** Properties                        ****/
