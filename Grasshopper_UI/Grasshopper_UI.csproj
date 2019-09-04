@@ -146,48 +146,48 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="2.1\Components\Engine\External.cs" />
-    <Compile Include="2.1\Components\Adapter\CreateRequest.cs" />
-    <Compile Include="2.1\Components\Adapter\CreateAdapter.cs" />
-    <Compile Include="2.1\Components\Adapter\Execute.cs" />
-    <Compile Include="2.1\Components\Adapter\UpdateProperty.cs" />
-    <Compile Include="2.1\Components\Adapter\Delete.cs" />
-    <Compile Include="2.1\Components\Adapter\Pull.cs" />
-    <Compile Include="2.1\Components\Adapter\Move.cs" />
-    <Compile Include="2.1\Components\Adapter\Push.cs" />
-    <Compile Include="2.1\Templates\BHoMParam.cs" />
+    <Compile Include="Components\Engine\External.cs" />
+    <Compile Include="Components\Adapter\CreateRequest.cs" />
+    <Compile Include="Components\Adapter\CreateAdapter.cs" />
+    <Compile Include="Components\Adapter\Execute.cs" />
+    <Compile Include="Components\Adapter\UpdateProperty.cs" />
+    <Compile Include="Components\Adapter\Delete.cs" />
+    <Compile Include="Components\Adapter\Pull.cs" />
+    <Compile Include="Components\Adapter\Move.cs" />
+    <Compile Include="Components\Adapter\Push.cs" />
+    <Compile Include="Templates\BHoMParam.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="2.1\Components\Engine\Explode.cs" />
-    <Compile Include="2.1\Components\Engine\GetInfo.cs" />
-    <Compile Include="2.1\Components\Engine\Query.cs" />
-    <Compile Include="2.1\Components\Engine\Modify.cs" />
-    <Compile Include="2.1\Components\Engine\Convert.cs" />
-    <Compile Include="2.1\Components\Engine\Compute.cs" />
-    <Compile Include="2.1\Components\Engine\SetProperty.cs" />
-    <Compile Include="2.1\Components\Engine\GetProperty.cs" />
-    <Compile Include="2.1\Components\Engine\FromJson.cs" />
-    <Compile Include="2.1\Components\Engine\ToJson.cs" />
-    <Compile Include="2.1\Components\oM\CreateCustom.cs" />
-    <Compile Include="2.1\Components\oM\CreateDictionary.cs" />
-    <Compile Include="2.1\Components\oM\CreateData.cs" />
-    <Compile Include="2.1\Components\oM\CreateEnum.cs" />
-    <Compile Include="2.1\Components\oM\CreateType.cs" />
-    <Compile Include="2.1\Components\oM\CreateObject.cs" />
-    <Compile Include="2.1\Components\Parameters\Param_BHoMGeometry.cs" />
-    <Compile Include="2.1\Components\Parameters\Param_BHoMObject.cs" />
-    <Compile Include="2.1\Components\Parameters\Param_Dictionary.cs" />
-    <Compile Include="2.1\Components\Parameters\Param_Enum.cs" />
-    <Compile Include="2.1\Components\Parameters\Param_IObject.cs" />
-    <Compile Include="2.1\Components\Parameters\Param_Type.cs" />
-    <Compile Include="2.1\Global\GlobalSearch.cs" />
-    <Compile Include="2.1\Templates\CallerValueList.cs" />
-    <Compile Include="2.1\Templates\DataAccessor_GH.cs" />
+    <Compile Include="Components\Engine\Explode.cs" />
+    <Compile Include="Components\Engine\GetInfo.cs" />
+    <Compile Include="Components\Engine\Query.cs" />
+    <Compile Include="Components\Engine\Modify.cs" />
+    <Compile Include="Components\Engine\Convert.cs" />
+    <Compile Include="Components\Engine\Compute.cs" />
+    <Compile Include="Components\Engine\SetProperty.cs" />
+    <Compile Include="Components\Engine\GetProperty.cs" />
+    <Compile Include="Components\Engine\FromJson.cs" />
+    <Compile Include="Components\Engine\ToJson.cs" />
+    <Compile Include="Components\oM\CreateCustom.cs" />
+    <Compile Include="Components\oM\CreateDictionary.cs" />
+    <Compile Include="Components\oM\CreateData.cs" />
+    <Compile Include="Components\oM\CreateEnum.cs" />
+    <Compile Include="Components\oM\CreateType.cs" />
+    <Compile Include="Components\oM\CreateObject.cs" />
+    <Compile Include="Components\Parameters\Param_BHoMGeometry.cs" />
+    <Compile Include="Components\Parameters\Param_BHoMObject.cs" />
+    <Compile Include="Components\Parameters\Param_Dictionary.cs" />
+    <Compile Include="Components\Parameters\Param_Enum.cs" />
+    <Compile Include="Components\Parameters\Param_IObject.cs" />
+    <Compile Include="Components\Parameters\Param_Type.cs" />
+    <Compile Include="Global\GlobalSearch.cs" />
+    <Compile Include="Templates\CallerValueList.cs" />
+    <Compile Include="Templates\DataAccessor_GH.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="2.1\Templates\CallerComponent.cs" />
+    <Compile Include="Templates\CallerComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
