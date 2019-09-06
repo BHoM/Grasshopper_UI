@@ -38,17 +38,18 @@ namespace BH.Engine.Grasshopper
 
         public static Type Type(this IGH_Param param, Caller caller = null)
         {
+            Type type;
             if (param == null)
-                return typeof(object);
+                type = typeof(object);
 
             if (param is Param_ScriptVariable)
-                return Type(((Param_ScriptVariable)param).TypeHint, param.Access);
-
+                type = Type(((Param_ScriptVariable)param).TypeHint, param.Access);
             else if (caller != null)
-                return (caller.InputParams.Find(x => x.Name == param.NickName))?.DataType;
-
+                type = caller.InputParams.Find(x => x.Name == param.NickName)?.DataType;
             else
-                return param.Type;
+                type = param.Type;
+
+            return type == null ? typeof(object) : type;
         }
 
         /***************************************************/
