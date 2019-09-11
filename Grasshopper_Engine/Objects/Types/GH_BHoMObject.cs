@@ -68,13 +68,6 @@ namespace BH.Engine.Grasshopper.Objects
         /**** Override Methods                  ****/
         /*******************************************/
 
-        public override string ToString()
-        {
-            return Value?.ToString();
-        }
-
-        /***************************************************/
-
         protected override bool SetGeometry()
         {
             if (Value == null)

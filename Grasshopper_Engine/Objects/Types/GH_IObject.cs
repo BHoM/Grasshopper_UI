@@ -86,17 +86,6 @@ namespace BH.Engine.Grasshopper.Objects
 
         /***************************************************/
 
-        public override string ToString()
-        {
-            object val = Value;
-            if (val == null)
-                return "null";
-            else
-                return val.ToString();
-        }
-
-        /***************************************************/
-
         protected override bool SetGeometry()
         {
             if (Value == null)

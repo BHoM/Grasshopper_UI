@@ -51,27 +51,6 @@ namespace BH.Engine.Grasshopper.Objects
 
         public GH_Enum(Enum val) : base(val) { }
 
-
-        /*******************************************/
-        /**** Override Methods                  ****/
-        /*******************************************/
-
-        public override IGH_Goo Duplicate()
-        {
-            return new GH_Enum { Value = Value };
-        }
-
-        /*******************************************/
-
-        public override string ToString()
-        {
-            Enum val = Value;
-            if (val == null)
-                return "null";
-            else
-                return val.ToString();
-        }
-
         /***************************************************/
     }
 }

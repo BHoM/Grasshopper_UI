@@ -54,13 +54,6 @@ namespace BH.Engine.Grasshopper.Objects
         /**** Override Methods                  ****/
         /*******************************************/
 
-        public override IGH_Goo Duplicate()
-        {
-            return new GH_Type { Value = Value };
-        }
-
-        /***************************************************/
-
         public override bool CastFrom(object source)
         {
             if (source == null) { return false; }
@@ -76,17 +69,5 @@ namespace BH.Engine.Grasshopper.Objects
         }
 
         /***************************************************/
-
-        public override string ToString()
-        {
-            Type val = Value;
-            if (val == null)
-                return "Undefined type";
-            else
-                return val.FullName;
-        }
-
-        /***************************************************/
-
     }
 }

@@ -54,13 +54,6 @@ namespace BH.Engine.Grasshopper.Objects
         /**** Override Methods                  ****/
         /*******************************************/
 
-        public override IGH_Goo Duplicate()
-        {
-            return new GH_Dictionary { Value = Value };
-        }
-
-        /*******************************************/
-
         public override string ToString()
         {
             IDictionary val = Value;

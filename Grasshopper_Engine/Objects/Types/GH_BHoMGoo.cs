@@ -87,9 +87,7 @@ namespace BH.Engine.Grasshopper.Objects
 
         public override string ToString()
         {
-            if (Value == null)
-                return "null";
-            return Value.ToString();
+            return Value?.ToString();
         }
 
         /*******************************************/
