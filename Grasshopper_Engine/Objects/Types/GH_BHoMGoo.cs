@@ -23,7 +23,6 @@
 using BH.Engine.Geometry;
 using BH.Engine.Rhinoceros;
 using BH.Engine.Serialiser;
-using BH.oM.Base;
 using BH.oM.Geometry;
 using GH_IO;
 using GH_IO.Serialization;
@@ -185,7 +184,10 @@ namespace BH.Engine.Grasshopper.Objects
             return Rhino.Geometry.BoundingBox.Empty;
         }
 
-        /*******************************************/
+
+        /***************************************************/
+        /**** Public Methods                            ****/
+        /***************************************************/
 
         public virtual void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
