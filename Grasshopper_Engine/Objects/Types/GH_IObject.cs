@@ -25,11 +25,8 @@ using Grasshopper.Kernel.Types;
 using BH.oM.Base;
 using BH.oM.Geometry;
 using BH.Engine.Geometry;
-using System;
 using BH.Engine.Base;
 using BH.Engine.Rhinoceros;
-using Rhino;
-using Rhino.DocObjects;
 using GH_IO;
 using GH_IO.Serialization;
 using BH.Engine.Serialiser;
@@ -68,17 +65,11 @@ namespace BH.Engine.Grasshopper.Objects
         /**** Override Methods                  ****/
         /*******************************************/
 
-        public virtual Rhino.Geometry.BoundingBox GetBoundingBox(Rhino.Geometry.Transform xform)
-        {
-            Rhino.Geometry.BoundingBox box = Bounds();
-            box.Transform(xform);
-            return box;
-        }
-
-        /***************************************************/
-
         public override bool CastFrom(object source)
         {
+            if (source == null)
+                return true;
+
             while (source is IGH_Goo)
                 source = ((IGH_Goo)source).ScriptVariable();
 
@@ -128,21 +119,7 @@ namespace BH.Engine.Grasshopper.Objects
 
         /***************************************************/
 
-        public virtual void DrawViewportMeshes(GH_PreviewMeshArgs args)
-        {
-            Engine.Grasshopper.Compute.IRenderRhinoMeshes(m_RhinoGeometry, args);
-        }
-
-        /***************************************************/
-
-        public virtual void DrawViewportWires(GH_PreviewWireArgs args)
-        {
-            Engine.Grasshopper.Compute.IRenderRhinoWires(m_RhinoGeometry, args);
-        }
-
-        /***************************************************/
-
-        private bool SetGeometry()
+        protected override bool SetGeometry()
         {
             if (Value == null)
             {
@@ -163,27 +140,6 @@ namespace BH.Engine.Grasshopper.Objects
             else
             {
                 return false;
-            }
-        }
-
-        /***************************************************/
-
-        private Rhino.Geometry.BoundingBox Bounds()
-        {
-            try
-            {
-                if (Value == null)
-                    return Rhino.Geometry.BoundingBox.Empty;
-
-                BH.oM.Geometry.BoundingBox bhBox = m_Geometry.IBounds();
-                if (bhBox == null)
-                    return Rhino.Geometry.BoundingBox.Empty;
-
-                return bhBox.ToRhino();
-            }
-            catch
-            {
-                return Rhino.Geometry.BoundingBox.Empty;
             }
         }
 

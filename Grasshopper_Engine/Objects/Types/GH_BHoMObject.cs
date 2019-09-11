@@ -104,20 +104,6 @@ namespace BH.Engine.Grasshopper.Objects
             return true;
         }
 
-        /***************************************************/
-
-        public virtual void DrawViewportMeshes(GH_PreviewMeshArgs args)
-        {
-            Engine.Grasshopper.Compute.IRenderRhinoMeshes(m_RhinoGeometry, args);
-        }
-
-        /***************************************************/
-
-        public virtual void DrawViewportWires(GH_PreviewWireArgs args)
-        {
-            Engine.Grasshopper.Compute.IRenderRhinoWires(m_RhinoGeometry, args);
-        }
-
 
         /***************************************************/
         /**** Private Method                            ****/
@@ -135,29 +121,6 @@ namespace BH.Engine.Grasshopper.Objects
             m_RhinoGeometry = m_Geometry.IToRhino();
 
             return true;
-        }
-
-        /***************************************************/
-
-        private Rhino.Geometry.BoundingBox Bounds()
-        {
-            if (Value == null)
-                return Rhino.Geometry.BoundingBox.Empty;
-
-            if (m_Geometry == null)
-                return Rhino.Geometry.BoundingBox.Empty;
-
-            try
-            {
-                BH.oM.Geometry.BoundingBox bhBox = m_Geometry.IBounds();
-                if (bhBox == null)
-                    return Rhino.Geometry.BoundingBox.Empty;
-
-                return bhBox.ToRhino();
-            }
-            catch { }
-
-            return Rhino.Geometry.BoundingBox.Empty;
         }
 
         /***************************************************/

@@ -20,9 +20,11 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.Engine.Geometry;
 using BH.Engine.Rhinoceros;
 using BH.oM.Base;
 using BH.oM.Geometry;
+using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
 using System;
 
@@ -135,6 +137,43 @@ namespace BH.Engine.Grasshopper.Objects
         protected virtual bool SetGeometry()
         {
             return false;
+        }
+
+        /*******************************************/
+
+        protected virtual Rhino.Geometry.BoundingBox Bounds()
+        {
+            if (Value == null)
+                return Rhino.Geometry.BoundingBox.Empty;
+
+            if (m_Geometry == null)
+                return Rhino.Geometry.BoundingBox.Empty;
+
+            try
+            {
+                BH.oM.Geometry.BoundingBox bhBox = m_Geometry.IBounds();
+                if (bhBox == null)
+                    return Rhino.Geometry.BoundingBox.Empty;
+
+                return bhBox.ToRhino();
+            }
+            catch { }
+
+            return Rhino.Geometry.BoundingBox.Empty;
+        }
+
+        /*******************************************/
+
+        public virtual void DrawViewportMeshes(GH_PreviewMeshArgs args)
+        {
+            Engine.Grasshopper.Compute.IRenderRhinoMeshes(m_RhinoGeometry, args);
+        }
+
+        /***************************************************/
+
+        public virtual void DrawViewportWires(GH_PreviewWireArgs args)
+        {
+            Engine.Grasshopper.Compute.IRenderRhinoWires(m_RhinoGeometry, args);
         }
 
 
