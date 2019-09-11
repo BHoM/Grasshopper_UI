@@ -28,7 +28,7 @@ using System;
 
 namespace BH.Engine.Grasshopper.Objects
 {
-    public class GH_Enum : GH_BHoMGoo<Enum>, GH_ISerializable
+    public class GH_Enum : GH_BHoMGoo<Enum>
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -73,27 +73,5 @@ namespace BH.Engine.Grasshopper.Objects
         }
 
         /***************************************************/
-
-        public override bool Read(GH_IReader reader)
-        {
-            string json = "";
-            reader.TryGetString("Json", ref json);
-
-            if (json != null && json.Length > 0)
-                Value = (Enum)BH.Engine.Serialiser.Convert.FromJson(json);
-
-            return true;
-        }
-
-        /***************************************************/
-
-        public override bool Write(GH_IWriter writer)
-        {
-            if (Value != null)
-                writer.SetString("Json", Value.ToJson());
-            return true;
-        }
-
-        /*******************************************/
     }
 }

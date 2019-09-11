@@ -36,7 +36,7 @@ using BH.Engine.Serialiser;
 
 namespace BH.Engine.Grasshopper.Objects
 {
-    public class BHoMObjectGoo : GH_BHoMGoo<IBHoMObject>, IGH_PreviewData, GH_ISerializable
+    public class BHoMObjectGoo : GH_BHoMGoo<IBHoMObject>, IGH_PreviewData
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -73,31 +73,6 @@ namespace BH.Engine.Grasshopper.Objects
             return Value?.ToString();
         }
 
-        /***************************************************/
-
-        public override bool Read(GH_IReader reader)
-        {
-            string json = "";
-            reader.TryGetString("Json", ref json);
-
-            if (json != null && json.Length > 0)
-                Value = (BHoMObject)BH.Engine.Serialiser.Convert.FromJson(json);
-
-            return true;
-        }
-
-        /***************************************************/
-
-        public override bool Write(GH_IWriter writer)
-        {
-            if (Value != null)
-                writer.SetString("Json", Value.ToJson());
-            return true;
-        }
-
-
-        /***************************************************/
-        /**** Private Method                            ****/
         /***************************************************/
 
         protected override bool SetGeometry()

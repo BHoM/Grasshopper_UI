@@ -22,15 +22,18 @@
 
 using BH.Engine.Geometry;
 using BH.Engine.Rhinoceros;
+using BH.Engine.Serialiser;
 using BH.oM.Base;
 using BH.oM.Geometry;
+using GH_IO;
+using GH_IO.Serialization;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
 using System;
 
 namespace BH.Engine.Grasshopper.Objects
 {
-    public class GH_BHoMGoo<T> : GH_Goo<T>
+    public class GH_BHoMGoo<T> : GH_Goo<T>, GH_ISerializable
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -129,6 +132,28 @@ namespace BH.Engine.Grasshopper.Objects
                 this.Value = default(T);
             }
 
+            return true;
+        }
+
+        /*******************************************/
+
+        public override bool Read(GH_IReader reader)
+        {
+            string json = "";
+            reader.TryGetString("Json", ref json);
+
+            if (json != null && json.Length > 0)
+                Value = (T)BH.Engine.Serialiser.Convert.FromJson(json);
+
+            return true;
+        }
+
+        /***************************************************/
+
+        public override bool Write(GH_IWriter writer)
+        {
+            if (Value != null)
+                writer.SetString("Json", Value.ToJson());
             return true;
         }
 
