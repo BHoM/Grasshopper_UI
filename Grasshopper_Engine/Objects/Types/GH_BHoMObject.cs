@@ -68,15 +68,6 @@ namespace BH.Engine.Grasshopper.Objects
         /**** Override Methods                  ****/
         /*******************************************/
 
-        public virtual Rhino.Geometry.BoundingBox GetBoundingBox(Rhino.Geometry.Transform xform)
-        {
-            Rhino.Geometry.BoundingBox box = Bounds();
-            box.Transform(xform);
-            return box;
-        }
-
-        /***************************************************/
-
         public override string ToString()
         {
             return Value?.ToString();
