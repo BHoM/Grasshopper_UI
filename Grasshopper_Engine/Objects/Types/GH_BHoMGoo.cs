@@ -32,7 +32,7 @@ using System;
 
 namespace BH.Engine.Grasshopper.Objects
 {
-    public class GH_BHoMGoo<T> : GH_Goo<T>, GH_ISerializable
+    public class BHGoo<T> : GH_Goo<T>, GH_ISerializable, IGH_BakeAwareData
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -155,6 +155,28 @@ namespace BH.Engine.Grasshopper.Objects
         }
 
         /*******************************************/
+
+
+        /***************************************************/
+        /**** IGH_PreviewData Methods                   ****/
+        /***************************************************/
+
+        public bool BakeGeometry(RhinoDoc doc, ObjectAttributes att, out Guid obj_guid)
+        {
+            if (m_RhinoGeometry != null)
+            {
+                obj_guid = doc.Objects.Add(GH_Convert.ToGeometryBase(m_RhinoGeometry), att);
+                return true;
+            }
+
+            obj_guid = Guid.Empty;
+            return false;
+        }
+
+
+        /***************************************************/
+        /**** Virtual Methods                           ****/
+        /***************************************************/
 
         protected virtual bool SetGeometry()
         {
