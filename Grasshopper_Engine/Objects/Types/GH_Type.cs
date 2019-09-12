@@ -56,14 +56,20 @@ namespace BH.Engine.Grasshopper.Objects
 
         public override bool CastFrom(object source)
         {
-            if (source == null) { return false; }
+            if (source == null)
+                return false;
             else if (source is string)
-                this.Value = BH.Engine.Reflection.Create.Type(source as string);
+                source = BH.Engine.Reflection.Create.Type(source as string);
             else if (source is GH_String)
-                this.Value = BH.Engine.Reflection.Create.Type(((GH_String)source).Value);
+                source = BH.Engine.Reflection.Create.Type(((GH_String)source).Value);
+            else if (source is Type)
+                source = (Type)source;
+            else if (source is IGH_Goo)
+                source = ((IGH_Goo)source).ScriptVariable().GetType();
             else
-                this.Value = (Type)source;
-            return true;
+                source = source.GetType();
+
+            return base.CastFrom(source);
         }
 
         /***************************************************/
