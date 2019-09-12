@@ -25,6 +25,8 @@ using BH.oM.Base;
 using BH.Engine.Geometry;
 using BH.Engine.Base;
 using BH.Engine.Rhinoceros;
+using System;
+using Grasshopper.Kernel.Types;
 
 namespace BH.Engine.Grasshopper.Objects
 {
@@ -58,6 +60,19 @@ namespace BH.Engine.Grasshopper.Objects
 
         /*******************************************/
         /**** Override Methods                  ****/
+        /*******************************************/
+
+        public override bool CastFrom(object source)
+        {
+            while (source is IGH_Goo)
+                return CastFrom(Convert.IFromGoo<object>((IGH_Goo)source));
+
+            if (source.GetType().Namespace.StartsWith("Rhino.Geometry"))
+                source = BH.Engine.Rhinoceros.Convert.ToBHoM(source as dynamic);
+
+            return base.CastFrom(source);
+        }
+
         /*******************************************/
 
         protected override bool SetGeometry()

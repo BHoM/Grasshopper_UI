@@ -93,49 +93,6 @@ namespace BH.Engine.Grasshopper.Objects
             return Value?.ToString();
         }
 
-        /*******************************************/
-
-        public override bool CastTo<Q>(ref Q target)
-        {
-            try
-            {
-                object ptr = this.Value;
-                target = (Q)ptr;
-                return true;
-            }
-            catch (Exception)
-            {
-                Reflection.Compute.ClearCurrentEvents();
-                Reflection.Compute.RecordError($"Cannot cast {Value.GetType()} to {typeof(Q)}");
-                return false;
-            }
-        }
-
-        /*******************************************/
-
-        public override bool CastFrom(object source)
-        {
-            if (source == null)
-                return true;
-
-            if (source.GetType() == typeof(GH_Goo<T>))
-            {
-                this.Value = ((GH_Goo<T>)source).Value;
-            }
-            else if (source is T)
-            {
-                this.Value = (T)source;
-            }
-            else
-            {
-                Reflection.Compute.RecordError($"Cannot cast {source.GetType()} to {typeof(T)}");
-                this.Value = default(T);
-                return false;
-            }
-
-            return true;
-        }
-
 
         /***************************************************/
         /**** GH_ISerializable Methods                  ****/
