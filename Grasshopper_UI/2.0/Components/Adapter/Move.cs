@@ -83,7 +83,8 @@ namespace BH.UI.Grasshopper.Adapter
             BHoMAdapter from = null; DA.GetData(0, ref from);
             BHoMAdapter to = null; DA.GetData(1, ref to);
             IRequest query = null; DA.GetData(2, ref query);
-            CustomObject config = new CustomObject(); DA.GetData(3, ref config);
+            CustomObject pullConfig = new CustomObject(); DA.GetData(3, ref pullConfig);
+            CustomObject pushConfig = new CustomObject(); DA.GetData(4, ref pushConfig);
             bool active = false; DA.GetData(4, ref active);
 
             if (!active) return;
@@ -91,7 +92,7 @@ namespace BH.UI.Grasshopper.Adapter
             if (query == null)
                 query = new FilterRequest();
 
-            bool success = from.PullTo(to, query, config.CustomData);
+            bool success = from.Move(to, query, pullConfig.CustomData, pushConfig.CustomData);
             DA.SetData(0, success);
 
             Logging.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
