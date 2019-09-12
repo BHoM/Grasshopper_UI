@@ -27,10 +27,6 @@ using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BH.Engine.Grasshopper
 {
@@ -47,6 +43,17 @@ namespace BH.Engine.Grasshopper
             else
                 return ToGoo(obj as dynamic);
         }
+
+
+        /*******************************************/
+        /**** Fallback case                     ****/
+        /*******************************************/
+
+        public static IGH_Goo ToGoo(this object obj)
+        {
+            return default(IGH_Goo);
+        }
+
 
         /*******************************************/
         /**** Public Methods                    ****/
@@ -87,10 +94,20 @@ namespace BH.Engine.Grasshopper
 
         /*************************************/
 
+        public static IGH_Goo ToGoo(this CustomObject obj)
+        {
+            return new DictionaryGoo(obj.CustomData);
+        }
+        
+        /*************************************/
+
         public static bool ToGoo<Q>(object value, ref Q target)
         {
             if (value == null)
                 target = default(Q);
+
+            if (value is Q)
+                return true;
 
             if (target is GH_Vector)
             {
@@ -135,7 +152,7 @@ namespace BH.Engine.Grasshopper
             else if (target is IGH_GeometricGoo)
                 target = (Q)GH_Convert.ToGeometricGoo(value);
             else
-                target = (Q)value;
+                target = (Q)(IToGoo(value));
 
             return true;
         }

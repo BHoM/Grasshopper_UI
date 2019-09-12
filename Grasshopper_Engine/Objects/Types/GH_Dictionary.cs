@@ -56,7 +56,7 @@ namespace BH.Engine.Grasshopper.Objects
             if (source is CustomObject)
                 source = ((CustomObject)source).CustomData;
             else if (source is IGH_Goo)
-                source = CastFrom(((IGH_Goo)source).ScriptVariable());
+                source = ((IGH_Goo)source).ScriptVariable();
 
             return base.CastFrom(source);
         }
