@@ -28,6 +28,8 @@ using GH_IO;
 using GH_IO.Serialization;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
+using Rhino;
+using Rhino.DocObjects;
 using System;
 
 namespace BH.Engine.Grasshopper.Objects
@@ -72,6 +74,7 @@ namespace BH.Engine.Grasshopper.Objects
         {
             this.Value = val;
         }
+
 
         /*******************************************/
         /**** Override Methods                  ****/
@@ -132,7 +135,10 @@ namespace BH.Engine.Grasshopper.Objects
             return true;
         }
 
-        /*******************************************/
+
+        /***************************************************/
+        /**** GH_ISerializable Methods                  ****/
+        /***************************************************/
 
         public override bool Read(GH_IReader reader)
         {
@@ -154,7 +160,22 @@ namespace BH.Engine.Grasshopper.Objects
             return true;
         }
 
-        /*******************************************/
+
+        /***************************************************/
+        /**** IGH_PreviewData Methods                   ****/
+        /***************************************************/
+
+        public virtual void DrawViewportMeshes(GH_PreviewMeshArgs args)
+        {
+            Engine.Grasshopper.Compute.IRenderRhinoMeshes(m_RhinoGeometry, args);
+        }
+
+        /***************************************************/
+
+        public virtual void DrawViewportWires(GH_PreviewWireArgs args)
+        {
+            Engine.Grasshopper.Compute.IRenderRhinoWires(m_RhinoGeometry, args);
+        }
 
 
         /***************************************************/
@@ -183,7 +204,7 @@ namespace BH.Engine.Grasshopper.Objects
             return false;
         }
 
-        /*******************************************/
+        /***************************************************/
 
         protected virtual Rhino.Geometry.BoundingBox Bounds()
         {
@@ -204,23 +225,6 @@ namespace BH.Engine.Grasshopper.Objects
             catch { }
 
             return Rhino.Geometry.BoundingBox.Empty;
-        }
-
-
-        /***************************************************/
-        /**** Public Methods                            ****/
-        /***************************************************/
-
-        public virtual void DrawViewportMeshes(GH_PreviewMeshArgs args)
-        {
-            Engine.Grasshopper.Compute.IRenderRhinoMeshes(m_RhinoGeometry, args);
-        }
-
-        /***************************************************/
-
-        public virtual void DrawViewportWires(GH_PreviewWireArgs args)
-        {
-            Engine.Grasshopper.Compute.IRenderRhinoWires(m_RhinoGeometry, args);
         }
 
 
