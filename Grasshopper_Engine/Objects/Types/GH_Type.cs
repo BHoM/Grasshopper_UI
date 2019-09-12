@@ -26,7 +26,7 @@ using System;
 
 namespace BH.Engine.Grasshopper.Objects
 {
-    public class GH_Type : BHGoo<Type>
+    public class TypeGoo : BHGoo<Type>
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -43,11 +43,11 @@ namespace BH.Engine.Grasshopper.Objects
         /**** Constructors                      ****/
         /*******************************************/
 
-        public GH_Type() : base() { }
+        public TypeGoo() : base() { }
 
         /***************************************************/
 
-        public GH_Type(Type val) : base(val) { }
+        public TypeGoo(Type val) : base(val) { }
 
 
         /*******************************************/

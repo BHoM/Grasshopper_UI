@@ -82,7 +82,7 @@ namespace BH.Engine.Grasshopper
 
         public static IGH_Goo ToGoo(this Type obj)
         {
-            return new GH_Type(obj);
+            return new TypeGoo(obj);
         }
 
         /*************************************/

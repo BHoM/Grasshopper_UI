@@ -43,7 +43,7 @@ namespace BH.UI.Grasshopper.Objects.Hints
 
         public bool Cast(object data, out object target)
         {
-            GH_Type type = new GH_Type() { Value = null };
+            TypeGoo type = new TypeGoo() { Value = null };
             type.CastFrom(data);
             if (type.Value == null)
                 target = data;
