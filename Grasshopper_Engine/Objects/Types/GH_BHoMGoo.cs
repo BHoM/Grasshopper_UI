@@ -128,9 +128,9 @@ namespace BH.Engine.Grasshopper.Objects
             }
             else
             {
-                Reflection.Compute.ClearCurrentEvents();
                 Reflection.Compute.RecordError($"Cannot cast {source.GetType()} to {typeof(T)}");
                 this.Value = default(T);
+                return false;
             }
 
             return true;
@@ -180,7 +180,7 @@ namespace BH.Engine.Grasshopper.Objects
 
 
         /***************************************************/
-        /**** IGH_PreviewData Methods                   ****/
+        /**** IGH_BakeAwareData Methods                   ****/
         /***************************************************/
 
         public bool BakeGeometry(RhinoDoc doc, ObjectAttributes att, out Guid obj_guid)
