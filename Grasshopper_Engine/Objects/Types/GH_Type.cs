@@ -59,9 +59,9 @@ namespace BH.Engine.Grasshopper.Objects
             if (source == null)
                 return false;
             else if (source is string)
-                source = BH.Engine.Reflection.Create.Type(source as string);
+                try { source = BH.Engine.Reflection.Create.Type(source as string); } catch { }
             else if (source is GH_String)
-                source = BH.Engine.Reflection.Create.Type(((GH_String)source).Value);
+                try { source = BH.Engine.Reflection.Create.Type(((GH_String)source).Value); } catch { }
             else if (source is Type)
                 source = (Type)source;
             else if (source is IGH_Goo)
