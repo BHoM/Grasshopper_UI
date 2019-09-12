@@ -21,6 +21,7 @@
  */
 
 using BH.oM.Base;
+using Grasshopper.Kernel.Types;
 using System.Collections;
 
 namespace BH.Engine.Grasshopper.Objects
@@ -54,6 +55,8 @@ namespace BH.Engine.Grasshopper.Objects
         {
             if (source is CustomObject)
                 source = ((CustomObject)source).CustomData;
+            else if (source is IGH_Goo)
+                source = CastFrom(((IGH_Goo)source).ScriptVariable());
 
             return base.CastFrom(source);
         }
