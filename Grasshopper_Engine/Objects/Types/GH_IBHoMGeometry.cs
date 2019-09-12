@@ -227,7 +227,7 @@ namespace BH.Engine.Grasshopper.Objects
             else
                 Value = GH_Convert.ToGeometryBase(source).IToBHoM();
 
-            SetRhinoValue();
+            SetRhinoValue(); // this call should be redundant. Why is it not?
             return true;
         }
 
