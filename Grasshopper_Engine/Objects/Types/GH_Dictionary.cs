@@ -54,13 +54,12 @@ namespace BH.Engine.Grasshopper.Objects
         /**** Override Methods                  ****/
         /*******************************************/
 
-        public override string ToString()
+        public override bool CastFrom(object source)
         {
-            IDictionary val = Value;
-            if (val == null)
-                return "null";
-            else
-                return val.GetType().ToText();
+            if (source is CustomObject)
+                source = ((CustomObject)source).CustomData;
+
+            return base.CastFrom(source);
         }
 
         /*******************************************/
