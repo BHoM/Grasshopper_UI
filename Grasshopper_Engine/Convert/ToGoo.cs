@@ -23,6 +23,7 @@
 using BH.Engine.Grasshopper.Objects;
 using BH.oM.Base;
 using BH.oM.Geometry;
+using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
 using System;
 using System.Collections;
@@ -53,7 +54,7 @@ namespace BH.Engine.Grasshopper
 
         public static IGH_Goo ToGoo(this Enum obj)
         {
-            return new GH_Enum(obj as Enum);
+            return new EnumGoo(obj as Enum);
         }
 
         /*************************************/
@@ -81,7 +82,62 @@ namespace BH.Engine.Grasshopper
 
         public static IGH_Goo ToGoo(this IDictionary obj)
         {
-            return new GH_Dictionary(obj);
+            return new DictionaryGoo(obj);
+        }
+
+        /*************************************/
+
+        public static bool ToGoo<Q>(object value, ref Q target)
+        {
+            if (value == null)
+                target = default(Q);
+
+            if (target is GH_Vector)
+            {
+                GH_Vector vector = null;
+                GH_Convert.ToGHVector(value, GH_Conversion.Both, ref vector);
+                target = (Q)(object)vector;
+            }
+            else if (target is GH_Curve)
+            {
+                GH_Curve curve = null;
+                GH_Convert.ToGHCurve(value, GH_Conversion.Both, ref curve);
+                target = (Q)(object)curve;
+            }
+            else if (target is GH_Surface)
+            {
+                GH_Surface surface = null;
+                GH_Convert.ToGHSurface(value, GH_Conversion.Both, ref surface);
+                target = (Q)(object)surface;
+            }
+            else if (target is GH_Brep)
+            {
+                GH_Brep bRep = null;
+                GH_Convert.ToGHBrep(value, GH_Conversion.Both, ref bRep);
+                target = (Q)(object)bRep;
+            }
+            else if (target is GH_MeshFace)
+            {
+                GH_MeshFace face = null;
+                GH_Convert.ToGHMeshFace(value, GH_Conversion.Both, ref face);
+                target = (Q)(object)face;
+            }
+            else if (target is GH_Transform)
+            {
+                GH_Transform transform = new GH_Transform(value as dynamic);
+                target = (Q)(object)transform;
+            }
+            else if (target is GH_Matrix)
+            {
+                GH_Matrix transform = new GH_Matrix(value as dynamic);
+                target = (Q)(object)transform;
+            }
+            else if (target is IGH_GeometricGoo)
+                target = (Q)GH_Convert.ToGeometricGoo(value);
+            else
+                target = (Q)value;
+
+            return true;
         }
 
         /*************************************/

@@ -27,13 +27,11 @@ using BH.oM.Geometry;
 using BH.Engine.Geometry;
 using BH.Engine.Base;
 using BH.Engine.Rhinoceros;
-using GH_IO;
-using GH_IO.Serialization;
-using BH.Engine.Serialiser;
+using System;
 
 namespace BH.Engine.Grasshopper.Objects
 {
-    public class IObjectGoo : GH_BHoMGoo<IObject>, IGH_PreviewData
+    public class IObjectGoo : BHGoo<IObject>, IGH_PreviewData
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -82,6 +80,21 @@ namespace BH.Engine.Grasshopper.Objects
             }
 
             return false;
+        }
+
+        /***************************************************/
+
+        public override bool CastTo<Q>(ref Q target)
+        {
+            try
+            {
+                return Engine.Grasshopper.Convert.ToGoo<Q>(Value, ref target);
+            }
+            catch (Exception e)
+            {
+                return !BH.Engine.Reflection.Compute.RecordError($"Cannot convert {Value.GetType().FullName} to {typeof(Q).FullName}.\n" +
+                                                                 $"Inner Exception: {e.Message}");
+            }
         }
 
         /***************************************************/

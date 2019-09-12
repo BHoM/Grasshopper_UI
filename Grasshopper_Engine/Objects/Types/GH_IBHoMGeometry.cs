@@ -237,61 +237,11 @@ namespace BH.Engine.Grasshopper.Objects
         {
             try
             {
-                object value = Value;
-                if (value == null)
-                    target = default(Q);
-                if (target is GH_Vector)
-                {
-                    GH_Vector vector = null;
-                    GH_Convert.ToGHVector(value, GH_Conversion.Both, ref vector);
-                    target = (Q)(object)vector;
-                }
-                else if (target is GH_Curve)
-                {
-                    GH_Curve curve = null;
-                    GH_Convert.ToGHCurve(value, GH_Conversion.Both, ref curve);
-                    target = (Q)(object)curve;
-                }
-                else if (target is GH_Surface)
-                {
-                    GH_Surface surface = null;
-                    GH_Convert.ToGHSurface(value, GH_Conversion.Both, ref surface);
-                    target = (Q)(object)surface;
-                }
-                else if (target is GH_Brep)
-                {
-                    GH_Brep bRep = null;
-                    GH_Convert.ToGHBrep(value, GH_Conversion.Both, ref bRep);
-                    target = (Q)(object)bRep;
-                }
-                else if (target is GH_MeshFace)
-                {
-                    GH_MeshFace face = null;
-                    GH_Convert.ToGHMeshFace(value, GH_Conversion.Both, ref face);
-                    target = (Q)(object)face;
-                }
-                else if (target is GH_Transform)
-                {
-                    GH_Transform transform = new GH_Transform(value as dynamic);
-                    target = (Q)(object)transform;
-                }
-                else if (target is GH_Matrix)
-                {
-                    GH_Matrix transform = new GH_Matrix(value as dynamic);
-                    target = (Q)(object)transform;
-                }
-                else if (target is IGH_GeometricGoo)
-                    target = (Q)GH_Convert.ToGeometricGoo(Value);
-                else
-                    target = (Q)Value;
-
-                return true;
+                return Engine.Grasshopper.Convert.ToGoo<Q>(Value, ref target);
             }
             catch (Exception)
             {
-                string message = string.Format("Impossible to convert {0} into {1}. Check the description of each input for more details on the type of object that need to be provided", Value.GetType().FullName, typeof(Q).FullName);
-                BH.Engine.Reflection.Compute.RecordError(message);
-                return false;
+                return !BH.Engine.Reflection.Compute.RecordError($"Cannot convert {Value.GetType().FullName} to {typeof(Q).FullName}");
             }
         }
 
@@ -361,7 +311,7 @@ namespace BH.Engine.Grasshopper.Objects
 
 
         /***************************************************/
-        /**** Private Method                            ****/
+        /**** Private Methods                           ****/
         /***************************************************/
 
         private Rhino.Geometry.BoundingBox Bounds()
@@ -393,6 +343,7 @@ namespace BH.Engine.Grasshopper.Objects
                 m_RhinoValue = Value.IToRhino();
             return true;
         }
+
 
         /***************************************************/
         /**** Private Fields                            ****/
