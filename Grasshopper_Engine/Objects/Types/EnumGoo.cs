@@ -20,6 +20,7 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using Grasshopper.Kernel.Types;
 using System;
 
 namespace BH.Engine.Grasshopper.Objects
@@ -47,6 +48,16 @@ namespace BH.Engine.Grasshopper.Objects
 
         public EnumGoo(Enum val) : base(val) { }
 
-        /***************************************************/
+
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
+
+        public override IGH_Goo Duplicate()
+        {
+            return new EnumGoo { Value = Value };
+        }
+
+        /*******************************************/
     }
 }

@@ -104,6 +104,7 @@
     <Compile Include="Convert\ToType.cs" />
     <Compile Include="Convert\ToRhino.cs" />
     <Compile Include="Create\DataTree.cs" />
+    <Compile Include="Modify\CastTo.cs" />
     <Compile Include="Query\AvailableHints.cs" />
     <Compile Include="Objects\Hints\IGeometryHint.cs" />
     <Compile Include="Objects\Hints\BHomObjectHint.cs" />
@@ -122,9 +123,7 @@
     <Compile Include="Query\RenderMaterial.cs" />
     <Compile Include="Query\Type.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Modify\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />

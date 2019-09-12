@@ -81,7 +81,6 @@ namespace BH.Engine.Grasshopper.Objects
         }
 
 
-
         /*******************************************/
         /**** Override Methods                  ****/
         /*******************************************/
@@ -237,7 +236,7 @@ namespace BH.Engine.Grasshopper.Objects
         {
             try
             {
-                return Engine.Grasshopper.Convert.ToGoo<Q>(Value, ref target);
+                return Engine.Grasshopper.Modify.CastTo<Q>(Value, ref target);
             }
             catch (Exception)
             {

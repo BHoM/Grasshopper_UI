@@ -62,6 +62,13 @@ namespace BH.Engine.Grasshopper.Objects
         /**** Override Methods                  ****/
         /*******************************************/
 
+        public override IGH_Goo Duplicate()
+        {
+            return new BHoMObjectGoo { Value = Value };
+        }
+
+        /*******************************************/
+
         public override bool CastFrom(object source)
         {
             while (source is IGH_Goo)

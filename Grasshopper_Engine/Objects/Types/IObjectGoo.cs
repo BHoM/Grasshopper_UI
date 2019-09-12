@@ -63,6 +63,13 @@ namespace BH.Engine.Grasshopper.Objects
         /**** Override Methods                  ****/
         /*******************************************/
 
+        public override IGH_Goo Duplicate()
+        {
+            return new IObjectGoo { Value = Value };
+        }
+
+        /*******************************************/
+
         public override bool CastFrom(object source)
         {
             if (source == null)
@@ -83,7 +90,7 @@ namespace BH.Engine.Grasshopper.Objects
         {
             try
             {
-                return Engine.Grasshopper.Convert.ToGoo<Q>(Value, ref target);
+                return Engine.Grasshopper.Modify.CastTo<Q>(Value, ref target);
             }
             catch (Exception e)
             {

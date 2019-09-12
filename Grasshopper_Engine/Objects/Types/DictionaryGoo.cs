@@ -49,6 +49,16 @@ namespace BH.Engine.Grasshopper.Objects
 
         public DictionaryGoo(IDictionary val) : base(val) { }
 
+
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
+
+        public override IGH_Goo Duplicate()
+        {
+            return new DictionaryGoo { Value = Value };
+        }
+
         /*******************************************/
 
         public override bool CastFrom(object source)
