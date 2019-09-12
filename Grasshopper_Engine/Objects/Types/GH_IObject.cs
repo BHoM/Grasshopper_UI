@@ -74,12 +74,7 @@ namespace BH.Engine.Grasshopper.Objects
             if (source.GetType().Namespace.StartsWith("Rhino.Geometry"))
                 source = BH.Engine.Rhinoceros.Convert.ToBHoM(source as dynamic);
 
-            if (base.CastFrom(source))
-            {
-                return true;
-            }
-
-            return false;
+            return base.CastFrom(source);
         }
 
         /***************************************************/
