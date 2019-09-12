@@ -21,22 +21,14 @@
  */
 
 using Grasshopper.Kernel;
-using Grasshopper.Kernel.Types;
 using BH.oM.Base;
-using BH.oM.Geometry;
 using BH.Engine.Geometry;
-using System;
 using BH.Engine.Base;
 using BH.Engine.Rhinoceros;
-using Rhino;
-using Rhino.DocObjects;
-using GH_IO;
-using GH_IO.Serialization;
-using BH.Engine.Serialiser;
 
 namespace BH.Engine.Grasshopper.Objects
 {
-    public class BHoMObjectGoo : GH_BHoMGoo<IBHoMObject>, IGH_PreviewData
+    public class BHoMObjectGoo : BHGoo<IBHoMObject>, IGH_PreviewData
     {
         /*******************************************/
         /**** Properties                        ****/

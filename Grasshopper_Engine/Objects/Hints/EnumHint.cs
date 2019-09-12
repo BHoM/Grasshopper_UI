@@ -42,7 +42,7 @@ namespace BH.UI.Grasshopper.Objects.Hints
 
         public bool Cast(object data, out object target)
         {
-            GH_Enum enumer = new GH_Enum() { Value = null };
+            EnumGoo enumer = new EnumGoo() { Value = null };
             enumer.CastFrom(data);
             if (enumer.Value == null)
                 target = data;

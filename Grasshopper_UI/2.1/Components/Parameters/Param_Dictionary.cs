@@ -26,7 +26,7 @@ using System;
 
 namespace BH.UI.Grasshopper.Parameters
 {
-    public class Param_Dictionary : BHoMParam<Engine.Grasshopper.Objects.GH_Dictionary>
+    public class Param_Dictionary : BHoMParam<Engine.Grasshopper.Objects.DictionaryGoo>
     {
         /*******************************************/
         /**** Properties                        ****/

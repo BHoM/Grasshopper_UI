@@ -20,15 +20,11 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.Engine.Serialiser;
-using GH_IO;
-using GH_IO.Serialization;
-using Grasshopper.Kernel.Types;
 using System;
 
 namespace BH.Engine.Grasshopper.Objects
 {
-    public class GH_Enum : GH_BHoMGoo<Enum>
+    public class EnumGoo : BHGoo<Enum>
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -45,11 +41,11 @@ namespace BH.Engine.Grasshopper.Objects
         /**** Constructors                      ****/
         /*******************************************/
 
-        public GH_Enum() : base() { }
+        public EnumGoo() : base() { }
 
         /***************************************************/
 
-        public GH_Enum(Enum val) : base(val) { }
+        public EnumGoo(Enum val) : base(val) { }
 
         /***************************************************/
     }

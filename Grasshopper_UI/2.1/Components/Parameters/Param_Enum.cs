@@ -26,7 +26,7 @@ using System;
 
 namespace BH.UI.Grasshopper.Parameters
 {
-    public class Param_Enum : BHoMParam<Engine.Grasshopper.Objects.GH_Enum>
+    public class Param_Enum : BHoMParam<Engine.Grasshopper.Objects.EnumGoo>
     {
         /*******************************************/
         /**** Properties                        ****/

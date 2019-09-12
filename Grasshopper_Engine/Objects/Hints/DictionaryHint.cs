@@ -42,7 +42,7 @@ namespace BH.UI.Grasshopper.Objects.Hints
 
         public bool Cast(object data, out object target)
         {
-            GH_Dictionary dict = new GH_Dictionary() { Value = null };
+            DictionaryGoo dict = new DictionaryGoo() { Value = null };
             dict.CastFrom(data);
             if (dict.Value == null)
                 target = data;

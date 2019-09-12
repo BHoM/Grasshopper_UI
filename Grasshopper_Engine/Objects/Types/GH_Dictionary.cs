@@ -20,13 +20,12 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using Grasshopper.Kernel.Types;
+using BH.oM.Base;
 using System.Collections;
-using BH.Engine.Reflection;
 
 namespace BH.Engine.Grasshopper.Objects
 {
-    public class GH_Dictionary : GH_BHoMGoo<IDictionary>
+    public class DictionaryGoo : BHGoo<IDictionary>
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -43,15 +42,12 @@ namespace BH.Engine.Grasshopper.Objects
         /**** Constructors                      ****/
         /*******************************************/
 
-        public GH_Dictionary() : base() { }
+        public DictionaryGoo() : base() { }
 
         /***************************************************/
 
-        public GH_Dictionary(IDictionary val) : base(val) { }
+        public DictionaryGoo(IDictionary val) : base(val) { }
 
-
-        /*******************************************/
-        /**** Override Methods                  ****/
         /*******************************************/
 
         public override bool CastFrom(object source)

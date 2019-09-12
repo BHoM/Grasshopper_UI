@@ -59,18 +59,19 @@ namespace BH.Engine.Grasshopper.Objects
             }
         }
 
+
         /*******************************************/
         /**** Constructors                      ****/
         /*******************************************/
 
-        public GH_BHoMGoo()
+        public BHGoo()
         {
             this.Value = default(T);
         }
 
         /***************************************************/
 
-        public GH_BHoMGoo(T val)
+        public BHGoo(T val)
         {
             this.Value = val;
         }
@@ -82,7 +83,7 @@ namespace BH.Engine.Grasshopper.Objects
 
         public override IGH_Goo Duplicate()
         {
-            return new GH_BHoMGoo<T> { Value = Value };
+            return new BHGoo<T> { Value = Value };
         }
 
         /*******************************************/
