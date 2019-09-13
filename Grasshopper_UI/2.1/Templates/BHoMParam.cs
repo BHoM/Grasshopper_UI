@@ -139,6 +139,20 @@ namespace BH.UI.Grasshopper.Templates
         /**** Override Methods                  ****/
         /*******************************************/
 
+        protected override void OnVolatileDataCollected()
+        {
+            base.OnVolatileDataCollected();
+
+            // Report on invalid casting, e.g. IGeometry plugged in a BHoMObjectParameter
+            if ((this.SourceCount > 0 || this.PersistentDataCount > 0) && this.Attributes.IsTopLevel)
+            {
+                Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
+                Engine.Reflection.Compute.ClearCurrentEvents();
+            }
+        }
+
+        /*******************************************/
+
         public override bool Write(GH_IWriter writer)
         {
             writer.SetInt32("m_MaxItemsPreview", m_MaxItemsPreview);

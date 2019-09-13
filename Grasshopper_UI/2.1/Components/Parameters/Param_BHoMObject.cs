@@ -46,7 +46,7 @@ namespace BH.UI.Grasshopper.Parameters
         public Param_BHoMObject() : base("BHoM object", "BHoM", "Represents a collection of generic BHoM objects", "Params", "Primitive")
         {
         }
+        
+        /*******************************************/
     }
-
-    /*******************************************/
 }
