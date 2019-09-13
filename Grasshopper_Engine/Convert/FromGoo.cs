@@ -24,6 +24,8 @@ using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Types;
 using System.Runtime.CompilerServices;
 using Rhino.Geometry;
+using BH.Engine.Grasshopper.Objects;
+using BH.oM.Geometry;
 
 namespace BH.Engine.Grasshopper
 {
@@ -41,15 +43,24 @@ namespace BH.Engine.Grasshopper
         public static T FromGoo<T>(this IGH_Goo goo, IGH_TypeHint hint = null)
         {
             if (goo == null)
+            {
                 return default(T);
+            }
 
             // Get the data out of the Goo
             object data = goo.ScriptVariable();
             while (data is IGH_Goo)
                 data = ((IGH_Goo)data).ScriptVariable();
 
+            // This allows casts like BH.oM.Geometry.Point to BH.oM.Structure.Elements.Node
+            // goo.Value may be null, but, if goo is a BHGoo<>, it can have Geometry to recover info from
             if (data == null)
-                return default(T);
+            {
+                if (goo is BHoMObjectGoo)
+                    try { return (T)(dynamic)((BHoMObjectGoo)goo).Geometry; } catch { }
+                else
+                    return default(T);
+            }
 
             // Convert the data to an acceptable format
             if (data is T)
@@ -77,5 +88,7 @@ namespace BH.Engine.Grasshopper
                 return (T)(brep.Faces[0].UnderlyingSurface() as dynamic);
             return default(T);
         }
+
+        /*************************************/
     }
 }

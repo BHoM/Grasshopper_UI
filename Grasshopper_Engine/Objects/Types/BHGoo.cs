@@ -46,6 +46,8 @@ namespace BH.Engine.Grasshopper.Objects
 
         public override string TypeDescription { get { return typeof(T).FullName; } }
 
+        public virtual IGeometry Geometry { get { return m_Geometry; } }
+
         public override T Value
         {
             get
@@ -118,12 +120,15 @@ namespace BH.Engine.Grasshopper.Objects
             else if (source.GetType() == typeof(GH_Goo<T>))
                 this.Value = ((GH_Goo<T>)source).Value;
             else if (source is T)
-                this.Value = (T)source;
-            else
+                this.Value = (T)(source);
+            else if (source is IGeometry) // This allows cast like BH.oM.Geometry.Point to BH.oM.Structure.Elements.Node
             {
-                this.Value = default(T);
-                return false;
+                this.m_Geometry = (IGeometry)source;
+                Engine.Reflection.Compute.ClearCurrentEvents();
+                Engine.Reflection.Compute.RecordError($"Cannot cast {source.GetType()} to {this.TypeName}");
             }
+            else
+                return false;
             return true;
         }
 
