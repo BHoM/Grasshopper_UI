@@ -113,13 +113,17 @@ namespace BH.Engine.Grasshopper.Objects
 
         public override bool CastFrom(object source)
         {
-            if (source == null) { return false; }
+            if (source == null)
+                return false;
             else if (source.GetType() == typeof(GH_Goo<T>))
                 this.Value = ((GH_Goo<T>)source).Value;
             else if (source is T)
                 this.Value = (T)source;
             else
+            {
                 this.Value = default(T);
+                return false;
+            }
             return true;
         }
 
