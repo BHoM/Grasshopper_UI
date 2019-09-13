@@ -220,7 +220,7 @@ namespace BH.UI.Grasshopper.Base
                     type = type.GenericTypeArguments.First();
 
                 if (bhomGeometryType.IsAssignableFrom(type))
-                    Params.Output[i] = new BHoMGeometryParameter { NickName = keys[i] };
+                    Params.Output[i] = new IGeometryParameter { NickName = keys[i] };
                 else if (bhomObjectType.IsAssignableFrom(type))
                     Params.Output[i] = new BHoMObjectParameter { NickName = keys[i] };
                 else
@@ -241,7 +241,7 @@ namespace BH.UI.Grasshopper.Base
 
                 if (bhomGeometryType.IsAssignableFrom(type))
                 {
-                    Params.RegisterOutputParam(new BHoMGeometryParameter { NickName = keys[i] });
+                    Params.RegisterOutputParam(new IGeometryParameter { NickName = keys[i] });
                     
                 }
                 else if (bhomObjectType.IsAssignableFrom(type))

@@ -447,7 +447,7 @@ namespace BH.UI.Grasshopper.Base
 
         /*******************************************/
 
-        private static IGH_Param GetNewParam(BHoMGeometryParameter param)
+        private static IGH_Param GetNewParam(IGeometryParameter param)
         {
             return new Param_BHoMGeometry { Name = param.Name, NickName = param.NickName, Access = param.Access };
         }

@@ -205,7 +205,7 @@
     <Compile Include="2.0\NonComponents\BH_Hints\BH_PointHint.cs" />
     <Compile Include="2.0\NonComponents\BH_Hints\BH_PolylineHint.cs" />
     <Compile Include="2.0\NonComponents\BH_Hints\BH_VectorHint.cs" />
-    <Compile Include="2.0\Components\Parameters\BHoMGeometryParameter.cs" />
+    <Compile Include="2.0\Components\Parameters\IGeometryParameter.cs" />
     <Compile Include="2.0\Components\Parameters\BHoMObjectParameter.cs" />
     <Compile Include="2.0\Components\oM\CreateCustomObject.cs" />
     <Compile Include="2.0\Components\Engine\ExplodeObject.cs" />

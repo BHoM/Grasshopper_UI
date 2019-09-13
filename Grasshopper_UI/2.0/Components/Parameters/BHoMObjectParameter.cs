@@ -38,7 +38,7 @@ namespace BH.UI.Grasshopper.Base
 
         public override Guid ComponentGuid { get; } = new Guid("d3a2b455-74d5-4b26-bdf2-bf672d1dd927"); 
 
-        public override string TypeName { get; } = "BHoM Object";
+        public override string TypeName { get; } = "BHoMObject";
 
         public bool Hidden { get; set; } = false;
 

@@ -26,7 +26,7 @@ using System.Collections.Generic;
 
 namespace BH.UI.Grasshopper.Base
 {
-    public class BHoMGeometryParameter : GH_PersistentParam<GH_IBHoMGeometry>, IGH_PreviewObject
+    public class IGeometryParameter : GH_PersistentParam<GH_IBHoMGeometry>, IGH_PreviewObject
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -38,7 +38,7 @@ namespace BH.UI.Grasshopper.Base
 
         public override Guid ComponentGuid { get; } = new Guid("a96cbe64-8352-47b1-9d24-153927d14795"); 
 
-        public override string TypeName { get; } = "BHoM Geometry";
+        public override string TypeName { get; } = "IGeometry";
 
         public bool Hidden { get; set; } = false;
 
@@ -53,7 +53,7 @@ namespace BH.UI.Grasshopper.Base
         /**** Constructors                      ****/
         /*******************************************/
 
-        public BHoMGeometryParameter()
+        public IGeometryParameter()
             : base(new GH_InstanceDescription("BHoM geometry", "BHoMGeo", "Represents a collection of generic BHoM geometries", "Params", "Geometry"))
         {
         }

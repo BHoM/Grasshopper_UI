@@ -628,7 +628,7 @@ namespace BH.UI.Grasshopper.Templates
         {
             if (typeof(IGeometry).IsAssignableFrom(type))
             {
-                Params.RegisterOutputParam(new BHoMGeometryParameter { NickName = "" });
+                Params.RegisterOutputParam(new IGeometryParameter { NickName = "" });
             }
             else
                 Params.RegisterOutputParam(GetGH_Param(type, ""));
@@ -641,7 +641,7 @@ namespace BH.UI.Grasshopper.Templates
             dynamic p;
 
             if (typeof(IGeometry).IsAssignableFrom(type))
-                p = new BHoMGeometryParameter { NickName = name };
+                p = new IGeometryParameter { NickName = name };
             else if (typeof(IBHoMObject).IsAssignableFrom(type))
                 p = new BHoMObjectParameter { NickName = name };
             else if (type == typeof(Type))
