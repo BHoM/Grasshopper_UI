@@ -107,7 +107,7 @@
     <Compile Include="Modify\CastTo.cs" />
     <Compile Include="Query\AvailableHints.cs" />
     <Compile Include="Objects\Hints\IGeometryHint.cs" />
-    <Compile Include="Objects\Hints\BHomObjectHint.cs" />
+    <Compile Include="Objects\Hints\BHoMObjectHint.cs" />
     <Compile Include="Objects\Hints\DictionaryHint.cs" />
     <Compile Include="Objects\Hints\EnumHint.cs" />
     <Compile Include="Objects\Hints\TypeHint.cs" />
@@ -117,7 +117,7 @@
     <Compile Include="Objects\Types\IGeometryGoo.cs" />
     <Compile Include="Objects\Types\IObjectGoo.cs" />
     <Compile Include="Objects\Types\BHGoo.cs" />
-    <Compile Include="Objects\Types\GH_Type.cs" />
+    <Compile Include="Objects\Types\TypeGoo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\RenderColor.cs" />
     <Compile Include="Query\RenderMaterial.cs" />
