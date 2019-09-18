@@ -19,6 +19,7 @@
  * You should have received a copy of the GNU Lesser General Public License     
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
+ # define ADAPTERNAME
 
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
@@ -236,7 +237,10 @@ namespace BH.Engine.Grasshopper.Objects
         {
             try
             {
-                return Engine.Grasshopper.Modify.CastTo<Q>(Value, ref target);
+                if (this.m_RhinoValue != null)
+                    return Engine.Grasshopper.Modify.CastTo<Q>(this.m_RhinoValue, ref target);
+                else
+                    return Engine.Grasshopper.Modify.CastTo<Q>(Value, ref target);
             }
             catch (Exception)
             {
