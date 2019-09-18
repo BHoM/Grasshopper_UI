@@ -36,14 +36,14 @@ namespace BH.UI.Grasshopper.Parameters
 
         public override Guid ComponentGuid { get; } = new Guid("1DEF3710-FD5B-4617-BCF6-B6293C5C6530");
 
-        public override string TypeName { get; } = "BHoM Object";
+        public override string TypeName { get; } = "IBHoMObject";
 
 
         /*******************************************/
         /**** Constructors                      ****/
         /*******************************************/
 
-        public Param_BHoMObject() : base("BHoM object", "BHoM", "Represents a collection of generic BHoM objects", "Params", "Primitive")
+        public Param_BHoMObject() : base("BHoM object", "IBHoMObject", "Represents a collection of generic BHoM objects", "Params", "Primitive")
         {
         }
         

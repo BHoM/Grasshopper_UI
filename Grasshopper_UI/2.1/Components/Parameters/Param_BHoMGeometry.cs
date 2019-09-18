@@ -43,7 +43,7 @@ namespace BH.UI.Grasshopper.Parameters
         /**** Constructors                      ****/
         /*******************************************/
 
-        public Param_BHoMGeometry() : base("BHoM geometry", "BHoMGeo", "Represents a collection of generic BHoM geometries", "Params", "Geometry")
+        public Param_BHoMGeometry() : base("BHoM geometry", "IGeometry", "Represents a collection of generic BHoM geometries", "Params", "Geometry")
         {
         }
         
