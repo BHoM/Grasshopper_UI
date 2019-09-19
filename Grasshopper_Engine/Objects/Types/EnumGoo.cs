@@ -59,12 +59,5 @@ namespace BH.Engine.Grasshopper.Objects
         }
 
         /*******************************************/
-
-        public override object ScriptVariable()
-        {
-            return Value;
-        }
-
-        /*******************************************/
     }
 }
