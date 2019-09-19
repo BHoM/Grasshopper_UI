@@ -97,6 +97,13 @@ namespace BH.Engine.Grasshopper.Objects
 
         /*******************************************/
 
+        public override object ScriptVariable()
+        {
+            return Value;
+        }
+
+        /*******************************************/
+
         public override bool CastTo<Q>(ref Q target)
         {
             try
@@ -117,9 +124,11 @@ namespace BH.Engine.Grasshopper.Objects
         {
             if (source == null)
                 return false;
-            else if (source.GetType() == typeof(GH_Goo<T>))
-                this.Value = ((GH_Goo<T>)source).Value;
-            else if (source is T)
+
+            while (source is IGH_Goo)
+                source = ((IGH_Goo)source).ScriptVariable();
+            
+            if (source is T)
                 this.Value = (T)(source);
             else if (source is IGeometry) // This allows cast like BH.oM.Geometry.Point to BH.oM.Structure.Elements.Node
             {
