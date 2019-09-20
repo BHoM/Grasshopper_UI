@@ -32,7 +32,7 @@ namespace BH.UI.Grasshopper.Parameters
         /**** Properties                        ****/
         /*******************************************/
 
-        protected override System.Drawing.Bitmap Icon { get; } = Resources.BHoMObject_Param;
+        protected override System.Drawing.Bitmap Icon { get; } = Resources.BHoMAdapter_Param;
 
         public override Guid ComponentGuid { get; } = new Guid("1DEF3710-FD5B-4617-BCF6-B6293C5C6539");
 
