@@ -36,6 +36,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
     </Reference>
+    <Reference Include="BHoM_Adapter, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BHoM_Adapter\Build\BHoM_Adapter.dll</HintPath>
+    </Reference>
     <Reference Include="BHoM_Engine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_Engine\Build\BHoM_Engine.dll</HintPath>
@@ -105,6 +109,7 @@
     <Compile Include="Convert\ToRhino.cs" />
     <Compile Include="Create\DataTree.cs" />
     <Compile Include="Modify\CastTo.cs" />
+    <Compile Include="Objects\Types\BHoMAdapterGoo.cs" />
     <Compile Include="Query\AvailableHints.cs" />
     <Compile Include="Objects\Hints\IGeometryHint.cs" />
     <Compile Include="Objects\Hints\BHoMObjectHint.cs" />
