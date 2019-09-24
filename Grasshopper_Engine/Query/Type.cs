@@ -40,7 +40,7 @@ namespace BH.Engine.Grasshopper
         {
             Type type;
             if (param == null)
-                type = typeof(object);
+                return typeof(object);
 
             if (param is Param_ScriptVariable)
                 type = Type(((Param_ScriptVariable)param).TypeHint, param.Access);
