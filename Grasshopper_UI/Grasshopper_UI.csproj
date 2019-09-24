@@ -154,37 +154,9 @@
     <Compile Include="2.1\Components\Adapter\Pull.cs" />
     <Compile Include="2.1\Components\Adapter\Move.cs" />
     <Compile Include="2.1\Components\Adapter\Push.cs" />
+    <Compile Include="2.1\Others\Logging.cs" />
     <Compile Include="2.1\Templates\BHoMParam.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="2.0\Components\Adapter\CreateAdapter.cs" />
-    <Compile Include="2.0\Components\Adapter\CreateQuery.cs" />
-    <Compile Include="2.0\Components\Adapter\Delete.cs" />
-    <Compile Include="2.0\Components\Adapter\Execute.cs" />
-    <Compile Include="2.0\Components\Adapter\Move.cs" />
-    <Compile Include="2.0\Components\Adapter\Pull.cs" />
-    <Compile Include="2.0\Components\Adapter\Push.cs" />
-    <Compile Include="2.0\Components\Adapter\UpdateProperty.cs" />
-    <Compile Include="2.0\Components\oM\CreateBHoMData.cs" />
-    <Compile Include="2.0\Components\oM\CreateBHoMType.cs" />
-    <Compile Include="2.0\Components\oM\CreateBHoMEnum.cs" />
-    <Compile Include="2.0\Components\oM\CreateDictionary.cs" />
-    <Compile Include="2.0\Components\Engine\ComputeBHoM.cs" />
-    <Compile Include="2.0\Components\Engine\ConvertBHoM.cs" />
-    <Compile Include="2.0\Components\Engine\FromJson.cs" />
-    <Compile Include="2.0\Components\Engine\ToJson.cs" />
-    <Compile Include="2.0\Components\Parameters\IObjectParameter.cs" />
-    <Compile Include="2.0\Components\Parameters\DictionaryParameter.cs" />
-    <Compile Include="2.0\Components\Parameters\EnumParameter.cs" />
-    <Compile Include="2.0\Components\Parameters\TypeParameter.cs" />
-    <Compile Include="2.0\Components\UI\BH_CSNET_Script.cs" />
-    <Compile Include="2.0\Components\UI\BH_VBNET_Script.cs" />
-    <Compile Include="2.0\Components\Engine\ModifyBHoM.cs" />
-    <Compile Include="2.0\Components\Engine\QueryBHoM.cs" />
-    <Compile Include="2.0\Components\oM\CreateBHoM.cs" />
-    <Compile Include="2.0\Components\UI\CreateTestResult.cs" />
-    <Compile Include="2.0\Components\UI\CreateUnitTests.cs" />
-    <Compile Include="2.0\Components\UI\Script.cs" />
-    <Compile Include="2.0\Components\UI\VsScriptEditor.cs" />
     <Compile Include="2.1\Components\Engine\Explode.cs" />
     <Compile Include="2.1\Components\Engine\GetInfo.cs" />
     <Compile Include="2.1\Components\Engine\Query.cs" />
@@ -207,53 +179,14 @@
     <Compile Include="2.1\Components\Parameters\Param_Enum.cs" />
     <Compile Include="2.1\Components\Parameters\Param_IObject.cs" />
     <Compile Include="2.1\Components\Parameters\Param_Type.cs" />
-    <Compile Include="2.1\Components\UI\UpdateVersion.cs" />
     <Compile Include="2.1\Global\GlobalSearch.cs" />
     <Compile Include="2.1\Templates\CallerValueList.cs" />
     <Compile Include="2.1\Templates\DataAccessor_GH.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_BHomGeometryHint.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_IObjectHint.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_TypeHint.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_EnumHint.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_DictionaryHint.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_BHomObjectHint.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_LineHint.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_MeshHint.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_NurbCurveHint.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_PointHint.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_PolylineHint.cs" />
-    <Compile Include="2.0\NonComponents\BH_Hints\BH_VectorHint.cs" />
-    <Compile Include="2.0\Components\Parameters\BHoMGeometryParameter.cs" />
-    <Compile Include="2.0\Components\Parameters\BHoMObjectParameter.cs" />
-    <Compile Include="2.0\Components\oM\CreateCustomObject.cs" />
-    <Compile Include="2.0\Components\Engine\ExplodeObject.cs" />
-    <Compile Include="2.0\NonComponents\BH_Types\GH_IObject.cs" />
-    <Compile Include="2.0\NonComponents\BH_Types\GH_TemplateType.cs" />
-    <Compile Include="2.0\NonComponents\BH_Types\GH_Dictionary.cs" />
-    <Compile Include="2.0\NonComponents\BH_Types\GH_Enum.cs" />
-    <Compile Include="2.0\NonComponents\Menus\BH_PopupSearchDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="2.0\NonComponents\Menus\SelectorMenu.cs" />
-    <Compile Include="2.0\NonComponents\Menus\SearchPopup.cs" />
-    <Compile Include="2.0\NonComponents\Others\BH_StructureIterator.cs" />
-    <Compile Include="2.0\NonComponents\Others\Logging.cs" />
-    <Compile Include="2.0\NonComponents\Ports\PortDataType.cs" />
-    <Compile Include="2.0\NonComponents\Render\RenderBHoMObject.cs" />
-    <Compile Include="2.0\NonComponents\BH_Types\GH_Type.cs" />
-    <Compile Include="2.0\NonComponents\BH_Types\GH_IBHoMGeometry.cs" />
-    <Compile Include="2.0\NonComponents\BH_Types\GH_BHoMObject.cs" />
-    <Compile Include="2.0\NonComponents\Render\RenderBHoMGeometry.cs" />
-    <Compile Include="2.0\Components\AboutGator.cs" />
-    <Compile Include="2.0\Components\Engine\GetProperty.cs" />
-    <Compile Include="2.0\Components\Engine\SetProperty.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="2.0\Templates\CreateCustomTemplate.cs" />
-    <Compile Include="2.0\Templates\MethodCallTemplate.cs" />
     <Compile Include="2.1\Templates\CallerComponent.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -364,7 +297,9 @@
     <Content Include="Properties\Resources\UpdateProperty.png" />
     <Content Include="Properties\Resources\VS_Script.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="2.1\Components\UI\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
       <Project>{dde47285-e709-4752-9afd-6fa03b449364}</Project>
