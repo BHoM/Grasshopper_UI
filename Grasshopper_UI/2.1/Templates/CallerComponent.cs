@@ -37,6 +37,7 @@ using System.Reflection;
 using System.Linq;
 using BH.Engine.Grasshopper;
 using BH.UI.Grasshopper.Components;
+using BH.UI.Grasshopper.Others;
 
 namespace BH.UI.Grasshopper.Templates
 {

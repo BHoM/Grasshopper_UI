@@ -21,6 +21,7 @@
  */
 
 using BH.Engine.Grasshopper;
+using BH.UI.Grasshopper.Others;
 using BH.UI.Grasshopper.Properties;
 using BH.UI.Grasshopper.Templates;
 using System;
