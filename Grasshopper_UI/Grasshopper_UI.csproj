@@ -316,15 +316,10 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>call "..\..\BHoM_UI\Build\UI_PostBuild.exe" ..\..\ "$(AppData)\BHoM\Assemblies"
-
+    <PostBuildEvent>rem copy .gh file to BHoM/Assembly folder
 Copy /Y "$(TargetDir)$(TargetName).dll" "$(AppData)\BHoM\Assemblies\$(TargetName).gha"
 
-
-IF EXIST $(AppData)\Grasshopper\Libraries\BHoM (
-RD /S /Q $(AppData)\Grasshopper\Libraries\BHoM
-)
-
+rem create .ghlink file
 echo $(AppData)\BHoM\Assemblies\$(TargetName).gha &gt; "$(AppData)\Grasshopper\Libraries\$(TargetName).ghlink"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
