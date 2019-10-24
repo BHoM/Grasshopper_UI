@@ -149,7 +149,6 @@
     <Compile Include="Components\Adapter\CreateRequest.cs" />
     <Compile Include="Components\Adapter\CreateAdapter.cs" />
     <Compile Include="Components\Adapter\Execute.cs" />
-    <Compile Include="Components\Adapter\UpdateProperty.cs" />
     <Compile Include="Components\Adapter\Delete.cs" />
     <Compile Include="Components\Adapter\Pull.cs" />
     <Compile Include="Components\Adapter\Move.cs" />
