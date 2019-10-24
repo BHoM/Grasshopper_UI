@@ -27,6 +27,7 @@ using BH.UI.Components;
 using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Parameters.Hints;
 using BH.Engine.Grasshopper;
+using System.Reflection;
 
 namespace BH.UI.Grasshopper.Components
 {
@@ -55,14 +56,14 @@ namespace BH.UI.Grasshopper.Components
 
         public override bool CanInsertParameter(GH_ParameterSide side, int index)
         {
-            return side == GH_ParameterSide.Input;
+            return side == GH_ParameterSide.Input && !(Caller?.SelectedItem is MethodInfo);
         }
 
         /*******************************************/
 
         public override bool CanRemoveParameter(GH_ParameterSide side, int index)
         {
-            return side == GH_ParameterSide.Input;
+            return side == GH_ParameterSide.Input && !(Caller?.SelectedItem is MethodInfo);
         }
 
         /*******************************************/
