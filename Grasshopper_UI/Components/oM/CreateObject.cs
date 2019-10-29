@@ -45,7 +45,7 @@ namespace BH.UI.Grasshopper.Components
 
         public override bool CanRemoveParameter(GH_ParameterSide side, int index)
         {
-            return side == GH_ParameterSide.Input && !(Caller?.SelectedItem is MethodInfo);
+            return side == GH_ParameterSide.Input && Caller.SelectedItem is Type;
         }
 
         /*******************************************/
