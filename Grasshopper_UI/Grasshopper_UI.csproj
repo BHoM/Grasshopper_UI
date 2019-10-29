@@ -154,7 +154,6 @@
     <Compile Include="Components\Adapter\Pull.cs" />
     <Compile Include="Components\Adapter\Move.cs" />
     <Compile Include="Components\Adapter\Push.cs" />
-    <Compile Include="Components\oM\CreateObject2.cs" />
     <Compile Include="Others\Logging.cs" />
     <Compile Include="Templates\BHoMParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
