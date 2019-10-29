@@ -26,10 +26,11 @@ using BH.oM.Base;
 using BH.UI.Grasshopper.Templates;
 using BH.UI.Templates;
 using BH.UI.Components;
+using System.Reflection;
 
 namespace BH.UI.Grasshopper.Components
 {
-    public class CreateObjectComponent : CallerComponent
+    public class CreateObjectComponent : CallerComponent, IGH_VariableParameterComponent
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -37,6 +38,32 @@ namespace BH.UI.Grasshopper.Components
 
         public override Caller Caller { get; } = new CreateObjectCaller();
 
+
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
+
+        public override bool CanRemoveParameter(GH_ParameterSide side, int index)
+        {
+            return side == GH_ParameterSide.Input && !(Caller?.SelectedItem is MethodInfo);
+        }
+
+        /*******************************************/
+
+        public override bool DestroyParameter(GH_ParameterSide side, int index)
+        {
+            if (side == GH_ParameterSide.Output)
+                return true;
+
+            if (Params.Input.Count <= index)
+                return true;
+
+            // Updating the caller with the parameter that Grasshopper just removed
+            CreateObjectCaller caller = Caller as CreateObjectCaller;
+            if (caller != null)
+                caller.RemoveInput(Params.Input[index].NickName);
+            return true;
+        }
 
         /*******************************************/
     }
