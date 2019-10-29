@@ -41,46 +41,12 @@ namespace BH.UI.Grasshopper.Components
 
 
         /*******************************************/
-        /**** Constructors                      ****/
-        /*******************************************/
-
-        public CreateObject2Component() : base()
-        {
-            this.Params.ParameterChanged += OnGrasshopperUpdates;
-        }
-
-
-        /*******************************************/
         /**** Override Methods                  ****/
-        /*******************************************/
-
-        public override bool CanInsertParameter(GH_ParameterSide side, int index)
-        {
-            return side == GH_ParameterSide.Input && !(Caller?.SelectedItem is MethodInfo);
-        }
-
         /*******************************************/
 
         public override bool CanRemoveParameter(GH_ParameterSide side, int index)
         {
             return side == GH_ParameterSide.Input && !(Caller?.SelectedItem is MethodInfo);
-        }
-
-        /*******************************************/
-
-        public override IGH_Param CreateParameter(GH_ParameterSide side, int index)
-        {
-            Param_ScriptVariable param = new Param_ScriptVariable
-            {
-                NickName = GH_ComponentParamServer.InventUniqueNickname("xyzuvw", this.Params.Input),
-                TypeHint = new GH_NullHint()
-            };
-
-            // Updating the caller with the parameter that Grasshopper just added
-            CreateObject2Caller caller = Caller as CreateObject2Caller;
-            if (caller != null && param != null)
-                caller.AddInput(index, param.NickName, param.Type());
-            return param;
         }
 
         /*******************************************/
@@ -98,22 +64,6 @@ namespace BH.UI.Grasshopper.Components
             if (caller != null)
                 caller.RemoveInput(Params.Input[index].NickName);
             return true;
-        }
-
-        /*******************************************/
-
-        public override void VariableParameterMaintenance()
-        {
-            foreach (IGH_Param param in Params.Input)
-            {
-                Param_ScriptVariable paramScript = param as Param_ScriptVariable;
-                if (paramScript != null)
-                {
-                    paramScript.ShowHints = true;
-                    paramScript.Hints = Engine.Grasshopper.Query.AvailableHints;
-                    paramScript.AllowTreeAccess = true;
-                }
-            }
         }
 
         /*******************************************/
