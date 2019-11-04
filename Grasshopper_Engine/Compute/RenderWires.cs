@@ -156,8 +156,8 @@ namespace BH.Engine.Grasshopper
 
         public static void RenderWires(BHG.NurbsSurface surface, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
         {
-            RHG.Surface rSurface = surface.ToRhino();
-            pipeline.DrawSurface(rSurface, bhColour, 2);
+            RHG.Brep rSurface = surface.ToRhino();
+            pipeline.DrawBrepWires(rSurface, bhColour, 2);
         }
 
         /***************************************************/
