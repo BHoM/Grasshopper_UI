@@ -125,10 +125,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="Testing_oM">
-      <HintPath>..\..\BHoM\Build\Testing_oM.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="UI_Engine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_UI\Build\UI_Engine.dll</HintPath>
