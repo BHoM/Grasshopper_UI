@@ -304,7 +304,7 @@ namespace BH.UI.Grasshopper.Templates
         /**** Private Methods                   ****/
         /*******************************************/
 
-        private IGH_Param ToGH_Param(ParamInfo info)
+        protected IGH_Param ToGH_Param(ParamInfo info)
         {
             UnderlyingType subType = info.DataType.UnderlyingType();
             IGH_Param param;

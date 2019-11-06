@@ -27,6 +27,8 @@ using BH.UI.Grasshopper.Templates;
 using BH.UI.Templates;
 using BH.UI.Components;
 using System.Reflection;
+using BH.oM.UI;
+using System.Linq;
 
 namespace BH.UI.Grasshopper.Components
 {
@@ -37,6 +39,18 @@ namespace BH.UI.Grasshopper.Components
         /*******************************************/
 
         public override Caller Caller { get; } = new CreateObjectCaller();
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
+        public CreateObjectComponent() : base()
+        {
+            CreateObjectCaller caller = Caller as CreateObjectCaller;
+            if (caller != null)
+                caller.InputToggled += Caller_InputToggled;
+        }
 
 
         /*******************************************/
@@ -64,6 +78,26 @@ namespace BH.UI.Grasshopper.Components
                 caller.RemoveInput(Params.Input[index].NickName);
             return true;
         }
+
+        /*******************************************/
+        /**** Private Methods                   ****/
+        /*******************************************/
+
+        private void Caller_InputToggled(object sender, Tuple<ParamInfo, bool> e)
+        {
+            if (e.Item2)
+                Params.RegisterInputParam(ToGH_Param(e.Item1));
+            else
+            {
+                IGH_Param param = Params.Input.FirstOrDefault(x => x.Name == e.Item1.Name);
+                if (param != null)
+                    Params.UnregisterInputParameter(param);
+            }                
+
+            this.Params.OnParametersChanged(); // and ask to update the layout with OnParametersChanged()
+            this.ExpireSolution(true);
+        }
+
 
         /*******************************************/
     }
