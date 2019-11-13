@@ -89,7 +89,8 @@ namespace BH.UI.Grasshopper.Components
                 Params.RegisterInputParam(ToGH_Param(e.Item1));
             else
             {
-                IGH_Param param = Params.Input.FirstOrDefault(x => x.Name == e.Item1.Name);
+                string name = e.Item1.Name.ToLower();
+                IGH_Param param = Params.Input.FirstOrDefault(x => x.Name.ToLower() == name);
                 if (param != null)
                     Params.UnregisterInputParameter(param);
             }                
