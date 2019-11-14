@@ -132,7 +132,8 @@ namespace BH.UI.Grasshopper.Templates
             // we also avoid recomputing if we just reconnected the same wire
             bool recompute = this.Phase == GH_SolutionPhase.Computed
                              && !e.Parameter.Sources.Any(p => p.Attributes.GetTopLevel.DocObject is ExplodeComponent)
-                             && e.Parameter.NickName != Caller.InputParams[e.ParameterIndex].Name;
+                             && e.Parameter.NickName != Caller.InputParams[e.ParameterIndex].Name
+                             && Engine.Grasshopper.Query.Type(e.Parameter) != Caller.InputParams[e.ParameterIndex].DataType;
 
             // Updating Caller.InputParams based on the new Grasshopper parameter just received
             // We update the InputParams with the new type or name
