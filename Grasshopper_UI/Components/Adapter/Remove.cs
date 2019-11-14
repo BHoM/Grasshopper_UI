@@ -29,13 +29,13 @@ using BH.UI.Components;
 
 namespace BH.UI.Grasshopper.Components
 {
-    public class DeleteComponent : CallerComponent
+    public class RemoveComponent : CallerComponent
     {
         /*******************************************/
         /**** Properties                        ****/
         /*******************************************/
 
-        public override Caller Caller { get; } = new DeleteCaller();
+        public override Caller Caller { get; } = new RemoveCaller();
 
 
         /*******************************************/
