@@ -369,7 +369,7 @@ namespace BH.UI.Grasshopper.Templates
             try
             {
                 if (info.HasDefaultValue)
-                    ((dynamic)param).SetPersistentData(info.DefaultValue);
+                    ((dynamic)param).SetPersistentData(info.DefaultValue.IToGoo());
             }
             catch { }
 
