@@ -140,7 +140,10 @@ namespace BH.Engine.Grasshopper
 
         public static void RenderRhinoMeshes(RHG.Mesh mesh, Rhino.Display.DisplayPipeline pipeline, DisplayMaterial material)
         {
-            pipeline.DrawMeshShaded(mesh, material);
+            if (mesh.VertexColors.Count > 0)
+                pipeline.DrawMeshFalseColors(mesh);
+                else
+                pipeline.DrawMeshShaded(mesh, material);
         }
 
 

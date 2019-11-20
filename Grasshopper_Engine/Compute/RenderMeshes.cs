@@ -205,14 +205,6 @@ namespace BH.Engine.Grasshopper
         }
 
         /***************************************************/
-
-        public static void RenderMeshes(BH.oM.Graphics.RenderMesh mesh, Rhino.Display.DisplayPipeline pipeline, DisplayMaterial material)
-        {
-            RHG.Mesh rMesh = mesh.ToRhino();
-            pipeline.DrawMeshFalseColors(rMesh);
-        }
-
-        /***************************************************/
         /**** Public Methods  - Miscellanea             ****/
         /***************************************************/
 
