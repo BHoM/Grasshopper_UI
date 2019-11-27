@@ -75,7 +75,8 @@ namespace BH.Engine.Grasshopper
             Brep brep = goo.ScriptVariable() as Brep;
             if (brep.IsSurface)
                 return (T)(brep.Faces[0].UnderlyingSurface() as dynamic);
-            return default(T);
+            else
+                return (T)(brep as dynamic);
         }
     }
 }

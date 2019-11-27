@@ -160,7 +160,11 @@ namespace BH.Engine.Grasshopper
 
         public static void RenderMeshes(BHG.NurbsSurface surface, Rhino.Display.DisplayPipeline pipeline, DisplayMaterial material)
         {
-            pipeline.DrawBrepShaded(RHG.Brep.CreateFromSurface(surface.ToRhino()), material);
+            RHG.GeometryBase geometry = surface.ToRhino();
+            if (geometry is RHG.Surface)
+                geometry = RHG.Brep.CreateFromSurface((RHG.Surface)geometry);
+
+            pipeline.DrawBrepShaded((RHG.Brep)geometry, material);
         }
 
         /***************************************************/

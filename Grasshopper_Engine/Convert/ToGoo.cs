@@ -23,6 +23,7 @@
 using BH.Engine.Grasshopper.Objects;
 using BH.oM.Base;
 using BH.oM.Geometry;
+using Grasshopper.Kernel.Data;
 using Grasshopper.Kernel.Types;
 using System;
 using System.Collections;
@@ -47,6 +48,26 @@ namespace BH.Engine.Grasshopper
                 return ToGoo(obj as dynamic);
         }
 
+        /*************************************/
+
+        public static List<IGH_Goo> IToGoo<T>(this List<T> list)
+        {
+            return list.Select(x => x.IToGoo()).ToList();
+        }
+
+        /*************************************/
+
+        public static GH_Structure<IGH_Goo> IToGoo<T>(this List<List<T>> tree)
+        {
+            GH_Structure<IGH_Goo> structure = new GH_Structure<IGH_Goo>();
+
+            for (int i = 0; i < tree.Count; i++)
+                structure.AppendRange(tree[i].IToGoo(), new GH_Path(i));
+
+            return structure;
+        }
+
+
         /*******************************************/
         /**** Public Methods                    ****/
         /*******************************************/
@@ -61,6 +82,13 @@ namespace BH.Engine.Grasshopper
         public static IGH_Goo ToGoo(this IGeometry obj)
         {
             return new GH_IBHoMGeometry(obj);
+        }
+
+        /*************************************/
+
+        public static IGH_Goo ToGoo(this IObject obj)
+        {
+            return new GH_IObject(obj);
         }
 
         /*************************************/
@@ -82,6 +110,69 @@ namespace BH.Engine.Grasshopper
         public static IGH_Goo ToGoo(this IDictionary obj)
         {
             return new GH_Dictionary(obj);
+        }
+
+        /*************************************/
+
+        public static IGH_Goo ToGoo(this bool obj)
+        {
+            return new GH_Boolean(obj);
+        }
+
+        /*************************************/
+
+        public static IGH_Goo ToGoo(this System.Drawing.Color obj)
+        {
+            return new GH_Colour(obj);
+        }
+
+        /*************************************/
+
+        public static IGH_Goo ToGoo(this DateTime obj)
+        {
+            return new GH_Time(obj);
+        }
+
+        /*************************************/
+
+        public static IGH_Goo ToGoo(this double obj)
+        {
+            return new GH_Number(obj);
+        }
+
+        /*************************************/
+
+        public static IGH_Goo ToGoo(this Guid obj)
+        {
+            return new GH_Guid(obj);
+        }
+
+        /*************************************/
+
+        public static IGH_Goo ToGoo(this int obj)
+        {
+            return new GH_Integer(obj);
+        }
+
+        /*************************************/
+
+        public static IGH_Goo ToGoo(this long obj)
+        {
+            return new GH_Time(new DateTime(obj)); // Based on what is done  in CallerComponent.ToGHParam()
+        }
+
+        /*************************************/
+
+        public static IGH_Goo ToGoo(this string obj)
+        {
+            return new GH_String(obj);
+        }
+
+        /*************************************/
+
+        public static IGH_Goo ToGoo(this object obj)
+        {
+            return null;
         }
 
         /*************************************/
