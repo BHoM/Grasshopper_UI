@@ -142,7 +142,7 @@ namespace BH.Engine.Grasshopper
         {
             if (mesh.VertexColors.Count > 0)
                 pipeline.DrawMeshFalseColors(mesh);
-                else
+            else
                 pipeline.DrawMeshShaded(mesh, material);
         }
 
