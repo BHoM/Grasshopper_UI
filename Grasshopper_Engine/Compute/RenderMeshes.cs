@@ -204,7 +204,6 @@ namespace BH.Engine.Grasshopper
             pipeline.DrawMeshShaded(rMesh, material);
         }
 
-
         /***************************************************/
         /**** Public Methods  - Miscellanea             ****/
         /***************************************************/

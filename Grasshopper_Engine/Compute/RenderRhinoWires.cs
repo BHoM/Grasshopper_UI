@@ -27,6 +27,7 @@ using System;
 using System.Drawing;
 using BH.oM.Reflection.Attributes;
 using System.Collections.Generic;
+using GH = Grasshopper;
 
 namespace BH.Engine.Grasshopper
 {
@@ -232,7 +233,10 @@ namespace BH.Engine.Grasshopper
 
         public static void RenderRhinoWires(RHG.Mesh mesh, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
         {
-            pipeline.DrawMeshWires(mesh, bhColour);
+            if (mesh.VertexColors.Count == 0)
+                pipeline.DrawMeshWires(mesh, bhColour);
+            else if (GH.CentralSettings.PreviewMeshEdges)
+                pipeline.DrawMeshWires(mesh, bhColour);
         }
 
 
