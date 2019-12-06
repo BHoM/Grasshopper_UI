@@ -213,14 +213,14 @@ namespace BH.UI.Grasshopper.Templates
             {
                 Type fragmentType = typeof(ParamOldIndexFragment);
                 List<IGH_Param> oldParams = Params.Output.ToList();
-                Params.Input.Clear();
+                Params.Output.Clear();
                 for (int i = 0; i < outputs.Count; i++)
                 {
                     ParamOldIndexFragment fragment = outputs[i].Fragments[fragmentType] as ParamOldIndexFragment;
                     if (fragment == null || fragment.OldIndex < 0)
-                        Params.RegisterInputParam(ToGH_Param(outputs[i]));
+                        Params.RegisterOutputParam(ToGH_Param(outputs[i]));
                     else
-                        Params.RegisterInputParam(oldParams[fragment.OldIndex]);
+                        Params.RegisterOutputParam(oldParams[fragment.OldIndex]);
                 }
             }
             else
