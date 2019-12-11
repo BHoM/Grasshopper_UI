@@ -124,7 +124,7 @@ namespace BH.UI.Grasshopper.Components
 
         private bool IsExpired()
         {
-            if (Params.Input.Count == 1 && Params.Input[0].SourceCount == 0) // Nothing plugged in
+            if (Params.Input.Count == 1 && (Params.Input[0].SourceCount == 0 || Params.Input[0].VolatileDataCount == 0)) // Nothing plugged in or empty structure
             {
                 return false;
             }
