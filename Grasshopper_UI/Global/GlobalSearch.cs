@@ -75,7 +75,8 @@ namespace BH.UI.Grasshopper.Global
                     initCode = request.SelectedItem.ToJson();
 
                 GH_Canvas canvas = GH.Instances.ActiveCanvas;
-                canvas.InstantiateNewObject(node.Id, initCode, canvas.CursorCanvasPosition, true);
+                System.Drawing.Point location = new System.Drawing.Point((int)request.Location.X, (int)request.Location.Y);
+                canvas.InstantiateNewObject(node.Id, initCode, canvas.PointToClient(location), true);
             }
 
         }
