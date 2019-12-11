@@ -27,6 +27,7 @@ using BH.UI.Grasshopper.Templates;
 using BH.UI.Templates;
 using BH.UI.Components;
 using BH.Engine.Reflection;
+using GH_IO.Serialization;
 
 namespace BH.UI.Grasshopper.Components
 {
@@ -50,6 +51,19 @@ namespace BH.UI.Grasshopper.Components
             Type type = Caller.SelectedItem as Type;
             if (type != null)
                 Message = type.ToText();
+        }
+
+        /*******************************************/
+
+        public override bool Read(GH_IReader reader)
+        {
+            bool success = base.Read(reader);
+
+            Type type = Caller.SelectedItem as Type;
+            if (type != null)
+                Message = type.ToText();
+
+            return success;
         }
 
         /*******************************************/
