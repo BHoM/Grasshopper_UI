@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BH.Engine.Grasshopper</RootNamespace>
     <AssemblyName>Grasshopper_Engine</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,6 +47,9 @@
       <HintPath>..\..\BHoM_UI\Build\BHoM_UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Data_Engine">
+      <HintPath>..\..\BHoM_Engine\Build\Data_Engine.dll</HintPath>
+    </Reference>
     <Reference Include="Geometry_Engine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_Engine\Build\Geometry_Engine.dll</HintPath>
@@ -65,6 +69,15 @@
     <Reference Include="Grasshopper, Version=1.0.0.20, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
       <HintPath>..\packages\Grasshopper.0.9.76\lib\net35\Grasshopper.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Node2Code_Engine">
+      <HintPath>..\..\Node2Code_Toolkit\Build\Node2Code_Engine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Node2Code_oM, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Node2Code_Toolkit\Build\Node2Code_oM.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Reflection_Engine">
       <SpecificVersion>False</SpecificVersion>
@@ -115,6 +128,10 @@
     <Compile Include="Compute\RenderWires.cs" />
     <Compile Include="Convert\ToGoo.cs" />
     <Compile Include="Convert\FromGoo.cs" />
+    <Compile Include="Convert\ToParam.cs" />
+    <Compile Include="Convert\ToNodeParam.cs" />
+    <Compile Include="Convert\ToNode.cs" />
+    <Compile Include="Convert\ToNodeGroup.cs" />
     <Compile Include="Convert\ToType.cs" />
     <Compile Include="Convert\ToRhino.cs" />
     <Compile Include="Create\DataTree.cs" />
