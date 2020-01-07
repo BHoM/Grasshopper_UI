@@ -128,7 +128,6 @@
     <Compile Include="Compute\RenderWires.cs" />
     <Compile Include="Convert\ToGoo.cs" />
     <Compile Include="Convert\FromGoo.cs" />
-    <Compile Include="Convert\ToParam.cs" />
     <Compile Include="Convert\ToNodeParam.cs" />
     <Compile Include="Convert\ToNode.cs" />
     <Compile Include="Convert\ToNodeGroup.cs" />
