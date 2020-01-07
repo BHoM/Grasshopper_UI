@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BH.UI.Grasshopper</RootNamespace>
     <AssemblyName>BH.UI.Grasshopper</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
@@ -89,6 +89,13 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Node2Code_Engine">
+      <HintPath>..\..\Node2Code_Toolkit\Build\Node2Code_Engine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Node2Code_oM">
+      <HintPath>..\..\Node2Code_Toolkit\Build\Node2Code_oM.dll</HintPath>
+    </Reference>
     <Reference Include="Planning_oM">
       <HintPath>..\..\BHoM\Build\Planning_oM.dll</HintPath>
       <Private>False</Private>
@@ -151,6 +158,7 @@
     <Compile Include="Components\Adapter\Push.cs" />
     <Compile Include="Components\Parameters\Param_BHoMAdapter.cs" />
     <Compile Include="Global\WireInfo.cs" />
+    <Compile Include="Components\UI\Cluster2Node.cs" />
     <Compile Include="Others\Logging.cs" />
     <Compile Include="Templates\BHoMParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -295,9 +303,7 @@
     <Content Include="Properties\Resources\UpdateProperty.png" />
     <Content Include="Properties\Resources\VS_Script.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Components\UI\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
       <Project>{dde47285-e709-4752-9afd-6fa03b449364}</Project>
