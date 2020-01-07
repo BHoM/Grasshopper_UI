@@ -32,13 +32,14 @@ using BH.oM.Node2Code;
 using System.Reflection;
 using Grasshopper.Kernel.Special;
 using Grasshopper.Kernel.Types;
+using BH.oM.Base;
 
 namespace BH.Engine.Grasshopper
 {
     public static partial class Convert
     {
         /*******************************************/
-        /**** Public Methods                    ****/
+        /**** Interface Methods                 ****/
         /*******************************************/
 
         public static INode IToNode(this GH_Component component, object selectedItem = null, string callerTypeName = "")
@@ -51,6 +52,19 @@ namespace BH.Engine.Grasshopper
                 return ToNode(component as dynamic);
         }
 
+        /*******************************************/
+
+        public static INode IToNode<T>(this GH_Param<T> component, List<object> choices = null, object selectedItem = null) where T : class, IGH_Goo
+        {
+            if (choices == null)
+                return ToNode(component as dynamic);
+            else
+                return ToNode(component as dynamic, choices, selectedItem);
+        }
+
+
+        /*******************************************/
+        /**** Public Methods                    ****/
         /*******************************************/
 
         public static INode ToNode(this GH_Component component, MethodInfo method, string callerTypeName)
@@ -118,6 +132,66 @@ namespace BH.Engine.Grasshopper
             }
         }
 
+        /*******************************************/
+
+        public static INode ToNode(this GH_ValueList component, List<object> choices, object selectedItem)
+        {
+            bool success = component.SelectedItems.First().Value.CastTo<int>(out int index);
+            if (success && index >= 0 && index < choices.Count)
+            {
+                object choice = choices[index];
+                if (component.GetType().Name == "CreateDataComponent")
+                {
+                    DataParam parameter = PopulateParam(new DataParam { Data = choice as BHoMObject, DataType = choice.GetType() }, component);
+                    return new LibraryNode
+                    {
+                        SourceFile = selectedItem as string,
+                        Name = parameter.Name,
+                        Description = parameter.Description,
+                        BHoM_Guid = parameter.BHoM_Guid,
+                        Inputs = new List<ReceiverParam>(),
+                        Outputs = new List<DataParam> { parameter }
+                    };
+                }
+                else
+                    return ParamNode(PopulateParam(new DataParam { Data = choice, DataType = choice.GetType() }, component));
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /*******************************************/
+
+        public static INode ToNode(this GH_Panel component)
+        {
+            double number;
+            if (double.TryParse(component.UserText, out number))
+            {
+                Type type = (number % 1 == 0) ? typeof(int) : typeof(double);
+                return ParamNode(PopulateParam(new DataParam { Data = number, DataType = type }, component));
+            }
+            else
+                return ParamNode(PopulateParam(new DataParam { Data = component.UserText, DataType = typeof(string) }, component));
+        }
+
+        /*******************************************/
+
+        public static INode ToNode(this GH_NumberSlider component)
+        {
+            double value = (double)component.CurrentValue;
+            Type type = (value % 1 == 0) ? typeof(int) : typeof(double);
+
+            return ParamNode(PopulateParam(new DataParam { Data = value, DataType = type }, component));
+        }
+
+        /*******************************************/
+
+        public static INode ToNode(this GH_BooleanToggle component)
+        {
+            return ParamNode(PopulateParam(new DataParam { Data = component.Value, DataType = typeof(bool) }, component));
+        }
 
 
         /*******************************************/
@@ -125,6 +199,20 @@ namespace BH.Engine.Grasshopper
         /*******************************************/
 
         private static INode ToNode(this GH_Component component, object selectedItem, string callerTypeName)
+        {
+            return null;
+        }
+
+        /*******************************************/
+
+        public static INode ToNode<T>(this GH_Param<T> component, List<object> choices = null, object selectedItem = null) where T : class, IGH_Goo
+        {
+            return null;
+        }
+
+        /*******************************************/
+
+        public static INode ToNode<T>(this GH_Param<T> component) where T : class, IGH_Goo
         {
             return null;
         }
@@ -140,6 +228,32 @@ namespace BH.Engine.Grasshopper
             node.BHoM_Guid = component.InstanceGuid;
 
             return node;
+        }
+
+        /*******************************************/
+
+        private static DataParam PopulateParam(this DataParam parameter, IGH_Param component)
+        {
+            parameter.Name = component.NickName;
+            parameter.Description = component.Description;
+            parameter.BHoM_Guid = component.InstanceGuid;
+            parameter.TargetIds = component.Recipients.Select(r => r.InstanceGuid).ToList();
+
+            return parameter;
+        }
+
+        /*******************************************/
+
+        private static ParamNode ParamNode(this DataParam parameter)
+        {
+            return new ParamNode
+            {
+                Name = parameter.Name,
+                Description = parameter.Description,
+                BHoM_Guid = parameter.BHoM_Guid,
+                Inputs = new List<ReceiverParam>(),
+                Outputs = new List<DataParam> { parameter }
+            };
         }
 
         /*******************************************/

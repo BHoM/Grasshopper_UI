@@ -89,8 +89,7 @@ namespace BH.UI.Grasshopper.Components.UI
                         BHoM_Guid = x.InstanceGuid,
                         ParentId = cluster.InstanceGuid
                     }).ToList(),
-                    InternalNodes = components.Select(x => ToNode(x)).Where(x => x != null).ToList(),
-                    InternalParams = parameters.Select(x => ToParam(x)).Where(x => x != null).ToList(),
+                    InternalNodes = components.Select(x => ToNode(x)).Concat(parameters.Select(x => ToNode(x))).Where(x => x != null).ToList(),
                     NodeGroups = groups.Select(x => x.ToNodeGroup()).ToList(),
                     BHoM_Guid = cluster.InstanceGuid
                 };
@@ -124,17 +123,17 @@ namespace BH.UI.Grasshopper.Components.UI
 
         /*******************************************/
 
-        private static DataParam ToParam(IGH_Param component) 
+        private static INode ToNode(IGH_Param component) 
         {
             if (component is CallerValueList)
             {
                 CallerValueList cc = component as CallerValueList;
                 if (cc.Caller != null)
-                    return cc.IToParam(cc.Caller.Choices, cc.Caller.SelectedItem);
+                    return cc.IToNode(cc.Caller.Choices, cc.Caller.SelectedItem);
             }
             else 
             {
-                return Engine.Grasshopper.Convert.IToParam(component as dynamic);
+                return Engine.Grasshopper.Convert.IToNode(component as dynamic);
             }
 
             return null;
