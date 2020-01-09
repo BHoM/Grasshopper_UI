@@ -44,16 +44,19 @@ namespace BH.UI.Grasshopper.Templates
 
         public IGH_DataAccess GH_Accessor { get; set; } = null;
 
-        public GH_Component Component { get; set; } = null;
+        public List<IGH_Param> Inputs { get; set; } = new List<IGH_Param>();
+
+        public int PrincipalParameterIndex { get; set; } = -1;
 
 
         /*************************************/
         /**** Properties                  ****/
         /*************************************/
 
-        public DataAccessor_GH(GH_Component component)
+        public DataAccessor_GH(List<IGH_Param> inputs, int principalParameterIndex = -1)
         {
-            Component = component;
+            Inputs = inputs;
+            PrincipalParameterIndex = principalParameterIndex;
         }
 
 
@@ -70,7 +73,7 @@ namespace BH.UI.Grasshopper.Templates
             GH_Accessor.GetData(index, ref goo);
 
             IGH_TypeHint hint = null;
-            Param_ScriptVariable scriptParam = Component.Params.Input[index] as Param_ScriptVariable;
+            Param_ScriptVariable scriptParam = Inputs[index] as Param_ScriptVariable;
             if (scriptParam != null)
                 hint = scriptParam.TypeHint;
 
@@ -85,7 +88,7 @@ namespace BH.UI.Grasshopper.Templates
                 return new List<T>();
 
             IGH_TypeHint hint = null;
-            Param_ScriptVariable scriptParam = Component.Params.Input[index] as Param_ScriptVariable;
+            Param_ScriptVariable scriptParam = Inputs[index] as Param_ScriptVariable;
             if (scriptParam != null)
                 hint = scriptParam.TypeHint;
 
@@ -98,15 +101,15 @@ namespace BH.UI.Grasshopper.Templates
 
         public override List<List<T>> GetDataTree<T>(int index)
         {
-            if (GH_Accessor == null || Component == null)
+            if (GH_Accessor == null || Inputs.Count <= index)
                 return new List<List<T>>();
 
             IGH_TypeHint hint = null;
-            Param_ScriptVariable scriptParam = Component.Params.Input[index] as Param_ScriptVariable;
+            Param_ScriptVariable scriptParam = Inputs[index] as Param_ScriptVariable;
             if (scriptParam != null)
                 hint = scriptParam.TypeHint;
 
-            IGH_Param param = Component.Params.Input[index];
+            IGH_Param param = Inputs[index];
             return param.VolatileData.StructureProxy.Select(x => x.Cast<IGH_Goo>().Select(y => BH.Engine.Grasshopper.Convert.IFromGoo<T>(y, hint)).ToList()).ToList();
 
             // This shows that using the GetDataTree method from GH is actually giving the exact same result with the exact same problem of collecting the entire data instead of a subtree
@@ -136,10 +139,10 @@ namespace BH.UI.Grasshopper.Templates
         {
             IGH_Param root;
 
-            if (Component.IsValidPrincipalParameterIndex & Component.PrincipalParameterIndex != -1)
-                root = Component.Params.Input[Component.PrincipalParameterIndex];
+            if (PrincipalParameterIndex != -1)
+                root = Inputs[PrincipalParameterIndex];
             else
-                root = Component.Params.Input.FindAll(p => p.Access == GH_ParamAccess.tree).FirstOrDefault() ?? Component.Params.Input.First();
+                root = Inputs.FindAll(p => p.Access == GH_ParamAccess.tree).FirstOrDefault() ?? Inputs.First();
 
             return GH_Accessor.SetDataTree(index, BH.Engine.Grasshopper.Create.DataTree(data.ToList(), GH_Accessor.Iteration, root.VolatileData.Paths));
         }
