@@ -76,7 +76,7 @@ namespace BH.UI.Grasshopper.Templates
             Category = "BHoM";
             SubCategory = Caller.Category;
 
-            Accessor = new DataAccessor_GH(this);
+            Accessor = new DataAccessor_GH(Params.Input, IsValidPrincipalParameterIndex ? PrincipalParameterIndex : -1);
             Caller.SetDataAccessor(Accessor);
 
             Caller.ItemSelected += OnItemSelected;
