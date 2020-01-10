@@ -47,10 +47,39 @@ namespace BH.UI.Grasshopper.Components
         /**** Public Override Methods           ****/
         /*******************************************/
 
+        public override bool CanRemoveParameter(GH_ParameterSide side, int index)
+        {
+            return side == GH_ParameterSide.Output;
+        }
+
+        /*******************************************/
+
+        public override bool DestroyParameter(GH_ParameterSide side, int index)
+        {
+            if (side == GH_ParameterSide.Input)
+                return true;
+
+            if (Params.Output.Count <= index)
+                return true;
+
+            // Updating the caller with the parameter that Grasshopper just removed
+            ExplodeCaller caller = Caller as ExplodeCaller;
+            if (caller != null)
+                caller.RemoveOutput(Params.Output[index].NickName);
+
+            m_CanAutoUpdate = false;
+
+            return true;
+        }
+
+        /*******************************************/
+
         public void OnBHoMUpdates(object sender = null, object e = null)
         {
+            m_CanAutoUpdate = true;
             RecordUndoEvent("OnBHoMUpdates");
             // Forces the component to update
+            this.OnGrasshopperUpdates();
             this.RegisterOutputParams();
             this.Params.OnParametersChanged();
             this.ExpireSolution(true);
@@ -75,8 +104,11 @@ namespace BH.UI.Grasshopper.Components
         protected override void BeforeSolveInstance()
         {
             base.BeforeSolveInstance();
-            this.OnGrasshopperUpdates();
+            if (m_CanAutoUpdate)
+                this.OnGrasshopperUpdates();
         }
+
+        /*******************************************/
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -117,6 +149,26 @@ namespace BH.UI.Grasshopper.Components
             base.AppendAdditionalComponentMenuItems(menu);
         }
 
+        /*******************************************/
+
+        public override bool Write(GH_IO.Serialization.GH_IWriter writer)
+        {
+            writer.SetBoolean("CanAutoUpdate", m_CanAutoUpdate);
+            return base.Write(writer);
+        }
+
+        /*************************************/
+
+        public override bool Read(GH_IO.Serialization.GH_IReader reader)
+        {
+            if (!base.Read(reader) || !Params.Read(reader))
+                return false;
+
+            reader.TryGetBoolean("CanAutoUpdate", ref m_CanAutoUpdate);
+
+            return true;
+        }
+
 
         /*******************************************/
         /**** Private Methods                   ****/
@@ -150,6 +202,13 @@ namespace BH.UI.Grasshopper.Components
             }
             return false;
         }
+
+
+        /*******************************************/
+        /**** Private Methods                   ****/
+        /*******************************************/
+
+        protected bool m_CanAutoUpdate = true;
 
         /*******************************************/
     }
