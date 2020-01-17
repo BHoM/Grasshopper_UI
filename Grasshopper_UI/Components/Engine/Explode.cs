@@ -67,8 +67,6 @@ namespace BH.UI.Grasshopper.Components
             if (caller != null)
                 caller.RemoveOutput(Params.Output[index].NickName);
 
-            m_CanAutoUpdate = false;
-
             return true;
         }
 
@@ -76,7 +74,6 @@ namespace BH.UI.Grasshopper.Components
 
         public void OnBHoMUpdates(object sender = null, object e = null)
         {
-            m_CanAutoUpdate = true;
             RecordUndoEvent("OnBHoMUpdates");
             // Forces the component to update
             this.OnGrasshopperUpdates();
@@ -104,7 +101,7 @@ namespace BH.UI.Grasshopper.Components
         protected override void BeforeSolveInstance()
         {
             base.BeforeSolveInstance();
-            if (m_CanAutoUpdate)
+            if (((ExplodeCaller)Caller).IsAllowedToUpdate())
                 this.OnGrasshopperUpdates();
         }
 
@@ -149,26 +146,6 @@ namespace BH.UI.Grasshopper.Components
             base.AppendAdditionalComponentMenuItems(menu);
         }
 
-        /*******************************************/
-
-        public override bool Write(GH_IO.Serialization.GH_IWriter writer)
-        {
-            writer.SetBoolean("CanAutoUpdate", m_CanAutoUpdate);
-            return base.Write(writer);
-        }
-
-        /*************************************/
-
-        public override bool Read(GH_IO.Serialization.GH_IReader reader)
-        {
-            if (!base.Read(reader) || !Params.Read(reader))
-                return false;
-
-            reader.TryGetBoolean("CanAutoUpdate", ref m_CanAutoUpdate);
-
-            return true;
-        }
-
 
         /*******************************************/
         /**** Private Methods                   ****/
@@ -202,13 +179,6 @@ namespace BH.UI.Grasshopper.Components
             }
             return false;
         }
-
-
-        /*******************************************/
-        /**** Private Methods                   ****/
-        /*******************************************/
-
-        protected bool m_CanAutoUpdate = true;
 
         /*******************************************/
     }
