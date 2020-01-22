@@ -31,6 +31,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using BH.UI.Grasshopper.Others;
+using BH.oM.UI;
 
 namespace BH.UI.Grasshopper.Components
 {
@@ -41,6 +42,18 @@ namespace BH.UI.Grasshopper.Components
         /*******************************************/
 
         public override Caller Caller { get; } = new ExplodeCaller();
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
+        public ExplodeComponent() : base()
+        {
+            ExplodeCaller caller = Caller as ExplodeCaller;
+            if (caller != null)
+                caller.OutputSelected += Caller_OutputSelected;
+        }
 
 
         /*******************************************/
@@ -178,6 +191,29 @@ namespace BH.UI.Grasshopper.Components
                 }
             }
             return false;
+        }
+
+        /*******************************************/
+
+        private void Caller_OutputSelected(object sender, List<Tuple<ParamInfo, bool>> selection)
+        {
+            int index = 0;
+            for (int i = 0; i < selection.Count; i++)
+            {
+                if (selection[i].Item2)
+                {
+                    if (index >= Params.Output.Count || selection[i].Item1.Name != Params.Output[index].Name)
+                        Params.RegisterOutputParam(ToGH_Param(selection[i].Item1), index);
+                    index++;
+                }
+                else
+                {
+                    if (index < Params.Output.Count && selection[i].Item1.Name == Params.Output[index].Name)
+                        Params.UnregisterOutputParameter(Params.Output[index]);
+                }
+            }
+
+            Params.OnParametersChanged();
         }
 
         /*******************************************/
