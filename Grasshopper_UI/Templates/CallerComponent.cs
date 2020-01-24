@@ -38,6 +38,7 @@ using System.Linq;
 using BH.Engine.Grasshopper;
 using BH.UI.Grasshopper.Components;
 using BH.UI.Grasshopper.Others;
+using System.Collections;
 
 namespace BH.UI.Grasshopper.Templates
 {
@@ -387,12 +388,13 @@ namespace BH.UI.Grasshopper.Templates
                             param = new Param_IObject();
                         else if (typeof(Enum).IsAssignableFrom(type))
                             param = new Param_Enum();
+                        else if (typeof(IDictionary).IsAssignableFrom(type))
+                            param = new Param_Dictionary();
                         else
                         {
                             param = new Param_ScriptVariable();
                             param.AttributesChanged += Param_AttributesChanged;
                         }
-
                     }
                     break;
             }
