@@ -214,6 +214,7 @@ namespace BH.UI.Grasshopper.Components
             }
 
             Params.OnParametersChanged();
+            ExpireSolution(true);
         }
 
         /*******************************************/
