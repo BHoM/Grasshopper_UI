@@ -165,8 +165,9 @@ namespace BH.UI.Grasshopper.Global
                                 param.AddSource(m_LastWire.Source);
                         }
                     }
-                        
+
                     canvas.Invalidate();
+                    component.ExpireSolution(true);
                 }
             }
 
