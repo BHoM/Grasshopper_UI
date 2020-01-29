@@ -150,7 +150,7 @@
     <Compile Include="Components\Adapter\Move.cs" />
     <Compile Include="Components\Adapter\Push.cs" />
     <Compile Include="Components\Parameters\Param_BHoMAdapter.cs" />
-    <Compile Include="Global\LastWireInfo.cs" />
+    <Compile Include="Global\WireInfo.cs" />
     <Compile Include="Others\Logging.cs" />
     <Compile Include="Templates\BHoMParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
