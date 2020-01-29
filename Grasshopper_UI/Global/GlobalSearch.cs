@@ -81,7 +81,11 @@ namespace BH.UI.Grasshopper.Global
                 if (sourceField == null)
                     return;
                 IGH_Param sourceParam = sourceField.GetValue(wire) as IGH_Param;
+
+                // Get the source Type
                 Type sourceType = GetSourceType(sourceParam);
+                if (sourceType == null)
+                    return;
 
                 // Get IsInput
                 FieldInfo inputField = typeof(GH_WireInteraction).GetField("m_dragfrominput", BindingFlags.NonPublic | BindingFlags.Instance);
