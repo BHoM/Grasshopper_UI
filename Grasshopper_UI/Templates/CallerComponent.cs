@@ -39,6 +39,7 @@ using BH.Engine.Grasshopper;
 using BH.UI.Grasshopper.Components;
 using BH.UI.Grasshopper.Others;
 using System.Collections;
+using BH.Adapter;
 
 namespace BH.UI.Grasshopper.Templates
 {
@@ -390,6 +391,8 @@ namespace BH.UI.Grasshopper.Templates
                             param = new Param_Enum();
                         else if (typeof(IDictionary).IsAssignableFrom(type))
                             param = new Param_Dictionary();
+                        else if (typeof(BHoMAdapter).IsAssignableFrom(type))
+                            param = new Param_BHoMAdapter();
                         else
                         {
                             param = new Param_ScriptVariable();
@@ -404,6 +407,9 @@ namespace BH.UI.Grasshopper.Templates
             param.Name = info.Name;
             param.NickName = info.Name;
             param.Optional = info.HasDefaultValue;
+
+            if (param is IBHoMParam)
+                ((IBHoMParam)param).ObjectType = subType.Type;
 
             try
             {

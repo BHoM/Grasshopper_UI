@@ -118,6 +118,7 @@
     <Compile Include="Convert\ToType.cs" />
     <Compile Include="Convert\ToRhino.cs" />
     <Compile Include="Create\DataTree.cs" />
+    <Compile Include="Objects\Types\GH_BHoMAdapter.cs" />
     <Compile Include="Query\AvailableHints.cs" />
     <Compile Include="Objects\Hints\IGeometryHint.cs" />
     <Compile Include="Objects\Hints\BHomObjectHint.cs" />

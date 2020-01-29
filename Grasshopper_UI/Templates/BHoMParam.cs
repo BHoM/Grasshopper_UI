@@ -32,10 +32,11 @@ using System.Windows.Forms;
 using GH = Grasshopper;
 using Grasshopper.GUI;
 using BH.UI.Grasshopper.Others;
+using BH.Engine.Serialiser;
 
 namespace BH.UI.Grasshopper.Templates
 {
-    public class BHoMParam<T> : GH_PersistentParam<T>, IGH_PreviewObject where T : class, IGH_Goo
+    public class BHoMParam<T> : GH_PersistentParam<T>, IBHoMParam, IGH_PreviewObject where T : class, IGH_Goo
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -54,6 +55,8 @@ namespace BH.UI.Grasshopper.Templates
         public virtual bool IsPreviewCapable { get; } = true;
 
         public Rhino.Geometry.BoundingBox ClippingBox { get { return Preview_ComputeClippingBox(); } }
+
+        public Type ObjectType { get; set; } = typeof(object);
 
 
         /*******************************************/
@@ -144,6 +147,10 @@ namespace BH.UI.Grasshopper.Templates
         {
             writer.SetInt32("m_MaxItemsPreview", m_MaxItemsPreview);
             writer.SetBoolean("m_ForcePreview", m_ForcePreview);
+
+            if (ObjectType != null)
+                writer.SetString("ObjectType", ObjectType.ToJson());
+
             return base.Write(writer);
         }
 
@@ -155,6 +162,11 @@ namespace BH.UI.Grasshopper.Templates
             bool success = base.Read(reader);
             reader.TryGetInt32("m_MaxItemsPreview", ref m_MaxItemsPreview);
             reader.TryGetBoolean("m_ForcePreview", ref m_ForcePreview);
+
+            string objectType = "";
+            if (reader.TryGetString("ObjectType", ref objectType))
+                ObjectType = Engine.Serialiser.Convert.FromJson(objectType) as Type;
+
             Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
             return success;
         }

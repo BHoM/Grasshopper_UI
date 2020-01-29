@@ -149,6 +149,8 @@
     <Compile Include="Components\Adapter\Pull.cs" />
     <Compile Include="Components\Adapter\Move.cs" />
     <Compile Include="Components\Adapter\Push.cs" />
+    <Compile Include="Components\Parameters\Param_BHoMAdapter.cs" />
+    <Compile Include="Global\LastWireInfo.cs" />
     <Compile Include="Others\Logging.cs" />
     <Compile Include="Templates\BHoMParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -183,6 +185,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Templates\CallerComponent.cs" />
+    <Compile Include="Templates\IBHoMParam.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

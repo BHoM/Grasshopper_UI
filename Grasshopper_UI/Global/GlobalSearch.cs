@@ -34,6 +34,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using GH = Grasshopper;
+using Grasshopper.GUI.Canvas.Interaction;
+using Grasshopper.Kernel;
+using BH.Engine.Reflection;
 
 namespace BH.UI.Grasshopper.Global
 {
@@ -53,11 +56,66 @@ namespace BH.UI.Grasshopper.Global
         /**** Private Methods                   ****/
         /*******************************************/
 
-        public static void Instances_CanvasCreated(GH_Canvas canvas)
+        private static void Instances_CanvasCreated(GH_Canvas canvas)
         {
             GlobalSearch.Activate(canvas.FindForm());
             GlobalSearch.ItemSelected += GlobalSearch_ItemSelected;
 
+            canvas.MouseDown += Canvas_MouseDown;
+            canvas.MouseUp += Canvas_MouseUp;
+        }
+
+        /*******************************************/
+
+        private static void Canvas_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            GH_Canvas canvas = sender as GH_Canvas;
+            if (canvas == null)
+                return;
+
+            GH_WireInteraction wire = canvas.ActiveInteraction as GH_WireInteraction;
+            if (wire != null)
+            {
+                // Get source
+                FieldInfo sourceField = typeof(GH_WireInteraction).GetField("m_source", BindingFlags.NonPublic | BindingFlags.Instance);
+                if (sourceField == null)
+                    return;
+                IGH_Param sourceParam = sourceField.GetValue(wire) as IGH_Param;
+                Type sourceType = GetSourceType(sourceParam);
+
+                // Get IsInput
+                FieldInfo inputField = typeof(GH_WireInteraction).GetField("m_dragfrominput", BindingFlags.NonPublic | BindingFlags.Instance);
+                if (inputField == null)
+                    return;
+                bool isInput = (bool)inputField.GetValue(wire);
+
+                // Save wire info
+                m_LastWire = new WireInfo
+                {
+                    Wire = wire,
+                    Source = sourceParam,
+                    SourceType = sourceType,
+                    IsInput = isInput
+                };
+            }            
+        }
+
+        /*******************************************/
+
+        private static void Canvas_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            GH_Canvas canvas = sender as GH_Canvas;
+            if (canvas == null)
+                return;
+
+            if (m_LastWire == null)
+                return;
+
+            FieldInfo targetField = typeof(GH_WireInteraction).GetField("m_target", BindingFlags.NonPublic | BindingFlags.Instance);
+            if (targetField != null && targetField.GetValue(m_LastWire.Wire) != null)
+                return;
+
+            GlobalSearch.Open(canvas.FindForm(), m_LastWire.SourceType, m_LastWire.IsInput);
         }
 
         /*******************************************/
@@ -75,17 +133,72 @@ namespace BH.UI.Grasshopper.Global
                     initCode = request.SelectedItem.ToJson();
 
                 GH_Canvas canvas = GH.Instances.ActiveCanvas;
+                System.Drawing.PointF location = canvas.CursorCanvasPosition;
                 if (request != null && request.Location != null)
+                    location = new System.Drawing.Point((int)request.Location.X, (int)request.Location.Y);
+                canvas.InstantiateNewObject(node.Id, initCode, canvas.CursorCanvasPosition, true);
+
+                if (m_LastWire != null && m_LastWire.Source != null )
                 {
-                    System.Drawing.Point location = new System.Drawing.Point((int)request.Location.X, (int)request.Location.Y);
-                    canvas.InstantiateNewObject(node.Id, initCode, canvas.Viewport.UnprojectPoint(canvas.PointToClient(location)), true);
-                }
-                else
-                {
-                    canvas.InstantiateNewObject(node.Id, initCode, canvas.CursorCanvasPosition, true);
+                    GH_Component component = canvas.Document.Objects.Last() as GH_Component;
+                    if (component != null && m_LastWire.SourceType != null)
+                    {
+                        if (m_LastWire.IsInput)
+                        {
+                            IGH_Param param = component.Params.Output.FirstOrDefault(x => GetSourceType(x) == m_LastWire.SourceType);
+                            if (param == null)
+                                param = component.Params.Output.FirstOrDefault(x => m_LastWire.SourceType.IsAssignableFrom(GetSourceType(x)));
+                            if (param != null)
+                                m_LastWire.Source.AddSource(param);
+                        }
+                            
+                        else
+                        {
+                            IGH_Param param = component.Params.Input.FirstOrDefault(x => GetSourceType(x) == m_LastWire.SourceType);
+                            if (param == null)
+                                param = component.Params.Input.FirstOrDefault(x =>
+                                {
+                                    Type sourceType = GetSourceType(x);
+                                    return sourceType != null && GetSourceType(x).IsAssignableFrom(m_LastWire.SourceType);
+                                }); 
+                            if (param != null)
+                                param.AddSource(m_LastWire.Source);
+                        }
+                    }
+                        
+                    canvas.Invalidate();
                 }
             }
+
+            m_LastWire = null;
         }
+
+        /*******************************************/
+
+        private static Type GetSourceType(IGH_Param param)
+        {
+            Type sourceType = null;
+            if (param is IBHoMParam)
+                sourceType = ((IBHoMParam)param).ObjectType;
+            else if (param is CallerValueList)
+            {
+                MultiChoiceCaller caller = ((CallerValueList)param).Caller;
+                if (caller != null)
+                    sourceType = caller.SelectedItem as Type;
+            }
+
+            if (sourceType == null)
+                return null;
+            else
+                return sourceType.UnderlyingType().Type;
+        }
+
+        /*******************************************/
+        /**** Private Fields                    ****/
+        /*******************************************/
+
+        private static WireInfo m_LastWire = null;
+
 
         /*******************************************/
     }
