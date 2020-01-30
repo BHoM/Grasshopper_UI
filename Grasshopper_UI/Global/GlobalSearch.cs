@@ -145,37 +145,63 @@ namespace BH.UI.Grasshopper.Global
                 if (m_LastWire != null && m_LastWire.Source != null )
                 {
                     GH_Component component = canvas.Document.Objects.Last() as GH_Component;
-                    if (component != null && m_LastWire.SourceType != null)
+                    if (component != null)
+                        Connect(component, m_LastWire);
+                    else
                     {
-                        if (m_LastWire.IsInput)
-                        {
-                            IGH_Param param = component.Params.Output.FirstOrDefault(x => GetSourceType(x) == m_LastWire.SourceType);
-                            if (param == null)
-                                param = component.Params.Output.FirstOrDefault(x => m_LastWire.SourceType.IsAssignableFrom(GetSourceType(x)));
-                            if (param != null)
-                                m_LastWire.Source.AddSource(param);
-                        }
-                            
-                        else
-                        {
-                            IGH_Param param = component.Params.Input.FirstOrDefault(x => GetSourceType(x) == m_LastWire.SourceType);
-                            if (param == null)
-                                param = component.Params.Input.FirstOrDefault(x =>
-                                {
-                                    Type sourceType = GetSourceType(x);
-                                    return sourceType != null && GetSourceType(x).IsAssignableFrom(m_LastWire.SourceType);
-                                }); 
-                            if (param != null)
-                                param.AddSource(m_LastWire.Source);
-                        }
+                        IGH_Param param = canvas.Document.Objects.Last() as IGH_Param;
+                        Connect(param, m_LastWire);
                     }
 
                     canvas.Invalidate();
-                    component.ExpireSolution(true);
+                    if (component != null)
+                        component.ExpireSolution(true);
                 }
             }
 
             m_LastWire = null;
+        }
+
+        /*******************************************/
+
+        private static void Connect(GH_Component component, WireInfo wire)
+        {
+            if (component != null && wire != null && wire.SourceType != null)
+            {
+                if (wire.IsInput)
+                {
+                    IGH_Param param = component.Params.Output.FirstOrDefault(x => GetSourceType(x) == wire.SourceType);
+                    if (param == null)
+                        param = component.Params.Output.FirstOrDefault(x => wire.SourceType.IsAssignableFrom(GetSourceType(x)));
+                    if (param != null)
+                        wire.Source.AddSource(param);
+                }
+                else
+                {
+                    IGH_Param param = component.Params.Input.FirstOrDefault(x => GetSourceType(x) == wire.SourceType);
+                    if (param == null)
+                        param = component.Params.Input.FirstOrDefault(x =>
+                        {
+                            Type sourceType = GetSourceType(x);
+                            return sourceType != null && GetSourceType(x).IsAssignableFrom(wire.SourceType);
+                        });
+                    if (param != null)
+                        param.AddSource(wire.Source);
+                }
+            }
+        }
+
+        /*******************************************/
+
+        private static void Connect(IGH_Param param, WireInfo wire)
+        {
+            if (param != null && wire != null && wire.SourceType != null)
+            {
+                if (wire.IsInput)
+                    wire.Source.AddSource(param);
+                else
+                    param.AddSource(wire.Source);
+            }
         }
 
         /*******************************************/
