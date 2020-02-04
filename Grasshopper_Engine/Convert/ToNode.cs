@@ -136,7 +136,8 @@ namespace BH.Engine.Grasshopper
 
         public static INode ToNode(this GH_ValueList component, List<object> choices, object selectedItem)
         {
-            bool success = component.SelectedItems.First().Value.CastTo<int>(out int index);
+            int index = 0;
+            bool success = component.SelectedItems.First().Value.CastTo<int>(out index);
             if (success && index >= 0 && index < choices.Count)
             {
                 object choice = choices[index];
