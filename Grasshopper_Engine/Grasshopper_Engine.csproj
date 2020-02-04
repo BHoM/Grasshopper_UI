@@ -70,14 +70,8 @@
       <HintPath>..\packages\Grasshopper.0.9.76\lib\net35\Grasshopper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Node2Code_Engine">
-      <HintPath>..\..\Node2Code_Toolkit\Build\Node2Code_Engine.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Node2Code_oM">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Node2Code_Toolkit\Build\Node2Code_oM.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Programming_oM">
+      <HintPath>..\..\BHoM\Build\Programming_oM.dll</HintPath>
     </Reference>
     <Reference Include="Reflection_Engine">
       <SpecificVersion>False</SpecificVersion>
