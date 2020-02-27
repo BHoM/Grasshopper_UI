@@ -202,33 +202,33 @@ namespace BH.Engine.Grasshopper.Objects
             else if (source is IGeometry)
                 m_Value = (IGeometry)source;
             else if (source is Rhino.Geometry.GeometryBase)
-                m_Value = ((Rhino.Geometry.GeometryBase)source).IToBHoM();
+                m_Value = ((Rhino.Geometry.GeometryBase)source).IFromRhino();
             else if (source is IGH_Goo)
                 return CastFrom(Convert.IFromGoo<object>((IGH_Goo)source));
             else if (source is Rhino.Geometry.Vector3d)
-                m_Value = ((Rhino.Geometry.Vector3d)source).ToBHoM();
+                m_Value = ((Rhino.Geometry.Vector3d)source).FromRhino();
             else if (source is Rhino.Geometry.Plane)
-                m_Value = ((Rhino.Geometry.Plane)source).ToBHoM();
+                m_Value = ((Rhino.Geometry.Plane)source).FromRhino();
             else if (source is Rhino.Geometry.BoundingBox)
-                m_Value = ((Rhino.Geometry.BoundingBox)source).ToBHoM();
+                m_Value = ((Rhino.Geometry.BoundingBox)source).FromRhino();
             else if (source is Rhino.Geometry.Box)
-                m_Value = ((Rhino.Geometry.Box)source).ToBHoM();
+                m_Value = ((Rhino.Geometry.Box)source).FromRhino();
             else if (source is Rhino.Geometry.MeshFace)
-                m_Value = ((Rhino.Geometry.MeshFace)source).ToBHoM();
+                m_Value = ((Rhino.Geometry.MeshFace)source).FromRhino();
             else if (source is Rhino.Geometry.Transform)
-                m_Value = ((Rhino.Geometry.Transform)source).ToBHoM();
+                m_Value = ((Rhino.Geometry.Transform)source).FromRhino();
             else if (source is Rhino.Geometry.Matrix)
             {
                 GH_Transform transform = new GH_Transform();
                 transform.CastFrom(source);
-                m_Value = transform.Value.ToBHoM();
+                m_Value = transform.Value.FromRhino();
             }
             else if (source is Rhino.Geometry.Ellipse)
             {
-                m_Value = ((Rhino.Geometry.Ellipse)source).ToBHoM();
+                m_Value = ((Rhino.Geometry.Ellipse)source).FromRhino();
             }
             else
-                m_Value = GH_Convert.ToGeometryBase(source).IToBHoM();
+                m_Value = GH_Convert.ToGeometryBase(source).IFromRhino();
 
             SetRhinoValue();
             return true;
@@ -308,7 +308,7 @@ namespace BH.Engine.Grasshopper.Objects
             if (m_Value == null)
                 return null;
             else
-                return new GH_IBHoMGeometry { Value = m_Value.ITransform(xform.ToBHoM()) };
+                return new GH_IBHoMGeometry { Value = m_Value.ITransform(xform.FromRhino()) };
         }
 
         /***************************************************/
