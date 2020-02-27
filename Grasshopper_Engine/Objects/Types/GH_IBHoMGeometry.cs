@@ -202,7 +202,7 @@ namespace BH.Engine.Grasshopper.Objects
             else if (source is IGeometry)
                 m_Value = (IGeometry)source;
             else if (source is Rhino.Geometry.GeometryBase)
-                m_Value = ((Rhino.Geometry.GeometryBase)source).IFromRhino();
+                m_Value = ((Rhino.Geometry.GeometryBase)source).FromRhino();
             else if (source is IGH_Goo)
                 return CastFrom(Convert.IFromGoo<object>((IGH_Goo)source));
             else if (source is Rhino.Geometry.Vector3d)
@@ -228,7 +228,7 @@ namespace BH.Engine.Grasshopper.Objects
                 m_Value = ((Rhino.Geometry.Ellipse)source).FromRhino();
             }
             else
-                m_Value = GH_Convert.ToGeometryBase(source).IFromRhino();
+                m_Value = GH_Convert.ToGeometryBase(source).FromRhino();
 
             SetRhinoValue();
             return true;
