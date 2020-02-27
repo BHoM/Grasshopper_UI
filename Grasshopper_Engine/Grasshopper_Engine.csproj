@@ -121,7 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Compute\RenderMeshes.cs" />
-    <Compile Include="Compute\RenderRhinoMesh.cs" />
+    <Compile Include="Compute\RenderRhinoMeshes.cs" />
     <Compile Include="Compute\RenderRhinoWires.cs" />
     <Compile Include="Compute\RenderWires.cs" />
     <Compile Include="Convert\ToGoo.cs" />
@@ -147,7 +147,7 @@
     <Compile Include="Objects\Types\GH_BHoMGoo.cs" />
     <Compile Include="Objects\Types\GH_Type.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Query\RenderColor.cs" />
+    <Compile Include="Query\RenderColour.cs" />
     <Compile Include="Query\RenderMaterial.cs" />
     <Compile Include="Query\Type.cs" />
   </ItemGroup>
