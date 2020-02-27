@@ -64,7 +64,7 @@ namespace BH.Engine.Grasshopper
             }
 
             if (data.GetType().Namespace.StartsWith("Rhino.Geometry"))
-                data = BH.Engine.Rhinoceros.Convert.ToBHoM(data as dynamic);
+                data = BH.Engine.Rhinoceros.Convert.FromRhino(data as dynamic);
             return (T)(data as dynamic);
         }
 

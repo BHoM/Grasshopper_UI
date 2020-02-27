@@ -103,7 +103,7 @@ namespace BH.Engine.Grasshopper.Objects
                 return CastFrom(Convert.IFromGoo<object>((IGH_Goo)source));
 
             if (source.GetType().Namespace.StartsWith("Rhino.Geometry"))
-                source = BH.Engine.Rhinoceros.Convert.ToBHoM(source as dynamic);
+                source = BH.Engine.Rhinoceros.Convert.FromRhino(source as dynamic);
 
             if (base.CastFrom(source))
             {
