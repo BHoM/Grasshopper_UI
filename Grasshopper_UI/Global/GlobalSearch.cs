@@ -37,6 +37,7 @@ using GH = Grasshopper;
 using Grasshopper.GUI.Canvas.Interaction;
 using Grasshopper.Kernel;
 using BH.Engine.Reflection;
+using System.Diagnostics;
 
 namespace BH.UI.Grasshopper.Global
 {
@@ -101,6 +102,8 @@ namespace BH.UI.Grasshopper.Global
                     SourceType = sourceType,
                     IsInput = isInput
                 };
+
+                Debug.WriteLine(DateTime.Now.ToString("HH:mm:ss") + "- Created wire info.");
             }            
         }
 
@@ -117,46 +120,58 @@ namespace BH.UI.Grasshopper.Global
 
             FieldInfo targetField = typeof(GH_WireInteraction).GetField("m_target", BindingFlags.NonPublic | BindingFlags.Instance);
             if (targetField != null && targetField.GetValue(m_LastWire.Wire) != null)
-                return;
-
-            GlobalSearch.Open(canvas.FindForm(), m_LastWire.SourceType, m_LastWire.IsInput);
+            {
+                m_LastWire = null;
+                Debug.WriteLine(DateTime.Now.ToString("HH:mm:ss") + "- Wire info cleared.");
+            }
+            else
+                GlobalSearch.Open(canvas.FindForm(), m_LastWire.SourceType, m_LastWire.IsInput);
         }
 
         /*******************************************/
 
         private static void GlobalSearch_ItemSelected(object sender, oM.UI.ComponentRequest request)
         {
-            Caller node = null;
-            if (request != null && request.CallerType != null)
-                node = Activator.CreateInstance(request.CallerType) as Caller;
-
-            if (node != null)
+            try
             {
-                string initCode = "";
-                if (request.SelectedItem != null)
-                    initCode = request.SelectedItem.ToJson();
+                Caller node = null;
+                if (request != null && request.CallerType != null)
+                    node = Activator.CreateInstance(request.CallerType) as Caller;
 
-                GH_Canvas canvas = GH.Instances.ActiveCanvas;
-                System.Drawing.PointF location = canvas.CursorCanvasPosition;
-                if (request != null && request.Location != null)
-                    location = new System.Drawing.Point((int)request.Location.X, (int)request.Location.Y);
-                canvas.InstantiateNewObject(node.Id, initCode, canvas.CursorCanvasPosition, true);
-
-                if (m_LastWire != null && m_LastWire.Source != null )
+                if (node != null)
                 {
-                    GH_Component component = canvas.Document.Objects.Last() as GH_Component;
-                    if (component != null)
-                        Connect(component, m_LastWire);
-                    else
-                    {
-                        IGH_Param param = canvas.Document.Objects.Last() as IGH_Param;
-                        Connect(param, m_LastWire);
-                    }
+                    string initCode = "";
+                    if (request.SelectedItem != null)
+                        initCode = request.SelectedItem.ToJson();
 
-                    canvas.Invalidate();
-                    if (component != null)
-                        component.ExpireSolution(true);
+                    GH_Canvas canvas = GH.Instances.ActiveCanvas;
+                    System.Drawing.PointF location = canvas.CursorCanvasPosition;
+                    if (request != null && request.Location != null)
+                        location = new System.Drawing.Point((int)request.Location.X, (int)request.Location.Y);
+                    canvas.InstantiateNewObject(node.Id, initCode, canvas.CursorCanvasPosition, true);
+
+                    if (m_LastWire != null && m_LastWire.Source != null)
+                    {
+                        GH_Component component = canvas.Document.Objects.Last() as GH_Component;
+                        if (component != null)
+                            Connect(component, m_LastWire);
+                        else
+                        {
+                            IGH_Param param = canvas.Document.Objects.Last() as IGH_Param;
+                            Connect(param, m_LastWire);
+                        }
+
+                        canvas.Invalidate();
+                        if (component != null)
+                            component.ExpireSolution(true);
+                    }
                 }
+
+                Debug.WriteLine(DateTime.Now.ToString("HH:mm:ss") + "- Item Selected : " + ((request != null && request.CallerType != null) ? request.CallerType.Name : "null") + ((m_LastWire != null) ? ". Used wire." : ""));
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(DateTime.Now.ToString("HH:mm:ss") + "- Error with item selection : " + e.Message);
             }
 
             m_LastWire = null;
