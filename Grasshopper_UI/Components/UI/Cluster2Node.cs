@@ -23,6 +23,7 @@
 using BH.Engine.Grasshopper;
 using BH.Engine.Programming;
 using BH.oM.Programming;
+using BH.UI.Grasshopper.Others;
 using BH.UI.Grasshopper.Templates;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Special;
@@ -76,6 +77,8 @@ namespace BH.UI.Grasshopper.Components.UI
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            BH.Engine.Reflection.Compute.ClearCurrentEvents();
+
             try
             {
                 // Get the input component
@@ -112,13 +115,15 @@ namespace BH.UI.Grasshopper.Components.UI
                         ParentId = cluster.InstanceGuid
                     }).ToList(),
                     InternalNodes = components.Select(x => ToNode(x)).Concat(parameters.Select(x => ToNode(x))).Where(x => x != null).ToList(),
-                    NodeGroups = groups.Select(x => x.ToNodeGroup()).ToList(),
+                    NodeGroups = ClearUnsafeGroups(groups.Select(x => x.ToNodeGroup()).ToList()),
                     BHoM_Guid = cluster.InstanceGuid
                 };
 
                 nodeContent = nodeContent.PopulateTypes();
 
                 DA.SetData(0, nodeContent);
+
+                Logging.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
             }
             catch (Exception e)
             {
@@ -159,6 +164,45 @@ namespace BH.UI.Grasshopper.Components.UI
             }
 
             return null;
+        }
+
+        /*******************************************/
+
+        private static List<NodeGroup> ClearUnsafeGroups(List<NodeGroup> groups)
+        {
+            Dictionary<Guid, List<NodeGroup>> dic = new Dictionary<Guid, List<NodeGroup>>();
+            foreach (NodeGroup group in groups)
+                CollectNodeGroups(group, ref dic);
+
+            List<NodeGroup> clashes = dic.Values.Where(x => x.Count > 1).SelectMany(x => x).Distinct().ToList();
+            if (clashes.Count > 0)
+            {
+                string message = clashes.Count.ToString() + " groups have been found containing elements also contained in other groups. Those groups will be ignored.";
+                message += "Group names:" + clashes.Select(x => "\n- " + x.Description).Aggregate((a,b) => a + b);
+                Engine.Reflection.Compute.RecordWarning(message);
+                return groups.Except(clashes).ToList();
+            }
+            else
+                return groups;
+        }
+
+        /*******************************************/
+
+        private static void CollectNodeGroups(NodeGroup group, ref Dictionary<Guid, List<NodeGroup>> result)
+        {
+            if (group != null)
+            {
+                foreach (Guid id in group.NodeIds)
+                {
+                    if (!result.ContainsKey(id))
+                        result[id] = new List<NodeGroup> { group };
+                    else
+                        result[id].Add(group);
+                }
+
+                foreach (NodeGroup child in group.InternalGroups)
+                    CollectNodeGroups(child, ref result);
+            }
         }
 
         /*******************************************/

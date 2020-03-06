@@ -50,12 +50,84 @@ namespace BH.Engine.Grasshopper
             List<GH_Scribble> comments = content.OfType<GH_Scribble>().ToList();
             List<GH_ActiveObject> components = content.OfType<GH_ActiveObject>().ToList();
 
+            List<Guid> nodeIds = components.Select(x => x.InstanceGuid).ToList();
+            List<NodeGroup> internalNodeGroups = internalGroups.Select(x => x.ToNodeGroup()).Where(x => x != null).ToList();
+            string description = comments.Count == 1 ? comments.First().Text : "";
+
+            // Provide a warning if a group has more than one description
+            if (comments.Count > 1)
+            {
+                List<string> internalDescriptions = GetChildDescriptions(internalNodeGroups);
+                List<string> exclusiveDescriptions = comments.Select(x => x.Text).Except(internalDescriptions).ToList();
+
+                if (exclusiveDescriptions.Count == 1)
+                {
+                    description = exclusiveDescriptions.First();
+                    string message = "A group directly contains descriptions that are also contained by its sub-groups. Those descriptions will be ignored.";
+                    if (description.Length > 0)
+                        message += "\nThat group description is " + description;
+                    Reflection.Compute.RecordWarning(message);
+                }
+                else if (exclusiveDescriptions.Count > 1)
+                {
+                    string message = "A group contains more than one description. No description will be provided for that group. Descriptions found:";
+                    message += comments.Select(x => "\n - " + x.Text).Aggregate((a, b) => a + b);
+                    Reflection.Compute.RecordWarning(message);
+                }
+                else
+                {
+                    string message = "A group contains no description that is not also in a sub-group. No description will be provided for that group. Descriptions found:";
+                    message += comments.Select(x => "\n - " + x.Text).Aggregate((a, b) => a + b);
+                    Reflection.Compute.RecordWarning(message);
+                }
+            }
+
+            // Make sure there is no component also contained in sub-groups
+            List<Guid> childNodeIds = GetChildNodeIds(internalNodeGroups);
+            List<Guid> safeNodeIds = nodeIds.Except(childNodeIds).ToList();
+            if (safeNodeIds.Count < nodeIds.Count)
+            {
+                nodeIds = safeNodeIds;
+                string message = "A group directly contains elements that are also contained by its sub-groups. Those elements will only be part of the sub-group.";
+                if (description.Length > 0)
+                    message += "\nThat group description is " + description;
+                Reflection.Compute.RecordWarning(message);
+            }
+
             return new NodeGroup
             {
-                Description = comments.Count > 0 ? comments.First().Text : "",
-                NodeIds = components.Select(x => x.InstanceGuid).ToList(),
-                InternalGroups = internalGroups.Select(x => x.ToNodeGroup()).ToList()
+                Description = description,
+                NodeIds = nodeIds,
+                InternalGroups = internalNodeGroups
             };
+        }
+
+        /*******************************************/
+        /**** Private Methods                   ****/
+        /*******************************************/
+
+        private static List<Guid> GetChildNodeIds(List<NodeGroup> groups)
+        {
+            if (groups.Count == 0)
+                return new List<Guid>();
+            else
+                return groups.SelectMany(x => x.NodeIds.Concat(GetChildNodeIds(x.InternalGroups))).ToList();
+        }
+
+        /*******************************************/
+
+        private static List<string> GetChildDescriptions(List<NodeGroup> groups)
+        {
+            if (groups.Count == 0)
+                return new List<string>();
+            else
+                return groups.SelectMany(x =>
+                {
+                    List<string> descriptions = GetChildDescriptions(x.InternalGroups);
+                    if (x.Description.Length > 0)
+                        descriptions.Add(x.Description);
+                    return descriptions;
+                }).ToList();
         }
 
         /*******************************************/
