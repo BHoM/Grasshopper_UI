@@ -82,6 +82,7 @@ namespace BH.UI.Grasshopper.Templates
         {
             this.NickName = Caller.Name;
             this.Name = Caller.Name;
+            this.Description = Caller.Description;
 
             ListItems.Clear();
             List<string> names = Caller.GetChoiceNames();
