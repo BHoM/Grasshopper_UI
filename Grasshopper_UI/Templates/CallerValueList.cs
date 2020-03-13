@@ -144,8 +144,27 @@ namespace BH.UI.Grasshopper.Templates
             {
                 int selection = -1;
                 reader.TryGetInt32("Selection", ref selection);
+
                 if (selection >= 0 && selection < ListItems.Count)
-                    this.SelectItem(selection);
+                {
+                    //To acount for changes in orders of enums and dataset, match name of previous item with name of new items instead of 
+                    //simply relying on previous index.
+
+                    //Get name of selected item
+                    string prevName = ListItems[selection].Name;
+                    //Find index in list of new items with matching name to selected name
+                    int index = Caller.GetChoiceNames().IndexOf(prevName);
+                    //Make sure component is up to date with backend caller
+                    UpdateFromSelectedItem();
+
+                    //If index is found, update to this. If item is not found, use previous selection.
+                    if (index != -1)
+                        selection = index;
+
+                    //As item count might have been reduced in UpdateFromSelected, a final check that the selection is not out of bounds needed.
+                    if (selection < ListItems.Count)
+                        this.SelectItem(selection);
+                }
                 return true;
             }
             else
@@ -162,7 +181,6 @@ namespace BH.UI.Grasshopper.Templates
             }
             return base.HtmlHelp_Source();
         }
-
 
         /*************************************/
         /**** Initialisation via String   ****/
