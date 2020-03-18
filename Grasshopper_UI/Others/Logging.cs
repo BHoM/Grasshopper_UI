@@ -40,15 +40,22 @@ namespace BH.UI.Grasshopper.Others
         {
             if (events.Count > 0)
             {
-                foreach (Event e in events)
-                {
-                    if (e.Type == EventType.Error)
-                        component.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, e.Message);
-                    else if (e.Type == EventType.Warning)
-                        component.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, e.Message);
-                    else if (e.Type == EventType.Note)
-                        component.AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, e.Message);
-                }
+                var errors = events.Where(x => x.Type == EventType.Error);
+                var warnings = events.Where(x => x.Type == EventType.Warning);
+                var notes = events.Where(x => x.Type == EventType.Note);
+
+                foreach (Event e in errors)
+                    component.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, e.Message);
+
+                foreach (Event e in warnings)
+                    component.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, e.Message);
+
+                GH_RuntimeMessageLevel noteLevel = GH_RuntimeMessageLevel.Remark;
+                if (errors.Count() > 0 || warnings.Count() > 0)
+                    noteLevel = GH_RuntimeMessageLevel.Blank;
+
+                foreach (Event e in notes)
+                    component.AddRuntimeMessage(noteLevel, e.Message);
             }
         }
 
