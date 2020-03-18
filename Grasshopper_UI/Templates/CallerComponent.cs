@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Linq;
 using Grasshopper.Kernel;
 using BH.oM.Base;
 using BH.oM.UI;
@@ -199,7 +200,7 @@ namespace BH.UI.Grasshopper.Templates
                 for (int i = nbOld; i < nbNew; i++)
                     Params.RegisterInputParam(ToGH_Param(inputs[i]));
             }
-            
+
         }
 
         /*******************************************/
@@ -427,6 +428,60 @@ namespace BH.UI.Grasshopper.Templates
         {
             Caller.SetDataAccessor(Accessor);
         }
+
+        /*******************************************/
+
+        public override void AddRuntimeMessage(GH_RuntimeMessageLevel level, string text)
+        {
+            //Method overridden to be able to force in blank messages to the component.
+            //Reason beig, remark is treated with higher priority than any of the others, which is causing issues with component colouring.
+            //This is, the component stays standard grey, even if an error or warning has been raised.
+            if (level == GH_RuntimeMessageLevel.Blank)
+            {
+
+                var messages = this.RuntimeMessages(level);
+
+                foreach (string message in messages)
+                {
+                    if (message == text)
+                        return;
+                }
+
+                //Force add blank messages via reflection
+                Type t = typeof(GH_ActiveObject);
+                FieldInfo messageField = t.GetField("m_messages", BindingFlags.NonPublic | BindingFlags.Instance);
+                Type messageType = messageField.FieldType.GenericTypeArguments[0];
+                ConstructorInfo constructor = messageType.GetConstructors().First();
+
+                var mess = constructor.Invoke(new object[] { text, level });
+
+                var messageList = messageField.GetValue(this);
+                MethodInfo addMethod = messageField.FieldType.GetMethod("Add");
+                addMethod.Invoke(messageList, new object[] { mess });
+
+
+            }
+            else
+                base.AddRuntimeMessage(level, text);
+
+
+        }
+
+        /*******************************************/
+
+        public override IList<string> RuntimeMessages(GH_RuntimeMessageLevel level)
+        {
+            //See reason for this above
+            if (level == GH_RuntimeMessageLevel.Remark)
+            {
+                List<string> remarks = base.RuntimeMessages(level).ToList();
+                remarks.AddRange(base.RuntimeMessages(GH_RuntimeMessageLevel.Blank));
+                return remarks;
+            }
+            return base.RuntimeMessages(level);
+        }
+
+        /*******************************************/
     }
 }
 
