@@ -34,8 +34,6 @@ using Grasshopper.Kernel.Parameters;
 using BH.UI.Grasshopper.Parameters;
 using BH.Engine.Reflection;
 using BH.oM.Geometry;
-using System.Reflection;
-using System.Linq;
 using BH.Engine.Grasshopper;
 using BH.UI.Grasshopper.Components;
 using BH.UI.Grasshopper.Others;
@@ -431,47 +429,12 @@ namespace BH.UI.Grasshopper.Templates
 
         /*******************************************/
 
-        public override void AddRuntimeMessage(GH_RuntimeMessageLevel level, string text)
-        {
-            //Method overridden to be able to force in blank messages to the component.
-            //Reason beig, remark is treated with higher priority than any of the others, which is causing issues with component colouring.
-            //This is, the component stays standard grey, even if an error or warning has been raised.
-            if (level == GH_RuntimeMessageLevel.Blank)
-            {
-
-                var messages = this.RuntimeMessages(level);
-
-                foreach (string message in messages)
-                {
-                    if (message == text)
-                        return;
-                }
-
-                //Force add blank messages via reflection
-                Type t = typeof(GH_ActiveObject);
-                FieldInfo messageField = t.GetField("m_messages", BindingFlags.NonPublic | BindingFlags.Instance);
-                Type messageType = messageField.FieldType.GenericTypeArguments[0];
-                ConstructorInfo constructor = messageType.GetConstructors().First();
-
-                var mess = constructor.Invoke(new object[] { text, level });
-
-                var messageList = messageField.GetValue(this);
-                MethodInfo addMethod = messageField.FieldType.GetMethod("Add");
-                addMethod.Invoke(messageList, new object[] { mess });
-
-
-            }
-            else
-                base.AddRuntimeMessage(level, text);
-
-
-        }
-
-        /*******************************************/
-
         public override IList<string> RuntimeMessages(GH_RuntimeMessageLevel level)
         {
-            //See reason for this above
+            //Make sure to extract both 'Remark' as well as 'Blank' messages when remarks are extracted.
+            //This is because we are adding 'Blank' messages instead of 'Remarks' when there are any warnings/errors present
+            //to make sure the component colouring is correct.
+            //See more comments in the "Logging.cs" file.
             if (level == GH_RuntimeMessageLevel.Remark)
             {
                 List<string> remarks = base.RuntimeMessages(level).ToList();
