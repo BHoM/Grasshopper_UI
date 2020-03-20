@@ -24,6 +24,7 @@ using BH.oM.Reflection.Debugging;
 using Grasshopper.Kernel;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,15 +51,67 @@ namespace BH.UI.Grasshopper.Others
                 foreach (Event e in warnings)
                     component.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, e.Message);
 
-                GH_RuntimeMessageLevel noteLevel = GH_RuntimeMessageLevel.Remark;
+                //If any warnings or errors have been added, then add the message as a blank.
+                //This is to ensure the colour of the component gets the appropriate colour.
+                //(A bug in GH ranks remarks higher than warning and errors, keeping the component grey when it should be orange/red)
+                //Solution to use 'Blank' warning level, which generally does not do anything on the component.
                 if (errors.Count() > 0 || warnings.Count() > 0)
-                    noteLevel = GH_RuntimeMessageLevel.Blank;
-
-                foreach (Event e in notes)
-                    component.AddRuntimeMessage(noteLevel, e.Message);
+                {
+                    foreach (Event e in notes)
+                        component.AddBlankNoteMessage(e.Message);
+                }
+                else
+                {
+                    foreach (Event e in notes)
+                        component.AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, e.Message);
+                }
             }
         }
 
+        /*************************************/
+        /**** Private Methods             ****/
+        /*************************************/
+
+        private static void AddBlankNoteMessage(this GH_ActiveObject component, string text)
+        {
+            //Method added to be able to force in 'Blank' messages to the component.
+            //Method added because  'Blank' messages are not added when `AddRuntimeMessage` is called.
+            //We are adding 'Blank' messages because 'Remark' is treated with higher priority than any of the others (bug in core Grasshopper),
+            //which is causing issues with component colouring.
+            //This is, the component stays standard grey, even if an error or warning has been raised.
+
+            //If this bug is fixed, this method can be removed and we can return to only adding remarks to the components instead.
+
+            var messages = component.RuntimeMessages(GH_RuntimeMessageLevel.Blank);
+
+            foreach (string message in messages)
+            {
+                if (message == text)
+                    return;
+            }
+
+            try
+            {
+                //Force add blank messages via reflection
+                //The code below is executing: 'm_messages.Add(new Message(text, GH_RuntimeMessageLevel.Blank));'
+                Type t = typeof(GH_ActiveObject);
+                FieldInfo messageField = t.GetField("m_messages", BindingFlags.NonPublic | BindingFlags.Instance);
+                Type messageType = messageField.FieldType.GenericTypeArguments[0];
+                ConstructorInfo constructor = messageType.GetConstructors().First();
+
+                var mess = constructor.Invoke(new object[] { text, GH_RuntimeMessageLevel.Blank });
+
+                var messageList = messageField.GetValue(component);
+                MethodInfo addMethod = messageField.FieldType.GetMethod("Add");
+                addMethod.Invoke(messageList, new object[] { mess });
+            }
+            catch (Exception)
+            {
+                //As we are already in the message handling, no real place to add messages here
+            }
+
+
+        }
 
         /*************************************/
     }
