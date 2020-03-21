@@ -38,6 +38,8 @@ using Grasshopper.GUI.Canvas.Interaction;
 using Grasshopper.Kernel;
 using BH.Engine.Reflection;
 using System.Diagnostics;
+using Grasshopper.GUI.Ribbon;
+using BH.oM.UI;
 
 namespace BH.UI.Grasshopper.Global
 {
@@ -61,6 +63,11 @@ namespace BH.UI.Grasshopper.Global
         {
             GlobalSearch.Activate(canvas.FindForm());
             GlobalSearch.ItemSelected += GlobalSearch_ItemSelected;
+
+            canvas.FindForm().KeyDown += (sender, e) =>
+            {
+                AddLocalComponentProxies();
+            };
 
             canvas.MouseDown += Canvas_MouseDown;
             canvas.MouseUp += Canvas_MouseUp;
@@ -134,9 +141,17 @@ namespace BH.UI.Grasshopper.Global
         {
             try
             {
+                GH_Canvas canvas = GH.Instances.ActiveCanvas;
+
+                System.Drawing.PointF location = canvas.CursorCanvasPosition;
+                if (request != null && request.Location != null)
+                    location = new System.Drawing.Point((int)request.Location.X, (int)request.Location.Y);
+
                 Caller node = null;
                 if (request != null && request.CallerType != null)
                     node = Activator.CreateInstance(request.CallerType) as Caller;
+
+                bool componentCreated = false;
 
                 if (node != null)
                 {
@@ -144,27 +159,33 @@ namespace BH.UI.Grasshopper.Global
                     if (request.SelectedItem != null)
                         initCode = request.SelectedItem.ToJson();
 
-                    GH_Canvas canvas = GH.Instances.ActiveCanvas;
-                    System.Drawing.PointF location = canvas.CursorCanvasPosition;
-                    if (request != null && request.Location != null)
-                        location = new System.Drawing.Point((int)request.Location.X, (int)request.Location.Y);
-                    canvas.InstantiateNewObject(node.Id, initCode, canvas.CursorCanvasPosition, true);
-
-                    if (m_LastWire != null && m_LastWire.Source != null)
+                    componentCreated = canvas.InstantiateNewObject(node.Id, initCode, canvas.CursorCanvasPosition, true);
+                }
+                else if (request.SelectedItem is CustomItem)
+                {
+                    CustomItem item = request.SelectedItem as CustomItem;
+                    if (item != null && item.Content is IGH_ObjectProxy)
                     {
-                        GH_Component component = canvas.Document.Objects.Last() as GH_Component;
-                        if (component != null)
-                            Connect(component, m_LastWire);
-                        else
-                        {
-                            IGH_Param param = canvas.Document.Objects.Last() as IGH_Param;
-                            Connect(param, m_LastWire);
-                        }
-
-                        canvas.Invalidate();
-                        if (component != null)
-                            component.ExpireSolution(true);
+                        IGH_ObjectProxy proxy = item.Content as IGH_ObjectProxy;
+                        componentCreated = canvas.InstantiateNewObject(proxy.Guid, canvas.CursorCanvasPosition, true);
                     }
+                    
+                }
+
+                if (componentCreated && m_LastWire != null && m_LastWire.Source != null)
+                {
+                    GH_Component component = canvas.Document.Objects.Last() as GH_Component;
+                    if (component != null)
+                        Connect(component, m_LastWire);
+                    else
+                    {
+                        IGH_Param param = canvas.Document.Objects.Last() as IGH_Param;
+                        Connect(param, m_LastWire);
+                    }
+
+                    canvas.Invalidate();
+                    if (component != null)
+                        component.ExpireSolution(true);
                 }
 
                 Debug.WriteLine(DateTime.Now.ToString("HH:mm:ss") + "- Item Selected : " + ((request != null && request.CallerType != null) ? request.CallerType.Name : "null") + ((m_LastWire != null) ? ". Used wire." : ""));
@@ -232,6 +253,16 @@ namespace BH.UI.Grasshopper.Global
                 if (caller != null)
                     sourceType = caller.SelectedItem as Type;
             }
+            else if (param.Type != null)
+            {
+                Type type = param.Type;
+                if (type.BaseType != null && type.BaseType.IsGenericType)
+                {
+                    Type[] generics = type.BaseType.GetGenericArguments();
+                    if (generics.Length > 0 && !generics[0].IsGenericType)
+                        sourceType = generics[0];
+                }
+            }
 
             if (sourceType == null)
                 return null;
@@ -240,10 +271,76 @@ namespace BH.UI.Grasshopper.Global
         }
 
         /*******************************************/
+
+        private static void AddLocalComponentProxies()
+        {
+            if (m_AddedLocalProxies)
+                return;
+            m_AddedLocalProxies = true;
+
+            try
+            {
+                FieldInfo prop = typeof(GH.GUI.GH_DocumentEditor).GetField("_Ribbon", BindingFlags.NonPublic | BindingFlags.Instance);
+                GH_Ribbon ribbon = prop.GetValue(GH.Instances.DocumentEditor) as GH_Ribbon;
+                if (ribbon == null)
+                    return;
+
+                List<SearchItem> items = new List<SearchItem>();
+
+                foreach (GH_RibbonTab tab in ribbon.Tabs)
+                {
+                    foreach (GH_RibbonPanel panel in tab.Panels)
+                    {
+                        foreach (IGH_ObjectProxy proxy in panel.AllItems.Select(x => x.Proxy))
+                        {
+                            try
+                            {
+                                object instance = Activator.CreateInstance(proxy.Type);
+                                CustomItem item = new CustomItem { Content = proxy };
+
+                                GH_Component component = instance as GH_Component;
+                                IGH_Param param = instance as IGH_Param;
+
+                                if (component != null && component.Params != null)
+                                {
+                                    if (component.Params.Input.Count > 0)
+                                        item.InputTypes = component.Params.Input.Select(x => GetSourceType(x)).ToList();
+                                    if (component.Params.Output.Count > 0)
+                                        item.OutputTypes = component.Params.Output.Select(x => GetSourceType(x)).ToList();
+                                }
+                                else if (param != null)
+                                {
+                                    Type sourceType = GetSourceType(param);
+                                    item.InputTypes.Add(sourceType);
+                                    item.OutputTypes.Add(sourceType);
+                                }
+
+                                items.Add(new SearchItem
+                                {
+                                    CallerType = null,
+                                    Item = item,
+                                    Icon = proxy.Icon,
+                                    Text = proxy.Desc != null ? proxy.Desc.Name + " (" + tab.NameFull + " - " + panel.Name + ")" : proxy.Type.Name
+                                });
+                            }
+                            catch { }
+                        }
+                    }
+                }
+
+                GlobalSearch.AddPossibleItems(items);
+            }
+            catch { }
+
+            return;
+        }
+
+        /*******************************************/
         /**** Private Fields                    ****/
         /*******************************************/
 
         private static WireInfo m_LastWire = null;
+        private static bool m_AddedLocalProxies = false;
 
 
         /*******************************************/
