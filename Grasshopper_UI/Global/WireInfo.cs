@@ -53,6 +53,8 @@ namespace BH.UI.Grasshopper.Global
 
         public bool IsInput { get; set; } = false;
 
+        public HashSet<string> Tags { get; set; } = new HashSet<string>();
+
         /*******************************************/
     }
 }

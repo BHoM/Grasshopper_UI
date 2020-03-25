@@ -40,6 +40,7 @@ using BH.Engine.Reflection;
 using System.Diagnostics;
 using Grasshopper.GUI.Ribbon;
 using BH.oM.UI;
+using Grasshopper.Kernel.Types;
 
 namespace BH.UI.Grasshopper.Global
 {
@@ -64,10 +65,8 @@ namespace BH.UI.Grasshopper.Global
             GlobalSearch.Activate(canvas.FindForm());
             GlobalSearch.ItemSelected += GlobalSearch_ItemSelected;
 
-            canvas.FindForm().KeyDown += (sender, e) =>
-            {
-                AddLocalComponentProxies();
-            };
+            if (GH.Instances.DocumentEditor != null)
+                GH.Instances.DocumentEditor.Activated += (sender, e) => AddLocalComponentProxies();
 
             canvas.MouseDown += Canvas_MouseDown;
             canvas.MouseUp += Canvas_MouseUp;
@@ -92,8 +91,6 @@ namespace BH.UI.Grasshopper.Global
 
                 // Get the source Type
                 Type sourceType = GetSourceType(sourceParam);
-                if (sourceType == null)
-                    return;
 
                 // Get IsInput
                 FieldInfo inputField = typeof(GH_WireInteraction).GetField("m_dragfrominput", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -109,6 +106,13 @@ namespace BH.UI.Grasshopper.Global
                     SourceType = sourceType,
                     IsInput = isInput
                 };
+
+                try
+                {
+                    IGH_DocumentObject docObject = sourceParam.Attributes.GetTopLevel.DocObject;
+                    m_LastWire.Tags = new HashSet<string> { docObject.Category, docObject.SubCategory };
+                }
+                catch { }
 
                 Debug.WriteLine(DateTime.Now.ToString("HH:mm:ss") + "- Created wire info.");
             }            
@@ -132,7 +136,14 @@ namespace BH.UI.Grasshopper.Global
                 Debug.WriteLine(DateTime.Now.ToString("HH:mm:ss") + "- Wire info cleared.");
             }
             else
-                GlobalSearch.Open(canvas.FindForm(), m_LastWire.SourceType, m_LastWire.IsInput);
+            {
+                GlobalSearch.Open(canvas.FindForm(), new SearchConfig
+                {
+                    TypeConstraint = m_LastWire.SourceType,
+                    IsReturnType = m_LastWire.IsInput,
+                    Tags = m_LastWire.Tags
+                });
+            } 
         }
 
         /*******************************************/
@@ -262,6 +273,8 @@ namespace BH.UI.Grasshopper.Global
                     if (generics.Length > 0 && !generics[0].IsGenericType)
                         sourceType = generics[0];
                 }
+                else if (type == typeof(GH_Point))
+                    sourceType = typeof(Rhino.Geometry.Point3d);
             }
 
             if (sourceType == null)
@@ -296,7 +309,7 @@ namespace BH.UI.Grasshopper.Global
                             try
                             {
                                 object instance = Activator.CreateInstance(proxy.Type);
-                                CustomItem item = new CustomItem { Content = proxy };
+                                CustomItem item = new CustomItem { Content = proxy, Tags = new HashSet<string> { tab.NameFull, panel.Name } };
 
                                 GH_Component component = instance as GH_Component;
                                 IGH_Param param = instance as IGH_Param;
