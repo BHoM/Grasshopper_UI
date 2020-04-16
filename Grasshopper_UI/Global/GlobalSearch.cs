@@ -220,6 +220,8 @@ namespace BH.UI.Grasshopper.Global
                     IGH_Param param = component.Params.Output.FirstOrDefault(x => GetSourceType(x) == wire.SourceType);
                     if (param == null)
                         param = component.Params.Output.FirstOrDefault(x => wire.SourceType.IsAssignableFrom(GetSourceType(x)));
+                    if (param == null)
+                        param = component.Params.Output.FirstOrDefault(x => GetSourceType(x) == typeof(object));
                     if (param != null)
                         wire.Source.AddSource(param);
                 }
@@ -278,7 +280,7 @@ namespace BH.UI.Grasshopper.Global
             }
 
             if (sourceType == null)
-                return null;
+                return typeof(object);
             else
                 return sourceType.UnderlyingType().Type;
         }
