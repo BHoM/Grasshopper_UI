@@ -70,6 +70,18 @@ namespace BH.UI.Grasshopper.Global
 
             canvas.MouseDown += Canvas_MouseDown;
             canvas.MouseUp += Canvas_MouseUp;
+            canvas.KeyDown += Canvas_KeyDown;
+        }
+
+        /*******************************************/
+
+        private static void Canvas_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (m_LastWire == null)
+                return;
+
+            if (e.KeyCode == System.Windows.Forms.Keys.Escape)
+                m_LastWire = null;
         }
 
         /*******************************************/
