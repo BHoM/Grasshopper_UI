@@ -148,7 +148,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\Engine\External.cs" />
     <Compile Include="Components\Adapter\CreateRequest.cs" />
     <Compile Include="Components\Adapter\CreateAdapter.cs" />
     <Compile Include="Components\Adapter\Execute.cs" />
