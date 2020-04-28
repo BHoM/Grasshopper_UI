@@ -176,6 +176,7 @@ namespace BH.UI.Grasshopper.Templates
                     ParamOldIndexFragment fragment = null;
                     if (inputs[i].Fragments.Contains(fragmentType))
                         fragment = inputs[i].Fragments[fragmentType] as ParamOldIndexFragment;
+
                     if (fragment == null || fragment.OldIndex < 0)
                         Params.RegisterInputParam(ToGH_Param(inputs[i]));
                     else
@@ -222,6 +223,7 @@ namespace BH.UI.Grasshopper.Templates
                     ParamOldIndexFragment fragment = null;
                     if (outputs[i].Fragments.Contains(fragmentType))
                         fragment = outputs[i].Fragments[fragmentType] as ParamOldIndexFragment;
+
                     if (fragment == null || fragment.OldIndex < 0)
                         Params.RegisterOutputParam(ToGH_Param(outputs[i]));
                     else
