@@ -24,6 +24,11 @@ using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Types;
 using System.Runtime.CompilerServices;
 using Rhino.Geometry;
+using System.Collections;
+using System.Linq;
+using BH.Engine.Reflection;
+using BH.oM.Reflection;
+using System.Collections.Generic;
 
 namespace BH.Engine.Grasshopper
 {
@@ -61,6 +66,18 @@ namespace BH.Engine.Grasshopper
                 object result;
                 hint.Cast(RuntimeHelpers.GetObjectValue(data), out result);
                 data = result;
+            }
+            else if (data is IEnumerable)
+            {
+                UnderlyingType subType = data.GetType().UnderlyingType();
+                if (typeof(T).IsAssignableFrom(subType.Type))
+                {
+                    List<T> list = ((IEnumerable)data).Cast<T>().ToList();
+                    if (list.Count == 0)
+                        return default(T);
+                    else
+                        return list.First();
+                }
             }
 
             if (data.GetType().Namespace.StartsWith("Rhino.Geometry"))
