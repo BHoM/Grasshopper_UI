@@ -53,6 +53,9 @@ namespace BH.UI.Grasshopper.Global
         public static void Activate()
         {
             GH.Instances.CanvasCreated += Instances_CanvasCreated;
+
+            GlobalSearch.RemoveHandler(typeof(GlobalSearchMenu).FullName);
+            GlobalSearch.ItemSelected += GlobalSearch_ItemSelected;
         }
 
 
@@ -63,8 +66,7 @@ namespace BH.UI.Grasshopper.Global
         private static void Instances_CanvasCreated(GH_Canvas canvas)
         {
             GlobalSearch.Activate(canvas.FindForm());
-            GlobalSearch.ItemSelected += GlobalSearch_ItemSelected;
-
+            
             if (GH.Instances.DocumentEditor != null)
                 GH.Instances.DocumentEditor.Activated += (sender, e) => AddLocalComponentProxies();
 
