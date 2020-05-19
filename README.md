@@ -6,7 +6,7 @@ The Grasshopper_Toolkit provides a plugin that exposes the BHoM functionality in
 
 
 ### Known Versions of Software Supported
-Grasshopper for Rhino 5
+Grasshopper for Rhino 5  
 Grasshopper for Rhino 6
 
 ### Documentation
