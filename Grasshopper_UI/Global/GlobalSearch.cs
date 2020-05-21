@@ -66,9 +66,6 @@ namespace BH.UI.Grasshopper.Global
         private static void Instances_CanvasCreated(GH_Canvas canvas)
         {
             GlobalSearch.Activate(canvas.FindForm());
-            
-            if (GH.Instances.DocumentEditor != null)
-                GH.Instances.DocumentEditor.Activated += (sender, e) => AddLocalComponentProxies();
 
             canvas.MouseDown += Canvas_MouseDown;
             canvas.MouseUp += Canvas_MouseUp;
@@ -299,77 +296,12 @@ namespace BH.UI.Grasshopper.Global
                 return sourceType.UnderlyingType().Type;
         }
 
-        /*******************************************/
-
-        private static void AddLocalComponentProxies()
-        {
-            if (m_AddedLocalProxies)
-                return;
-            m_AddedLocalProxies = true;
-
-            try
-            {
-                FieldInfo prop = typeof(GH.GUI.GH_DocumentEditor).GetField("_Ribbon", BindingFlags.NonPublic | BindingFlags.Instance);
-                GH_Ribbon ribbon = prop.GetValue(GH.Instances.DocumentEditor) as GH_Ribbon;
-                if (ribbon == null)
-                    return;
-
-                List<SearchItem> items = new List<SearchItem>();
-
-                foreach (GH_RibbonTab tab in ribbon.Tabs)
-                {
-                    foreach (GH_RibbonPanel panel in tab.Panels)
-                    {
-                        foreach (IGH_ObjectProxy proxy in panel.AllItems.Select(x => x.Proxy))
-                        {
-                            try
-                            {
-                                object instance = Activator.CreateInstance(proxy.Type);
-                                CustomItem item = new CustomItem { Content = proxy, Tags = new HashSet<string> { tab.NameFull, panel.Name } };
-
-                                GH_Component component = instance as GH_Component;
-                                IGH_Param param = instance as IGH_Param;
-
-                                if (component != null && component.Params != null)
-                                {
-                                    if (component.Params.Input.Count > 0)
-                                        item.InputTypes = component.Params.Input.Select(x => GetSourceType(x)).ToList();
-                                    if (component.Params.Output.Count > 0)
-                                        item.OutputTypes = component.Params.Output.Select(x => GetSourceType(x)).ToList();
-                                }
-                                else if (param != null)
-                                {
-                                    Type sourceType = GetSourceType(param);
-                                    item.InputTypes.Add(sourceType);
-                                    item.OutputTypes.Add(sourceType);
-                                }
-
-                                items.Add(new SearchItem
-                                {
-                                    CallerType = null,
-                                    Item = item,
-                                    Icon = proxy.Icon,
-                                    Text = proxy.Desc != null ? proxy.Desc.Name + " (" + tab.NameFull + " - " + panel.Name + ")" : proxy.Type.Name
-                                });
-                            }
-                            catch { }
-                        }
-                    }
-                }
-
-                GlobalSearch.AddPossibleItems(items);
-            }
-            catch { }
-
-            return;
-        }
 
         /*******************************************/
         /**** Private Fields                    ****/
         /*******************************************/
 
         private static WireInfo m_LastWire = null;
-        private static bool m_AddedLocalProxies = false;
 
 
         /*******************************************/
