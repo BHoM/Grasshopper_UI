@@ -325,7 +325,7 @@
 Copy /Y "$(TargetDir)$(TargetName).dll" "$(AppData)\BHoM\Assemblies\$(TargetName).gha"
 
 rem create .ghlink file
-echo $(AppData)\BHoM\Assemblies\$(TargetName).gha &gt; "$(AppData)\Grasshopper\Libraries\$(TargetName).ghlink"</PostBuildEvent>
+echo C:\ProgramData\BHoM\Assemblies\$(TargetName).gha &gt; "$(AppData)\Grasshopper\Libraries\$(TargetName).ghlink"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
