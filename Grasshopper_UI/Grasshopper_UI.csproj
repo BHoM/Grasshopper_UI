@@ -322,7 +322,7 @@
   -->
   <PropertyGroup>
     <PostBuildEvent>rem copy .gh file to BHoM/Assembly folder
-Copy /Y "$(TargetDir)$(TargetName).dll" "$(AppData)\BHoM\Assemblies\$(TargetName).gha"
+Copy /Y "$(TargetDir)$(TargetName).dll" "C:\ProgramData\BHoM\Assemblies\$(TargetName).gha"
 
 rem create .ghlink file
 echo C:\ProgramData\BHoM\Assemblies\$(TargetName).gha &gt; "$(AppData)\Grasshopper\Libraries\$(TargetName).ghlink"</PostBuildEvent>
