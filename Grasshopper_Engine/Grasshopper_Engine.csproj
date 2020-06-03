@@ -173,7 +173,7 @@
   <Import Project="..\packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets" Condition="Exists('..\packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets')" />
   <PropertyGroup>
     <PostBuildEvent>rem copy Grasshopper_Engine to BHoM/Assemblies folder
-Copy /Y "$(TargetDir)$(TargetName).dll" "$(AppData)\BHoM\Assemblies\$(TargetName).dll"</PostBuildEvent>
+Copy /Y "$(TargetDir)$(TargetName).dll" "C:\ProgramData\BHoM\Assemblies\$(TargetName).dll"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
