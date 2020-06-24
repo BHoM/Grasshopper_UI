@@ -32,7 +32,7 @@ namespace BH.UI.Grasshopper.Parameters
         /**** Properties                        ****/
         /*******************************************/
 
-        protected override System.Drawing.Bitmap Icon { get; } = Resources.BHoMObject_Param;
+        protected override System.Drawing.Bitmap Icon { get; } = Resources.BHoMAdapter_Param;
 
         public override Guid ComponentGuid { get; } = new Guid("72194041-4E06-4E8C-BBEB-36FD484907E0");
 
@@ -43,7 +43,7 @@ namespace BH.UI.Grasshopper.Parameters
         /**** Constructors                      ****/
         /*******************************************/
 
-        public Param_BHoMAdapter() : base("BHoM Adapter", "BHoM", "Represents a collection of BHoM adapters", "Params", "Primitive")
+        public Param_BHoMAdapter() : base("BHoM Adapter", "BHoM Adapter", "Represents a collection of BHoM adapters", "Params", "Primitive")
         {
         }
     }
