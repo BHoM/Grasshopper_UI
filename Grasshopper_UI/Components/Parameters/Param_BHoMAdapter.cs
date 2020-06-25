@@ -43,7 +43,7 @@ namespace BH.UI.Grasshopper.Parameters
         /**** Constructors                      ****/
         /*******************************************/
 
-        public Param_BHoMAdapter() : base("BHoM Adapter", "BHoM Adapter", "Represents a collection of BHoM adapters", "Params", "Primitive")
+        public Param_BHoMAdapter() : base("BHoM Adapter", "Adapter", "Represents a collection of BHoM adapters", "Params", "Primitive")
         {
         }
     }
