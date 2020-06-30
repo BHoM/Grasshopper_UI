@@ -143,10 +143,6 @@
       <HintPath>C:\ProgramData\BHoM\Assemblies\UI_oM.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="UI_PostBuild">
-      <HintPath>C:\ProgramData\BHoM\Assemblies\UI_PostBuild.exe</HintPath>
-      <Private>False</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Engine\External.cs" />
