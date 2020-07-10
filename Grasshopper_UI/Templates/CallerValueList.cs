@@ -109,6 +109,8 @@ namespace BH.UI.Grasshopper.Templates
                 object result = Caller.Run(new object[] { index });
                 this.m_data.Append(result.IToGoo(), new GH_Path(0));
             }
+
+            Engine.UI.Compute.LogUsage("Grasshopper", InstanceGuid, Caller.SelectedItem);
         }
 
         /*******************************************/

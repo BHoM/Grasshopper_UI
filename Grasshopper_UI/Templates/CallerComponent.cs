@@ -39,6 +39,7 @@ using BH.UI.Grasshopper.Components;
 using BH.UI.Grasshopper.Others;
 using System.Collections;
 using BH.Adapter;
+using BH.oM.Reflection.Debugging;
 
 namespace BH.UI.Grasshopper.Templates
 {
@@ -265,7 +266,12 @@ namespace BH.UI.Grasshopper.Templates
         {
             Accessor.GH_Accessor = DA;
             Caller.Run();
-            Logging.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
+
+            List<Event> events = Engine.Reflection.Query.CurrentEvents();
+            Logging.ShowEvents(this, events);
+
+            if (DA.Iteration == 0)
+                Engine.UI.Compute.LogUsage("Grasshopper", InstanceGuid, Caller.SelectedItem, events);
         }
 
         /*******************************************/
