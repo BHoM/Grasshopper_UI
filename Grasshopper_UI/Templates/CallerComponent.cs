@@ -250,6 +250,8 @@ namespace BH.UI.Grasshopper.Templates
                         oldParam.IsolateObject();
                         Params.Output[i] = newParam;
                     }
+                    else if (newParam.Description != oldParam.Description)
+                        oldParam.Description = newParam.Description;
                 }
 
                 for (int i = nbOld - 1; i >= nbNew; i--)
