@@ -185,6 +185,7 @@ namespace BH.UI.Grasshopper.Components
             for (int i = 0; i < Caller.OutputParams.Count; i++)
             {
                 expired |= Caller.OutputParams[i].Name != Params.Output[i].NickName;
+                expired |= Caller.OutputParams[i].Description != Params.Output[i].Description;
                 if (expired)
                 {
                     return true;
