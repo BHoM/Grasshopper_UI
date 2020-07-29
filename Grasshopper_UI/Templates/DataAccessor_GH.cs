@@ -33,10 +33,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel.Parameters;
+using BH.oM.UI;
 
 namespace BH.UI.Grasshopper.Templates
 {
-    public class DataAccessor_GH : DataAccessor
+    public class DataAccessor_GH : IDataAccessor
     {
         /*************************************/
         /**** Properties                  ****/
@@ -64,7 +65,7 @@ namespace BH.UI.Grasshopper.Templates
         /**** Input Getter Methods        ****/
         /*************************************/
 
-        public override T GetDataItem<T>(int index)
+        public T GetDataItem<T>(int index)
         {
             if (GH_Accessor == null)
                 return default(T);
@@ -82,7 +83,7 @@ namespace BH.UI.Grasshopper.Templates
 
         /*************************************/
 
-        public override List<T> GetDataList<T>(int index)
+        public List<T> GetDataList<T>(int index)
         {
             if (GH_Accessor == null)
                 return new List<T>();
@@ -99,7 +100,7 @@ namespace BH.UI.Grasshopper.Templates
 
         /*************************************/
 
-        public override List<List<T>> GetDataTree<T>(int index)
+        public List<List<T>> GetDataTree<T>(int index)
         {
             if (GH_Accessor == null || Inputs.Count <= index)
                 return new List<List<T>>();
@@ -121,21 +122,21 @@ namespace BH.UI.Grasshopper.Templates
         /**** Output Setter Methods       ****/
         /*************************************/
 
-        public override bool SetDataItem<T>(int index, T data)
+        public bool SetDataItem<T>(int index, T data)
         {
             return GH_Accessor.SetData(index, data);
         }
 
         /*************************************/
 
-        public override bool SetDataList<T>(int index, IEnumerable<T> data)
+        public bool SetDataList<T>(int index, IEnumerable<T> data)
         {
             return GH_Accessor.SetDataList(index, (IEnumerable<T>)data);
         }
 
         /*************************************/
 
-        public override bool SetDataTree<T>(int index, IEnumerable<IEnumerable<T>> data)
+        public bool SetDataTree<T>(int index, IEnumerable<IEnumerable<T>> data)
         {
             IGH_Param root;
 
