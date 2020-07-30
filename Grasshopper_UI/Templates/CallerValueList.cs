@@ -70,7 +70,7 @@ namespace BH.UI.Grasshopper.Templates
             m_Accessor = new DataAccessor_GH(new List<IGH_Param>());
             Caller.SetDataAccessor(m_Accessor);
 
-            Caller.ItemSelected += (sender, e) => UpdateFromSelectedItem();
+            Caller.Modified += (sender, e) => UpdateFromSelectedItem();
         }
 
 
