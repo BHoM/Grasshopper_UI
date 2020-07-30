@@ -28,6 +28,7 @@ using BH.UI.Templates;
 using BH.UI.Components;
 using BH.Engine.Reflection;
 using GH_IO.Serialization;
+using BH.oM.UI;
 
 namespace BH.UI.Grasshopper.Components
 {
@@ -44,9 +45,9 @@ namespace BH.UI.Grasshopper.Components
         /**** Private Methods                   ****/
         /*******************************************/
 
-        public override void OnItemSelected(object sender, object e)
+        public override void OnCallerModified(object sender, CallerUpdate update)
         {
-            base.OnItemSelected();
+            base.OnCallerModified(sender, update);
 
             Type type = Caller.SelectedItem as Type;
             if (type != null)

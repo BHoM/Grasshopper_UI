@@ -42,18 +42,6 @@ namespace BH.UI.Grasshopper.Components
 
 
         /*******************************************/
-        /**** Constructors                      ****/
-        /*******************************************/
-
-        public CreateObjectComponent() : base()
-        {
-            CreateObjectCaller caller = Caller as CreateObjectCaller;
-            if (caller != null)
-                caller.InputToggled += Caller_InputToggled;
-        }
-
-
-        /*******************************************/
         /**** Override Methods                  ****/
         /*******************************************/
 
@@ -77,26 +65,6 @@ namespace BH.UI.Grasshopper.Components
             if (caller != null)
                 caller.RemoveInput(Params.Input[index].NickName);
             return true;
-        }
-
-        /*******************************************/
-        /**** Private Methods                   ****/
-        /*******************************************/
-
-        private void Caller_InputToggled(object sender, Tuple<ParamInfo, bool> e)
-        {
-            if (e.Item2)
-                Params.RegisterInputParam(ToGH_Param(e.Item1));
-            else
-            {
-                string name = e.Item1.Name.ToLower();
-                IGH_Param param = Params.Input.FirstOrDefault(x => x.Name.ToLower() == name);
-                if (param != null)
-                    Params.UnregisterInputParameter(param);
-            }                
-
-            this.Params.OnParametersChanged(); // and ask to update the layout with OnParametersChanged()
-            this.ExpireSolution(true);
         }
 
 

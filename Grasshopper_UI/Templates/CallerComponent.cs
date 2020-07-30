@@ -81,7 +81,7 @@ namespace BH.UI.Grasshopper.Templates
             Accessor = new DataAccessor_GH(Params.Input, IsValidPrincipalParameterIndex ? PrincipalParameterIndex : -1);
             Caller.SetDataAccessor(Accessor);
 
-            Caller.ItemSelected += OnItemSelected;
+            Caller.Modified += OnCallerModified;
             Caller.SolutionExpired += (sender, e) => ExpireSolution(true);
         }
 
@@ -97,7 +97,31 @@ namespace BH.UI.Grasshopper.Templates
         /**** Public Methods                    ****/
         /*******************************************/
 
-        public virtual void OnItemSelected(object sender = null, object e = null)
+        public virtual void OnCallerModified(object sender, CallerUpdate update)
+        {
+            if (update == null)
+                return;
+
+            switch (update.Cause)
+            {
+                case CallerUpdateCause.ItemSelected:
+                    OnItemSelected(sender, update);
+                    return;
+                case CallerUpdateCause.InputSelection:
+                    OnInputSelection(update.InputUpdates);
+                    return;
+                case CallerUpdateCause.OutputSelection:
+                    OnOutputSelection(update.OutputUpdates);
+                    return;
+                default:
+                    return;
+            }
+
+        }
+
+        /*******************************************/
+
+        public virtual void OnItemSelected(object sender = null, CallerUpdate update = null)
         {
             Name = Caller.Name;
             NickName = Caller.Name;
@@ -108,6 +132,58 @@ namespace BH.UI.Grasshopper.Templates
             this.Params.OnParametersChanged(); // and ask to update the layout with OnParametersChanged()
 
             this.ExpireSolution(true);
+        }
+
+        /*******************************************/
+
+        public void OnInputSelection(List<IParamUpdate> updates)
+        {
+            List<ParamInfo> selection = Caller.InputParams;
+
+            int index = 0;
+            for (int i = 0; i < selection.Count; i++)
+            {
+                if (selection[i].IsSelected)
+                {
+                    if (index >= Params.Input.Count || selection[i].Name != Params.Input[index].Name)
+                        Params.RegisterInputParam(ToGH_Param(selection[i]), index);
+                    index++;
+                }
+                else
+                {
+                    if (index < Params.Input.Count && selection[i].Name == Params.Input[index].Name)
+                        Params.UnregisterInputParameter(Params.Input[index]);
+                }
+            }
+
+            Params.OnParametersChanged();
+            ExpireSolution(true);
+        }
+
+        /*******************************************/
+
+        public void OnOutputSelection(List<IParamUpdate> updates)
+        {
+            List<ParamInfo> selection = Caller.OutputParams;
+
+            int index = 0;
+            for (int i = 0; i < selection.Count; i++)
+            {
+                if (selection[i].IsSelected)
+                {
+                    if (index >= Params.Output.Count || selection[i].Name != Params.Output[index].Name)
+                        Params.RegisterOutputParam(ToGH_Param(selection[i]), index);
+                    index++;
+                }
+                else
+                {
+                    if (index < Params.Output.Count && selection[i].Name == Params.Output[index].Name)
+                        Params.UnregisterOutputParameter(Params.Output[index]);
+                }
+            }
+
+            Params.OnParametersChanged();
+            ExpireSolution(true);
         }
 
         /*******************************************/

@@ -45,18 +45,6 @@ namespace BH.UI.Grasshopper.Components
 
 
         /*******************************************/
-        /**** Constructors                      ****/
-        /*******************************************/
-
-        public ExplodeComponent() : base()
-        {
-            ExplodeCaller caller = Caller as ExplodeCaller;
-            if (caller != null)
-                caller.OutputSelected += Caller_OutputSelected;
-        }
-
-
-        /*******************************************/
         /**** Public Override Methods           ****/
         /*******************************************/
 
@@ -192,30 +180,6 @@ namespace BH.UI.Grasshopper.Components
                 }
             }
             return false;
-        }
-
-        /*******************************************/
-
-        private void Caller_OutputSelected(object sender, List<Tuple<ParamInfo, bool>> selection)
-        {
-            int index = 0;
-            for (int i = 0; i < selection.Count; i++)
-            {
-                if (selection[i].Item2)
-                {
-                    if (index >= Params.Output.Count || selection[i].Item1.Name != Params.Output[index].Name)
-                        Params.RegisterOutputParam(ToGH_Param(selection[i].Item1), index);
-                    index++;
-                }
-                else
-                {
-                    if (index < Params.Output.Count && selection[i].Item1.Name == Params.Output[index].Name)
-                        Params.UnregisterOutputParameter(Params.Output[index]);
-                }
-            }
-
-            Params.OnParametersChanged();
-            ExpireSolution(true);
         }
 
         /*******************************************/
