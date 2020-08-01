@@ -90,6 +90,7 @@ namespace BH.UI.Grasshopper.Components
             // Update the output params based on input data
             Params.Input[0].CollectData();
             List<object> data = Params.Input[0].VolatileData.AllData(true).Select(x => x.ScriptVariable()).ToList();
+
             ExplodeCaller caller = Caller as ExplodeCaller;
             caller.CollectOutputTypes(data);
         }
@@ -102,8 +103,12 @@ namespace BH.UI.Grasshopper.Components
         protected override void BeforeSolveInstance()
         {
             base.BeforeSolveInstance();
+
+            if (Caller.OutputParams.Where(x => x.IsSelected).Count() != Params.Output.Count)
+                ((ExplodeCaller)Caller).SelectOutputs(Params.Output.Select(x => x.Name).ToList());
+
             if (((ExplodeCaller)Caller).IsAllowedToUpdate())
-                this.OnGrasshopperUpdates();
+                this.OnGrasshopperUpdates();   
         }
 
         /*******************************************/
@@ -159,21 +164,23 @@ namespace BH.UI.Grasshopper.Components
                 return false;
             }
 
-            if (Caller.OutputParams.Count == 0 || Params.Output.Count == 0) 
+            List<ParamInfo> selection = Caller.OutputParams.Where(x => x.IsSelected).ToList();
+
+            if (selection.Count == 0 || Params.Output.Count == 0) 
             {
                 return true;
             }
 
-            if (Caller.OutputParams.Count != Params.Output.Count)
+            if (selection.Count != Params.Output.Count)
             {
                 return true;
             }
 
             bool expired = false;
-            for (int i = 0; i < Caller.OutputParams.Count; i++)
+            for (int i = 0; i < selection.Count; i++)
             {
-                expired |= Caller.OutputParams[i].Name != Params.Output[i].NickName;
-                expired |= Caller.OutputParams[i].Description != Params.Output[i].Description;
+                expired |= selection[i].Name != Params.Output[i].NickName;
+                expired |= selection[i].Description != Params.Output[i].Description;
                 if (expired)
                 {
                     return true;

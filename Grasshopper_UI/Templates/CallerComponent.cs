@@ -288,7 +288,7 @@ namespace BH.UI.Grasshopper.Templates
             if (Caller == null)
                 return;
 
-            List<ParamInfo> outputs = Caller.OutputParams;
+            List<ParamInfo> outputs = Caller.OutputParams.Where(x => x.IsSelected).ToList();
 
             if (Caller.WasUpgraded)
             {
