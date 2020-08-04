@@ -113,6 +113,10 @@ namespace BH.UI.Grasshopper.Templates
                 case CallerUpdateCause.OutputSelection:
                     OnOutputSelection(update.OutputUpdates);
                     return;
+                case CallerUpdateCause.ReadFromSave:
+                    OnInputSelection(update.InputUpdates);
+                    OnOutputSelection(update.OutputUpdates);
+                    break;
                 default:
                     return;
             }
