@@ -20,8 +20,8 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.UI.Components;
-using BH.UI.Templates;
+using BH.UI.Base;
+using BH.UI.Base.Components;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Parameters;
 using System;

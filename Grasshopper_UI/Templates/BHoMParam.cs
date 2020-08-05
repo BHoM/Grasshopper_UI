@@ -31,7 +31,6 @@ using System.Linq;
 using System.Windows.Forms;
 using GH = Grasshopper;
 using Grasshopper.GUI;
-using BH.UI.Grasshopper.Others;
 using BH.Engine.Serialiser;
 
 namespace BH.UI.Grasshopper.Templates
@@ -167,7 +166,7 @@ namespace BH.UI.Grasshopper.Templates
             if (reader.TryGetString("ObjectType", ref objectType))
                 ObjectType = Engine.Serialiser.Convert.FromJson(objectType) as Type;
 
-            Logging.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
+            Helpers.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
             return success;
         }
 

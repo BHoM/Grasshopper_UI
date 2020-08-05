@@ -26,7 +26,6 @@ using Grasshopper.Kernel;
 using BH.oM.Base;
 using BH.oM.UI;
 using System.Collections.Generic;
-using BH.UI.Templates;
 using System.Windows.Forms;
 using BH.UI.Grasshopper.Global;
 using BH.oM.Reflection;
@@ -36,14 +35,14 @@ using BH.Engine.Reflection;
 using BH.oM.Geometry;
 using BH.Engine.Grasshopper;
 using BH.UI.Grasshopper.Components;
-using BH.UI.Grasshopper.Others;
 using System.Collections;
 using BH.Adapter;
 using BH.oM.Reflection.Debugging;
+using BH.UI.Base;
 
 namespace BH.UI.Grasshopper.Templates
 {
-    public abstract class CallerComponent : GH_Component, IGH_InitCodeAware, IGH_VariableParameterComponent
+    public abstract class CallerComponent : GH_Component, IGH_VariableParameterComponent, IGH_InitCodeAware
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -94,7 +93,222 @@ namespace BH.UI.Grasshopper.Templates
 
 
         /*******************************************/
-        /**** Public Methods                    ****/
+        /**** GH_Component Override Methods     ****/
+        /*******************************************/
+
+        protected override void RegisterInputParams(GH_InputParamManager pManager = null)
+        {
+            if (Caller == null)
+                return;
+
+            List<ParamInfo> inputs = Caller.InputParams;
+
+            if (Caller.WasUpgraded)
+            {
+                Type fragmentType = typeof(ParamOldIndexFragment);
+                List<IGH_Param> oldParams = Params.Input.ToList();
+                Params.Input.Clear();
+                for (int i = 0; i < inputs.Count; i++)
+                {
+                    ParamOldIndexFragment fragment = null;
+                    if (inputs[i].Fragments.Contains(fragmentType))
+                        fragment = inputs[i].Fragments[fragmentType] as ParamOldIndexFragment;
+
+                    if (fragment == null || fragment.OldIndex < 0)
+                        Params.RegisterInputParam(inputs[i].ToGH_Param());
+                    else
+                        Params.RegisterInputParam(oldParams[fragment.OldIndex]);
+                }
+            }
+            else
+            {
+                int nbNew = inputs.Count;
+                int nbOld = Params.Input.Count;
+
+                for (int i = 0; i < Math.Min(nbNew, nbOld); i++)
+                {
+                    IGH_Param newParam = inputs[i].ToGH_Param();
+                    if (newParam.GetType() != Params.Input[i].GetType())
+                        Params.Input[i] = newParam;
+                }
+
+                for (int i = nbOld - 1; i >= nbNew; i--)
+                    Params.UnregisterInputParameter(Params.Input[i]);
+
+                for (int i = nbOld; i < nbNew; i++)
+                    Params.RegisterInputParam(inputs[i].ToGH_Param());
+            }
+
+        }
+
+        /*******************************************/
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager = null)
+        {
+            if (Caller == null)
+                return;
+
+            List<ParamInfo> outputs = Caller.OutputParams.Where(x => x.IsSelected).ToList();
+
+            if (Caller.WasUpgraded)
+            {
+                Type fragmentType = typeof(ParamOldIndexFragment);
+                List<IGH_Param> oldParams = Params.Output.ToList();
+                Params.Output.Clear();
+                for (int i = 0; i < outputs.Count; i++)
+                {
+                    ParamOldIndexFragment fragment = null;
+                    if (outputs[i].Fragments.Contains(fragmentType))
+                        fragment = outputs[i].Fragments[fragmentType] as ParamOldIndexFragment;
+
+                    if (fragment == null || fragment.OldIndex < 0)
+                        Params.RegisterOutputParam(outputs[i].ToGH_Param());
+                    else
+                        Params.RegisterOutputParam(oldParams[fragment.OldIndex]);
+                }
+            }
+            else
+            {
+                int nbNew = outputs.Count;
+                int nbOld = Params.Output.Count;
+
+                for (int i = 0; i < Math.Min(nbNew, nbOld); i++)
+                {
+                    IGH_Param oldParam = Params.Output[i];
+                    IGH_Param newParam = outputs[i].ToGH_Param();
+                    if (newParam.GetType() != oldParam.GetType() || newParam.NickName != oldParam.NickName)
+                    {
+                        foreach (IGH_Param source in oldParam.Sources)
+                            newParam.AddSource(source);
+                        foreach (IGH_Param target in oldParam.Recipients)
+                            target.AddSource(newParam);
+
+                        oldParam.IsolateObject();
+                        Params.Output[i] = newParam;
+                    }
+                    else if (newParam.Description != oldParam.Description)
+                        oldParam.Description = newParam.Description;
+                }
+
+                for (int i = nbOld - 1; i >= nbNew; i--)
+                    Params.UnregisterOutputParameter(Params.Output[i]);
+
+                for (int i = nbOld; i < nbNew; i++)
+                    Params.RegisterOutputParam(outputs[i].ToGH_Param());
+            }
+        }
+
+        /*******************************************/
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            Accessor.GH_Accessor = DA;
+            Caller.Run();
+
+            List<Event> events = Engine.Reflection.Query.CurrentEvents();
+            Helpers.ShowEvents(this, events);
+
+            if (DA.Iteration == 0)
+                Engine.UI.Compute.LogUsage("Grasshopper", InstanceGuid, Caller.SelectedItem, events);
+        }
+
+        /*******************************************/
+
+        protected override void AppendAdditionalComponentMenuItems(ToolStripDropDown menu)
+        {
+            base.AppendAdditionalComponentMenuItems(menu);
+            Menu_AppendItem(menu, "Source code", OnSourceCodeClick, Properties.Resources.BHoM_Logo);
+            Caller.AddToMenu(menu);
+        }
+
+        /*******************************************/
+
+        public override bool Write(GH_IO.Serialization.GH_IWriter writer)
+        {
+            writer.SetString("Component", Caller.Write());
+            return base.Write(writer);
+        }
+
+        /*************************************/
+
+        public override bool Read(GH_IO.Serialization.GH_IReader reader)
+        {
+            if (!base.Read(reader) || !Params.Read(reader))
+                return false;
+
+            string callerString = ""; reader.TryGetString("Component", ref callerString);
+            Caller.Read(callerString);
+
+            return true;
+        }
+
+        /*******************************************/
+
+        public override IList<string> RuntimeMessages(GH_RuntimeMessageLevel level)
+        {
+            //Make sure to extract both 'Remark' as well as 'Blank' messages when remarks are extracted.
+            //This is because we are adding 'Blank' messages instead of 'Remarks' when there are any warnings/errors present
+            //to make sure the component colouring is correct.
+            //See more comments in the "Logging.cs" file.
+            if (level == GH_RuntimeMessageLevel.Remark)
+            {
+                List<string> remarks = base.RuntimeMessages(level).ToList();
+                remarks.AddRange(base.RuntimeMessages(GH_RuntimeMessageLevel.Blank));
+                return remarks;
+            }
+            return base.RuntimeMessages(level);
+        }
+
+
+        /*******************************************/
+        /**** IGH_InitCodeAware Methods         ****/
+        /*******************************************/
+
+        public void SetInitCode(string code)
+        {
+            object item = BH.Engine.Serialiser.Convert.FromJson(code);
+            if (item != null)
+                Caller.SetItem(item);
+            this.OnItemSelected();
+        }
+
+        /*******************************************/
+        /**** IGH_VariableParameterComponent    ****/
+        /*******************************************/
+
+        public virtual bool CanInsertParameter(GH_ParameterSide side, int index)
+        {
+            return false;
+        }
+
+        /*************************************/
+
+        public virtual bool CanRemoveParameter(GH_ParameterSide side, int index)
+        {
+            return false;
+        }
+
+        /*************************************/
+
+        public virtual IGH_Param CreateParameter(GH_ParameterSide side, int index)
+        {
+            return new Param_GenericObject();
+        }
+
+        /*************************************/
+
+        public virtual bool DestroyParameter(GH_ParameterSide side, int index)
+        {
+            return true;
+        }
+
+        /*************************************/
+
+        public virtual void VariableParameterMaintenance() { }
+
+
+        /*******************************************/
+        /**** Others                            ****/
         /*******************************************/
 
         public virtual void OnCallerModified(object sender, CallerUpdate update)
@@ -150,7 +364,7 @@ namespace BH.UI.Grasshopper.Templates
                 if (selection[i].IsSelected)
                 {
                     if (index >= Params.Input.Count || selection[i].Name != Params.Input[index].Name)
-                        Params.RegisterInputParam(ToGH_Param(selection[i]), index);
+                        Params.RegisterInputParam(selection[i].ToGH_Param(), index);
                     index++;
                 }
                 else
@@ -176,7 +390,7 @@ namespace BH.UI.Grasshopper.Templates
                 if (selection[i].IsSelected)
                 {
                     if (index >= Params.Output.Count || selection[i].Name != Params.Output[index].Name)
-                        Params.RegisterOutputParam(ToGH_Param(selection[i]), index);
+                        Params.RegisterOutputParam(selection[i].ToGH_Param(), index);
                     index++;
                 }
                 else
@@ -234,310 +448,11 @@ namespace BH.UI.Grasshopper.Templates
 
             return this.Caller.SelectedItem.IIsDeprecated();
         }
+        
 
+        
 
-        /*******************************************/
-        /**** Override Methods                  ****/
-        /*******************************************/
-
-        protected override void RegisterInputParams(GH_InputParamManager pManager = null)
-        {
-            if (Caller == null)
-                return;
-
-            List<ParamInfo> inputs = Caller.InputParams;
-
-            if (Caller.WasUpgraded)
-            {
-                Type fragmentType = typeof(ParamOldIndexFragment);
-                List<IGH_Param> oldParams = Params.Input.ToList();
-                Params.Input.Clear();
-                for (int i = 0; i < inputs.Count; i++)
-                {
-                    ParamOldIndexFragment fragment = null;
-                    if (inputs[i].Fragments.Contains(fragmentType))
-                        fragment = inputs[i].Fragments[fragmentType] as ParamOldIndexFragment;
-
-                    if (fragment == null || fragment.OldIndex < 0)
-                        Params.RegisterInputParam(ToGH_Param(inputs[i]));
-                    else
-                        Params.RegisterInputParam(oldParams[fragment.OldIndex]);
-                }
-            }
-            else
-            {
-                int nbNew = inputs.Count;
-                int nbOld = Params.Input.Count;
-
-                for (int i = 0; i < Math.Min(nbNew, nbOld); i++)
-                {
-                    IGH_Param newParam = ToGH_Param(inputs[i]);
-                    if (newParam.GetType() != Params.Input[i].GetType())
-                        Params.Input[i] = newParam;
-                }
-
-                for (int i = nbOld - 1; i >= nbNew; i--)
-                    Params.UnregisterInputParameter(Params.Input[i]);
-
-                for (int i = nbOld; i < nbNew; i++)
-                    Params.RegisterInputParam(ToGH_Param(inputs[i]));
-            }
-
-        }
-
-        /*******************************************/
-
-        protected override void RegisterOutputParams(GH_OutputParamManager pManager = null)
-        {
-            if (Caller == null)
-                return;
-
-            List<ParamInfo> outputs = Caller.OutputParams.Where(x => x.IsSelected).ToList();
-
-            if (Caller.WasUpgraded)
-            {
-                Type fragmentType = typeof(ParamOldIndexFragment);
-                List<IGH_Param> oldParams = Params.Output.ToList();
-                Params.Output.Clear();
-                for (int i = 0; i < outputs.Count; i++)
-                {
-                    ParamOldIndexFragment fragment = null;
-                    if (outputs[i].Fragments.Contains(fragmentType))
-                        fragment = outputs[i].Fragments[fragmentType] as ParamOldIndexFragment;
-
-                    if (fragment == null || fragment.OldIndex < 0)
-                        Params.RegisterOutputParam(ToGH_Param(outputs[i]));
-                    else
-                        Params.RegisterOutputParam(oldParams[fragment.OldIndex]);
-                }
-            }
-            else
-            {
-                int nbNew = outputs.Count;
-                int nbOld = Params.Output.Count;
-
-                for (int i = 0; i < Math.Min(nbNew, nbOld); i++)
-                {
-                    IGH_Param oldParam = Params.Output[i];
-                    IGH_Param newParam = ToGH_Param(outputs[i]);
-                    if (newParam.GetType() != oldParam.GetType() || newParam.NickName != oldParam.NickName)
-                    {
-                        foreach (IGH_Param source in oldParam.Sources)
-                            newParam.AddSource(source);
-                        foreach (IGH_Param target in oldParam.Recipients)
-                            target.AddSource(newParam);
-
-                        oldParam.IsolateObject();
-                        Params.Output[i] = newParam;
-                    }
-                    else if (newParam.Description != oldParam.Description)
-                        oldParam.Description = newParam.Description;
-                }
-
-                for (int i = nbOld - 1; i >= nbNew; i--)
-                    Params.UnregisterOutputParameter(Params.Output[i]);
-
-                for (int i = nbOld; i < nbNew; i++)
-                    Params.RegisterOutputParam(ToGH_Param(outputs[i]));
-            }
-        }
-
-        /*******************************************/
-
-        protected override void SolveInstance(IGH_DataAccess DA)
-        {
-            Accessor.GH_Accessor = DA;
-            Caller.Run();
-
-            List<Event> events = Engine.Reflection.Query.CurrentEvents();
-            Logging.ShowEvents(this, events);
-
-            if (DA.Iteration == 0)
-                Engine.UI.Compute.LogUsage("Grasshopper", InstanceGuid, Caller.SelectedItem, events);
-        }
-
-        /*******************************************/
-
-        protected override void AppendAdditionalComponentMenuItems(ToolStripDropDown menu)
-        {
-            base.AppendAdditionalComponentMenuItems(menu);
-            Menu_AppendItem(menu, "Source code", OnSourceCodeClick, Properties.Resources.BHoM_Logo);
-            Caller.AddToMenu(menu);
-        }
-
-        /*******************************************/
-
-        public override bool Write(GH_IO.Serialization.GH_IWriter writer)
-        {
-            writer.SetString("Component", Caller.Write());
-            return base.Write(writer);
-        }
-
-        /*************************************/
-
-        public override bool Read(GH_IO.Serialization.GH_IReader reader)
-        {
-            if (!base.Read(reader) || !Params.Read(reader))
-                return false;
-
-            string callerString = ""; reader.TryGetString("Component", ref callerString);
-            Caller.Read(callerString);
-
-            return true;
-        }
-
-        /*************************************/
-
-        public virtual bool CanInsertParameter(GH_ParameterSide side, int index)
-        {
-            return false;
-        }
-
-        /*************************************/
-
-        public virtual bool CanRemoveParameter(GH_ParameterSide side, int index)
-        {
-            return false;
-        }
-
-        /*************************************/
-
-        public virtual IGH_Param CreateParameter(GH_ParameterSide side, int index)
-        {
-            return new Param_GenericObject();
-        }
-
-        /*************************************/
-
-        public virtual bool DestroyParameter(GH_ParameterSide side, int index)
-        {
-            return true;
-        }
-
-        /*************************************/
-
-        public virtual void VariableParameterMaintenance() { }
-
-
-        /*************************************/
-        /**** Initialisation via String   ****/
-        /*************************************/
-
-        public void SetInitCode(string code)
-        {
-            object item = BH.Engine.Serialiser.Convert.FromJson(code);
-            if (item != null)
-                Caller.SetItem(item);
-            this.OnItemSelected();
-        }
-
-
-        /*******************************************/
-        /**** Private Methods                   ****/
-        /*******************************************/
-
-        protected IGH_Param ToGH_Param(ParamInfo info)
-        {
-            UnderlyingType subType = info.DataType.UnderlyingType();
-            IGH_Param param;
-
-            switch (subType.Type.FullName)
-            {
-                case "System.Boolean":
-                    param = new Param_Boolean();
-                    break;
-                case "System.Drawing.Color":
-                    param = new Param_Colour();
-                    break;
-                case "System.DateTime":
-                    param = new Param_Time();
-                    break;
-                case "System.Double":
-                    param = new Param_Number();
-                    break;
-                case "System.Guid":
-                    param = new Param_Guid();
-                    break;
-                case "System.Int16":
-                case "System.Int32":
-                    param = new Param_Integer();
-                    break;
-                case "System.Int64":
-                    param = new Param_Time();
-                    break;
-                case "System.String":
-                    param = new Param_String();
-                    break;
-                case "System.Type":
-                    param = new Param_Type();
-                    break;
-                default:
-                    {
-                        Type type = subType.Type;
-                        if (typeof(IGeometry).IsAssignableFrom(type))
-                            param = new Param_BHoMGeometry();
-                        else if (typeof(IBHoMObject).IsAssignableFrom(type))
-                            param = new Param_BHoMObject();
-                        else if (typeof(IObject).IsAssignableFrom(type))
-                            param = new Param_IObject();
-                        else if (typeof(Enum).IsAssignableFrom(type))
-                            param = new Param_Enum();
-                        else if (typeof(IDictionary).IsAssignableFrom(type))
-                            param = new Param_Dictionary();
-                        else if (typeof(BHoMAdapter).IsAssignableFrom(type))
-                            param = new Param_BHoMAdapter();
-                        else
-                        {
-                            param = new Param_ScriptVariable();
-                            param.AttributesChanged += Param_AttributesChanged;
-                        }
-                    }
-                    break;
-            }
-
-            param.Access = (GH_ParamAccess)subType.Depth;
-            param.Description = info.Description;
-            param.Name = info.Name;
-            param.NickName = info.Name;
-            param.Optional = info.HasDefaultValue;
-
-            if (param is IBHoMParam)
-                ((IBHoMParam)param).ObjectType = subType.Type;
-
-            try
-            {
-                if (info.HasDefaultValue)
-                    ((dynamic)param).SetPersistentData(info.DefaultValue.IToGoo());
-            }
-            catch { }
-
-            return param;
-        }
-
-        /*******************************************/
-
-        private void Param_AttributesChanged(IGH_DocumentObject sender, GH_AttributesChangedEventArgs e)
-        {
-            Caller.SetDataAccessor(Accessor);
-        }
-
-        /*******************************************/
-
-        public override IList<string> RuntimeMessages(GH_RuntimeMessageLevel level)
-        {
-            //Make sure to extract both 'Remark' as well as 'Blank' messages when remarks are extracted.
-            //This is because we are adding 'Blank' messages instead of 'Remarks' when there are any warnings/errors present
-            //to make sure the component colouring is correct.
-            //See more comments in the "Logging.cs" file.
-            if (level == GH_RuntimeMessageLevel.Remark)
-            {
-                List<string> remarks = base.RuntimeMessages(level).ToList();
-                remarks.AddRange(base.RuntimeMessages(GH_RuntimeMessageLevel.Blank));
-                return remarks;
-            }
-            return base.RuntimeMessages(level);
-        }
-
+        
         /*******************************************/
     }
 }

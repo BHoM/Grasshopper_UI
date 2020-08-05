@@ -156,7 +156,8 @@
     <Compile Include="Components\Parameters\Param_BHoMAdapter.cs" />
     <Compile Include="Global\WireInfo.cs" />
     <Compile Include="Components\UI\Cluster2Node.cs" />
-    <Compile Include="Others\Logging.cs" />
+    <Compile Include="Helpers\ToGH_Param.cs" />
+    <Compile Include="Helpers\Logging.cs" />
     <Compile Include="Templates\BHoMParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Components\Engine\Explode.cs" />
