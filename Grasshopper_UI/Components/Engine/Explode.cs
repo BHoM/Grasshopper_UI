@@ -76,7 +76,7 @@ namespace BH.UI.Grasshopper.Components
         {
             RecordUndoEvent("OnBHoMUpdates");
             // Forces the component to update
-            this.OnGrasshopperUpdates();
+            this.OnGHParamChanged();
             this.RegisterOutputParams();
             this.Params.OnParametersChanged();
             this.ExpireSolution(true);
@@ -84,7 +84,7 @@ namespace BH.UI.Grasshopper.Components
 
         /*******************************************/
 
-        public override void OnGrasshopperUpdates(object sender = null, GH_ParamServerEventArgs e = null)
+        protected override void OnGHParamChanged(object sender = null, GH_ParamServerEventArgs e = null)
         {
             // Update the output params based on input data
             Params.Input[0].CollectData();
@@ -107,7 +107,7 @@ namespace BH.UI.Grasshopper.Components
                 ((ExplodeCaller)Caller).SelectOutputs(Params.Output.Select(x => x.Name).ToList());
 
             if (((ExplodeCaller)Caller).IsAllowedToUpdate())
-                this.OnGrasshopperUpdates();   
+                this.OnGHParamChanged();   
         }
 
         /*******************************************/

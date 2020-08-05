@@ -145,6 +145,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CallerComponent\OnGHParamChanged.cs" />
+    <Compile Include="CallerComponent\OnCallerModified.cs" />
+    <Compile Include="CallerComponent\IGH_InitCodeAware.cs" />
+    <Compile Include="CallerComponent\IGH_VariableParameterComponent.cs" />
     <Compile Include="Components\Engine\External.cs" />
     <Compile Include="Components\Adapter\CreateRequest.cs" />
     <Compile Include="Components\Adapter\CreateAdapter.cs" />
@@ -190,7 +194,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Templates\CallerComponent.cs" />
+    <Compile Include="CallerComponent\GH_Component.cs" />
     <Compile Include="Templates\IBHoMParam.cs" />
   </ItemGroup>
   <ItemGroup>
