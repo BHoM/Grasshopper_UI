@@ -22,8 +22,8 @@
 
 using Grasshopper.Kernel;
 using BH.UI.Grasshopper.Templates;
-using BH.UI.Templates;
-using BH.UI.Components;
+using BH.UI.Base;
+using BH.UI.Base.Components;
 using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Parameters.Hints;
 using BH.Engine.Grasshopper;

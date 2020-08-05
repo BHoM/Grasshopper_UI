@@ -29,9 +29,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BH.UI.Grasshopper.Others
+namespace BH.UI.Grasshopper
 {
-    public static class Logging
+    public static partial class Helpers
     {
         /*************************************/
         /**** Public Methods              ****/

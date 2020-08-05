@@ -23,7 +23,6 @@
 using BH.Engine.Grasshopper;
 using BH.Engine.Programming;
 using BH.oM.Programming;
-using BH.UI.Grasshopper.Others;
 using BH.UI.Grasshopper.Templates;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Special;
@@ -123,7 +122,7 @@ namespace BH.UI.Grasshopper.Components.UI
 
                 DA.SetData(0, nodeContent);
 
-                Logging.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
+                Helpers.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
             }
             catch (Exception e)
             {

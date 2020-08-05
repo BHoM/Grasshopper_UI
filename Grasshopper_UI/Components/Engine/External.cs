@@ -21,8 +21,8 @@
  */
 
 using BH.UI.Grasshopper.Templates;
-using BH.UI.Templates;
-using BH.UI.Components;
+using BH.UI.Base;
+using BH.UI.Base.Components;
 
 namespace BH.UI.Grasshopper.Components
 {

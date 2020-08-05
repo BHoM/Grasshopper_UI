@@ -25,12 +25,11 @@ using GH = Grasshopper;
 using Grasshopper.Kernel;
 using BH.oM.Base;
 using BH.UI.Grasshopper.Templates;
-using BH.UI.Templates;
-using BH.UI.Components;
+using BH.UI.Base;
+using BH.UI.Base.Components;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using BH.UI.Grasshopper.Others;
 using BH.oM.UI;
 
 namespace BH.UI.Grasshopper.Components
@@ -137,7 +136,7 @@ namespace BH.UI.Grasshopper.Components
                 {
                     Engine.Reflection.Compute.ClearCurrentEvents();
                     Engine.Reflection.Compute.RecordWarning("Output paramters do not match object properties. Please right click and <Update Outputs>");
-                    Logging.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
+                    Helpers.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
                 }
             }
 
