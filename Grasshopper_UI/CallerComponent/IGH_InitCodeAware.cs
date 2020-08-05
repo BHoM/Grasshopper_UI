@@ -21,50 +21,39 @@
  */
 
 using System;
+using System.Linq;
 using Grasshopper.Kernel;
 using BH.oM.Base;
-using BH.UI.Grasshopper.Templates;
-using BH.UI.Base;
-using BH.UI.Base.Components;
-using BH.Engine.Reflection;
-using GH_IO.Serialization;
 using BH.oM.UI;
+using System.Collections.Generic;
+using System.Windows.Forms;
+using BH.UI.Grasshopper.Global;
+using BH.oM.Reflection;
+using Grasshopper.Kernel.Parameters;
+using BH.UI.Grasshopper.Parameters;
+using BH.Engine.Reflection;
+using BH.oM.Geometry;
+using BH.Engine.Grasshopper;
+using BH.UI.Grasshopper.Components;
+using System.Collections;
+using BH.Adapter;
+using BH.oM.Reflection.Debugging;
+using BH.UI.Base;
 
-namespace BH.UI.Grasshopper.Components
+namespace BH.UI.Grasshopper.Templates
 {
-    public class CreateTypeComponent : CallerComponent
+    public abstract partial class CallerComponent : GH_Component, IGH_VariableParameterComponent, IGH_InitCodeAware
     {
         /*******************************************/
-        /**** Properties                        ****/
+        /**** Interface Methods                 ****/
         /*******************************************/
 
-        public override Caller Caller { get; } = new CreateTypeCaller();
-
-
-        /*******************************************/
-        /**** Private Methods                   ****/
-        /*******************************************/
-
-        protected override void OnCallerModified(object sender, CallerUpdate update)
+        public void SetInitCode(string code)
         {
-            base.OnCallerModified(sender, update);
-
-            Type type = Caller.SelectedItem as Type;
-            if (type != null)
-                Message = type.ToText();
-        }
-
-        /*******************************************/
-
-        public override bool Read(GH_IReader reader)
-        {
-            bool success = base.Read(reader);
-
-            Type type = Caller.SelectedItem as Type;
-            if (type != null)
-                Message = type.ToText();
-
-            return success;
+            object item = BH.Engine.Serialiser.Convert.FromJson(code);
+            if (item != null)
+                Caller.SetItem(item);
+            this.OnItemSelected();
         }
 
         /*******************************************/

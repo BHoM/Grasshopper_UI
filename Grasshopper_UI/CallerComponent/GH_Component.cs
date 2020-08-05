@@ -42,7 +42,7 @@ using BH.UI.Base;
 
 namespace BH.UI.Grasshopper.Templates
 {
-    public abstract class CallerComponent : GH_Component, IGH_VariableParameterComponent, IGH_InitCodeAware
+    public abstract partial class CallerComponent : GH_Component, IGH_VariableParameterComponent, IGH_InitCodeAware
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -58,7 +58,13 @@ namespace BH.UI.Grasshopper.Templates
 
         public override GH_Exposure Exposure { get { return (GH_Exposure)Math.Pow(2, Caller.GroupIndex); } }
 
-        public override bool Obsolete => this.IsObsolete();
+        public override bool Obsolete
+        {
+            get
+            {
+                return (Caller?.SelectedItem == null) ? false : Caller.SelectedItem.IIsDeprecated();
+            }
+        }
 
 
         /*******************************************/
@@ -259,200 +265,6 @@ namespace BH.UI.Grasshopper.Templates
             return base.RuntimeMessages(level);
         }
 
-
-        /*******************************************/
-        /**** IGH_InitCodeAware Methods         ****/
-        /*******************************************/
-
-        public void SetInitCode(string code)
-        {
-            object item = BH.Engine.Serialiser.Convert.FromJson(code);
-            if (item != null)
-                Caller.SetItem(item);
-            this.OnItemSelected();
-        }
-
-        /*******************************************/
-        /**** IGH_VariableParameterComponent    ****/
-        /*******************************************/
-
-        public virtual bool CanInsertParameter(GH_ParameterSide side, int index)
-        {
-            return false;
-        }
-
-        /*************************************/
-
-        public virtual bool CanRemoveParameter(GH_ParameterSide side, int index)
-        {
-            return false;
-        }
-
-        /*************************************/
-
-        public virtual IGH_Param CreateParameter(GH_ParameterSide side, int index)
-        {
-            return new Param_GenericObject();
-        }
-
-        /*************************************/
-
-        public virtual bool DestroyParameter(GH_ParameterSide side, int index)
-        {
-            return true;
-        }
-
-        /*************************************/
-
-        public virtual void VariableParameterMaintenance() { }
-
-
-        /*******************************************/
-        /**** Others                            ****/
-        /*******************************************/
-
-        public virtual void OnCallerModified(object sender, CallerUpdate update)
-        {
-            if (update == null)
-                return;
-
-            switch (update.Cause)
-            {
-                case CallerUpdateCause.ItemSelected:
-                    OnItemSelected(sender, update);
-                    return;
-                case CallerUpdateCause.InputSelection:
-                    OnInputSelection(update.InputUpdates);
-                    return;
-                case CallerUpdateCause.OutputSelection:
-                    OnOutputSelection(update.OutputUpdates);
-                    return;
-                case CallerUpdateCause.ReadFromSave:
-                    OnInputSelection(update.InputUpdates);
-                    OnOutputSelection(update.OutputUpdates);
-                    break;
-                default:
-                    return;
-            }
-
-        }
-
-        /*******************************************/
-
-        public virtual void OnItemSelected(object sender = null, CallerUpdate update = null)
-        {
-            Name = Caller.Name;
-            NickName = Caller.Name;
-            Description = Caller.Description;
-
-            this.RegisterInputParams(null); // Cannot use PostConstructor() here since it calls CreateAttributes() without attributes, resetting the stored ones
-            this.RegisterOutputParams(null); // We call its bits individually: input, output 
-            this.Params.OnParametersChanged(); // and ask to update the layout with OnParametersChanged()
-
-            this.ExpireSolution(true);
-        }
-
-        /*******************************************/
-
-        public void OnInputSelection(List<IParamUpdate> updates)
-        {
-            List<ParamInfo> selection = Caller.InputParams;
-
-            int index = 0;
-            for (int i = 0; i < selection.Count; i++)
-            {
-                if (selection[i].IsSelected)
-                {
-                    if (index >= Params.Input.Count || selection[i].Name != Params.Input[index].Name)
-                        Params.RegisterInputParam(selection[i].ToGH_Param(), index);
-                    index++;
-                }
-                else
-                {
-                    if (index < Params.Input.Count && selection[i].Name == Params.Input[index].Name)
-                        Params.UnregisterInputParameter(Params.Input[index]);
-                }
-            }
-
-            Params.OnParametersChanged();
-            ExpireSolution(true);
-        }
-
-        /*******************************************/
-
-        public void OnOutputSelection(List<IParamUpdate> updates)
-        {
-            List<ParamInfo> selection = Caller.OutputParams;
-
-            int index = 0;
-            for (int i = 0; i < selection.Count; i++)
-            {
-                if (selection[i].IsSelected)
-                {
-                    if (index >= Params.Output.Count || selection[i].Name != Params.Output[index].Name)
-                        Params.RegisterOutputParam(selection[i].ToGH_Param(), index);
-                    index++;
-                }
-                else
-                {
-                    if (index < Params.Output.Count && selection[i].Name == Params.Output[index].Name)
-                        Params.UnregisterOutputParameter(Params.Output[index]);
-                }
-            }
-
-            Params.OnParametersChanged();
-            ExpireSolution(true);
-        }
-
-        /*******************************************/
-
-        public virtual void OnSourceCodeClick(object sender = null, object e = null)
-        {
-            if (Caller != null)
-            {
-                BH.Engine.Reflection.Compute.IOpenHelpPage(Caller.SelectedItem);
-            }
-        }
-
-        /*******************************************/
-
-        public virtual void OnGrasshopperUpdates(object sender, GH_ParamServerEventArgs e)
-        {
-            if (Caller == null)
-                return;
-
-            if (e?.Parameter == null || e?.ParameterIndex == -1 || Caller?.InputParams.Count - 1 < e.ParameterIndex)
-                return;
-
-            // We recompute only if there is no other scheduled solution running or the update does not come from an explode, which will cause a crash
-            // we also avoid recomputing if we just reconnected the same wire
-            bool recompute = this.Phase == GH_SolutionPhase.Computed
-                             && !e.Parameter.Sources.Any(p => p.Attributes.GetTopLevel.DocObject is ExplodeComponent)
-                             && e.Parameter.NickName != Caller.InputParams[e.ParameterIndex].Name;
-
-            // Updating Caller.InputParams based on the new Grasshopper parameter just received
-            // We update the InputParams with the new type or name
-            Caller.UpdateInput(e.ParameterIndex, e.Parameter.NickName, e.Parameter.Type(Caller));
-
-            // and expire because of the changes made
-            ExpireSolution(recompute);
-            return;
-        }
-
-        /*******************************************/
-
-        public virtual bool IsObsolete()
-        {
-            if (this.Caller?.SelectedItem == null)
-                return false;
-
-            return this.Caller.SelectedItem.IIsDeprecated();
-        }
-        
-
-        
-
-        
         /*******************************************/
     }
 }

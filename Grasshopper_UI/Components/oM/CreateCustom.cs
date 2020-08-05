@@ -45,7 +45,7 @@ namespace BH.UI.Grasshopper.Components
 
         public CreateCustomComponent() : base()
         {
-            this.Params.ParameterChanged += OnGrasshopperUpdates;
+            this.Params.ParameterChanged += OnGHParamChanged;
         }
 
 

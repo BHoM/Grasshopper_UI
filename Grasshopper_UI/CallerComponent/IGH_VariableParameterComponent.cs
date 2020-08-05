@@ -21,51 +21,62 @@
  */
 
 using System;
+using System.Linq;
 using Grasshopper.Kernel;
 using BH.oM.Base;
-using BH.UI.Grasshopper.Templates;
-using BH.UI.Base;
-using BH.UI.Base.Components;
-using BH.Engine.Reflection;
-using GH_IO.Serialization;
 using BH.oM.UI;
+using System.Collections.Generic;
+using System.Windows.Forms;
+using BH.UI.Grasshopper.Global;
+using BH.oM.Reflection;
+using Grasshopper.Kernel.Parameters;
+using BH.UI.Grasshopper.Parameters;
+using BH.Engine.Reflection;
+using BH.oM.Geometry;
+using BH.Engine.Grasshopper;
+using BH.UI.Grasshopper.Components;
+using System.Collections;
+using BH.Adapter;
+using BH.oM.Reflection.Debugging;
+using BH.UI.Base;
 
-namespace BH.UI.Grasshopper.Components
+namespace BH.UI.Grasshopper.Templates
 {
-    public class CreateTypeComponent : CallerComponent
+    public abstract partial class CallerComponent : GH_Component, IGH_VariableParameterComponent, IGH_InitCodeAware
     {
         /*******************************************/
-        /**** Properties                        ****/
+        /**** Interface Methods                 ****/
         /*******************************************/
 
-        public override Caller Caller { get; } = new CreateTypeCaller();
-
-
-        /*******************************************/
-        /**** Private Methods                   ****/
-        /*******************************************/
-
-        protected override void OnCallerModified(object sender, CallerUpdate update)
+        public virtual bool CanInsertParameter(GH_ParameterSide side, int index)
         {
-            base.OnCallerModified(sender, update);
-
-            Type type = Caller.SelectedItem as Type;
-            if (type != null)
-                Message = type.ToText();
+            return false;
         }
 
-        /*******************************************/
+        /*************************************/
 
-        public override bool Read(GH_IReader reader)
+        public virtual bool CanRemoveParameter(GH_ParameterSide side, int index)
         {
-            bool success = base.Read(reader);
-
-            Type type = Caller.SelectedItem as Type;
-            if (type != null)
-                Message = type.ToText();
-
-            return success;
+            return false;
         }
+
+        /*************************************/
+
+        public virtual IGH_Param CreateParameter(GH_ParameterSide side, int index)
+        {
+            return new Param_GenericObject();
+        }
+
+        /*************************************/
+
+        public virtual bool DestroyParameter(GH_ParameterSide side, int index)
+        {
+            return true;
+        }
+
+        /*************************************/
+
+        public virtual void VariableParameterMaintenance() { }
 
         /*******************************************/
     }
