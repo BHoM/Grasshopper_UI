@@ -44,44 +44,7 @@ namespace BH.UI.Grasshopper.Components
 
 
         /*******************************************/
-        /**** Public Override Methods           ****/
-        /*******************************************/
-
-        public override bool CanRemoveParameter(GH_ParameterSide side, int index)
-        {
-            return side == GH_ParameterSide.Output;
-        }
-
-        /*******************************************/
-
-        public override bool DestroyParameter(GH_ParameterSide side, int index)
-        {
-            if (side == GH_ParameterSide.Input)
-                return true;
-
-            if (Params.Output.Count <= index)
-                return true;
-
-            // Updating the caller with the parameter that Grasshopper just removed
-            ExplodeCaller caller = Caller as ExplodeCaller;
-            if (caller != null)
-                caller.RemoveOutput(Params.Output[index].NickName);
-
-            return true;
-        }
-
-        /*******************************************/
-
-        public void OnBHoMUpdates(object sender = null, object e = null)
-        {
-            RecordUndoEvent("OnBHoMUpdates");
-            // Forces the component to update
-            this.OnGHParamChanged();
-            this.RegisterOutputParams();
-            this.Params.OnParametersChanged();
-            this.ExpireSolution(true);
-        }
-
+        /**** Override Methods                  ****/
         /*******************************************/
 
         protected override void OnGHParamChanged(object sender = null, GH_ParamServerEventArgs e = null)
@@ -92,14 +55,40 @@ namespace BH.UI.Grasshopper.Components
 
             ExplodeCaller caller = Caller as ExplodeCaller;
             caller.CollectOutputTypes(data);
+
+            List<ParamInfo> outputs = Caller.OutputParams.Where(x => x.IsSelected).ToList();
+            if (outputs.Count != Params.Input.Count || outputs.Zip(Params.Input, (x, y) => x.Name != y.NickName).Any())
+            {
+                if (Params.Output.Any(x => x.Recipients.Count() > 0))
+                {
+                    Engine.Reflection.Compute.RecordWarning("Output parameters do not match object properties.\n"
+                        + "Some outputs are currently connected so the component will not update automatically.\n"
+                        + "Please click <Update Outputs> in the component menu if you wish to update anyways");
+                    Helpers.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
+                }
+                else
+                    RegisterOutputParams(null);
+            }
         }
 
 
         /*******************************************/
-        /**** Protected Override Methods        ****/
+        /**** Old Methods                       ****/
         /*******************************************/
 
-        protected override void BeforeSolveInstance()
+        /*public void OnBHoMUpdates(object sender = null, object e = null)
+        {
+            RecordUndoEvent("OnBHoMUpdates");
+            // Forces the component to update
+            this.OnGHParamChanged();
+            this.RegisterOutputParams();
+            this.Params.OnParametersChanged();
+            this.ExpireSolution(true);
+        }*/
+
+        /*******************************************/
+
+        /*protected override void BeforeSolveInstance()
         {
             base.BeforeSolveInstance();
 
@@ -108,19 +97,19 @@ namespace BH.UI.Grasshopper.Components
 
             if (((ExplodeCaller)Caller).IsAllowedToUpdate())
                 this.OnGHParamChanged();   
-        }
+        }*/
 
         /*******************************************/
 
-        protected override void SolveInstance(IGH_DataAccess DA)
+        /*protected override void SolveInstance(IGH_DataAccess DA)
         {
             if (!this.IsExpired())
                 base.SolveInstance(DA);
-        }
+        }*/
 
         /*******************************************/
 
-        protected override void AfterSolveInstance()
+        /*protected override void AfterSolveInstance()
         {
             if (Caller.OutputParams.Count != 0 && Params.Output.Count == 0)
             {
@@ -141,52 +130,15 @@ namespace BH.UI.Grasshopper.Components
             }
 
             base.AfterSolveInstance();
-        }
+        }*/
 
         /*******************************************/
 
-        protected override void AppendAdditionalComponentMenuItems(ToolStripDropDown menu)
+        /*protected override void AppendAdditionalComponentMenuItems(ToolStripDropDown menu)
         {
             Menu_AppendItem(menu, "Update Outputs", OnBHoMUpdates);
             base.AppendAdditionalComponentMenuItems(menu);
-        }
-
-
-        /*******************************************/
-        /**** Private Methods                   ****/
-        /*******************************************/
-
-        private bool IsExpired()
-        {
-            if (Params.Input.Count == 1 && (Params.Input[0].SourceCount == 0 || Params.Input[0].VolatileDataCount == 0)) // Nothing plugged in or empty structure
-            {
-                return false;
-            }
-
-            List<ParamInfo> selection = Caller.OutputParams.Where(x => x.IsSelected).ToList();
-
-            if (selection.Count == 0 || Params.Output.Count == 0) 
-            {
-                return true;
-            }
-
-            if (selection.Count != Params.Output.Count)
-            {
-                return true;
-            }
-
-            bool expired = false;
-            for (int i = 0; i < selection.Count; i++)
-            {
-                expired |= selection[i].Name != Params.Output[i].NickName;
-                expired |= selection[i].Description != Params.Output[i].Description;
-                if (expired)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+        }*/
 
         /*******************************************/
     }

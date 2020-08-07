@@ -72,43 +72,6 @@ namespace BH.UI.Grasshopper.Templates
         /**** Public Methods                    ****/
         /*******************************************/
 
-        public virtual void OnSourceCodeClick(object sender = null, object e = null)
-        {
-            if (this.Attributes.IsTopLevel)
-            {
-                T obj = this.m_data.get_FirstItem(true);
-
-                if (obj != null)
-                {
-                    //Using reflection as GH_Goo requires generic type constraints that can not be set on the level of the class
-                    object value = obj.PropertyValue("Value");
-                    if (value != null)
-                    {
-                        BH.Engine.Reflection.Compute.OpenHelpPage(value.GetType());
-                    }
-                }
-            }
-            else if (typeof(CallerComponent).IsAssignableFrom(this.Attributes.GetTopLevel.DocObject.GetType()))
-            {
-                CallerComponent parent = this.Attributes.GetTopLevel.DocObject as CallerComponent;
-                if (parent.Caller != null && parent.Caller.SelectedItem is MethodInfo)
-                {
-                    Type type = null;
-                    if (parent.Params.IsInputParam(this))
-                    {
-                        type = parent.Caller.InputParams.Find(p => p.Name == this.NickName).DataType;
-                    }
-                    else if (parent.Params.IsOutputParam(this))
-                    {
-                        type = parent.Caller.OutputParams.FirstOrDefault()?.DataType;
-                    }
-                    BH.Engine.Reflection.Compute.OpenHelpPage(type);
-                }
-            }
-        }
-
-        /*******************************************/
-
         public virtual void OnMaxItemsPreviewChange(GH_MenuTextBox sender, string text)
         {
             int parsed;
@@ -190,7 +153,6 @@ namespace BH.UI.Grasshopper.Templates
         {
             base.AppendAdditionalMenuItems(menu);
             Menu_AppendSeparator(menu);
-            Menu_AppendItem(menu, "Source code", OnSourceCodeClick, Properties.Resources.BHoM_Logo);
             Menu_AppendItem(menu, "Force preview", OnForcePreviewClick, true, m_ForcePreview);
             Menu_AppendItem(menu, "Max items to preview");
             Menu_AppendTextItem(menu, m_MaxItemsPreview.ToString(), null, OnMaxItemsPreviewChange, false);
