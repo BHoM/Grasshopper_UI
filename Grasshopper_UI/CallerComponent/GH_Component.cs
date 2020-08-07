@@ -159,6 +159,22 @@ namespace BH.UI.Grasshopper.Templates
         }
 
         /*******************************************/
+
+        protected override void RegisterInputParams(GH_InputParamManager pManager = null)
+        {
+            foreach (ParamInfo info in Caller.InputParams.Where(x => x.IsSelected))
+                Params.RegisterInputParam(info.ToGH_Param());
+        }
+
+        /*******************************************/
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager = null)
+        {
+            foreach (ParamInfo info in Caller.OutputParams.Where(x => x.IsSelected))
+                Params.RegisterOutputParam(info.ToGH_Param());
+        }
+
+        /*******************************************/
     }
 }
 
