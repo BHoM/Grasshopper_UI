@@ -145,11 +145,105 @@ namespace BH.UI.Grasshopper.Templates
 
         /*******************************************/
 
-        public virtual void OnSourceCodeClick(object sender = null, object e = null)
+        protected override void RegisterInputParams(GH_InputParamManager pManager = null)
         {
-            if (Caller != null)
+            if (Caller == null)
+                return;
+
+            List<ParamInfo> inputs = Caller.InputParams;
+
+            if (Caller.WasUpgraded)
             {
-                BH.Engine.Reflection.Compute.IOpenHelpPage(Caller.SelectedItem);
+                Type fragmentType = typeof(ParamOldIndexFragment);
+                List<IGH_Param> oldParams = Params.Input.ToList();
+                Params.Input.Clear();
+                for (int i = 0; i < inputs.Count; i++)
+                {
+                    ParamOldIndexFragment fragment = null;
+                    if (inputs[i].Fragments.Contains(fragmentType))
+                        fragment = inputs[i].Fragments[fragmentType] as ParamOldIndexFragment;
+
+                    if (fragment == null || fragment.OldIndex < 0)
+                        Params.RegisterInputParam(inputs[i].ToGH_Param());
+                    else
+                        Params.RegisterInputParam(oldParams[fragment.OldIndex]);
+                }
+            }
+            else
+            {
+                int nbNew = inputs.Count;
+                int nbOld = Params.Input.Count;
+
+                for (int i = 0; i < Math.Min(nbNew, nbOld); i++)
+                {
+                    IGH_Param newParam = inputs[i].ToGH_Param();
+                    if (newParam.GetType() != Params.Input[i].GetType())
+                        Params.Input[i] = newParam;
+                }
+
+                for (int i = nbOld - 1; i >= nbNew; i--)
+                    Params.UnregisterInputParameter(Params.Input[i]);
+
+                for (int i = nbOld; i < nbNew; i++)
+                    Params.RegisterInputParam(inputs[i].ToGH_Param());
+            }
+
+        }
+
+        /*******************************************/
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager = null)
+        {
+            if (Caller == null)
+                return;
+
+            List<ParamInfo> outputs = Caller.OutputParams.Where(x => x.IsSelected).ToList();
+
+            if (Caller.WasUpgraded)
+            {
+                Type fragmentType = typeof(ParamOldIndexFragment);
+                List<IGH_Param> oldParams = Params.Output.ToList();
+                Params.Output.Clear();
+                for (int i = 0; i < outputs.Count; i++)
+                {
+                    ParamOldIndexFragment fragment = null;
+                    if (outputs[i].Fragments.Contains(fragmentType))
+                        fragment = outputs[i].Fragments[fragmentType] as ParamOldIndexFragment;
+
+                    if (fragment == null || fragment.OldIndex < 0)
+                        Params.RegisterOutputParam(outputs[i].ToGH_Param());
+                    else
+                        Params.RegisterOutputParam(oldParams[fragment.OldIndex]);
+                }
+            }
+            else
+            {
+                int nbNew = outputs.Count;
+                int nbOld = Params.Output.Count;
+
+                for (int i = 0; i < Math.Min(nbNew, nbOld); i++)
+                {
+                    IGH_Param oldParam = Params.Output[i];
+                    IGH_Param newParam = outputs[i].ToGH_Param();
+                    if (newParam.GetType() != oldParam.GetType() || newParam.NickName != oldParam.NickName)
+                    {
+                        foreach (IGH_Param source in oldParam.Sources)
+                            newParam.AddSource(source);
+                        foreach (IGH_Param target in oldParam.Recipients)
+                            target.AddSource(newParam);
+
+                        oldParam.IsolateObject();
+                        Params.Output[i] = newParam;
+                    }
+                    else if (newParam.Description != oldParam.Description)
+                        oldParam.Description = newParam.Description;
+                }
+
+                for (int i = nbOld - 1; i >= nbNew; i--)
+                    Params.UnregisterOutputParameter(Params.Output[i]);
+
+                for (int i = nbOld; i < nbNew; i++)
+                    Params.RegisterOutputParam(outputs[i].ToGH_Param());
             }
         }
 

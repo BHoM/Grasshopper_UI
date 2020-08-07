@@ -42,13 +42,14 @@ namespace BH.UI.Grasshopper.Components
 
 
         /*******************************************/
-        /**** Private Methods                   ****/
+        /**** Override Methods                  ****/
         /*******************************************/
 
         protected override void OnCallerModified(object sender, CallerUpdate update)
         {
             base.OnCallerModified(sender, update);
 
+            // Adding a tag under the component
             Type type = Caller.SelectedItem as Type;
             if (type != null)
                 Message = type.ToText();
@@ -60,6 +61,7 @@ namespace BH.UI.Grasshopper.Components
         {
             bool success = base.Read(reader);
 
+            // Adding a tag under the component
             Type type = Caller.SelectedItem as Type;
             if (type != null)
                 Message = type.ToText();

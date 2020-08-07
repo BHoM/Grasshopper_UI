@@ -53,7 +53,6 @@ namespace BH.UI.Grasshopper.Templates
             object item = BH.Engine.Serialiser.Convert.FromJson(code);
             if (item != null)
                 Caller.SetItem(item);
-            this.OnItemSelected();
         }
 
         /*******************************************/

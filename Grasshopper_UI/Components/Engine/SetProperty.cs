@@ -43,7 +43,6 @@ namespace BH.UI.Grasshopper.Components
 
         public SetPropertyComponent() : base()
         {
-            this.Params.ParameterChanged += OnGHParamChanged;
             if (Params.Input.Count > 2)
             {
                 Param_ScriptVariable paramScript = Params.Input[2] as Param_ScriptVariable;

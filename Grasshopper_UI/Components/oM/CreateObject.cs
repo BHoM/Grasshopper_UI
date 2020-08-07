@@ -42,33 +42,6 @@ namespace BH.UI.Grasshopper.Components
 
 
         /*******************************************/
-        /**** Override Methods                  ****/
-        /*******************************************/
-
-        public override bool CanRemoveParameter(GH_ParameterSide side, int index)
-        {
-            return side == GH_ParameterSide.Input && Caller.SelectedItem is Type;
-        }
-
-        /*******************************************/
-
-        public override bool DestroyParameter(GH_ParameterSide side, int index)
-        {
-            if (side == GH_ParameterSide.Output)
-                return true;
-
-            if (Params.Input.Count <= index)
-                return true;
-
-            // Updating the caller with the parameter that Grasshopper just removed
-            CreateObjectCaller caller = Caller as CreateObjectCaller;
-            if (caller != null)
-                caller.RemoveInput(Params.Input[index].NickName);
-            return true;
-        }
-
-
-        /*******************************************/
     }
 }
 

@@ -45,6 +45,8 @@ namespace BH.UI.Grasshopper.Components
         protected override void RegisterInputParams(GH_InputParamManager pManager = null)
         {
             base.RegisterInputParams(pManager);
+
+            // Set the object input as flatten by default
             if (pManager != null && Params.Input.Count > 1)
                 pManager[1].DataMapping = GH_DataMapping.Flatten;
         }
