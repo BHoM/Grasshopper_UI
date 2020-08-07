@@ -56,7 +56,7 @@ namespace BH.UI.Grasshopper.Components
             ExplodeCaller caller = Caller as ExplodeCaller;
             caller.CollectOutputTypes(data);
 
-            List<ParamInfo> outputs = Caller.OutputParams.Where(x => x.IsSelected).ToList();
+            /*List<ParamInfo> outputs = Caller.OutputParams.Where(x => x.IsSelected).ToList();
             if (outputs.Count != Params.Input.Count || outputs.Zip(Params.Input, (x, y) => x.Name != y.NickName).Any())
             {
                 if (Params.Output.Any(x => x.Recipients.Count() > 0))
@@ -68,7 +68,7 @@ namespace BH.UI.Grasshopper.Components
                 }
                 else
                     RegisterOutputParams(null);
-            }
+            }*/
         }
 
 
