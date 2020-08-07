@@ -53,198 +53,157 @@ namespace BH.UI.Grasshopper.Templates
             if (update == null)
                 return;
 
-            switch (update.Cause)
-            {
-                case CallerUpdateCause.ItemSelected:
-                    OnItemSelected(sender, update);
-                    return;
-                case CallerUpdateCause.InputSelection:
-                    OnInputSelection(update.InputUpdates);
-                    return;
-                case CallerUpdateCause.OutputSelection:
-                    OnOutputSelection(update.OutputUpdates);
-                    return;
-                case CallerUpdateCause.ReadFromSave:
-                    OnInputSelection(update.InputUpdates);
-                    OnOutputSelection(update.OutputUpdates);
-                    break;
-                default:
-                    return;
-            }
+            // Update the component details
+            UpdateComponentDetails(update.ComponentUpdate);
 
+            // Update the inputs
+            update.InputUpdates.ForEach(x => UpdateInput(x as dynamic));
+
+            // Update the outputs
+            update.OutputUpdates.ForEach(x => UpdateOutput(x as dynamic));
+
+            // Ask component to refresh
+            Params.OnParametersChanged();
+            ExpireSolution(true);
         }
+
+        /*******************************************/
+        /**** Component Update Methods          ****/
+        /*******************************************/
+
+        protected virtual void UpdateComponentDetails(ComponentUpdate update)
+        {
+            if (update != null)
+            {
+                Name = update.Name;
+                NickName = update.Name;
+                Description = update.Description;
+            }
+        }
+
+
+        /*******************************************/
+        /**** Input Update Methods              ****/
+        /*******************************************/
+
+        protected virtual void UpdateInput(ParamAdded update)
+        {
+            Params.RegisterInputParam(update.Param.ToGH_Param(), update.Index);
+        }
+
+        /*******************************************/
+
+        protected virtual void UpdateInput(ParamRemoved update)
+        {
+            IGH_Param match = Params.Input.Find(x => x.Name == update.Name);
+            if (match != null)
+                Params.UnregisterInputParameter(match);
+        }
+
+        /*******************************************/
+
+        protected virtual void UpdateInput(ParamUpdated update)
+        {
+            int index = Params.Input.FindIndex(x => x.Name == update.Name);
+            if (index >= 0)
+            {
+                IGH_Param oldParam = Params.Input[index];
+                IGH_Param newParam = update.Param.ToGH_Param();
+
+                MoveLinks(oldParam, newParam);
+                Params.UnregisterInputParameter(oldParam);
+                Params.RegisterInputParam(newParam, index);
+            }    
+        }
+
+        /*******************************************/
+
+        protected virtual void UpdateInput(ParamMoved update)
+        {
+            int index = Params.Input.FindIndex(x => x.Name == update.Name);
+            if (index >= 0)
+            {
+                IGH_Param param = Params.Input[index];
+                Params.Input.RemoveAt(index);
+                Params.Input.Insert(update.Index, param);
+            }
+        }
+
+        /*******************************************/
+
+        protected virtual void UpdateInput(IParamUpdate update)
+        {
+            // Do nothing
+        }
+
+
+        /*******************************************/
+        /**** Output Update Methods             ****/
+        /*******************************************/
+
+        protected virtual void UpdateOutput(ParamAdded update)
+        {
+            Params.RegisterOutputParam(update.Param.ToGH_Param(), update.Index);
+        }
+
+        /*******************************************/
+
+        protected virtual void UpdateOutput(ParamRemoved update)
+        {
+            IGH_Param match = Params.Output.Find(x => x.Name == update.Name);
+            if (match != null)
+                Params.UnregisterOutputParameter(match);
+        }
+
+        /*******************************************/
+
+        protected virtual void UpdateOutput(ParamUpdated update)
+        {
+            int index = Params.Output.FindIndex(x => x.Name == update.Name);
+            if (index >= 0)
+            {
+                IGH_Param oldParam = Params.Output[index];
+                IGH_Param newParam = update.Param.ToGH_Param();
+
+                MoveLinks(oldParam, newParam);
+                Params.UnregisterOutputParameter(oldParam);
+                Params.RegisterOutputParam(newParam, index);
+            }
+        }
+
+        /*******************************************/
+
+        protected virtual void UpdateOutput(ParamMoved update)
+        {
+            int index = Params.Output.FindIndex(x => x.Name == update.Name);
+            if (index >= 0)
+            {
+                IGH_Param param = Params.Output[index];
+                Params.Output.RemoveAt(index);
+                Params.Output.Insert(update.Index, param);
+            }
+        }
+
+        /*******************************************/
+
+        protected virtual void UpdateOutput(IParamUpdate update)
+        {
+            // Do nothing
+        }
+
 
         /*******************************************/
         /**** Helper Methods                    ****/
         /*******************************************/
 
-        protected virtual void OnItemSelected(object sender = null, CallerUpdate update = null)
+        protected virtual void MoveLinks(IGH_Param oldParam, IGH_Param newParam)
         {
-            Name = Caller.Name;
-            NickName = Caller.Name;
-            Description = Caller.Description;
-
-            this.RegisterInputParams(null); // Cannot use PostConstructor() here since it calls CreateAttributes() without attributes, resetting the stored ones
-            this.RegisterOutputParams(null); // We call its bits individually: input, output 
-            this.Params.OnParametersChanged(); // and ask to update the layout with OnParametersChanged()
-
-            this.ExpireSolution(true);
-        }
-
-        /*******************************************/
-
-        protected void OnInputSelection(List<IParamUpdate> updates)
-        {
-            List<ParamInfo> selection = Caller.InputParams;
-
-            int index = 0;
-            for (int i = 0; i < selection.Count; i++)
-            {
-                if (selection[i].IsSelected)
-                {
-                    if (index >= Params.Input.Count || selection[i].Name != Params.Input[index].Name)
-                        Params.RegisterInputParam(selection[i].ToGH_Param(), index);
-                    index++;
-                }
-                else
-                {
-                    if (index < Params.Input.Count && selection[i].Name == Params.Input[index].Name)
-                        Params.UnregisterInputParameter(Params.Input[index]);
-                }
-            }
-
-            Params.OnParametersChanged();
-            ExpireSolution(true);
-        }
-
-        /*******************************************/
-
-        protected void OnOutputSelection(List<IParamUpdate> updates)
-        {
-            List<ParamInfo> selection = Caller.OutputParams;
-
-            int index = 0;
-            for (int i = 0; i < selection.Count; i++)
-            {
-                if (selection[i].IsSelected)
-                {
-                    if (index >= Params.Output.Count || selection[i].Name != Params.Output[index].Name)
-                        Params.RegisterOutputParam(selection[i].ToGH_Param(), index);
-                    index++;
-                }
-                else
-                {
-                    if (index < Params.Output.Count && selection[i].Name == Params.Output[index].Name)
-                        Params.UnregisterOutputParameter(Params.Output[index]);
-                }
-            }
-
-            Params.OnParametersChanged();
-            ExpireSolution(true);
-        }
-
-        /*******************************************/
-
-        protected override void RegisterInputParams(GH_InputParamManager pManager = null)
-        {
-            if (Caller == null)
-                return;
-
-            List<ParamInfo> inputs = Caller.InputParams;
-
-            if (Caller.WasUpgraded)
-            {
-                Type fragmentType = typeof(ParamOldIndexFragment);
-                List<IGH_Param> oldParams = Params.Input.ToList();
-                Params.Input.Clear();
-                for (int i = 0; i < inputs.Count; i++)
-                {
-                    ParamOldIndexFragment fragment = null;
-                    if (inputs[i].Fragments.Contains(fragmentType))
-                        fragment = inputs[i].Fragments[fragmentType] as ParamOldIndexFragment;
-
-                    if (fragment == null || fragment.OldIndex < 0)
-                        Params.RegisterInputParam(inputs[i].ToGH_Param());
-                    else
-                        Params.RegisterInputParam(oldParams[fragment.OldIndex]);
-                }
-            }
-            else
-            {
-                int nbNew = inputs.Count;
-                int nbOld = Params.Input.Count;
-
-                for (int i = 0; i < Math.Min(nbNew, nbOld); i++)
-                {
-                    IGH_Param newParam = inputs[i].ToGH_Param();
-                    if (newParam.GetType() != Params.Input[i].GetType())
-                        Params.Input[i] = newParam;
-                }
-
-                for (int i = nbOld - 1; i >= nbNew; i--)
-                    Params.UnregisterInputParameter(Params.Input[i]);
-
-                for (int i = nbOld; i < nbNew; i++)
-                    Params.RegisterInputParam(inputs[i].ToGH_Param());
-            }
-
-        }
-
-        /*******************************************/
-
-        protected override void RegisterOutputParams(GH_OutputParamManager pManager = null)
-        {
-            if (Caller == null)
-                return;
-
-            List<ParamInfo> outputs = Caller.OutputParams.Where(x => x.IsSelected).ToList();
-
-            if (Caller.WasUpgraded)
-            {
-                Type fragmentType = typeof(ParamOldIndexFragment);
-                List<IGH_Param> oldParams = Params.Output.ToList();
-                Params.Output.Clear();
-                for (int i = 0; i < outputs.Count; i++)
-                {
-                    ParamOldIndexFragment fragment = null;
-                    if (outputs[i].Fragments.Contains(fragmentType))
-                        fragment = outputs[i].Fragments[fragmentType] as ParamOldIndexFragment;
-
-                    if (fragment == null || fragment.OldIndex < 0)
-                        Params.RegisterOutputParam(outputs[i].ToGH_Param());
-                    else
-                        Params.RegisterOutputParam(oldParams[fragment.OldIndex]);
-                }
-            }
-            else
-            {
-                int nbNew = outputs.Count;
-                int nbOld = Params.Output.Count;
-
-                for (int i = 0; i < Math.Min(nbNew, nbOld); i++)
-                {
-                    IGH_Param oldParam = Params.Output[i];
-                    IGH_Param newParam = outputs[i].ToGH_Param();
-                    if (newParam.GetType() != oldParam.GetType() || newParam.NickName != oldParam.NickName)
-                    {
-                        foreach (IGH_Param source in oldParam.Sources)
+            foreach(IGH_Param source in oldParam.Sources)
                             newParam.AddSource(source);
-                        foreach (IGH_Param target in oldParam.Recipients)
-                            target.AddSource(newParam);
+            foreach (IGH_Param target in oldParam.Recipients)
+                target.AddSource(newParam);
 
-                        oldParam.IsolateObject();
-                        Params.Output[i] = newParam;
-                    }
-                    else if (newParam.Description != oldParam.Description)
-                        oldParam.Description = newParam.Description;
-                }
-
-                for (int i = nbOld - 1; i >= nbNew; i--)
-                    Params.UnregisterOutputParameter(Params.Output[i]);
-
-                for (int i = nbOld; i < nbNew; i++)
-                    Params.RegisterOutputParam(outputs[i].ToGH_Param());
-            }
+            oldParam.IsolateObject();
         }
 
         /*******************************************/
