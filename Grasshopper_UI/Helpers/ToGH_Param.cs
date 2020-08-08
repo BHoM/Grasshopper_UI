@@ -39,6 +39,7 @@ using System.Collections;
 using BH.Adapter;
 using BH.UI.Grasshopper.Templates;
 using BH.Engine.Grasshopper;
+using Grasshopper.Kernel.Parameters.Hints;
 
 namespace BH.UI.Grasshopper
 {
@@ -98,7 +99,16 @@ namespace BH.UI.Grasshopper
                     else if (typeof(BHoMAdapter).IsAssignableFrom(type))
                         param = new Param_BHoMAdapter();
                     else
-                        param = new Param_ScriptVariable();
+                    {
+                        param = new Param_ScriptVariable
+                        {
+                            TypeHint = new GH_NullHint(),
+                            ShowHints = true,
+                            Hints = Engine.Grasshopper.Query.AvailableHints,
+                            AllowTreeAccess = true
+                        };
+                    }
+                        
                     break;
             }
 

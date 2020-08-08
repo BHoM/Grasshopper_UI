@@ -86,7 +86,10 @@ namespace BH.UI.Grasshopper.Templates
             {
                 NickName = name,
                 Name = name,
-                TypeHint = new GH_NullHint()
+                TypeHint = new GH_NullHint(),
+                ShowHints = true,
+                Hints = Engine.Grasshopper.Query.AvailableHints,
+                AllowTreeAccess = true
             };
 
             // Updating the caller with the parameter that Grasshopper just added
