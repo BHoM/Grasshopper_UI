@@ -119,6 +119,19 @@ namespace BH.UI.Grasshopper.Templates
         }
 
         /*************************************/
+
+        public List<object> GetAllData(int index)
+        {
+            if (Inputs.Count <= index)
+                return new List<object>();
+            else
+            {
+                Inputs[index].CollectData();
+                return Inputs[index].VolatileData.AllData(true).Select(x => x.ScriptVariable()).ToList();
+            }
+        }
+
+        /*************************************/
         /**** Output Setter Methods       ****/
         /*************************************/
 

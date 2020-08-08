@@ -58,7 +58,7 @@ namespace BH.UI.Grasshopper.Templates
 
         public override GH_Exposure Exposure { get { return (GH_Exposure)Math.Pow(2, Caller.GroupIndex); } }
 
-        public override bool Obsolete { get { return (Caller?.SelectedItem == null) ? false : Caller.SelectedItem.IIsDeprecated(); } }
+        public override bool Obsolete { get { return Caller.IsObsolete(); } }
 
 
         /*******************************************/
