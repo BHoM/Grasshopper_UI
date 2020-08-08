@@ -38,24 +38,6 @@ namespace BH.UI.Grasshopper.Components
 
 
         /*******************************************/
-        /**** Constructors                      ****/
-        /*******************************************/
-
-        public SetPropertyComponent() : base()
-        {
-            if (Params.Input.Count > 2)
-            {
-                Param_ScriptVariable paramScript = Params.Input[2] as Param_ScriptVariable;
-                if (paramScript != null)
-                {
-                    paramScript.ShowHints = true;
-                    paramScript.Hints = Engine.Grasshopper.Query.AvailableHints;
-                    paramScript.AllowTreeAccess = true;
-                }
-            }
-        }
-
-        /*******************************************/
     }
 }
 
