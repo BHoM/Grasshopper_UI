@@ -53,63 +53,15 @@ namespace BH.UI.Grasshopper.Templates
             if (Caller == null)
                 return;
 
-            if (e?.Parameter == null || e?.ParameterIndex == -1 || Caller?.InputParams.Count - 1 < e.ParameterIndex)
+            if (e?.Parameter == null || e?.ParameterIndex == -1 || e?.ParameterSide == GH_ParameterSide.Output || Caller?.InputParams.Count - 1 < e.ParameterIndex)
                 return;
-
-            // We recompute only if there is no other scheduled solution running or the update does not come from an explode, which will cause a crash
-            // we also avoid recomputing if we just reconnected the same wire
-            bool recompute = this.Phase == GH_SolutionPhase.Computed
-                             && !e.Parameter.Sources.Any(p => p.Attributes.GetTopLevel.DocObject is ExplodeComponent)
-                             && e.Parameter.NickName != Caller.InputParams[e.ParameterIndex].Name;
 
             // Updating Caller.InputParams based on the new Grasshopper parameter just received
             // We update the InputParams with the new type or name
             Caller.UpdateInput(e.ParameterIndex, e.Parameter.NickName, e.Parameter.Type(Caller));
 
-            // and expire because of the changes made
-            ExpireSolution(recompute);
             return;
         }
-
-
-        /*******************************************/
-        /**** Helper Methods                    ****/
-        /*******************************************/
-
-        /*protected virtual void OnInputParamChanged(object sender, GH_ParamServerEventArgs e)
-        {
-            if (Caller == null)
-                return;
-
-            if (Caller?.InputParams.Count - 1 < e.ParameterIndex)
-                return;
-
-            // We recompute only if there is no other scheduled solution running or the update does not come from an explode, which will cause a crash
-            // we also avoid recomputing if we just reconnected the same wire
-            bool recompute = this.Phase == GH_SolutionPhase.Computed
-                             && !e.Parameter.Sources.Any(p => p.Attributes.GetTopLevel.DocObject is ExplodeComponent)
-                             && e.Parameter.NickName != Caller.InputParams[e.ParameterIndex].Name;
-
-            // Updating Caller.InputParams based on the new Grasshopper parameter just received
-            // We update the InputParams with the new type or name
-            Caller.UpdateInput(e.ParameterIndex, e.Parameter.NickName, e.Parameter.Type(Caller));
-
-            // and expire because of the changes made
-            ExpireSolution(recompute);
-            return;
-        }*/
-
-        /*******************************************/
-
-        /*protected virtual void OnOutputParamChanged(object sender = null, GH_ParamServerEventArgs e = null)
-        {
-            // Update the output params based on input data
-            Params.Input[0].CollectData();
-            List<object> data = Params.Input[0].VolatileData.AllData(true).Select(x => x.ScriptVariable()).ToList();
-
-            ExplodeCaller caller = Caller as ExplodeCaller;
-            caller.CollectOutputTypes(data);
-        }*/
 
         /*******************************************/
     }
