@@ -106,7 +106,7 @@ namespace BH.UI.Grasshopper.Templates
                 GH_ValueListItem item = enumerator.Current;
                 int index = 0;
                 item.Value.CastTo<int>(out index);
-                object result = Caller.Run(new object[] { index });
+                object result = Caller.Run(new List<object> { index });
                 this.m_data.Append(result.IToGoo(), new GH_Path(0));
             }
 
