@@ -165,7 +165,9 @@ namespace BH.UI.Grasshopper.Templates
                 IGH_Param oldParam = Params.Output[index];
                 IGH_Param newParam = update.Param.ToGH_Param();
 
-                MoveLinks(oldParam, newParam);
+                // The Recipient property is still empty at this stage so we need to make sure recipient params are still finding their source 
+                newParam.NewInstanceGuid(oldParam.InstanceGuid); 
+
                 Params.UnregisterOutputParameter(oldParam);
                 Params.RegisterOutputParam(newParam, index);
             }
