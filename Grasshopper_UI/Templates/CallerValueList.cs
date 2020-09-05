@@ -23,6 +23,7 @@
 using System;
 using Rhino;
 using Rhino.Commands;
+using GH = Grasshopper;
 using Grasshopper.Kernel;
 using BH.oM.Base;
 using BH.oM.UI;
@@ -110,7 +111,7 @@ namespace BH.UI.Grasshopper.Templates
                 this.m_data.Append(result.IToGoo(), new GH_Path(0));
             }
 
-            Engine.UI.Compute.LogUsage("Grasshopper", InstanceGuid, Caller.SelectedItem);
+            Engine.UI.Compute.LogUsage("Grasshopper", GH.Versioning.VersionString, InstanceGuid, Caller.Name, Caller.SelectedItem);
         }
 
         /*******************************************/
