@@ -22,6 +22,7 @@
 
 using System;
 using System.Linq;
+using GH = Grasshopper;
 using Grasshopper.Kernel;
 using BH.oM.Base;
 using BH.oM.UI;
@@ -77,6 +78,8 @@ namespace BH.UI.Grasshopper.Templates
             Category = "BHoM";
             SubCategory = Caller.Category;
 
+            
+
             Accessor = new DataAccessor_GH(Params.Input, IsValidPrincipalParameterIndex ? PrincipalParameterIndex : -1);
             Caller.SetDataAccessor(Accessor);
 
@@ -109,7 +112,7 @@ namespace BH.UI.Grasshopper.Templates
             Helpers.ShowEvents(this, events);
 
             if (DA.Iteration == 0)
-                Engine.UI.Compute.LogUsage("Grasshopper", InstanceGuid, Caller.SelectedItem, events);
+                Engine.UI.Compute.LogUsage("Grasshopper", GH.Versioning.VersionString, InstanceGuid, Caller.Name, Caller.SelectedItem, events);
         }
 
         /*******************************************/
