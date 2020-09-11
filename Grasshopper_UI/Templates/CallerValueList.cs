@@ -111,7 +111,7 @@ namespace BH.UI.Grasshopper.Templates
                 this.m_data.Append(result.IToGoo(), new GH_Path(0));
             }
 
-            Engine.UI.Compute.LogUsage("Grasshopper", GH.Versioning.VersionString, InstanceGuid, Caller.Name, Caller.SelectedItem);
+            Engine.UI.Compute.LogUsage("Grasshopper", GH.Versioning.VersionString, InstanceGuid, Caller.GetType().Name, Caller.SelectedItem);
         }
 
         /*******************************************/
