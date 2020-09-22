@@ -37,7 +37,7 @@ namespace BH.UI.Grasshopper
         /**** Public Methods              ****/
         /*************************************/
 
-        public static void ShowEvents(GH_ActiveObject component, List<Event> events)
+        public static void ShowEvents(GH_ActiveObject component, List<Event> events, bool clearShownEvents = true)
         {
             if (events.Count > 0)
             {
@@ -65,6 +65,9 @@ namespace BH.UI.Grasshopper
                     foreach (Event e in notes)
                         component.AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, e.Message);
                 }
+
+                if (clearShownEvents)
+                    Engine.Reflection.Compute.ClearCurrentEvents();
             }
         }
 
