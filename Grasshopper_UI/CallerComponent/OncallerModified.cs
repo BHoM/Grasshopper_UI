@@ -88,7 +88,18 @@ namespace BH.UI.Grasshopper.Templates
 
         protected virtual void UpdateInput(ParamAdded update)
         {
-            Params.RegisterInputParam(update.Param.ToGH_Param(), update.Index);
+            IGH_Param newParam = update.Param.ToGH_Param();
+
+            // If there is already a param with the same name, delete it but keep the wire connections
+            // Same approach as `UpdateInput(ParamUpdated update)` but with index provided by ParamAdded
+            IGH_Param match = Params.Input.Find(x => x.Name == update.Name);
+            if (match != null)
+            {
+                MoveLinks(match, newParam);
+                Params.UnregisterInputParameter(match);
+            }
+
+            Params.RegisterInputParam(newParam, update.Index);
         }
 
         /*******************************************/
@@ -143,7 +154,18 @@ namespace BH.UI.Grasshopper.Templates
 
         protected virtual void UpdateOutput(ParamAdded update)
         {
-            Params.RegisterOutputParam(update.Param.ToGH_Param(), update.Index);
+            IGH_Param newParam = update.Param.ToGH_Param();
+
+            // If there is already a param with the same name, delete it but keep the wire connections
+            // Same approach as `UpdateOutput(ParamUpdated update)` but with index provided by ParamAdded
+            IGH_Param match = Params.Output.Find(x => x.Name == update.Name);
+            if (match != null)
+            {
+                newParam.NewInstanceGuid(match.InstanceGuid);
+                Params.UnregisterOutputParameter(match);
+            }
+
+            Params.RegisterOutputParam(newParam, update.Index);
         }
 
         /*******************************************/
