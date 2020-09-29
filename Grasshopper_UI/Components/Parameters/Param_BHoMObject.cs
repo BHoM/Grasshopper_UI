@@ -22,11 +22,15 @@
 
 using BH.UI.Grasshopper.Properties;
 using BH.UI.Grasshopper.Templates;
+using Grasshopper.Kernel;
 using System;
+using Rhino;
+using Rhino.DocObjects;
+using System.Collections.Generic;
 
 namespace BH.UI.Grasshopper.Parameters
 {
-    public class Param_BHoMObject : BHoMParam<Engine.Grasshopper.Objects.GH_BHoMObject>
+    public class Param_BHoMObject : BHoMParam<Engine.Grasshopper.Objects.GH_BHoMObject>, IGH_BakeAwareObject
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -38,6 +42,33 @@ namespace BH.UI.Grasshopper.Parameters
 
         public override string TypeName { get; } = "BHoM Object";
 
+        public bool IsBakeCapable { get; } = true;
+
+        /***************************************************/
+        /**** IGH_BakeAwareObject methods               ****/
+        /***************************************************/
+
+        public void BakeGeometry(RhinoDoc doc, List<Guid> obj_ids)
+        {
+            foreach (Engine.Grasshopper.Objects.GH_BHoMObject item in this.VolatileData.AllData(true))
+            {
+                Guid guid;
+                if (item.BakeGeometry(doc, null, out guid))
+                    obj_ids.Add(guid);
+            }
+        }
+
+        /*******************************************/
+
+        public void BakeGeometry(RhinoDoc doc, ObjectAttributes att, List<Guid> obj_ids)
+        {
+            foreach (Engine.Grasshopper.Objects.GH_BHoMObject item in this.VolatileData.AllData(true))
+            {
+                Guid guid;
+                if (item.BakeGeometry(doc, att, out guid))
+                    obj_ids.Add(guid);
+            }
+        }
 
         /*******************************************/
         /**** Constructors                      ****/
@@ -46,8 +77,10 @@ namespace BH.UI.Grasshopper.Parameters
         public Param_BHoMObject() : base("BHoM object", "BHoM", "Represents a collection of generic BHoM objects", "Params", "Primitive")
         {
         }
+
+        /*******************************************/
+
     }
 
-    /*******************************************/
 }
 
