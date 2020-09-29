@@ -36,7 +36,7 @@ using BH.Engine.Serialiser;
 
 namespace BH.Engine.Grasshopper.Objects
 {
-    public class GH_BHoMObject : GH_BHoMGoo<object>, IGH_PreviewData, GH_ISerializable
+    public class GH_BHoMObject : GH_BHoMGoo<object>, IGH_PreviewData, IGH_BakeAwareData, GH_ISerializable
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -208,6 +208,29 @@ namespace BH.Engine.Grasshopper.Objects
             }
         }
 
+        /***************************************************/
+        /**** IGH_BakeAwareData methods                 ****/
+        /***************************************************/
+
+        public bool BakeGeometry(RhinoDoc doc, ObjectAttributes att, out Guid obj_guid)
+        {
+            if (m_RhinoGeometry != null)
+            {
+                if (att == null)
+                    att = new ObjectAttributes();
+
+                BHoMObject bhObj = Value as BHoMObject;
+
+                if (string.IsNullOrEmpty(att.Name) && bhObj != null && !string.IsNullOrWhiteSpace(bhObj.Name))
+                    att.Name = bhObj.Name;
+
+                obj_guid = doc.Objects.Add(GH_Convert.ToGeometryBase(m_RhinoGeometry), att);
+                return true;
+            }
+
+            obj_guid = Guid.Empty;
+            return false;
+        }
 
         /***************************************************/
         /**** Private Fields                            ****/
