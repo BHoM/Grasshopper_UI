@@ -125,7 +125,7 @@ namespace BH.UI.Grasshopper
 
             try
             {
-                if (info.HasDefaultValue)
+                if (info.HasDefaultValue && !info.IsRequired)
                     ((dynamic)param).SetPersistentData(info.DefaultValue.IToGoo());
             }
             catch { }
