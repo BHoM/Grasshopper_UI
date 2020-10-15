@@ -116,7 +116,7 @@ namespace BH.UI.Grasshopper
             param.Description = info.Description;
             param.Name = info.Name;
             param.NickName = info.Name;
-            param.Optional = info.HasDefaultValue;
+            param.Optional = !info.IsRequired;
 
             //TODO: Is it necessary to react to param.AttributesChanged ?
 
