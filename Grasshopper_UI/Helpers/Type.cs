@@ -22,15 +22,16 @@
 
 using BH.UI.Base;
 using BH.UI.Base.Components;
+using BH.UI.Grasshopper.Parameters;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Parameters;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace BH.Engine.Grasshopper
+namespace BH.UI.Grasshopper
 {
-    public static partial class Query
+    public static partial class Helpers
     {
         /***************************************************/
         /**** Public Fields                             ****/
@@ -42,8 +43,8 @@ namespace BH.Engine.Grasshopper
             if (param == null)
                 return typeof(object);
 
-            if (param is Param_ScriptVariable)
-                type = Type(((Param_ScriptVariable)param).TypeHint, param.Access);
+            if (param is Param_Variable)
+                type = Type(((Param_Variable)param).SelectedHint, param.Access);
             else if (caller != null)
                 type = caller.InputParams.Find(x => x.Name == param.NickName)?.DataType;
             else

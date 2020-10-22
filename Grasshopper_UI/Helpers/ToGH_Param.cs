@@ -100,12 +100,10 @@ namespace BH.UI.Grasshopper
                         param = new Param_BHoMAdapter();
                     else
                     {
-                        param = new Param_ScriptVariable
+                        param = new Param_Variable
                         {
-                            TypeHint = new GH_NullHint(),
-                            ShowHints = true,
-                            Hints = Engine.Grasshopper.Query.AvailableHints,
-                            AllowTreeAccess = true
+                            SelectedHint = new GH_NullHint(),
+                            PossibleHints = Engine.Grasshopper.Query.AvailableHints,
                         };
                     }
                         

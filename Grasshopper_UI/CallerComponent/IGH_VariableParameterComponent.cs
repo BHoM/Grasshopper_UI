@@ -82,14 +82,12 @@ namespace BH.UI.Grasshopper.Templates
         public virtual IGH_Param CreateParameter(GH_ParameterSide side, int index)
         {
             string name = GH_ComponentParamServer.InventUniqueNickname("xyzuvw", this.Params.Input);
-            Param_ScriptVariable param = new Param_ScriptVariable
+            Param_Variable param = new Param_Variable
             {
                 NickName = name,
                 Name = name,
-                TypeHint = new GH_NullHint(),
-                ShowHints = true,
-                Hints = Engine.Grasshopper.Query.AvailableHints,
-                AllowTreeAccess = true
+                SelectedHint = new GH_NullHint(),
+                PossibleHints = Engine.Grasshopper.Query.AvailableHints,
             };
 
             // Updating the caller with the parameter that Grasshopper just added
@@ -124,12 +122,10 @@ namespace BH.UI.Grasshopper.Templates
         {
             foreach (IGH_Param param in Params.Input)
             {
-                Param_ScriptVariable paramScript = param as Param_ScriptVariable;
+                Param_Variable paramScript = param as Param_Variable;
                 if (paramScript != null)
                 {
-                    paramScript.ShowHints = true;
-                    paramScript.Hints = Engine.Grasshopper.Query.AvailableHints;
-                    paramScript.AllowTreeAccess = true;
+                    paramScript.PossibleHints = Engine.Grasshopper.Query.AvailableHints;
                 }
             }
         }

@@ -158,10 +158,12 @@
     <Compile Include="Components\Adapter\Move.cs" />
     <Compile Include="Components\Adapter\Push.cs" />
     <Compile Include="Components\Parameters\Param_BHoMAdapter.cs" />
+    <Compile Include="Components\Parameters\Param_Variable.cs" />
     <Compile Include="Global\WireInfo.cs" />
     <Compile Include="Components\UI\Cluster2Node.cs" />
     <Compile Include="Helpers\ToGH_Param.cs" />
     <Compile Include="Helpers\Logging.cs" />
+    <Compile Include="Helpers\Type.cs" />
     <Compile Include="Templates\BHoMParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Components\Engine\Explode.cs" />
@@ -196,6 +198,7 @@
     </Compile>
     <Compile Include="CallerComponent\GH_Component.cs" />
     <Compile Include="Templates\IBHoMParam.cs" />
+    <Compile Include="Templates\BakeableParam.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -294,6 +297,8 @@
     <Content Include="Properties\Resources\FromJson.png" />
     <None Include="Properties\Resources\IBHoMGeometry_Param.png" />
     <None Include="Properties\Resources\IObject_Param.png" />
+    <None Include="Properties\Resources\ItemAccess.png" />
+    <None Include="Properties\Resources\ListAccess.png" />
     <Content Include="Properties\Resources\Modify.png" />
     <Content Include="Properties\Resources\Move.png" />
     <Content Include="Properties\Resources\Pull.png" />
@@ -301,6 +306,7 @@
     <Content Include="Properties\Resources\Query.png" />
     <Content Include="Properties\Resources\QueryAdapter.png" />
     <Content Include="Properties\Resources\ToJson.png" />
+    <None Include="Properties\Resources\TreeAccess.png" />
     <Content Include="Properties\Resources\Type.png" />
     <None Include="Properties\Resources\Type_Param.png" />
     <Content Include="Properties\Resources\UpdateProperty.png" />

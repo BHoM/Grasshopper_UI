@@ -34,6 +34,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel.Parameters;
 using BH.oM.UI;
+using BH.UI.Grasshopper.Parameters;
 
 namespace BH.UI.Grasshopper.Templates
 {
@@ -74,9 +75,9 @@ namespace BH.UI.Grasshopper.Templates
             GH_Accessor.GetData(index, ref goo);
 
             IGH_TypeHint hint = null;
-            Param_ScriptVariable scriptParam = Inputs[index] as Param_ScriptVariable;
+            Param_Variable scriptParam = Inputs[index] as Param_Variable;
             if (scriptParam != null)
-                hint = scriptParam.TypeHint;
+                hint = scriptParam.SelectedHint;
 
             return BH.Engine.Grasshopper.Convert.IFromGoo<T>(goo, hint);
         }
@@ -89,9 +90,9 @@ namespace BH.UI.Grasshopper.Templates
                 return new List<T>();
 
             IGH_TypeHint hint = null;
-            Param_ScriptVariable scriptParam = Inputs[index] as Param_ScriptVariable;
+            Param_Variable scriptParam = Inputs[index] as Param_Variable;
             if (scriptParam != null)
-                hint = scriptParam.TypeHint;
+                hint = scriptParam.SelectedHint;
 
             List<IGH_Goo> goo = new List<IGH_Goo>();
             GH_Accessor.GetDataList<IGH_Goo>(index, goo);
@@ -106,9 +107,9 @@ namespace BH.UI.Grasshopper.Templates
                 return new List<List<T>>();
 
             IGH_TypeHint hint = null;
-            Param_ScriptVariable scriptParam = Inputs[index] as Param_ScriptVariable;
+            Param_Variable scriptParam = Inputs[index] as Param_Variable;
             if (scriptParam != null)
-                hint = scriptParam.TypeHint;
+                hint = scriptParam.SelectedHint;
 
             IGH_Param param = Inputs[index];
             return param.VolatileData.StructureProxy.Select(x => x.Cast<IGH_Goo>().Select(y => BH.Engine.Grasshopper.Convert.IFromGoo<T>(y, hint)).ToList()).ToList();
