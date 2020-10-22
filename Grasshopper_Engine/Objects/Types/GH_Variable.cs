@@ -57,7 +57,7 @@ namespace BH.Engine.Grasshopper.Objects
 
         /***************************************************/
 
-        public GH_Variable(IObject val) : base(val) { }
+        public GH_Variable(object val) : base(val) { }
 
 
         /*******************************************/

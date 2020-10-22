@@ -36,7 +36,7 @@ using BH.Engine.Serialiser;
 
 namespace BH.Engine.Grasshopper.Objects
 {
-    public class GH_IObject : GH_BakeableObject<IObject>
+    public class GH_IObject : GH_BakeableObject<object>
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -55,7 +55,7 @@ namespace BH.Engine.Grasshopper.Objects
 
         /***************************************************/
 
-        public GH_IObject(IObject val) : base(val) { }
+        public GH_IObject(object val) : base(val) { }
 
 
         /*******************************************/
