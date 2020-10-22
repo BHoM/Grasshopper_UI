@@ -36,26 +36,28 @@ using BH.Engine.Serialiser;
 
 namespace BH.Engine.Grasshopper.Objects
 {
-    public class GH_BHoMObject : GH_BakeableObject
+    public class GH_Variable : GH_BakeableObject
     {
         /*******************************************/
         /**** Properties                        ****/
         /*******************************************/
 
-        public override string TypeName { get; } = "BHoMObject";
+        public override string TypeName { get; } = "Variable Object";
 
-        public override string TypeDescription { get; } = "Contains a BHoM IObject";
+        public override string TypeDescription { get; } = "Contains a generic object with a selectable type";
+
+        public override bool IsValid { get { return Value != null; } }
 
 
         /*******************************************/
         /**** Constructors                      ****/
         /*******************************************/
 
-        public GH_BHoMObject() : base() { }
+        public GH_Variable() : base() { }
 
         /***************************************************/
 
-        public GH_BHoMObject(BHoMObject val) : base(val) { }
+        public GH_Variable(IObject val) : base(val) { }
 
 
         /*******************************************/
@@ -64,9 +66,9 @@ namespace BH.Engine.Grasshopper.Objects
 
         public override IGH_Goo Duplicate()
         {
-            return new GH_BHoMObject { Value = Value };
+            return new GH_Variable { Value = Value };
         }
- 
+
         /***************************************************/
     }
 }

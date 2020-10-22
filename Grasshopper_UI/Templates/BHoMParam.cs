@@ -152,10 +152,14 @@ namespace BH.UI.Grasshopper.Templates
         public override void AppendAdditionalMenuItems(ToolStripDropDown menu)
         {
             base.AppendAdditionalMenuItems(menu);
-            Menu_AppendSeparator(menu);
-            Menu_AppendItem(menu, "Force preview", OnForcePreviewClick, true, m_ForcePreview);
-            Menu_AppendItem(menu, "Max items to preview");
-            Menu_AppendTextItem(menu, m_MaxItemsPreview.ToString(), null, OnMaxItemsPreviewChange, false);
+            if (Kind != GH_ParamKind.input)
+            {
+                Menu_AppendSeparator(menu);
+                Menu_AppendItem(menu, "Force preview", OnForcePreviewClick, true, m_ForcePreview);
+                Menu_AppendItem(menu, "Max items to preview");
+                Menu_AppendTextItem(menu, m_MaxItemsPreview.ToString(), null, OnMaxItemsPreviewChange, false);
+            }
+
         }
 
 

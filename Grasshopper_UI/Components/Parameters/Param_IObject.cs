@@ -31,7 +31,7 @@ using System.Collections.Generic;
 
 namespace BH.UI.Grasshopper.Parameters
 {
-    public class Param_IObject : BHoMParam<Engine.Grasshopper.Objects.GH_IObject>, IGH_BakeAwareObject
+    public class Param_IObject : BakeableParam<Engine.Grasshopper.Objects.GH_IObject>
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -43,52 +43,6 @@ namespace BH.UI.Grasshopper.Parameters
 
         public override string TypeName { get; } = "IObject";
 
-        public override bool IsPreviewCapable
-        {
-            get
-            {
-                if (VolatileDataCount < m_MaxItemsPreview || m_ForcePreview && !Hidden)
-                {
-                    // Setting IsPreviewCapable from true to false clears the grasshopper geometry cache
-                    // be mindful to use m_ForcePreview and Hidden variables only in case the number of objects
-                    // to display is actually high
-                    this.ClearRuntimeMessages();
-                    return base.IsPreviewCapable;
-                }
-                Engine.Reflection.Compute.RecordNote("Preview has been disabled to prevent a slowdown due to the high number of objects." +
-                    "Right click and set the a new items limit to force the preview at your own risk.");
-                Helpers.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
-                return false;
-            }
-        }
-
-        public bool IsBakeCapable { get; } = true;
-
-        /***************************************************/
-        /**** IGH_BakeAwareObject methods               ****/
-        /***************************************************/
-
-        public void BakeGeometry(RhinoDoc doc, List<Guid> obj_ids)
-        {
-            foreach (Engine.Grasshopper.Objects.GH_IObject item in this.VolatileData.AllData(true))
-            {
-                Guid guid;
-                if (item.BakeGeometry(doc, null, out guid))
-                    obj_ids.Add(guid);
-            }
-        }
-
-        /*******************************************/
-
-        public void BakeGeometry(RhinoDoc doc, ObjectAttributes att, List<Guid> obj_ids)
-        {
-            foreach (Engine.Grasshopper.Objects.GH_IObject item in this.VolatileData.AllData(true))
-            {
-                Guid guid;
-                if (item.BakeGeometry(doc, att, out guid))
-                    obj_ids.Add(guid);
-            }
-        }
 
         /*******************************************/
         /**** Constructors                      ****/
