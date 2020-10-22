@@ -603,6 +603,16 @@ namespace BH.UI.Grasshopper.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Variable_Param {
+            get {
+                object obj = ResourceManager.GetObject("Variable_Param", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap VBH_Script {
             get {
                 object obj = ResourceManager.GetObject("VBH_Script", resourceCulture);

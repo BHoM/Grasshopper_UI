@@ -310,6 +310,7 @@
     <Content Include="Properties\Resources\Type.png" />
     <None Include="Properties\Resources\Type_Param.png" />
     <Content Include="Properties\Resources\UpdateProperty.png" />
+    <None Include="Properties\Resources\Variable_Param.png" />
     <Content Include="Properties\Resources\VS_Script.png" />
   </ItemGroup>
   <ItemGroup />

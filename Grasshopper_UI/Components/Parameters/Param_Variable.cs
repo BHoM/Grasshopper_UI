@@ -44,7 +44,7 @@ namespace BH.UI.Grasshopper.Parameters
         /**** Properties                        ****/
         /*******************************************/
 
-        protected override System.Drawing.Bitmap Icon { get; } = Resources.IObject_Param;
+        protected override System.Drawing.Bitmap Icon { get; } = Resources.Variable_Param;
 
         public override Guid ComponentGuid { get; } = new Guid("D67B6CF3-37EA-438E-A6B4-2CC76B572658");
 
@@ -72,6 +72,7 @@ namespace BH.UI.Grasshopper.Parameters
 
         public Param_Variable() : base("Variable Object", "VariableObject", "Represents a collection of generic object with type that can be defined by  the user", "Params", "Primitive")
         {
+            PossibleHints = Engine.Grasshopper.Query.AvailableHints;
         }
 
 
