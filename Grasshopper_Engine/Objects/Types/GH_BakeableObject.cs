@@ -36,7 +36,7 @@ using BH.Engine.Serialiser;
 
 namespace BH.Engine.Grasshopper.Objects
 {
-    public class GH_BakeableObject : GH_BHoMGoo<object>, IGH_PreviewData, IGH_BakeAwareData, GH_ISerializable
+    public class GH_BakeableObject<T> : GH_BHoMGoo<T>, IGH_PreviewData, IGH_BakeAwareData, GH_ISerializable
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -52,7 +52,7 @@ namespace BH.Engine.Grasshopper.Objects
 
         public virtual Rhino.Geometry.BoundingBox Boundingbox { get { return Bounds(); } }
 
-        public override object Value
+        public override T Value
         {
             get
             {
@@ -74,7 +74,7 @@ namespace BH.Engine.Grasshopper.Objects
 
         /***************************************************/
 
-        public GH_BakeableObject(IObject val) : base(val) { }
+        public GH_BakeableObject(T val) : base(val) { }
 
 
         /*******************************************/
@@ -83,7 +83,7 @@ namespace BH.Engine.Grasshopper.Objects
 
         public override IGH_Goo Duplicate()
         {
-            return new GH_IObject { Value = Value };
+            return new GH_BakeableObject<T> { Value = Value };
         }
 
         /***************************************************/
@@ -159,7 +159,7 @@ namespace BH.Engine.Grasshopper.Objects
                 else if (target is IGH_GeometricGoo)
                     target = (Q)GH_Convert.ToGeometricGoo(m_RhinoGeometry);
                 else
-                    target = (Q)Value;
+                    target = (Q)(object)Value;
 
                 return true;
             }
@@ -190,7 +190,7 @@ namespace BH.Engine.Grasshopper.Objects
             reader.TryGetString("Json", ref json);
 
             if (json != null && json.Length > 0)
-                Value = BH.Engine.Serialiser.Convert.FromJson(json);
+                Value = (T)BH.Engine.Serialiser.Convert.FromJson(json);
 
             return true;
         }
@@ -233,7 +233,7 @@ namespace BH.Engine.Grasshopper.Objects
             }
             else if (Value is BHoMObject)
             {
-                m_Geometry = ((BHoMObject)Value).IGeometry();
+                m_Geometry = (Value as BHoMObject).IGeometry();
                 m_RhinoGeometry = m_Geometry.IToRhino();
                 return true;
             }
