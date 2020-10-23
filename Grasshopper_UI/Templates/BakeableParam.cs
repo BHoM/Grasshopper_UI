@@ -66,7 +66,7 @@ namespace BH.UI.Grasshopper.Templates
 
         public void BakeGeometry(RhinoDoc doc, List<Guid> obj_ids)
         {
-            foreach (Engine.Grasshopper.Objects.GH_BakeableObject<T> item in this.VolatileData.AllData(true))
+            foreach (IGH_BakeAwareData item in this.VolatileData.AllData(true))
             {
                 Guid guid;
                 if (item.BakeGeometry(doc, null, out guid))
@@ -78,7 +78,7 @@ namespace BH.UI.Grasshopper.Templates
 
         public void BakeGeometry(RhinoDoc doc, ObjectAttributes att, List<Guid> obj_ids)
         {
-            foreach (Engine.Grasshopper.Objects.GH_BakeableObject<T> item in this.VolatileData.AllData(true))
+            foreach (IGH_BakeAwareData item in this.VolatileData.AllData(true))
             {
                 Guid guid;
                 if (item.BakeGeometry(doc, att, out guid))
