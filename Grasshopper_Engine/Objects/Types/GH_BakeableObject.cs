@@ -147,17 +147,15 @@ namespace BH.Engine.Grasshopper.Objects
                     target = (Q)(object)face;
                 }
                 else if (target is GH_Transform)
-                {
-                    GH_Transform transform = new GH_Transform(m_RhinoGeometry as dynamic);
-                    target = (Q)(object)transform;
-                }
+                    target = (Q)(object)new GH_Transform(m_RhinoGeometry as dynamic);
                 else if (target is GH_Matrix)
-                {
-                    GH_Matrix transform = new GH_Matrix(m_RhinoGeometry as dynamic);
-                    target = (Q)(object)transform;
-                }
+                    target = (Q)(object)new GH_Matrix(m_RhinoGeometry as dynamic);
                 else if (target is IGH_GeometricGoo)
                     target = (Q)GH_Convert.ToGeometricGoo(m_RhinoGeometry);
+                else if (target is GH_Guid)
+                    target = (Q)(object)new GH_Guid(Value as dynamic);
+                else if (Value.GetType().IsPrimitive)
+                    target = (Q)Activator.CreateInstance(typeof(Q), Value);
                 else
                     target = (Q)(object)Value;
 
