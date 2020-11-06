@@ -127,6 +127,7 @@
     <Compile Include="Compute\RenderRhinoMeshes.cs" />
     <Compile Include="Compute\RenderRhinoWires.cs" />
     <Compile Include="Compute\RenderWires.cs" />
+    <Compile Include="Compute\CastToGoo.cs" />
     <Compile Include="Convert\ToGoo.cs" />
     <Compile Include="Convert\FromGoo.cs" />
     <Compile Include="Convert\ToNodeParam.cs" />
