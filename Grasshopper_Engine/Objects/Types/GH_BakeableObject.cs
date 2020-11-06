@@ -116,50 +116,10 @@ namespace BH.Engine.Grasshopper.Objects
             {
                 if (Value == null)
                     target = default(Q);
-                if (target is GH_Vector)
-                {
-                    GH_Vector vector = null;
-                    GH_Convert.ToGHVector(m_RhinoGeometry, GH_Conversion.Both, ref vector);
-                    target = (Q)(object)vector;
-                }
-                else if (target is GH_Curve)
-                {
-                    GH_Curve curve = null;
-                    GH_Convert.ToGHCurve(m_RhinoGeometry, GH_Conversion.Both, ref curve);
-                    target = (Q)(object)curve;
-                }
-                else if (target is GH_Surface)
-                {
-                    GH_Surface surface = null;
-                    GH_Convert.ToGHSurface(m_RhinoGeometry, GH_Conversion.Both, ref surface);
-                    target = (Q)(object)surface;
-                }
-                else if (target is GH_Brep)
-                {
-                    GH_Brep bRep = null;
-                    GH_Convert.ToGHBrep(m_RhinoGeometry, GH_Conversion.Both, ref bRep);
-                    target = (Q)(object)bRep;
-                }
-                else if (target is GH_MeshFace)
-                {
-                    GH_MeshFace face = null;
-                    GH_Convert.ToGHMeshFace(m_RhinoGeometry, GH_Conversion.Both, ref face);
-                    target = (Q)(object)face;
-                }
-                else if (target is GH_Transform)
-                    target = (Q)(object)new GH_Transform(m_RhinoGeometry as dynamic);
-                else if (target is GH_Matrix)
-                    target = (Q)(object)new GH_Matrix(m_RhinoGeometry as dynamic);
-                else if (target is IGH_GeometricGoo)
-                    target = (Q)GH_Convert.ToGeometricGoo(m_RhinoGeometry);
-                else if (target is GH_Guid)
-                    target = (Q)(object)new GH_Guid(Value as dynamic);
-                else if (Value.GetType().IsPrimitive)
-                    target = (Q)Activator.CreateInstance(typeof(Q), Value);
+                if (target is IGH_GeometricGoo || target is GH_Transform || target is GH_Matrix)
+                    return Engine.Grasshopper.Compute.CastToGoo(m_RhinoGeometry as dynamic, ref target);
                 else
-                    target = (Q)(object)Value;
-
-                return true;
+                    return Engine.Grasshopper.Compute.CastToGoo(Value as dynamic, ref target);
             }
             catch (Exception)
             {
