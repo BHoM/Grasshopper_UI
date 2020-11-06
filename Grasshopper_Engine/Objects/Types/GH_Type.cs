@@ -72,6 +72,8 @@ namespace BH.Engine.Grasshopper.Objects
                 this.Value = BH.Engine.Reflection.Create.Type(((GH_String)source).Value);
             else if (source.GetType() == typeof(GH_Goo<Type>))
                 this.Value = (Type)source;
+            else if (source is GH_Variable)
+                this.Value = (Type)((GH_Variable)source).Value;
             else
                 this.Value = (Type)source;
             return true;
