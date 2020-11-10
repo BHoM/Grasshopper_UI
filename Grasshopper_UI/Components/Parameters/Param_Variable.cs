@@ -35,10 +35,11 @@ using Grasshopper.Kernel.Parameters.Hints;
 using Grasshopper.Kernel.Types;
 using BH.Engine.Grasshopper.Objects;
 using System.Runtime.CompilerServices;
+using BH.oM.Base;
 
 namespace BH.UI.Grasshopper.Parameters
 {
-    public class Param_Variable : BakeableParam<Engine.Grasshopper.Objects.GH_Variable>
+    public class Param_Variable : BakeableParam<IGH_Goo>
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -102,6 +103,22 @@ namespace BH.UI.Grasshopper.Parameters
                 writer.SetGuid("TypeHintID", SelectedHint.HintID);
             writer.SetInt32("ScriptParamAccess", (int)Access);
             return rc;
+        }
+
+        /*******************************************/
+
+        protected override IGH_Goo PreferredCast(object data)
+        {
+            if (data is IObject)
+                return new GH_Variable(data);
+            else
+            {
+                IGH_Goo goo = GH_Convert.ToGoo(RuntimeHelpers.GetObjectValue(data));
+                if (goo != null)
+                    return goo;
+                else
+                    return null;
+            }
         }
 
         /*******************************************/
