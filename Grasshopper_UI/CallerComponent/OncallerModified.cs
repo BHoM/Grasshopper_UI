@@ -122,6 +122,8 @@ namespace BH.UI.Grasshopper.Templates
                 IGH_Param newParam = update.Param.ToGH_Param();
 
                 MoveLinks(oldParam, newParam);
+                newParam.DataMapping = oldParam.DataMapping;
+
                 Params.UnregisterInputParameter(oldParam);
                 Params.RegisterInputParam(newParam, index);
             }    
