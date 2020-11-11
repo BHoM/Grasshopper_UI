@@ -157,6 +157,7 @@
     <Compile Include="Components\Adapter\Pull.cs" />
     <Compile Include="Components\Adapter\Move.cs" />
     <Compile Include="Components\Adapter\Push.cs" />
+    <Compile Include="Components\Engine\GetEvents.cs" />
     <Compile Include="Components\Parameters\Param_BHoMAdapter.cs" />
     <Compile Include="Components\Parameters\Param_Variable.cs" />
     <Compile Include="Global\WireInfo.cs" />
