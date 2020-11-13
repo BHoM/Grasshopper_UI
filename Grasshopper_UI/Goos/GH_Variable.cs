@@ -36,7 +36,7 @@ using BH.Engine.Serialiser;
 using Rhino.Geometry;
 using System.Drawing;
 
-namespace BH.Engine.Grasshopper.Objects
+namespace BH.UI.Grasshopper.Goos
 {
     public class GH_Variable : GH_BakeableObject<object>, IGH_QuickCast
     {

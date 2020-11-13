@@ -66,6 +66,9 @@
       <HintPath>C:\ProgramData\BHoM\Assemblies\Data_oM.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Dimensional_oM">
+      <HintPath>..\..\..\..\..\..\..\ProgramData\BHoM\Assemblies\Dimensional_oM.dll</HintPath>
+    </Reference>
     <Reference Include="Geometry_Engine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\ProgramData\BHoM\Assemblies\Geometry_Engine.dll</HintPath>
@@ -79,6 +82,9 @@
     <Reference Include="GH_IO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97, processorArchitecture=MSIL">
       <HintPath>..\packages\Grasshopper.0.9.76\lib\net35\GH_IO.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Graphics_oM">
+      <HintPath>..\..\..\..\..\..\..\ProgramData\BHoM\Assemblies\Graphics_oM.dll</HintPath>
     </Reference>
     <Reference Include="Grasshopper, Version=1.0.0.20, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
       <HintPath>..\packages\Grasshopper.0.9.76\lib\net35\Grasshopper.dll</HintPath>
@@ -162,9 +168,27 @@
     <Compile Include="Components\Parameters\Param_Variable.cs" />
     <Compile Include="Global\WireInfo.cs" />
     <Compile Include="Components\UI\Cluster2Node.cs" />
+    <Compile Include="Goos\GH_BakeableObject.cs" />
+    <Compile Include="Goos\GH_BHoMAdapter.cs" />
+    <Compile Include="Goos\GH_BHoMGoo.cs" />
+    <Compile Include="Goos\GH_BHoMObject.cs" />
+    <Compile Include="Goos\GH_Dictionary.cs" />
+    <Compile Include="Goos\GH_Enum.cs" />
+    <Compile Include="Goos\GH_IBHoMGeometry.cs" />
+    <Compile Include="Goos\GH_IObject.cs" />
+    <Compile Include="Goos\GH_Type.cs" />
+    <Compile Include="Goos\GH_Variable.cs" />
+    <Compile Include="Helpers\AvailableHints.cs" />
+    <Compile Include="Helpers\FromGoo.cs" />
     <Compile Include="Helpers\ToGH_Param.cs" />
     <Compile Include="Helpers\Logging.cs" />
+    <Compile Include="Helpers\ToGoo.cs" />
     <Compile Include="Helpers\Type.cs" />
+    <Compile Include="Hints\BHomObjectHint.cs" />
+    <Compile Include="Hints\DictionaryHint.cs" />
+    <Compile Include="Hints\EnumHint.cs" />
+    <Compile Include="Hints\IGeometryHint.cs" />
+    <Compile Include="Hints\TypeHint.cs" />
     <Compile Include="Templates\BHoMParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Components\Engine\Explode.cs" />

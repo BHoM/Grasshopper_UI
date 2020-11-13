@@ -20,35 +20,76 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using Grasshopper.Kernel.Types;
 using System;
-using BH.Engine.Grasshopper.Objects;
-using Grasshopper.Kernel.Parameters;
 
-namespace BH.UI.Grasshopper.Objects.Hints
+namespace BH.UI.Grasshopper.Goos
 {
-    public class IGeometryHint : IGH_TypeHint
+    public abstract class GH_BHoMGoo<T> : GH_Goo<T> 
     {
         /*******************************************/
         /**** Properties                        ****/
         /*******************************************/
 
-        public Guid HintID { get; } = new Guid("CC64E37E-C6B8-44F4-9C85-05B19849F4D6"); 
-
-        public string TypeName { get; } = "BH.oM.Geometry.IGeometry"; 
+        public override bool IsValid { get { return Value != null; } }
 
 
         /*******************************************/
         /**** Constructors                      ****/
         /*******************************************/
 
-        public bool Cast(object data, out object target)
+        public GH_BHoMGoo()
         {
-            GH_IBHoMGeometry geom = new GH_IBHoMGeometry() { Value = null };
-            geom.CastFrom(data);
-            if (geom.Value == null)
-                target = data;
+            this.Value = default(T);
+        }
+
+        /***************************************************/
+
+        public GH_BHoMGoo(T val)
+        {
+            this.Value = val;
+        }
+
+
+        /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
+
+        public override string ToString()
+        {
+            if (Value == null)
+                return "null";
+            return Value.ToString();
+        }
+
+        /*******************************************/
+
+        public override bool CastTo<Q>(ref Q target)
+        {
+            try
+            {
+                object ptr = this.Value;
+                target = (Q)ptr;
+                return true;
+            }
+            catch (Exception)
+            {
+                string message = string.Format("Impossible to convert {0} into {1}. Check the input description for more details on the type of object that need to be provided", Value.GetType().FullName, typeof(Q).FullName);
+                throw new Exception(message);
+            }
+        }
+
+        /***************************************************/
+
+        public override bool CastFrom(object source)
+        {
+            if (source == null) { return false; }
+            else if (source.GetType() == typeof(GH_Goo<T>))
+                this.Value = ((GH_Goo<T>)source).Value;
+            else if (source is T)
+                this.Value = (T)source;
             else
-                target = geom.Value;
+                this.Value = default(T);
             return true;
         }
 

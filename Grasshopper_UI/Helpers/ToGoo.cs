@@ -20,11 +20,11 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.Engine.Grasshopper.Objects;
 using BH.oM.Base;
 using BH.oM.Geometry;
 using Grasshopper.Kernel.Data;
 using Grasshopper.Kernel.Types;
+using BH.UI.Grasshopper.Goos;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,9 +32,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BH.Engine.Grasshopper
+namespace BH.UI.Grasshopper
 {
-    public static partial class Convert
+    public static partial class Helpers
     {
         /*******************************************/
         /**** Interface Methods                 ****/

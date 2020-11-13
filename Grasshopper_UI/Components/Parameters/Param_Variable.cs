@@ -20,20 +20,17 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.Engine.Grasshopper;
 using BH.UI.Grasshopper.Properties;
 using BH.UI.Grasshopper.Templates;
 using Grasshopper.Kernel;
 using System;
-using Rhino;
-using Rhino.DocObjects;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using GH_IO.Serialization;
 using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Parameters.Hints;
 using Grasshopper.Kernel.Types;
-using BH.Engine.Grasshopper.Objects;
+using BH.UI.Grasshopper.Goos;
 using System.Runtime.CompilerServices;
 using BH.oM.Base;
 
@@ -73,7 +70,7 @@ namespace BH.UI.Grasshopper.Parameters
 
         public Param_Variable() : base("Variable Object", "VariableObject", "Represents a collection of generic object with type that can be defined by  the user", "Params", "Primitive")
         {
-            PossibleHints = Engine.Grasshopper.Query.AvailableHints;
+            PossibleHints = Helpers.AvailableHints;
         }
 
 

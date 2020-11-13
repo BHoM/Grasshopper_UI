@@ -23,15 +23,15 @@
 using BH.Engine.Grasshopper;
 using BH.UI.Grasshopper.Properties;
 using BH.UI.Grasshopper.Templates;
+using BH.UI.Grasshopper.Goos;
 using Grasshopper.Kernel;
 using System;
-using Rhino;
-using Rhino.DocObjects;
 using System.Collections.Generic;
+
 
 namespace BH.UI.Grasshopper.Parameters
 {
-    public class Param_IObject : BakeableParam<Engine.Grasshopper.Objects.GH_IObject>
+    public class Param_IObject : BakeableParam<GH_IObject>
     {
         /*******************************************/
         /**** Properties                        ****/

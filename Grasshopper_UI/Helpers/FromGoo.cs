@@ -30,9 +30,9 @@ using BH.Engine.Reflection;
 using BH.oM.Reflection;
 using System.Collections.Generic;
 
-namespace BH.Engine.Grasshopper
+namespace BH.UI.Grasshopper
 {
-    public static partial class Convert
+    public static partial class Helpers
     {
         /*******************************************/
         /**** Public Methods                    ****/

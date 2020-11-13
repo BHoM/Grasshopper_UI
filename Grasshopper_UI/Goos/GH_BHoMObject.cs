@@ -20,80 +20,54 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
+using BH.oM.Base;
+using BH.oM.Geometry;
+using BH.Engine.Geometry;
 using System;
+using BH.Engine.Base;
+using BH.Engine.Rhinoceros;
+using Rhino;
+using Rhino.DocObjects;
+using GH_IO;
+using GH_IO.Serialization;
+using BH.Engine.Serialiser;
 
-namespace BH.Engine.Grasshopper.Objects
+namespace BH.UI.Grasshopper.Goos
 {
-    public abstract class GH_BHoMGoo<T> : GH_Goo<T> 
+    public class GH_BHoMObject : GH_BakeableObject<object>
     {
         /*******************************************/
         /**** Properties                        ****/
         /*******************************************/
 
-        public override bool IsValid { get { return Value != null; } }
+        public override string TypeName { get; } = "BHoMObject";
+
+        public override string TypeDescription { get; } = "Contains a BHoM IObject";
 
 
         /*******************************************/
         /**** Constructors                      ****/
         /*******************************************/
 
-        public GH_BHoMGoo()
-        {
-            this.Value = default(T);
-        }
+        public GH_BHoMObject() : base() { }
 
         /***************************************************/
 
-        public GH_BHoMGoo(T val)
-        {
-            this.Value = val;
-        }
+        public GH_BHoMObject(object val) : base(val) { }
 
 
         /*******************************************/
         /**** Override Methods                  ****/
         /*******************************************/
 
-        public override string ToString()
+        public override IGH_Goo Duplicate()
         {
-            if (Value == null)
-                return "null";
-            return Value.ToString();
+            return new GH_BHoMObject { Value = Value };
         }
-
-        /*******************************************/
-
-        public override bool CastTo<Q>(ref Q target)
-        {
-            try
-            {
-                object ptr = this.Value;
-                target = (Q)ptr;
-                return true;
-            }
-            catch (Exception)
-            {
-                string message = string.Format("Impossible to convert {0} into {1}. Check the input description for more details on the type of object that need to be provided", Value.GetType().FullName, typeof(Q).FullName);
-                throw new Exception(message);
-            }
-        }
-
+ 
         /***************************************************/
-
-        public override bool CastFrom(object source)
-        {
-            if (source == null) { return false; }
-            else if (source.GetType() == typeof(GH_Goo<T>))
-                this.Value = ((GH_Goo<T>)source).Value;
-            else if (source is T)
-                this.Value = (T)source;
-            else
-                this.Value = default(T);
-            return true;
-        }
-
-        /*******************************************/
     }
 }
 

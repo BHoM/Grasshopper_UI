@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -20,39 +20,66 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using Grasshopper.Kernel;
+using Grasshopper.Kernel.Types;
+using BH.oM.Base;
+using BH.oM.Geometry;
+using BH.Engine.Geometry;
 using System;
-using BH.Engine.Grasshopper.Objects;
-using Grasshopper.Kernel.Parameters;
+using BH.Engine.Base;
+using BH.Engine.Rhinoceros;
+using Rhino;
+using Rhino.DocObjects;
+using GH_IO;
+using GH_IO.Serialization;
+using BH.Engine.Serialiser;
 
-namespace BH.UI.Grasshopper.Objects.Hints
+namespace BH.UI.Grasshopper.Goos
 {
-    public class TypeHint : IGH_TypeHint
+    public class GH_BHoMAdapter : GH_BHoMGoo<object>  // Cannot reference BHoMAdapter for now as we are in the Engine
     {
         /*******************************************/
         /**** Properties                        ****/
         /*******************************************/
 
-        public Guid HintID { get; } = new Guid("8ECF16E7-F71B-4813-AD63-C4AECC246A26");
+        public override string TypeName { get; } = "BHoMAdapter";
 
-        public string TypeName { get; } = "System.Type";
+        public override string TypeDescription { get; } = "Contains a BHoM Adapter";
+
+        public override bool IsValid { get { return Value != null; } }
 
 
         /*******************************************/
         /**** Constructors                      ****/
         /*******************************************/
 
-        public bool Cast(object data, out object target)
-        {
-            GH_Type type = new GH_Type() { Value = null };
-            type.CastFrom(data);
-            if (type.Value == null)
-                target = data;
-            else
-                target = type.Value;
-            return true;
-        }
+        public GH_BHoMAdapter() : base() { }
+
+        /***************************************************/
+
+        public GH_BHoMAdapter(object val) : base(val) { }
+
 
         /*******************************************/
+        /**** Override Methods                  ****/
+        /*******************************************/
+
+        public override IGH_Goo Duplicate()
+        {
+            return new GH_BHoMAdapter { Value = Value };
+        }
+
+        /***************************************************/
+
+        public override string ToString()
+        {
+            object val = Value;
+            if (val == null)
+                return "null";
+            else
+                return val.ToString();
+        }
+
+        /***************************************************/
     }
 }
-

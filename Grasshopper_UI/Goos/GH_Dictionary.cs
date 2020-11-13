@@ -20,42 +20,34 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
-using BH.oM.Base;
-using BH.oM.Geometry;
-using BH.Engine.Geometry;
-using System;
-using BH.Engine.Base;
-using BH.Engine.Rhinoceros;
-using Rhino;
-using Rhino.DocObjects;
-using GH_IO;
-using GH_IO.Serialization;
-using BH.Engine.Serialiser;
+using System.Collections;
+using BH.Engine.Reflection;
 
-namespace BH.Engine.Grasshopper.Objects
+namespace BH.UI.Grasshopper.Goos
 {
-    public class GH_BHoMObject : GH_BakeableObject<object>
+    public class GH_Dictionary : GH_BHoMGoo<IDictionary>
     {
         /*******************************************/
         /**** Properties                        ****/
         /*******************************************/
 
-        public override string TypeName { get; } = "BHoMObject";
+        public override string TypeName { get; } = "Dictionary";
 
-        public override string TypeDescription { get; } = "Contains a BHoM IObject";
+        public override string TypeDescription { get; } = "Defines an Dictionary";
+
+        public override bool IsValid { get { return Value != null; } }
 
 
         /*******************************************/
         /**** Constructors                      ****/
         /*******************************************/
 
-        public GH_BHoMObject() : base() { }
+        public GH_Dictionary() : base() { }
 
         /***************************************************/
 
-        public GH_BHoMObject(object val) : base(val) { }
+        public GH_Dictionary(IDictionary val) : base(val) { }
 
 
         /*******************************************/
@@ -64,10 +56,21 @@ namespace BH.Engine.Grasshopper.Objects
 
         public override IGH_Goo Duplicate()
         {
-            return new GH_BHoMObject { Value = Value };
+            return new GH_Dictionary { Value = Value };
         }
- 
-        /***************************************************/
+
+        /*******************************************/
+
+        public override string ToString()
+        {
+            IDictionary val = Value;
+            if (val == null)
+                return "null";
+            else
+                return val.GetType().ToText();
+        }
+
+        /*******************************************/
     }
 }
 

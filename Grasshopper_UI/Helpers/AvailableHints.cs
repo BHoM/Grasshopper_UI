@@ -20,39 +20,40 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using System;
-using BH.Engine.Grasshopper.Objects;
+using BH.UI.Grasshopper.Hints;
 using Grasshopper.Kernel.Parameters;
+using Grasshopper.Kernel.Parameters.Hints;
+using System.Collections.Generic;
 
-namespace BH.UI.Grasshopper.Objects.Hints
+namespace BH.UI.Grasshopper
 {
-    public class BHoMObjectHint : IGH_TypeHint
+    public static partial class Helpers
     {
-        /*******************************************/
-        /**** Properties                        ****/
-        /*******************************************/
+        /***************************************************/
+        /**** Public Fields                             ****/
+        /***************************************************/
 
-        public Guid HintID { get; } = new Guid("0977C35E-92DD-4933-8835-8B2C8A37C8CF"); 
-
-        public string TypeName { get; } = "BH.oM.Base.BHoMObject"; 
-
-
-        /*******************************************/
-        /**** Constructors                      ****/
-        /*******************************************/
-
-        public bool Cast(object data, out object target)
+        public static List<IGH_TypeHint> AvailableHints = new List<IGH_TypeHint>()
         {
-            GH_BHoMObject obj = new GH_BHoMObject() { Value = null };
-            obj.CastFrom(data);
-            if (obj.Value == null)
-                target = data;
-            else
-                target = obj.Value;
-            return true;
-        }
+            new GH_NullHint(),
+            new GH_HintSeparator(),
+            new BHoMObjectHint(),
+            new IGeometryHint(),
+            new DictionaryHint(),
+            new EnumHint(),
+            new TypeHint(),
+            new GH_HintSeparator(),
+            new GH_BooleanHint_CS(),
+            new GH_IntegerHint_CS(),
+            new GH_DoubleHint_CS(),
+            new GH_StringHint_CS(),
+            new GH_HintSeparator(),
+            new GH_DateTimeHint(),
+            new GH_ColorHint(),
+            new GH_GuidHint()
+        };
 
-        /*******************************************/
+        /***************************************************/
     }
 }
 

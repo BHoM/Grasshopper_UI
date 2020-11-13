@@ -22,6 +22,7 @@
 
 using BH.UI.Grasshopper.Properties;
 using BH.UI.Grasshopper.Templates;
+using BH.UI.Grasshopper.Goos;
 using Grasshopper.Kernel;
 using System;
 using Rhino;
@@ -30,7 +31,7 @@ using System.Collections.Generic;
 
 namespace BH.UI.Grasshopper.Parameters
 {
-    public class Param_BHoMObject : BakeableParam<Engine.Grasshopper.Objects.GH_BHoMObject>
+    public class Param_BHoMObject : BakeableParam<GH_BHoMObject>
     {
         /*******************************************/
         /**** Properties                        ****/

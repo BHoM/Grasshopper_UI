@@ -27,10 +27,11 @@ using System;
 using Rhino;
 using Rhino.DocObjects;
 using System.Collections.Generic;
+using BH.UI.Grasshopper.Goos;
 
 namespace BH.UI.Grasshopper.Parameters
 {
-    public class Param_BHoMGeometry : BHoMParam<Engine.Grasshopper.Objects.GH_IBHoMGeometry>, IGH_BakeAwareObject
+    public class Param_BHoMGeometry : BHoMParam<GH_IBHoMGeometry>, IGH_BakeAwareObject
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -50,7 +51,7 @@ namespace BH.UI.Grasshopper.Parameters
 
         public void BakeGeometry(RhinoDoc doc, List<Guid> obj_ids)
         {
-            foreach (Engine.Grasshopper.Objects.GH_IBHoMGeometry item in this.VolatileData.AllData(true))
+            foreach (GH_IBHoMGeometry item in this.VolatileData.AllData(true))
             {
                 Guid guid;
                 if (item.BakeGeometry(doc, null, out guid))
@@ -62,7 +63,7 @@ namespace BH.UI.Grasshopper.Parameters
 
         public void BakeGeometry(RhinoDoc doc, ObjectAttributes att, List<Guid> obj_ids)
         {
-            foreach (Engine.Grasshopper.Objects.GH_IBHoMGeometry item in this.VolatileData.AllData(true))
+            foreach (GH_IBHoMGeometry item in this.VolatileData.AllData(true))
             {
                 Guid guid;
                 if (item.BakeGeometry(doc, att, out guid))

@@ -21,19 +21,20 @@
  */
 
 using System;
-using BH.Engine.Grasshopper.Objects;
 using Grasshopper.Kernel.Parameters;
+using BH.UI.Grasshopper.Goos;
 
-namespace BH.UI.Grasshopper.Objects.Hints
+namespace BH.UI.Grasshopper.Hints
 {
-    public class EnumHint : IGH_TypeHint
+    public class IGeometryHint : IGH_TypeHint
     {
         /*******************************************/
         /**** Properties                        ****/
         /*******************************************/
 
-        public Guid HintID { get; } = new Guid("50201E4F-F9F3-4BE5-A927-98AE2EE03530"); 
-        public string TypeName { get; } = "System.Enum"; 
+        public Guid HintID { get; } = new Guid("CC64E37E-C6B8-44F4-9C85-05B19849F4D6"); 
+
+        public string TypeName { get; } = "BH.oM.Geometry.IGeometry"; 
 
 
         /*******************************************/
@@ -42,12 +43,12 @@ namespace BH.UI.Grasshopper.Objects.Hints
 
         public bool Cast(object data, out object target)
         {
-            GH_Enum enumer = new GH_Enum() { Value = null };
-            enumer.CastFrom(data);
-            if (enumer.Value == null)
+            GH_IBHoMGeometry geom = new GH_IBHoMGeometry() { Value = null };
+            geom.CastFrom(data);
+            if (geom.Value == null)
                 target = data;
             else
-                target = enumer.Value;
+                target = geom.Value;
             return true;
         }
 

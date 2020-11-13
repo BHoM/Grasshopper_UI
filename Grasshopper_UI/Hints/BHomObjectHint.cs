@@ -20,54 +20,36 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using Grasshopper.Kernel.Types;
-using System.Collections;
-using BH.Engine.Reflection;
+using System;
+using BH.UI.Grasshopper.Goos;
+using Grasshopper.Kernel.Parameters;
 
-namespace BH.Engine.Grasshopper.Objects
+namespace BH.UI.Grasshopper.Hints
 {
-    public class GH_Dictionary : GH_BHoMGoo<IDictionary>
+    public class BHoMObjectHint : IGH_TypeHint
     {
         /*******************************************/
         /**** Properties                        ****/
         /*******************************************/
 
-        public override string TypeName { get; } = "Dictionary";
+        public Guid HintID { get; } = new Guid("0977C35E-92DD-4933-8835-8B2C8A37C8CF"); 
 
-        public override string TypeDescription { get; } = "Defines an Dictionary";
-
-        public override bool IsValid { get { return Value != null; } }
+        public string TypeName { get; } = "BH.oM.Base.BHoMObject"; 
 
 
         /*******************************************/
         /**** Constructors                      ****/
         /*******************************************/
 
-        public GH_Dictionary() : base() { }
-
-        /***************************************************/
-
-        public GH_Dictionary(IDictionary val) : base(val) { }
-
-
-        /*******************************************/
-        /**** Override Methods                  ****/
-        /*******************************************/
-
-        public override IGH_Goo Duplicate()
+        public bool Cast(object data, out object target)
         {
-            return new GH_Dictionary { Value = Value };
-        }
-
-        /*******************************************/
-
-        public override string ToString()
-        {
-            IDictionary val = Value;
-            if (val == null)
-                return "null";
+            GH_BHoMObject obj = new GH_BHoMObject() { Value = null };
+            obj.CastFrom(data);
+            if (obj.Value == null)
+                target = data;
             else
-                return val.GetType().ToText();
+                target = obj.Value;
+            return true;
         }
 
         /*******************************************/

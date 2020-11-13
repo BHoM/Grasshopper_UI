@@ -87,7 +87,7 @@ namespace BH.UI.Grasshopper.Templates
                 NickName = name,
                 Name = name,
                 SelectedHint = new GH_NullHint(),
-                PossibleHints = Engine.Grasshopper.Query.AvailableHints,
+                PossibleHints = Helpers.AvailableHints,
             };
 
             // Updating the caller with the parameter that Grasshopper just added
@@ -125,7 +125,7 @@ namespace BH.UI.Grasshopper.Templates
                 Param_Variable paramScript = param as Param_Variable;
                 if (paramScript != null)
                 {
-                    paramScript.PossibleHints = Engine.Grasshopper.Query.AvailableHints;
+                    paramScript.PossibleHints = Helpers.AvailableHints;
                 }
             }
         }
