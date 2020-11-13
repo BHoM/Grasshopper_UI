@@ -27,16 +27,11 @@ using BH.oM.Geometry;
 using BH.Engine.Geometry;
 using System;
 using BH.Engine.Base;
-using BH.Engine.Rhinoceros;
-using Rhino;
-using Rhino.DocObjects;
-using GH_IO;
-using GH_IO.Serialization;
-using BH.Engine.Serialiser;
+using BH.Adapter;
 
 namespace BH.UI.Grasshopper.Goos
 {
-    public class GH_BHoMAdapter : GH_BHoMGoo<object>  // Cannot reference BHoMAdapter for now as we are in the Engine
+    public class GH_BHoMAdapter : GH_BHoMGoo<BHoMAdapter>  // Cannot reference BHoMAdapter for now as we are in the Engine
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -57,7 +52,7 @@ namespace BH.UI.Grasshopper.Goos
 
         /***************************************************/
 
-        public GH_BHoMAdapter(object val) : base(val) { }
+        public GH_BHoMAdapter(BHoMAdapter val) : base(val) { }
 
 
         /*******************************************/
@@ -67,17 +62,6 @@ namespace BH.UI.Grasshopper.Goos
         public override IGH_Goo Duplicate()
         {
             return new GH_BHoMAdapter { Value = Value };
-        }
-
-        /***************************************************/
-
-        public override string ToString()
-        {
-            object val = Value;
-            if (val == null)
-                return "null";
-            else
-                return val.ToString();
         }
 
         /***************************************************/
