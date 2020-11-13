@@ -117,9 +117,9 @@ namespace BH.UI.Grasshopper.Goos
                 if (Value == null)
                     target = default(Q);
                 if (target is IGH_GeometricGoo || target is GH_Transform || target is GH_Matrix)
-                    return Engine.Grasshopper.Compute.CastToGoo(m_RhinoGeometry as dynamic, ref target);
+                    return Helpers.CastToGoo(m_RhinoGeometry as dynamic, ref target);
                 else
-                    return Engine.Grasshopper.Compute.CastToGoo(Value as dynamic, ref target);
+                    return Helpers.CastToGoo(Value as dynamic, ref target);
             }
             catch (Exception)
             {

@@ -179,6 +179,7 @@
     <Compile Include="Goos\GH_Type.cs" />
     <Compile Include="Goos\GH_Variable.cs" />
     <Compile Include="Helpers\AvailableHints.cs" />
+    <Compile Include="Helpers\CastToGoo.cs" />
     <Compile Include="Helpers\FromGoo.cs" />
     <Compile Include="Helpers\ToGH_Param.cs" />
     <Compile Include="Helpers\Logging.cs" />

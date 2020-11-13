@@ -34,9 +34,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BH.Engine.Grasshopper
+namespace BH.UI.Grasshopper
 {
-    public static partial class Compute
+    public static partial class Helpers
     {
         /*******************************************/
         /**** Interface Methods                 ****/
