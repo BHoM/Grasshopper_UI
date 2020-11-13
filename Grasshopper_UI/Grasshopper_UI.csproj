@@ -189,6 +189,12 @@
     <Compile Include="Hints\EnumHint.cs" />
     <Compile Include="Hints\IGeometryHint.cs" />
     <Compile Include="Hints\TypeHint.cs" />
+    <Compile Include="Render\RenderColour.cs" />
+    <Compile Include="Render\RenderMaterial.cs" />
+    <Compile Include="Render\RenderMeshes.cs" />
+    <Compile Include="Render\RenderRhinoMeshes.cs" />
+    <Compile Include="Render\RenderRhinoWires.cs" />
+    <Compile Include="Render\RenderWires.cs" />
     <Compile Include="Templates\BHoMParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Components\Engine\Explode.cs" />

@@ -24,9 +24,9 @@ using GH = Grasshopper;
 using System.Drawing;
 using Rhino.Display;
 
-namespace BH.Engine.Grasshopper
+namespace BH.UI.Grasshopper
 {
-    public static partial class Query
+    public static partial class Render
     {
         /***************************************************/
         /**** Public Methods                            ****/

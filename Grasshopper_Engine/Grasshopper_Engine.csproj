@@ -123,10 +123,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Compute\RenderMeshes.cs" />
-    <Compile Include="Compute\RenderRhinoMeshes.cs" />
-    <Compile Include="Compute\RenderRhinoWires.cs" />
-    <Compile Include="Compute\RenderWires.cs" />
     <Compile Include="Compute\CastToGoo.cs" />
     <Compile Include="Convert\ToNodeParam.cs" />
     <Compile Include="Convert\ToNode.cs" />
@@ -135,11 +131,10 @@
     <Compile Include="Convert\ToRhino.cs" />
     <Compile Include="Create\DataTree.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Query\RenderColour.cs" />
-    <Compile Include="Query\RenderMaterial.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Modify\" />
+    <Folder Include="Query\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

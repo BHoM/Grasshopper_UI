@@ -27,9 +27,9 @@ using System;
 using BH.oM.Reflection.Attributes;
 using System.Collections.Generic;
 
-namespace BH.Engine.Grasshopper
+namespace BH.UI.Grasshopper
 {
-    public static partial class Compute
+    public static partial class Render
     {
         /***************************************************/
         /**** Public Methods  - Interfaces              ****/
@@ -41,7 +41,7 @@ namespace BH.Engine.Grasshopper
             {
                 return;
             }
-            DisplayMaterial bhMaterial = Query.RenderMaterial(args.Material);
+            DisplayMaterial bhMaterial = RenderMaterial(args.Material);
 
             try
             {
