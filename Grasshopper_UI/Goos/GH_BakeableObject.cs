@@ -167,7 +167,7 @@ namespace BH.UI.Grasshopper.Goos
         public virtual void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
             if (m_RhinoGeometry != null)
-                Engine.Grasshopper.Compute.IRenderRhinoMeshes(m_RhinoGeometry, args);
+                Render.IRenderRhinoMeshes(m_RhinoGeometry, args);
         }
 
         /***************************************************/
@@ -175,7 +175,7 @@ namespace BH.UI.Grasshopper.Goos
         public virtual void DrawViewportWires(GH_PreviewWireArgs args)
         {
             if (m_RhinoGeometry != null)
-                Engine.Grasshopper.Compute.IRenderRhinoWires(m_RhinoGeometry, args);
+                Render.IRenderRhinoWires(m_RhinoGeometry, args);
         }
 
 

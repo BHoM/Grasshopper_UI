@@ -31,9 +31,9 @@ using System.Linq;
 using BH.Engine.Base;
 using System.Collections.Generic;
 
-namespace BH.Engine.Grasshopper
+namespace BH.UI.Grasshopper
 {
-    public static partial class Compute
+    public static partial class Render
     {
         /***************************************************/
         /**** Public Methods  - Interfaces              ****/
@@ -49,7 +49,7 @@ namespace BH.Engine.Grasshopper
             {
                 return;
             }
-            DisplayMaterial bhMaterial = Query.RenderMaterial(args.Material);
+            DisplayMaterial bhMaterial = RenderMaterial(args.Material);
             try
             {
                 RenderMeshes(geometry as dynamic, args.Pipeline, bhMaterial);

@@ -29,9 +29,9 @@ using BH.oM.Reflection.Attributes;
 using System.Collections.Generic;
 using GH = Grasshopper;
 
-namespace BH.Engine.Grasshopper
-{
-    public static partial class Compute
+namespace BH.UI.Grasshopper
+{ 
+    public static partial class Render
     {
         /***************************************************/
         /**** Public Methods  - Interfaces              ****/
@@ -43,7 +43,7 @@ namespace BH.Engine.Grasshopper
             {
                 return;
             }
-            Color bhColour = Query.RenderColour(args.Color);
+            Color bhColour = RenderColour(args.Color);
             try
             {
                 RenderRhinoWires(geometry as dynamic, args.Pipeline, bhColour);

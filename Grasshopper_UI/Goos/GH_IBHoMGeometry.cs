@@ -334,14 +334,14 @@ namespace BH.UI.Grasshopper.Goos
 
         public void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
-            Engine.Grasshopper.Compute.IRenderRhinoMeshes(m_RhinoValue, args);
+            Render.IRenderRhinoMeshes(m_RhinoValue, args);
         }
 
         /***************************************************/
 
         public void DrawViewportWires(GH_PreviewWireArgs args)
         {
-            Engine.Grasshopper.Compute.IRenderRhinoWires(m_RhinoValue, args);
+            Render.IRenderRhinoWires(m_RhinoValue, args);
         }
 
 
