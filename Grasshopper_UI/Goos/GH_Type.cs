@@ -26,7 +26,7 @@ using GH_IO.Serialization;
 using Grasshopper.Kernel.Types;
 using System;
 
-namespace BH.Engine.Grasshopper.Objects
+namespace BH.UI.Grasshopper.Goos
 {
     public class GH_Type : GH_BHoMGoo<Type>, GH_ISerializable
     {

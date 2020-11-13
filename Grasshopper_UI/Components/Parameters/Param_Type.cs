@@ -22,11 +22,12 @@
 
 using BH.UI.Grasshopper.Properties;
 using BH.UI.Grasshopper.Templates;
+using BH.UI.Grasshopper.Goos;
 using System;
 
 namespace BH.UI.Grasshopper.Parameters
 {
-    public class Param_Type : BHoMParam<Engine.Grasshopper.Objects.GH_Type>
+    public class Param_Type : BHoMParam<GH_Type>
     {
         /*******************************************/
         /**** Properties                        ****/

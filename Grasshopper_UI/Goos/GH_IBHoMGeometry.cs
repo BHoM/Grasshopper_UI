@@ -32,7 +32,7 @@ using GH_IO.Serialization;
 using BH.Engine.Serialiser;
 using GH_IO;
 
-namespace BH.Engine.Grasshopper.Objects
+namespace BH.UI.Grasshopper.Goos
 {
     public class GH_IBHoMGeometry : GH_GeometricGoo<object>, IGH_PreviewData, IGH_BakeAwareData, GH_ISerializable
     {
@@ -204,7 +204,7 @@ namespace BH.Engine.Grasshopper.Objects
             else if (source is Rhino.Geometry.GeometryBase)
                 m_Value = ((Rhino.Geometry.GeometryBase)source).FromRhino();
             else if (source is IGH_Goo)
-                return CastFrom(Convert.IFromGoo<object>((IGH_Goo)source));
+                return CastFrom(Helpers.IFromGoo<object>((IGH_Goo)source));
             else if (source is Rhino.Geometry.Vector3d)
                 m_Value = ((Rhino.Geometry.Vector3d)source).FromRhino();
             else if (source is Rhino.Geometry.Plane)

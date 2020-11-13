@@ -20,40 +20,39 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.UI.Grasshopper.Objects.Hints;
+using System;
 using Grasshopper.Kernel.Parameters;
-using Grasshopper.Kernel.Parameters.Hints;
-using System.Collections.Generic;
+using BH.UI.Grasshopper.Goos;
 
-namespace BH.Engine.Grasshopper
+namespace BH.UI.Grasshopper.Hints
 {
-    public static partial class Query
+    public class TypeHint : IGH_TypeHint
     {
-        /***************************************************/
-        /**** Public Fields                             ****/
-        /***************************************************/
+        /*******************************************/
+        /**** Properties                        ****/
+        /*******************************************/
 
-        public static List<IGH_TypeHint> AvailableHints = new List<IGH_TypeHint>()
+        public Guid HintID { get; } = new Guid("8ECF16E7-F71B-4813-AD63-C4AECC246A26");
+
+        public string TypeName { get; } = "System.Type";
+
+
+        /*******************************************/
+        /**** Constructors                      ****/
+        /*******************************************/
+
+        public bool Cast(object data, out object target)
         {
-            new GH_NullHint(),
-            new GH_HintSeparator(),
-            new BHoMObjectHint(),
-            new IGeometryHint(),
-            new DictionaryHint(),
-            new EnumHint(),
-            new TypeHint(),
-            new GH_HintSeparator(),
-            new GH_BooleanHint_CS(),
-            new GH_IntegerHint_CS(),
-            new GH_DoubleHint_CS(),
-            new GH_StringHint_CS(),
-            new GH_HintSeparator(),
-            new GH_DateTimeHint(),
-            new GH_ColorHint(),
-            new GH_GuidHint()
-        };
+            GH_Type type = new GH_Type() { Value = null };
+            type.CastFrom(data);
+            if (type.Value == null)
+                target = data;
+            else
+                target = type.Value;
+            return true;
+        }
 
-        /***************************************************/
+        /*******************************************/
     }
 }
 

@@ -21,19 +21,19 @@
  */
 
 using System;
-using BH.Engine.Grasshopper.Objects;
 using Grasshopper.Kernel.Parameters;
+using BH.UI.Grasshopper.Goos;
 
-namespace BH.UI.Grasshopper.Objects.Hints
+namespace BH.UI.Grasshopper.Hints
 {
-    public class DictionaryHint : IGH_TypeHint
+    public class EnumHint : IGH_TypeHint
     {
         /*******************************************/
         /**** Properties                        ****/
         /*******************************************/
 
-        public Guid HintID { get; } = new Guid("1574563B-80AC-486D-B175-A4F2E5EC76D5"); 
-        public string TypeName { get; } = "Dictionary"; 
+        public Guid HintID { get; } = new Guid("50201E4F-F9F3-4BE5-A927-98AE2EE03530"); 
+        public string TypeName { get; } = "System.Enum"; 
 
 
         /*******************************************/
@@ -42,12 +42,12 @@ namespace BH.UI.Grasshopper.Objects.Hints
 
         public bool Cast(object data, out object target)
         {
-            GH_Dictionary dict = new GH_Dictionary() { Value = null };
-            dict.CastFrom(data);
-            if (dict.Value == null)
+            GH_Enum enumer = new GH_Enum() { Value = null };
+            enumer.CastFrom(data);
+            if (enumer.Value == null)
                 target = data;
             else
-                target = dict.Value;
+                target = enumer.Value;
             return true;
         }
 

@@ -34,7 +34,7 @@ using GH_IO;
 using GH_IO.Serialization;
 using BH.Engine.Serialiser;
 
-namespace BH.Engine.Grasshopper.Objects
+namespace BH.UI.Grasshopper.Goos
 {
     public class GH_IObject : GH_BakeableObject<object>
     {

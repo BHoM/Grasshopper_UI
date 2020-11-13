@@ -103,7 +103,7 @@ namespace BH.UI.Grasshopper
                         param = new Param_Variable
                         {
                             SelectedHint = new GH_NullHint(),
-                            PossibleHints = Engine.Grasshopper.Query.AvailableHints,
+                            PossibleHints = Helpers.AvailableHints,
                         };
                     }
                         

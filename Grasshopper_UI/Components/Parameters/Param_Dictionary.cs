@@ -20,13 +20,14 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.UI.Grasshopper.Goos;
 using BH.UI.Grasshopper.Properties;
 using BH.UI.Grasshopper.Templates;
 using System;
 
 namespace BH.UI.Grasshopper.Parameters
 {
-    public class Param_Dictionary : BHoMParam<Engine.Grasshopper.Objects.GH_Dictionary>
+    public class Param_Dictionary : BHoMParam<GH_Dictionary>
     {
         /*******************************************/
         /**** Properties                        ****/

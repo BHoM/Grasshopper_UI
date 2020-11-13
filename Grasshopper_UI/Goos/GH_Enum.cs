@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -20,31 +20,23 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using Grasshopper.Kernel;
-using Grasshopper.Kernel.Types;
-using BH.oM.Base;
-using BH.oM.Geometry;
-using BH.Engine.Geometry;
-using System;
-using BH.Engine.Base;
-using BH.Engine.Rhinoceros;
-using Rhino;
-using Rhino.DocObjects;
+using BH.Engine.Serialiser;
 using GH_IO;
 using GH_IO.Serialization;
-using BH.Engine.Serialiser;
+using Grasshopper.Kernel.Types;
+using System;
 
-namespace BH.Engine.Grasshopper.Objects
+namespace BH.UI.Grasshopper.Goos
 {
-    public class GH_BHoMAdapter : GH_BHoMGoo<object>  // Cannot reference BHoMAdapter for now as we are in the Engine
+    public class GH_Enum : GH_BHoMGoo<Enum>, GH_ISerializable
     {
         /*******************************************/
         /**** Properties                        ****/
         /*******************************************/
 
-        public override string TypeName { get; } = "BHoMAdapter";
+        public override string TypeName { get; } = "Enum";
 
-        public override string TypeDescription { get; } = "Contains a BHoM Adapter";
+        public override string TypeDescription { get; } = "Defines an enum";
 
         public override bool IsValid { get { return Value != null; } }
 
@@ -53,11 +45,11 @@ namespace BH.Engine.Grasshopper.Objects
         /**** Constructors                      ****/
         /*******************************************/
 
-        public GH_BHoMAdapter() : base() { }
+        public GH_Enum() : base() { }
 
         /***************************************************/
 
-        public GH_BHoMAdapter(object val) : base(val) { }
+        public GH_Enum(Enum val) : base(val) { }
 
 
         /*******************************************/
@@ -66,14 +58,14 @@ namespace BH.Engine.Grasshopper.Objects
 
         public override IGH_Goo Duplicate()
         {
-            return new GH_BHoMAdapter { Value = Value };
+            return new GH_Enum { Value = Value };
         }
 
-        /***************************************************/
+        /*******************************************/
 
         public override string ToString()
         {
-            object val = Value;
+            Enum val = Value;
             if (val == null)
                 return "null";
             else
@@ -81,5 +73,28 @@ namespace BH.Engine.Grasshopper.Objects
         }
 
         /***************************************************/
+
+        public override bool Read(GH_IReader reader)
+        {
+            string json = "";
+            reader.TryGetString("Json", ref json);
+
+            if (json != null && json.Length > 0)
+                Value = (Enum)BH.Engine.Serialiser.Convert.FromJson(json);
+
+            return true;
+        }
+
+        /***************************************************/
+
+        public override bool Write(GH_IWriter writer)
+        {
+            if (Value != null)
+                writer.SetString("Json", Value.ToJson());
+            return true;
+        }
+
+        /*******************************************/
     }
 }
+
