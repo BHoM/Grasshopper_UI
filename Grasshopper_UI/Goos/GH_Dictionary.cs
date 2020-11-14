@@ -60,17 +60,6 @@ namespace BH.UI.Grasshopper.Goos
         }
 
         /*******************************************/
-
-        public override string ToString()
-        {
-            IDictionary val = Value;
-            if (val == null)
-                return "null";
-            else
-                return val.GetType().ToText();
-        }
-
-        /*******************************************/
     }
 }
 

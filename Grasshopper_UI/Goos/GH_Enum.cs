@@ -61,17 +61,6 @@ namespace BH.UI.Grasshopper.Goos
             return new GH_Enum { Value = Value };
         }
 
-        /*******************************************/
-
-        public override string ToString()
-        {
-            Enum val = Value;
-            if (val == null)
-                return "null";
-            else
-                return val.ToString();
-        }
-
         /***************************************************/
 
         public override bool Read(GH_IReader reader)

@@ -33,6 +33,7 @@ using Rhino.DocObjects;
 using GH_IO;
 using GH_IO.Serialization;
 using BH.Engine.Serialiser;
+using BH.Engine.Reflection;
 
 namespace BH.UI.Grasshopper.Goos
 {
@@ -127,17 +128,6 @@ namespace BH.UI.Grasshopper.Goos
                 BH.Engine.Reflection.Compute.RecordError(message);
                 return false;
             }
-        }
-
-        /***************************************************/
-
-        public override string ToString()
-        {
-            object val = Value;
-            if (val == null)
-                return "null";
-            else
-                return val.ToString();
         }
 
         /***************************************************/
@@ -256,9 +246,9 @@ namespace BH.UI.Grasshopper.Goos
         /**** Private Fields                            ****/
         /***************************************************/
 
-        private IGeometry m_Geometry = null;
+        protected IGeometry m_Geometry = null;
 
-        private object m_RhinoGeometry = null;
+        protected object m_RhinoGeometry = null;
 
         /***************************************************/
     }
