@@ -44,11 +44,12 @@ namespace BH.UI.Grasshopper.Goos
         public override string TypeName { get; } = "IGeometry";
 
         public override string TypeDescription { get; } = "Contains a generic BHoM Geometry";
-        public Guid ReferenceID { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public bool IsReferencedGeometry => throw new NotImplementedException();
+        public Guid ReferenceID { get; set; } = Guid.Empty;
 
-        public bool IsGeometryLoaded => throw new NotImplementedException();
+        public bool IsReferencedGeometry { get; } = false;
+
+        public bool IsGeometryLoaded { get; } = true;
 
 
         /***************************************************/

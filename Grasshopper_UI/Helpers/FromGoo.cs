@@ -40,10 +40,15 @@ namespace BH.UI.Grasshopper
 
         public static T IFromGoo<T>(this IGH_Goo goo, IGH_TypeHint hint = null)
         {
-            return goo != null ? FromGoo<T>(goo as dynamic, hint) : null;
+            return goo != null ? FromGoo<T>(goo as dynamic, hint) : default(T);
         }
 
-        public static T FromGoo<T>(this IGH_Goo goo, IGH_TypeHint hint = null)
+
+        /*******************************************/
+        /**** Private Methods                   ****/
+        /*******************************************/
+
+        private static T FromGoo<T>(this IGH_Goo goo, IGH_TypeHint hint = null)
         {
             if (goo == null)
                 return default(T);
@@ -82,12 +87,21 @@ namespace BH.UI.Grasshopper
 
             if (data.GetType().Namespace.StartsWith("Rhino.Geometry"))
                 data = BH.Engine.Rhinoceros.Convert.FromRhino(data as dynamic);
-            return (T)(data as dynamic);
+
+            try
+            {
+                return (T)(data as dynamic);
+            }
+            catch
+            {
+                Engine.Reflection.Compute.RecordError("Failed to cast " + data.GetType().IToText() + " into " + typeof(T).IToText());
+                return default(T);
+            }
         }
 
         /*************************************/
 
-        public static T FromGoo<T>(this GH_Surface goo, IGH_TypeHint hint = null)
+        private static T FromGoo<T>(this GH_Surface goo, IGH_TypeHint hint = null)
         {
             Brep brep = goo.ScriptVariable() as Brep;
             if (brep.IsSurface)

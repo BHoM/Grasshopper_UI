@@ -100,8 +100,11 @@ namespace BH.UI.Grasshopper.Goos
 
         public override bool CastFrom(object source)
         {
+            if (source == null)
+                return false;
+
             if (source is IGH_Goo)
-                return CastFrom(Helpers.IFromGoo<object>((IGH_Goo)source));
+                return CastFrom(Helpers.IFromGoo<T>((IGH_Goo)source));
 
             if (source.GetType().Namespace.StartsWith("Rhino.Geometry"))
                 source = BH.Engine.Rhinoceros.Convert.FromRhino(source as dynamic);

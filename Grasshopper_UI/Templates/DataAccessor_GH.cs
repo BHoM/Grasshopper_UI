@@ -96,7 +96,7 @@ namespace BH.UI.Grasshopper.Templates
 
             List<IGH_Goo> goo = new List<IGH_Goo>();
             GH_Accessor.GetDataList<IGH_Goo>(index, goo);
-            return goo.Select(x => Helpers.FromGoo<T>(x, hint)).ToList();
+            return goo.Select(x => Helpers.IFromGoo<T>(x, hint)).ToList();
         }
 
         /*************************************/
