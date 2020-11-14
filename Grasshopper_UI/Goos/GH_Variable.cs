@@ -35,6 +35,7 @@ using GH_IO.Serialization;
 using BH.Engine.Serialiser;
 using Rhino.Geometry;
 using System.Drawing;
+using BH.Engine.Reflection;
 
 namespace BH.UI.Grasshopper.Goos
 {
@@ -115,7 +116,7 @@ namespace BH.UI.Grasshopper.Goos
 
         public string QC_Text()
         {
-            return Value.ToString();
+            return Value.IToText();
         }
 
         /*******************************************/

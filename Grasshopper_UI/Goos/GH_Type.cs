@@ -20,6 +20,7 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.Engine.Reflection;
 using BH.Engine.Serialiser;
 using GH_IO;
 using GH_IO.Serialization;
@@ -77,17 +78,6 @@ namespace BH.UI.Grasshopper.Goos
             else
                 this.Value = (Type)source;
             return true;
-        }
-
-        /***************************************************/
-
-        public override string ToString()
-        {
-            Type val = Value;
-            if (val == null)
-                return "Undefined type";
-            else
-                return val.FullName;
         }
 
         /***************************************************/

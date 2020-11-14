@@ -20,6 +20,7 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.Engine.Reflection;
 using BH.oM.Base;
 using BH.oM.Geometry;
 using Grasshopper.Kernel;
@@ -187,7 +188,7 @@ namespace BH.UI.Grasshopper
 
         public static bool CastToGoo(object value, ref GH_String target)
         {
-            return GH_Convert.ToGHString(value.ToString(), GH_Conversion.Both, ref target);
+            return GH_Convert.ToGHString(value.IToText(), GH_Conversion.Both, ref target);
         }
 
         /*******************************************/
