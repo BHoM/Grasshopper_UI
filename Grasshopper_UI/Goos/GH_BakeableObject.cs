@@ -107,7 +107,7 @@ namespace BH.UI.Grasshopper.Goos
                 return CastFrom(Helpers.IFromGoo<T>((IGH_Goo)source));
 
             if (source.GetType().Namespace.StartsWith("Rhino.Geometry"))
-                source = BH.Engine.Rhinoceros.Convert.FromRhino(source as dynamic);
+                source = BH.Engine.Rhinoceros.Convert.IFromRhino(source);
 
             return base.CastFrom(source);
         }

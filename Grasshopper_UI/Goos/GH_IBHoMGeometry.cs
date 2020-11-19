@@ -104,7 +104,7 @@ namespace BH.UI.Grasshopper.Goos
             {
                 GeometryBase geometry = ((GeometryBase)m_RhinoGeometry).Duplicate();
                 xmorph.Morph(geometry);
-                return new GH_IBHoMGeometry { Value = geometry?.FromRhino() };
+                return new GH_IBHoMGeometry { Value = geometry?.IFromRhino() };
             }
         }
 
