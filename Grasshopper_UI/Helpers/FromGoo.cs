@@ -104,11 +104,25 @@ namespace BH.UI.Grasshopper
         private static T FromGoo<T>(this GH_Surface goo, IGH_TypeHint hint = null)
         {
             Brep brep = goo.ScriptVariable() as Brep;
+
+            oM.Geometry.IGeometry geometry = null;
             if (brep.IsSurface)
-                return (T)(brep.Faces[0].UnderlyingSurface() as dynamic);
+                geometry = BH.Engine.Rhinoceros.Convert.IFromRhino(brep.Faces[0].UnderlyingSurface());
             else
-                return (T)(brep as dynamic);
+                geometry = BH.Engine.Rhinoceros.Convert.IFromRhino(brep);
+
+            try
+            {
+                return (T)(geometry as dynamic);
+            }
+            catch
+            {
+                Engine.Reflection.Compute.RecordError("Failed to cast " + geometry.GetType().IToText() + " into " + typeof(T).IToText());
+                return default(T);
+            }
         }
+
+        /*************************************/
     }
 }
 
