@@ -31,7 +31,7 @@ using BH.UI.Grasshopper.Goos;
 
 namespace BH.UI.Grasshopper.Parameters
 {
-    public class Param_BHoMGeometry : BHoMParam<GH_IBHoMGeometry>, IGH_BakeAwareObject
+    public class Param_BHoMGeometry : BakeableParam<GH_IBHoMGeometry>
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -43,33 +43,6 @@ namespace BH.UI.Grasshopper.Parameters
 
         public override string TypeName { get; } = "BHoM Geometry";
 
-        public bool IsBakeCapable { get; } = true;
-
-        /***************************************************/
-        /**** IGH_BakeAwareObject methods               ****/
-        /***************************************************/
-
-        public void BakeGeometry(RhinoDoc doc, List<Guid> obj_ids)
-        {
-            foreach (GH_IBHoMGeometry item in this.VolatileData.AllData(true))
-            {
-                Guid guid;
-                if (item.BakeGeometry(doc, null, out guid))
-                    obj_ids.Add(guid);
-            }
-        }
-
-        /*******************************************/
-
-        public void BakeGeometry(RhinoDoc doc, ObjectAttributes att, List<Guid> obj_ids)
-        {
-            foreach (GH_IBHoMGeometry item in this.VolatileData.AllData(true))
-            {
-                Guid guid;
-                if (item.BakeGeometry(doc, att, out guid))
-                    obj_ids.Add(guid);
-            }
-        }
 
         /*******************************************/
         /**** Constructors                      ****/
