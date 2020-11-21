@@ -29,6 +29,7 @@ using Rhino;
 using Rhino.DocObjects;
 using System.Collections.Generic;
 using Grasshopper.Kernel.Types;
+using System.Linq;
 
 namespace BH.UI.Grasshopper.Templates
 {
@@ -66,7 +67,7 @@ namespace BH.UI.Grasshopper.Templates
 
         public void BakeGeometry(RhinoDoc doc, List<Guid> obj_ids)
         {
-            foreach (IGH_BakeAwareData item in this.VolatileData.AllData(true))
+            foreach (IGH_BakeAwareData item in this.VolatileData.AllData(true).OfType<IGH_BakeAwareData>())
             {
                 Guid guid;
                 if (item.BakeGeometry(doc, null, out guid))
@@ -78,7 +79,7 @@ namespace BH.UI.Grasshopper.Templates
 
         public void BakeGeometry(RhinoDoc doc, ObjectAttributes att, List<Guid> obj_ids)
         {
-            foreach (IGH_BakeAwareData item in this.VolatileData.AllData(true))
+            foreach (IGH_BakeAwareData item in this.VolatileData.AllData(true).OfType<IGH_BakeAwareData>())
             {
                 Guid guid;
                 if (item.BakeGeometry(doc, att, out guid))
