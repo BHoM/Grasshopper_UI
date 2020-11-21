@@ -98,7 +98,7 @@ namespace BH.UI.Grasshopper.Goos
             }
             catch
             {
-                string message = $"Impossible to convert {source.GetType().IToText()} into System.Type. Check the description of each input for more details on the type of object that need to be provided";
+                string message = $"Impossible to convert {source.GetType().IToText()} into {typeof(T)}. Check the description of each input for more details on the type of object that need to be provided";
                 BH.Engine.Reflection.Compute.RecordError(message);
                 return false;
             } 
