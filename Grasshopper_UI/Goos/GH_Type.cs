@@ -66,17 +66,27 @@ namespace BH.UI.Grasshopper.Goos
 
         public override bool CastFrom(object source)
         {
-            if (source == null) { return false; }
-            else if (source is string)
-                this.Value = BH.Engine.Reflection.Create.Type(source as string);
-            else if (source is GH_String)
-                this.Value = BH.Engine.Reflection.Create.Type(((GH_String)source).Value);
-            else if (source.GetType() == typeof(GH_Goo<Type>))
-                this.Value = (Type)source;
-            else if (source is GH_Variable)
-                this.Value = (Type)((GH_Variable)source).Value;
-            else
-                this.Value = (Type)source;
+            try
+            {
+                if (source == null) { return false; }
+                else if (source is string)
+                    this.Value = BH.Engine.Reflection.Create.Type(source as string);
+                else if (source is GH_String)
+                    this.Value = BH.Engine.Reflection.Create.Type(((GH_String)source).Value);
+                else if (source.GetType() == typeof(GH_Goo<Type>))
+                    this.Value = (Type)source;
+                else if (source is GH_Variable)
+                    this.Value = (Type)((GH_Variable)source).Value;
+                else
+                    this.Value = (Type)source;
+            }
+            catch
+            {
+                string message = $"Impossible to convert {source.GetType().IToText()} into System.Type. Check the description of each input for more details on the type of object that need to be provided";
+                BH.Engine.Reflection.Compute.RecordError(message);
+                return false;
+            }
+            
             return true;
         }
 

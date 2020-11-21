@@ -76,7 +76,8 @@ namespace BH.UI.Grasshopper.Goos
             catch (Exception)
             {
                 string message = string.Format("Impossible to convert {0} into {1}. Check the input description for more details on the type of object that need to be provided", Value.GetType().FullName, typeof(Q).FullName);
-                throw new Exception(message);
+                Engine.Reflection.Compute.RecordError(message);
+                return false;
             }
         }
 
@@ -84,14 +85,23 @@ namespace BH.UI.Grasshopper.Goos
 
         public override bool CastFrom(object source)
         {
-            if (source == null) { return false; }
-            else if (source.GetType() == typeof(GH_Goo<T>))
-                this.Value = ((GH_Goo<T>)source).Value;
-            else if (source is T)
-                this.Value = (T)source;
-            else
-                this.Value = default(T);
-            return true;
+            try
+            {
+                if(source == null)
+                    return false; 
+                else if (source.GetType() == typeof(GH_Goo<T>))
+                    this.Value = ((GH_Goo<T>)source).Value;
+                else
+                    this.Value = (T)source;
+
+                return true;
+            }
+            catch
+            {
+                string message = $"Impossible to convert {source.GetType().IToText()} into System.Type. Check the description of each input for more details on the type of object that need to be provided";
+                BH.Engine.Reflection.Compute.RecordError(message);
+                return false;
+            } 
         }
 
         /*******************************************/
