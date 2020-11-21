@@ -29,6 +29,7 @@ using System.Linq;
 using BH.Engine.Reflection;
 using BH.oM.Reflection;
 using System.Collections.Generic;
+using Grasshopper.Kernel.Parameters.Hints;
 
 namespace BH.UI.Grasshopper
 {
@@ -61,6 +62,9 @@ namespace BH.UI.Grasshopper
             if (data == null)
                 return default(T);
 
+            if (data.GetType().Namespace.StartsWith("Rhino.Geometry"))
+                data = BH.Engine.Rhinoceros.Convert.IFromRhino(data);
+
             // Convert the data to an acceptable format
             if (data is T)
             {
@@ -71,6 +75,9 @@ namespace BH.UI.Grasshopper
                 object result;
                 hint.Cast(RuntimeHelpers.GetObjectValue(data), out result);
                 data = result;
+
+                if (data.GetType().Namespace.StartsWith("Rhino.Geometry"))
+                    data = BH.Engine.Rhinoceros.Convert.IFromRhino(data);
             }
             else if (data is IEnumerable)
             {
@@ -84,9 +91,6 @@ namespace BH.UI.Grasshopper
                         return list.First();
                 }
             }
-
-            if (data.GetType().Namespace.StartsWith("Rhino.Geometry"))
-                data = BH.Engine.Rhinoceros.Convert.IFromRhino(data);
 
             try
             {
