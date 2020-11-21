@@ -141,7 +141,20 @@ namespace BH.UI.Grasshopper.Goos
             reader.TryGetString("Json", ref json);
 
             if (json != null && json.Length > 0)
-                Value = (T)BH.Engine.Serialiser.Convert.FromJson(json);
+            {
+                object fromJson = BH.Engine.Serialiser.Convert.FromJson(json);
+                try
+                {
+                    Value = (T)fromJson;
+                }
+                catch
+                {
+                    string message = string.Format("Impossible to convert {0} into {1}. Check the description of each input for more details on the type of object that need to be provided", fromJson.GetType().FullName, typeof(T).IToText());
+                    BH.Engine.Reflection.Compute.RecordError(message);
+                    return false;
+                }
+            }
+                
 
             return true;
         }
