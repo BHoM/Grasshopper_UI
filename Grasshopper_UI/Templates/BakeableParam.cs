@@ -47,7 +47,7 @@ namespace BH.UI.Grasshopper.Templates
                     // Setting IsPreviewCapable from true to false clears the grasshopper geometry cache
                     // be mindful to use m_ForcePreview and Hidden variables only in case the number of objects
                     // to display is actually high
-                    this.ClearRuntimeMessages();
+                    //this.ClearRuntimeMessages();
                     return base.IsPreviewCapable;
                 }
                 Engine.Reflection.Compute.RecordNote("Preview has been disabled to prevent a slowdown due to the high number of objects." +
