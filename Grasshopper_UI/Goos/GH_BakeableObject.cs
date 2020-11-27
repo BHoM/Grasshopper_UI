@@ -120,7 +120,7 @@ namespace BH.UI.Grasshopper.Goos
             {
                 if (Value == null)
                     target = default(Q);
-                if (target is IGH_GeometricGoo || target is GH_Transform || target is GH_Matrix)
+                if (target is IGH_GeometricGoo || target is GH_Transform || target is GH_Matrix || target is GH_Vector)
                     return Helpers.CastToGoo(m_RhinoGeometry as dynamic, ref target);
                 else
                     return Helpers.CastToGoo(Value as dynamic, ref target);
