@@ -37,13 +37,13 @@ namespace BH.UI.Grasshopper
         /**** Public Methods  - Interfaces              ****/
         /***************************************************/
 
-        public static void IRenderWires(this BHG.IGeometry geometry, GH_PreviewWireArgs args)
+        public static void IRenderWires(this BHG.IGeometry geometry, GH_PreviewWireArgs args, Color custom)
         {
             if (geometry == null)
             {
                 return;
             }
-            Color bhColour = RenderColour(args.Color);
+            Color bhColour = RenderColour(args.Color, custom);
             try
             {
                 RenderWires(geometry as dynamic, args.Pipeline, bhColour);

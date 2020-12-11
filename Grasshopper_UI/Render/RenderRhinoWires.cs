@@ -22,6 +22,7 @@
 
 using RHG = Rhino.Geometry;
 using Rhino.Display;
+using Rhino.DocObjects;
 using Grasshopper.Kernel;
 using System;
 using System.Drawing;
@@ -37,27 +38,27 @@ namespace BH.UI.Grasshopper
         /**** Public Methods  - Interfaces              ****/
         /***************************************************/
 
-        public static void IRenderRhinoWires(this object geometry, GH_PreviewWireArgs args)
+        public static void IRenderRhinoWires(this object geometry, GH_PreviewWireArgs args, Color custom, int weight)
         {
             if (geometry == null)
             {
                 return;
             }
-            Color bhColour = RenderColour(args.Color);
+            Color bhColour = RenderColour(args.Color, custom);
             try
             {
-                RenderRhinoWires(geometry as dynamic, args.Pipeline, bhColour);
+                RenderRhinoWires(geometry as dynamic, args.Pipeline, bhColour, weight);
             }
             catch (Exception) { }
         }
 
         /***************************************************/
 
-        public static void RenderRhinoWires(this List<object> geometry, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(this List<object> geometry, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
             foreach(object geo in geometry)
             {
-                RenderRhinoWires(geo as dynamic, pipeline, bhColour);
+                RenderRhinoWires(geo as dynamic, pipeline, bhColour, weight);
             }
         }
 
@@ -66,7 +67,7 @@ namespace BH.UI.Grasshopper
         /**** Private Methods  - Fallback               ****/
         /***************************************************/
 
-        private static void RenderRhinoWires(this object fallback, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        private static void RenderRhinoWires(this object fallback, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
             // fallback in case no method is found for the provided runtime type
             return;
@@ -77,14 +78,14 @@ namespace BH.UI.Grasshopper
         /**** Public Methods  - Vectors                 ****/
         /***************************************************/
 
-        public static void RenderRhinoWires(RHG.Point3d point, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(RHG.Point3d point, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
             pipeline.DrawPoint(point, bhColour);
         }
 
         /***************************************************/
 
-        public static void RenderRhinoWires(RHG.Plane plane, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(RHG.Plane plane, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
             pipeline.DrawConstructionPlane(new Rhino.DocObjects.ConstructionPlane() { Plane = plane, ThickLineColor = bhColour, ThinLineColor = Color.Black, GridLineCount = 10 });
         }
@@ -94,81 +95,81 @@ namespace BH.UI.Grasshopper
         /**** Public Methods  - Curves                  ****/
         /***************************************************/
 
-        public static void RenderRhinoWires(RHG.Arc arc, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(RHG.Arc arc, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
-            pipeline.DrawArc(arc, bhColour, 2);
+            pipeline.DrawArc(arc, bhColour, weight);
         }
 
         /***************************************************/
 
-        public static void RenderRhinoWires(RHG.ArcCurve arc, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(RHG.ArcCurve arc, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
-            pipeline.DrawArc(arc.Arc, bhColour, 2);
+            pipeline.DrawArc(arc.Arc, bhColour, weight);
         }
 
         /***************************************************/
 
-        public static void RenderRhinoWires(RHG.Circle circle, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(RHG.Circle circle, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
-            pipeline.DrawCircle(circle, bhColour, 2);
+            pipeline.DrawCircle(circle, bhColour, weight);
         }
 
         /***************************************************/
 
-        public static void RenderRhinoWires(RHG.Curve curve, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(RHG.Curve curve, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
-            pipeline.DrawCurve(curve, bhColour, 2);
+            pipeline.DrawCurve(curve, bhColour, weight);
         }
 
         /***************************************************/
 
-        public static void RenderRhinoWires(RHG.Ellipse ellipse, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(RHG.Ellipse ellipse, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
-            pipeline.DrawCurve(ellipse.ToNurbsCurve(), bhColour, 2);
+            pipeline.DrawCurve(ellipse.ToNurbsCurve(), bhColour, weight);
         }
 
         /***************************************************/
 
-        public static void RenderRhinoWires(RHG.Line line, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(RHG.Line line, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
-            pipeline.DrawLine(line, bhColour, 2);
+            pipeline.DrawLine(line, bhColour, weight);
         }
 
         /***************************************************/
 
-        public static void RenderRhinoWires(RHG.LineCurve line, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(RHG.LineCurve line, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
-            pipeline.DrawLine(line.Line, bhColour, 2);
+            pipeline.DrawLine(line.Line, bhColour, weight);
         }
 
         /***************************************************/
 
-        public static void RenderRhinoWires(RHG.NurbsCurve curve, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(RHG.NurbsCurve curve, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
-            pipeline.DrawCurve(curve, bhColour, 2);
+            pipeline.DrawCurve(curve, bhColour, weight);
         }
 
         /***************************************************/
 
-        public static void RenderRhinoWires(RHG.PolyCurve polycurve, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(RHG.PolyCurve polycurve, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
-            pipeline.DrawCurve(polycurve, bhColour, 2);
+            pipeline.DrawCurve(polycurve, bhColour, weight);
         }
 
         /***************************************************/
 
-        public static void RenderRhinoWires(RHG.Polyline polyline, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(RHG.Polyline polyline, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
-            pipeline.DrawPolyline(polyline, bhColour, 2);
+            pipeline.DrawPolyline(polyline, bhColour, weight);
         }
 
         /***************************************************/
 
-        public static void RenderRhinoWires(RHG.PolylineCurve polyline, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(RHG.PolylineCurve polyline, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
             RHG.Polyline poly;
             if (polyline.TryGetPolyline(out poly))
-                pipeline.DrawPolyline(poly, bhColour, 2);
+                pipeline.DrawPolyline(poly, bhColour, weight);
         }
 
 
@@ -176,21 +177,21 @@ namespace BH.UI.Grasshopper
         /**** Public Methods  - Surfaces                ****/
         /***************************************************/
 
-        public static void RenderRhinoWires(RHG.Extrusion surface, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(RHG.Extrusion surface, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
-            pipeline.DrawSurface(surface, bhColour, 2);
+            pipeline.DrawSurface(surface, bhColour, weight);
         }
 
         /***************************************************/
 
-        public static void RenderRhinoWires(RHG.NurbsSurface surface, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(RHG.NurbsSurface surface, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
-            pipeline.DrawSurface(surface, bhColour, 2);
+            pipeline.DrawSurface(surface, bhColour, weight);
         }
 
         /***************************************************/
 
-        public static void RenderRhinoWires(RHG.Brep brep, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(RHG.Brep brep, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
             pipeline.DrawBrepWires(brep, bhColour, 0);
         }
@@ -200,28 +201,28 @@ namespace BH.UI.Grasshopper
         /**** Public Methods - Solids                   ****/
         /***************************************************/
 
-        public static void RenderRhinoWires(RHG.Cone cone, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(RHG.Cone cone, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
             pipeline.DrawCone(cone, bhColour);
         }
 
         /***************************************************/
 
-        public static void RenderRhinoWires(RHG.Cylinder cylinder, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(RHG.Cylinder cylinder, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
             pipeline.DrawCylinder(cylinder, bhColour);
         }
 
         /***************************************************/
 
-        public static void RenderRhinoWires(RHG.Sphere sphere, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(RHG.Sphere sphere, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
             pipeline.DrawSphere(sphere, bhColour);
         }
 
         /***************************************************/
 
-        public static void RenderRhinoWires(RHG.Torus torus, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(RHG.Torus torus, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
             pipeline.DrawTorus(torus, bhColour);
         }
@@ -231,7 +232,7 @@ namespace BH.UI.Grasshopper
         /**** Public Methods  - Mesh                    ****/
         /***************************************************/
 
-        public static void RenderRhinoWires(RHG.Mesh mesh, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(RHG.Mesh mesh, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
             if (mesh.VertexColors.Count == 0)
                 pipeline.DrawMeshWires(mesh, bhColour);
@@ -244,9 +245,16 @@ namespace BH.UI.Grasshopper
         /**** Public Methods  - Miscellanea             ****/
         /***************************************************/
 
-        public static void RenderRhinoWires(RHG.BoundingBox bbBox, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
+        public static void RenderRhinoWires(RHG.BoundingBox bbBox, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
         {
-            pipeline.DrawBox(bbBox, bhColour, 2);
+            pipeline.DrawBox(bbBox, bhColour, weight);
+        }
+
+        /***************************************************/
+
+        public static void RenderRhinoWires(Text3d text3d, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int weight)
+        {
+            pipeline.Draw3dText(text3d, bhColour);
         }
 
         /***************************************************/

@@ -34,6 +34,11 @@ using GH_IO;
 using GH_IO.Serialization;
 using BH.Engine.Serialiser;
 using BH.Engine.Reflection;
+using System.Drawing;
+using BH.oM.Graphics;
+using System.Collections;
+using System.Collections.Generic;
+using Rhino.Display;
 
 namespace BH.UI.Grasshopper.Goos
 {
@@ -181,7 +186,10 @@ namespace BH.UI.Grasshopper.Goos
         public virtual void DrawViewportWires(GH_PreviewWireArgs args)
         {
             if (m_RhinoGeometry != null)
-                Render.IRenderRhinoWires(m_RhinoGeometry, args);
+            { 
+                Render.IRenderRhinoWires(m_RhinoGeometry, args, m_Color, m_LineWeight);
+            }
+                
         }
 
 
@@ -195,8 +203,16 @@ namespace BH.UI.Grasshopper.Goos
             {
                 return true;
             }
+            else if (Value is IRepresentation)
+            {
+                IRepresentation rep = Value as IRepresentation;
+                //m_Geometry = rep.Geometry;
+                m_RhinoGeometry = RepToRhino(rep);
+                return true;
+            }
             else if (Value is BHoMObject)
             {
+                
                 m_Geometry = (Value as BHoMObject).IGeometry();
                 m_RhinoGeometry = m_Geometry.IToRhino();
                 return true;
@@ -259,12 +275,56 @@ namespace BH.UI.Grasshopper.Goos
         }
 
         /***************************************************/
+
+        //This needs to be an ToRhino method in rhino TK
+        private object RepToRhino(IRepresentation BHRep)
+        {
+            List<object> repGeo = new List<object>();
+
+            if(BHRep is GeometricRepresentation)
+            {
+                GeometricRepresentation georep = BHRep as GeometricRepresentation;
+                repGeo.Add((BHRep as GeometricRepresentation).Geometry.IToRhino());
+                m_Geometry = georep.Geometry;
+                m_Color = georep.Colour;
+                m_LineWeight = georep.LineWeight;
+            }
+                
+
+            else if (BHRep is TextRepresentation)
+            {
+                TextRepresentation textRep = BHRep as TextRepresentation;
+                if(textRep.Text != "")
+                {
+                    
+                    Rhino.Geometry.Vector3d xdir = (Rhino.Geometry.Vector3d)textRep.Cartesian.X.IToRhino();
+                    Rhino.Geometry.Vector3d ydir = (Rhino.Geometry.Vector3d)textRep.Cartesian.Y.IToRhino();
+                    Rhino.Geometry.Point3d pos = (Rhino.Geometry.Point3d)textRep.Cartesian.Origin.IToRhino();
+                    Rhino.Geometry.Plane textPlane = new Rhino.Geometry.Plane(pos, xdir, ydir);
+                    Text3d text3D = new Text3d(textRep.Text, textPlane, textRep.FontConfig.Height);
+                    text3D.FontFace = BH.Engine.Graphics.Query.Font( textRep.FontConfig.Font);
+                    text3D.Bold = textRep.FontConfig.Bold;
+                    text3D.Italic = textRep.FontConfig.Italic;
+                    m_Color = textRep.FontConfig.Colour;
+                    m_Geometry = textRep.Cartesian.Origin;
+                    repGeo.Add(text3D);
+                }
+                
+            }
+            return repGeo;
+        }
+
+        /***************************************************/
         /**** Private Fields                            ****/
         /***************************************************/
 
         protected IGeometry m_Geometry = null;
 
         protected object m_RhinoGeometry = null;
+
+        protected Color m_Color = Color.FromArgb(80, 255, 41, 105);
+
+        protected int m_LineWeight = 2;
 
         /***************************************************/
     }
