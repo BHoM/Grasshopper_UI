@@ -1,6 +1,6 @@
 BHoM/BHoM
 BHoM/BHoM_Engine
 BHoM/BHoM_Adapter
-BHoM/BHoM_UI
 BHoM/CSharp_Toolkit
+BHoM/BHoM_UI
 BHoM/Rhinoceros_Toolkit
