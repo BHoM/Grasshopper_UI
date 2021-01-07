@@ -42,7 +42,7 @@ namespace BH.UI.Grasshopper.Components.UI
         /**** Properties                        ****/
         /*******************************************/
 
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return null; } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.ClusterToNode; } }
 
         public override Guid ComponentGuid { get { return new Guid("FCB6D011-F297-4D65-88B8-490B74AF8187"); } }
 

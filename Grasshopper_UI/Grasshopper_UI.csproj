@@ -166,6 +166,7 @@
     <Compile Include="Components\Engine\GetEvents.cs" />
     <Compile Include="Components\Parameters\Param_BHoMAdapter.cs" />
     <Compile Include="Components\Parameters\Param_Variable.cs" />
+    <Compile Include="Components\UI\RunCode.cs" />
     <Compile Include="Global\WireInfo.cs" />
     <Compile Include="Components\UI\Cluster2Node.cs" />
     <Compile Include="Goos\GH_BakeableObject.cs" />
@@ -314,6 +315,7 @@
     <None Include="Properties\Resources\BHoMObject_Param.png" />
     <None Include="Properties\Resources\BHoM_Logo.png" />
     <Content Include="Properties\Resources\BHoMAdapter_Param.png" />
+    <None Include="Properties\Resources\ClusterToNode.png" />
     <Content Include="Properties\Resources\Compute.png" />
     <Content Include="Properties\Resources\Convert.png" />
     <Content Include="Properties\Resources\CreateBHoM.png" />
