@@ -325,6 +325,16 @@ namespace BH.UI.Grasshopper.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ClusterToNode {
+            get {
+                object obj = ResourceManager.GetObject("ClusterToNode", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Compute {
             get {
                 object obj = ResourceManager.GetObject("Compute", resourceCulture);
