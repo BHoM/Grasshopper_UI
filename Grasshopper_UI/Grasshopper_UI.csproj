@@ -167,7 +167,7 @@
     <Compile Include="Components\Parameters\Param_BHoMAdapter.cs" />
     <Compile Include="Components\Parameters\Param_Variable.cs" />
     <Compile Include="Components\UI\RunCode.cs" />
-    <Compile Include="Components\UI\UnitTestComponent.cs" />
+    <Compile Include="Components\UI\UnitTest.cs" />
     <Compile Include="Global\WireInfo.cs" />
     <Compile Include="Components\UI\Cluster2Node.cs" />
     <Compile Include="Goos\GH_BakeableObject.cs" />
