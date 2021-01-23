@@ -56,6 +56,9 @@
       <HintPath>C:\ProgramData\BHoM\Assemblies\BHoM_UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="CodeEditor_UI">
+      <HintPath>C:\ProgramData\BHoM\Assemblies\CodeEditor_UI.dll</HintPath>
+    </Reference>
     <Reference Include="Data_Engine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\ProgramData\BHoM\Assemblies\Data_Engine.dll</HintPath>
