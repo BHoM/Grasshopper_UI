@@ -224,8 +224,8 @@ namespace BH.Engine.Grasshopper
         {
             node.Name = component.NickName;
             node.Description = component.Description;
-            node.Inputs = component.Params.Input.Select(input => input.ToReceiverParam(component.InstanceGuid)).ToList();
-            node.Outputs = component.Params.Output.Select(output => output.ToDataParam(component.InstanceGuid)).ToList();
+            node.Inputs = component.Params.Input.Select(input => input.ToReceiverParam()).ToList();
+            node.Outputs = component.Params.Output.Select(output => output.ToDataParam()).ToList();
             node.BHoM_Guid = component.InstanceGuid;
 
             return node;

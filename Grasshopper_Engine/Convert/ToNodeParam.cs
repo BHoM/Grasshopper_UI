@@ -39,14 +39,14 @@ namespace BH.Engine.Grasshopper
         /**** Public Methods                    ****/
         /*******************************************/
 
-        public static INodeParam ToNodeParam(this IGH_Param param, Guid parentId)
+        public static INodeParam ToNodeParam(this IGH_Param param)
         {
             switch (param.Kind)
             {
                 case GH_ParamKind.input:
-                    return ToReceiverParam(param, parentId);
+                    return ToReceiverParam(param);
                 case GH_ParamKind.output:
-                    return ToDataParam(param, parentId);
+                    return ToDataParam(param);
                 default:
                     return null;
             }
@@ -54,29 +54,27 @@ namespace BH.Engine.Grasshopper
 
         /*******************************************/
 
-        public static ReceiverParam ToReceiverParam(this IGH_Param param, Guid parentId)
+        public static ReceiverParam ToReceiverParam(this IGH_Param param)
         {
             return new ReceiverParam
             {
                 Name = param.NickName,
                 Description = param.Description,
                 SourceId = param.SourceCount == 0 ? Guid.Empty : param.Sources.First().InstanceGuid,
-                BHoM_Guid = param.InstanceGuid,
-                ParentId = parentId
+                BHoM_Guid = param.InstanceGuid
             };
         }
 
         /*******************************************/
 
-        public static DataParam ToDataParam(this IGH_Param param, Guid parentId)
+        public static DataParam ToDataParam(this IGH_Param param)
         {
             return new DataParam
             {
                 Name = param.NickName,
                 Description = param.Description,
                 BHoM_Guid = param.InstanceGuid,
-                TargetIds = param.Recipients.Select(r => r.InstanceGuid).ToList(),
-                ParentId = parentId
+                TargetIds = param.Recipients.Select(r => r.InstanceGuid).ToList()
             };
         }
 
