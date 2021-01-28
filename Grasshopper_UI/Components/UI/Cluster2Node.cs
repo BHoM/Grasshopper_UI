@@ -103,15 +103,13 @@ namespace BH.UI.Grasshopper.Components.UI
                         Name = x.NickName,
                         Description = x.Description,
                         TargetIds = x.Recipients.Select(r => r.InstanceGuid).ToList(),
-                        BHoM_Guid = x.InstanceGuid,
-                        ParentId = cluster.InstanceGuid
+                        BHoM_Guid = x.InstanceGuid
                     }).ToList(),
                     Outputs = outputs.Select(x => new ReceiverParam {
                         Name = x.NickName,
                         Description = x.Description,
                         SourceId = x.Sources.First().InstanceGuid,
-                        BHoM_Guid = x.InstanceGuid,
-                        ParentId = cluster.InstanceGuid
+                        BHoM_Guid = x.InstanceGuid
                     }).ToList(),
                     InternalNodes = components.Select(x => ToNode(x)).Concat(parameters.Select(x => ToNode(x))).Where(x => x != null).ToList(),
                     NodeGroups = ClearUnsafeGroups(groups.Select(x => x.ToNodeGroup()).ToList()),
