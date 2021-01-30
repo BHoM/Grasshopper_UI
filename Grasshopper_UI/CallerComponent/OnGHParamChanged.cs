@@ -58,10 +58,18 @@ namespace BH.UI.Grasshopper.Templates
 
             // Updating Caller.InputParams based on the new Grasshopper parameter just received
             // We update the InputParams with the new type or name
-            Caller.UpdateInput(e.ParameterIndex, e.Parameter.NickName, e.Parameter.Type(Caller));
+            if (m_NotifyChanges)
+                Caller.UpdateInput(e.ParameterIndex, e.Parameter.NickName, e.Parameter.Type(Caller));
 
             return;
         }
+
+
+        /*******************************************/
+        /**** Private Fields                    ****/
+        /*******************************************/
+
+        protected bool m_NotifyChanges = true;
 
         /*******************************************/
     }

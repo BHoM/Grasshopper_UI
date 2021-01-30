@@ -53,6 +53,8 @@ namespace BH.UI.Grasshopper.Templates
             if (update == null)
                 return;
 
+            m_NotifyChanges = false;
+
             // Update the component details
             UpdateComponentDetails(update.ComponentUpdate);
 
@@ -65,6 +67,8 @@ namespace BH.UI.Grasshopper.Templates
             // Ask component to refresh
             Params.OnParametersChanged();
             ExpireSolution(true);
+
+            m_NotifyChanges = true;
         }
 
         /*******************************************/
