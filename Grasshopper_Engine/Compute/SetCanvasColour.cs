@@ -28,6 +28,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace BH.Engine.Grasshopper
 {
@@ -37,26 +38,32 @@ namespace BH.Engine.Grasshopper
         /**** Public Methods                    ****/
         /*******************************************/
 
-        public static void SetCanvasColour(Color? backgroundCol = null, Color? gridCol = null, bool activate = false)
+        [Description("Sets the display colour of Background, Grid and other elements in the Grasshopper UI.")]
+        public static void SetCanvasColour(Color? backgroundCol = null, Color? gridCol = null, Color? wireDeselected = null, bool activate = false)
         {
-            Color defaultGridCol = Color.FromArgb(30, 0, 0, 0);
-            Color defaultBgCol = Color.FromArgb(255, 212, 208, 200);
+            Color grid_default = Color.FromArgb(30, 0, 0, 0);
+            Color bg_default = Color.FromArgb(255, 212, 208, 200);
+            Color wireDeselected_default = Color.FromArgb(150, 0, 0, 0);
 
             if (!activate)
             {
-                //DEFAULTS
-                gh.GUI.Canvas.GH_Skin.canvas_grid = defaultGridCol;
-                gh.GUI.Canvas.GH_Skin.canvas_back = defaultBgCol;
-                gh.GUI.Canvas.GH_Skin.canvas_edge = Color.FromArgb(255, 0, 0, 0);
-                gh.GUI.Canvas.GH_Skin.canvas_shade = Color.FromArgb(80, 0, 0, 0);
+                gh.GUI.Canvas.GH_Skin.canvas_grid = grid_default;
+                gh.GUI.Canvas.GH_Skin.canvas_back = bg_default;
+                gh.GUI.Canvas.GH_Skin.wire_default = wireDeselected_default;
             }
             else
             {
-                gh.GUI.Canvas.GH_Skin.canvas_grid = gridCol ?? defaultGridCol;
-                gh.GUI.Canvas.GH_Skin.canvas_back = backgroundCol ?? defaultBgCol;
-                gh.GUI.Canvas.GH_Skin.canvas_edge = Color.FromArgb(255, 0, 0, 0);
-                gh.GUI.Canvas.GH_Skin.canvas_shade = Color.FromArgb(80, 0, 0, 0);
+                gh.GUI.Canvas.GH_Skin.canvas_grid = gridCol ?? grid_default;
+                gh.GUI.Canvas.GH_Skin.canvas_back = backgroundCol ?? bg_default;
+                gh.GUI.Canvas.GH_Skin.wire_default = wireDeselected ?? wireDeselected_default;
             }
+        }
+
+        [Description("Attempts to reset the applied GH canvas colours by reading the grasshopper_gui.xml file if it exists.")]
+        public static void ResetCanvasColours(bool activate = false)
+        {
+            if (activate)
+                gh.GUI.Canvas.GH_Skin.LoadSkin();
         }
     }
 }
