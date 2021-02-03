@@ -128,11 +128,11 @@
     <Compile Include="Convert\ToNodeGroup.cs" />
     <Compile Include="Convert\ToType.cs" />
     <Compile Include="Convert\ToRhino.cs" />
+    <Compile Include="Compute\SetCanvasColour.cs" />
     <Compile Include="Create\DataTree.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Compute\" />
     <Folder Include="Modify\" />
     <Folder Include="Query\" />
   </ItemGroup>
