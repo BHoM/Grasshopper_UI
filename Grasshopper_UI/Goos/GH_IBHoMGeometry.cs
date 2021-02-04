@@ -93,16 +93,16 @@ namespace BH.UI.Grasshopper.Goos
 
         public IGH_GeometricGoo Morph(SpaceMorph xmorph)
         {
-            if (m_RhinoGeometry == null)
+            if (m_RhinoObject == null)
                 return null;
-            else if (m_RhinoGeometry is Point3d)
+            else if (m_RhinoObject is Point3d)
             {
-                Point3d morphed = xmorph.MorphPoint((Rhino.Geometry.Point3d)m_RhinoGeometry);
+                Point3d morphed = xmorph.MorphPoint((Rhino.Geometry.Point3d)m_RhinoObject);
                 return new GH_IBHoMGeometry { Value = morphed.FromRhino() };
             } 
             else
             {
-                GeometryBase geometry = ((GeometryBase)m_RhinoGeometry).Duplicate();
+                GeometryBase geometry = ((GeometryBase)m_RhinoObject).Duplicate();
                 xmorph.Morph(geometry);
                 return new GH_IBHoMGeometry { Value = geometry?.IFromRhino() };
             }

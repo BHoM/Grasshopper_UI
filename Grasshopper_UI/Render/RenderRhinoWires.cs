@@ -28,6 +28,9 @@ using System.Drawing;
 using BH.oM.Reflection.Attributes;
 using System.Collections.Generic;
 using GH = Grasshopper;
+using BH.oM.Base;
+using BH.oM.Geometry;
+using BH.Engine.Rhinoceros;
 
 namespace BH.UI.Grasshopper
 { 
@@ -37,16 +40,16 @@ namespace BH.UI.Grasshopper
         /**** Public Methods  - Interfaces              ****/
         /***************************************************/
 
-        public static void IRenderRhinoWires(this object geometry, GH_PreviewWireArgs args)
+        public static void IRenderRhinoWires(this object obj, GH_PreviewWireArgs args, IRepresentationOptions representationOptions = null)
         {
-            if (geometry == null)
+            if (obj == null)
             {
                 return;
             }
             Color bhColour = RenderColour(args.Color);
             try
             {
-                RenderRhinoWires(geometry as dynamic, args.Pipeline, bhColour);
+                RenderRhinoWires(obj as dynamic, args.Pipeline, bhColour);
             }
             catch (Exception) { }
         }
@@ -171,7 +174,6 @@ namespace BH.UI.Grasshopper
                 pipeline.DrawPolyline(poly, bhColour, 2);
         }
 
-
         /***************************************************/
         /**** Public Methods  - Surfaces                ****/
         /***************************************************/
@@ -247,6 +249,17 @@ namespace BH.UI.Grasshopper
         public static void RenderRhinoWires(RHG.BoundingBox bbBox, Rhino.Display.DisplayPipeline pipeline, Color bhColour)
         {
             pipeline.DrawBox(bbBox, bhColour, 2);
+        }
+
+
+        /***************************************************/
+        /**** Public Methods  - Representations         ****/
+        /***************************************************/
+
+        public static void RenderRhinoWires(TextRepresentation textRepresentation, Rhino.Display.DisplayPipeline pipeline)
+        {
+            Text3d text3D = textRepresentation.IToRhino() as Text3d;
+            pipeline.Draw3dText(text3D, textRepresentation.Colour, new RHG.Plane()); // add textRepresentation.Plane here
         }
 
         /***************************************************/

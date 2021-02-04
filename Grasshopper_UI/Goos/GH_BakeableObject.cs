@@ -121,7 +121,7 @@ namespace BH.UI.Grasshopper.Goos
                 if (Value == null)
                     target = default(Q);
                 if (target is IGH_GeometricGoo || target is GH_Transform || target is GH_Matrix || target is GH_Vector)
-                    return Helpers.CastToGoo(m_RhinoGeometry as dynamic, ref target);
+                    return Helpers.CastToGoo(m_RhinoObject as dynamic, ref target);
                 else
                     return Helpers.CastToGoo(Value as dynamic, ref target);
             }
@@ -172,16 +172,16 @@ namespace BH.UI.Grasshopper.Goos
 
         public virtual void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
-            if (m_RhinoGeometry != null)
-                Render.IRenderRhinoMeshes(m_RhinoGeometry, args);
+            if (m_RhinoObject != null)
+                Render.IRenderRhinoMeshes(m_RhinoObject, args);
         }
 
         /***************************************************/
 
         public virtual void DrawViewportWires(GH_PreviewWireArgs args)
         {
-            if (m_RhinoGeometry != null)
-                Render.IRenderRhinoWires(m_RhinoGeometry, args);
+            if (m_RhinoObject != null)
+                Render.IRenderRhinoWires(m_RhinoObject, args);
         }
 
 
@@ -195,16 +195,22 @@ namespace BH.UI.Grasshopper.Goos
             {
                 return true;
             }
+            else if (Value is IRepresentation)
+            {
+                // Set representation
+                m_RhinoObject = (Value as IRepresentation);
+                return true;
+            }
             else if (Value is BHoMObject)
             {
                 m_Geometry = (Value as BHoMObject).IGeometry();
-                m_RhinoGeometry = m_Geometry.IToRhino();
+                m_RhinoObject = m_Geometry.IToRhino();
                 return true;
             }
             else if (Value is IGeometry)
             {
                 m_Geometry = Value as IGeometry;
-                m_RhinoGeometry = m_Geometry.IToRhino();
+                m_RhinoObject = m_Geometry.IToRhino();
                 return true;
             }
             else
@@ -240,7 +246,7 @@ namespace BH.UI.Grasshopper.Goos
 
         public bool BakeGeometry(RhinoDoc doc, ObjectAttributes att, out Guid obj_guid)
         {
-            if (m_RhinoGeometry != null)
+            if (m_RhinoObject != null)
             {
                 if (att == null)
                     att = new ObjectAttributes();
@@ -250,7 +256,7 @@ namespace BH.UI.Grasshopper.Goos
                 if (string.IsNullOrEmpty(att.Name) && bhObj != null && !string.IsNullOrWhiteSpace(bhObj.Name))
                     att.Name = bhObj.Name;
 
-                obj_guid = doc.Objects.Add(GH_Convert.ToGeometryBase(m_RhinoGeometry), att);
+                obj_guid = doc.Objects.Add(GH_Convert.ToGeometryBase(m_RhinoObject), att);
                 return true;
             }
 
@@ -264,7 +270,7 @@ namespace BH.UI.Grasshopper.Goos
 
         protected IGeometry m_Geometry = null;
 
-        protected object m_RhinoGeometry = null;
+        protected object m_RhinoObject = null;
 
         /***************************************************/
     }
