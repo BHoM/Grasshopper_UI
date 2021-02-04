@@ -258,8 +258,8 @@ namespace BH.UI.Grasshopper
 
         public static void RenderRhinoWires(TextRepresentation textRepresentation, Rhino.Display.DisplayPipeline pipeline)
         {
-            Text3d text3D = textRepresentation.IToRhino() as Text3d;
-            pipeline.Draw3dText(text3D, textRepresentation.Colour, new RHG.Plane()); // add textRepresentation.Plane here
+            Text3d text3D = textRepresentation.ToRhino();
+            pipeline.Draw3dText(text3D, textRepresentation.Colour, text3D.TextPlane); 
         }
 
         /***************************************************/
