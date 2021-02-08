@@ -173,7 +173,7 @@ namespace BH.UI.Grasshopper.Goos
         public virtual void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
             if (m_RhinoObject != null)
-                Render.IRenderRhinoMeshes(m_RhinoObject, args);
+                Render.IRenderRhinoMeshes(m_Representation, args);
         }
 
         /***************************************************/
@@ -181,7 +181,7 @@ namespace BH.UI.Grasshopper.Goos
         public virtual void DrawViewportWires(GH_PreviewWireArgs args)
         {
             if (m_RhinoObject != null)
-                Render.IRenderRhinoWires(m_RhinoObject, args);
+                Render.IRenderRhinoWires(m_Representation, args);
         }
 
 
@@ -198,16 +198,18 @@ namespace BH.UI.Grasshopper.Goos
             else if (Value is IRepresentation)
             {
                 //Representation already defined
-                m_RhinoObject = (Value as IRepresentation);
+                m_Representation = (Value as IRepresentation);
                 return true;
             }
             else if (Value is IObject)
             {
-                //Callin IRepresnetation will first see if a representation method exists for the object
+                //Calling IRepresnetation will first see if a representation method exists for the object
                 //If no representation method exists it will see if a Geometry method exists
-                //If no Geometry method exists and the obect is Geometry we'll get the geometry
-                //other wise nothing
-                m_RhinoObject = (Value as IObject).IRepresentation();
+                //If no Geometry method exists and the object is Geometry we'll get the geometry
+                //otherwise nothing
+                m_Representation = (Value as IObject).IRepresentation();
+                m_Geometry = (Value as GeometricalRepresentation).Geometry;
+                m_RhinoObject = m_Geometry.IToRhino();
                 return true;
             }
             else
@@ -268,6 +270,8 @@ namespace BH.UI.Grasshopper.Goos
         protected IGeometry m_Geometry = null;
 
         protected object m_RhinoObject = null;
+
+        protected IRepresentation m_Representation = null;
 
         /***************************************************/
     }
