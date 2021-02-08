@@ -38,7 +38,7 @@ namespace BH.UI.Grasshopper
                 ghColour.G == pColour.G &
                 ghColour.B == pColour.B) // Excluding Alpha channel from comparison
             {
-                return custom;//FromArgb(80, 255, 41, 105);
+                return custom;
             }
             else
             {

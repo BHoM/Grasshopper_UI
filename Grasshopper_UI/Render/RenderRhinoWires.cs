@@ -40,13 +40,12 @@ namespace BH.UI.Grasshopper
         /**** Public Methods  - Interfaces              ****/
         /***************************************************/
 
-        public static void IRenderRhinoWires(this IRepresentation obj, GH_PreviewWireArgs args)
+        public static void IRenderRhinoWires(this object obj, GH_PreviewWireArgs args)
         {
             if (obj == null)
             {
                 return;
             }
-            
             try
             {
                 RenderRhinoWires(obj as dynamic, args);
@@ -258,15 +257,17 @@ namespace BH.UI.Grasshopper
 
         public static void RenderRhinoWires(TextRepresentation textRepresentation, GH_PreviewWireArgs args)
         {
+            Color col = RenderColour(args.Color, textRepresentation.Colour);
             Text3d text3D = textRepresentation.ToRhino();
-            pipeline.Draw3dText(text3D, textRepresentation.Colour, text3D.TextPlane); 
+            args.Pipeline.Draw3dText(text3D, textRepresentation.Colour, text3D.TextPlane); 
         }
 
         /***************************************************/
 
         public static void RenderRhinoWires(GeometricalRepresentation geoRepresentation, GH_PreviewWireArgs args)
         {
-            RenderRhinoWires(geoRepresentation.IToRhino() as dynamic, args.Pipeline, geoRepresentation.Colour);
+            Color col = RenderColour(args.Color, geoRepresentation.Colour);
+            RenderRhinoWires(geoRepresentation.IToRhino() as dynamic, args.Pipeline, col);
         }
 
         /***************************************************/
