@@ -62,7 +62,7 @@ namespace BH.UI.Grasshopper.Goos
             set
             {
                 base.Value = value;
-                try { SetGeometry(); } catch { }
+                try { SetRepresentation(); } catch { }
             }
         }
 
@@ -189,7 +189,7 @@ namespace BH.UI.Grasshopper.Goos
         /**** Private Method                            ****/
         /***************************************************/
 
-        private bool SetGeometry()
+        private bool SetRepresentation()
         {
             if (Value == null)
             {
@@ -197,20 +197,17 @@ namespace BH.UI.Grasshopper.Goos
             }
             else if (Value is IRepresentation)
             {
-                // Set representation
+                //Representation already defined
                 m_RhinoObject = (Value as IRepresentation);
                 return true;
             }
-            else if (Value is BHoMObject)
+            else if (Value is IObject)
             {
-                m_Geometry = (Value as BHoMObject).IGeometry();
-                m_RhinoObject = m_Geometry.IToRhino();
-                return true;
-            }
-            else if (Value is IGeometry)
-            {
-                m_Geometry = Value as IGeometry;
-                m_RhinoObject = m_Geometry.IToRhino();
+                //Callin IRepresnetation will first see if a representation method exists for the object
+                //If no representation method exists it will see if a Geometry method exists
+                //If no Geometry method exists and the obect is Geometry we'll get the geometry
+                //other wise nothing
+                m_RhinoObject = (Value as IObject).IRepresentation();
                 return true;
             }
             else
