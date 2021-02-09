@@ -38,17 +38,17 @@ namespace BH.UI.Grasshopper
         /**** Public Methods  - Interfaces              ****/
         /***************************************************/
 
-        public static void IRenderRhinoMeshes(this object obj, GH_PreviewMeshArgs args)
+        public static void IRenderRhinoMeshes(this object obj, GH_PreviewMeshArgs args, Color custom)
         {
             if (obj == null)
             {
                 return;
             }
-            
+            DisplayMaterial material = RenderMaterial(args.Material, custom);
 
             try
             {
-                RenderRhinoMeshes(obj as dynamic, args);
+                RenderRhinoMeshes(obj as dynamic, args.Pipeline, material);
             }
             catch (Exception) { }
         }
@@ -158,18 +158,6 @@ namespace BH.UI.Grasshopper
         {
             pipeline.DrawBrepShaded(bbBox.ToBrep(), material);
         }
-
-        /***************************************************/
-        /**** Public Methods  - Representations         ****/
-        /***************************************************/
-
-        public static void RenderRhinoMeshes(GeometricalRepresentation geoRepresentation, GH_PreviewMeshArgs args)
-        {
-            DisplayMaterial displayMaterial = RenderMaterial(args.Material, geoRepresentation.Colour);
-            RenderRhinoMeshes(geoRepresentation.IToRhino() as dynamic, args.Pipeline, displayMaterial);
-        }
-
-        /***************************************************/
     }
 }
 
