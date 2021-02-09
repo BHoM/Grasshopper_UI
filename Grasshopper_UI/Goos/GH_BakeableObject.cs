@@ -34,6 +34,7 @@ using GH_IO;
 using GH_IO.Serialization;
 using BH.Engine.Serialiser;
 using BH.Engine.Reflection;
+using System.Drawing;
 
 namespace BH.UI.Grasshopper.Goos
 {
@@ -62,7 +63,7 @@ namespace BH.UI.Grasshopper.Goos
             set
             {
                 base.Value = value;
-                try { SetRepresentation(); } catch { }
+                try { SetGeometry(); } catch { }
             }
         }
 
@@ -121,7 +122,7 @@ namespace BH.UI.Grasshopper.Goos
                 if (Value == null)
                     target = default(Q);
                 if (target is IGH_GeometricGoo || target is GH_Transform || target is GH_Matrix || target is GH_Vector)
-                    return Helpers.CastToGoo(m_RhinoObject as dynamic, ref target);
+                    return Helpers.CastToGoo(m_RhinoGeometry as dynamic, ref target);
                 else
                     return Helpers.CastToGoo(Value as dynamic, ref target);
             }
@@ -154,7 +155,7 @@ namespace BH.UI.Grasshopper.Goos
                     return false;
                 }
             }
-                
+
 
             return true;
         }
@@ -172,16 +173,16 @@ namespace BH.UI.Grasshopper.Goos
 
         public virtual void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
-            if (m_RhinoObject != null)
-                Render.IRenderRhinoMeshes(m_Representation, args);
+            if (m_RhinoGeometry != null)
+                Render.IRenderRhinoMeshes(m_RhinoGeometry, args, m_Color);
         }
 
         /***************************************************/
 
         public virtual void DrawViewportWires(GH_PreviewWireArgs args)
         {
-            if (m_RhinoObject != null)
-                Render.IRenderRhinoWires(m_Representation, args);
+            if (m_RhinoGeometry != null)
+                Render.IRenderRhinoWires(m_RhinoGeometry, args, m_Color);
         }
 
 
@@ -189,7 +190,7 @@ namespace BH.UI.Grasshopper.Goos
         /**** Private Method                            ****/
         /***************************************************/
 
-        private bool SetRepresentation()
+        private bool SetGeometry()
         {
             if (Value == null)
             {
@@ -197,19 +198,22 @@ namespace BH.UI.Grasshopper.Goos
             }
             else if (Value is IRepresentation)
             {
-                //Representation already defined
-                m_Representation = (Value as IRepresentation);
+                m_RhinoGeometry = (Value as IRepresentation).IToRhino();
+                m_Color = (Value as IRepresentation).Color;
+                if(Value is GeometricalRepresentation)
+                    m_Geometry = (Value as GeometricalRepresentation).Geometry;
                 return true;
             }
-            else if (Value is IObject)
+            else if (Value is BHoMObject)
             {
-                //Calling IRepresnetation will first see if a representation method exists for the object
-                //If no representation method exists it will see if a Geometry method exists
-                //If no Geometry method exists and the object is Geometry we'll get the geometry
-                //otherwise nothing
-                m_Representation = (Value as IObject).IRepresentation();
-                m_Geometry = (Value as GeometricalRepresentation).Geometry;
-                m_RhinoObject = m_Geometry.IToRhino();
+                m_Geometry = (Value as BHoMObject).IGeometry();
+                m_RhinoGeometry = m_Geometry.IToRhino();
+                return true;
+            }
+            else if (Value is IGeometry)
+            {
+                m_Geometry = Value as IGeometry;
+                m_RhinoGeometry = m_Geometry.IToRhino();
                 return true;
             }
             else
@@ -245,7 +249,7 @@ namespace BH.UI.Grasshopper.Goos
 
         public bool BakeGeometry(RhinoDoc doc, ObjectAttributes att, out Guid obj_guid)
         {
-            if (m_RhinoObject != null)
+            if (m_RhinoGeometry != null)
             {
                 if (att == null)
                     att = new ObjectAttributes();
@@ -255,7 +259,7 @@ namespace BH.UI.Grasshopper.Goos
                 if (string.IsNullOrEmpty(att.Name) && bhObj != null && !string.IsNullOrWhiteSpace(bhObj.Name))
                     att.Name = bhObj.Name;
 
-                obj_guid = doc.Objects.Add(GH_Convert.ToGeometryBase(m_RhinoObject), att);
+                obj_guid = doc.Objects.Add(GH_Convert.ToGeometryBase(m_RhinoGeometry), att);
                 return true;
             }
 
@@ -269,12 +273,10 @@ namespace BH.UI.Grasshopper.Goos
 
         protected IGeometry m_Geometry = null;
 
-        protected object m_RhinoObject = null;
+        protected object m_RhinoGeometry = null;
 
-        protected IRepresentation m_Representation = null;
+        protected Color m_Color = new Color();
 
         /***************************************************/
     }
 }
-
-
