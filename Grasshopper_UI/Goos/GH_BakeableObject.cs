@@ -199,7 +199,7 @@ namespace BH.UI.Grasshopper.Goos
             else if (Value is IRepresentation)
             {
                 m_RhinoGeometry = (Value as IRepresentation).IToRhino();
-                m_Color = (Value as IRepresentation).Color;
+                m_Color = (Value as IRepresentation).Colour;
                 if(Value is GeometricalRepresentation)
                     m_Geometry = (Value as GeometricalRepresentation).Geometry;
                 return true;
@@ -214,6 +214,7 @@ namespace BH.UI.Grasshopper.Goos
             {
                 m_Geometry = Value as IGeometry;
                 m_RhinoGeometry = m_Geometry.IToRhino();
+                m_Color = Color.FromArgb(80, 255, 41, 105);//BHoM pink!
                 return true;
             }
             else
