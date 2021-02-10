@@ -40,7 +40,8 @@ namespace BH.UI.Grasshopper
                 ghColour.G == pColour.G &
                 ghColour.B == pColour.B) // Excluding Alpha channel from comparison
             {
-                return new DisplayMaterial(custom, 0.6);//transparency hard coded but eventually we should have full material props in represenatation 
+                double transparency = (255 - custom.A) / (double)255;
+                return new DisplayMaterial(custom, transparency);
             }
             else
             {
