@@ -35,6 +35,7 @@ using GH_IO.Serialization;
 using BH.Engine.Serialiser;
 using BH.Engine.Reflection;
 using System.Drawing;
+using BH.oM.Graphics;
 
 namespace BH.UI.Grasshopper.Goos
 {
@@ -196,12 +197,12 @@ namespace BH.UI.Grasshopper.Goos
             {
                 return true;
             }
-            else if (Value is IRepresentation)
+            else if (Value is IRender)
             {
-                m_RhinoGeometry = (Value as IRepresentation).IToRhino();
-                m_Color = (Value as IRepresentation).Colour;
-                if(Value is GeometricalRepresentation)
-                    m_Geometry = (Value as GeometricalRepresentation).Geometry;
+                m_RhinoGeometry = (Value as IRender).IToRhino();
+                m_Color = (Value as IRender).Colour;
+                if(Value is RenderGeometry)
+                    m_Geometry = (Value as RenderGeometry).Geometry;
                 return true;
             }
             else if (Value is BHoMObject)
