@@ -256,12 +256,30 @@ namespace BH.UI.Grasshopper.Goos
                 if (att == null)
                     att = new ObjectAttributes();
 
-                BHoMObject bhObj = Value as BHoMObject;
+                if(Value is IRender)
+                {
+                    //bake with render colour ONLY if user has unchecked the Layer option colour from bake pop up is ignored
+                    if(att.ColorSource != ObjectColorSource.ColorFromLayer)
+                    {
+                        att.ColorSource = ObjectColorSource.ColorFromObject;
+                        att.ObjectColor = m_Color;
+                    }
+                    //special case for Text3d as it is not GeometryBase
+                    if (Value is RenderText)
+                        obj_guid = doc.Objects.AddText((Rhino.Display.Text3d)m_RhinoGeometry, att);
+                    else
+                        obj_guid = doc.Objects.Add(GH_Convert.ToGeometryBase(m_RhinoGeometry), att);
 
-                if (string.IsNullOrEmpty(att.Name) && bhObj != null && !string.IsNullOrWhiteSpace(bhObj.Name))
-                    att.Name = bhObj.Name;
+                }
+                else
+                {
+                    BHoMObject bhObj = Value as BHoMObject;
 
-                obj_guid = doc.Objects.Add(GH_Convert.ToGeometryBase(m_RhinoGeometry), att);
+                    if (string.IsNullOrEmpty(att.Name) && bhObj != null && !string.IsNullOrWhiteSpace(bhObj.Name))
+                        att.Name = bhObj.Name;
+                    obj_guid = doc.Objects.Add(GH_Convert.ToGeometryBase(m_RhinoGeometry), att);
+                }
+
                 return true;
             }
 
