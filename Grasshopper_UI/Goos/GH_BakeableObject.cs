@@ -254,10 +254,14 @@ namespace BH.UI.Grasshopper.Goos
             if (m_RhinoGeometry != null)
             {
                 if (att == null)
+                {
                     att = new ObjectAttributes();
-
+                    att.LayerIndex = doc.Layers.CurrentLayerIndex;
+                }
+                    
                 if(Value is IRender)
                 {
+                    
                     //bake with render colour always
                     att.ColorSource = ObjectColorSource.ColorFromObject;
                     att.ObjectColor = m_Color;
