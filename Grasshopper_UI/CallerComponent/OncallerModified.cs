@@ -127,6 +127,8 @@ namespace BH.UI.Grasshopper.Templates
 
                 MoveLinks(oldParam, newParam);
                 newParam.DataMapping = oldParam.DataMapping;
+                newParam.Simplify = oldParam.Simplify;
+                newParam.Reverse = oldParam.Reverse;
 
                 Params.UnregisterInputParameter(oldParam);
                 Params.RegisterInputParam(newParam, index);
@@ -196,6 +198,8 @@ namespace BH.UI.Grasshopper.Templates
                 // The Recipient property is still empty at this stage so we need to make sure recipient params are still finding their source 
                 newParam.NewInstanceGuid(oldParam.InstanceGuid);
                 newParam.DataMapping = oldParam.DataMapping;
+                newParam.Simplify = oldParam.Simplify;
+                newParam.Reverse = oldParam.Reverse;
 
                 Params.UnregisterOutputParameter(oldParam);
                 Params.RegisterOutputParam(newParam, index);
