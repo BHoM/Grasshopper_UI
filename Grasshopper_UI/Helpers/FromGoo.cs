@@ -66,11 +66,7 @@ namespace BH.UI.Grasshopper
                 data = BH.Engine.Rhinoceros.Convert.IFromRhino(data);
 
             // Convert the data to an acceptable format
-            if (data is T)
-            {
-                return (T)data;
-            }
-            else if (hint != null)
+            if (hint != null)
             {
                 object result;
                 hint.Cast(RuntimeHelpers.GetObjectValue(data), out result);
@@ -78,6 +74,10 @@ namespace BH.UI.Grasshopper
 
                 if (data.GetType().Namespace.StartsWith("Rhino.Geometry"))
                     data = BH.Engine.Rhinoceros.Convert.IFromRhino(data);
+            }
+            else if (data is T)
+            {
+                return (T)data;
             }
             else if (data is IEnumerable)
             {
