@@ -100,6 +100,10 @@ namespace BH.UI.Grasshopper.Templates
             if (match != null)
             {
                 MoveLinks(match, newParam);
+                newParam.DataMapping = match.DataMapping;
+                newParam.Simplify = match.Simplify;
+                newParam.Reverse = match.Reverse;
+
                 Params.UnregisterInputParameter(match);
             }
 
