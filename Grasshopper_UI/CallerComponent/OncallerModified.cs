@@ -170,6 +170,11 @@ namespace BH.UI.Grasshopper.Templates
             if (match != null)
             {
                 newParam.NewInstanceGuid(match.InstanceGuid);
+                newParam.DataMapping = match.DataMapping;
+                newParam.Simplify = match.Simplify;
+                newParam.Reverse = match.Reverse;
+
+                match.Recipients.Clear();
                 Params.UnregisterOutputParameter(match);
             }
 
@@ -201,6 +206,7 @@ namespace BH.UI.Grasshopper.Templates
                 newParam.Simplify = oldParam.Simplify;
                 newParam.Reverse = oldParam.Reverse;
 
+                oldParam.Recipients.Clear();
                 Params.UnregisterOutputParameter(oldParam);
                 Params.RegisterOutputParam(newParam, index);
             }
