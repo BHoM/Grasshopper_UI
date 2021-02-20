@@ -62,7 +62,7 @@ namespace BH.UI.Grasshopper
             if (data == null)
                 return default(T);
 
-            if (data.GetType().Namespace.StartsWith("Rhino.Geometry"))
+            if (data.GetType().Namespace.StartsWith("Rhino.Geometry") && !typeof(T).Namespace.StartsWith("Rhino.Geometry"))
                 data = BH.Engine.Rhinoceros.Convert.IFromRhino(data);
 
             // Convert the data to an acceptable format
@@ -76,7 +76,7 @@ namespace BH.UI.Grasshopper
                 hint.Cast(RuntimeHelpers.GetObjectValue(data), out result);
                 data = result;
 
-                if (data.GetType().Namespace.StartsWith("Rhino.Geometry"))
+                if (data.GetType().Namespace.StartsWith("Rhino.Geometry") && !typeof(T).Namespace.StartsWith("Rhino.Geometry"))
                     data = BH.Engine.Rhinoceros.Convert.IFromRhino(data);
             }
             else if (data is IEnumerable)
