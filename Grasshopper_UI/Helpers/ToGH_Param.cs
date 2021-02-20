@@ -40,6 +40,8 @@ using BH.Adapter;
 using BH.UI.Grasshopper.Templates;
 using BH.Engine.Grasshopper;
 using Grasshopper.Kernel.Parameters.Hints;
+using Grasshopper.Kernel.Types;
+using Grasshopper.Kernel.Data;
 
 namespace BH.UI.Grasshopper
 {
@@ -124,11 +126,45 @@ namespace BH.UI.Grasshopper
             try
             {
                 if (info.HasDefaultValue && !info.IsRequired)
-                    ((dynamic)param).SetPersistentData(info.DefaultValue.IToGoo());
+                {
+                    var data = Helpers.IToGoo(info.DefaultValue as dynamic);
+                    SetPersistentData(param as dynamic, data as dynamic);
+                }
             }
             catch { }
 
             return param;
+        }
+
+
+        /*************************************/
+        /**** Private Methods             ****/
+        /*************************************/
+
+        private static void SetPersistentData<T>(GH_PersistentParam<T> param, IGH_Goo data) where T : class, IGH_Goo
+        {
+            param.SetPersistentData(data);
+        }
+
+        /*************************************/
+
+        private static void SetPersistentData<T>(GH_PersistentParam<T> param, List<IGH_Goo> data) where T : class, IGH_Goo
+        {
+            param.SetPersistentData(data.Cast<T>());
+        }
+
+        /*************************************/
+
+        private static void SetPersistentData<T>(GH_PersistentParam<T> param, GH_Structure<IGH_Goo> data) where T : class, IGH_Goo
+        {
+            param.SetPersistentData(data.Cast<T>());
+        }
+
+        /*************************************/
+
+        private static void SetPersistentData(object param, object data) 
+        {
+            // Do nothing;
         }
 
         /*******************************************/
