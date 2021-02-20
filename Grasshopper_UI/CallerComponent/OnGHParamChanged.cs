@@ -59,7 +59,13 @@ namespace BH.UI.Grasshopper.Templates
             // Updating Caller.InputParams based on the new Grasshopper parameter just received
             // We update the InputParams with the new type or name
             if (m_NotifyChanges)
+            {
+                bool newName = Caller.InputParams.Count > e.ParameterIndex && Caller.InputParams[e.ParameterIndex].Name != e.Parameter.NickName;
                 Caller.UpdateInput(e.ParameterIndex, e.Parameter.NickName, e.Parameter.Type(Caller));
+
+                if (newName)
+                    ExpireSolution(true); // It would be great to only expire the solution when the input menu closes to avoid doing it on each key stroke but there doesn't seem to be a way to access the menu
+            }
 
             return;
         }
