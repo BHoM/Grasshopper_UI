@@ -41,15 +41,22 @@ namespace BH.UI.Grasshopper
         {
             if (events.Count > 0)
             {
-                var errors = events.Where(x => x.Type == EventType.Error);
-                var warnings = events.Where(x => x.Type == EventType.Warning);
-                var notes = events.Where(x => x.Type == EventType.Note);
+                List<string> errors = events.Where(x => x.Type == EventType.Error).Select(x => x.Message).ToList();
+                List<string> warnings = events.Where(x => x.Type == EventType.Warning).Select(x => x.Message).ToList();
+                List<string> notes = events.Where(x => x.Type == EventType.Note).Select(x => x.Message).ToList();
 
-                foreach (Event e in errors)
-                    component.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, e.Message);
+                // Re-process preexisting messages
+                errors.AddRange(component.RuntimeMessages(GH_RuntimeMessageLevel.Error));
+                warnings.AddRange(component.RuntimeMessages(GH_RuntimeMessageLevel.Warning));
+                notes.AddRange(component.RuntimeMessages(GH_RuntimeMessageLevel.Remark));
+                notes.AddRange(component.RuntimeMessages(GH_RuntimeMessageLevel.Blank));
+                component.ClearRuntimeMessages();
 
-                foreach (Event e in warnings)
-                    component.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, e.Message);
+                foreach (string message in errors)
+                    component.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, message);
+
+                foreach (string message in warnings)
+                    component.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, message);
 
                 //If any warnings or errors have been added, then add the message as a blank.
                 //This is to ensure the colour of the component gets the appropriate colour.
@@ -57,13 +64,13 @@ namespace BH.UI.Grasshopper
                 //Solution to use 'Blank' warning level, which generally does not do anything on the component.
                 if (errors.Count() > 0 || warnings.Count() > 0)
                 {
-                    foreach (Event e in notes)
-                        component.AddBlankNoteMessage(e.Message);
+                    foreach (string message in notes)
+                        component.AddBlankNoteMessage(message);
                 }
                 else
                 {
-                    foreach (Event e in notes)
-                        component.AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, e.Message);
+                    foreach (string message in notes)
+                        component.AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, message);
                 }
 
                 if (clearShownEvents)
