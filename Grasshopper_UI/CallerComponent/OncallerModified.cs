@@ -210,6 +210,7 @@ namespace BH.UI.Grasshopper.Templates
                 newParam.Simplify = oldParam.Simplify;
                 newParam.Reverse = oldParam.Reverse;
 
+                MoveLinks(oldParam, newParam);
                 oldParam.Recipients.Clear();
                 Params.UnregisterOutputParameter(oldParam);
                 Params.RegisterOutputParam(newParam, index);
