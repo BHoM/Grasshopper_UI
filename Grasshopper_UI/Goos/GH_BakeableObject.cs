@@ -209,14 +209,12 @@ namespace BH.UI.Grasshopper.Goos
             {
                 m_Geometry = (Value as BHoMObject).IGeometry();
                 m_RhinoGeometry = m_Geometry.IToRhino();
-                m_Color = Color.FromArgb(80, 255, 41, 105);//BHoM pink!
                 return true;
             }
             else if (Value is IGeometry)
             {
                 m_Geometry = Value as IGeometry;
                 m_RhinoGeometry = m_Geometry.IToRhino();
-                m_Color = Color.FromArgb(80, 255, 41, 105);//BHoM pink!
                 return true;
             }
             else
@@ -297,7 +295,7 @@ namespace BH.UI.Grasshopper.Goos
 
         protected object m_RhinoGeometry = null;
 
-        protected Color m_Color = new Color();
+        protected Color m_Color = Color.FromArgb(80, 255, 41, 105);//BHoM pink!
 
         /***************************************************/
     }
