@@ -209,6 +209,7 @@ namespace BH.UI.Grasshopper.Goos
             {
                 m_Geometry = (Value as BHoMObject).IGeometry();
                 m_RhinoGeometry = m_Geometry.IToRhino();
+                m_Color = Color.FromArgb(80, 255, 41, 105);//BHoM pink!
                 return true;
             }
             else if (Value is IGeometry)
