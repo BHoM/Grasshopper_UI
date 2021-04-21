@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BH.UI.Grasshopper</RootNamespace>
     <AssemblyName>BH.UI.Grasshopper</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
@@ -54,10 +54,6 @@
     </Reference>
     <Reference Include="BHoM_UI">
       <HintPath>C:\ProgramData\BHoM\Assemblies\BHoM_UI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="CodeEditor_UI">
-      <HintPath>C:\ProgramData\BHoM\Assemblies\CodeEditor_UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Data_Engine">
