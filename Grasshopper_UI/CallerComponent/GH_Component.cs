@@ -40,6 +40,7 @@ using System.Collections;
 using BH.Adapter;
 using BH.oM.Reflection.Debugging;
 using BH.UI.Base;
+using System.IO;
 
 namespace BH.UI.Grasshopper.Templates
 {
@@ -145,6 +146,12 @@ namespace BH.UI.Grasshopper.Templates
             string callerString = ""; reader.TryGetString("Component", ref callerString);
             Caller.Read(callerString);
 
+            if (reader.ArchiveLocation != m_CurrentDocument)
+            {
+                BH.UI.Base.Global.DocumentListener.OnDocumentBeginOpening(Path.GetFileName(reader.ArchiveLocation));
+                m_CurrentDocument = reader.ArchiveLocation;
+            }
+
             return true;
         }
 
@@ -182,6 +189,8 @@ namespace BH.UI.Grasshopper.Templates
         }
 
         /*******************************************/
+
+        private static string m_CurrentDocument = "";
     }
 }
 
