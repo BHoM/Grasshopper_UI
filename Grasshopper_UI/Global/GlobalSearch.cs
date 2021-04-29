@@ -67,11 +67,6 @@ namespace BH.UI.Grasshopper.Global
         {
             GlobalSearch.Activate(canvas.FindForm());
 
-            canvas.DocumentChanged += (sender, e) =>
-            {
-                DocumentListener.OnDocumentEndOpening(e.NewDocument.DisplayName);
-            };
-
             canvas.MouseDown += Canvas_MouseDown;
             canvas.MouseUp += Canvas_MouseUp;
             canvas.KeyDown += Canvas_KeyDown;

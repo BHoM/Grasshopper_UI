@@ -41,6 +41,7 @@ using BH.Adapter;
 using BH.oM.Reflection.Debugging;
 using BH.UI.Base;
 using System.IO;
+using BH.UI.Base.Global;
 
 namespace BH.UI.Grasshopper.Templates
 {
@@ -97,6 +98,16 @@ namespace BH.UI.Grasshopper.Templates
         static CallerComponent()
         {
             GlobalSearchMenu.Activate();
+
+            GH.Instances.CanvasCreated += (canvas) =>
+            {
+                canvas.DocumentChanged += (sender, e) =>
+                {
+                    if (e.NewDocument != null)
+                        DocumentListener.OnDocumentEndOpening(e.NewDocument.FilePath);
+                    m_CurrentLoadingDocument = null;
+                };
+            };
         }
 
 
@@ -143,14 +154,14 @@ namespace BH.UI.Grasshopper.Templates
             if (!base.Read(reader) || !Params.Read(reader))
                 return false;
 
+            if (reader.ArchiveLocation != m_CurrentLoadingDocument)
+            {
+                BH.UI.Base.Global.DocumentListener.OnDocumentBeginOpening(reader.ArchiveLocation);
+                m_CurrentLoadingDocument = reader.ArchiveLocation;
+            }
+
             string callerString = ""; reader.TryGetString("Component", ref callerString);
             Caller.Read(callerString);
-
-            if (reader.ArchiveLocation != m_CurrentDocument)
-            {
-                BH.UI.Base.Global.DocumentListener.OnDocumentBeginOpening(Path.GetFileName(reader.ArchiveLocation));
-                m_CurrentDocument = reader.ArchiveLocation;
-            }
 
             return true;
         }
@@ -190,7 +201,7 @@ namespace BH.UI.Grasshopper.Templates
 
         /*******************************************/
 
-        private static string m_CurrentDocument = "";
+        private static string m_CurrentLoadingDocument = "";
     }
 }
 
