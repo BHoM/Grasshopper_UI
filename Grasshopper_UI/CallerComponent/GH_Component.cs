@@ -103,6 +103,9 @@ namespace BH.UI.Grasshopper.Templates
             {
                 canvas.DocumentChanged += (sender, e) =>
                 {
+                    if (e.OldDocument != null)
+                        DocumentListener.OnDocumentClosing(e.OldDocument.FilePath);
+
                     if (e.NewDocument != null)
                         DocumentListener.OnDocumentEndOpening(e.NewDocument.FilePath);
                     m_CurrentLoadingDocument = null;
@@ -154,7 +157,7 @@ namespace BH.UI.Grasshopper.Templates
             if (!base.Read(reader) || !Params.Read(reader))
                 return false;
 
-            if (reader.ArchiveLocation != m_CurrentLoadingDocument)
+            if (reader.ArchiveLocation != null && reader.ArchiveLocation != m_CurrentLoadingDocument)
             {
                 BH.UI.Base.Global.DocumentListener.OnDocumentBeginOpening(reader.ArchiveLocation);
                 m_CurrentLoadingDocument = reader.ArchiveLocation;
