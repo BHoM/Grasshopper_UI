@@ -204,6 +204,15 @@ namespace BH.UI.Grasshopper.Templates
 
         /*******************************************/
 
+        public override void CreateAttributes()
+        {
+            m_attributes = new PrototypeAttribute(this);
+        }
+
+        /*******************************************/
+        /**** Private Fields                    ****/
+        /*******************************************/
+
         private static string m_CurrentLoadingDocument = "";
     }
 }
