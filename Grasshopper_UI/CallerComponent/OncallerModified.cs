@@ -82,6 +82,9 @@ namespace BH.UI.Grasshopper.Templates
                 Name = update.Name;
                 NickName = update.Name;
                 Description = update.Description;
+
+                if (m_attributes is PrototypeAttribute && Caller.SelectedItem != null)
+                    ((PrototypeAttribute)m_attributes).Visible = Caller.SelectedItem.IsPrototype();
             }
         }
 
