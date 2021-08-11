@@ -75,23 +75,25 @@ namespace BH.UI.Grasshopper.Components
             if (!Visible || channel != GH_CanvasChannel.Objects)
                 return;
 
-            // Define the colour of the render to match teh component's borders
             Color colour;
-            if (Selected)
-                colour = Color.FromArgb(0, 50, 0);
-            else switch (Owner.RuntimeMessageLevel)
+            try
             {
-                case GH_RuntimeMessageLevel.Warning:
-                    colour = Color.FromArgb(80, 10, 0);
-                    break;
-                case GH_RuntimeMessageLevel.Error:
-                    colour = Color.FromArgb(60, 0, 0);
-                    break;
-                default:
-                    colour = Color.FromArgb(50, 50, 50);
-                    break;
+                // Define the colour of the render to match teh component's borders
+                GH_Palette palette = GH_CapsuleRenderEngine.GetImpliedPalette(this.Owner);
+                if (palette == GH_Palette.Normal && !this.Owner.IsPreviewCapable)
+                {
+                    palette = GH_Palette.Hidden;
+                }
+                GH_PaletteStyle style = GH_CapsuleRenderEngine.GetImpliedStyle(palette, this.Selected, this.Owner.Locked, this.Owner.Hidden);
+
+                colour = style.Edge;
             }
-               
+            catch (Exception)
+            {
+                //Fallback to using black if the above crashes for any reason
+                colour = Color.Black;
+            }
+  
             // Define render parameters
             Font font = GH_FontServer.Small;
             Pen linePen = new Pen(colour);
