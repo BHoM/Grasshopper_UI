@@ -170,6 +170,7 @@
     <Compile Include="Components\Parameters\Param_Variable.cs" />
     <Compile Include="Components\UI\UnitTest.cs" />
     <Compile Include="CustomAttributes\PrototypeAttribute.cs" />
+    <Compile Include="CustomAttributes\PrototypeValueListAttribute.cs" />
     <Compile Include="Global\WireInfo.cs" />
     <Compile Include="Components\UI\Cluster2Node.cs" />
     <Compile Include="Goos\GH_BakeableObject.cs" />
@@ -194,6 +195,7 @@
     <Compile Include="Hints\EnumHint.cs" />
     <Compile Include="Hints\IGeometryHint.cs" />
     <Compile Include="Hints\TypeHint.cs" />
+    <Compile Include="Render\RenderPrototypeAttributes.cs" />
     <Compile Include="Render\RenderColour.cs" />
     <Compile Include="Render\RenderMaterial.cs" />
     <Compile Include="Render\RenderMeshes.cs" />

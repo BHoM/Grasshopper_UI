@@ -23,6 +23,7 @@
 using System;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Attributes;
+using Grasshopper.Kernel.Special;
 using BH.oM.Base;
 using BH.UI.Grasshopper.Templates;
 using BH.UI.Base;
@@ -34,7 +35,7 @@ using System.Drawing.Drawing2D;
 
 namespace BH.UI.Grasshopper.Components
 {
-    public class PrototypeAttribute : GH_ComponentAttributes​
+    public class PrototypeValueListAttribute : GH_ValueListAttributes
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -47,8 +48,7 @@ namespace BH.UI.Grasshopper.Components
         /**** Constructors                      ****/
         /*******************************************/
 
-        public PrototypeAttribute(GH_Component owner) : base(owner) { }
-
+        public PrototypeValueListAttribute(GH_ValueList owner) : base(owner) { }
 
         /*******************************************/
         /**** Override Methods                  ****/
@@ -75,7 +75,7 @@ namespace BH.UI.Grasshopper.Components
             if (!Visible || channel != GH_CanvasChannel.Objects)
                 return;
 
-            this.RenderPrototypeAttributes(graphics, m_LabelBounds, this.Owner.Params.Input.Count == 0, this.Owner.Params.Output.Count == 0, m_DrawStrips);
+            this.RenderPrototypeAttributes(graphics, m_LabelBounds, false, false, true);
         }
 
         /*******************************************/
@@ -84,10 +84,7 @@ namespace BH.UI.Grasshopper.Components
 
         RectangleF m_LabelBounds;
         int m_LabelHeight = 17;
-        bool m_DrawStrips = true;
 
         /*******************************************/
     }
 }
-
-

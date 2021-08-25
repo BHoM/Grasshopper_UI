@@ -35,6 +35,7 @@ using Grasshopper.Kernel.Special;
 using Grasshopper.Kernel.Data;
 using Grasshopper.Kernel.Types;
 using BH.Engine.Reflection;
+using BH.UI.Grasshopper.Components;
 
 namespace BH.UI.Grasshopper.Templates
 {
@@ -82,6 +83,13 @@ namespace BH.UI.Grasshopper.Templates
             this.NickName = Caller.Name;
             this.Name = Caller.Name;
             this.Description = Caller.Description;
+
+            if (Caller is BH.UI.Base.Components.CreateDataCaller)
+            {
+                //TODO: Check if dataset should be marked as Prototype
+            }
+            else if (m_attributes is PrototypeValueListAttribute && Caller.SelectedItem != null)
+                ((PrototypeValueListAttribute)m_attributes).Visible = Caller.SelectedItem.IsPrototype();
 
             ListItems.Clear();
             List<string> names = Caller.GetChoiceNames();
@@ -182,6 +190,13 @@ namespace BH.UI.Grasshopper.Templates
                 BH.Engine.Reflection.Compute.IOpenHelpPage(Caller.SelectedItem);
             }
             return base.HtmlHelp_Source();
+        }
+
+        /*************************************/
+
+        public override void CreateAttributes()
+        {
+            this.m_attributes = new PrototypeValueListAttribute(this);
         }
 
         /*************************************/
