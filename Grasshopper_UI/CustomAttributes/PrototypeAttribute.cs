@@ -75,7 +75,7 @@ namespace BH.UI.Grasshopper.Components
             if (!Visible || channel != GH_CanvasChannel.Objects)
                 return;
 
-            this.RenderPrototypeAttributes(graphics, m_LabelBounds, this.Owner.Params.Input.Count == 0, this.Owner.Params.Output.Count == 0, m_DrawStrips);
+            this.RenderPrototypeLabel(graphics, m_LabelBounds, this.Owner.Params.Input.Count == 0, this.Owner.Params.Output.Count == 0, m_DrawStrips);
         }
 
         /*******************************************/
