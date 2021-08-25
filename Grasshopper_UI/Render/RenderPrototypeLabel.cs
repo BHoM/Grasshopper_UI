@@ -40,7 +40,7 @@ namespace BH.UI.Grasshopper
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static void RenderPrototypeAttributes<T>(this GH_Attributes<T> attributes, Graphics graphics, RectangleF labelBounds, bool jaggedLeft, bool jaggedRight, bool drawStrips = true) where T : IGH_ActiveObject, IGH_PreviewObject
+        public static void RenderPrototypeLabel<T>(this GH_Attributes<T> attributes, Graphics graphics, RectangleF labelBounds, bool jaggedLeft, bool jaggedRight, bool drawStrips = true) where T : IGH_ActiveObject, IGH_PreviewObject
         {
             Color colour;
             GH_Palette palette;
