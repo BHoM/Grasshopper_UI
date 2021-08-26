@@ -99,8 +99,6 @@ namespace BH.UI.Grasshopper.Templates
                 }
             }
 
-
-
             ListItems.Clear();
             List<string> names = Caller.GetChoiceNames();
             for (int i = 0; i < names.Count; i++)
