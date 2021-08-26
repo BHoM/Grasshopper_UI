@@ -84,12 +84,22 @@ namespace BH.UI.Grasshopper.Templates
             this.Name = Caller.Name;
             this.Description = Caller.Description;
 
-            if (Caller is BH.UI.Base.Components.CreateDataCaller)
+            if (m_attributes is PrototypeValueListAttribute && Caller.SelectedItem != null)
             {
-                //TODO: Check if dataset should be marked as Prototype
+                if (Caller is Base.Components.CreateDataCaller)
+                {
+                    //If component type is DataCaller, check the library engine if the Dataset is prototype Dataset
+                    if (Caller.SelectedItem is string)
+                        ((PrototypeValueListAttribute)m_attributes).Visible = Engine.Library.Query.IsPrototype(Caller.SelectedItem as string);
+                }
+                else
+                {
+                    //If not, check if objecttype is prototype
+                    ((PrototypeValueListAttribute)m_attributes).Visible = Caller.SelectedItem.IsPrototype();
+                }
             }
-            else if (m_attributes is PrototypeValueListAttribute && Caller.SelectedItem != null)
-                ((PrototypeValueListAttribute)m_attributes).Visible = Caller.SelectedItem.IsPrototype();
+
+
 
             ListItems.Clear();
             List<string> names = Caller.GetChoiceNames();
