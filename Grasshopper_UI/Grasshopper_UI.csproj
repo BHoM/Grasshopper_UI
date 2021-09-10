@@ -4,6 +4,8 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
 	<UseWPF>true</UseWPF>
+	<AssemblyName>BH.UI.Grasshopper</AssemblyName>
+	<RootNamespace>BH.UI.Grasshopper</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
