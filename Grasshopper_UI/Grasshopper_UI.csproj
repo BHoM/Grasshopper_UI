@@ -112,7 +112,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-<Exec Command="xcopy &quot;$(TargetDir)$(TargetFileName)&quot;  &quot;C:\ProgramData\BHoM\Assemblies&quot; /Y" />
+<Exec Command="Copy /Y &quot;$(TargetDir)$(TargetName).dll&quot; &quot;C:\ProgramData\BHoM\Assemblies\$(TargetName).gha&quot;&#xA;&#xD;&#xA;echo C:\ProgramData\BHoM\Assemblies\$(TargetName).gha &gt; &quot;$(AppData)\Grasshopper\Libraries\$(TargetName).ghlink&quot;" />
   </Target>
 
 </Project>
