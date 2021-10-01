@@ -53,6 +53,8 @@ namespace BH.UI.Grasshopper.Templates
 
         public override GH_Exposure Exposure { get { return (GH_Exposure)Math.Pow(2, Caller.GroupIndex); } }
 
+        public string Message { get; set; } = "";
+
 
         /*******************************************/
         /**** Constructors                      ****/
@@ -90,7 +92,12 @@ namespace BH.UI.Grasshopper.Templates
                 {
                     //If component type is DataCaller, check the library engine if the Dataset is prototype Dataset
                     if (Caller.SelectedItem is string)
+                    {
                         ((PrototypeValueListAttribute)m_attributes).Visible = Engine.Library.Query.IsPrototype(Caller.SelectedItem as string);
+                        Message = "Confidence: " + Engine.Library.Query.Confidence(Caller.SelectedItem as string).ToString();
+                    }
+
+
                 }
                 else
                 {
