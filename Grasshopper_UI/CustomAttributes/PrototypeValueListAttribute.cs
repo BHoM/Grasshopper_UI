@@ -72,10 +72,20 @@ namespace BH.UI.Grasshopper.Components
             base.Render(canvas, graphics, channel);
 
             // Only draw if visible and on hte correct channel
-            if (!Visible || channel != GH_CanvasChannel.Objects)
+            if (channel != GH_CanvasChannel.Objects)
                 return;
 
-            this.RenderPrototypeLabel(graphics, m_LabelBounds, false, false, true);
+            if(Visible)
+                this.RenderPrototypeLabel(graphics, m_LabelBounds, false, false, true);
+
+            string message = (this.Owner as CallerValueList)?.Message;
+
+            if (!string.IsNullOrWhiteSpace(message))
+            {
+                GH_PaletteStyle impliedStyle = GH_CapsuleRenderEngine.GetImpliedStyle(GH_Palette.Normal, this.Selected, base.Owner.Locked, base.Owner.Hidden);
+                GH_Capsule capsule = GH_Capsule.CreateCapsule(Bounds, GH_Palette.Normal);
+                capsule.RenderEngine.RenderMessage(graphics, message, impliedStyle);
+            }
         }
 
         /*******************************************/
