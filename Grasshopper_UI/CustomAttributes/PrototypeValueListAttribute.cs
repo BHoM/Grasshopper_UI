@@ -78,14 +78,14 @@ namespace BH.UI.Grasshopper.Components
             if(Visible)
                 this.RenderPrototypeLabel(graphics, m_LabelBounds, false, false, true);
 
-            string message = (this.Owner as CallerValueList)?.Message;
+            //string message = (this.Owner as CallerValueList)?.Message;
 
-            if (!string.IsNullOrWhiteSpace(message))
-            {
-                GH_PaletteStyle impliedStyle = GH_CapsuleRenderEngine.GetImpliedStyle(GH_Palette.Normal, this.Selected, base.Owner.Locked, base.Owner.Hidden);
-                GH_Capsule capsule = GH_Capsule.CreateCapsule(Bounds, GH_Palette.Normal);
-                capsule.RenderEngine.RenderMessage(graphics, message, impliedStyle);
-            }
+            //if (!string.IsNullOrWhiteSpace(message))
+            //{
+            //    GH_PaletteStyle impliedStyle = GH_CapsuleRenderEngine.GetImpliedStyle(GH_Palette.Normal, this.Selected, base.Owner.Locked, base.Owner.Hidden);
+            //    GH_Capsule capsule = GH_Capsule.CreateCapsule(Bounds, GH_Palette.Normal);
+            //    capsule.RenderEngine.RenderMessage(graphics, message, impliedStyle);
+            //}
         }
 
         /*******************************************/
