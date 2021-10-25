@@ -78,14 +78,117 @@ namespace BH.UI.Grasshopper.Components
             if(Visible)
                 this.RenderPrototypeLabel(graphics, m_LabelBounds, false, false, true);
 
-            //string message = (this.Owner as CallerValueList)?.Message;
+            string message = (this.Owner as CallerValueList)?.Message;
 
-            //if (!string.IsNullOrWhiteSpace(message))
-            //{
-            //    GH_PaletteStyle impliedStyle = GH_CapsuleRenderEngine.GetImpliedStyle(GH_Palette.Normal, this.Selected, base.Owner.Locked, base.Owner.Hidden);
-            //    GH_Capsule capsule = GH_Capsule.CreateCapsule(Bounds, GH_Palette.Normal);
-            //    capsule.RenderEngine.RenderMessage(graphics, message, impliedStyle);
-            //}
+            if (!string.IsNullOrWhiteSpace(message))
+            {
+                RenderMessage(graphics, message);
+            }
+        }
+
+        /*******************************************/
+        /**** Private Methods                   ****/
+        /*******************************************/
+
+        private void RenderMessage(Graphics graphics, string message)
+        {
+            Color fill, text, edge;
+
+            this.MessageLabelColours(out fill, out text, out edge);
+
+            int zoomFadeMedium = GH_Canvas.ZoomFadeMedium;
+
+            if (zoomFadeMedium > 5)
+            {
+                Rectangle box = new Rectangle((int)Bounds.X, (int)Bounds.Y, (int)Bounds.Width, (int)Bounds.Height);
+                box.Inflate(-3, 0);
+                box.Y = box.Bottom;
+                Font font = GH_FontServer.Standard;
+
+                bool flag = false;
+                Size size = GH_FontServer.MeasureString(message, font);
+                size.Width += 8;
+                if (size.Width > box.Width)
+                {
+                    double num = (double)box.Width / (double)size.Width;
+                    font = GH_FontServer.NewFont(font, Convert.ToSingle((double)font.SizeInPoints * num));
+                    size = GH_FontServer.MeasureString(message, font);
+                    flag = true;
+                }
+                box.Height = Math.Max(size.Height, 6);
+                GraphicsPath graphicsPath = new GraphicsPath();
+                graphicsPath.AddArc(box.Left - 3, box.Top, 6, 6, 270f, 90f);
+                graphicsPath.AddArc(box.Left + 3, box.Bottom - 6, 6, 6, 180f, -90f);
+                graphicsPath.AddArc(box.Right - 9, box.Bottom - 6, 6, 6, 90f, -90f);
+                graphicsPath.AddArc(box.Right - 3, box.Top, 6, 6, 180f, 90f);
+                graphicsPath.CloseAllFigures();
+                SolidBrush solidBrush = new SolidBrush(Color.FromArgb(zoomFadeMedium, fill));
+                Pen pen = new Pen(Color.FromArgb(zoomFadeMedium, edge))
+                {
+                    LineJoin = LineJoin.Bevel
+                };
+                graphics.FillPath(solidBrush, graphicsPath);
+                graphics.DrawPath(pen, graphicsPath);
+                pen.Dispose();
+                solidBrush.Dispose();
+                graphicsPath.Dispose();
+                if (graphics.Transform.Elements[0].Equals(1f))
+                {
+                    graphics.TextRenderingHint = GH_TextRenderingConstants.GH_CrispText;
+                }
+                else
+                {
+                    graphics.TextRenderingHint = GH_TextRenderingConstants.GH_SmoothText;
+                }
+                SolidBrush solidBrush2 = new SolidBrush(Color.FromArgb(zoomFadeMedium, text));
+                graphics.DrawString(message, font, solidBrush2, box, GH_TextRenderingConstants.CenterCenter);
+                solidBrush2.Dispose();
+                if (flag)
+                {
+                    font.Dispose();
+                }
+            }
+        }
+
+        /*******************************************/
+
+        private void MessageLabelColours(out Color fill, out Color text, out Color edge)
+        {
+            try
+            {
+                // Define the colour of the render to match the component's borders
+                GH_Palette palette = GH_CapsuleRenderEngine.GetImpliedPalette(this.Owner);
+
+                if (palette == GH_Palette.Normal && !this.Owner.IsPreviewCapable)
+                {
+                    palette = GH_Palette.Hidden;
+                }
+                GH_PaletteStyle style = GH_CapsuleRenderEngine.GetImpliedStyle(palette, this.Selected, this.Owner.Locked, this.Owner.Hidden);
+                edge = style.Edge;
+                fill = style.Edge;
+
+                if (!Visible)
+                {
+                    //If message is warning message, set fill to GH wraning colour.
+                    //This is only done if the Prototype label is not already on the component, as extra warning colour is then not needed.
+                    CallerValueList owner = (this.Owner as CallerValueList);
+                    if (owner != null && owner.IsWarningMessage && !Visible)
+                    {
+                        palette = GH_Palette.Warning;
+                        style = GH_CapsuleRenderEngine.GetImpliedStyle(palette, this.Selected, this.Owner.Locked, this.Owner.Hidden);
+                        fill = style.Fill;
+                    }
+                }
+
+                //Set text colour to contrast background colour
+                text = GH_GraphicsUtil.ForegroundColour(fill, 200);
+            }
+            catch
+            {
+                fill = Color.Black;
+                text = Color.White;
+                edge = Color.Black;
+            }
         }
 
         /*******************************************/
