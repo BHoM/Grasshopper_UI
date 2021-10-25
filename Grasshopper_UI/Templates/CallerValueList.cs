@@ -55,6 +55,8 @@ namespace BH.UI.Grasshopper.Templates
 
         public string Message { get; set; } = "";
 
+        public bool IsWarningMessage { get; set; } = false;
+
 
         /*******************************************/
         /**** Constructors                      ****/
@@ -94,7 +96,14 @@ namespace BH.UI.Grasshopper.Templates
                     if (Caller.SelectedItem is string)
                     {
                         ((PrototypeValueListAttribute)m_attributes).Visible = Engine.Library.Query.IsPrototype(Caller.SelectedItem as string);
-                        Message = "Confidence: " + Engine.Library.Query.Confidence(Caller.SelectedItem as string).ToString();
+                        BH.oM.Data.Library.Confidence confidence = Engine.Library.Query.Confidence(Caller.SelectedItem as string);
+
+                        if (confidence == oM.Data.Library.Confidence.Undefined || confidence == oM.Data.Library.Confidence.None || confidence == oM.Data.Library.Confidence.Low)
+                            IsWarningMessage = true;
+                        else
+                            IsWarningMessage = false;
+
+                        Message = "Confidence: " + confidence.ToString();
                     }
 
 
