@@ -174,9 +174,10 @@ namespace BH.UI.Grasshopper.Components
                     CallerValueList owner = (this.Owner as CallerValueList);
                     if (owner != null && owner.IsWarningMessage && !Visible)
                     {
-                        palette = GH_Palette.Warning;
-                        style = GH_CapsuleRenderEngine.GetImpliedStyle(palette, this.Selected, this.Owner.Locked, this.Owner.Hidden);
-                        fill = style.Fill;
+                        if (this.Selected)
+                            fill = Color.FromArgb(210, 230, 25);
+                        else
+                            fill = Color.FromArgb(241, 175, 29);
                     }
                 }
 
