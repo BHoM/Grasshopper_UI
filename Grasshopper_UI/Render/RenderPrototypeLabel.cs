@@ -78,6 +78,8 @@ namespace BH.UI.Grasshopper
             // Decide if we render strips or a simple line around the label
             if (drawStrips)
             {
+
+
                 //Base capsule
                 GH_Capsule capsule = GH_Capsule.CreateCapsule(attributes.Bounds, palette);
                 capsule.SetJaggedEdges(jaggedLeft, jaggedRight);
@@ -94,6 +96,9 @@ namespace BH.UI.Grasshopper
                 graphics.FillRectangle(new SolidBrush(yellowBackground), botRectangle);
 
                 //Define the box around the text to cull
+                int zoomFadeMedium = GH_Canvas.ZoomFadeLow;
+
+                
                 float textHeight = stringSize.Height;
                 float textWidth = stringSize.Width;
                 stringSize.Width = Math.Max(textWidth, textHeight * 6.1f);  //To exactly hit the corners of the box, for 45degree angle, box should have aspectratio 1:6
@@ -102,7 +107,8 @@ namespace BH.UI.Grasshopper
                     new PointF(labelBounds.X + (labelBounds.Width - stringSize.Width) / 2, labelBounds.Y + (labelBounds.Height - stringSize.Height
                     ) / 2),
                     stringSize);
-                clip.Exclude(textBox);
+                if (zoomFadeMedium > 5)
+                    clip.Exclude(textBox);
                 graphics.SetClip(clip, CombineMode.Replace);
 
                 //Set up parameters for stripes
@@ -128,11 +134,13 @@ namespace BH.UI.Grasshopper
                 // Clear the region filter
                 graphics.ResetClip();
 
-                RectangleF textRenderBounds = labelBounds;
-                textRenderBounds.Y -= 1;
-                // Draw the label
-                graphics.DrawString("Prototype", font, new SolidBrush(colour), textRenderBounds, GH_TextRenderingConstants.CenterCenter);
-
+                if (zoomFadeMedium > 5)
+                {
+                    RectangleF textRenderBounds = labelBounds;
+                    textRenderBounds.Y -= 1;
+                    // Draw the label
+                    graphics.DrawString("Prototype", font, new SolidBrush(Color.FromArgb(zoomFadeMedium, colour)), textRenderBounds, GH_TextRenderingConstants.CenterCenter);
+                }
                 float zoom = graphics.Transform.Elements[0];
                 capsule.RenderEngine.RenderOutlines(graphics, zoom, style);
             }
