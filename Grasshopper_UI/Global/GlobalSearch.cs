@@ -41,6 +41,8 @@ using System.Diagnostics;
 using Grasshopper.GUI.Ribbon;
 using BH.oM.UI;
 using Grasshopper.Kernel.Types;
+using BH.oM.Grasshopper;
+using System.IO;
 
 namespace BH.UI.Grasshopper.Global
 {
@@ -56,6 +58,16 @@ namespace BH.UI.Grasshopper.Global
 
             GlobalSearch.RemoveHandler(typeof(GlobalSearchMenu).FullName);
             GlobalSearch.ItemSelected += GlobalSearch_ItemSelected;
+
+            // Update settings beased on config file in BHoM Settings folder
+            UpdateSettingsFromFile();
+
+            // Watch for changes of the settings file
+            string settingsFolder = Path.GetFullPath(Path.Combine(BH.Engine.Reflection.Query.BHoMFolder(), @"..\Settings"));
+            m_Watcher = new FileSystemWatcher(settingsFolder, "Grasshopper.cfg");
+            m_Watcher.EnableRaisingEvents = true;
+            m_Watcher.Changed += (sender, e) => UpdateSettingsFromFile();
+            m_Watcher.Created += (sender, e) => UpdateSettingsFromFile();
         }
 
 
@@ -74,6 +86,15 @@ namespace BH.UI.Grasshopper.Global
 
         /*******************************************/
 
+        private static void UpdateSettingsFromFile()
+        {
+            UISettings settings = BH.Engine.UI.Query.Settings("Grasshopper") as UISettings;
+            if (settings != null)
+                m_UseWireMenu = settings.UseWireMenu;
+        }
+
+        /*******************************************/
+
         private static void Canvas_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             if (m_LastWire == null)
@@ -88,7 +109,7 @@ namespace BH.UI.Grasshopper.Global
         private static void Canvas_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             GH_Canvas canvas = sender as GH_Canvas;
-            if (canvas == null)
+            if (canvas == null || !m_UseWireMenu)
                 return;
 
             GH_WireInteraction wire = canvas.ActiveInteraction as GH_WireInteraction;
@@ -302,7 +323,9 @@ namespace BH.UI.Grasshopper.Global
         /*******************************************/
 
         private static WireInfo m_LastWire = null;
+        private static bool m_UseWireMenu = true;
 
+        private static FileSystemWatcher m_Watcher = null;
 
         /*******************************************/
     }
