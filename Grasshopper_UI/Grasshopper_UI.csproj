@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug64</Configuration>
@@ -363,6 +363,10 @@
       <Project>{dde47285-e709-4752-9afd-6fa03b449364}</Project>
       <Name>Grasshopper_Engine</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Grasshopper_oM\Grasshopper_oM.csproj">
+      <Project>{d18cbd7a-566d-48f7-afae-62f1e2aa0536}</Project>
+      <Name>Grasshopper_oM</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
