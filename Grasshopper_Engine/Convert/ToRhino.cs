@@ -20,7 +20,7 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.Engine.Reflection;
+using BH.Engine.Base;
 using BH.Engine.Rhinoceros;
 using BH.oM.Geometry;
 using System;
@@ -50,7 +50,7 @@ namespace BH.Engine.Grasshopper
             }
             catch (Exception e)
             {
-                BH.Engine.Reflection.Compute.RecordError("Object of type " + x.GetType().IToText() + " failed to convert to a Rhino geometry\nError: " + e.Message);
+                BH.Engine.Base.Compute.RecordError("Object of type " + x.GetType().IToText() + " failed to convert to a Rhino geometry\nError: " + e.Message);
                 return null;
             }
         }

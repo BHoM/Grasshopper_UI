@@ -20,7 +20,7 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.Reflection.Debugging;
+using BH.oM.Base.Debugging;
 using Grasshopper.Kernel;
 using System;
 using System.Collections.Generic;
@@ -29,9 +29,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BH.oM.UI;
-using BH.oM.Reflection;
 using Grasshopper.Kernel.Parameters;
-using BH.Engine.Reflection;
+using BH.Engine.Base;
 using BH.UI.Grasshopper.Parameters;
 using BH.oM.Geometry;
 using BH.oM.Base;

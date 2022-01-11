@@ -51,9 +51,9 @@ namespace BH.UI.Grasshopper.Templates
                     //this.ClearRuntimeMessages();
                     return base.IsPreviewCapable;
                 }
-                Engine.Reflection.Compute.RecordNote("Preview has been disabled to prevent a slowdown due to the high number of objects." +
+                Engine.Base.Compute.RecordNote("Preview has been disabled to prevent a slowdown due to the high number of objects." +
                     "Right click and set the a new items limit to force the preview at your own risk.");
-                Helpers.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
+                Helpers.ShowEvents(this, Engine.Base.Query.CurrentEvents());
                 return false;
             }
         }

@@ -20,7 +20,7 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.Engine.Reflection;
+using BH.Engine.Base;
 using BH.oM.Base;
 using BH.oM.Geometry;
 using Grasshopper.Kernel;
@@ -285,7 +285,7 @@ namespace BH.UI.Grasshopper
         public static bool CastToGoo<T>(object value, ref T target)
         {
             string message = string.Format("Could not find a conversion from {0} to {1}. Check the description of each input for more details on the type of object that need to be provided", value.GetType().FullName, typeof(T).FullName);
-            BH.Engine.Reflection.Compute.RecordError(message);
+            BH.Engine.Base.Compute.RecordError(message);
             return false;
         }
 

@@ -20,7 +20,7 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.Engine.Reflection;
+using BH.Engine.Base;
 using BH.Engine.Serialiser;
 using GH_IO;
 using GH_IO.Serialization;
@@ -70,9 +70,9 @@ namespace BH.UI.Grasshopper.Goos
             {
                 if (source == null) { return false; }
                 else if (source is string)
-                    this.Value = BH.Engine.Reflection.Create.Type(source as string);
+                    this.Value = BH.Engine.Base.Create.Type(source as string);
                 else if (source is GH_String)
-                    this.Value = BH.Engine.Reflection.Create.Type(((GH_String)source).Value);
+                    this.Value = BH.Engine.Base.Create.Type(((GH_String)source).Value);
                 else if (source.GetType() == typeof(GH_Goo<Type>))
                     this.Value = (Type)source;
                 else if (source is GH_Variable)
@@ -83,7 +83,7 @@ namespace BH.UI.Grasshopper.Goos
             catch
             {
                 string message = $"Impossible to convert {source.GetType().IToText()} into System.Type. Check the description of each input for more details on the type of object that need to be provided";
-                BH.Engine.Reflection.Compute.RecordError(message);
+                BH.Engine.Base.Compute.RecordError(message);
                 return false;
             }
             

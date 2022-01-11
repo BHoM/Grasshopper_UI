@@ -120,7 +120,7 @@ namespace BH.UI.Grasshopper.Templates
 
         public override bool Read(GH_IReader reader)
         {
-            Engine.Reflection.Compute.ClearCurrentEvents();
+            Engine.Base.Compute.ClearCurrentEvents();
             bool success = base.Read(reader);
             reader.TryGetInt32("m_MaxItemsPreview", ref m_MaxItemsPreview);
             reader.TryGetBoolean("m_ForcePreview", ref m_ForcePreview);
@@ -129,7 +129,7 @@ namespace BH.UI.Grasshopper.Templates
             if (reader.TryGetString("ObjectType", ref objectType))
                 ObjectType = Engine.Serialiser.Convert.FromJson(objectType) as Type;
 
-            Helpers.ShowEvents(this, Engine.Reflection.Query.CurrentEvents());
+            Helpers.ShowEvents(this, Engine.Base.Query.CurrentEvents());
             return success;
         }
 
