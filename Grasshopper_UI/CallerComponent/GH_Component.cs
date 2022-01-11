@@ -29,7 +29,6 @@ using BH.oM.UI;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using BH.UI.Grasshopper.Global;
-using BH.oM.Reflection;
 using Grasshopper.Kernel.Parameters;
 using BH.UI.Grasshopper.Parameters;
 using BH.Engine.Reflection;
@@ -38,7 +37,7 @@ using BH.Engine.Grasshopper;
 using BH.UI.Grasshopper.Components;
 using System.Collections;
 using BH.Adapter;
-using BH.oM.Reflection.Debugging;
+using BH.oM.Base.Debugging;
 using BH.UI.Base;
 using System.IO;
 using BH.UI.Base.Global;
@@ -123,7 +122,7 @@ namespace BH.UI.Grasshopper.Templates
             Accessor.GH_Accessor = DA;
             Caller.Run();
 
-            List<Event> events = Engine.Reflection.Query.CurrentEvents();
+            List<Event> events = Engine.Base.Query.CurrentEvents();
             Helpers.ShowEvents(this, events);
 
             if (DA.Iteration == 0)

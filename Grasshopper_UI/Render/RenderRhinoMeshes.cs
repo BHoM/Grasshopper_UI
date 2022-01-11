@@ -24,7 +24,7 @@ using RHG = Rhino.Geometry;
 using Rhino.Display;
 using Grasshopper.Kernel;
 using System;
-using BH.oM.Reflection.Attributes;
+using BH.oM.Base.Attributes;
 using System.Collections.Generic;
 using BH.oM.Geometry;
 using System.Drawing;

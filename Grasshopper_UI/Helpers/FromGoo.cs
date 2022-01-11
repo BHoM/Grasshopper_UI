@@ -26,8 +26,8 @@ using System.Runtime.CompilerServices;
 using Rhino.Geometry;
 using System.Collections;
 using System.Linq;
-using BH.Engine.Reflection;
-using BH.oM.Reflection;
+using BH.Engine.Base;
+using BH.oM.Base;
 using System.Collections.Generic;
 using Grasshopper.Kernel.Parameters.Hints;
 
@@ -98,7 +98,7 @@ namespace BH.UI.Grasshopper
             }
             catch
             {
-                Engine.Reflection.Compute.RecordError("Failed to cast " + data.GetType().IToText() + " into " + typeof(T).IToText());
+                Engine.Base.Compute.RecordError("Failed to cast " + data.GetType().IToText() + " into " + typeof(T).IToText());
                 return default(T);
             }
         }
@@ -121,7 +121,7 @@ namespace BH.UI.Grasshopper
             }
             catch
             {
-                Engine.Reflection.Compute.RecordError("Failed to cast " + geometry.GetType().IToText() + " into " + typeof(T).IToText());
+                Engine.Base.Compute.RecordError("Failed to cast " + geometry.GetType().IToText() + " into " + typeof(T).IToText());
                 return default(T);
             }
         }

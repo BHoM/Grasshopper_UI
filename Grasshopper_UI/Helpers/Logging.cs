@@ -20,7 +20,7 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.Reflection.Debugging;
+using BH.oM.Base.Debugging;
 using Grasshopper.Kernel;
 using System;
 using System.Collections.Generic;
@@ -74,7 +74,7 @@ namespace BH.UI.Grasshopper
                 }
 
                 if (clearShownEvents)
-                    Engine.Reflection.Compute.ClearCurrentEvents();
+                    Engine.Base.Compute.ClearCurrentEvents();
             }
         }
 

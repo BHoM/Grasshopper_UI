@@ -25,7 +25,7 @@ using Rhino.Display;
 using Grasshopper.Kernel;
 using System;
 using System.Drawing;
-using BH.oM.Reflection.Attributes;
+using BH.oM.Base.Attributes;
 using System.Collections.Generic;
 using GH = Grasshopper;
 using BH.oM.Base;

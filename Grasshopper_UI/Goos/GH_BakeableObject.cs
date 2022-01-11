@@ -130,7 +130,7 @@ namespace BH.UI.Grasshopper.Goos
             catch (Exception)
             {
                 string message = string.Format("Impossible to convert {0} into {1}. Check the description of each input for more details on the type of object that need to be provided", Value.GetType().FullName, typeof(Q).FullName);
-                BH.Engine.Reflection.Compute.RecordError(message);
+                BH.Engine.Base.Compute.RecordError(message);
                 return false;
             }
         }
@@ -152,7 +152,7 @@ namespace BH.UI.Grasshopper.Goos
                 catch
                 {
                     string message = string.Format("Impossible to convert {0} into {1}. Check the description of each input for more details on the type of object that need to be provided", fromJson.GetType().FullName, typeof(T).IToText());
-                    BH.Engine.Reflection.Compute.RecordError(message);
+                    BH.Engine.Base.Compute.RecordError(message);
                     return false;
                 }
             }

@@ -62,7 +62,7 @@ namespace BH.Engine.Grasshopper
             {
                 try
                 {
-                    type = BH.Engine.Reflection.Create.Type(parts[0]);
+                    type = BH.Engine.Base.Create.Type(parts[0]);
                 }
                 catch
                 {

@@ -76,7 +76,7 @@ namespace BH.UI.Grasshopper.Components.UI
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            BH.Engine.Reflection.Compute.ClearCurrentEvents();
+            BH.Engine.Base.Compute.ClearCurrentEvents();
 
             try
             {
@@ -120,7 +120,7 @@ namespace BH.UI.Grasshopper.Components.UI
 
                 DA.SetData(0, nodeContent);
 
-                Helpers.ShowEvents(this, BH.Engine.Reflection.Query.CurrentEvents());
+                Helpers.ShowEvents(this, BH.Engine.Base.Query.CurrentEvents());
             }
             catch (Exception e)
             {
@@ -176,7 +176,7 @@ namespace BH.UI.Grasshopper.Components.UI
             {
                 string message = clashes.Count.ToString() + " groups have been found containing elements also contained in other groups. Those groups will be ignored.";
                 message += "Group names:" + clashes.Select(x => "\n- " + x.Description).Aggregate((a,b) => a + b);
-                Engine.Reflection.Compute.RecordWarning(message);
+                Engine.Base.Compute.RecordWarning(message);
                 return groups.Except(clashes).ToList();
             }
             else
