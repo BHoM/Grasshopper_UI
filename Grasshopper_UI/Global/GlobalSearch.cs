@@ -63,7 +63,7 @@ namespace BH.UI.Grasshopper.Global
             UpdateSettingsFromFile();
 
             // Watch for changes of the settings file
-            string settingsFolder = Path.GetFullPath(Path.Combine(BH.Engine.Reflection.Query.BHoMFolder(), @"..\Settings"));
+            string settingsFolder = Path.GetFullPath(Path.Combine(BH.Engine.Base.Query.BHoMFolder(), @"..\Settings"));
             m_Watcher = new FileSystemWatcher(settingsFolder, "Grasshopper.cfg");
             m_Watcher.EnableRaisingEvents = true;
             m_Watcher.Changed += (sender, e) => UpdateSettingsFromFile();
