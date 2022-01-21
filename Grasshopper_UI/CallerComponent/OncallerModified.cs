@@ -98,7 +98,7 @@ namespace BH.UI.Grasshopper.Templates
 
             // If there is already a param with the same name, delete it but keep the wire connections
             // Same approach as `UpdateInput(ParamUpdated update)` but with index provided by ParamAdded
-            IGH_Param match = Params.Input.Find(x => x.Name == update.Name);
+            IGH_Param match = Params.Input.Find(x => x.Name.ToLower() == update.Name.ToLower());
             if (match != null)
             {
                 MoveLinks(match, newParam);
@@ -116,7 +116,7 @@ namespace BH.UI.Grasshopper.Templates
 
         protected virtual void UpdateInput(ParamRemoved update)
         {
-            IGH_Param match = Params.Input.Find(x => x.Name == update.Name);
+            IGH_Param match = Params.Input.Find(x => x.Name.ToLower() == update.Name.ToLower());
             if (match != null)
                 Params.UnregisterInputParameter(match);
         }
@@ -125,7 +125,7 @@ namespace BH.UI.Grasshopper.Templates
 
         protected virtual void UpdateInput(ParamUpdated update)
         {
-            int index = Params.Input.FindIndex(x => x.Name == update.Name);
+            int index = Params.Input.FindIndex(x => x.Name.ToLower() == update.Name.ToLower());
             if (index >= 0)
             {
                 IGH_Param oldParam = Params.Input[index];
