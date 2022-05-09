@@ -251,6 +251,12 @@ namespace BH.UI.Grasshopper
             pipeline.DrawBox(bbBox, bhColour, thickness);
         }
 
+        /***************************************************/
+
+        public static void RenderRhinoWires(RHG.Box box, Rhino.Display.DisplayPipeline pipeline, Color bhColour, int thickness)
+        {
+            pipeline.DrawBox(box, bhColour, thickness);
+        }
 
         /***************************************************/
         /**** Public Methods  - Representations         ****/
@@ -261,7 +267,6 @@ namespace BH.UI.Grasshopper
 
             pipeline.Draw3dText(text3D, bhColour, text3D.TextPlane); 
         }
-
 
         /***************************************************/
     }
