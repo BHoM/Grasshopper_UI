@@ -36,6 +36,7 @@ using BH.Engine.Serialiser;
 using BH.Engine.Reflection;
 using System.Drawing;
 using BH.oM.Graphics;
+using Rhino.Render;
 
 namespace BH.UI.Grasshopper.Goos
 {
@@ -174,9 +175,35 @@ namespace BH.UI.Grasshopper.Goos
 
         public virtual void DrawViewportMeshes(GH_PreviewMeshArgs args)
         {
-            if (m_RhinoGeometry != null)
-                Render.IRenderRhinoMeshes(m_RhinoGeometry, args, m_Color);
+            if (!m_IsMeshPreviewable)   //Flagged as not previewable - return
+                return;
+
+            if (m_PreviewMesh == null)  //No preview mesh set yet
+            {
+                //Create and store mesh. Will return values for surface type objects (surfaces, breps, meshes etc)
+                m_PreviewMesh = Render.ICreatePreviewMesh(m_RhinoGeometry, args.MeshingParameters);
+
+                if (m_PreviewMesh == null)
+                {
+                    m_IsMeshPreviewable = false;    //If no mesh could be extracted, set flag as no required to check again for the same geometry
+                    return;
+                }
+            }
+
+            if (m_PreviewMesh != null)
+            {
+                if (m_PreviewMesh.VertexColors.Count > 0)   //If colours are set (RenderMeshes) draw these colours
+                {
+                    args.Pipeline.DrawMeshFalseColors(m_PreviewMesh);
+                }
+                else
+                {
+                    Rhino.Display.DisplayMaterial mat = Render.RenderMaterial(args.Material, m_PreviewMaterial);    //If material is default GH material, BHoM default will be used, if not, default GH material is used.
+                    args.Pipeline.DrawMeshShaded(m_PreviewMesh, mat);
+                }
+            }
         }
+
 
         /***************************************************/
 
@@ -193,8 +220,11 @@ namespace BH.UI.Grasshopper.Goos
 
         private bool SetGeometry()
         {
+            ResetPreviewMeshes();   //Clears cashed preview meshes and resets preview flag.
+
             if (Value == null)
             {
+                m_IsMeshPreviewable = false;
                 return true;
             }
             else if (Value is IRender)
@@ -208,6 +238,8 @@ namespace BH.UI.Grasshopper.Goos
                     m_thickness = (Value as RenderCurve).Thickness;
                     m_Geometry = (Value as RenderCurve).Curve;
                 }
+                double transparency = (255 - m_Color.A) / (double)255;
+                m_PreviewMaterial = new Rhino.Display.DisplayMaterial(m_Color, transparency);
                 return true;
             }
             else if (Value is BHoMObject)
@@ -224,8 +256,22 @@ namespace BH.UI.Grasshopper.Goos
             }
             else
             {
+                m_IsMeshPreviewable = false;
                 return false;
             }
+        }
+
+        /***************************************************/
+
+        protected virtual void ResetPreviewMeshes()
+        {
+            if (m_PreviewMesh != null)
+            {
+                m_PreviewMesh.Dispose();
+                m_PreviewMesh = null;
+            }
+
+            m_IsMeshPreviewable = true; //Default to true until checked
         }
 
         /***************************************************/
@@ -302,8 +348,16 @@ namespace BH.UI.Grasshopper.Goos
 
         protected Color m_Color = Color.FromArgb(80, 255, 41, 105);//BHoM pink!
 
-        protected int m_thickness = 2;  
+        protected int m_thickness = 2;
 
+        protected Rhino.Geometry.Mesh m_PreviewMesh = null;
+
+        protected bool m_IsMeshPreviewable = true;
+
+        protected Rhino.Display.DisplayMaterial m_PreviewMaterial = m_DefaultMaterial;
+
+        private static readonly Rhino.Display.DisplayMaterial m_DefaultMaterial = new Rhino.Display.DisplayMaterial(Color.FromArgb(80, 255, 41, 105), 0.58823529);
+        
         /***************************************************/
     }
 }
