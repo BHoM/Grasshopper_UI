@@ -50,6 +50,27 @@ namespace BH.UI.Grasshopper
         }
 
         /***************************************************/
+
+        public static DisplayMaterial RenderMaterial(DisplayMaterial material, DisplayMaterial custom)
+        {
+            if (custom == null)
+                return material;
+
+            Color pColour = GH.Instances.ActiveCanvas.Document.PreviewColour;
+            Color ghColour = material.Diffuse;
+            if (ghColour.R == pColour.R & // If the color sent by PreviewArgs is the default object PreviewColour
+                ghColour.G == pColour.G &
+                ghColour.B == pColour.B) // Excluding Alpha channel from comparison
+            {
+                return custom;
+            }
+            else
+            {
+                return material;
+            }
+        }
+
+        /***************************************************/
     }
 }
 
