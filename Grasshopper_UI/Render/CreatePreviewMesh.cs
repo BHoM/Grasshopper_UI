@@ -41,9 +41,8 @@ namespace BH.UI.Grasshopper
         public static RHG.Mesh ICreatePreviewMesh(this object obj, RHG.MeshingParameters parameters)
         {
             if (obj == null)
-            {
                 return null;
-            }
+
             if (parameters == null)
                 parameters = RHG.MeshingParameters.Default;
 
@@ -105,13 +104,11 @@ namespace BH.UI.Grasshopper
         {
             RHG.Mesh[] array = RHG.Mesh.CreateFromBrep(brep, parameters);
             if (array == null)
-            {
                 return new RHG.Mesh();
-            }
+
             if (array.Length == 1)
-            {
                 return array[0];
-            }
+
             RHG.Mesh mesh = new RHG.Mesh();
             foreach (var faceMesh in array)
             {
