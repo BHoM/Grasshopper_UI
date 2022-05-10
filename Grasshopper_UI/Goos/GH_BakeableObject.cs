@@ -185,7 +185,7 @@ namespace BH.UI.Grasshopper.Goos
 
                 if (m_PreviewMesh == null)
                 {
-                    m_IsMeshPreviewable = false;    //If no mesh could be extracted, set flag as no required to check again for the same geometry
+                    m_IsMeshPreviewable = false;    //If no mesh could be extracted, set flag as not required to check again for the same geometry
                     return;
                 }
             }
