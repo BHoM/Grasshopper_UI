@@ -231,15 +231,30 @@ namespace BH.UI.Grasshopper.Goos
             {
                 m_RhinoGeometry = (Value as IRender).IToRhino();
                 m_Color = (Value as IRender).Colour;
+                BH.oM.Graphics.Texture texture = null;
+
                 if (Value is RenderGeometry)
-                    m_Geometry = (Value as RenderGeometry).Geometry;
+                {
+                    RenderGeometry renderGeom = Value as RenderGeometry;
+                    m_Geometry = renderGeom.Geometry;
+                    m_thickness = renderGeom.EdgeThickness;
+                    texture = renderGeom.Texture;
+                }
                 else if (Value is RenderCurve)
                 {
                     m_thickness = (Value as RenderCurve).Thickness;
                     m_Geometry = (Value as RenderCurve).Curve;
                 }
-                double transparency = (255 - m_Color.A) / (double)255;
-                m_PreviewMaterial = new Rhino.Display.DisplayMaterial(m_Color, transparency);
+
+                if (texture != null)
+                {
+                    m_PreviewMaterial = texture.ToRhino();
+                }
+                else
+                {
+                    double transparency = (255 - m_Color.A) / (double)255;
+                    m_PreviewMaterial = new Rhino.Display.DisplayMaterial(m_Color, transparency);
+                }
                 return true;
             }
             else if (Value is BHoMObject)
@@ -260,6 +275,7 @@ namespace BH.UI.Grasshopper.Goos
                 return false;
             }
         }
+
 
         /***************************************************/
 
