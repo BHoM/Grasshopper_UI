@@ -209,8 +209,11 @@ namespace BH.UI.Grasshopper.Goos
 
         public virtual void DrawViewportWires(GH_PreviewWireArgs args)
         {
-            if (m_RhinoGeometry != null)
-                Render.IRenderRhinoWires(m_RhinoGeometry, args, m_Color, m_thickness);
+            if (m_thickness > 0)
+            {
+                if (m_RhinoGeometry != null)
+                    Render.IRenderRhinoWires(m_RhinoGeometry, args, m_Color, m_thickness);
+            }
         }
 
 
@@ -238,7 +241,7 @@ namespace BH.UI.Grasshopper.Goos
                     RenderGeometry renderGeom = Value as RenderGeometry;
                     m_Geometry = renderGeom.Geometry;
                     m_thickness = renderGeom.EdgeThickness;
-                    texture = renderGeom.Texture;
+                    texture = renderGeom.SurfaceColour;
                 }
                 else if (Value is RenderCurve)
                 {
