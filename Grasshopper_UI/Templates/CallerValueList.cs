@@ -36,6 +36,7 @@ using Grasshopper.Kernel.Data;
 using Grasshopper.Kernel.Types;
 using BH.Engine.Reflection;
 using BH.UI.Grasshopper.Components;
+using BH.Engine.Grasshopper;
 
 namespace BH.UI.Grasshopper.Templates
 {
@@ -142,7 +143,7 @@ namespace BH.UI.Grasshopper.Templates
             }
 
             GH_Document doc = GH.Instances.ActiveCanvas.Document;
-            Engine.UI.Compute.LogUsage("Grasshopper", GH.Versioning.VersionString, InstanceGuid, Caller.GetType().Name, Caller.SelectedItem, null, doc.DocumentID.ToString(), doc.FilePath);
+            Engine.UI.Compute.LogUsage("Grasshopper", GH.Versioning.VersionString, InstanceGuid, Caller.GetType().Name, Caller.SelectedItem, null, doc.CanvasID(), doc.FilePath);
         }
 
         /*******************************************/

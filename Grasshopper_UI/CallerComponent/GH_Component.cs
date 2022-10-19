@@ -128,7 +128,7 @@ namespace BH.UI.Grasshopper.Templates
             if (DA.Iteration == 0)
             {
                 GH_Document doc = GH.Instances.ActiveCanvas.Document;
-                Engine.UI.Compute.LogUsage("Grasshopper", GH.Versioning.VersionString, InstanceGuid, Caller.GetType().Name, Caller.SelectedItem, events, doc.DocumentID.ToString(), doc.FilePath);
+                Engine.UI.Compute.LogUsage("Grasshopper", GH.Versioning.VersionString, InstanceGuid, Caller.GetType().Name, Caller.SelectedItem, events, doc.CanvasID(), doc.FilePath);
             }
                 
         }
