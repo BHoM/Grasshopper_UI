@@ -27,7 +27,7 @@ using Rhino.Geometry;
 using System.Collections;
 using System.Linq;
 using BH.Engine.Base;
-using BH.oM.Base;
+using BH.oM.Base.Reflection;
 using System.Collections.Generic;
 using Grasshopper.Kernel.Parameters.Hints;
 
