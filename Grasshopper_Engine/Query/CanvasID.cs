@@ -45,12 +45,22 @@ namespace BH.Engine.Grasshopper
             if (document == null)
                 return null;
 
-            if (m_CanvasRunTimeIDs.ContainsKey(document.RuntimeID))
-                return m_CanvasRunTimeIDs[document.RuntimeID];
+            ulong documentKey = GetDocumentID(document);                
+
+            if (m_CanvasRunTimeIDs.ContainsKey(documentKey))
+                return m_CanvasRunTimeIDs[documentKey];
 
             string newID = Guid.NewGuid().ToString();
-            m_CanvasRunTimeIDs.Add(document.RuntimeID, newID);
+            m_CanvasRunTimeIDs.Add(documentKey, newID);
             return newID;
+        }
+
+        private static ulong GetDocumentID(GH_Document document)
+        {
+            if (document.Owner != null)
+                return GetDocumentID(document.Owner.OwnerDocument()); //Recursive up to the highest level of a document
+
+            return document.RuntimeID;
         }
 
         private static Dictionary<ulong, string> m_CanvasRunTimeIDs = new Dictionary<ulong, string>();
