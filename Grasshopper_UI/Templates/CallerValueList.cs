@@ -76,6 +76,8 @@ namespace BH.UI.Grasshopper.Templates
             Caller.SetDataAccessor(m_Accessor);
 
             Caller.Modified += (sender, e) => UpdateFromSelectedItem();
+
+            Caller.ValueSelected += SelectItem;
         }
 
 
@@ -234,6 +236,16 @@ namespace BH.UI.Grasshopper.Templates
             if (item != null)
                 Caller.SetItem(item);
             UpdateFromSelectedItem();
+        }
+
+
+        /*******************************************/
+        /**** Private Methods                   ****/
+        /*******************************************/
+
+        private void SelectItem(object sender, int index)
+        {
+            this.SelectItem(index);
         }
 
 
