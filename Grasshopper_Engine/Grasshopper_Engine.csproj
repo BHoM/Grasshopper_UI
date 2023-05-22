@@ -137,6 +137,7 @@
     <Compile Include="Create\DataTree.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\CanvasID.cs" />
+    <Compile Include="Query\CanvasFilePath.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Compute\" />
