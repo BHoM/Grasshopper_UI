@@ -43,6 +43,13 @@ using BH.oM.UI;
 using Grasshopper.Kernel.Types;
 using BH.oM.Grasshopper;
 using System.IO;
+using BH.UI.Base.Menus;
+using System.Runtime.CompilerServices;
+using Grasshopper.Kernel.Special;
+using System.Net.Mail;
+using Grasshopper.Documentation;
+using BH.Engine.Grasshopper;
+using BH.oM.Programming;
 
 namespace BH.UI.Grasshopper.Global
 {
@@ -99,11 +106,28 @@ namespace BH.UI.Grasshopper.Global
             List<string> guids = new List<string>();
 
             var toggleObjs = objs.Where(x => x.ComponentGuid.ToString() == "2e78987b-9dfb-42a2-8b76-3923ac8bd91a").ToList();
-
+           
             foreach (var obj in toggleObjs)
             {
                 var toggle = (GH.Kernel.Special.GH_BooleanToggle)obj;
-                toggle.Value = false;
+
+                var recipients = toggle.Recipients;
+                
+                foreach (var recipient in recipients)
+                {
+                    var parentComponentGuid = recipient.InstanceGuid;
+
+                    var parentComponent = objs.Where(x => x is GH_Component).Where(x => ((GH_Component)x).Params.Input.Where(y => y.InstanceGuid == parentComponentGuid).Any()).ToList();
+
+                    foreach (var pc in parentComponent)
+                    {
+
+                        if (pc.GetType() == typeof(PushComponent) || pc.GetType() == typeof(PullComponent) || pc.GetType() == typeof(ExecuteComponent))
+                        {
+                            toggle.Value = false;
+                        }
+                    }
+                }
             }
         }
 
