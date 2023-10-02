@@ -73,7 +73,7 @@ namespace BH.UI.Grasshopper.Components
             return success;
         }
 
-            /*******************************************/
+        /*******************************************/
             
         public override void CreateAttributes()
         {
