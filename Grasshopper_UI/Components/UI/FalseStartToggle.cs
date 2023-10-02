@@ -86,6 +86,8 @@ namespace BH.UI.Grasshopper.Components
             (Caller as FalseStartToggleCaller).SetItem(!(Caller as FalseStartToggleCaller).Value);
         }
 
+            /*******************************************/
+            
         protected override void OnCallerModified(object sender, CallerUpdate update)
         {
             // Adding a tag under the component
