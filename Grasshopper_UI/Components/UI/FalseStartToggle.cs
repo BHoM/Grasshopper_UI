@@ -38,6 +38,7 @@ using Grasshopper.Kernel.Attributes;
 using Grasshopper.GUI.Canvas;
 using Rhino.Runtime;
 using BH.Engine.Base;
+using BH.UI.Grasshopper.CustomAttributes;
 
 namespace BH.UI.Grasshopper.Components
 {
@@ -89,47 +90,6 @@ namespace BH.UI.Grasshopper.Components
             Message = value.ToString();
             
             base.OnCallerModified(sender, update);
-        }
-    }
-
-    public class FalseStartToggleAttributes : GH_ComponentAttributes
-    {
-        public FalseStartToggleAttributes(IGH_Component component) : base(component)
-        {
-        }
-
-        public override GH_ObjectResponse RespondToMouseDoubleClick(GH_Canvas sender, GH_CanvasMouseEvent e)
-        {
-            ((FalseStartToggleComponent)Owner).UpdateComponent();
-
-            return GH_ObjectResponse.Handled;
-        }
-
-        protected override void Render(GH_Canvas canvas, Graphics graphics, GH_CanvasChannel channel)
-        {
-            if (channel == GH_CanvasChannel.Objects)
-            {
-                var value = (bool)((FalseStartToggleComponent)Owner).Caller.SelectedItem;                
-
-                // Cache the existing style.
-                GH_PaletteStyle dstyle = GH_Skin.palette_hidden_standard;
-
-                // Swap out palette for boolean toggle components based on the current output.
-
-                if (value)
-                    GH_Skin.palette_hidden_standard = new GH_PaletteStyle(Color.Green);
-                else
-                {
-                    GH_Skin.palette_hidden_standard = new GH_PaletteStyle(Color.Red);
-                }
-
-                base.Render(canvas, graphics, channel);
-
-                // Put the original style back.
-                GH_Skin.palette_hidden_standard = dstyle;
-            }
-            else
-                base.Render(canvas, graphics, channel);
         }
     }
 }

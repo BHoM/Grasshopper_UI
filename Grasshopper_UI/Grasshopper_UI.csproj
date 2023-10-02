@@ -178,6 +178,7 @@
     <Compile Include="Components\Parameters\Param_Variable.cs" />
     <Compile Include="Components\UI\FalseStartToggle.cs" />
     <Compile Include="Components\UI\UnitTest.cs" />
+    <Compile Include="CustomAttributes\FalseStartToggleAttributes.cs" />
     <Compile Include="CustomAttributes\PrototypeAttribute.cs" />
     <Compile Include="CustomAttributes\PrototypeValueListAttribute.cs" />
     <Compile Include="Global\WireInfo.cs" />
