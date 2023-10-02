@@ -66,7 +66,6 @@ namespace BH.UI.Grasshopper.Components
 
             // Adding a tag under the component
             bool value = (bool)Caller.SelectedItem;
-
             Message = value.ToString();
 
             return success;
