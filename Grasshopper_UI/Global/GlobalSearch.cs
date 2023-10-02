@@ -50,6 +50,7 @@ using System.Net.Mail;
 using Grasshopper.Documentation;
 using BH.Engine.Grasshopper;
 using BH.oM.Programming;
+using System.Runtime.InteropServices;
 
 namespace BH.UI.Grasshopper.Global
 {
@@ -89,46 +90,6 @@ namespace BH.UI.Grasshopper.Global
             canvas.MouseDown += Canvas_MouseDown;
             canvas.MouseUp += Canvas_MouseUp;
             canvas.KeyDown += Canvas_KeyDown;
-
-            canvas.DocumentChanged += Canvas_DocumentChanged;
-        }
-
-        private static void Canvas_DocumentChanged(GH_Canvas sender, GH_CanvasDocumentChangedEventArgs e)
-        {
-            var ghDoc = GH.Instances.ActiveCanvas?.Document;
-            if (ghDoc == null)
-            {
-                return;
-            }
-
-            var objs = ghDoc.Objects;
-
-            List<string> guids = new List<string>();
-
-            var toggleObjs = objs.Where(x => x.ComponentGuid.ToString() == "2e78987b-9dfb-42a2-8b76-3923ac8bd91a").ToList();
-           
-            foreach (var obj in toggleObjs)
-            {
-                var toggle = (GH.Kernel.Special.GH_BooleanToggle)obj;
-
-                var recipients = toggle.Recipients;
-                
-                foreach (var recipient in recipients)
-                {
-                    var parentComponentGuid = recipient.InstanceGuid;
-
-                    var parentComponent = objs.Where(x => x is GH_Component).Where(x => ((GH_Component)x).Params.Input.Where(y => y.InstanceGuid == parentComponentGuid).Any()).ToList();
-
-                    foreach (var pc in parentComponent)
-                    {
-
-                        if (pc.GetType() == typeof(PushComponent) || pc.GetType() == typeof(PullComponent) || pc.GetType() == typeof(ExecuteComponent))
-                        {
-                            toggle.Value = false;
-                        }
-                    }
-                }
-            }
         }
 
         /*******************************************/
