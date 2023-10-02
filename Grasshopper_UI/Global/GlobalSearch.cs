@@ -43,14 +43,6 @@ using BH.oM.UI;
 using Grasshopper.Kernel.Types;
 using BH.oM.Grasshopper;
 using System.IO;
-using BH.UI.Base.Menus;
-using System.Runtime.CompilerServices;
-using Grasshopper.Kernel.Special;
-using System.Net.Mail;
-using Grasshopper.Documentation;
-using BH.Engine.Grasshopper;
-using BH.oM.Programming;
-using System.Runtime.InteropServices;
 
 namespace BH.UI.Grasshopper.Global
 {
