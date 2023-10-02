@@ -56,6 +56,8 @@ namespace BH.UI.Grasshopper.Components
 
         }
 
+            /*******************************************/
+
         public override bool Read(GH_IReader reader)
         {
             bool success = base.Read(reader);
