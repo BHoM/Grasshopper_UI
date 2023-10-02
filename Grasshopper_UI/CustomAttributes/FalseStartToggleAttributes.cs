@@ -41,6 +41,8 @@ namespace BH.UI.Grasshopper.CustomAttributes
         {
         }
 
+        /*******************************************/
+
         public override GH_ObjectResponse RespondToMouseDoubleClick(GH_Canvas sender, GH_CanvasMouseEvent e)
         {
             ((FalseStartToggleComponent)Owner).UpdateComponent();
@@ -48,28 +50,35 @@ namespace BH.UI.Grasshopper.CustomAttributes
             return GH_ObjectResponse.Handled;
         }
 
+        /*******************************************/
+
         protected override void Render(GH_Canvas canvas, Graphics graphics, GH_CanvasChannel channel)
         {
             if (channel == GH_CanvasChannel.Objects)
             {
                 var value = (bool)((FalseStartToggleComponent)Owner).Caller.SelectedItem;
 
-                // Cache the existing style.
+                //Cache the existing style.
                 GH_PaletteStyle dstyle = GH_Skin.palette_hidden_standard;
+                var hiddenSelected = GH_Skin.palette_hidden_selected;
 
-                // Swap out palette for boolean toggle components based on the current output.
-
+                //Swap out palette for boolean toggle components based on the current output.
                 if (value)
-                    GH_Skin.palette_hidden_standard = new GH_PaletteStyle(Color.Green);
+                {
+                    GH_Skin.palette_hidden_standard = new GH_PaletteStyle(Color.ForestGreen);
+                    GH_Skin.palette_hidden_selected = new GH_PaletteStyle(Color.ForestGreen);
+                }
                 else
                 {
-                    GH_Skin.palette_hidden_standard = new GH_PaletteStyle(Color.Red);
+                    GH_Skin.palette_hidden_standard = new GH_PaletteStyle(Color.Firebrick);
+                    GH_Skin.palette_hidden_selected = new GH_PaletteStyle(Color.Firebrick);
                 }
 
                 base.Render(canvas, graphics, channel);
 
                 // Put the original style back.
                 GH_Skin.palette_hidden_standard = dstyle;
+                GH_Skin.palette_hidden_selected = hiddenSelected;
             }
             else
                 base.Render(canvas, graphics, channel);

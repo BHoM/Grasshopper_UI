@@ -54,7 +54,7 @@ namespace BH.UI.Grasshopper.Components
 
         public FalseStartToggleComponent()
         {
-
+            UpdateLabel();
         }
 
         /*******************************************/
@@ -66,9 +66,7 @@ namespace BH.UI.Grasshopper.Components
             //Ensure the component is defaulting to false on load
             Caller.SetItem(false);
 
-            // Adding a tag under the component
-            bool value = (bool)Caller.SelectedItem;
-            Message = value.ToString();
+            UpdateLabel();
 
             return success;
         }
@@ -91,12 +89,18 @@ namespace BH.UI.Grasshopper.Components
             
         protected override void OnCallerModified(object sender, CallerUpdate update)
         {
+            UpdateLabel();
+
+            base.OnCallerModified(sender, update);
+        }
+
+        /*******************************************/
+
+        private void UpdateLabel()
+        {
             // Adding a tag under the component
             bool value = (bool)Caller.SelectedItem;
-
             Message = value.ToString();
-            
-            base.OnCallerModified(sender, update);
         }
     }
 }
