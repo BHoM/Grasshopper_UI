@@ -62,6 +62,7 @@ namespace BH.UI.Grasshopper.Components
         {
             bool success = base.Read(reader);
 
+            //Ensure the component is defaulting to false on load
             Caller.SetItem(false);
 
             // Adding a tag under the component
