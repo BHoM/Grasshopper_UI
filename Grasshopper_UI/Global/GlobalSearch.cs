@@ -239,7 +239,6 @@ namespace BH.UI.Grasshopper.Global
             }
 
             m_LastWire = null;
-
         }
 
         /*******************************************/
