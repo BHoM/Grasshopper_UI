@@ -84,7 +84,6 @@ namespace BH.UI.Grasshopper.Components
         public void UpdateComponent()
         {
             (Caller as FalseStartToggleCaller).SetItem(!(Caller as FalseStartToggleCaller).Value);
-            
         }
 
         protected override void OnCallerModified(object sender, CallerUpdate update)
