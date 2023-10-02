@@ -79,6 +79,8 @@ namespace BH.UI.Grasshopper.Components
             m_attributes = new FalseStartToggleAttributes(this);
         }
 
+            /*******************************************/
+            
         public void UpdateComponent()
         {
             (Caller as FalseStartToggleCaller).SetItem(!(Caller as FalseStartToggleCaller).Value);
