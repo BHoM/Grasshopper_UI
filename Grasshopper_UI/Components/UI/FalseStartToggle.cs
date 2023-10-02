@@ -57,31 +57,38 @@ namespace BH.UI.Grasshopper.Components
 
         }
 
+            /*******************************************/
+
         public override bool Read(GH_IReader reader)
         {
             bool success = base.Read(reader);
 
+            //Ensure the component is defaulting to false on load
             Caller.SetItem(false);
 
             // Adding a tag under the component
             bool value = (bool)Caller.SelectedItem;
-
             Message = value.ToString();
 
             return success;
         }
 
+            /*******************************************/
+            
         public override void CreateAttributes()
         {
             m_attributes = new FalseStartToggleAttributes(this);
         }
 
+            /*******************************************/
+            
         public void UpdateComponent()
         {
             (Caller as FalseStartToggleCaller).SetItem(!(Caller as FalseStartToggleCaller).Value);
-            
         }
 
+            /*******************************************/
+            
         protected override void OnCallerModified(object sender, CallerUpdate update)
         {
             // Adding a tag under the component
