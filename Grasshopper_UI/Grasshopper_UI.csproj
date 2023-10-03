@@ -40,37 +40,37 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BHoM">
-      <HintPath>C:\ProgramData\BHoM\Assemblies\BHoM.dll</HintPath>
+      <HintPath>$(ProgramData)\BHoM\Assemblies\BHoM.dll</HintPath>
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="BHoM_Adapter">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\ProgramData\BHoM\Assemblies\BHoM_Adapter.dll</HintPath>
+      <HintPath>$(ProgramData)\BHoM\Assemblies\BHoM_Adapter.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="BHoM_Engine">
-      <HintPath>C:\ProgramData\BHoM\Assemblies\BHoM_Engine.dll</HintPath>
+      <HintPath>$(ProgramData)\BHoM\Assemblies\BHoM_Engine.dll</HintPath>
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="BHoM_UI">
-      <HintPath>C:\ProgramData\BHoM\Assemblies\BHoM_UI.dll</HintPath>
+      <HintPath>$(ProgramData)\BHoM\Assemblies\BHoM_UI.dll</HintPath>
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Data_Engine">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\ProgramData\BHoM\Assemblies\Data_Engine.dll</HintPath>
+      <HintPath>$(ProgramData)\BHoM\Assemblies\Data_Engine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Data_oM">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\ProgramData\BHoM\Assemblies\Data_oM.dll</HintPath>
+      <HintPath>$(ProgramData)\BHoM\Assemblies\Data_oM.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Dimensional_oM">
-      <HintPath>C:\ProgramData\BHoM\Assemblies\Dimensional_oM.dll</HintPath>
+      <HintPath>$(ProgramData)\BHoM\Assemblies\Dimensional_oM.dll</HintPath>
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -79,19 +79,19 @@
     </Reference>
     <Reference Include="Geometry_Engine">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\ProgramData\BHoM\Assemblies\Geometry_Engine.dll</HintPath>
+      <HintPath>$(ProgramData)\BHoM\Assemblies\Geometry_Engine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Geometry_oM">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\ProgramData\BHoM\Assemblies\Geometry_oM.dll</HintPath>
+      <HintPath>$(ProgramData)\BHoM\Assemblies\Geometry_oM.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="GH_IO, Version=6.33.20343.16430, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97, processorArchitecture=MSIL">
       <HintPath>..\packages\Grasshopper.6.33.20343.16431\lib\net45\GH_IO.dll</HintPath>
     </Reference>
     <Reference Include="Graphics_oM">
-      <HintPath>C:\ProgramData\BHoM\Assemblies\Graphics_oM.dll</HintPath>
+      <HintPath>$(ProgramData)\BHoM\Assemblies\Graphics_oM.dll</HintPath>
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -99,37 +99,37 @@
       <HintPath>..\packages\Grasshopper.6.33.20343.16431\lib\net45\Grasshopper.dll</HintPath>
     </Reference>
     <Reference Include="Library_Engine">
-      <HintPath>C:\ProgramData\BHoM\Assemblies\Library_Engine.dll</HintPath>
+      <HintPath>$(ProgramData)\BHoM\Assemblies\Library_Engine.dll</HintPath>
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Planning_oM">
-      <HintPath>C:\ProgramData\BHoM\Assemblies\Planning_oM.dll</HintPath>
+      <HintPath>$(ProgramData)\BHoM\Assemblies\Planning_oM.dll</HintPath>
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="PresentationFramework" />
     <Reference Include="Programming_Engine">
-      <HintPath>C:\ProgramData\BHoM\Assemblies\Programming_Engine.dll</HintPath>
+      <HintPath>$(ProgramData)\BHoM\Assemblies\Programming_Engine.dll</HintPath>
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Programming_oM">
-      <HintPath>C:\ProgramData\BHoM\Assemblies\Programming_oM.dll</HintPath>
+      <HintPath>$(ProgramData)\BHoM\Assemblies\Programming_oM.dll</HintPath>
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Reflection_Engine">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\ProgramData\BHoM\Assemblies\Reflection_Engine.dll</HintPath>
+      <HintPath>$(ProgramData)\BHoM\Assemblies\Reflection_Engine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Rhino.UI, Version=6.33.20343.16430, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
       <HintPath>..\packages\RhinoCommon.6.33.20343.16431\lib\net45\Rhino.UI.dll</HintPath>
     </Reference>
     <Reference Include="Rhinoceros_Engine">
-      <HintPath>C:\ProgramData\BHoM\Assemblies\Rhinoceros_Engine.dll</HintPath>
+      <HintPath>$(ProgramData)\BHoM\Assemblies\Rhinoceros_Engine.dll</HintPath>
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -142,7 +142,7 @@
     </Reference>
     <Reference Include="Serialiser_Engine">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\ProgramData\BHoM\Assemblies\Serialiser_Engine.dll</HintPath>
+      <HintPath>$(ProgramData)\BHoM\Assemblies\Serialiser_Engine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -151,12 +151,12 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="UI_Engine">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\ProgramData\BHoM\Assemblies\UI_Engine.dll</HintPath>
+      <HintPath>$(ProgramData)\BHoM\Assemblies\UI_Engine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UI_oM">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\ProgramData\BHoM\Assemblies\UI_oM.dll</HintPath>
+      <HintPath>$(ProgramData)\BHoM\Assemblies\UI_oM.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -378,7 +378,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
-xcopy "$(TargetDir)$(TargetFileName)"  "C:\ProgramData\BHoM\Assemblies" /Y
+xcopy "$(TargetDir)$(TargetFileName)"  "$(ProgramData)\BHoM\Assemblies" /Y
     </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -390,11 +390,11 @@ xcopy "$(TargetDir)$(TargetFileName)"  "C:\ProgramData\BHoM\Assemblies" /Y
   -->
   <PropertyGroup>
     <PostBuildEvent>rem copy .gh file to BHoM/Assembly folder
-Copy /Y "$(TargetDir)$(TargetName).dll" "C:\ProgramData\BHoM\Assemblies\$(TargetName).gha"
-xcopy "$(TargetDir)Script.dll"  "C:\ProgramData\BHoM\Assemblies" /Y
+Copy /Y "$(TargetDir)$(TargetName).dll" "$(ProgramData)\BHoM\Assemblies\$(TargetName).gha"
+xcopy "$(TargetDir)Script.dll"  "$(ProgramData)\BHoM\Assemblies" /Y
 
 rem create .ghlink file
-echo C:\ProgramData\BHoM\Assemblies\$(TargetName).gha &gt; "$(AppData)\Grasshopper\Libraries\$(TargetName).ghlink"</PostBuildEvent>
+echo $(ProgramData)\BHoM\Assemblies\$(TargetName).gha &gt; "$(AppData)\Grasshopper\Libraries\$(TargetName).ghlink"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
