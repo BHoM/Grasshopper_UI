@@ -63,7 +63,7 @@ namespace BH.UI.Grasshopper.CustomAttributes
                 var hiddenSelected = GH_Skin.palette_hidden_selected;
 
                 //Swap out palette for boolean toggle components based on the current output.
-                if (value)
+                /*if (value)
                 {
                     GH_Skin.palette_hidden_standard = new GH_PaletteStyle(Color.ForestGreen);
                     GH_Skin.palette_hidden_selected = new GH_PaletteStyle(Color.ForestGreen);
@@ -72,7 +72,7 @@ namespace BH.UI.Grasshopper.CustomAttributes
                 {
                     GH_Skin.palette_hidden_standard = new GH_PaletteStyle(Color.Firebrick);
                     GH_Skin.palette_hidden_selected = new GH_PaletteStyle(Color.Firebrick);
-                }
+                }*/
 
                 base.Render(canvas, graphics, channel);
 
