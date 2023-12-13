@@ -82,7 +82,6 @@ namespace BH.UI.Grasshopper.Components
         public void UpdateComponent()
         {
             (Caller as FalseStartToggleCaller).SetItem(!(Caller as FalseStartToggleCaller).Value);
-            UpdateComponentDisplay();
         }
 
         /*******************************************/
@@ -103,7 +102,6 @@ namespace BH.UI.Grasshopper.Components
             Message = value.ToString();
 
             SetIconOverride((Caller as FalseStartToggleCaller).Icon_24x24);
-            ExpireSolution(true);
         }
     }
 }
