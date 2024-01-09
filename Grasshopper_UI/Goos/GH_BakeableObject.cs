@@ -27,7 +27,7 @@ using BH.oM.Geometry;
 using BH.Engine.Geometry;
 using System;
 using BH.Engine.Base;
-using BH.Engine.Rhinoceros;
+using BH.Engine.Adapters.Rhinoceros;
 using Rhino;
 using Rhino.DocObjects;
 using GH_IO;
@@ -110,7 +110,7 @@ namespace BH.UI.Grasshopper.Goos
                 return CastFrom(Helpers.IFromGoo<T>((IGH_Goo)source));
 
             if (source.GetType().Namespace.StartsWith("Rhino.Geometry"))
-                source = BH.Engine.Rhinoceros.Convert.IFromRhino(source);
+                source = BH.Engine.Adapters.Rhinoceros.Convert.IFromRhino(source);
 
             return base.CastFrom(source);
         }

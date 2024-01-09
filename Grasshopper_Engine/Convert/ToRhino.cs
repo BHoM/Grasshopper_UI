@@ -21,7 +21,7 @@
  */
 
 using BH.Engine.Base;
-using BH.Engine.Rhinoceros;
+using BH.Engine.Adapters.Rhinoceros;
 using BH.oM.Geometry;
 using System;
 using System.Collections.Generic;
@@ -43,7 +43,7 @@ namespace BH.Engine.Grasshopper
             {
                 if (x == null)
                     return null;
-                else if (BH.Engine.Rhinoceros.Query.IsRhinoEquivalent(x.GetType()))
+                else if (BH.Engine.Adapters.Rhinoceros.Query.IsRhinoEquivalent(x.GetType()))
                     return ((IGeometry)x).IToRhino();
                 else
                     return x;

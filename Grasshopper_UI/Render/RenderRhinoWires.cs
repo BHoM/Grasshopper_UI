@@ -30,7 +30,7 @@ using System.Collections.Generic;
 using GH = Grasshopper;
 using BH.oM.Base;
 using BH.oM.Geometry;
-using BH.Engine.Rhinoceros;
+using BH.Engine.Adapters.Rhinoceros;
 
 namespace BH.UI.Grasshopper
 { 

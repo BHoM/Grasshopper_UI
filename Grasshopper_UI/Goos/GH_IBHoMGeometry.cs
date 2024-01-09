@@ -25,7 +25,7 @@ using Grasshopper.Kernel.Types;
 using BH.oM.Geometry;
 using BH.Engine.Geometry;
 using System;
-using BH.Engine.Rhinoceros;
+using BH.Engine.Adapters.Rhinoceros;
 using Rhino;
 using Rhino.DocObjects;
 using GH_IO.Serialization;
