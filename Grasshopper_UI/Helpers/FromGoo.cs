@@ -63,7 +63,7 @@ namespace BH.UI.Grasshopper
                 return default(T);
 
             if (data.GetType().Namespace.StartsWith("Rhino.Geometry") && !typeof(T).Namespace.StartsWith("Rhino.Geometry"))
-                data = BH.Engine.Rhinoceros.Convert.IFromRhino(data);
+                data = BH.Engine.Adapters.Rhinoceros.Convert.IFromRhino(data);
 
             // Convert the data to an acceptable format
             if (hint != null)
@@ -73,7 +73,7 @@ namespace BH.UI.Grasshopper
                 data = result;
 
                 if (data.GetType().Namespace.StartsWith("Rhino.Geometry") && !typeof(T).Namespace.StartsWith("Rhino.Geometry"))
-                    data = BH.Engine.Rhinoceros.Convert.IFromRhino(data);
+                    data = BH.Engine.Adapters.Rhinoceros.Convert.IFromRhino(data);
             }
             else if (data is T)
             {
@@ -111,9 +111,9 @@ namespace BH.UI.Grasshopper
 
             oM.Geometry.IGeometry geometry = null;
             if (brep.IsSurface)
-                geometry = BH.Engine.Rhinoceros.Convert.IFromRhino(brep.Faces[0].UnderlyingSurface());
+                geometry = BH.Engine.Adapters.Rhinoceros.Convert.IFromRhino(brep.Faces[0].UnderlyingSurface());
             else
-                geometry = BH.Engine.Rhinoceros.Convert.IFromRhino(brep);
+                geometry = BH.Engine.Adapters.Rhinoceros.Convert.IFromRhino(brep);
 
             try
             {

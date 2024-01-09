@@ -28,7 +28,7 @@ using BH.oM.Base.Attributes;
 using System.Collections.Generic;
 using BH.oM.Geometry;
 using System.Drawing;
-using BH.Engine.Rhinoceros;
+using BH.Engine.Adapters.Rhinoceros;
 
 namespace BH.UI.Grasshopper
 {
