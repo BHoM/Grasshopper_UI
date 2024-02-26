@@ -59,6 +59,9 @@
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="BHoM_Windows_UI">
+      <HintPath>..\..\..\..\..\..\..\ProgramData\BHoM\Assemblies\BHoM_Windows_UI.dll</HintPath>
+    </Reference>
     <Reference Include="Data_Engine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(ProgramData)\BHoM\Assemblies\Data_Engine.dll</HintPath>
@@ -177,6 +180,7 @@
     <Compile Include="Components\Parameters\Param_BHoMAdapter.cs" />
     <Compile Include="Components\Parameters\Param_Variable.cs" />
     <Compile Include="Components\UI\FalseStartToggle.cs" />
+    <Compile Include="Components\UI\Settings.cs" />
     <Compile Include="Components\UI\UnitTest.cs" />
     <Compile Include="CustomAttributes\FalseStartToggleAttributes.cs" />
     <Compile Include="CustomAttributes\PrototypeAttribute.cs" />
