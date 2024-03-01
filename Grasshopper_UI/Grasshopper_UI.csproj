@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug64</Configuration>
@@ -56,6 +56,11 @@
     </Reference>
     <Reference Include="BHoM_UI">
       <HintPath>$(ProgramData)\BHoM\Assemblies\BHoM_UI.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="BHoM_Windows_UI">
+      <HintPath>$(ProgramData)\BHoM\Assemblies\BHoM_Windows_UI.dll</HintPath>
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -177,6 +182,7 @@
     <Compile Include="Components\Parameters\Param_BHoMAdapter.cs" />
     <Compile Include="Components\Parameters\Param_Variable.cs" />
     <Compile Include="Components\UI\FalseStartToggle.cs" />
+    <Compile Include="Components\UI\Settings.cs" />
     <Compile Include="Components\UI\UnitTest.cs" />
     <Compile Include="CustomAttributes\FalseStartToggleAttributes.cs" />
     <Compile Include="CustomAttributes\PrototypeAttribute.cs" />
@@ -359,6 +365,7 @@
     <None Include="Properties\Resources\TreeAccess.png" />
     <Content Include="Properties\Resources\Type.png" />
     <None Include="Properties\Resources\Type_Param.png" />
+    <None Include="Properties\Resources\UISettings.png" />
     <Content Include="Properties\Resources\UpdateProperty.png" />
     <None Include="Properties\Resources\Variable_Param.png" />
     <Content Include="Properties\Resources\VS_Script.png" />
