@@ -47,7 +47,7 @@ namespace BH.UI.Grasshopper.Components.UI
         /**** Properties                        ****/
         /*******************************************/
 
-        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.ClusterToNode; } }
+        protected override System.Drawing.Bitmap Internal_Icon_24x24 { get { return Properties.Resources.UISettings; } }
 
         public override Guid ComponentGuid { get { return new Guid("d5f5846c-1a83-426e-8d0d-3479cb8e3ed1"); } }
 
@@ -58,8 +58,9 @@ namespace BH.UI.Grasshopper.Components.UI
         /**** Constructors                      ****/
         /*******************************************/
 
-        public Settings() : base("BHoM UI Settings", "BHoM UI Settings", "Modify BHoM interactions with Grasshopper with these UI Settings", "BHoM", "UI") { }
-
+        public Settings() : base("BHoM UI Settings", "BHoM UI Settings", "Modify BHoM interactions with Grasshopper with these UI Settings", "BHoM", "UI")
+        {
+        }
 
         /*******************************************/
         /**** Override Methods                  ****/
@@ -67,14 +68,14 @@ namespace BH.UI.Grasshopper.Components.UI
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            //pManager.AddGenericParameter("cluster", "cluster", "cluster to be turned into a BHoM ClusterNode", GH_ParamAccess.tree);
+            pManager.AddBooleanParameter("openSettings", "openSettings", "Set to 'true' to open the BHoM UI Settings window.", GH_ParamAccess.item, false);
         }
 
         /*******************************************/
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            //pManager.AddGenericParameter("node", "node", "Resulting BHoM cluster node", GH_ParamAccess.item);
+            
         }
 
         /*******************************************/
@@ -82,29 +83,44 @@ namespace BH.UI.Grasshopper.Components.UI
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             BH.Engine.Base.Compute.ClearCurrentEvents();
+            
+            bool input = false;
+            DA.GetData(0, ref input);
 
-            try
+            if (input && !m_IsOpen)
             {
-                Thread t = new Thread(() => ShowProjectCaptureWindow(this));
-                t.SetApartmentState(ApartmentState.STA);
-                t.Start();
+                try
+                {
+                    Thread t = new Thread(() => ShowProjectCaptureWindow(this));
+                    t.SetApartmentState(ApartmentState.STA);
+                    t.Start();
+                    m_IsOpen = true;
 
-                Helpers.ShowEvents(this, BH.Engine.Base.Query.CurrentEvents());
-            }
-            catch (Exception e)
-            {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, e.Message);
+                    Helpers.ShowEvents(this, BH.Engine.Base.Query.CurrentEvents());
+                }
+                catch (Exception e)
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, e.Message);
+                }
             }
         }
+
+        /*******************************************/
 
         private static void ShowProjectCaptureWindow(ISettingsWindow uiParent)
         {
             BH.UI.Base.Windows.Settings.SearchSettingsWindow window = new BH.UI.Base.Windows.Settings.SearchSettingsWindow(uiParent);
         }
 
+        /*******************************************/
+
         public void OnPopUpClose()
         {
-            GH.Instances.ActiveCanvas.Document.RemoveObject(this, true);
+            m_IsOpen = false;
         }
+
+        /*******************************************/
+
+        private bool m_IsOpen = false;
     }
 }
