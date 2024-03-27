@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2023, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2024, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -38,6 +38,7 @@ using System.Collections;
 using BH.Adapter;
 using BH.oM.Base.Debugging;
 using BH.UI.Base;
+using Grasshopper.Kernel.Types;
 
 namespace BH.UI.Grasshopper.Templates
 {
@@ -135,6 +136,9 @@ namespace BH.UI.Grasshopper.Templates
                 newParam.DataMapping = oldParam.DataMapping;
                 newParam.Simplify = oldParam.Simplify;
                 newParam.Reverse = oldParam.Reverse;
+
+                if (oldParam.GetType() == newParam.GetType())
+                    TransferPersistentData(oldParam as dynamic, newParam as dynamic);
 
                 Params.UnregisterInputParameter(oldParam);
                 Params.RegisterInputParam(newParam, index);
@@ -255,8 +259,16 @@ namespace BH.UI.Grasshopper.Templates
         }
 
         /*******************************************/
+
+        protected virtual void TransferPersistentData<T>(GH_PersistentParam<T> oldParam, GH_PersistentParam<T> newParam) where T : class, IGH_Goo
+        {
+            newParam.SetPersistentData(oldParam.PersistentData);
+        }
+
+        /*******************************************/
     }
 }
+
 
 
 

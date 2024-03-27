@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2023, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2024, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -27,7 +27,7 @@ using BH.oM.Geometry;
 using BH.Engine.Geometry;
 using System;
 using BH.Engine.Base;
-using BH.Engine.Rhinoceros;
+using BH.Engine.Adapters.Rhinoceros;
 using Rhino;
 using Rhino.DocObjects;
 using GH_IO;
@@ -110,7 +110,7 @@ namespace BH.UI.Grasshopper.Goos
                 return CastFrom(Helpers.IFromGoo<T>((IGH_Goo)source));
 
             if (source.GetType().Namespace.StartsWith("Rhino.Geometry"))
-                source = BH.Engine.Rhinoceros.Convert.IFromRhino(source);
+                source = BH.Engine.Adapters.Rhinoceros.Convert.IFromRhino(source);
 
             return base.CastFrom(source);
         }
@@ -380,4 +380,5 @@ namespace BH.UI.Grasshopper.Goos
         /***************************************************/
     }
 }
+
 
