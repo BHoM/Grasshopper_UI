@@ -39,15 +39,6 @@ namespace BH.UI.Grasshopper
 {
     public static partial class Helpers
     {
-        /*******************************************/
-        /**** Interface Methods                 ****/
-        /*******************************************/
-
-        public static bool ICastToGoo(object value, ref object target)
-        {
-            return CastToGoo(target as dynamic, value as dynamic);
-        }
-
 
         /*******************************************/
         /**** Public Methods                    ****/
