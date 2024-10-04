@@ -168,7 +168,11 @@ namespace BH.UI.Grasshopper
 
         public static RHG.Mesh CreatePreviewMesh(RHG.Mesh mesh, RHG.MeshingParameters parameters)
         {
-            return mesh;
+            RHG.Mesh dispMesh = new RHG.Mesh();
+            dispMesh.CopyFrom(mesh);
+            var textureMapping = Rhino.Render.TextureMapping.CreateBoxMapping(RHG.Plane.WorldXY, new RHG.Interval(0, 1), new RHG.Interval(0, 1), new RHG.Interval(0, 1), true);
+            dispMesh.SetTextureCoordinates(textureMapping, RHG.Transform.Identity, true);
+            return dispMesh;
         }
 
 
