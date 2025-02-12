@@ -106,7 +106,7 @@ namespace BH.UI.Grasshopper.Templates
                         DocumentListener.OnDocumentClosing(e.OldDocument.FilePath);
 
                     if (e.NewDocument != null)
-                        DocumentListener.OnDocumentEndOpening(e.NewDocument.FilePath);
+                        DocumentListener.OnDocumentEndOpening(e.NewDocument.FilePath, "Grasshopper", e.NewDocument.CanvasID());
                     m_CurrentLoadingDocument = null;
                 };
             };
