@@ -10,6 +10,7 @@
 		<RootNamespace>BH.Engine.Grasshopper</RootNamespace>
 		<FileVersion>8.1.0.0</FileVersion>
 		<OutputPath>..\Build\</OutputPath>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	</PropertyGroup>
 
 	<ItemGroup>
