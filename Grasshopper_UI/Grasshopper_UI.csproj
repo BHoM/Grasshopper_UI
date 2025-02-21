@@ -1,43 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug64</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2E3B219E-7BD2-4F75-BFAF-9B7735827ED4}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BH.UI.Grasshopper</RootNamespace>
-    <AssemblyName>BH.UI.Grasshopper</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug64|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\Build\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\Build\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <RunPostBuildEvent>Always</RunPostBuildEvent>
-  </PropertyGroup>
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net472</TargetFramework>
+		<AssemblyVersion>8.0.0.0</AssemblyVersion>
+		<Description>https://github.com/BHoM/Grasshopper_UI</Description>
+		<Version>5.0.0</Version>
+		<Authors>BHoM</Authors>
+		<Copyright>Copyright © https://github.com/BHoM</Copyright>
+		<RootNamespace>BH.UI.Grasshopper</RootNamespace>
+		<FileVersion>8.1.0.0</FileVersion>
+		<OutputPath>..\Build\</OutputPath>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AssemblyName>BH.UI.Grasshopper</AssemblyName>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Grasshopper" Version="6.33.20343.16431" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj" />
+	  <ProjectReference Include="..\Grasshopper_oM\Grasshopper_oM.csproj" />
+	</ItemGroup>
   <ItemGroup>
     <Reference Include="BHoM">
       <HintPath>$(ProgramData)\BHoM\Assemblies\BHoM.dll</HintPath>
@@ -79,9 +63,6 @@
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Eto, Version=2.5.0.0, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
-      <HintPath>..\packages\RhinoCommon.6.33.20343.16431\lib\net45\Eto.dll</HintPath>
-    </Reference>
     <Reference Include="Geometry_Engine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(ProgramData)\BHoM\Assemblies\Geometry_Engine.dll</HintPath>
@@ -92,16 +73,10 @@
       <HintPath>$(ProgramData)\BHoM\Assemblies\Geometry_oM.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="GH_IO, Version=6.33.20343.16430, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97, processorArchitecture=MSIL">
-      <HintPath>..\packages\Grasshopper.6.33.20343.16431\lib\net45\GH_IO.dll</HintPath>
-    </Reference>
     <Reference Include="Graphics_oM">
       <HintPath>$(ProgramData)\BHoM\Assemblies\Graphics_oM.dll</HintPath>
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Grasshopper, Version=6.33.20343.16430, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
-      <HintPath>..\packages\Grasshopper.6.33.20343.16431\lib\net45\Grasshopper.dll</HintPath>
     </Reference>
     <Reference Include="Library_Engine">
       <HintPath>$(ProgramData)\BHoM\Assemblies\Library_Engine.dll</HintPath>
@@ -130,20 +105,15 @@
       <HintPath>$(ProgramData)\BHoM\Assemblies\Reflection_Engine.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Rhino.UI, Version=6.33.20343.16430, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
-      <HintPath>..\packages\RhinoCommon.6.33.20343.16431\lib\net45\Rhino.UI.dll</HintPath>
-    </Reference>
     <Reference Include="Rhinoceros_Engine">
       <HintPath>$(ProgramData)\BHoM\Assemblies\Rhinoceros_Engine.dll</HintPath>
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="RhinoCommon, Version=6.33.20343.16430, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
-      <HintPath>..\packages\RhinoCommon.6.33.20343.16431\lib\net45\RhinoCommon.dll</HintPath>
-    </Reference>
     <Reference Include="Script, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Script.dll</HintPath>
+	  <Private>True</Private>
     </Reference>
     <Reference Include="Serialiser_Engine">
       <SpecificVersion>False</SpecificVersion>
@@ -165,266 +135,8 @@
       <Private>False</Private>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="CallerComponent\OnGHParamChanged.cs" />
-    <Compile Include="CallerComponent\OnCallerModified.cs" />
-    <Compile Include="CallerComponent\IGH_InitCodeAware.cs" />
-    <Compile Include="CallerComponent\IGH_VariableParameterComponent.cs" />
-    <Compile Include="Components\Engine\External.cs" />
-    <Compile Include="Components\Adapter\CreateRequest.cs" />
-    <Compile Include="Components\Adapter\CreateAdapter.cs" />
-    <Compile Include="Components\Adapter\Execute.cs" />
-    <Compile Include="Components\Adapter\Remove.cs" />
-    <Compile Include="Components\Adapter\Pull.cs" />
-    <Compile Include="Components\Adapter\Move.cs" />
-    <Compile Include="Components\Adapter\Push.cs" />
-    <Compile Include="Components\Engine\GetEvents.cs" />
-    <Compile Include="Components\Parameters\Param_BHoMAdapter.cs" />
-    <Compile Include="Components\Parameters\Param_Variable.cs" />
-    <Compile Include="Components\UI\FalseStartToggle.cs" />
-    <Compile Include="Components\UI\Settings.cs" />
-    <Compile Include="Components\UI\UnitTest.cs" />
-    <Compile Include="CustomAttributes\FalseStartToggleAttributes.cs" />
-    <Compile Include="CustomAttributes\PrototypeAttribute.cs" />
-    <Compile Include="CustomAttributes\PrototypeValueListAttribute.cs" />
-    <Compile Include="Global\WireInfo.cs" />
-    <Compile Include="Components\UI\Cluster2Node.cs" />
-    <Compile Include="Goos\GH_BakeableObject.cs" />
-    <Compile Include="Goos\GH_BHoMAdapter.cs" />
-    <Compile Include="Goos\GH_BHoMGoo.cs" />
-    <Compile Include="Goos\GH_BHoMObject.cs" />
-    <Compile Include="Goos\GH_Dictionary.cs" />
-    <Compile Include="Goos\GH_Enum.cs" />
-    <Compile Include="Goos\GH_IBHoMGeometry.cs" />
-    <Compile Include="Goos\GH_IObject.cs" />
-    <Compile Include="Goos\GH_Type.cs" />
-    <Compile Include="Goos\GH_Variable.cs" />
-    <Compile Include="Helpers\AvailableHints.cs" />
-    <Compile Include="Helpers\CastToGoo.cs" />
-    <Compile Include="Helpers\FromGoo.cs" />
-    <Compile Include="Helpers\ToGH_Param.cs" />
-    <Compile Include="Helpers\Logging.cs" />
-    <Compile Include="Helpers\ToGoo.cs" />
-    <Compile Include="Helpers\Type.cs" />
-    <Compile Include="Hints\BHomObjectHint.cs" />
-    <Compile Include="Hints\DictionaryHint.cs" />
-    <Compile Include="Hints\EnumHint.cs" />
-    <Compile Include="Hints\IGeometryHint.cs" />
-    <Compile Include="Hints\TypeHint.cs" />
-    <Compile Include="Render\CreatePreviewMesh.cs" />
-    <Compile Include="Render\RenderPrototypeLabel.cs" />
-    <Compile Include="Render\RenderColour.cs" />
-    <Compile Include="Render\RenderMaterial.cs" />
-    <Compile Include="Render\RenderMeshes.cs" />
-    <Compile Include="Render\RenderRhinoMeshes.cs" />
-    <Compile Include="Render\RenderRhinoWires.cs" />
-    <Compile Include="Render\RenderWires.cs" />
-    <Compile Include="Templates\BHoMParam.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Components\Engine\Explode.cs" />
-    <Compile Include="Components\Engine\GetInfo.cs" />
-    <Compile Include="Components\Engine\Query.cs" />
-    <Compile Include="Components\Engine\Modify.cs" />
-    <Compile Include="Components\Engine\Convert.cs" />
-    <Compile Include="Components\Engine\Compute.cs" />
-    <Compile Include="Components\Engine\SetProperty.cs" />
-    <Compile Include="Components\Engine\GetProperty.cs" />
-    <Compile Include="Components\Engine\FromJson.cs" />
-    <Compile Include="Components\Engine\ToJson.cs" />
-    <Compile Include="Components\oM\CreateCustom.cs" />
-    <Compile Include="Components\oM\CreateDictionary.cs" />
-    <Compile Include="Components\oM\CreateData.cs" />
-    <Compile Include="Components\oM\CreateEnum.cs" />
-    <Compile Include="Components\oM\CreateType.cs" />
-    <Compile Include="Components\oM\CreateObject.cs" />
-    <Compile Include="Components\Parameters\Param_BHoMGeometry.cs" />
-    <Compile Include="Components\Parameters\Param_BHoMObject.cs" />
-    <Compile Include="Components\Parameters\Param_Dictionary.cs" />
-    <Compile Include="Components\Parameters\Param_Enum.cs" />
-    <Compile Include="Components\Parameters\Param_IObject.cs" />
-    <Compile Include="Components\Parameters\Param_Type.cs" />
-    <Compile Include="Global\GlobalSearch.cs" />
-    <Compile Include="Templates\CallerValueList.cs" />
-    <Compile Include="Templates\DataAccessor_GH.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="CallerComponent\GH_Component.cs" />
-    <Compile Include="Templates\IBHoMParam.cs" />
-    <Compile Include="Templates\BakeableParam.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="Properties\Resources\bar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\BHoM_App_Clean.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\BHoM_App_Close.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\BHoM_App_Run.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\BHoM_App_Save.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\BHoM_BHoM_Object.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\BHoM_Create_CustomData.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\BHoM_Filter.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\BHoM_FromJSON.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\BHoM_GetProperty.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\BHoM_GetPropertyNames.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\BHoM_Material.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\BHoM_Read _CustomData.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\BHoM_Run_Analasis.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\BHoM_SetProperty.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\BHoM_ToJSON.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\BS_Script.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\DOF.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\gator.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\node.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\skeleton.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\VBH_Script.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Properties\Resources\Adapter.png" />
-    <None Include="Properties\Resources\BHoM_Grasshopper_Icon.png" />
-    <None Include="Properties\Resources\BHoMObject_Param.png" />
-    <None Include="Properties\Resources\BHoM_Logo.png" />
-    <Content Include="Properties\Resources\BHoMAdapter_Param.png" />
-    <None Include="Properties\Resources\ClusterToNode.png" />
-    <Content Include="Properties\Resources\Compute.png" />
-    <Content Include="Properties\Resources\Convert.png" />
-    <Content Include="Properties\Resources\CreateBHoM.png" />
-    <Content Include="Properties\Resources\CustomObject.png" />
-    <Content Include="Properties\Resources\Data.png" />
-    <Content Include="Properties\Resources\Delete.png" />
-    <Content Include="Properties\Resources\Dictionary.png" />
-    <None Include="Properties\Resources\Dictionary_Param.png" />
-    <Content Include="Properties\Resources\Enum.png" />
-    <None Include="Properties\Resources\Enum_Param.png" />
-    <Content Include="Properties\Resources\Execute.png" />
-    <Content Include="Properties\Resources\Explode.png" />
-    <Content Include="Properties\Resources\FromJson.png" />
-    <None Include="Properties\Resources\IBHoMGeometry_Param.png" />
-    <None Include="Properties\Resources\IObject_Param.png" />
-    <None Include="Properties\Resources\ItemAccess.png" />
-    <None Include="Properties\Resources\ListAccess.png" />
-    <Content Include="Properties\Resources\Modify.png" />
-    <Content Include="Properties\Resources\Move.png" />
-    <Content Include="Properties\Resources\Pull.png" />
-    <Content Include="Properties\Resources\Push.png" />
-    <Content Include="Properties\Resources\Query.png" />
-    <Content Include="Properties\Resources\QueryAdapter.png" />
-    <Content Include="Properties\Resources\ToJson.png" />
-    <None Include="Properties\Resources\TreeAccess.png" />
-    <Content Include="Properties\Resources\Type.png" />
-    <None Include="Properties\Resources\Type_Param.png" />
-    <None Include="Properties\Resources\UISettings.png" />
-    <Content Include="Properties\Resources\UpdateProperty.png" />
-    <None Include="Properties\Resources\Variable_Param.png" />
-    <Content Include="Properties\Resources\VS_Script.png" />
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <ProjectReference Include="..\Grasshopper_Engine\Grasshopper_Engine.csproj">
-      <Project>{dde47285-e709-4752-9afd-6fa03b449364}</Project>
-      <Name>Grasshopper_Engine</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Grasshopper_oM\Grasshopper_oM.csproj">
-      <Project>{d18cbd7a-566d-48f7-afae-62f1e2aa0536}</Project>
-      <Name>Grasshopper_oM</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-xcopy "$(TargetDir)$(TargetFileName)"  "$(ProgramData)\BHoM\Assemblies" /Y
-    </PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(TargetDir)$(TargetName).dll&quot; &quot;$(ProgramData)\BHoM\Assemblies\$(TargetName).gha&quot; /Y&#xD;&#xA;xcopy &quot;$(TargetDir)Script.dll&quot;  &quot;$(ProgramData)\BHoM\Assemblies&quot; /Y&#xD;&#xA;echo $(ProgramData)\BHoM\Assemblies\$(TargetName).gha &gt; &quot;$(AppData)\Grasshopper\Libraries\$(TargetName).ghlink&quot;&#xD;&#xA;" />
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
-  <PropertyGroup>
-    <PostBuildEvent>rem copy .gh file to BHoM/Assembly folder
-Copy /Y "$(TargetDir)$(TargetName).dll" "$(ProgramData)\BHoM\Assemblies\$(TargetName).gha"
-xcopy "$(TargetDir)Script.dll"  "$(ProgramData)\BHoM\Assemblies" /Y
-
-rem create .ghlink file
-echo $(ProgramData)\BHoM\Assemblies\$(TargetName).gha &gt; "$(AppData)\Grasshopper\Libraries\$(TargetName).ghlink"</PostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <FallbackCulture>en-US</FallbackCulture>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug64|AnyCPU'">
-    <StartProgram>C:\Program Files\Rhinoceros 5 (64-bit)\System\Rhino.exe</StartProgram>
-    <StartArguments>
-    </StartArguments>
-    <StartAction>Program</StartAction>
-    <StartProgram>C:\Program Files\Rhinoceros 5 (64-bit)\System\Rhino.exe</StartProgram>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-  </PropertyGroup>
-  <Import Project="..\packages\RhinoCommon.6.33.20343.16431\build\net45\RhinoCommon.targets" Condition="Exists('..\packages\RhinoCommon.6.33.20343.16431\build\net45\RhinoCommon.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\RhinoCommon.6.33.20343.16431\build\net45\RhinoCommon.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\RhinoCommon.6.33.20343.16431\build\net45\RhinoCommon.targets'))" />
-    <Error Condition="!Exists('..\packages\Grasshopper.6.33.20343.16431\build\net45\Grasshopper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Grasshopper.6.33.20343.16431\build\net45\Grasshopper.targets'))" />
-  </Target>
-  <Import Project="..\packages\Grasshopper.6.33.20343.16431\build\net45\Grasshopper.targets" Condition="Exists('..\packages\Grasshopper.6.33.20343.16431\build\net45\Grasshopper.targets')" />
+ 
 </Project>
