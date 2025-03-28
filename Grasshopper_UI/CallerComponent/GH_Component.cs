@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2024, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -106,7 +106,7 @@ namespace BH.UI.Grasshopper.Templates
                         DocumentListener.OnDocumentClosing(e.OldDocument.FilePath);
 
                     if (e.NewDocument != null)
-                        DocumentListener.OnDocumentEndOpening(e.NewDocument.FilePath);
+                        DocumentListener.OnDocumentEndOpening(e.NewDocument.FilePath, "Grasshopper", e.NewDocument.CanvasID());
                     m_CurrentLoadingDocument = null;
                 };
             };
@@ -215,6 +215,7 @@ namespace BH.UI.Grasshopper.Templates
         private static string m_CurrentLoadingDocument = "";
     }
 }
+
 
 
 

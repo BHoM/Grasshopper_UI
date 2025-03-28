@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2024, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -168,7 +168,11 @@ namespace BH.UI.Grasshopper
 
         public static RHG.Mesh CreatePreviewMesh(RHG.Mesh mesh, RHG.MeshingParameters parameters)
         {
-            return mesh;
+            RHG.Mesh dispMesh = new RHG.Mesh();
+            dispMesh.CopyFrom(mesh);
+            var textureMapping = Rhino.Render.TextureMapping.CreateBoxMapping(RHG.Plane.WorldXY, new RHG.Interval(0, 1), new RHG.Interval(0, 1), new RHG.Interval(0, 1), true);
+            dispMesh.SetTextureCoordinates(textureMapping, RHG.Transform.Identity, true);
+            return dispMesh;
         }
 
 
@@ -184,6 +188,7 @@ namespace BH.UI.Grasshopper
         /***************************************************/
     }
 }
+
 
 
 
