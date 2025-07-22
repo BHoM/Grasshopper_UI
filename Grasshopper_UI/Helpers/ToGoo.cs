@@ -24,11 +24,13 @@ using BH.oM.Base;
 using BH.oM.Geometry;
 using Grasshopper.Kernel.Data;
 using Grasshopper.Kernel.Types;
+using GHK = Grasshopper.Kernel.Types;
 using BH.UI.Grasshopper.Goos;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -124,6 +126,13 @@ namespace BH.UI.Grasshopper
         public static IGH_Goo ToGoo(this System.Drawing.Color obj)
         {
             return new GH_Colour(obj);
+        }
+
+        /*************************************/
+
+        public static IGH_Goo ToGoo(this System.Numerics.Complex obj)
+        {
+            return new GH_ComplexNumber(new GHK.Complex(obj.Real, obj.Imaginary));
         }
 
         /*************************************/

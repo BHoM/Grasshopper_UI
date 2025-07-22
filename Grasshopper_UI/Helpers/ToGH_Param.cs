@@ -24,6 +24,7 @@ using BH.oM.Base.Debugging;
 using Grasshopper.Kernel;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Reflection;
 using System.Linq;
 using System.Text;
@@ -63,6 +64,9 @@ namespace BH.UI.Grasshopper
                     break;
                 case "System.Drawing.Color":
                     param = new Param_Colour();
+                    break;
+                case "System.Numerics.Complex":
+                    param = new Param_Complex();
                     break;
                 case "System.DateTime":
                     param = new Param_Time();
