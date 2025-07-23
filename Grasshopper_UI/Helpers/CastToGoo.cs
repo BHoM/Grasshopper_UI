@@ -246,7 +246,7 @@ namespace BH.UI.Grasshopper
                 else if (value is Color)
                     target = new GH_Colour((Color)value);
                 else if (value is System.Numerics.Complex)
-                    target = new GH_ComplexNumber(new Grasshopper.Kernel.Types.Complex(((System.Numerics.Complex)value).Real, ((System.Numerics.Complex)value).Imaginary));
+                    target = new GH_ComplexNumber(new GHK.Complex(((System.Numerics.Complex)value).Real, ((System.Numerics.Complex)value).Imaginary));
                 else if (value is int)
                     target = new GH_Integer((int)value);
                 else if (value is Interval)
