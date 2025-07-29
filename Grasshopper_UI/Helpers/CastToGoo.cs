@@ -26,12 +26,14 @@ using BH.oM.Geometry;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Data;
 using Grasshopper.Kernel.Types;
+using GHK = Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -243,8 +245,8 @@ namespace BH.UI.Grasshopper
                     target = new GH_Boolean((bool)value);
                 else if (value is Color)
                     target = new GH_Colour((Color)value);
-                else if (value is Complex)
-                    target = new GH_ComplexNumber((Complex)value);
+                else if (value is System.Numerics.Complex)
+                    target = new GH_ComplexNumber(new GHK.Complex(((System.Numerics.Complex)value).Real, ((System.Numerics.Complex)value).Imaginary));
                 else if (value is int)
                     target = new GH_Integer((int)value);
                 else if (value is Interval)
