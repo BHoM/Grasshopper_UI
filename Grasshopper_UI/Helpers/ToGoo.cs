@@ -167,7 +167,11 @@ namespace BH.UI.Grasshopper
 
         public static IGH_Goo ToGoo(this long obj)
         {
-            return new GH_Time(new DateTime(obj)); // Based on what is done  in CallerComponent.ToGHParam()
+            int cast = (int)obj;
+            if (obj != cast)
+                BH.Engine.Base.Compute.RecordError("Grasshopper does not support 64-bit integers, casting to 32-bit resulted in integer overflow.");
+
+            return new GH_Integer(cast);
         }
 
         /*************************************/
