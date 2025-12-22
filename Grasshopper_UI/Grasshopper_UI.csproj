@@ -8,7 +8,7 @@
 		<Authors>BHoM</Authors>
 		<Copyright>Copyright © https://github.com/BHoM</Copyright>
 		<RootNamespace>BH.UI.Grasshopper</RootNamespace>
-		<FileVersion>9.0.0.0</FileVersion>
+		<FileVersion>9.1.0.0</FileVersion>
 		<OutputPath>..\Build\</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AssemblyName>BH.UI.Grasshopper</AssemblyName>
