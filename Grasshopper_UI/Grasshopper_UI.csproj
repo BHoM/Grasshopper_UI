@@ -25,89 +25,89 @@
   <ItemGroup>
     <Reference Include="BHoM">
       <HintPath>$(ProgramData)\BHoM\Assemblies\BHoM.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="BHoM_Adapter">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(ProgramData)\BHoM\Assemblies\BHoM_Adapter.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="BHoM_Engine">
       <HintPath>$(ProgramData)\BHoM\Assemblies\BHoM_Engine.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="BHoM_UI">
       <HintPath>$(ProgramData)\BHoM\Assemblies\BHoM_UI.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="BHoM_Windows_UI">
       <HintPath>$(ProgramData)\BHoM\Assemblies\BHoM_Windows_UI.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Data_Engine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(ProgramData)\BHoM\Assemblies\Data_Engine.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Data_oM">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(ProgramData)\BHoM\Assemblies\Data_oM.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Dimensional_oM">
       <HintPath>$(ProgramData)\BHoM\Assemblies\Dimensional_oM.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Geometry_Engine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(ProgramData)\BHoM\Assemblies\Geometry_Engine.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Geometry_oM">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(ProgramData)\BHoM\Assemblies\Geometry_oM.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Graphics_oM">
       <HintPath>$(ProgramData)\BHoM\Assemblies\Graphics_oM.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Library_Engine">
       <HintPath>$(ProgramData)\BHoM\Assemblies\Library_Engine.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Planning_oM">
       <HintPath>$(ProgramData)\BHoM\Assemblies\Planning_oM.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="PresentationFramework" />
     <Reference Include="Programming_Engine">
       <HintPath>$(ProgramData)\BHoM\Assemblies\Programming_Engine.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Programming_oM">
       <HintPath>$(ProgramData)\BHoM\Assemblies\Programming_oM.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Reflection_Engine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(ProgramData)\BHoM\Assemblies\Reflection_Engine.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Rhinoceros_Engine">
       <HintPath>$(ProgramData)\BHoM\Assemblies\Rhinoceros_Engine.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Script, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -118,7 +118,7 @@
     <Reference Include="Serialiser_Engine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(ProgramData)\BHoM\Assemblies\Serialiser_Engine.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -127,16 +127,16 @@
     <Reference Include="UI_Engine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(ProgramData)\BHoM\Assemblies\UI_Engine.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="UI_oM">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(ProgramData)\BHoM\Assemblies\UI_oM.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(TargetDir)$(TargetName).dll&quot; &quot;$(ProgramData)\BHoM\Assemblies\$(TargetName).gha&quot; /Y&#xD;&#xA;xcopy &quot;$(TargetDir)Script.dll&quot;  &quot;$(ProgramData)\BHoM\Assemblies&quot; /Y&#xD;&#xA;echo $(ProgramData)\BHoM\Assemblies\$(TargetName).gha &gt; &quot;$(AppData)\Grasshopper\Libraries\$(TargetName).ghlink&quot;&#xD;&#xA;" />
+    <Exec Command="if not exist &quot;$(ProgramData)\BHoM\GrasshopperPlugin\&quot; mkdir &quot;$(ProgramData)\BHoM\GrasshopperPlugin&quot;&#xD;&#xA;xcopy &quot;$(TargetDir)*.dll&quot;  &quot;$(ProgramData)\BHoM\GrasshopperPlugin\&quot; /Y&#xD;&#xA;ren &quot;$(ProgramData)\BHoM\GrasshopperPlugin\$(TargetName).dll&quot; &quot;$(TargetName).gha&quot;&#xD;&#xA;echo $(ProgramData)\BHoM\GrasshopperPlugin\$(TargetName).gha &gt; &quot;$(AppData)\Grasshopper\Libraries\$(TargetName).ghlink&quot;&#xD;&#xA;" />
   </Target>
  
 </Project>

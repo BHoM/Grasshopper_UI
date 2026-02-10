@@ -20,62 +20,62 @@
     <Reference Include="BHoM">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(ProgramData)\BHoM\Assemblies\BHoM.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="BHoM_Engine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(ProgramData)\BHoM\Assemblies\BHoM_Engine.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="BHoM_UI">
       <HintPath>$(ProgramData)\BHoM\Assemblies\BHoM_UI.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Data_Engine">
       <HintPath>$(ProgramData)\BHoM\Assemblies\Data_Engine.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Dimensional_oM">
       <HintPath>$(ProgramData)\BHoM\Assemblies\Dimensional_oM.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Geometry_Engine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(ProgramData)\BHoM\Assemblies\Geometry_Engine.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Geometry_oM">
       <HintPath>$(ProgramData)\BHoM\Assemblies\Geometry_oM.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Graphics_oM">
       <HintPath>$(ProgramData)\BHoM\Assemblies\Graphics_oM.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Programming_oM">
       <HintPath>$(ProgramData)\BHoM\Assemblies\Programming_oM.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Reflection_Engine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(ProgramData)\BHoM\Assemblies\Reflection_Engine.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Rhinoceros_Engine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(ProgramData)\BHoM\Assemblies\Rhinoceros_Engine.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Serialiser_Engine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(ProgramData)\BHoM\Assemblies\Serialiser_Engine.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -88,12 +88,12 @@
     <Reference Include="System.Xml" />
     <Reference Include="UI_Engine">
       <HintPath>$(ProgramData)\BHoM\Assemblies\UI_Engine.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="UI_oM">
       <HintPath>$(ProgramData)\BHoM\Assemblies\UI_oM.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
