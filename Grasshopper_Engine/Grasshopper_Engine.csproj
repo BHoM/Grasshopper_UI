@@ -14,7 +14,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Grasshopper" Version="6.33.20343.16431" />
+	  <PackageReference Include="Grasshopper" Version="6.33.20343.16431" ExcludeAssets="runtime" />
 	</ItemGroup>
   <ItemGroup>
     <Reference Include="BHoM">
