@@ -20,10 +20,12 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.oM.Base.Attributes;
 using Grasshopper;
 using Grasshopper.Kernel.Data;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +38,10 @@ namespace BH.Engine.Grasshopper
         /**** Public Methods                    ****/
         /*******************************************/
 
+        [Description("Creates a Grasshopper DataTree from a list of lists, organising data under paths based on the iteration index.")]
+        [Input("data", "The list of lists to organise into a data tree.")]
+        [Input("iteration", "The iteration index used as the first element of each path.")]
+        [Output("dataTree", "The created Grasshopper DataTree with each element placed under a path combining the iteration index and item index.")]
         public static DataTree<T> DataTree<T>(List<IEnumerable<T>> data, int iteration)
         {
             DataTree<T> tree = new DataTree<T>();
@@ -53,6 +59,11 @@ namespace BH.Engine.Grasshopper
 
         /*******************************************/
 
+        [Description("Creates a Grasshopper DataTree from a list of lists, organising data under the provided paths based on the iteration index.")]
+        [Input("data", "The list of lists to organise into a data tree.")]
+        [Input("iteration", "The index used to select the path from the provided paths list.")]
+        [Input("paths", "The list of pre-defined paths to organise data under.")]
+        [Output("dataTree", "The created Grasshopper DataTree with data organised under the provided paths, or an empty tree if data is empty.")]
         public static DataTree<T> DataTree<T>(List<IEnumerable<T>> data, int iteration, IList<GH_Path> paths)
         {
             DataTree<T> master = new DataTree<T>();

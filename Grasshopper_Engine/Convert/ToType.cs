@@ -22,8 +22,10 @@
 
 using BH.Engine.Adapters.Rhinoceros;
 using BH.oM.Geometry;
+using BH.oM.Base.Attributes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +38,9 @@ namespace BH.Engine.Grasshopper
         /**** Public Methods                    ****/
         /*******************************************/
 
+        [Description("Converts a string representation of a type to the corresponding System.Type, supporting assembly-qualified names, generic types, and full type names.")]
+        [Input("typeString", "The string representation of the type to convert.")]
+        [Output("type", "The corresponding System.Type, or null if the type cannot be found.")]
         public static Type ToType(this string typeString)
         {
             // Try to get teh type from assembly name
