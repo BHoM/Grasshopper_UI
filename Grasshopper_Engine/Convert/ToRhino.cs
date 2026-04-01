@@ -23,8 +23,10 @@
 using BH.Engine.Base;
 using BH.Engine.Adapters.Rhinoceros;
 using BH.oM.Geometry;
+using BH.oM.Base.Attributes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +39,9 @@ namespace BH.Engine.Grasshopper
         /**** Public Methods                    ****/
         /*******************************************/
 
+        [Description("Converts a BHoM geometry object to its Rhino equivalent. Returns the object unchanged if it has no Rhino equivalent.")]
+        [Input("x", "The object to convert to Rhino geometry.")]
+        [Output("rhinoObject", "The converted Rhino geometry, the original object if no Rhino conversion is available, or null on failure.")]
         public static object ToRhino(object x)
         {
             try
