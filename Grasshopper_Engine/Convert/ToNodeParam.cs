@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2026, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -30,6 +30,8 @@ using System.Text;
 using System.Threading.Tasks;
 using BH.oM.Programming;
 using System.Reflection;
+using BH.oM.Base.Attributes;
+using System.ComponentModel;
 
 namespace BH.Engine.Grasshopper
 {
@@ -39,6 +41,9 @@ namespace BH.Engine.Grasshopper
         /**** Public Methods                    ****/
         /*******************************************/
 
+        [Description("Converts a Grasshopper parameter to a BHoM INodeParam, returning a ReceiverParam for input parameters and a DataParam for output parameters.")]
+        [Input("param", "The Grasshopper parameter to convert.")]
+        [Output("nodeParam", "The converted BHoM INodeParam, or null if the parameter kind is not supported.")]
         public static INodeParam ToNodeParam(this IGH_Param param)
         {
             switch (param.Kind)
@@ -54,6 +59,9 @@ namespace BH.Engine.Grasshopper
 
         /*******************************************/
 
+        [Description("Converts a Grasshopper parameter to a BHoM ReceiverParam, extracting the parameter name, description, source ID, and GUID.")]
+        [Input("param", "The Grasshopper parameter to convert.")]
+        [Output("receiverParam", "The converted BHoM ReceiverParam.")]
         public static ReceiverParam ToReceiverParam(this IGH_Param param)
         {
             return new ReceiverParam
@@ -67,6 +75,9 @@ namespace BH.Engine.Grasshopper
 
         /*******************************************/
 
+        [Description("Converts a Grasshopper parameter to a BHoM DataParam, extracting the parameter name, description, GUID, and target IDs.")]
+        [Input("param", "The Grasshopper parameter to convert.")]
+        [Output("dataParam", "The converted BHoM DataParam.")]
         public static DataParam ToDataParam(this IGH_Param param)
         {
             return new DataParam
@@ -81,6 +92,7 @@ namespace BH.Engine.Grasshopper
         /*******************************************/
     }
 }
+
 
 
 

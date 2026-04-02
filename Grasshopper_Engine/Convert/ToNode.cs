@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2026, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -33,6 +33,8 @@ using System.Reflection;
 using Grasshopper.Kernel.Special;
 using Grasshopper.Kernel.Types;
 using BH.oM.Base;
+using BH.oM.Base.Attributes;
+using System.ComponentModel;
 
 namespace BH.Engine.Grasshopper
 {
@@ -42,6 +44,11 @@ namespace BH.Engine.Grasshopper
         /**** Interface Methods                 ****/
         /*******************************************/
 
+        [Description("Converts a Grasshopper component to a BHoM INode, dispatching to the appropriate overload based on the selected item and caller type name.")]
+        [Input("component", "The Grasshopper component to convert.")]
+        [Input("selectedItem", "The selected item (BHoM method, constructor, type, ...) assigned to that component. Default is null.")]
+        [Input("callerTypeName", "The name of the caller type used to determine the node type. Default is empty string.")]
+        [Output("node", "The converted BHoM INode, or null if conversion is not supported.")]
         public static INode IToNode(this GH_Component component, object selectedItem = null, string callerTypeName = "")
         {
             if (selectedItem != null)
@@ -54,6 +61,11 @@ namespace BH.Engine.Grasshopper
 
         /*******************************************/
 
+        [Description("Converts a Grasshopper component to a BHoM INode, dispatching to the appropriate overload based on the provided choices and selected item.")]
+        [Input("component", "The Grasshopper component to convert.")]
+        [Input("choices", "List of available choices for the component. Default is null.")]
+        [Input("selectedItem", "The selected item (BHoM method, constructor, type, ...) assigned to that component. Default is null.")]
+        [Output("node", "The converted BHoM INode, or null if conversion is not supported.")]
         public static INode IToNode<T>(this GH_Param<T> component, List<object> choices = null, object selectedItem = null) where T : class, IGH_Goo
         {
             if (choices == null)
@@ -67,6 +79,11 @@ namespace BH.Engine.Grasshopper
         /**** Public Methods                    ****/
         /*******************************************/
 
+        [Description("Converts a Grasshopper component to a BHoM INode representing a method call, get-property, or set-property node based on the caller type name.")]
+        [Input("component", "The Grasshopper component to convert.")]
+        [Input("method", "The method represented by the component.")]
+        [Input("callerTypeName", "The name of the caller type used to determine the node type.")]
+        [Output("node", "The converted BHoM INode.")]
         public static INode ToNode(this GH_Component component, MethodInfo method, string callerTypeName)
         {
             switch (callerTypeName)
@@ -82,6 +99,11 @@ namespace BH.Engine.Grasshopper
 
         /*******************************************/
 
+        [Description("Converts a Grasshopper component to a BHoM ConstructorNode.")]
+        [Input("component", "The Grasshopper component to convert.")]
+        [Input("constructor", "The constructor represented by the component.")]
+        [Input("callerTypeName", "The name of the caller type.")]
+        [Output("node", "The converted BHoM ConstructorNode.")]
         public static ConstructorNode ToNode(this GH_Component component, ConstructorInfo constructor, string callerTypeName)
         {
             return PopulateNode(new ConstructorNode { Constructor = constructor }, component);
@@ -89,6 +111,11 @@ namespace BH.Engine.Grasshopper
 
         /*******************************************/
 
+        [Description("Converts a Grasshopper component to a BHoM INode representing an object initialiser or type node based on the caller type name.")]
+        [Input("component", "The Grasshopper component to convert.")]
+        [Input("type", "The type associated with the component.")]
+        [Input("callerTypeName", "The name of the caller type used to determine the node type.")]
+        [Output("node", "The converted BHoM INode, or null if the caller type is not supported.")]
         public static INode ToNode(this GH_Component component, Type type, string callerTypeName)
         {
             switch(callerTypeName)
@@ -104,6 +131,10 @@ namespace BH.Engine.Grasshopper
 
         /*******************************************/
 
+        [Description("Converts a Grasshopper component to a BHoM INode representing an explode or custom object node based on the caller type name.")]
+        [Input("component", "The Grasshopper component to convert.")]
+        [Input("callerTypeName", "The name of the caller type used to determine the node type.")]
+        [Output("node", "The converted BHoM INode, or null if the caller type is not supported.")]
         public static INode ToNode(this GH_Component component, string callerTypeName)
         {
             switch (callerTypeName)
@@ -119,6 +150,9 @@ namespace BH.Engine.Grasshopper
 
         /*******************************************/
 
+        [Description("Converts a Grasshopper component to a BHoM INode based on the component's full type name.")]
+        [Input("component", "The Grasshopper component to convert.")]
+        [Output("node", "The converted BHoM INode, or null if the component type is not supported.")]
         public static INode ToNode(this GH_Component component)
         {
             switch (component.GetType().FullName)
@@ -134,6 +168,11 @@ namespace BH.Engine.Grasshopper
 
         /*******************************************/
 
+        [Description("Converts a Grasshopper value list component to a BHoM INode based on the selected item in the list.")]
+        [Input("component", "The Grasshopper value list component to convert.")]
+        [Input("choices", "The list of available choices for the value list.")]
+        [Input("selectedItem", "The selected item (BHoM method, constructor, type, ...) assigned to that component. Default is null.")]
+        [Output("node", "The converted BHoM INode, or null if the selection is invalid.")]
         public static INode ToNode(this GH_ValueList component, List<object> choices, object selectedItem)
         {
             int index = 0;
@@ -165,6 +204,9 @@ namespace BH.Engine.Grasshopper
 
         /*******************************************/
 
+        [Description("Converts a Grasshopper panel component to a BHoM INode, parsing the panel text as a numeric or string value.")]
+        [Input("component", "The Grasshopper panel component to convert.")]
+        [Output("node", "The converted BHoM INode containing the panel's text value as a number or string.")]
         public static INode ToNode(this GH_Panel component)
         {
             double number;
@@ -179,6 +221,9 @@ namespace BH.Engine.Grasshopper
 
         /*******************************************/
 
+        [Description("Converts a Grasshopper number slider component to a BHoM INode containing the slider's current value.")]
+        [Input("component", "The Grasshopper number slider component to convert.")]
+        [Output("node", "The converted BHoM INode containing the slider's current value as an integer or double.")]
         public static INode ToNode(this GH_NumberSlider component)
         {
             double value = (double)component.CurrentValue;
@@ -189,6 +234,9 @@ namespace BH.Engine.Grasshopper
 
         /*******************************************/
 
+        [Description("Converts a Grasshopper boolean toggle component to a BHoM INode containing the toggle's current boolean value.")]
+        [Input("component", "The Grasshopper boolean toggle component to convert.")]
+        [Output("node", "The converted BHoM INode containing the toggle's current boolean value.")]
         public static INode ToNode(this GH_BooleanToggle component)
         {
             return ParamNode(PopulateParam(new DataParam { Data = component.Value, DataType = typeof(bool) }, component));
@@ -206,6 +254,11 @@ namespace BH.Engine.Grasshopper
 
         /*******************************************/
 
+        [Description("Converts a Grasshopper component to a BHoM INode based on choices and selection. Returns null for unsupported component types.")]
+        [Input("component", "The Grasshopper component to convert.")]
+        [Input("choices", "List of available choices for the component. Default is null.")]
+        [Input("selectedItem", "The selected item (BHoM method, constructor, type, ...) assigned to that component. Default is null.")]
+        [Output("node", "Always returns null for unsupported component types.")]
         public static INode ToNode<T>(this GH_Param<T> component, List<object> choices = null, object selectedItem = null) where T : class, IGH_Goo
         {
             return null;
@@ -213,6 +266,9 @@ namespace BH.Engine.Grasshopper
 
         /*******************************************/
 
+        [Description("Converts a Grasshopper component to a BHoM INode. Returns null for unsupported component types.")]
+        [Input("component", "The Grasshopper component to convert.")]
+        [Output("node", "Always returns null for unsupported component types.")]
         public static INode ToNode<T>(this GH_Param<T> component) where T : class, IGH_Goo
         {
             return null;
@@ -260,6 +316,7 @@ namespace BH.Engine.Grasshopper
         /*******************************************/
     }
 }
+
 
 
 

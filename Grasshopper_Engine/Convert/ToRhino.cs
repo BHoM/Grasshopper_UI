@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2026, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -23,8 +23,10 @@
 using BH.Engine.Base;
 using BH.Engine.Adapters.Rhinoceros;
 using BH.oM.Geometry;
+using BH.oM.Base.Attributes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +39,9 @@ namespace BH.Engine.Grasshopper
         /**** Public Methods                    ****/
         /*******************************************/
 
+        [Description("Converts a BHoM geometry object to its Rhino equivalent. Returns the object unchanged if it has no Rhino equivalent.")]
+        [Input("x", "The object to convert to Rhino geometry.")]
+        [Output("rhinoObject", "The converted Rhino geometry, the original object if no Rhino conversion is available, or null on failure.")]
         public static object ToRhino(object x)
         {
             try
@@ -58,6 +63,7 @@ namespace BH.Engine.Grasshopper
         /*******************************************/
     }
 }
+
 
 
 

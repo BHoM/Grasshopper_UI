@@ -8,14 +8,14 @@
 		<Authors>BHoM</Authors>
 		<Copyright>Copyright © https://github.com/BHoM</Copyright>
 		<RootNamespace>BH.oM.Grasshopper</RootNamespace>
-		<FileVersion>9.0.0.0</FileVersion>
+		<FileVersion>9.1.0.0</FileVersion>
 		<OutputPath>..\Build\</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	</PropertyGroup>
   <ItemGroup>
     <Reference Include="BHoM">
       <HintPath>$(ProgramData)\BHoM\Assemblies\BHoM.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System" />

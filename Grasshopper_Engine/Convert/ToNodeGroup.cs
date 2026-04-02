@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2026, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -31,6 +31,8 @@ using System.Threading.Tasks;
 using BH.oM.Programming;
 using System.Reflection;
 using Grasshopper.Kernel.Special;
+using BH.oM.Base.Attributes;
+using System.ComponentModel;
 
 namespace BH.Engine.Grasshopper
 {
@@ -40,6 +42,9 @@ namespace BH.Engine.Grasshopper
         /**** Public Methods                    ****/
         /*******************************************/
 
+        [Description("Converts a Grasshopper group to a BHoM NodeGroup, recursively converting internal sub-groups and extracting node IDs and description from scribbles.")]
+        [Input("group", "The Grasshopper group to convert.")]
+        [Output("nodeGroup", "The converted BHoM NodeGroup containing the group's node IDs, internal sub-groups, and description.")]
         public static NodeGroup ToNodeGroup(this GH_Group group)
         {
             List<IGH_DocumentObject> content = group.Objects();
@@ -133,6 +138,7 @@ namespace BH.Engine.Grasshopper
         /*******************************************/
     }
 }
+
 
 
 
