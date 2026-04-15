@@ -231,7 +231,7 @@ namespace BH.UI.Grasshopper.Components.UI
         private ToolStripDropDownMenu m_TemplateMenu = new ToolStripDropDownMenu();
 
         private static readonly string m_SampleFolder =
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "BHoM", "Resources", "Samples");
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "BHoM", "Resources", "GrasshopperSamples");
 
         /*******************************************/
     }
