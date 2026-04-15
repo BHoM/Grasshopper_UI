@@ -57,6 +57,15 @@ namespace BH.UI.Grasshopper.CustomAttributes
         {
             base.Layout();
             Rectangle rec0 = GH_Convert.ToRectangle(Bounds);
+
+            // Ensure minimum width for the button text, expand symmetrically to keep icon centered
+            int minWidth = 130;
+            if (rec0.Width < minWidth)
+            {
+                int expand = (minWidth - rec0.Width) / 2;
+                rec0.Inflate(expand, 0);
+            }
+
             rec0.Height += 22;
 
             Rectangle rec1 = rec0;

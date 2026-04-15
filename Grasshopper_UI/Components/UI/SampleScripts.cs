@@ -69,8 +69,6 @@ namespace BH.UI.Grasshopper.Components.UI
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("out", "out",
-                "Sample script files found in the BHoM Samples folder.", GH_ParamAccess.list);
         }
 
         /*******************************************/
@@ -103,8 +101,6 @@ namespace BH.UI.Grasshopper.Components.UI
                     $"No .gh or .ghx files found in: {m_SampleFolder}");
                 return;
             }
-
-            DA.SetDataList(0, m_FilesList.SelectMany(f => f));
 
             m_TemplateMenu = BuildMenu();
         }
