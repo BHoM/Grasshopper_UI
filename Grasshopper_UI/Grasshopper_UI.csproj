@@ -17,8 +17,8 @@
 
 	<ItemGroup>
 	  <PackageReference Include="Grasshopper" Version="6.33.20343.16431" ExcludeAssets="runtime" />
-	  <PackageReference Include="System.Resources.Extensions" Version="8.0.0" />
-	  <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+	  <PackageReference Include="System.Resources.Extensions" Version="9.0.0" />
+	  <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
 	</ItemGroup>
 
 	<ItemGroup>
