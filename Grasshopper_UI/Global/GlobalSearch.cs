@@ -164,18 +164,25 @@ namespace BH.UI.Grasshopper.Global
             FieldInfo targetField = typeof(GH_WireInteraction).GetField("m_target", BindingFlags.NonPublic | BindingFlags.Instance);
             if (targetField != null && targetField.GetValue(m_LastWire.Wire) != null)
             {
-                m_LastWire = null;
                 Debug.WriteLine(DateTime.Now.ToString("HH:mm:ss") + "- Wire info cleared.");
             }
-            else
+            else if (m_LastWire.Wire.ControlPointDown != null)
             {
-                GlobalSearch.Open(canvas.FindForm(), new SearchConfig
+                // Only show the menu if the wire was dragged far enought from the connector (arbitrary distance of 20 pixels used as threshold)
+                double distance = Math.Sqrt(Math.Pow(e.Location.X - m_LastWire.Wire.ControlPointDown.X, 2) + Math.Pow(e.Location.Y - m_LastWire.Wire.ControlPointDown.Y, 2));
+                if (distance > 20)
                 {
-                    TypeConstraint = m_LastWire.SourceType,
-                    IsReturnType = m_LastWire.IsInput,
-                    Tags = m_LastWire.Tags
-                });
-            } 
+                    GlobalSearch.Open(canvas.FindForm(), new SearchConfig
+                    {
+                        TypeConstraint = m_LastWire.SourceType,
+                        IsReturnType = m_LastWire.IsInput,
+                        Tags = m_LastWire.Tags
+                    });
+                }
+            }
+
+            // Clear the last wire
+            m_LastWire = null;
         }
 
         /*******************************************/
