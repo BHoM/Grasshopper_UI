@@ -121,6 +121,10 @@ namespace BH.UI.Grasshopper.Global
                     return;
                 IGH_Param sourceParam = sourceField.GetValue(wire) as IGH_Param;
 
+                // Only work with BHoM components
+                if (!(sourceParam is IBHoMParam || sourceParam is CallerValueList))
+                    return;
+
                 // Get the source Type
                 Type sourceType = GetSourceType(sourceParam);
 
