@@ -20,27 +20,29 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using System;
-using System.Linq;
-using GH = Grasshopper;
-using Grasshopper.Kernel;
-using BH.oM.Base;
-using BH.oM.UI;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using BH.UI.Grasshopper.Global;
-using Grasshopper.Kernel.Parameters;
-using BH.UI.Grasshopper.Parameters;
-using BH.Engine.Reflection;
-using BH.oM.Geometry;
-using BH.Engine.Grasshopper;
-using BH.UI.Grasshopper.Components;
-using System.Collections;
 using BH.Adapter;
+using BH.Engine.Grasshopper;
+using BH.Engine.Reflection;
+using BH.oM.Base;
 using BH.oM.Base.Debugging;
+using BH.oM.Geometry;
+using BH.oM.UI;
 using BH.UI.Base;
-using System.IO;
 using BH.UI.Base.Global;
+using BH.UI.Grasshopper.Components;
+using BH.UI.Grasshopper.Global;
+using BH.UI.Grasshopper.Parameters;
+using Grasshopper.Kernel;
+using Grasshopper.Kernel.Data;
+using Grasshopper.Kernel.Parameters;
+using Grasshopper.Kernel.Types;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+using GH = Grasshopper;
 
 namespace BH.UI.Grasshopper.Templates
 {
@@ -120,6 +122,18 @@ namespace BH.UI.Grasshopper.Templates
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             Accessor.GH_Accessor = DA;
+
+            // Make sure that there is data to process (avoid empty branches)
+            for (int i = 0; i < Params.Input.Count; i++)
+            {
+                if (Params.Input[i].Access == GH_ParamAccess.item && Params.Input[i].Sources.Count > 0)
+                {
+                    IGH_Goo goo = null;
+                    if (!DA.GetData(i, ref goo))
+                        return;
+                }
+            }
+
             Caller.Run();
 
             List<Event> events = Engine.Base.Query.CurrentEvents();
@@ -131,6 +145,26 @@ namespace BH.UI.Grasshopper.Templates
                 Engine.UI.Compute.LogUsage("Grasshopper", GH.Versioning.VersionString, InstanceGuid, Caller.GetType().Name, Caller.SelectedItem, events, doc.CanvasID(), doc.FilePath);
             }
                 
+        }
+
+        /*******************************************/
+
+        protected override void AfterSolveInstance()
+        {
+            // When any connected item-access input has an empty branch, SolveInstance returns early
+            // and Grasshopper fills the corresponding output path with a null item. Clear those nulls
+            // so that empty input branches produce empty output branches rather than null items.
+            foreach (var input in Params.Input.Where(p => p.Access == GH_ParamAccess.item && p.Sources.Count > 0))
+            {
+                foreach (GH_Path path in input.VolatileData.Paths)
+                {
+                    if (input.VolatileData.get_Branch(path)?.Count == 0)
+                    {
+                        foreach (var output in Params.Output)
+                            output.VolatileData.get_Branch(path)?.Clear();
+                    }
+                }
+            }
         }
 
         /*******************************************/
