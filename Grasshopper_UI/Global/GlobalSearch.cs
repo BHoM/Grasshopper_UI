@@ -168,6 +168,8 @@ namespace BH.UI.Grasshopper.Global
             FieldInfo targetField = typeof(GH_WireInteraction).GetField("m_target", BindingFlags.NonPublic | BindingFlags.Instance);
             if (targetField != null && targetField.GetValue(m_LastWire.Wire) != null)
             {
+                // Clear the last wire
+                m_LastWire = null;
                 Debug.WriteLine(DateTime.Now.ToString("HH:mm:ss") + "- Wire info cleared.");
             }
             else if (m_LastWire.Wire.ControlPointDown != null)
@@ -183,10 +185,9 @@ namespace BH.UI.Grasshopper.Global
                         Tags = m_LastWire.Tags
                     });
                 }
-            }
-
-            // Clear the last wire
-            m_LastWire = null;
+                else
+                    m_LastWire = null;
+            } 
         }
 
         /*******************************************/
