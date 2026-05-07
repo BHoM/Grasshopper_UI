@@ -20,13 +20,17 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.Engine.Serialiser;
+using BH.oM.Base;
+using GH_IO;
+using GH_IO.Serialization;
 using Grasshopper.Kernel.Types;
 using System.Collections;
 using BH.Engine.Reflection;
 
 namespace BH.UI.Grasshopper.Goos
 {
-    public class GH_Dictionary : GH_BHoMGoo<IDictionary>
+    public class GH_Dictionary : GH_BHoMGoo<IDictionary>, GH_ISerializable
     {
         /*******************************************/
         /**** Properties                        ****/
@@ -57,6 +61,34 @@ namespace BH.UI.Grasshopper.Goos
         public override IGH_Goo Duplicate()
         {
             return new GH_Dictionary { Value = Value };
+        }
+
+        /*******************************************/
+
+        public override bool Write(GH_IWriter writer)
+        {
+            if (Value != null)
+                writer.SetString("Json", Value.ToJson());
+            return true;
+        }
+
+        /*******************************************/
+
+        public override bool Read(GH_IReader reader)
+        {
+            string json = "";
+            reader.TryGetString("Json", ref json);
+
+            if (json != null && json.Length > 0)
+            {
+                object fromJson = BH.Engine.Serialiser.Convert.FromJson(json);
+                if (fromJson is IDictionary dict)
+                    Value = dict;
+                else if (fromJson is CustomObject co)
+                    Value = co.CustomData;
+            }
+
+            return true;
         }
 
         /*******************************************/
