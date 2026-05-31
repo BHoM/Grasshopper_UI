@@ -96,6 +96,7 @@ namespace BH.UI.Grasshopper.Templates
 
         static CallerComponent()
         {
+            CustomRibbon.Activate();
             GlobalSearchMenu.Activate();
 
             GH.Instances.CanvasCreated += (canvas) =>
