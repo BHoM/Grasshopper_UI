@@ -216,16 +216,6 @@ namespace BH.UI.Grasshopper.Global
 
                     componentCreated = canvas.InstantiateNewObject(node.Id, initCode, canvas.CursorCanvasPosition, true);
                 }
-                else if (request?.SelectedItem is CustomItem)
-                {
-                    CustomItem item = request.SelectedItem as CustomItem;
-                    if (item != null && item.Content is IGH_ObjectProxy)
-                    {
-                        IGH_ObjectProxy proxy = item.Content as IGH_ObjectProxy;
-                        componentCreated = canvas.InstantiateNewObject(proxy.Guid, canvas.CursorCanvasPosition, true);
-                    }
-                    
-                }
 
                 if (componentCreated && m_LastWire != null && m_LastWire.Source != null)
                 {
