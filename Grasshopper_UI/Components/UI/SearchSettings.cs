@@ -25,7 +25,6 @@ using BH.Engine.Programming;
 using BH.oM.Programming;
 using BH.UI.Base;
 using BH.UI.Base.Components;
-using BH.UI.Base.Windows;
 using BH.UI.Grasshopper.Templates;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Special;
