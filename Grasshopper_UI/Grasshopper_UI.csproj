@@ -139,7 +139,7 @@
     </Reference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if not exist &quot;$(ProgramData)\BHoM\GrasshopperPlugin\&quot; mkdir &quot;$(ProgramData)\BHoM\GrasshopperPlugin&quot;&#xD;&#xA;xcopy &quot;$(TargetDir)*.dll&quot;  &quot;$(ProgramData)\BHoM\GrasshopperPlugin\&quot; /Y&#xD;&#xA;if exist &quot;$(ProgramData)\BHoM\GrasshopperPlugin\$(TargetName).gha&quot; del &quot;$(ProgramData)\BHoM\GrasshopperPlugin\$(TargetName).gha&quot;&#xD;&#xA;ren &quot;$(ProgramData)\BHoM\GrasshopperPlugin\$(TargetName).dll&quot; &quot;$(TargetName).gha&quot;&#xD;&#xA;echo $(ProgramData)\BHoM\GrasshopperPlugin\$(TargetName).gha &gt; &quot;$(AppData)\Grasshopper\Libraries\$(TargetName).ghlink&quot;&#xD;&#xA;" />
+    <Exec Command="if not exist &quot;$(ProgramData)\BHoM\GrasshopperPlugin\&quot; mkdir &quot;$(ProgramData)\BHoM\GrasshopperPlugin&quot;&#xD;&#xA;xcopy &quot;$(TargetDir)*.dll&quot;  &quot;$(ProgramData)\BHoM\GrasshopperPlugin\&quot; /Y&#xD;&#xA;if exist &quot;$(ProgramData)\BHoM\GrasshopperPlugin\$(TargetName).gha&quot; del &quot;$(ProgramData)\BHoM\GrasshopperPlugin\$(TargetName).gha&quot;&#xD;&#xA;ren &quot;$(ProgramData)\BHoM\GrasshopperPlugin\$(TargetName).dll&quot; &quot;$(TargetName).gha&quot;&#xD;&#xA;echo $(ProgramData)\BHoM\GrasshopperPlugin\$(TargetName).gha &gt; &quot;$(AppData)\Grasshopper\Libraries\$(TargetName).ghlink&quot;&#xD;&#xA;if not exist &quot;$(ProgramData)\BHoM\Resources\GrasshopperSamples\&quot; mkdir &quot;$(ProgramData)\BHoM\Resources\GrasshopperSamples&quot;&#xD;&#xA;" />
   </Target>
  
 </Project>
