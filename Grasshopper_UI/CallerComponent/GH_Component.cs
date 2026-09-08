@@ -140,6 +140,34 @@ namespace BH.UI.Grasshopper.Templates
         {
             base.AppendAdditionalComponentMenuItems(menu);
             Caller.AddToMenu(menu);
+
+            if (SubCategory == "Engine")
+            {
+                menu.Items.Add(new ToolStripSeparator());
+                menu.Items.Add(new ToolStripMenuItem("Add unittest component", null, (sender, e) =>
+                {
+                    GH_Document doc = GH.Instances.ActiveCanvas.Document;
+                    if (doc != null)
+                    {
+                        UnitTestComponent unitTestComponent = new UnitTestComponent();
+                        unitTestComponent.Caller.SetItem(Caller.SelectedItem);
+                        doc.AddObject(unitTestComponent, false);
+                        for(int i = 0; i < this.Params.Input.Count; i++)
+                        {
+                            if (this.Params.Input[i].SourceCount > 0)
+                            {
+                                var sources = this.Params.Input[i].Sources;
+                                foreach (var source in sources)
+                                {
+                                    unitTestComponent.Params.Input[i].AddSource(source);
+                                }
+                            }
+                        }
+                        unitTestComponent.Attributes.Pivot = new System.Drawing.PointF(Attributes.Pivot.X +200, Attributes.Pivot.Y);
+                        unitTestComponent.ExpireSolution(true);
+                    }
+                }));
+            }
         }
 
         /*******************************************/
